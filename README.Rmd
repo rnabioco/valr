@@ -1,0 +1,39 @@
+---
+title: "Rbedtools"
+author: Jay Hesselberth
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r knitr_opts, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# read
+
+```{r read}
+bed_tbl <- read_bed('intervals.bed.gz')
+bedgraph_tbl <- read_bed('signal.bg.gz')
+
+bed_tbl
+bedgraph_tbl
+```
+
+# intersect
+
+```{r intersect, eval = FALSE}
+# bed_tbl = "A" file
+# bedgraph_tbl = "B" file
+# A intersect B == B regions that intersect A intervals
+bed_tbl %>%
+  intersect(bedgraph_tbl) %>%
+  summarize(n_insersects = n())
+```
+
+```{r map}
+```
