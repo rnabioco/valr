@@ -13,6 +13,7 @@
 
 #include <Rcpp.h>
 #include <queue>
+#include <deque>
 using namespace Rcpp ;
 
 // Only define fields for interval comparison. We will return a data frame
@@ -49,20 +50,16 @@ bool intervalAfter(const interval_t a, const interval_t b) {
   } 
 }
 
-std::queue <interval_t> scanCache(interval_t curr_interval,
-                                  std::queue <interval_t> interval_cache,
-                                  std::queue <interval_t>& intersection_cache) {
-
-  std::queue <interval_t> temp_cache ;
+void scanCache(interval_t curr_interval,
+               std::deque <interval_t> interval_cache,
+               std::queue <interval_t>& intersection_cache) {
 
   while ( !interval_cache.empty() ) {
     
     interval_t cached_interval = interval_cache.front() ;
-    interval_cache.pop() ;
+    interval_cache.pop_front() ;
    
     if ( !intervalAfter(curr_interval, cached_interval) ) {
-      
-      temp_cache.push(curr_interval) ;
     
       if ( intervalOverlap(curr_interval, cached_interval) > 0 ) {
         intersection_cache.push(cached_interval) ;
@@ -70,8 +67,6 @@ std::queue <interval_t> scanCache(interval_t curr_interval,
       
     } 
   } 
-  
-  return temp_cache ;      
 }
 
 std::queue <interval_t> createIntervals(Rcpp::DataFrame df) {
@@ -97,9 +92,10 @@ std::queue <interval_t> createIntervals(Rcpp::DataFrame df) {
   return intervals ;  
 } 
 
-std::queue <intersection_t> storeIntersections(interval_t& query_interval,
-                                               std::queue <interval_t>& intersection_cache,
-                                               std::queue <intersection_t>& interval_intersections) {
+void storeIntersections(interval_t query_interval,
+                        std::queue <interval_t>& intersection_cache,
+                        std::queue <intersection_t>& interval_intersections) {
+  
   while ( !intersection_cache.empty() ) {
     
     interval_t cache_interval = intersection_cache.front() ;
@@ -115,58 +111,55 @@ std::queue <intersection_t> storeIntersections(interval_t& query_interval,
     
     interval_intersections.push(intersection) ;
   }
-  
-  return interval_intersections ;
 }
 
 // A = query
 // B = database
-std::queue <intersection_t> sweepIntervals(std::queue <interval_t>& a_intervals,
-                                           std::queue <interval_t>& b_intervals) {
+std::queue <intersection_t> sweepIntervals(std::queue <interval_t> a_intervals,
+                                           std::queue <interval_t> b_intervals) {
  
   // intersected intervals to output
   std::queue <interval_t> intersection_cache ;
   // intervals under consideration
-  std::queue <interval_t> interval_cache ;
+  std::deque <interval_t> interval_cache ;
   // intersected intervals
   std::queue <intersection_t> interval_intersections ; 
  
-  interval_t curr_a_interval = a_intervals.front() ;
-  interval_t curr_b_interval = b_intervals.front() ;
-  
-  a_intervals.pop() ;
-  b_intervals.pop() ;
-  
   while ( !a_intervals.empty() ) {
   
-    interval_cache = scanCache(curr_a_interval, interval_cache, intersection_cache);
+    interval_t curr_a_interval = a_intervals.front() ;
+    a_intervals.pop() ;
+    
+    // Rcpp::Rcout << "evaluating interval start: " << curr_a_interval.start << std::endl ;
+    
+    // this works?
+    // scanCache(curr_a_interval, interval_cache, intersection_cache);
+    Rcpp::Rcout << "cache size before scan: " << interval_cache.size() << std::endl ;
+    scanCache(curr_a_interval, interval_cache, intersection_cache);
+    Rcpp::Rcout << "cache size after scan: " << interval_cache.size() << std::endl ;
    
-    while ( !b_intervals.empty() &&
-            !intervalAfter(curr_a_interval, curr_b_interval) ) {
+    while ( !b_intervals.empty() ) {
+      
+      interval_t curr_b_interval = b_intervals.front() ;
+      b_intervals.pop() ;
+  
+      if (intervalAfter(curr_a_interval, curr_b_interval)) {
+        break;
+      }
       
       if (intervalOverlap(curr_a_interval, curr_b_interval) > 0) {
         intersection_cache.push(curr_b_interval) ;  
       }
       
-      interval_cache.push(curr_b_interval) ;
+      interval_cache.push_front(curr_b_interval) ;
       
-      // get next b interval 
-      interval_t curr_b_interval = b_intervals.front() ;
-      b_intervals.pop() ;      
     }
     
     // store hits with the current a interval
-    interval_intersections = storeIntersections(curr_a_interval,
-                                                intersection_cache,
-                                                interval_intersections) ;
+    storeIntersections(curr_a_interval,
+                       intersection_cache,
+                       interval_intersections) ;
     
-    // reset the intersection_cache - is it already empty?
-    emptyCache(intersection_cache) ;
-    
-    // get next a interval 
-    interval_t curr_a_interval = a_intervals.front() ;
-    a_intervals.pop() ;      
-
   } 
   
   return interval_intersections ;
