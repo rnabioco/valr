@@ -3,12 +3,12 @@
 \name{read_bed}
 \alias{read_bed}
 \alias{read_bedgraph}
-\title{Methods to read BED and related files}
+\title{Read BED and related files}
 \usage{
 read_bed(filename, n_fields = 3, col_names = bed12_colnames, sort = TRUE,
-  ...)
+  factor_cols = TRUE, ...)
 
-read_bedgraph(filename)
+read_bedgraph(filename, ...)
 }
 \arguments{
 \item{filename}{file or URL}
@@ -22,11 +22,41 @@ read_bedgraph(filename)
 \item{...}{options to pass to \code{readr::read_tsv}}
 
 \item{filename}{file name or URL}
+
+\item{...}{params to pass to \code{read_bed}}
 }
 \value{
 \code{dplyr::tbl_df}
 }
 \description{
-Methods to read BED and related files
+\code{read_bed} reads BED files and \code{read_bedgraph} reads bedGraph files.
+Return values are \code{dplyr::tbl_df}s that are sorted by chrom and start unless otherwise specified.
+}
+\details{
+https://genome.ucsc.edu/FAQ/FAQformat.html#format1
+
+https://genome.ucsc.edu/goldenPath/help/bedgraph.html
+}
+\examples{
+
+# \\code{read_bed} assumes 3 field BED format. 
+bed3_tbl <- read_bed('3fields.bed.gz')
+bed6_tbl <- read_bed('6fields.bed.gz', n_fields = 6)
+bed12_tbl <- read_bed('12fields.bed.gz', n_fields = 12)
+
+# \\code{readr} will generate warnings if extra columns are identified in the ouput.
+Empty columns are dropped (TODO).
+
+# Returned \\code{tbl_df} is sorted by chrom and start unless specified
+sorted_bed_tbl <- read_bed('unsorted.bed.gz')
+unsorted_bed_tbl <- read_bed('unsorted.bed.gz', sort = FALSE)
+
+# `chrom` and `strand` are converted to factors unless specified
+bed_tbl <- read_bed('3fields.bed.gz')
+bed_tbl <- read_bed('3fields.bed.gz', factor_cols = FALSE)
+
+
+bedgraph_tbl <- read_bedgraph('test.bg.gz')
+
 }
 
