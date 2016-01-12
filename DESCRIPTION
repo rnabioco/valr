@@ -1,16 +1,20 @@
 Package: Rbedtools
 Type: Package
-Title: Manipulate BED+ files with BEDtools
+Title: Manipulate BED+ files similar to BEDtools
 Version: 0.1
 Date: 2016-01-10
 Author: Jay Hesselberth
-Maintainer: Your Name <your@email.com>
+Maintainer: Jay Hesselberth <jay.hesselberth@gmail.com>
 Description: More about what it does (maybe more than one line)
 License: GPL (>= 2)
-Imports: Rcpp (>= 0.12.2)
-LinkingTo: Rcpp
-Suggests: knitr,
+Imports:
+    Rcpp (>= 0.12.2),
+    readr,
+    magrittr,
+LinkingTo: Rcpp (>= 0.12.2)
+Suggests:
+    knitr,
     rmarkdown,
     testthat,
-    readr
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1
