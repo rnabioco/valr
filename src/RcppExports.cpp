@@ -5,13 +5,15 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP Rbedtools_rcpp_hello_world() {
+// intersect_cpp
+DataFrame intersect_cpp(DataFrame df_a, DataFrame df_b);
+RcppExport SEXP Rbedtools_intersect_cpp(SEXP df_aSEXP, SEXP df_bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    __result = Rcpp::wrap(rcpp_hello_world());
+    Rcpp::traits::input_parameter< DataFrame >::type df_a(df_aSEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type df_b(df_bSEXP);
+    __result = Rcpp::wrap(intersect_cpp(df_a, df_b));
     return __result;
 END_RCPP
 }
