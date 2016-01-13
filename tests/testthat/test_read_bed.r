@@ -21,3 +21,11 @@ test_that('read bedGraph', {
   expect_equal(ncol(bedgraph_tbl), 4)
   expect_equal(nrow(bedgraph_tbl), 4)
 })
+
+# sorted_tbl <- read_bed('3fields.bed.gz')
+# unsorted_tbl <- read_bed('3fields.bed.gz', sort = FALSE)
+# 
+# test_that('sort attribute is set correctly', {
+#   expect_equal(attr(sorted_tbl, 'sorted'), TRUE) 
+#   expect_equal(attr(unsorted_tbl, 'sorted'), FALSE) 
+# })
