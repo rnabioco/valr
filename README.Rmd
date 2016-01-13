@@ -17,10 +17,12 @@ knitr::opts_chunk$set(
 # read
 
 ```{r read}
-bed_tbl <- read_bed('intervals.bed.gz')
-bedgraph_tbl <- read_bed('signal.bg.gz')
+library(Rbedtools)
 
+bed_tbl <- read_bed('inst/extdata/3fields.bed.gz')
 bed_tbl
+
+bedgraph_tbl <- read_bedgraph('inst/extdata/test.bg.gz')
 bedgraph_tbl
 ```
 
@@ -33,7 +35,4 @@ bedgraph_tbl
 bed_tbl %>%
   intersect(bedgraph_tbl) %>%
   summarize(n_insersects = n())
-```
-
-```{r map}
 ```
