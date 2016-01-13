@@ -1,16 +1,18 @@
 Package: Rbedtools
 Type: Package
-Title: Manipulate BED+ files similar to BEDtools
+Title: Genome Arithmetic in R
 Version: 0.1
 Date: 2016-01-10
 Author: Jay Hesselberth
 Maintainer: Jay Hesselberth <jay.hesselberth@gmail.com>
-Description: More about what it does (maybe more than one line)
+Description: Read and manipulate genome intervals and signals similar to the 
+BEDtools package.
 License: GPL (>= 2)
 Imports:
     Rcpp (>= 0.12.2),
     readr,
     magrittr,
+    tidyr,
 LinkingTo: Rcpp (>= 0.12.2)
 Suggests:
     knitr,
