@@ -1,6 +1,7 @@
 library(Rbedtools)
-library(dplyr)
 context('intersect_cpp')
+
+library(dplyr)
 
 test_that("simple overlap", {
    bed1_df <- tibble(
@@ -58,4 +59,17 @@ test_that("multple b's", {
   expect_equal(nrow(res), 5)   
 })
 
+test_that("no overlaps returns empty df", {
+  bed1_df <- tibble(
+    ~start, ~end,
+    100,    200
+  )
+  bed2_df <- tibble(
+    ~start, ~end,
+    300,    400
+  )
+  res <- intersect_cpp(bed1_df, bed2_df)
+  expect_is(res, "data.frame")
+  expect_equal(nrow(res), 0)
+}) 
   
