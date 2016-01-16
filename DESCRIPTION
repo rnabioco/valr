@@ -3,7 +3,8 @@ Type: Package
 Title: Genome Arithmetic in R
 Version: 0.1
 Date: 2016-01-10
-Author: Jay Hesselberth
+Authors@R: person("Jay", "Hesselberth", email = "jay.hesselberth@gmail.com",
+                  role = c("aut", "cre"))
 Maintainer: Jay Hesselberth <jay.hesselberth@gmail.com>
 Description: Read and manipulate genome intervals and signals similar to the 
              BEDtools package.
