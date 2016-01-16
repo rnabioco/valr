@@ -1,7 +1,7 @@
 #' @title Read BED and related files
 #'
 #' @description \code{read_bed} reads BED files and \code{read_bedgraph} reads bedGraph files.
-#' Return values are \code{dplyr::tbl_df}s that are sorted by chrom and start unless otherwise specified.
+#' Return value are \code{data.frame} that is sorted by chrom and start unless otherwise specified.
 #'  
 #' @name read_bed
 #'   
@@ -31,7 +31,7 @@
 #' bed_tbl <- read_bed('3fields.bed.gz')
 #' bed_tbl <- read_bed('3fields.bed.gz', factor_cols = FALSE)
 #' 
-#' @return \code{dplyr::tbl_df}
+#' @return \code{data.frame}
 #'   
 #' @export
 read_bed <- function(filename, n_fields = 3, col_names = bed12_colnames,
@@ -39,20 +39,23 @@ read_bed <- function(filename, n_fields = 3, col_names = bed12_colnames,
   
   colnames <- col_names[1:n_fields]
   
-  bed_raw <- readr::read_tsv(filename, col_names = colnames, ...)
-  bed_tbl <- dplyr::tbl_df(bed_raw) 
+  bed_raw <- read_tsv(filename, col_names = colnames, ...)
+  bed_tbl <- tbl_df(bed_raw) 
   
   if (sort) {
-    bed_tbl <- bed_tbl %>% dplyr::arrange(chrom, start)
+    bed_tbl <- bed_tbl %>% arrange(chrom, start)
+    attr(bed_tbl, "sorted") <- TRUE
+  } else {
+    attr(bed_tbl, "sorted") <- FALSE
   }
 
   # factorize chrom and strand
   if (factor_cols) {
     
-    bed_tbl <- bed_tbl %>% dplyr::mutate(chrom = as.factor(chrom))
+    bed_tbl <- bed_tbl %>% mutate(chrom = as.factor(chrom))
     
     if ('strand' %in% colnames(bed_tbl)) {
-      bed_tbl <- bed_tbl %>% dplyr::mutate(strand = as.factor(strand))
+      bed_tbl <- bed_tbl %>% mutate(strand = as.factor(strand))
     }
   } 
   
