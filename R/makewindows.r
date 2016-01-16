@@ -43,7 +43,9 @@ bed_makewindows <- function(bed_df, genome, win_size = 0,
   
   res <- bed_df %>%
     rowwise() %>%
-    do(calculate_intervals(., genome, win_size, step_size, num_windows)) %>%
+    do(calculate_intervals(., genome, win_size,
+                           step_size, num_windows
+                           reverse)) %>%
     ungroup()
 
   res 
@@ -66,8 +68,14 @@ calculate_intervals <- function(df, genome, win_size, step_size, num_windows) {
     mutate(.end = .start + win_size,
            win_num = row_number()) %>%
     filter(.end <= end & .end <= chrom_size) %>%
-    rename(start = .start,
-           end = .end)
+    mutate(start = .start,
+           end = .end) %>%
+    select(-.start, -.end)
+  
+  if (reverse) {
+    res <- res %>%
+       mutate(win_num = rank(-win_num)) 
+  }
   
   res
 }
