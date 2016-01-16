@@ -43,13 +43,12 @@ bed_makewindows <- function(bed_df, genome, win_size = 0,
   
   res <- bed_df %>%
     rowwise() %>%
-    do(calculate_windows(., genome, win_size, step_size, num_windows)) %>%
+    do(calculate_intervals(., genome, win_size, step_size, num_windows)) %>%
     ungroup()
 
   res 
 }
 
-#' @returns tbl_df
 calculate_intervals <- function(df, genome, win_size, step_size, num_windows) {
  
   # get size of chrom for coord check later
@@ -61,7 +60,6 @@ calculate_intervals <- function(df, genome, win_size, step_size, num_windows) {
   } 
   
   res <- df %>%
-    # http://stackoverflow.com/questions/32335423/r-split-data-frame-row-into-two-rows
     transform(.start = seq(from = start,
                            to = end,
                            by = win_size - step_size)) %>%
