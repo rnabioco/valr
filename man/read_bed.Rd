@@ -26,11 +26,11 @@ read_bedgraph(filename, ...)
 \item{...}{params to pass to \code{read_bed}}
 }
 \value{
-\code{dplyr::tbl_df}
+\code{data.frame}
 }
 \description{
 \code{read_bed} reads BED files and \code{read_bedgraph} reads bedGraph files.
-Return values are \code{dplyr::tbl_df}s that are sorted by chrom and start unless otherwise specified.
+Return value are \code{data.frame} that is sorted by chrom and start unless otherwise specified.
 }
 \details{
 https://genome.ucsc.edu/FAQ/FAQformat.html#format1

@@ -13,6 +13,7 @@ Imports:
     Rcpp (>= 0.12.2),
     readr,
     magrittr,
+    dplyr,
     tidyr,
     assertthat,
     stringr,
