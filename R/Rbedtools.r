@@ -7,11 +7,15 @@
 #' \code{browseVignettes(package = "Rbedtools")}
 #' 
 #' @author Jay Hesselberth <jay.hesselberth@gmail.com>
+#' 
 #' @docType package
 #' @name Rbedtools
-#' @exportPattern "^[[:alpha:]]+"
-#' @importFrom Rcpp evalCpp
-#' @useDynLib Rbedtools
+#' 
+#' @import dplyr
 #' @importFrom readr read_tsv 
 #' @importFrom assertthat assert_that
+#' @importFrom purrr by_row
+#' @importFrom Rcpp evalCpp
+#' @exportPattern "^[[:alpha:]]+"
+#' @useDynLib Rbedtools
 NULL

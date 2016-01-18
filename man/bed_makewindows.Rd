@@ -2,10 +2,13 @@
 % Please edit documentation in R/bed_makewindows.r
 \name{bed_makewindows}
 \alias{bed_makewindows}
-\title{bed_makewindows}
+\alias{make_windows_}
+\title{Divide intervals into new intervals with labels}
 \usage{
 bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
   num_windows = 0, reverse = FALSE)
+
+make_windows_(interval, genome, win_size, step_size, num_windows, reverse)
 }
 \arguments{
 \item{bed_df}{BED data in \code{dplyr::tbl_df} format}
@@ -23,24 +26,35 @@ bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
 \item{win_names}{one of 'name', 'num', 'namenum'}
 }
 \value{
-\code{dplyr::tbl_df} with `win.num` column
+\code{data.frame} with \code{win_num} column
 }
 \description{
-Divide intervals into new intervals ("windows") with labels
+Divide intervals into new intervals with labels
 }
 \examples{
-
 genome <- dplyr::tibble(
  ~chrom, ~size,
  "chr1", 5000,
  "chr2", 400
 )
 
- bed_df <- dplyr::tibble(
-   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-   "chr1", 100, 200, 'A', '.', '+',
-   "chr2", 300, 350, 'B', '.', '-'
- ) 
+bed_df <- dplyr::tibble(
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  "chr1", 100,    200,  'A',   '.',    '+',
+  "chr2", 300,    350,  'B',   '.',    '-'
+) 
+
+# Fixed number of windows 
+bed_makewindows(bed_df, genome, num_windows = 10)
+
+# Fixed window size
+bed_makewindows(bed_df, genome, win_size = 10)
+
+# Fixed window size with overlaps
+bed_makewindows(bed_df, genome, win_size = 10, step_size = 5)
+
+# Reversed window numbering
+bed_makewindows(bed_df, genome, win_size = 10, reverse = TRUE)
  
 }
 
