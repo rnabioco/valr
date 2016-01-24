@@ -12,6 +12,7 @@
 #' )
 #' 
 #' bed_df %>% bed_sort()
+#' 
 #' @export
 bed_sort <- function(intervals) {
    res <- intervals %>%
