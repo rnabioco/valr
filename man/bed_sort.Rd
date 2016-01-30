@@ -4,13 +4,19 @@
 \alias{bed_sort}
 \title{Sort intervals}
 \usage{
-bed_sort(intervals)
+bed_sort(intervals, size = FALSE, by_chrom = FALSE, reverse = FALSE)
 }
 \arguments{
 \item{intervals}{tbl of intervals}
+
+\item{size}{sort by interval size}
+
+\item{by_chrom}{sort within chromosome}
+
+\item{reverse}{reverse sort order}
 }
 \description{
-Sort intervals
+Default is to sort by chrom, start, end
 }
 \examples{
 bed_df <- dplyr::tibble(
@@ -22,5 +28,15 @@ bed_df <- dplyr::tibble(
 )
 
 bed_df \%>\% bed_sort()
+
+# reverse sort order
+bed_df \%>\% bed_sort(reverse = TRUE)
+
+# sort by interval size
+bed_df \%>\% bed_sort(size = TRUE)
+
+# sort by interval size within chrom
+bed_df \%>\% bed_sort(size = TRUE, by_chrom = TRUE)
+
 }
 
