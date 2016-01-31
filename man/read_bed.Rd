@@ -2,11 +2,14 @@
 % Please edit documentation in R/read_bed.r
 \name{read_bed}
 \alias{read_bed}
+\alias{read_bed12}
 \alias{read_bedgraph}
 \title{Read BED and related files}
 \usage{
-read_bed(filename, n_fields = 3, col_names = bed12_colnames, sort = TRUE,
+read_bed(filename, n_fields = 3, col_types = bed12_coltypes, sort = TRUE,
   factor_cols = TRUE, ...)
+
+read_bed12(filename, ...)
 
 read_bedgraph(filename, ...)
 }
@@ -15,11 +18,15 @@ read_bedgraph(filename, ...)
 
 \item{n_fields}{number fields in the BED file}
 
-\item{col_names}{column names to use for \code{dplyr::tbl_df}}
-
 \item{sort}{sort the tbl by chrom and start}
 
 \item{...}{options to pass to \code{readr::read_tsv}}
+
+\item{col_names}{column names to use for \code{dplyr::tbl_df}}
+
+\item{filename}{file name or URL}
+
+\item{...}{params to pass to \code{read_bed}}
 
 \item{filename}{file name or URL}
 
@@ -29,10 +36,13 @@ read_bedgraph(filename, ...)
 \code{data.frame}
 }
 \description{
-\code{read_bed} reads BED files and \code{read_bedgraph} reads bedGraph files.
-Return value are \code{data.frame} that is sorted by chrom and start unless otherwise specified.
+\code{read_bed} reads BED files and \code{read_bedgraph} reads
+  bedGraph files. Return value are \code{data.frame} that is sorted by chrom
+  and start unless otherwise specified.
 }
 \details{
+https://genome.ucsc.edu/FAQ/FAQformat.html#format1
+
 https://genome.ucsc.edu/FAQ/FAQformat.html#format1
 
 https://genome.ucsc.edu/goldenPath/help/bedgraph.html
@@ -41,19 +51,21 @@ https://genome.ucsc.edu/goldenPath/help/bedgraph.html
 
 # \\code{read_bed} assumes 3 field BED format. 
 bed3_tbl <- read_bed('3fields.bed.gz')
+
 bed6_tbl <- read_bed('6fields.bed.gz', n_fields = 6)
-bed12_tbl <- read_bed('12fields.bed.gz', n_fields = 12)
 
-# \\code{readr} will generate warnings if extra columns are identified in the ouput.
-Empty columns are dropped (TODO).
+# read BED12 format
+bed12_tbl <- read_bed12('12fields.bed.gz')
 
-# Returned \\code{tbl_df} is sorted by chrom and start unless specified
+# Returned \\code{data.frame} is sorted by \\code{chrom}, \\code{start} and \\code{end} unless specified
 sorted_bed_tbl <- read_bed('unsorted.bed.gz')
 unsorted_bed_tbl <- read_bed('unsorted.bed.gz', sort = FALSE)
 
-# `chrom` and `strand` are converted to factors unless specified
-bed_tbl <- read_bed('3fields.bed.gz')
+# \\code{chrom} and \\code{strand} are converted to factors unless specified
 bed_tbl <- read_bed('3fields.bed.gz', factor_cols = FALSE)
+
+
+bed12_tbl <- read_bed12('mm9.bed12.gz')
 
 
 bedgraph_tbl <- read_bedgraph('test.bg.gz')

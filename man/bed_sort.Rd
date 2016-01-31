@@ -16,17 +16,19 @@ bed_sort(intervals, size = FALSE, by_chrom = FALSE, reverse = FALSE)
 \item{reverse}{reverse sort order}
 }
 \description{
-Default is to sort by chrom, start, end
+Sort intervals
 }
 \examples{
 bed_df <- dplyr::tibble(
    ~chrom, ~start, ~end,
    "chr8", 500, 1000,
    "chr8", 1000, 5000,
+   "chr8", 100, 200,
    "chr1", 100, 300,
    "chr1", 100, 200
 )
 
+# sort by chrom and coordinates
 bed_df \%>\% bed_sort()
 
 # reverse sort order

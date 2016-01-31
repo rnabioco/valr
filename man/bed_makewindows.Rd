@@ -2,13 +2,13 @@
 % Please edit documentation in R/bed_makewindows.r
 \name{bed_makewindows}
 \alias{bed_makewindows}
-\alias{make_windows_}
+\alias{bed_makewindows_}
 \title{Divide intervals into new intervals with labels}
 \usage{
 bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
   num_windows = 0, reverse = FALSE)
 
-make_windows_(interval, genome, win_size, step_size, num_windows, reverse)
+bed_makewindows_(interval, genome, win_size, step_size, num_windows, reverse)
 }
 \arguments{
 \item{bed_df}{BED data in \code{dplyr::tbl_df} format}

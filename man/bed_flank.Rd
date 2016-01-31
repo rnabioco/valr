@@ -2,24 +2,45 @@
 % Please edit documentation in R/bed_flank.r
 \name{bed_flank}
 \alias{bed_flank}
-\title{flank}
+\title{make flanks from input BED regions}
 \usage{
-bed_flank(bed_df, size = 0, both = FALSE, left = FALSE, right = FALSE,
-  strand = FALSE, fraction = 0)
+bed_flank(bed_df, both = 0, left = 0, right = 0, fraction = TRUE,
+  strand = FALSE)
 }
 \arguments{
+\item{both}{number of bases on both sizes}
+
 \item{left}{number of bases on left side}
 
 \item{right}{number of bases on right side}
 
-\item{strand}{define -l and -r based on strand}
+\item{fraction}{define flanks based on fraction of interval length}
 
-\item{percent}{define flanks based on fraction of feature's length}
+\item{strand}{define \code{left} and \code{right} based on strand}
 }
 \value{
-\code{dplyr::tbl_df}
+\code{data.frame}
 }
 \description{
 make flanks from input BED regions
+}
+\examples{
+genome <- dplyr::tibble(
+ ~chrom, ~size,
+ "chr1", 5000
+)
+
+bed_df <- dplyr::tibble(
+ ~chrom, ~start, ~end, ~name, ~score, ~strand,
+ "chr1", 500,    1000, '.',   '.'     '+',
+ "chr1", 1000,   1500, '.',   '.'     '-',
+)
+
+bed_df \%>\% bed_flank(left = 100)
+bed_df \%>\% bed_flank(right = 100)
+bed_df \%>\% bed_flank(both = 100)
+
+bed_df \%>\% bed_flank(both = 0.5, fraction=TRUE)
+
 }
 

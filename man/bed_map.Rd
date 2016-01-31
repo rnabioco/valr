@@ -2,24 +2,30 @@
 % Please edit documentation in R/bed_map.r
 \name{bed_map}
 \alias{bed_map}
-\title{map.r}
+\title{Map signals over intervals}
 \usage{
-bed_map(a, b)
+bed_map(interval_tbl, signal_tbl, signal_col, operation = op_choices)
 }
 \arguments{
-\item{a}{intervals in tbl_df format}
+\item{interval_tbl}{tbl of intervals}
 
-\item{b}{signal in tbl_df format}
-
-\item{col_name}{bare column name}
+\item{signal_col}{bare column name in \code{signal_tbl} for \code{operation}}
 
 \item{operation}{operation to perform on intersected intervals. One of mean, median,
 sum, min, max, absmin, absmax}
+
+\item{singal_tbl}{tbl of signals}
 }
 \value{
-\code{dplyr::tbl_df}
+\code{data.frame}
 }
 \description{
-impelementation of BEDtools `map` function with dplyr
+Map signals over intervals
+}
+\examples{
+
+signal <- read_bedgraph('inst/extdata/test.bg.gz')
+intervals <- read_bed('inst/extdata/3fields.bed.gz')
+ 
 }
 

@@ -2,16 +2,20 @@
 % Please edit documentation in R/bed12_to_exons.r
 \name{bed12_to_exons}
 \alias{bed12_to_exons}
-\title{convert BED12 to exons in BED3}
+\title{convert BED12 to exons in BED6}
 \usage{
 bed12_to_exons(bed12_tbl)
 }
+\arguments{
+\item{bed12_tbl}{tbl in BED12 format}
+}
 \description{
-convert BED12 to exons in BED3
+after conversion, the \code{score} column is the exon number, with respect to
+strand
 }
 \examples{
-bed12_tbl <- read_bed12('mm9.bed12.gz')
-bed3_exon_tbl <- bed12_to_exons(bed12_tbl) 
+bed12_tbl <- read_bed12('extdata/mm9.bed12.gz')
+bed6_exon_tbl <- bed12_to_exons(bed12_tbl) 
 
 }
 
