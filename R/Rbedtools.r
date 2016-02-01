@@ -14,7 +14,6 @@
 #' @import dplyr
 #' @import readr
 #' @import tidyr
-#' @importFrom stringr str_split
 #' @importFrom assertthat assert_that
 #' @importFrom purrr by_row
 #' @importFrom Rcpp evalCpp
