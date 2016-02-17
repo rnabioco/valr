@@ -14,30 +14,28 @@
 #include <Rcpp.h>
 #include <queue>
 #include <deque>
+
 using namespace Rcpp ;
 
-// Only define fields for interval comparison. We will return a data frame
-// that can be used to reconstruct any requested structure.
 struct interval_t {
-  int start;
-  int end;
+  //  char chrom ;
+  int start, end ;
 } Interval ;
 
 struct intersection_t {
-  int a_start;
-  int a_end;
-  int b_start;
-  int b_end;
+  interval_t a, b ;
+  double overlap ;
 } Intersection ;
 
-// calculate overlap between two intervals
+//' calculate overlap between two intervals
 int intervalOverlap(const interval_t a, const interval_t b) {
-    return std::min(a.end, b.end) - std::max(a.start, b.start);  
+  return std::min(a.end, b.end) - std::max(a.start, b.start);  
 }
 
-// is interval a after interval b?
+
+//' determine whether a is after b
 bool intervalAfter(const interval_t a, const interval_t b) {
-  if (a.start > b.end) {
+  if (a.start >= b.end) {
     return true ;
   } else {
     return false ;
@@ -46,27 +44,31 @@ bool intervalAfter(const interval_t a, const interval_t b) {
 
 
 std::list <interval_t> createIntervals(Rcpp::DataFrame df) {
-
+  
+  std::vector <char> df_chrom_v =
+    Rcpp::as< std::vector <char> >(df["chrom"]); 
   std::vector <double> df_start_v =
     Rcpp::as< std::vector <double> >(df["start"]); 
-  
   std::vector <double> df_end_v =
     Rcpp::as< std::vector <double> >(df["end"]); 
-
-  std::list <interval_t> intervals ;
-
-  for (unsigned i = 0; i < df_start_v.size(); ++i) {
   
+  std::list <interval_t> intervals ;
+  
+  for (unsigned i = 0; i < df_start_v.size(); ++i) {
+    
     interval_t interval;
     
+    // interval.chrom = df_chrom_v[i] ;  
     interval.start = df_start_v[i] ;
     interval.end = df_end_v[i] ;
-     
+    
     intervals.push_back(interval) ;
   }
   
   return intervals ;  
 } 
+
+
 
 void storeIntersections(interval_t query_interval,
                         std::queue <interval_t>& intersection_cache,
@@ -79,17 +81,15 @@ void storeIntersections(interval_t query_interval,
   
     // create the intersection 
     intersection_t intersection ;
-    
-    intersection.a_start = query_interval.start ;
-    intersection.a_end = query_interval.end ;
-    intersection.b_start = cache_interval.start ;
-    intersection.b_end = cache_interval.end ;
+   
+    intersection.a = query_interval ;
+    intersection.b = cache_interval ;
     
     interval_intersections.push_back(intersection) ;
   }
 }
 
-//
+
 std::list <interval_t> scanCache(interval_t curr_interval,
                                  std::list <interval_t> interval_cache,
                                  std::queue <interval_t>& intersection_cache) {
@@ -178,10 +178,10 @@ DataFrame intersect_cpp(DataFrame df_a, DataFrame df_b) {
     
     intersection_t intersection = *it;
     
-    a_starts_v.push_back(intersection.a_start) ;
-    a_ends_v.push_back(intersection.a_end) ;
-    b_starts_v.push_back(intersection.b_start) ;
-    b_ends_v.push_back(intersection.b_end) ;
+    a_starts_v.push_back(intersection.a.start) ;
+    a_ends_v.push_back(intersection.a.end) ;
+    b_starts_v.push_back(intersection.b.start) ;
+    b_ends_v.push_back(intersection.b.end) ;
     
   }
   

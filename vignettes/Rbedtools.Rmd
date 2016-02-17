@@ -1,0 +1,54 @@
+---
+title: "Rbedtools"
+author: "Jay Hesselberth"
+date: "January 13, 2016"
+output:
+  html_document:
+    toc: true
+    keep_md: true
+---
+
+```{r knitr_opts, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+Rbedtools provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite.
+
+Interval intersections are implemented in Rcpp/C++ for speed using the ["chrom sweep" algorithm][2]. Other manipulations take advantage of the speed and grouping capability provided by [`dplyr`][3].
+
+# Methods
+
+## Reading BED files
+
+    - `read_bed()` and `read_bedgraph`
+ 
+## Genome arithmetic 
+
+    - `bed_closest()`: find the closest intervals independent of overlaps
+    - `bed_complement()`: extract intervals *not* represented by an interval file.
+    - `bed_coverage()`: Compute coverage for defined intervals
+    - `bed_flank()`: XXX
+    - `bed_genomecov()`: Compute the coverage over an entire genome.
+    - `bed_intersect()`: find overlapping intervals
+    - `bed_map()`: apply a function to selected columns for overlapping intervals
+    - `bed_merge()`: combine overlapping and nearby intervals into a single interval.
+    - `bed_slop()`: XXX
+    - `bed_sort()`: order intervals 
+    - `bed_window()`: Find overlapping intervals within a window
+    
+  * Not Implemented (yet)
+    - `bed_cluster()`: Cluster (but don't merge) overlapping/nearby intervals.
+    subtract      Remove intervals based on overlaps b/w two files.
+    random        Generate random intervals in a genome.
+    shuffle       Randomly redistrubute intervals in a genome.
+    sample        Sample random records from file using reservoir sampling.
+    spacing       Report the gap lengths between intervals in a file.
+    annotate      Annotate coverage of features from multiple files.
+    
+[1]: http://bedtools.readthedocs.org/en/latest/
+[2]: https://github.com/arq5x/chrom_sweep
+[3]: https://github.com/hadley/dplyr

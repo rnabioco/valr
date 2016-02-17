@@ -15,7 +15,17 @@ read_bedgraph(filename, ...)
 
 \item{n_fields}{number fields in the BED file}
 
+<<<<<<< Updated upstream
 \item{col_names}{column names to use for \code{dplyr::tbl_df}}
+=======
+\item{col_types}{column type spec for \code{readr::read_tsv}}
+
+\item{sort}{sort the tbl by chrom and start}
+
+\item{factor_cols}{factor the \code{chrom} and \code{strand} columns}
+
+\item{...}{options to pass to \code{readr::read_tsv}}
+>>>>>>> Stashed changes
 
 \item{sort}{sort the tbl by chrom and start}
 

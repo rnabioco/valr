@@ -10,8 +10,13 @@
 #' @param col_names column names to use for \code{dplyr::tbl_df}
 #' @param sort sort the tbl by chrom and start
 #' @param ... options to pass to \code{readr::read_tsv}
+<<<<<<< Updated upstream
 #' 
 #' @details https://genome.ucsc.edu/FAQ/FAQformat.html#format1
+=======
+#'   
+#' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
+>>>>>>> Stashed changes
 #'   
 #' @examples
 #' 
