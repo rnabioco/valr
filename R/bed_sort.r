@@ -5,6 +5,8 @@
 #' @param by_chrom sort within chromosome
 #' @param reverse reverse sort order
 #' 
+#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
+#'
 #' @examples 
 #' bed_df <- dplyr::tibble(
 #'    ~chrom, ~start, ~end,
@@ -46,10 +48,14 @@ bed_sort <- function(intervals, size = FALSE,
     }
     
     # remove .size column and groups in result
-    res <- res %>% select(-.size) %>% ungroup()
+    res <- res %>% select(-.size)
     
   } else {
   
+    if (by_chrom) {
+       res <- res %>% group_by(chrom) 
+    }
+    
     # sort by coordinate 
     if (reverse) {
       res <- intervals %>%
@@ -59,6 +65,7 @@ bed_sort <- function(intervals, size = FALSE,
         arrange(chrom, start, end)
     } 
   } 
-  
-  res
+ 
+  # remove groups in result 
+  res %>% ungroup()
 }

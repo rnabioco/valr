@@ -14,15 +14,22 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+# Rbedtools - Genome arithmetic in R
+
+`Rbedtools` aims to fill a gap in genome analysis by providing interval manipulations within the R environment, enabling fast explorative analysis of genome-scale data.
+
 # Installation
 
-Rbedtools can be installed from github (CRAN submission is planned):
+Rbedtools can be installed from github:
 
-  > devtools::install_github('jayhesselberth/Rbedtools')
+```
+> devtools::install_github('jayhesselberth/Rbedtools')
+```
 
 # Usage and development
 
-Problems? Submit an issue. Need a feature? Submit a pull request.
+Problems? Submit an [issue](https://github.com/jayhesselberth/Rbedtools/issues). Need a feature? Submit a [pull request](https://github.com/jayhesselberth/Rbedtools/pulls).
 
 # Overview
 
@@ -33,9 +40,9 @@ The goal of `Rbedtools` is to enable easy analysis of genome-scale data sets **w
 ```{r tss_signal, eval=FALSE, fig.cap='all the TSS signals.'}
 tss_intervals %>%
   bed_flank(size = 1000) %>%
-  bed_makewindows(size = 50) %>%
+  bed_makewindows(win_size = 50) %>%
   bed_map(chip_signal) %>%
-  ggplot(aes(x = win.num, y = signal), geom='point')
+  ggplot(aes(x = win.num, y = signal)) + geom_point()
 ```
 
 The main methods defined include:
@@ -55,18 +62,11 @@ Reading is done with `readr` for speed. Column types are coerced during reading.
 
 Methods include:
 
-  - `read_bed()`: read BED3 format
-  - `read_bed12()`: read BED12 format
-  - `read_bedgraph()`: read bedGraph format
+  - `read_bed()` # default is BED3
+  - `read_bed12()`
+  - `read_bedgraph()`
+  - `read_genome()` # read chromSize files
   
-```{r read}
-library(Rbedtools)
-
-bed_path <- system.file('extdata/3fields.bed.gz', package = 'Rbedtools')
-bed_tbl <- read_bed(bed_path)
-bed_tbl
-```
-
 # Interval comparisons
 
 ## Interval intersections

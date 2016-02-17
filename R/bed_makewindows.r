@@ -1,4 +1,3 @@
-#'
 #' Divide intervals into new intervals with labels
 #' 
 #' @param bed_df BED data in \code{dplyr::tbl_df} format
@@ -46,7 +45,7 @@ bed_makewindows <- function(bed_df, genome, win_size = 0,
   assert_that(step_size >= 0)
   
   res <- bed_df %>%
-    by_row(make_windows_, genome, win_size,
+    by_row(bed_makewindows_, genome, win_size,
            step_size, num_windows,
            reverse, .collate = 'rows',
            .labels = FALSE) %>%
@@ -57,8 +56,8 @@ bed_makewindows <- function(bed_df, genome, win_size = 0,
 
 #' @rdname bed_makewindows
 #' @export
-make_windows_ <- function(interval, genome, win_size, step_size,
-                          num_windows, reverse) {
+bed_makewindows_ <- function(interval, genome, win_size, step_size,
+                             num_windows, reverse) {
   
   # get size of chrom for coord check later
   cur_chrom <- interval$chrom

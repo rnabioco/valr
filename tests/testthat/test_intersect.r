@@ -1,7 +1,4 @@
-library(Rbedtools)
 context('intersect_cpp')
-
-library(dplyr)
 
 test_that("simple overlap", {
    bed1_df <- tibble(
@@ -39,7 +36,6 @@ test_that("multple a's", {
   expect_equal(nrow(res), 5)   
 })
 
-  
 test_that("multple b's", {
    bed1_df <- tibble(
     ~start,    ~end,

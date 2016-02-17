@@ -1,7 +1,7 @@
-#' convert BED12 to exons in BED6
+#' convert BED12 to individual exons in BED6
 #' 
 #' after conversion, the \code{score} column is the exon number, with respect to
-#' strand
+#' strand (i.e., exon 1 for `-` strand genes will have larger coordinates)
 #' 
 #' @param bed12_tbl tbl in BED12 format
 #'   
@@ -9,14 +9,17 @@
 #' bed12_tbl <- read_bed12('extdata/mm9.bed12.gz')
 #' bed6_exon_tbl <- bed12_to_exons(bed12_tbl) 
 #' 
+#' # first exons: score == exon number
+#' bed6_exon_tbl %>% filter(score == 1)
+#' 
 #' @export
 bed12_to_exons <- function(bed12_tbl) {
   
   assert_that(ncol(bed12_tbl) == 12)
   
   res <- bed12_tbl %>%
-    unnest(.exon_size = str_split(str_replace(exon_sizes, ',$', ''), ','),
-           .exon_start = str_split(str_replace(exon_starts, ',$', ''), ',')) %>%
+    tidyr::unnest(.exon_size = str_split(str_replace(exon_sizes, ',$', ''), ','),
+                  .exon_start = str_split(str_replace(exon_starts, ',$', ''), ',')) %>%
     mutate(.exon_size = as.double(.exon_size),
            .exon_start = as.double(.exon_start)) %>%
     group_by(name) %>%

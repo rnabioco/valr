@@ -13,7 +13,9 @@
 #' @param factor_cols factor the \code{chrom} and \code{strand} columns
 #' @param ... options to pass to \code{readr::read_tsv}
 #'   
-#' @details https://genome.ucsc.edu/FAQ/FAQformat.html#format1
+#' @return \code{data.frame}
+
+#' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #'   
 #' @examples
 #' 
@@ -31,8 +33,6 @@
 #' 
 #' # \code{chrom} and \code{strand} are converted to factors unless specified
 #' bed_tbl <- read_bed('3fields.bed.gz', factor_cols = FALSE)
-#' 
-#' @return \code{data.frame}
 #'   
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,

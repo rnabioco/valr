@@ -1,14 +1,19 @@
+Rbedtools - Genome arithmetic in R
+==================================
+
+`Rbedtools` aims to fill a gap in genome analysis by providing interval manipulations within the R environment, enabling fast explorative analysis of genome-scale data.
+
 Installation
 ============
 
-Rbedtools can be installed from github (CRAN submission is planned):
+Rbedtools can be installed from github:
 
-> devtools::install\_github('jayhesselberth/Rbedtools')
+    > devtools::install_github('jayhesselberth/Rbedtools')
 
 Usage and development
 =====================
 
-Problems? Submit an issue. Need a feature? Submit a pull request.
+Problems? Submit an [issue](https://github.com/jayhesselberth/Rbedtools/issues). Need a feature? Submit a [pull request](https://github.com/jayhesselberth/Rbedtools/pulls).
 
 Overview
 ========
@@ -20,9 +25,9 @@ The goal of `Rbedtools` is to enable easy analysis of genome-scale data sets **w
 ``` r
 tss_intervals %>%
   bed_flank(size = 1000) %>%
-  bed_makewindows(size = 50) %>%
+  bed_makewindows(win_size = 50) %>%
   bed_map(chip_signal) %>%
-  ggplot(aes(x = win.num, y = signal), geom='point')
+  ggplot(aes(x = win.num, y = signal)) + geom_point()
 ```
 
 The main methods defined include:
@@ -43,32 +48,10 @@ Reading is done with `readr` for speed. Column types are coerced during reading.
 
 Methods include:
 
--   `read_bed()`: read BED3 format
--   `read_bed12()`: read BED12 format
--   `read_bedgraph()`: read bedGraph format
-
-``` r
-library(Rbedtools)
-#> Warning: replacing previous import by 'tidyr::%>%' when loading 'Rbedtools'
-
-bed_path <- system.file('extdata/3fields.bed.gz', package = 'Rbedtools')
-bed_tbl <- read_bed(bed_path)
-bed_tbl
-#> Source: local data frame [10 x 3]
-#> 
-#>     chrom  start    end
-#>    (fctr)  (dbl)  (dbl)
-#> 1    chr1  11873  14409
-#> 2    chr1  14361  19759
-#> 3    chr1  14406  29370
-#> 4    chr1  34610  36081
-#> 5    chr1  69090  70008
-#> 6    chr1 134772 140566
-#> 7    chr1 321083 321115
-#> 8    chr1 321145 321207
-#> 9    chr1 322036 326938
-#> 10   chr1 327545 328439
-```
+-   `read_bed()` \# default is BED3
+-   `read_bed12()`
+-   `read_bedgraph()`
+-   `read_genome()` \# read chromSize files
 
 Interval comparisons
 ====================

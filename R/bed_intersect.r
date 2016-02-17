@@ -3,8 +3,10 @@
 #' @param df_a BED intervals 
 #' @param df_b BED intervals 
 #' 
+#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
+#'  
 #' @export
-bedtools_intersect <- function(df_a, df_b, by_chrom = TRUE) {
+bed_intersect <- function(df_a, df_b, by_chrom = TRUE) {
   
   res <- df_a %>%
     group_by(chrom) %>%
