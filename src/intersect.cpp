@@ -45,7 +45,7 @@ bool intervalAfter(const interval_t a, const interval_t b) {
 }
 
 
-std::list <interval_t> createIntervals(Rcpp::DataFrame df) {
+std::queue <interval_t> createIntervals(Rcpp::DataFrame df) {
 
   std::vector <double> df_start_v =
     Rcpp::as< std::vector <double> >(df["start"]); 
@@ -53,8 +53,8 @@ std::list <interval_t> createIntervals(Rcpp::DataFrame df) {
   std::vector <double> df_end_v =
     Rcpp::as< std::vector <double> >(df["end"]); 
 
-  std::list <interval_t> intervals ;
-
+  std::queue <interval_t> intervals ;
+ 
   for (unsigned i = 0; i < df_start_v.size(); ++i) {
   
     interval_t interval;
@@ -62,15 +62,15 @@ std::list <interval_t> createIntervals(Rcpp::DataFrame df) {
     interval.start = df_start_v[i] ;
     interval.end = df_end_v[i] ;
      
-    intervals.push_back(interval) ;
+    intervals.push(interval) ;
   }
   
   return intervals ;  
 } 
 
 void storeIntersections(interval_t query_interval,
-                        std::queue <interval_t>& intersection_cache,
-                        std::list <intersection_t>& interval_intersections) {
+                        std::queue <interval_t> intersection_cache,
+                        std::queue <intersection_t>& interval_intersections) {
   
   while ( !intersection_cache.empty() ) {
     
@@ -85,25 +85,25 @@ void storeIntersections(interval_t query_interval,
     intersection.b_start = cache_interval.start ;
     intersection.b_end = cache_interval.end ;
     
-    interval_intersections.push_back(intersection) ;
+    interval_intersections.push(intersection) ;
   }
 }
 
 //
-std::list <interval_t> scanCache(interval_t curr_interval,
-                                 std::list <interval_t> interval_cache,
-                                 std::queue <interval_t>& intersection_cache) {
+std::deque <interval_t> scanCache(interval_t curr_interval,
+               std::deque <interval_t> interval_cache,
+               std::queue <interval_t>& intersection_cache) {
 
-  std::list <interval_t> temp_cache ;
- 
-  std::list<interval_t>::const_iterator it; 
-  for (it = interval_cache.begin(); it != interval_cache.end(); ++it) {
-   
-    interval_t cached_interval = *it ;
+  std::deque <interval_t> temp_cache ;
+  
+  while ( !interval_cache.empty() ) {
+    
+    interval_t cached_interval = interval_cache.front() ;
+    interval_cache.pop_front() ;
    
     if ( !intervalAfter(curr_interval, cached_interval) ) {
    
-      temp_cache.push_back(cached_interval) ;
+      temp_cache.push_front(cached_interval) ;
       
       if ( intervalOverlap(curr_interval, cached_interval) > 0 ) {
         intersection_cache.push(cached_interval) ;
@@ -116,37 +116,47 @@ std::list <interval_t> scanCache(interval_t curr_interval,
 
 // A = query
 // B = database
-std::list <intersection_t> sweepIntervals(std::list <interval_t> a_intervals,
-                                          std::list <interval_t> b_intervals) {
+std::queue <intersection_t> sweepIntervals(std::queue <interval_t> a_intervals,
+                                           std::queue <interval_t> b_intervals) {
  
   // cached intersections
   std::queue <interval_t> intersection_cache ;
   // intervals under consideration
-  std::list <interval_t> interval_cache ;
+  std::deque <interval_t> interval_cache ;
   // intersected intervals
-  std::list <intersection_t> interval_intersections ; 
-
-  std::list<interval_t>::iterator a_it ; 
-  for (a_it = a_intervals.begin(); a_it != a_intervals.end(); ++a_it) {
+  std::queue <intersection_t> interval_intersections ; 
+ 
+  while ( !a_intervals.empty() ) {
   
-    interval_t curr_a_interval = *a_it;
+    interval_t curr_a_interval = a_intervals.front() ;
+    a_intervals.pop() ;
    
-    interval_cache = scanCache(curr_a_interval, interval_cache, intersection_cache);
-  
+    // Rcpp::Rcout << "A interval: " << 
+    //  curr_a_interval.start << '-' << curr_a_interval.end << std::endl ;
+    
+    // Rcpp::Rcout << "evaluating interval start: " << curr_a_interval.start << std::endl ;
+    
+    // this works?
+    // scanCache(curr_a_interval, interval_cache, intersection_cache);
+    Rcpp::Rcout << "cache size before scan: " << interval_cache.size() << std::endl ;
+    scanCache(curr_a_interval, interval_cache, intersection_cache);
+    Rcpp::Rcout << "cache size after scan: " << interval_cache.size() << std::endl ;
+   
     while ( !b_intervals.empty() ) {
       
       interval_t curr_b_interval = b_intervals.front() ;
+      b_intervals.pop() ;
+  
+      if (intervalAfter(curr_a_interval, curr_b_interval)) {
+        break;
+      }
       
-      if ( !intervalAfter(curr_a_interval, curr_b_interval) ) { 
-     
-        if (intervalOverlap(curr_a_interval, curr_b_interval) > 0) {
-          intersection_cache.push(curr_b_interval) ;  
-        }
+      if (intervalOverlap(curr_a_interval, curr_b_interval) > 0) {
+        intersection_cache.push(curr_b_interval) ;  
+      }
       
-        interval_cache.push_front(curr_b_interval) ;
-       
-        b_intervals.pop_front() ;
-      } 
+      interval_cache.push_front(curr_b_interval) ;
+      
     }
     
     // store hits with the current a interval
@@ -162,21 +172,21 @@ std::list <intersection_t> sweepIntervals(std::list <interval_t> a_intervals,
 // [[Rcpp::export]]
 DataFrame intersect_cpp(DataFrame df_a, DataFrame df_b) {
   
-  std::list <interval_t> a_intervals = createIntervals(df_a) ;
-  std::list <interval_t> b_intervals = createIntervals(df_b) ;
+  std::queue <interval_t> a_intervals = createIntervals(df_a) ;
+  std::queue <interval_t> b_intervals = createIntervals(df_b) ;
 
-  std::list <intersection_t> interval_intersections =
+  std::queue <intersection_t> interval_intersections =
     sweepIntervals(a_intervals, b_intervals) ;
 
   Rcpp::NumericVector a_starts_v ;    
   Rcpp::NumericVector a_ends_v ;    
   Rcpp::NumericVector b_starts_v ;    
   Rcpp::NumericVector b_ends_v ;    
-  
-  std::list<intersection_t>::const_iterator it; 
-  for (it = interval_intersections.begin(); it != interval_intersections.end(); ++it) {
+ 
+  while ( !interval_intersections.empty()) {
     
-    intersection_t intersection = *it;
+    intersection_t intersection = interval_intersections.front() ;
+    interval_intersections.pop() ;
     
     a_starts_v.push_back(intersection.a_start) ;
     a_ends_v.push_back(intersection.a_end) ;
