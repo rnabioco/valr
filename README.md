@@ -28,6 +28,13 @@ tss_intervals %>%
   bed_makewindows(win_size = 50) %>%
   bed_map(chip_signal) %>%
   ggplot(aes(x = win.num, y = signal)) + geom_point()
+
+# even better, once ggvis is stable ...
+tss_intervals %>%
+  bed_flank(size = 1000) %>%
+  bed_makewindows(win_size = 50) %>%
+  bed_map(chip_signal) %>%
+  ggvis
 ```
 
 The main methods defined include:
