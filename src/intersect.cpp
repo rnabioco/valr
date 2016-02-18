@@ -13,29 +13,27 @@
 
 #include <Rcpp.h>
 #include <queue>
-#include <deque>
-
 using namespace Rcpp ;
 
+// Only define fields for interval comparison. We will return a data frame
+// that can be used to reconstruct any requested structure.
 struct interval_t {
-  //  char chrom ;
+  char chrom ;
   int start, end ;
 } Interval ;
 
 struct intersection_t {
   interval_t a, b ;
-  double overlap ;
 } Intersection ;
 
-//' calculate overlap between two intervals
+// calculate overlap between two intervals
 int intervalOverlap(const interval_t a, const interval_t b) {
   return std::min(a.end, b.end) - std::max(a.start, b.start);  
 }
 
-
-//' determine whether a is after b
+// is interval a after interval b?
 bool intervalAfter(const interval_t a, const interval_t b) {
-  if (a.start >= b.end) {
+  if (a.start > b.end) {
     return true ;
   } else {
     return false ;
@@ -45,10 +43,9 @@ bool intervalAfter(const interval_t a, const interval_t b) {
 
 std::list <interval_t> createIntervals(Rcpp::DataFrame df) {
   
-  std::vector <char> df_chrom_v =
-    Rcpp::as< std::vector <char> >(df["chrom"]); 
   std::vector <double> df_start_v =
     Rcpp::as< std::vector <double> >(df["start"]); 
+  
   std::vector <double> df_end_v =
     Rcpp::as< std::vector <double> >(df["end"]); 
   
@@ -58,7 +55,6 @@ std::list <interval_t> createIntervals(Rcpp::DataFrame df) {
     
     interval_t interval;
     
-    // interval.chrom = df_chrom_v[i] ;  
     interval.start = df_start_v[i] ;
     interval.end = df_end_v[i] ;
     
@@ -68,41 +64,42 @@ std::list <interval_t> createIntervals(Rcpp::DataFrame df) {
   return intervals ;  
 } 
 
-
-
 void storeIntersections(interval_t query_interval,
-                        std::queue <interval_t> intersection_cache,
-                        std::queue <intersection_t>& interval_intersections) {
+                        std::queue <interval_t>& intersection_cache,
+                        std::list <intersection_t>& interval_intersections) {
   
   while ( !intersection_cache.empty() ) {
     
     interval_t cache_interval = intersection_cache.front() ;
     intersection_cache.pop() ;
-  
+    
     // create the intersection 
     intersection_t intersection ;
-   
-    intersection.a = query_interval ;
-    intersection.b = cache_interval ;
     
-    interval_intersections.push(intersection) ;
+    intersection.a.start = query_interval.start ;
+    intersection.a.end = query_interval.end ;
+    intersection.b.start = cache_interval.start ;
+    intersection.b.end = cache_interval.end ;
+    
+    interval_intersections.push_back(intersection) ;
   }
 }
 
+//
 std::list <interval_t> scanCache(interval_t curr_interval,
                                  std::list <interval_t> interval_cache,
                                  std::queue <interval_t>& intersection_cache) {
-
-  std::deque <interval_t> temp_cache ;
   
-  while ( !interval_cache.empty() ) {
+  std::list <interval_t> temp_cache ;
+  
+  std::list<interval_t>::const_iterator it; 
+  for (it = interval_cache.begin(); it != interval_cache.end(); ++it) {
     
-    interval_t cached_interval = interval_cache.front() ;
-    interval_cache.pop_front() ;
-   
+    interval_t cached_interval = *it ;
+    
     if ( !intervalAfter(curr_interval, cached_interval) ) {
-   
-      temp_cache.push_front(cached_interval) ;
+      
+      temp_cache.push_back(cached_interval) ;
       
       if ( intervalOverlap(curr_interval, cached_interval) > 0 ) {
         intersection_cache.push(cached_interval) ;
@@ -115,47 +112,37 @@ std::list <interval_t> scanCache(interval_t curr_interval,
 
 // A = query
 // B = database
-std::queue <intersection_t> sweepIntervals(std::queue <interval_t> a_intervals,
-                                           std::queue <interval_t> b_intervals) {
- 
+std::list <intersection_t> sweepIntervals(std::list <interval_t> a_intervals,
+                                          std::list <interval_t> b_intervals) {
+  
   // cached intersections
   std::queue <interval_t> intersection_cache ;
   // intervals under consideration
-  std::deque <interval_t> interval_cache ;
+  std::list <interval_t> interval_cache ;
   // intersected intervals
-  std::queue <intersection_t> interval_intersections ; 
- 
-  while ( !a_intervals.empty() ) {
+  std::list <intersection_t> interval_intersections ; 
   
-    interval_t curr_a_interval = a_intervals.front() ;
-    a_intervals.pop() ;
-   
-    // Rcpp::Rcout << "A interval: " << 
-    //  curr_a_interval.start << '-' << curr_a_interval.end << std::endl ;
+  std::list<interval_t>::iterator a_it ; 
+  for (a_it = a_intervals.begin(); a_it != a_intervals.end(); ++a_it) {
     
-    // Rcpp::Rcout << "evaluating interval start: " << curr_a_interval.start << std::endl ;
+    interval_t curr_a_interval = *a_it;
     
-    // this works?
-    // scanCache(curr_a_interval, interval_cache, intersection_cache);
-    Rcpp::Rcout << "cache size before scan: " << interval_cache.size() << std::endl ;
-    scanCache(curr_a_interval, interval_cache, intersection_cache);
-    Rcpp::Rcout << "cache size after scan: " << interval_cache.size() << std::endl ;
-   
+    interval_cache = scanCache(curr_a_interval, interval_cache, intersection_cache);
+    
     while ( !b_intervals.empty() ) {
       
       interval_t curr_b_interval = b_intervals.front() ;
-      b_intervals.pop() ;
-  
-      if (intervalAfter(curr_a_interval, curr_b_interval)) {
-        break;
-      }
       
-      if (intervalOverlap(curr_a_interval, curr_b_interval) > 0) {
-        intersection_cache.push(curr_b_interval) ;  
-      }
-      
-      interval_cache.push_front(curr_b_interval) ;
-      
+      if ( !intervalAfter(curr_a_interval, curr_b_interval) ) { 
+        
+        if (intervalOverlap(curr_a_interval, curr_b_interval) > 0) {
+          intersection_cache.push(curr_b_interval) ;  
+        }
+        
+        interval_cache.push_front(curr_b_interval) ;
+        
+        b_intervals.pop_front() ;
+      } 
     }
     
     // store hits with the current a interval
@@ -171,21 +158,21 @@ std::queue <intersection_t> sweepIntervals(std::queue <interval_t> a_intervals,
 // [[Rcpp::export]]
 DataFrame intersect_cpp(DataFrame df_a, DataFrame df_b) {
   
-  std::queue <interval_t> a_intervals = createIntervals(df_a) ;
-  std::queue <interval_t> b_intervals = createIntervals(df_b) ;
-
-  std::queue <intersection_t> interval_intersections =
+  std::list <interval_t> a_intervals = createIntervals(df_a) ;
+  std::list <interval_t> b_intervals = createIntervals(df_b) ;
+  
+  std::list <intersection_t> interval_intersections =
     sweepIntervals(a_intervals, b_intervals) ;
-
+  
   Rcpp::NumericVector a_starts_v ;    
   Rcpp::NumericVector a_ends_v ;    
   Rcpp::NumericVector b_starts_v ;    
   Rcpp::NumericVector b_ends_v ;    
- 
-  while ( !interval_intersections.empty()) {
+  
+  std::list<intersection_t>::const_iterator it; 
+  for (it = interval_intersections.begin(); it != interval_intersections.end(); ++it) {
     
-    intersection_t intersection = interval_intersections.front() ;
-    interval_intersections.pop() ;
+    intersection_t intersection = *it;
     
     a_starts_v.push_back(intersection.a.start) ;
     a_ends_v.push_back(intersection.a.end) ;
