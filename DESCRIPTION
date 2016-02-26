@@ -16,6 +16,7 @@ Imports:
     tidyr,
     assertthat,
     stringr,
+    purrr
 LinkingTo: Rcpp (>= 0.12.2)
 Suggests:
     knitr,
