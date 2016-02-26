@@ -17,6 +17,7 @@
 #' @seealso \url{http://bedops.readthedocs.org/en/latest/index.html}
 #'   
 #' @import dplyr
+#' @import stringr
 #' @import readr
 #' @import tidyr
 #' @importFrom assertthat assert_that
