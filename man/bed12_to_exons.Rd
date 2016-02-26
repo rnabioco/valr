@@ -14,7 +14,8 @@ after conversion, the \code{score} column is the exon number, with respect to
 strand (i.e., exon 1 for `-` strand genes will have larger coordinates)
 }
 \examples{
-bed12_tbl <- read_bed12('extdata/mm9.bed12.gz')
+bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'Rbedtools')
+bed12_tbl <- read_bed12(bed12_path)
 bed6_exon_tbl <- bed12_to_exons(bed12_tbl) 
 
 # first exons: score == exon number
