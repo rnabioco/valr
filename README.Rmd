@@ -6,6 +6,9 @@ output:
     variant: markdown_github
 ---
 
+[![Build Status](https://travis-ci.com/jayhesselberth/Rbedtools.svg?token=Q9WRSyqYnpS7KpFfTscp&branch=master)](https://travis-ci.com/jayhesselberth/Rbedtools)
+[![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/Rbedtools/master.svg)](https://codecov.io/github/jayhesselberth/Rbedtools?branch=master)
+
 ```{r knitr_opts, echo=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
