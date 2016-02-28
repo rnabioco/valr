@@ -43,17 +43,9 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
   
   bed_raw <- read_tsv(filename, col_names = colnames, col_types = coltypes, ...)
   bed_tbl <- tbl_df(bed_raw) 
-  
-  if (sort) {
-    bed_tbl <- bed_tbl %>% arrange(chrom, start)
-    attr(bed_tbl, "sorted") <- TRUE
-  } else {
-    attr(bed_tbl, "sorted") <- FALSE
-  }
 
   # factorize chrom and strand
   if (factor_cols) {
-    
     bed_tbl <- bed_tbl %>% mutate(chrom = as.factor(chrom))
     
     if ('strand' %in% colnames(bed_tbl)) {
@@ -61,6 +53,10 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
     }
   } 
   
+  if (sort) {
+    bed_tbl <- bed_sort(bed_tbl)
+  }
+ 
   bed_tbl
 }
 

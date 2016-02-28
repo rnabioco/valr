@@ -67,5 +67,10 @@ bed_sort <- function(intervals, size = FALSE,
   } 
  
   # remove groups in result 
-  res %>% ungroup()
+  res <- res %>% ungroup()
+ 
+  # add `sorted` attribute 
+  attr(res, "sorted") <- TRUE
+  
+  res
 }
