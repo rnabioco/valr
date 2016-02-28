@@ -59,10 +59,10 @@ bed_sort <- function(intervals, size = FALSE,
     # sort by coordinate 
     if (reverse) {
       res <- intervals %>%
-        arrange(desc(chrom), desc(start), desc(end))
+        arrange(chrom, desc(start))
     } else {
       res <- intervals %>%
-        arrange(chrom, start, end)
+        arrange(chrom, start)
     } 
   } 
  
