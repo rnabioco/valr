@@ -5,8 +5,8 @@
 #' fast command line analysis, Rbedtools aims to enable similar analyses 
 #' \emph{within R}.
 #' 
-#' The package focuses on manipulating intervals in BED format 
-#' and signal in bedGraph format. Eventually this package will power interactive
+#' Rbedtools focuses on manipulating intervals in BED format and signal in
+#' bedGraph format. Eventually this package will power interactive 
 #' visualizations of genome-scale data with \code{shiny}.
 #' 
 #' To learn more about Rbedtools, start with the vignette: 
@@ -20,13 +20,13 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/index.html}
 #' @seealso \url{http://bedops.readthedocs.org/en/latest/index.html}
 #'   
+#' @useDynLib Rbedtools
 #' @import dplyr
-#' @import stringr
 #' @import readr
-#' @import tidyr
-#' @import assertthat
+#' @importFrom stringr str_replace str_split
+#' @importFrom tidyr unnest
+#' @importFrom assertthat assert_that is.flag
 #' @importFrom purrr by_row
 #' @importFrom Rcpp evalCpp
 #' @exportPattern "^[[:alpha:]]+"
-#' @useDynLib Rbedtools
 NULL
