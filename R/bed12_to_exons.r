@@ -1,7 +1,8 @@
 #' convert BED12 to individual exons in BED6
 #' 
-#' after conversion, the \code{score} column is the exon number, with respect to
-#' strand (i.e., exon 1 for `-` strand genes will have larger coordinates)
+#' after conversion to BED6 format, the \code{score} column contains the exon 
+#' number, with respect to strand (i.e., exon 1 for `-` strand genes will have 
+#' larger start and end coordinates)
 #' 
 #' @param bed12_tbl tbl in BED12 format
 #'   
@@ -32,7 +33,8 @@ bed12_to_exons <- function(bed12_tbl) {
            .score = .exon_num) %>%
     select(chrom, .start, .end, name, .exon_num, strand) %>%
     rename(start = .start, end = .end, score = .exon_num) %>%
-    ungroup()
+    ungroup() %>%
+    bed_sort()
   
   res
 }
