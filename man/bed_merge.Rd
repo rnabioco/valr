@@ -4,20 +4,21 @@
 \alias{bed_merge}
 \title{Merge overlapping intervals}
 \usage{
-bed_merge(interval_tbl)
+bed_merge(bed_tbl)
 }
 \description{
 Merge overlapping intervals
 }
 \examples{
-interval_tbl <- dplyr::tibble(
+bed_tbl <- dplyr::tibble(
  ~chrom, ~start, ~end,
  "chr1", 100,    200,
  "chr1", 150,    250,
  "chr2", 200,    400
 )
 
-bed_merge(interval_tbl)
+bed_tbl <- bed_sort(bed_tbl) 
+bed_merge(bed_tbl)
 
 }
 \seealso{

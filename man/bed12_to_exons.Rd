@@ -10,8 +10,9 @@ bed12_to_exons(bed12_tbl)
 \item{bed12_tbl}{tbl in BED12 format}
 }
 \description{
-after conversion, the \code{score} column is the exon number, with respect to
-strand (i.e., exon 1 for `-` strand genes will have larger coordinates)
+after conversion to BED6 format, the \code{score} column contains the exon 
+number, with respect to strand (i.e., exon 1 for `-` strand genes will have 
+larger start and end coordinates)
 }
 \examples{
 bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'Rbedtools')

@@ -59,7 +59,7 @@ bed6_tbl <- read_bed('6fields.bed.gz', n_fields = 6)
 # read BED12 format
 bed12_tbl <- read_bed12('12fields.bed.gz')
 
-# Returned \\code{data.frame} is sorted by \\code{chrom}, \\code{start} and \\code{end} unless specified
+# Returned \\code{data.frame} is sorted by \\code{chrom} and \\code{start} unless \\code{sort = FALSE}
 sorted_bed_tbl <- read_bed('unsorted.bed.gz')
 unsorted_bed_tbl <- read_bed('unsorted.bed.gz', sort = FALSE)
 
