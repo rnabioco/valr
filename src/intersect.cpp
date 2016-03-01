@@ -12,14 +12,16 @@
 //
 
 #include <Rcpp.h>
-#include <queue>
-#include "intervals.h"
 using namespace Rcpp ;
 
+#include <queue>
+#include "intervals.h"
 
-void storeIntersections(interval_t query_interval,
-                        std::queue <interval_t>& intersection_cache,
-                        std::list <intersection_t>& interval_intersections) {
+
+void
+store_intersections(interval_t query_interval,
+                   std::queue <interval_t>& intersection_cache,
+                   std::list <intersection_t>& interval_intersections) {
   
   while ( !intersection_cache.empty() ) {
     
@@ -38,9 +40,10 @@ void storeIntersections(interval_t query_interval,
   }
 }
 
-std::list <interval_t> scanCache(interval_t curr_interval,
-                                 std::list <interval_t> interval_cache,
-                                 std::queue <interval_t>& intersection_cache) {
+std::list <interval_t>
+scan_interval_cache(interval_t curr_interval,
+                    std::list <interval_t> interval_cache,
+                    std::queue <interval_t>& intersection_cache) {
   
   std::list <interval_t> temp_cache ;
   
@@ -49,11 +52,11 @@ std::list <interval_t> scanCache(interval_t curr_interval,
     
     interval_t cached_interval = *it ;
     
-    if ( !intervalAfter(curr_interval, cached_interval) ) {
+    if ( !interval_after(curr_interval, cached_interval) ) {
       
       temp_cache.push_back(cached_interval) ;
       
-      if ( intervalOverlap(curr_interval, cached_interval) > 0 ) {
+      if ( interval_overlap(curr_interval, cached_interval) > 0 ) {
         intersection_cache.push(cached_interval) ;
       }
       
@@ -64,8 +67,9 @@ std::list <interval_t> scanCache(interval_t curr_interval,
 
 // A = query
 // B = database
-std::list <intersection_t> sweepIntervals(std::list <interval_t> a_intervals,
-                                          std::list <interval_t> b_intervals) {
+std::list <intersection_t>
+sweep_intervals(std::list <interval_t> a_intervals,
+               std::list <interval_t> b_intervals) {
   
   // cached intersections
   std::queue <interval_t> intersection_cache ;
@@ -79,15 +83,17 @@ std::list <intersection_t> sweepIntervals(std::list <interval_t> a_intervals,
     
     interval_t curr_a_interval = *a_it;
     
-    interval_cache = scanCache(curr_a_interval, interval_cache, intersection_cache);
+    interval_cache = scan_interval_cache(curr_a_interval,
+                                         interval_cache,
+                                         intersection_cache);
     
     while ( !b_intervals.empty() ) {
       
       interval_t curr_b_interval = b_intervals.front() ;
       
-      if ( !intervalAfter(curr_a_interval, curr_b_interval) ) { 
+      if ( !interval_after(curr_a_interval, curr_b_interval) ) { 
         
-        if (intervalOverlap(curr_a_interval, curr_b_interval) > 0) {
+        if (interval_overlap(curr_a_interval, curr_b_interval) > 0) {
           intersection_cache.push(curr_b_interval) ;  
         }
         
@@ -98,7 +104,7 @@ std::list <intersection_t> sweepIntervals(std::list <interval_t> a_intervals,
     }
     
     // store hits with the current a interval
-    storeIntersections(curr_a_interval,
+    store_intersections(curr_a_interval,
                        intersection_cache,
                        interval_intersections) ;
     
@@ -108,13 +114,14 @@ std::list <intersection_t> sweepIntervals(std::list <interval_t> a_intervals,
 }
 
 // [[Rcpp::export]]
-DataFrame intersect_cpp(DataFrame df_a, DataFrame df_b) {
+Rcpp::DataFrame
+intersect_impl(DataFrame df_a, DataFrame df_b) {
   
-  std::list <interval_t> a_intervals = createIntervals(df_a) ;
-  std::list <interval_t> b_intervals = createIntervals(df_b) ;
+  std::list <interval_t> a_intervals = create_intervals(df_a) ;
+  std::list <interval_t> b_intervals = create_intervals(df_b) ;
   
   std::list <intersection_t> interval_intersections =
-    sweepIntervals(a_intervals, b_intervals) ;
+    sweep_intervals(a_intervals, b_intervals) ;
   
   Rcpp::NumericVector a_starts_v ;    
   Rcpp::NumericVector a_ends_v ;    
