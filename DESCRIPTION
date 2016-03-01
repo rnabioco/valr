@@ -5,8 +5,9 @@ Version: 0.1
 Authors@R: person("Jay", "Hesselberth", email = "jay.hesselberth@gmail.com",
                   role = c("aut", "cre"))
 Maintainer: Jay Hesselberth <jay.hesselberth@gmail.com>
-Description: Read and manipulate genome intervals and signals similar to the 
-             BEDtools package.
+Description: Read and manipulate genome intervals and signals. RBedtools
+             provides functionality similar to BEDtools and bedops within R,
+             enabling facile interactive visualization of genome-scale data. 
 License: GPL (>= 2)
 Imports:
     Rcpp (>= 0.12.2),
