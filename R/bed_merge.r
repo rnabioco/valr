@@ -7,7 +7,9 @@
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100,    200,
 #'  "chr1", 150,    250,
-#'  "chr2", 200,    400
+#'  "chr2", 200,    400,
+#'  "chr2", 400,    500,
+#'  "chr2", 450,    550
 #' )
 #' 
 #' bed_merge(bed_tbl)
@@ -16,10 +18,11 @@
 bed_merge <- function(bed_tbl) {
   
   if ( ! is_sorted(bed_tbl) ) {
-    res <- bed_sort(res)
+    res <- bed_sort(bed_tbl)
   }
   
-  res <- merge_cpp(bed_tbl)
+  # res must be sorted *again*
+  res <- merge_impl(res) %>% bed_sort
   
   # add `merged` attribute. this attribute can be tested to determine whether a 
   # merge needs to be done
@@ -34,7 +37,7 @@ is_merged <- function(bed_tbl) {
   
   merged_attr <- attr(bed_tbl, "merged")
   
-  if (is.null(merged_attr) || ! merged_attr) {
+  if ( is.null(merged_attr) || ! merged_attr ) {
     return (FALSE)
   } else {
     return (TRUE)
