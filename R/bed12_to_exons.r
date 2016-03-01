@@ -11,8 +11,8 @@
 #' bed12_tbl <- read_bed12(bed12_path)
 #' bed6_exon_tbl <- bed12_to_exons(bed12_tbl) 
 #' 
-#' # first exons: score == exon number
-#' bed6_exon_tbl %>% filter(score == 1)
+#' # first exons
+#' subset(bed6_exon_tbl, score == 1)
 #' 
 #' @export
 bed12_to_exons <- function(bed12_tbl) {
