@@ -27,7 +27,7 @@
 #' # read BED12 format
 #' bed12_tbl <- read_bed12('12fields.bed.gz')
 #' 
-#' # Returned \code{data.frame} is sorted by \code{chrom}, \code{start} and \code{end} unless specified
+#' # Returned \code{data.frame} is sorted by \code{chrom} and \code{start} unless \code{sort = FALSE}
 #' sorted_bed_tbl <- read_bed('unsorted.bed.gz')
 #' unsorted_bed_tbl <- read_bed('unsorted.bed.gz', sort = FALSE)
 #' 
@@ -91,9 +91,10 @@ read_bed12 <- function(filename, ...) {
 #' @export
 read_bedgraph <- function(filename, ...) {
   # load as bed4, rename `value` column and covert to double
-  bedgraph_tbl <- read_bed(filename, n_fields = 4) %>%
+  bedgraph_tbl <- read_bed(filename, n_fields = 4, sort = FALSE) %>%
     rename(value = name) %>%
     mutate(value = as.double(value))
+  bedgraph_tbl <- bed_sort(bedgraph_tbl)
   bedgraph_tbl
 }
 
