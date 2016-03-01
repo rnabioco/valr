@@ -11,11 +11,12 @@ struct intersection_t {
 };
 
 // calculate overlap between two intervals
-int intervalOverlap(const interval_t a, const interval_t b) ;
+int interval_overlap(const interval_t a, const interval_t b) ;
 
 // is interval a after interval b?
-bool intervalAfter(const interval_t a, const interval_t b) ;
+bool interval_after(const interval_t a, const interval_t b) ;
 
-std::list <interval_t> createIntervals(Rcpp::DataFrame df) ;
+// XXX replace with efficient iterator
+std::list <interval_t> create_intervals(Rcpp::DataFrame df) ;
 
 #endif /* INTERVALS_INCLUDE */
