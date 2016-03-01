@@ -12,13 +12,13 @@
 #' 
 #' bed_df <- dplyr::tibble(
 #'  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-#'  "chr1", 500,    1000, '.',   '.'     '+',
-#'  "chr1", 1000,   1500, '.',   '.'     '-',
+#'  "chr1", 500,    1000, '.',   '.',     '+',
+#'  "chr1", 1000,   1500, '.',   '.',     '-'
 #' )
 #' 
-#' bed_df %>% bed_slop(left = 100)
-#' bed_df %>% bed_slop(right = 100)
-#' bed_df %>% bed_slop(both = 100)
+#' bed_df %>% bed_slop(left = 100, genome = genome)
+#' bed_df %>% bed_slop(right = 100, genome)
+#' bed_df %>% bed_slop(both = 100, genome)
 #'
 #' bed_df %>% bed_slop(both = 0.5, fraction=TRUE)
 #' 

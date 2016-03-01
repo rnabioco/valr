@@ -1,31 +1,46 @@
 #' identify intervals in a genome that are not covered by a query
 #' 
-#' @param bed_df BED data.frame
+#' @param bed_tbl tbl of intervals
 #' @param genome chrom sizes
 #' 
 #' @return \code{data.frame}
 #' 
 #' @examples 
+#'
+#' genome <- dplyr::tibble(
+#'    ~chrom,  ~size,
+#'    "chr1", 500,
+#'    "chr2", 600,
+#'    "chr3", 800
+#' ) 
 #' 
-#' bed_df <- dplyr::tibble(
+#' bed_tbl <- dplyr::tibble(
 #'    ~chrom, ~start, ~end,
 #'    "chr1", 100,    300,
+#'    "chr1", 200,    400,
 #'    "chr2", 200,    400,
 #'    "chr3", 500,    600
 #' )
 #' 
-#' bed_complement(bed_df)
+#' # intervals not covered by bed_tbl
+#' bed_complement(bed_tbl, genome)
 #' 
 #' @export
-bed_complement <- function(bed_df, genome) {
-  res <- bed_df %>% 
-    group_by(chrom) %>%
-    bed_merge() %>%
-    bed_complement_(., genome) %>%
-    ungroup()
-}
+bed_complement <- function(bed_tbl, genome) {
 
-bed_complement_ <- function(df, genome) {
-  res <- complement_cpp(df, genome)
-  res
+  if ( ! is_merged(bed_tbl) ) {
+    res <- bed_merge(bed_tbl) %>% mutate(chrom = as.character(chrom))
+  } 
+
+  res <- complement_impl(res, genome) 
+  
+  # remove intervals that are not within genome coordinates
+  res <- res %>%
+    left_join(genome, by = 'chrom') %>%
+    filter(start >= 0 & end <= size) %>%
+    select(-size)
+  
+  res <- bed_sort(res)
+ 
+  res 
 }

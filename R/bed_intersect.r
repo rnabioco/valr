@@ -7,16 +7,15 @@
 #'  
 #' @export
 bed_intersect <- function(df_a, df_b, by_chrom = TRUE) {
- 
-  if (!attr(df_a, "sorted") || !attr(df_b, "sorted")) {
-    stop("bed_intersection requires sorted intervals, use bed_sort") 
+
+  if ( ! is_sorted(df_a) ) {
+    df_a <- bed_sort(df_a)
   }
-  
-  res <- df_a %>%
-    group_by(chrom) %>%
-    intersect_cpp(., df_b)
-  
-  res <- intersect_cpp(df_a, df_b)
+  if ( ! is_sorted(df_b) ) {
+    df_b <- bed_sort(df_b)
+  }
+ 
+  res <- intersect_impl(df_a, df_b)
   
   res
 }

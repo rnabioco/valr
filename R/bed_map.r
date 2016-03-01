@@ -19,7 +19,7 @@ bed_map <- function(interval_tbl, signal_tbl, signal_col,
  
   operation <- match.arg(operation, op_choices) 
   
-  intersect_result <- intersect_(a, b, full = TRUE)
+  intersect_res <- bed_intersect_(a, b, full = TRUE)
   
   map_result <- intersection_result %>%
     group_by(chrom, .start_a, .start_b) %>%
