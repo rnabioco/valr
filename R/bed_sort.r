@@ -80,7 +80,6 @@ bed_sort <- function(intervals, by_size = FALSE,
   res
 }
 
-#' @rdname bed-sort
 #' @export
 is_sorted <- function(bed_tbl) {
   

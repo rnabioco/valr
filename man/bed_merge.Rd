@@ -14,10 +14,11 @@ bed_tbl <- dplyr::tibble(
  ~chrom, ~start, ~end,
  "chr1", 100,    200,
  "chr1", 150,    250,
- "chr2", 200,    400
+ "chr2", 200,    400,
+ "chr2", 400,    500,
+ "chr2", 450,    550
 )
 
-bed_tbl <- bed_sort(bed_tbl) 
 bed_merge(bed_tbl)
 
 }

@@ -4,10 +4,12 @@
 \alias{bed_flank}
 \title{create flanking intervals from input intervals}
 \usage{
-bed_flank(bed_df, both = 0, left = 0, right = 0, fraction = FALSE,
+bed_flank(bed_tbl, both = 0, left = 0, right = 0, fraction = FALSE,
   strand = FALSE)
 }
 \arguments{
+\item{bed_tbl}{tbl of intervals}
+
 \item{both}{number of bases on both sizes}
 
 \item{left}{number of bases on left side}
@@ -30,7 +32,7 @@ genome <- dplyr::tibble(
  "chr1", 5000
 )
 
-bed_df <- dplyr::tibble(
+bed_tbl <- dplyr::tibble(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
  "chr1", 500,    1000, '.',   '.',    '+',
  "chr1", 1000,   1500, '.',   '.',    '-'

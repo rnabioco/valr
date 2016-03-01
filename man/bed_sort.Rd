@@ -9,11 +9,11 @@ bed_sort(intervals, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 \arguments{
 \item{intervals}{tbl of intervals}
 
+\item{by_size}{sort by interval size}
+
 \item{by_chrom}{sort within chromosome}
 
 \item{reverse}{reverse sort order}
-
-\item{size}{sort by interval size}
 }
 \description{
 Sort intervals
@@ -30,7 +30,7 @@ bed_df <- dplyr::tibble(
    "chr1", 100, 200
 )
 
-# sort by chrom and coordinates
+# sort by chrom and start
 bed_df \%>\% bed_sort()
 
 # reverse sort order

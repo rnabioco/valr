@@ -31,7 +31,6 @@ bed_merge <- function(bed_tbl) {
   res  
 }
 
-#' @rdname bed-merge
 #' @export
 is_merged <- function(bed_tbl) {
   
