@@ -8,6 +8,7 @@
 using namespace Rcpp ;
 
 #include "intervals.h"
+#include "genome.h"
 
 interval_t
 make_interval(std::string chrom, double start, double end) {
@@ -22,7 +23,7 @@ make_interval(std::string chrom, double start, double end) {
 }
 
 std::list <interval_t>
-complement_intervals(std::list<interval_t> intervals) {
+complement_intervals(std::list<interval_t> intervals, std::map<std::string, double> genome) {
 
   std::list <interval_t> compl_intervals ;
   
@@ -45,8 +46,14 @@ complement_intervals(std::list<interval_t> intervals) {
     } else if (curr_interval.chrom != last_chrom) {
       
       // switching chroms - add last interval on last chrom 
-      interval_t interval = make_interval(last_chrom, last_end, INFINITY) ;
+      double chrom_size = genome[last_chrom] ;
+      interval_t last_interval = make_interval(last_chrom, last_end, chrom_size) ;
+      compl_intervals.push_back(last_interval) ; 
+      
+      // add the first interval
+      interval_t interval = make_interval(curr_interval.chrom, 1, curr_interval.start) ;   
       compl_intervals.push_back(interval) ; 
+      
       interval_count = 0 ;
       
     } else {
@@ -63,7 +70,8 @@ complement_intervals(std::list<interval_t> intervals) {
  
   }  
   //  add final interval
-  interval_t interval = make_interval(last_chrom, last_end, INFINITY) ;
+  double chrom_size = genome[last_chrom] ;
+  interval_t interval = make_interval(last_chrom, last_end, chrom_size) ;
   compl_intervals.push_back(interval) ;  
   
   return (compl_intervals) ;
@@ -71,15 +79,16 @@ complement_intervals(std::list<interval_t> intervals) {
 
 // [[Rcpp::export]]
 Rcpp::DataFrame
-complement_impl(Rcpp::DataFrame df) {
+complement_impl(Rcpp::DataFrame interval_df, Rcpp::DataFrame genome_df) {
   
-  std::list <interval_t> intervals = create_intervals(df) ;
+  std::list <interval_t> intervals = create_intervals(interval_df) ;
+  std::map <std::string, double> genome = create_genome(genome_df) ;
   
   Rcpp::CharacterVector chroms_v ;
   Rcpp::NumericVector starts_v ;    
   Rcpp::NumericVector ends_v ;    
   
-  std::list<interval_t> compl_intervals = complement_intervals(intervals) ;
+  std::list<interval_t> compl_intervals = complement_intervals(intervals, genome) ;
 
   std::list<interval_t>::const_iterator it; 
   for (it = compl_intervals.begin(); it != compl_intervals.end(); ++it) {
