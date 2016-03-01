@@ -34,12 +34,6 @@ bed_complement <- function(bed_tbl, genome) {
 
   res <- complement_impl(res, genome) 
   
-  # remove intervals that are not within genome coordinates
-  res <- res %>%
-    left_join(genome, by = 'chrom') %>%
-    filter(start >= 0 & end <= size) %>%
-    select(-size)
-  
   res <- bed_sort(res)
  
   res 
