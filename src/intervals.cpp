@@ -17,6 +17,17 @@ interval_after(const interval_t a, const interval_t b) {
   } 
 }
 
+interval_t make_interval(std::string chrom, double start, double end) {
+    
+    interval_t interval ;
+    
+    interval.chrom = chrom ;
+    interval.start = start ;
+    interval.end = end ;
+    
+    return interval ;
+}
+
 std::list <interval_t>
 create_intervals(Rcpp::DataFrame df) {
  
