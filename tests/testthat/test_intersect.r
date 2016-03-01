@@ -1,5 +1,5 @@
-context('intersect_cpp')
-
+context('bed_intersect')
+ 
 test_that("simple overlap", {
    bed1_df <- tibble(
     ~chrom,   ~start,    ~end,
@@ -14,7 +14,7 @@ test_that("simple overlap", {
     "chr1",    175,       225
   )
   
-  res <- intersect_cpp(bed1_df, bed2_df)
+  res <- bed_intersect(bed1_df, bed2_df)
   expect_equal(nrow(res), 4)   
 })
 
@@ -33,7 +33,7 @@ test_that("multple a's", {
     "chr1",    175,       200
   )
   
-  res <- intersect_cpp(bed1_df, bed2_df)
+  res <- bed_intersect(bed1_df, bed2_df)
   expect_equal(nrow(res), 5)   
 })
 
@@ -52,7 +52,7 @@ test_that("multple b's", {
     "chr1",    175,       200
   )
   
-  res <- intersect_cpp(bed1_df, bed2_df)
+  res <- bed_intersect(bed1_df, bed2_df)
   expect_equal(nrow(res), 5)   
 })
 
@@ -65,8 +65,7 @@ test_that("no overlaps returns empty df", {
     ~chrom, ~start, ~end,
     "chr1", 300,    400
   )
-  res <- intersect_cpp(bed1_df, bed2_df)
+  res <- bed_intersect(bed1_df, bed2_df)
   expect_is(res, "data.frame")
   expect_equal(nrow(res), 0)
 }) 
-  
