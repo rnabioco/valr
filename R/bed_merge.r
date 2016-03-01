@@ -10,18 +10,34 @@
 #'  "chr2", 200,    400
 #' )
 #' 
-#' bed_tbl <- bed_sort(bed_tbl) 
 #' bed_merge(bed_tbl)
 #' 
 #' @export
 bed_merge <- function(bed_tbl) {
   
-  if (!attr(bed_tbl, "sorted")) {
-    stop("bed_merge expects sorted tbl, use bed_sort")
+  if ( ! is_sorted(bed_tbl) ) {
+    res <- bed_sort(res)
   }
   
   res <- merge_cpp(bed_tbl)
-  res <- bed_sort(res)
+  
+  # add `merged` attribute. this attribute can be tested to determine whether a 
+  # merge needs to be done
+  attr(res, 'merged') <- TRUE
 
   res  
 }
+
+#' @rdname bed-merge
+#' @export
+is_merged <- function(bed_tbl) {
+  
+  merged_attr <- attr(bed_tbl, "merged")
+  
+  if (is.null(merged_attr) || ! merged_attr) {
+    return (FALSE)
+  } else {
+    return (TRUE)
+  }
+}
+
