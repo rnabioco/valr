@@ -10,16 +10,10 @@ using namespace Rcpp ;
 #include "intervals.h"
 #include "genome.h"
 
-interval_t
-make_interval(std::string chrom, double start, double end) {
-  
-  interval_t interval ;
-  
-  interval.chrom = chrom ;
-  interval.start = start ;
-  interval.end = end ;
-  
-  return (interval) ;
+void
+save_interval(std::list<interval_t>& intervals, std::string chrom, double start, double end) {
+  interval_t interval = make_interval(chrom, start, end) ;
+  intervals.push_back(interval) ;
 }
 
 std::list <interval_t>
@@ -27,8 +21,8 @@ complement_intervals(std::list<interval_t> intervals, std::map<std::string, doub
 
   std::list <interval_t> compl_intervals ;
   
-  std::string last_chrom ; 
-  double last_end ;
+  std::string prev_chrom = ""; 
+  double prev_end = 0;
   
   int interval_count = 0;
   
@@ -39,42 +33,42 @@ complement_intervals(std::list<interval_t> intervals, std::map<std::string, doub
     
     // first interval on chrom
     if (interval_count == 0) {
- 
-      interval_t interval = make_interval(curr_interval.chrom, 1, curr_interval.start) ;   
-      compl_intervals.push_back(interval) ; 
-     
-    } else if (curr_interval.chrom != last_chrom) {
+
+      if (curr_interval.start > 1) { 
+        save_interval(compl_intervals, curr_interval.chrom, 1, curr_interval.start) ;
+      }
       
-      // switching chroms - add last interval on last chrom 
-      double chrom_size = genome[last_chrom] ;
-      interval_t last_interval = make_interval(last_chrom, last_end, chrom_size) ;
-      compl_intervals.push_back(last_interval) ; 
+    } else if (prev_chrom != "" && curr_interval.chrom != prev_chrom) {
+      
+      // switching chroms - add last interval on previous chrom 
+      double chrom_size = genome[prev_chrom] ;
+      save_interval(compl_intervals, prev_chrom, prev_end + 1, chrom_size) ;
       
       // add the first interval
-      interval_t interval = make_interval(curr_interval.chrom, 1, curr_interval.start) ;   
-      compl_intervals.push_back(interval) ; 
+      if (curr_interval.start > 1) { 
+        save_interval(compl_intervals, curr_interval.chrom, 1, curr_interval.start) ;
+      } 
       
       interval_count = 0 ;
       
     } else {
-      
       // internal interval on same chrom 
-      interval_t interval = make_interval(curr_interval.chrom, last_end + 1, curr_interval.start) ;
-      compl_intervals.push_back(interval) ; 
-      
+      save_interval(compl_intervals, curr_interval.chrom, prev_end + 1, curr_interval.start) ;
     }
     
-    last_end = curr_interval.end ;
-    last_chrom = curr_interval.chrom ;
+    prev_end = curr_interval.end ;
+    prev_chrom = curr_interval.chrom ;
     ++interval_count ;
  
   }  
-  //  add final interval
-  double chrom_size = genome[last_chrom] ;
-  interval_t interval = make_interval(last_chrom, last_end, chrom_size) ;
-  compl_intervals.push_back(interval) ;  
   
-  return (compl_intervals) ;
+  //  add final interval
+  double chrom_size = genome[prev_chrom] ;
+  if (prev_end < chrom_size) {
+    save_interval(compl_intervals, prev_chrom, prev_end + 1, chrom_size) ;
+  } 
+  
+  return compl_intervals ;
 }
 
 // [[Rcpp::export]]
