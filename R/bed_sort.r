@@ -1,7 +1,7 @@
 #' Sort intervals
 #'
 #' @param intervals tbl of intervals
-#' @param size sort by interval size
+#' @param by_size sort by interval size
 #' @param by_chrom sort within chromosome
 #' @param reverse reverse sort order
 #' 
@@ -19,7 +19,7 @@
 #'    "chr1", 100, 200
 #' )
 #' 
-#' # sort by chrom and coordinates
+#' # sort by chrom and start
 #' bed_df %>% bed_sort()
 #' 
 #' # reverse sort order
