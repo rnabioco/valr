@@ -10,13 +10,23 @@ using namespace Rcpp ;
 #include <stack>
 #include "intervals.h"
 
+
+void
+store_intervals(std::stack<interval_t>& chrom_intervals, std::list<interval_t>& merged_intervals) {
+  
+  while ( ! chrom_intervals.empty() ) {
+    merged_intervals.push_back( chrom_intervals.top() ) ; 
+    chrom_intervals.pop() ;
+  }
+}
+
+
 std::list <interval_t>
 merge_intervals(std::list <interval_t> intervals) {
 
-  std::string curr_chrom = "";
+  interval_t prev_interval = make_interval("", 0, 0) ;
+  int interval_count = 0 ;
   
-  int interval_count = 0;
-    
   std::list <interval_t> merged_intervals ;
   std::stack <interval_t> chrom_intervals ;
   
@@ -25,28 +35,32 @@ merge_intervals(std::list <interval_t> intervals) {
  
     interval_t curr_interval = *it ;
     
+    // first interval on chrom
+    if ( interval_count == 0 ) {
+      
+      if (it == intervals.begin() ) {
+        // first interval on first chrom
+        chrom_intervals.push(curr_interval) ;
+        ++interval_count ;
+        continue ;
+        
+      } else {
+        // prev_interval is first interval on curr chrom
+        chrom_intervals.push(prev_interval) ;
+      }
+      
+    }
+   
     // switched chromosomes
-    if (curr_chrom != "" && curr_interval.chrom != curr_chrom) {
+    if (curr_interval.chrom != prev_interval.chrom) {
       
       // store current set of intervals
-      while ( ! chrom_intervals.empty() ) {
-        merged_intervals.push_back( chrom_intervals.top() ) ; 
-        chrom_intervals.pop() ;
-      }
-     
-      // reset the chrom 
-      curr_chrom = curr_interval.chrom ;
+      store_intervals(chrom_intervals, merged_intervals) ;
       interval_count = 0 ;
+      prev_interval = *it ;
+      continue ;
       
     } 
-   
-    // first interval on chrom
-    if (interval_count == 0) {
-      curr_chrom = curr_interval.chrom ;
-      chrom_intervals.push(curr_interval) ;
-      ++interval_count ;
-      continue ;
-    }
 
     if (interval_overlap(curr_interval, chrom_intervals.top())) {
       // update the stack interval with new end
@@ -56,16 +70,16 @@ merge_intervals(std::list <interval_t> intervals) {
     }
     
     ++interval_count ;
+    prev_interval = *it ;
+    
   }
  
   // store last set of intervals 
-  while ( ! chrom_intervals.empty() ) {
-    merged_intervals.push_back( chrom_intervals.top() ) ; 
-    chrom_intervals.pop() ;
-  }
+  store_intervals(chrom_intervals, merged_intervals) ;
 
   return merged_intervals ;
 }
+
 
 // [[Rcpp::export]]
 Rcpp::DataFrame

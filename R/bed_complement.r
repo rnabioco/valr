@@ -6,7 +6,6 @@
 #' @return \code{data.frame}
 #' 
 #' @examples 
-#'
 #' genome <- dplyr::tibble(
 #'    ~chrom,  ~size,
 #'    "chr1", 500,
@@ -18,22 +17,13 @@
 #'    ~chrom, ~start, ~end,
 #'    "chr1", 100,    300,
 #'    "chr1", 200,    400,
+#'    "chr2", 1,      100,
 #'    "chr2", 200,    400,
 #'    "chr3", 500,    600
 #' )
 #' 
-#' bed2_tbl <- dplyr::tibble(
-#'    ~chrom, ~start, ~end,
-#'    "chr1", 1,    300,
-#'    "chr1", 1,    400,
-#'    "chr2", 1,    400,
-#'    "chr3", 1,    600
-#' )
-#'  
 #' # intervals not covered by bed_tbl
 #' bed_complement(bed_tbl, genome)
-#' # intervals not covered by bed2_tbl
-#' bed_complement(bed2_tbl, genome)
 #' 
 #' @export
 bed_complement <- function(bed_tbl, genome) {

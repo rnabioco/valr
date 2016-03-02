@@ -19,12 +19,8 @@ save_interval(std::list<interval_t>& intervals, std::string chrom, double start,
 std::list <interval_t>
 complement_intervals(std::list<interval_t> intervals, std::map<std::string, double> genome) {
 
+  interval_t prev_interval = make_interval("", 0, 0) ;
   std::list <interval_t> compl_intervals ;
-  
-  std::string prev_chrom = ""; 
-  double prev_end = 0;
-  
-  int interval_count = 0;
   
   std::list<interval_t>::iterator it ; 
   for (it = intervals.begin(); it != intervals.end(); ++it) {
@@ -32,42 +28,40 @@ complement_intervals(std::list<interval_t> intervals, std::map<std::string, doub
     interval_t curr_interval = *it ;
     
     // first interval on chrom
-    if (interval_count == 0) {
+    if ( it == intervals.begin() ) {
 
       if (curr_interval.start > 1) { 
         save_interval(compl_intervals, curr_interval.chrom, 1, curr_interval.start) ;
       }
       
-    } else if (prev_chrom != "" && curr_interval.chrom != prev_chrom) {
+    } else if (prev_interval.chrom != "" && curr_interval.chrom != prev_interval.chrom) {
       
       // switching chroms - add last interval on previous chrom 
-      double chrom_size = genome[prev_chrom] ;
-      save_interval(compl_intervals, prev_chrom, prev_end + 1, chrom_size) ;
+      double chrom_size = genome[prev_interval.chrom] ;
+      save_interval(compl_intervals, prev_interval.chrom, prev_interval.end + 1, chrom_size) ;
       
       // add the first interval
       if (curr_interval.start > 1) { 
         save_interval(compl_intervals, curr_interval.chrom, 1, curr_interval.start) ;
       } 
       
-      interval_count = 0 ;
+    } else if (curr_interval.chrom == prev_interval.chrom ) {
       
-    } else {
       // internal interval on same chrom 
-      save_interval(compl_intervals, curr_interval.chrom, prev_end + 1, curr_interval.start) ;
+      save_interval(compl_intervals, curr_interval.chrom, prev_interval.end + 1, curr_interval.start) ;
+      
+    } else if (it == intervals.end() ) {
+      
+       //  add final interval
+      double chrom_size = genome[curr_interval.chrom] ;
+      if (curr_interval.end < chrom_size) {
+        save_interval(compl_intervals, curr_interval.chrom, curr_interval.end, chrom_size) ;
+      } 
     }
     
-    prev_end = curr_interval.end ;
-    prev_chrom = curr_interval.chrom ;
-    ++interval_count ;
- 
+    prev_interval = *it ;
   }  
-  
-  //  add final interval
-  double chrom_size = genome[prev_chrom] ;
-  if (prev_end < chrom_size) {
-    save_interval(compl_intervals, prev_chrom, prev_end + 1, chrom_size) ;
-  } 
-  
+ 
   return compl_intervals ;
 }
 
