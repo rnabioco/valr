@@ -22,6 +22,10 @@
 #'    "chr3", 500,    600
 #' )
 #' 
+#' bed1 <- dplyr::tibble(
+#'    ~chrom, ~start, ~end,
+#'    "chr1", 100,    300
+#' )
 #' # intervals not covered by bed_tbl
 #' bed_complement(bed_tbl, genome)
 #' 

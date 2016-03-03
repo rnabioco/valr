@@ -37,7 +37,7 @@ complement_intervals(std::list<interval_t> intervals, std::map<std::string, int>
       
       // switching chroms - add last interval on previous chrom 
       int chrom_size = genome[prev_interval.chrom] ;
-      save_interval(compl_intervals, prev_interval.chrom, prev_interval.end + 1, chrom_size) ;
+      save_interval(compl_intervals, prev_interval.chrom, prev_interval.end, chrom_size) ;
       
       // add the first interval
       if (curr_interval.start > 1) { 
@@ -47,20 +47,19 @@ complement_intervals(std::list<interval_t> intervals, std::map<std::string, int>
     } else if (curr_interval.chrom == prev_interval.chrom ) {
       
       // internal interval on same chrom 
-      save_interval(compl_intervals, curr_interval.chrom, prev_interval.end + 1, curr_interval.start) ;
+      save_interval(compl_intervals, curr_interval.chrom, prev_interval.end, curr_interval.start) ;
       
-    } else if (it == intervals.end() ) {
-      
-       //  add final interval
-      int chrom_size = genome[curr_interval.chrom] ;
-      if (curr_interval.end < chrom_size) {
-        save_interval(compl_intervals, curr_interval.chrom, curr_interval.end, chrom_size) ;
-      } 
     }
     
     prev_interval = *it ;
   }  
- 
+  
+  //  add final interval
+  int chrom_size = genome[prev_interval.chrom] ;
+  if (prev_interval.end < chrom_size) {
+    save_interval(compl_intervals, prev_interval.chrom, prev_interval.end, chrom_size) ;
+  } 
+  
   return compl_intervals ;
 }
 
