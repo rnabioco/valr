@@ -78,6 +78,8 @@ bed_sort <- function(intervals, by_size = FALSE,
   res
 }
 
+#' determine whether tbl has been previously sorted
+#' 
 #' @export
 is_sorted <- function(bed_tbl) {
   

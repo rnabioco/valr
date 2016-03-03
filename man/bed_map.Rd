@@ -4,17 +4,17 @@
 \alias{bed_map}
 \title{Map signals over intervals}
 \usage{
-bed_map(interval_tbl, signal_tbl, signal_col, operation = op_choices)
+bed_map(bed_tbl, signal_tbl, signal_col, operation = op_choices)
 }
 \arguments{
-\item{interval_tbl}{tbl of intervals}
+\item{bed_tbl}{tbl of intervals}
+
+\item{signal_tbl}{tbl of signals}
 
 \item{signal_col}{bare column name in \code{signal_tbl} for \code{operation}}
 
 \item{operation}{operation to perform on intersected intervals. One of mean, median,
 sum, min, max, absmin, absmax}
-
-\item{singal_tbl}{tbl of signals}
 }
 \value{
 \code{data.frame}

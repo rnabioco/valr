@@ -1,10 +1,10 @@
-#' Divide intervals into new intervals with labels
+#' nDivide intervals into new intervals with labels
 #' 
 #' @param bed_df BED data in \code{dplyr::tbl_df} format
 #' @param genome genome file with chromosome sizes
 #' @param win_size divide intervals into fixed-size windows
 #' @param step_size size to step before next window
-#' @param num_wins divide intervals to fixed number of windows
+#' @param num_windows divide intervals to fixed number of windows
 #' @param reverse reverse window numbers?
 #' 
 #' @param win_names one of 'name', 'num', 'namenum'

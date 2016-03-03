@@ -62,9 +62,6 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 
 #' @rdname read_bed
 #' 
-#' @param filename file name or URL
-#' @param ... params to pass to \code{read_bed}
-#' 
 #' @details https://genome.ucsc.edu/FAQ/FAQformat.html#format1
 #' 
 #' @examples
@@ -78,9 +75,6 @@ read_bed12 <- function(filename, ...) {
 }
 
 #' @rdname read_bed
-#' 
-#' @param filename file name or URL
-#' @param ... params to pass to \code{read_bed}
 #' 
 #' @details https://genome.ucsc.edu/goldenPath/help/bedgraph.html
 #' 

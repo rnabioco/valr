@@ -41,6 +41,8 @@ bed_merge <- function(bed_tbl, max_dist = 0) {
   res  
 }
 
+#' determine whether tbl has been previously merged
+#' 
 #' @export
 is_merged <- function(bed_tbl) {
   
