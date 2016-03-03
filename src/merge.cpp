@@ -24,8 +24,8 @@ store_intervals(std::stack<interval_t>& chrom_intervals, std::list<interval_t>& 
 std::list <interval_t>
 merge_intervals(std::list <interval_t> intervals) {
 
+  // make an empty prev_interval to start with
   interval_t prev_interval = make_interval("", 0, 0) ;
-  int interval_count = 0 ;
   
   std::list <interval_t> merged_intervals ;
   std::stack <interval_t> chrom_intervals ;
@@ -34,42 +34,26 @@ merge_intervals(std::list <interval_t> intervals) {
   for (it = intervals.begin(); it != intervals.end(); ++it) {
  
     interval_t curr_interval = *it ;
-    
-    // first interval on chrom
-    if ( interval_count == 0 ) {
-      
-      if (it == intervals.begin() ) {
-        // first interval on first chrom
-        chrom_intervals.push(curr_interval) ;
-        ++interval_count ;
-        continue ;
-        
-      } else {
-        // prev_interval is first interval on curr chrom
-        chrom_intervals.push(prev_interval) ;
-      }
-      
-    }
-   
-    // switched chromosomes
-    if (curr_interval.chrom != prev_interval.chrom) {
+  
+    // switch chroms, can "switch" onto first chrom from null first prev_interval
+    if ( curr_interval.chrom != prev_interval.chrom ) {
       
       // store current set of intervals
       store_intervals(chrom_intervals, merged_intervals) ;
-      interval_count = 0 ;
-      prev_interval = *it ;
-      continue ;
       
+      // store curr, which is the first on the new chrom
+      chrom_intervals.push(curr_interval) ;
     } 
 
-    if (interval_overlap(curr_interval, chrom_intervals.top())) {
+    else if (interval_overlap(curr_interval, chrom_intervals.top()) > 0) {
       // update the stack interval with new end
       chrom_intervals.top().end = curr_interval.end ;
-    } else {
+    }
+    
+    else {
       chrom_intervals.push(curr_interval) ;
     }
     
-    ++interval_count ;
     prev_interval = *it ;
     
   }
