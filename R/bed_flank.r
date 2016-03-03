@@ -21,12 +21,11 @@
 #'  "chr1", 1000,   1500, '.',   '.',    '-'
 #' )
 #' 
-#' bed_df %>% bed_flank(left = 100)
-#' bed_df %>% bed_flank(right = 100)
-#' bed_df %>% bed_flank(both = 100)
+#' bed_flank(bed_tbl, left = 100)
+#' bed_flank(bed_tbl, right = 100)
+#' bed_flank(bed_tbl, both = 100)
 #'
-#' bed_df %>% bed_flank(both = 0.5, fraction=TRUE)
-#' 
+#' bed_flank(bed_tbl, both = 0.5, fraction=TRUE)
 #' 
 #' @export
 bed_flank <- function(bed_tbl, both = 0, left = 0,

@@ -3,7 +3,7 @@
 \name{bed_makewindows}
 \alias{bed_makewindows}
 \alias{bed_makewindows_}
-\title{Divide intervals into new intervals with labels}
+\title{nDivide intervals into new intervals with labels}
 \usage{
 bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
   num_windows = 0, reverse = FALSE)
@@ -19,9 +19,9 @@ bed_makewindows_(interval, genome, win_size, step_size, num_windows, reverse)
 
 \item{step_size}{size to step before next window}
 
-\item{reverse}{reverse window numbers?}
+\item{num_windows}{divide intervals to fixed number of windows}
 
-\item{num_wins}{divide intervals to fixed number of windows}
+\item{reverse}{reverse window numbers?}
 
 \item{win_names}{one of 'name', 'num', 'namenum'}
 }
@@ -29,7 +29,7 @@ bed_makewindows_(interval, genome, win_size, step_size, num_windows, reverse)
 \code{data.frame} with \code{win_num} column
 }
 \description{
-Divide intervals into new intervals with labels
+nDivide intervals into new intervals with labels
 }
 \examples{
 genome <- dplyr::tibble(

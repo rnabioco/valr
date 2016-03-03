@@ -1,7 +1,7 @@
 #' Map signals over intervals
 #' 
-#' @param interval_tbl tbl of intervals 
-#' @param singal_tbl tbl of signals 
+#' @param bed_tbl tbl of intervals 
+#' @param signal_tbl tbl of signals 
 #' @param signal_col bare column name in \code{signal_tbl} for \code{operation}
 #' @param operation operation to perform on intersected intervals. One of mean, median,
 #'        sum, min, max, absmin, absmax 
@@ -14,7 +14,7 @@
 #' intervals <- read_bed('inst/extdata/3fields.bed.gz')
 #'  
 #' @export
-bed_map <- function(interval_tbl, signal_tbl, signal_col,
+bed_map <- function(bed_tbl, signal_tbl, signal_col,
                     operation = op_choices) {
  
   operation <- match.arg(operation, op_choices) 

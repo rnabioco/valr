@@ -25,14 +25,6 @@ read_bedgraph(filename, ...)
 \item{factor_cols}{factor the \code{chrom} and \code{strand} columns}
 
 \item{...}{options to pass to \code{readr::read_tsv}}
-
-\item{filename}{file name or URL}
-
-\item{...}{params to pass to \code{read_bed}}
-
-\item{filename}{file name or URL}
-
-\item{...}{params to pass to \code{read_bed}}
 }
 \value{
 \code{data.frame}

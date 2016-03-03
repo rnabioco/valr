@@ -4,12 +4,12 @@
 \alias{bed_intersect}
 \title{instersect BED intervals}
 \usage{
-bed_intersect(df_a, df_b, by_chrom = TRUE)
+bed_intersect(bed_tbl_a, bed_tbl_b)
 }
 \arguments{
-\item{df_a}{BED intervals}
+\item{bed_tbl_a}{BED intervals}
 
-\item{df_b}{BED intervals}
+\item{bed_tbl_b}{BED intervals}
 }
 \description{
 instersect BED intervals
