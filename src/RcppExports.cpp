@@ -30,13 +30,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // merge_impl
-Rcpp::DataFrame merge_impl(DataFrame df);
-RcppExport SEXP Rbedtools_merge_impl(SEXP dfSEXP) {
+Rcpp::DataFrame merge_impl(DataFrame df, int max_dist);
+RcppExport SEXP Rbedtools_merge_impl(SEXP dfSEXP, SEXP max_distSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
-    __result = Rcpp::wrap(merge_impl(df));
+    Rcpp::traits::input_parameter< int >::type max_dist(max_distSEXP);
+    __result = Rcpp::wrap(merge_impl(df, max_dist));
     return __result;
 END_RCPP
 }

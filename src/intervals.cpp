@@ -2,9 +2,18 @@
 #include "Rbedtools.h"
 
 // calculate overlap between two intervals
+// If >0, the number of bp of overlap
+// If 0,  they are book-ended.
+// If <0, the distance in bp between them
+// 
 int
 interval_overlap(const interval_t a, const interval_t b) {
-  return std::min(a.end, b.end) - std::max(a.start, b.start);  
+  if ( a.chrom != b.chrom ) {
+    return std::nan("") ;
+  }
+  else {
+    return std::min(a.end, b.end) - std::max(a.start, b.start) ;  
+  }
 }
 
 // is interval a after interval b?

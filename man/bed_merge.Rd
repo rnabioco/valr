@@ -4,7 +4,10 @@
 \alias{bed_merge}
 \title{Merge overlapping intervals}
 \usage{
-bed_merge(bed_tbl)
+bed_merge(bed_tbl, max_dist = 0)
+}
+\arguments{
+\item{max_dist}{maximum distance between intervals to merge}
 }
 \description{
 Merge overlapping intervals
@@ -25,6 +28,8 @@ bed_tbl <- dplyr::tibble(
 )
 
 bed_merge(bed_tbl)
+
+bed_merge(bed_tbl, max_dist)
 
 }
 \seealso{

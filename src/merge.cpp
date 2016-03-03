@@ -5,11 +5,10 @@
 //
 
 #include <Rcpp.h>
-using namespace Rcpp ;
-
 #include <stack>
 #include "Rbedtools.h"
 
+using namespace Rcpp ;
 
 void
 store_intervals(std::stack<interval_t>& chrom_intervals, std::list<interval_t>& merged_intervals) {
@@ -22,7 +21,7 @@ store_intervals(std::stack<interval_t>& chrom_intervals, std::list<interval_t>& 
 
 
 std::list <interval_t>
-merge_intervals(std::list <interval_t> intervals) {
+merge_intervals(std::list <interval_t> intervals, int max_dist) {
 
   // make an empty prev_interval to start with
   interval_t prev_interval = make_interval("", 0, 0) ;
@@ -30,10 +29,16 @@ merge_intervals(std::list <interval_t> intervals) {
   std::list <interval_t> merged_intervals ;
   std::stack <interval_t> chrom_intervals ;
   
+  int overlap = 0 ;
+  
   std::list<interval_t>::iterator it ; 
   for (it = intervals.begin(); it != intervals.end(); ++it) {
  
     interval_t curr_interval = *it ;
+    
+    if ( ! chrom_intervals.empty() ) {
+      overlap = interval_overlap(curr_interval, chrom_intervals.top() ) ;
+    }
   
     // switch chroms, can "switch" onto first chrom from null first prev_interval
     if ( curr_interval.chrom != prev_interval.chrom ) {
@@ -45,7 +50,7 @@ merge_intervals(std::list <interval_t> intervals) {
       chrom_intervals.push(curr_interval) ;
     } 
 
-    else if (interval_overlap(curr_interval, chrom_intervals.top()) > 0) {
+    else if ( ! isnan(overlap) && (overlap > 0 || std::abs(overlap) < max_dist )) {
       // update the stack interval with new end
       chrom_intervals.top().end = curr_interval.end ;
     }
@@ -67,7 +72,7 @@ merge_intervals(std::list <interval_t> intervals) {
 
 // [[Rcpp::export]]
 Rcpp::DataFrame
-merge_impl(DataFrame df) {
+merge_impl(DataFrame df, int max_dist) {
 
   // should be replaced with efficient iterator  
   std::list <interval_t> intervals = create_intervals(df) ;
@@ -76,7 +81,7 @@ merge_impl(DataFrame df) {
   Rcpp::NumericVector starts_v ;    
   Rcpp::NumericVector ends_v ;    
 
-  std::list<interval_t> merged_intervals = merge_intervals(intervals) ;
+  std::list<interval_t> merged_intervals = merge_intervals(intervals, max_dist) ;
  
   std::list<interval_t>::const_iterator it; 
   for (it = merged_intervals.begin(); it != merged_intervals.end(); ++it) {

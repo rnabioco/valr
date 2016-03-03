@@ -9,7 +9,7 @@ intersect_impl <- function(df_a, df_b) {
     .Call('Rbedtools_intersect_impl', PACKAGE = 'Rbedtools', df_a, df_b)
 }
 
-merge_impl <- function(df) {
-    .Call('Rbedtools_merge_impl', PACKAGE = 'Rbedtools', df)
+merge_impl <- function(df, max_dist) {
+    .Call('Rbedtools_merge_impl', PACKAGE = 'Rbedtools', df, max_dist)
 }
 

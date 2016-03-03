@@ -1,5 +1,7 @@
 #' Merge overlapping intervals
 #' 
+#' @param max_dist maximum distance between intervals to merge
+#' 
 #' @note TODO: implement strand (group_by?), max_dist
 #' 
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
@@ -18,15 +20,19 @@
 #' 
 #' bed_merge(bed_tbl)
 #' 
+#' bed_merge(bed_tbl, max_dist)
+#' 
 #' @export
-bed_merge <- function(bed_tbl) {
+bed_merge <- function(bed_tbl, max_dist = 0) {
+ 
+  assert_that(max_dist >= 0)
   
   if ( ! is_sorted(bed_tbl) ) {
     res <- bed_sort(bed_tbl)
   }
   
   # res must be sorted *again*
-  res <- merge_impl(res) %>% bed_sort
+  res <- merge_impl(res, max_dist) %>% bed_sort
   
   # add `merged` attribute. this attribute can be tested to determine whether a 
   # merge needs to be done
