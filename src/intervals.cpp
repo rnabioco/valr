@@ -17,7 +17,7 @@ interval_after(const interval_t a, const interval_t b) {
   } 
 }
 
-interval_t make_interval(std::string chrom, double start, double end) {
+interval_t make_interval(std::string chrom, int start, int end) {
     
     interval_t interval ;
     

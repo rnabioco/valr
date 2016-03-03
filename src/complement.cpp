@@ -11,13 +11,13 @@ using namespace Rcpp ;
 #include "genome.h"
 
 void
-save_interval(std::list<interval_t>& intervals, std::string chrom, double start, double end) {
+save_interval(std::list<interval_t>& intervals, std::string chrom, int start, int end) {
   interval_t interval = make_interval(chrom, start, end) ;
   intervals.push_back(interval) ;
 }
 
 std::list <interval_t>
-complement_intervals(std::list<interval_t> intervals, std::map<std::string, double> genome) {
+complement_intervals(std::list<interval_t> intervals, std::map<std::string, int> genome) {
 
   interval_t prev_interval = make_interval("", 0, 0) ;
   std::list <interval_t> compl_intervals ;
@@ -37,7 +37,7 @@ complement_intervals(std::list<interval_t> intervals, std::map<std::string, doub
     } else if (prev_interval.chrom != "" && curr_interval.chrom != prev_interval.chrom) {
       
       // switching chroms - add last interval on previous chrom 
-      double chrom_size = genome[prev_interval.chrom] ;
+      int chrom_size = genome[prev_interval.chrom] ;
       save_interval(compl_intervals, prev_interval.chrom, prev_interval.end + 1, chrom_size) ;
       
       // add the first interval
@@ -53,7 +53,7 @@ complement_intervals(std::list<interval_t> intervals, std::map<std::string, doub
     } else if (it == intervals.end() ) {
       
        //  add final interval
-      double chrom_size = genome[curr_interval.chrom] ;
+      int chrom_size = genome[curr_interval.chrom] ;
       if (curr_interval.end < chrom_size) {
         save_interval(compl_intervals, curr_interval.chrom, curr_interval.end, chrom_size) ;
       } 
@@ -70,7 +70,7 @@ Rcpp::DataFrame
 complement_impl(Rcpp::DataFrame interval_df, Rcpp::DataFrame genome_df) {
   
   std::list <interval_t> intervals = create_intervals(interval_df) ;
-  std::map <std::string, double> genome = create_genome(genome_df) ;
+  std::map <std::string, int> genome = create_genome(genome_df) ;
   
   Rcpp::CharacterVector chroms_v ;
   Rcpp::NumericVector starts_v ;    

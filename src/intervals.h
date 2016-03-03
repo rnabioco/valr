@@ -11,7 +11,7 @@ struct intersection_t {
 };
 
 // create a new interval
-interval_t make_interval(std::string chrom, double start, double end) ;
+interval_t make_interval(std::string chrom, int start, int end) ;
     
 // calculate overlap between two intervals
 int interval_overlap(const interval_t a, const interval_t b) ;
