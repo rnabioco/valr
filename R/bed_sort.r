@@ -8,9 +8,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
 #'
 #' @examples
-#' library(dplyr)
-#'  
-#' bed_df <- dplyr::tibble(
+#' bed_tbl <- dplyr::tibble(
 #'    ~chrom, ~start, ~end,
 #'    "chr8", 500, 1000,
 #'    "chr8", 1000, 5000,
@@ -20,19 +18,19 @@
 #' )
 #' 
 #' # sort by chrom and start
-#' bed_df %>% bed_sort()
+#' bed_sort(bed_tbl)
 #' 
 #' # reverse sort order
-#' bed_df %>% bed_sort(reverse = TRUE)
+#' bed_sort(bed_tbl, reverse = TRUE)
 #' 
 #' # sort by interval size
-#' bed_df %>% bed_sort(by_size = TRUE)
+#' bed_sort(bed_tbl, by_size = TRUE)
 #' 
 #' # sort by decreasing interval size
-#' bed_df %>% bed_sort(by_size = TRUE, reverse = TRUE)
+#' bed_sort(bed_tbl, by_size = TRUE, reverse = TRUE)
 #' 
 #' # sort by interval size within chrom
-#' bed_df %>% bed_sort(by_size = TRUE, by_chrom = TRUE)
+#' bed_sort(bed_tbl, by_size = TRUE, by_chrom = TRUE)
 #' 
 #' @export
 bed_sort <- function(intervals, by_size = FALSE,
