@@ -15,7 +15,7 @@
 using namespace Rcpp ;
 
 #include <queue>
-#include "intervals.h"
+#include "Rbedtools.h"
 
 
 void

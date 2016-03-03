@@ -1,5 +1,5 @@
 #include <Rcpp.h>
-#include "intervals.h"
+#include "Rbedtools.h"
 
 // calculate overlap between two intervals
 int

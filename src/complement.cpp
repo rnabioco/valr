@@ -7,8 +7,7 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 
-#include "intervals.h"
-#include "genome.h"
+#include "Rbedtools.h"
 
 void
 save_interval(std::list<interval_t>& intervals, std::string chrom, int start, int end) {

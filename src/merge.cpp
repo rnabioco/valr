@@ -8,7 +8,7 @@
 using namespace Rcpp ;
 
 #include <stack>
-#include "intervals.h"
+#include "Rbedtools.h"
 
 
 void
