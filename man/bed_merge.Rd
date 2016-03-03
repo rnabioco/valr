@@ -9,11 +9,16 @@ bed_merge(bed_tbl)
 \description{
 Merge overlapping intervals
 }
+\note{
+TODO: implement strand (group_by?), max_dist
+}
 \examples{
 bed_tbl <- dplyr::tibble(
  ~chrom, ~start, ~end,
+ "chr1", 1,      50,
  "chr1", 100,    200,
  "chr1", 150,    250,
+ "chr2", 1,      25,
  "chr2", 200,    400,
  "chr2", 400,    500,
  "chr2", 450,    550

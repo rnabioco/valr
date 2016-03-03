@@ -1,5 +1,7 @@
 #' Merge overlapping intervals
 #' 
+#' @note TODO: implement strand (group_by?), max_dist
+#' 
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #' 
 #' @examples 

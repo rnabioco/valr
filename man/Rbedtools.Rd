@@ -8,11 +8,11 @@
 \description{
 Rbedtools provides tools to read and manipulate intervals and signals on a 
 genome reference. While other analysis suites like BEDtools and BEDOPS enable
-fast command line analysis, Rbedtools aims to enable similar analyses 
-\emph{within R}.
+fast command line analysis, Rbedtools enables similar analyses \emph{within
+R}.
 }
 \details{
-Rbedtools focuses on manipulating intervals in BED format and signal in
+Rbedtools focuses on manipulating intervals in BED format and signal in 
 bedGraph format. Eventually this package will power interactive 
 visualizations of genome-scale data with \code{shiny}.
 
@@ -26,5 +26,7 @@ Jay Hesselberth <jay.hesselberth@gmail.com>
 \url{http://bedtools.readthedocs.org/en/latest/index.html}
 
 \url{http://bedops.readthedocs.org/en/latest/index.html}
+
+\url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
 }
 
