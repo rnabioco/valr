@@ -26,18 +26,13 @@ complement_intervals(std::list<interval_t> intervals, std::map<std::string, int>
     
     interval_t curr_interval = *it ;
     
-    // first interval on chrom
-    if ( it == intervals.begin() ) {
-
-      if (curr_interval.start > 1) { 
-        save_interval(compl_intervals, curr_interval.chrom, 1, curr_interval.start) ;
+    if (curr_interval.chrom != prev_interval.chrom) {
+     
+      if (prev_interval.chrom != "") { 
+        // switching chroms - add last interval on previous chrom 
+        int chrom_size = genome[prev_interval.chrom] ;
+        save_interval(compl_intervals, prev_interval.chrom, prev_interval.end, chrom_size) ;
       }
-      
-    } else if (prev_interval.chrom != "" && curr_interval.chrom != prev_interval.chrom) {
-      
-      // switching chroms - add last interval on previous chrom 
-      int chrom_size = genome[prev_interval.chrom] ;
-      save_interval(compl_intervals, prev_interval.chrom, prev_interval.end, chrom_size) ;
       
       // add the first interval
       if (curr_interval.start > 1) { 
