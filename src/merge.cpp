@@ -23,8 +23,8 @@ store_intervals(std::stack<interval_t>& chrom_intervals, std::list<interval_t>& 
 std::list <interval_t>
 merge_intervals(std::list <interval_t> intervals, int max_dist) {
 
-  // make an empty prev_interval to start with
-  interval_t prev_interval = make_interval("", 0, 0) ;
+  // make an empty previous to start with
+  interval_t previous = make_interval("", 0, 0) ;
   
   std::list <interval_t> merged_intervals ;
   std::stack <interval_t> chrom_intervals ;
@@ -34,32 +34,32 @@ merge_intervals(std::list <interval_t> intervals, int max_dist) {
   std::list<interval_t>::iterator it ; 
   for (it = intervals.begin(); it != intervals.end(); ++it) {
  
-    interval_t curr_interval = *it ;
+    interval_t current = *it ;
     
     if ( ! chrom_intervals.empty() ) {
-      overlap = interval_overlap(curr_interval, chrom_intervals.top() ) ;
+      overlap = interval_overlap(current, chrom_intervals.top() ) ;
     }
   
-    // switch chroms, can "switch" onto first chrom from null first prev_interval
-    if ( curr_interval.chrom != prev_interval.chrom ) {
+    // switch chroms, can "switch" onto first chrom from null first previous
+    if ( current.chrom != previous.chrom ) {
       
       // store current set of intervals
       store_intervals(chrom_intervals, merged_intervals) ;
       
       // store curr, which is the first on the new chrom
-      chrom_intervals.push(curr_interval) ;
+      chrom_intervals.push(current) ;
     } 
 
     else if ( ! isnan(overlap) && (overlap > 0 || std::abs(overlap) < max_dist )) {
       // update the stack interval with new end
-      chrom_intervals.top().end = curr_interval.end ;
+      chrom_intervals.top().end = current.end ;
     }
     
     else {
-      chrom_intervals.push(curr_interval) ;
+      chrom_intervals.push(current) ;
     }
     
-    prev_interval = *it ;
+    previous = *it ;
     
   }
  

@@ -41,7 +41,7 @@ store_intersections(interval_t query_interval,
 }
 
 std::list <interval_t>
-scan_interval_cache(interval_t curr_interval,
+scan_interval_cache(interval_t current,
                     std::list <interval_t> interval_cache,
                     std::queue <interval_t>& intersection_cache) {
   
@@ -52,11 +52,11 @@ scan_interval_cache(interval_t curr_interval,
     
     interval_t cached_interval = *it ;
     
-    if ( !interval_after(curr_interval, cached_interval) ) {
+    if ( !interval_after(current, cached_interval) ) {
       
       temp_cache.push_back(cached_interval) ;
       
-      if ( interval_overlap(curr_interval, cached_interval) > 0 ) {
+      if ( interval_overlap(current, cached_interval) > 0 ) {
         intersection_cache.push(cached_interval) ;
       }
       
