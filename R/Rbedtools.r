@@ -24,7 +24,7 @@
 #' @useDynLib Rbedtools
 #' @import dplyr
 #' @import readr
-#' @importFrom stringr str_replace str_split
+#' @importFrom stringr str_replace str_split str_c
 #' @importFrom tidyr unnest
 #' @importFrom assertthat assert_that is.flag
 #' @importFrom purrr by_row
