@@ -13,27 +13,28 @@
 #' @param factor_cols factor the \code{chrom} and \code{strand} columns
 #' @param ... options to pass to \code{readr::read_tsv}
 #'   
-#' @return \code{data.frame}
-
+#' @return \code{dplyr::tbl_df}
+#'
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #'   
 #' @examples
+#' # read_bed assumes 3 field BED format. 
+#' bed3_path <- system.file('extdata', '3fields.bed.gz', package = 'Rbedtools')
+#' bed3_tbl <- read_bed(bed3_path)
 #' 
-#' # \code{read_bed} assumes 3 field BED format. 
-#' bed3_tbl <- read_bed('3fields.bed.gz')
+#' bed6_path <- system.file('extdata', '6fields.bed.gz', package = 'Rbedtools')
+#' bed6_tbl <- read_bed(bed6_path, n_fields = 6)
 #' 
-#' bed6_tbl <- read_bed('6fields.bed.gz', n_fields = 6)
+#' # Result is sorted by chrom and start unless `sort = FALSE`
+#' unsorted_bed_tbl <- read_bed(bed3_path, sort = FALSE)
 #' 
-#' # read BED12 format
-#' bed12_tbl <- read_bed12('12fields.bed.gz')
+#' # use `is_sorted` 
+#' is_sorted(unsorted_bed_tbl)
 #' 
-#' # Returned \code{data.frame} is sorted by \code{chrom} and \code{start} unless \code{sort = FALSE}
-#' sorted_bed_tbl <- read_bed('unsorted.bed.gz')
-#' unsorted_bed_tbl <- read_bed('unsorted.bed.gz', sort = FALSE)
+#' # chrom and strand are converted to factors unless specified
+#' bed_tbl <- read_bed(bed3_path, factor_cols = FALSE)
+#' is.factor(bed_tbl$chrom)
 #' 
-#' # \code{chrom} and \code{strand} are converted to factors unless specified
-#' bed_tbl <- read_bed('3fields.bed.gz', factor_cols = FALSE)
-#'   
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
                      sort = TRUE, factor_cols = TRUE, ...) {
@@ -62,11 +63,11 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 
 #' @rdname read_bed
 #' 
-#' @details https://genome.ucsc.edu/FAQ/FAQformat.html#format1
+#' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #' 
 #' @examples
-#' 
-#' bed12_tbl <- read_bed12('mm9.bed12.gz')
+#' bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'Rbedtools')
+#' bed12_tbl <- read_bed12(bed12_path)
 #' 
 #' @export
 read_bed12 <- function(filename, ...) {
@@ -76,11 +77,11 @@ read_bed12 <- function(filename, ...) {
 
 #' @rdname read_bed
 #' 
-#' @details https://genome.ucsc.edu/goldenPath/help/bedgraph.html
+#' @details \url{https://genome.ucsc.edu/goldenPath/help/bedgraph.html}
 #' 
 #' @examples
-#' 
-#' bedgraph_tbl <- read_bedgraph('test.bg.gz')
+#' bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'Rbedtools')
+#' bedgraph_tbl <- read_bedgraph(bedgraph_path)
 #' 
 #' @export
 read_bedgraph <- function(filename, ...) {
@@ -95,14 +96,14 @@ read_bedgraph <- function(filename, ...) {
 # thickStart renamed to cds_start
 # thickEnd renamed to cds_end
 bed12_coltypes <- list(chrom = col_character(),
-                       start = col_double(),
-                       end = col_double(),
+                       start = col_integer(),
+                       end = col_integer(),
                        name = col_character(),
                        score = col_character(),
                        strand = col_character(),
-                       cds_start = col_double(),
-                       cds_end = col_double(),
+                       cds_start = col_integer(),
+                       cds_end = col_integer(),
                        item_rgb = col_character(),
-                       exon_count = col_double(),
+                       exon_count = col_integer(),
                        exon_sizes = col_character(),
                        exon_starts = col_character())

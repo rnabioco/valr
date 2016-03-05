@@ -23,7 +23,7 @@
 #'   
 #' @useDynLib Rbedtools
 #' @import dplyr
-#' @import readr
+#' @importFrom readr read_tsv col_integer col_character
 #' @importFrom stringr str_replace str_split str_c
 #' @importFrom tidyr unnest
 #' @importFrom assertthat assert_that is.flag
