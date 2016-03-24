@@ -22,10 +22,6 @@
 #'    "chr3", 500,    600
 #' )
 #' 
-#' bed1 <- dplyr::tibble(
-#'    ~chrom, ~start, ~end,
-#'    "chr1", 100,    300
-#' )
 #' # intervals not covered by bed_tbl
 #' bed_complement(bed_tbl, genome)
 #' 
@@ -36,7 +32,28 @@ bed_complement <- function(bed_tbl, genome) {
     res <- bed_merge(bed_tbl) %>% mutate(chrom = as.character(chrom))
   } 
 
-  res <- complement_impl(res, genome) 
+  # tbl is sorted at this point
+  lags <- bed_tbl %>% group_by(chrom) %>% mutate(.prev_end = lag(end))
+  
+  first <- lags %>% filter(is.na(.prev_end) & start > 1) %>%
+    mutate(.start = 1, .end = start) %>%
+    mutate(start = .start, end = .end) %>%
+    select(-.prev_end, -.start, -.end)
+  
+  internal <- lags %>%
+    filter(!is.na(.prev_end)) %>%
+    mutate(.start = .prev_end, .end = start) %>%
+    mutate(start = .start, end = .end) %>%
+    select(-.prev_end, -.start, -.end)
+  
+  final <- lags %>%
+    summarize(max.end = max(end)) %>%
+    left_join(genome, by = 'chrom') %>%
+    filter(size != max.end) %>%
+    mutate(start = max.end, end = size) %>%
+    select(-size, -max.end)
+  
+  res <- bind_rows(list(first, internal, final))
   
   res <- bed_sort(res)
  

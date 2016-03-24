@@ -5,18 +5,6 @@
 
 using namespace Rcpp;
 
-// complement_impl
-Rcpp::DataFrame complement_impl(Rcpp::DataFrame interval_df, Rcpp::DataFrame genome_df);
-RcppExport SEXP Rbedtools_complement_impl(SEXP interval_dfSEXP, SEXP genome_dfSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type interval_df(interval_dfSEXP);
-    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type genome_df(genome_dfSEXP);
-    __result = Rcpp::wrap(complement_impl(interval_df, genome_df));
-    return __result;
-END_RCPP
-}
 // intersect_impl
 Rcpp::DataFrame intersect_impl(DataFrame df_a, DataFrame df_b);
 RcppExport SEXP Rbedtools_intersect_impl(SEXP df_aSEXP, SEXP df_bSEXP) {
