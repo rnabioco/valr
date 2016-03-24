@@ -8,7 +8,7 @@
 #'   one-pair-per-line, tab-delimited
 #'   
 #' @return \code{data.frame} with colnames \code{chrom} and \code{size}, sorted
-#'   by \code{chrom}
+#'   by \code{size}
 #'   
 #' @examples
 #' read_genome('hg19.chrom.sizes.gz')
@@ -26,6 +26,18 @@ read_genome <- function(filename) {
 #' 
 #' @param bed_tbl a tbl of intervals
 #' @param genome a tbl of chrom sizes
+#' 
+#' @examples
+#' bed_tbl <- dplyr::tibble(
+#'  ~chrom, ~start, ~end,
+#'  "chr1", -100,   500,
+#'  "chr1", 100,    1e9,
+#'  "chr1", 500,    1000
+#' )
+#' 
+#' genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+#' 
+#' bound_intervals(bed_tbl, genome)
 #' 
 #' @export
 bound_intervals <- function(bed_tbl, genome) {
