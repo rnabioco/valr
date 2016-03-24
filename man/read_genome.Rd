@@ -21,5 +21,6 @@ outside the defined size.
 }
 \examples{
 read_genome('hg19.chrom.sizes.gz')  
+
 }
 

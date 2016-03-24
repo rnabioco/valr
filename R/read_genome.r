@@ -11,12 +11,14 @@
 #'   by \code{chrom}
 #'   
 #' @examples
-#' read_genome('hg19.chrom.sizes.gz')  
+#' read_genome('hg19.chrom.sizes.gz')
+#' read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+#' 
 #' @export
 read_genome <- function(filename) {
   colnames <- c('chrom', 'size')
   genome <- read_tsv(filename, col_names = colnames)
-  genome <- tbl_df(genome) %>% arrange(chrom)
+  genome <- tbl_df(genome) %>% arrange(desc(size))
   genome
 }
 
