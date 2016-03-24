@@ -19,3 +19,19 @@ read_genome <- function(filename) {
   genome <- tbl_df(genome) %>% arrange(chrom)
   genome
 }
+
+#' select bounded intervals
+#' 
+#' @param bed_tbl a tbl of intervals
+#' @param genome a tbl of chrom sizes
+#' 
+#' @export
+bound_intervals <- function(bed_tbl, genome) {
+   res <-
+     bed_tbl %>% 
+     left_join(genome, by = 'chrom') %>%
+     filter(start >= 1 & end <= size) %>%
+     select(-size)
+   
+   res
+}
