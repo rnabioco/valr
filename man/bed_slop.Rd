@@ -4,10 +4,12 @@
 \alias{bed_slop}
 \title{increase the size of input intervals}
 \usage{
-bed_slop(bed_df, genome, both = 0, left = 0, right = 0, fraction = TRUE,
-  strand = FALSE)
+bed_slop(bed_df, genome, both = 0, left = 0, right = 0,
+  fraction = FALSE, strand = FALSE)
 }
 \arguments{
+\item{genome}{tbl of chrom sizes}
+
 \item{both}{number of bases on both sizes}
 
 \item{left}{number of bases on left side}
@@ -19,7 +21,7 @@ bed_slop(bed_df, genome, both = 0, left = 0, right = 0, fraction = TRUE,
 \item{strand}{define \code{left} and \code{right} based on strand}
 }
 \value{
-\code{data.frame}
+\code{dplyr::tbl_df}
 }
 \description{
 increase the size of input intervals
@@ -36,11 +38,14 @@ bed_df <- dplyr::tibble(
  "chr1", 1000,   1500, '.',   '.',     '-'
 )
 
-bed_df \%>\% bed_slop(left = 100, genome = genome)
-bed_df \%>\% bed_slop(right = 100, genome)
-bed_df \%>\% bed_slop(both = 100, genome)
+bed_df \%>\% bed_slop(genome, left = 100)
+bed_df \%>\% bed_slop(genome, right = 100)
+bed_df \%>\% bed_slop(genome, both = 100)
 
-bed_df \%>\% bed_slop(both = 0.5, fraction=TRUE)
+bed_df \%>\% bed_slop(genome, both = 0.5, fraction=TRUE)
 
+}
+\seealso{
+\url{http://bedtools.readthedocs.org/en/latest/content/tools/slop.html}
 }
 

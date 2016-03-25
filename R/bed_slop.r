@@ -2,8 +2,11 @@
 #'
 #' @inheritParams bed_flank
 #' 
-#' @return \code{data.frame}
+#' @return \code{dplyr::tbl_df}
 #' 
+#' @seealso
+#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/slop.html}
+#'   
 #' @examples 
 #' genome <- dplyr::tibble(
 #'  ~chrom, ~size,
@@ -16,55 +19,76 @@
 #'  "chr1", 1000,   1500, '.',   '.',     '-'
 #' )
 #' 
-#' bed_df %>% bed_slop(left = 100, genome = genome)
-#' bed_df %>% bed_slop(right = 100, genome)
-#' bed_df %>% bed_slop(both = 100, genome)
+#' bed_df %>% bed_slop(genome, left = 100)
+#' bed_df %>% bed_slop(genome, right = 100)
+#' bed_df %>% bed_slop(genome, both = 100)
 #'
-#' bed_df %>% bed_slop(both = 0.5, fraction=TRUE)
+#' bed_df %>% bed_slop(genome, both = 0.5, fraction=TRUE)
 #' 
 #' @export
 bed_slop <- function(bed_df, genome, both = 0, left = 0,
-                     right = 0, fraction = TRUE,
+                     right = 0, fraction = FALSE,
                      strand = FALSE) {
 
   assert_that(is.flag(strand) && 'strand' %in% colnames(bed_df))
-  assert_that(!is.flag(both))
   
   if (both != 0 && (left != 0 || right != 0)) {
     stop('ambiguous side spec for bed_slop')
   } 
+
+  if (fraction) {
+    bed_df <- mutate(bed_df, .interval_size = end - start)
+  }  
   
-  if (!genome) {
-    warning('genome file not specified. computed intervals may be out-of-bounds.')
-  }
- 
-  if (both) {
+  if (both != 0) {
     if (fraction) {
-      slop_result <- bed_df %>%
-        mutate(.interval_size = end - start,
-               start = start ,
-               end = end + both)
+      out <- bed_df %>%
+        mutate(start = start - both * .interval_size,
+               end = end + both * .interval_size)
     } else {
-      slop_result <- bed_df %>%
+      out <- bed_df %>%
         mutate(start = start - both,
                end = end + both)
     }
-    return(slop_result)
-  } 
-  
-  if (!strand) {
-    if (left) {
-      slop_result <- bed_df %>%
-        mutate(start = start - left)
-    } else if (right) {
-      slop_result <- bed_df %>%
-        mutate(end = end + right)
-    } 
   } else {
     # calc left and rigth based on strand
-    slop_result <- bed_df %>%
-      mutate(start = ifelse(strand == '+', start, end))
-  }    
-    
-  slop_result
+    if (strand) {
+      if (fraction) {
+        out <- bed_df %>%
+          mutate(start = ifelse(strand == '+',
+                                start - left * .interval_size,
+                                start - right * .interval_size),
+                 end = ifelse(strand == '+',
+                              end + right * .interval_size,
+                              end + left * .interval_size))
+      } else {
+        out <- bed_df %>%
+          mutate(start = ifelse(strand == '+',
+                                start - left,
+                                end - right),
+                 end = ifelse(strand == '+',
+                              end + right,
+                              end + left))
+      }
+    } else {
+      if ( fraction ) {
+        out <- bed_df %>%
+          mutate(start = start - left * .interval_size,
+                 end = end + right * .interval_size)
+      } else {
+        out <- bed_df %>%
+          mutate(start = start - left,
+                 end = end + right)
+      }
+    }    
+  }
+   
+  if ( fraction ) out <- select(out, -.interval_size) 
+  
+  out <- out %>%
+    bound_intervals(genome) %>%
+    bed_sort()
+
+  out
+
 }
