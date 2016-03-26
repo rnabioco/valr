@@ -3,17 +3,17 @@
 #' @param bed_tbl tbl of intervals
 #' @param genome chrom sizes
 #' 
-#' @return \code{data.frame}
+#' @return \code{data_frame}
 #' 
 #' @examples 
-#' genome <- dplyr::tibble(
+#' genome <- tibble::frame_data(
 #'    ~chrom,  ~size,
 #'    "chr1", 500,
 #'    "chr2", 600,
 #'    "chr3", 800
 #' ) 
 #' 
-#' bed_tbl <- dplyr::tibble(
+#' bed_tbl <- tibble::frame_data(
 #'    ~chrom, ~start, ~end,
 #'    "chr1", 100,    300,
 #'    "chr1", 200,    400,

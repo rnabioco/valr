@@ -11,8 +11,8 @@ read_genome(filename)
 one-pair-per-line, tab-delimited}
 }
 \value{
-\code{data.frame} with colnames \code{chrom} and \code{size}, sorted
-  by \code{chrom}
+\code{data_frame} with colnames \code{chrom} and \code{size}, sorted
+  by \code{size}
 }
 \description{
 Genome files contain chromosome name and size information. These sizes are 
@@ -20,7 +20,8 @@ used by downstream functions to identify computed intervals that have ends
 outside the defined size.
 }
 \examples{
-read_genome('hg19.chrom.sizes.gz')  
+read_genome('hg19.chrom.sizes.gz')
+read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 
 }
 

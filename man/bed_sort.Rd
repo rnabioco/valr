@@ -19,7 +19,7 @@ bed_sort(intervals, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 Sort intervals
 }
 \examples{
-bed_tbl <- dplyr::tibble(
+bed_tbl <- tibble::frame_data(
    ~chrom, ~start, ~end,
    "chr8", 500, 1000,
    "chr8", 1000, 5000,

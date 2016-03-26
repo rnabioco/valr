@@ -7,7 +7,7 @@
 #' @param filename file containing chrom/contig names and sizes,
 #'   one-pair-per-line, tab-delimited
 #'   
-#' @return \code{data.frame} with colnames \code{chrom} and \code{size}, sorted
+#' @return \code{data_frame} with colnames \code{chrom} and \code{size}, sorted
 #'   by \code{size}
 #'   
 #' @examples
@@ -22,13 +22,15 @@ read_genome <- function(filename) {
   genome
 }
 
-#' select bounded intervals
+#' select intervals bounded by a genome
 #' 
 #' @param bed_tbl a tbl of intervals
 #' @param genome a tbl of chrom sizes
-#' 
+#'
+#' @return \code{data_frame}
+#'  
 #' @examples
-#' bed_tbl <- dplyr::tibble(
+#' bed_tbl <- tlbble::frame_data(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", -100,   500,
 #'  "chr1", 100,    1e9,

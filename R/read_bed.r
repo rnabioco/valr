@@ -13,7 +13,7 @@
 #' @param factor_cols factor the \code{chrom} and \code{strand} columns
 #' @param ... options to pass to \code{readr::read_tsv}
 #'   
-#' @return \code{dplyr::tbl_df}
+#' @return \code{data_frame}
 #'
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #'   

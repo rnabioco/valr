@@ -6,7 +6,5 @@ sudo: required
 
 r_packages:
   - covr
-r_github_packages:
-  - hadley/dplyr
 after_success:
   - Rscript -e 'covr::codecov()'
