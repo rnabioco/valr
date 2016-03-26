@@ -18,7 +18,7 @@ Imports:
     assertthat,
     stringr,
     purrr
-LinkingTo: Rcpp (>= 0.12.2)
+LinkingTo: Rcpp (>= 0.12.2), BH, dplyr
 Suggests:
     knitr,
     rmarkdown,

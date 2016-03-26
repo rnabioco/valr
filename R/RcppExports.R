@@ -9,3 +9,7 @@ merge_impl <- function(df, max_dist) {
     .Call('Rbedtools_merge_impl', PACKAGE = 'Rbedtools', df, max_dist)
 }
 
+random_impl <- function(genome, length, n, seed = 0L) {
+    .Call('Rbedtools_random_impl', PACKAGE = 'Rbedtools', genome, length, n, seed)
+}
+

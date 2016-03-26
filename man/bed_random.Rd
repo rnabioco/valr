@@ -4,7 +4,7 @@
 \alias{bed_random}
 \title{generate randomly placed intervals on a genome}
 \usage{
-bed_random(genome, length = 100, n = 100, seed = NULL)
+bed_random(genome, length = 1000, n = 1e+05, seed = 0)
 }
 \arguments{
 \item{genome}{genome tbl}
@@ -19,7 +19,7 @@ bed_random(genome, length = 100, n = 100, seed = NULL)
 generate randomly placed intervals on a genome
 }
 \examples{
-genome <- dplyr::tibble(
+genome <- tibble::frame_data(
   ~chrom,  ~size,
   "chr1",  10000000,
   "chr2",  50000000,

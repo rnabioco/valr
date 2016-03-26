@@ -1,4 +1,6 @@
-// bed_random
+// random.cpp
+// 
+// generate random intervals on a genome
 // 
 // [[Rcpp::depends(BH)]]
 #include <Rcpp.h>
@@ -8,65 +10,50 @@
 
 using namespace Rcpp ;
 
-//' create random intervals in a genome
-//' 
-//' @param genome tbl of chrom sizes
-//' @param length length of intervals
-//' @param n number of intervals to generate
-//' @param seed RNG seed for reproducible intervals
-//' 
-//' @examples
-//' genome <- tibble::frame_data(
-//'   ~chrom,  ~size,
-//'   "chr1",  10000000,
-//'   "chr2",  50000000,
-//'   "chr3",  60000000,
-//'   "chrX",  5000000
-//' ) 
-//' 
-//' bed_random_cpp(genome, length = 100, n = 1000)
-//' 
+typedef boost::mt19937 rng_type ;
+typedef boost::uniform_int<> dist_type ;
+typedef boost::variate_generator<rng_type&, dist_type> gen_type ;
+
 // [[Rcpp::export]]
-DataFrame bed_random_cpp(DataFrame genome, int length, int n, unsigned int seed = 0) {
+DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0) {
  
-  std::vector<std::string> chroms = as<std::string>(genome["chrom"]) ;
-  std::vector<int> sizes = as<int>(genome["size"]) ;
-  
-  typedef boost::mt19937 RNGtype ;
-  RNGtype rng(seed) ;
-  
-  // chrom RNG 
+  CharacterVector chroms = genome["chrom"] ;
+  NumericVector sizes = genome["size"] ;
+ 
   int nchrom = chroms.size() ;
   
-  boost::uniform_int<> chrom_dist(1, nchrom) ;
-  boost::variate_generator< RNGtype, boost::uniform_int<> > chrom_rng(rng, chrom_dist) ;
+  rng_type rng(seed) ;
+  dist_type chrom_dist(0, nchrom - 1) ;
+  gen_type chrom_rng(rng, chrom_dist) ;
   
-  // size RNGs
-  std::vector< boost::variate_generator< RNGtype, boost::uniform_int <> > > size_rngs ;
+  // make and store a RNG for each chrom size
+  std::vector< gen_type > size_rngs ;
   
   for (int i=0; i<nchrom; ++i) {
-    int size = sizes[i] ;
+    
     // sub length to avoid off-chrom coordinates
-    boost::uniform_int<> size_dist(1, size - length) ;
-    boost::variate_generator< RNGtype, boost::uniform_int<> > size_rng(rng, size_dist) ;
+    int size = sizes[i] ;
+    dist_type size_dist(1, size - length) ;
+    gen_type size_rng(rng, size_dist) ;
+    
     size_rngs.push_back(size_rng) ;
   }
- 
-  std::vector<std::string> rand_chroms ;
-  std::vector<int> rand_starts ;
+  
+  CharacterVector rand_chroms(n) ;
+  NumericVector rand_starts(n) ;
   
   for (int i=0; i<n; ++i) {
-  //   
+    
      int chrom_idx = chrom_rng() ;
-  //   
-     boost::variate_generator< RNGtype,
-                               boost::uniform_int<> > size_rng = size_rngs[chrom_idx] ;
-  //   
-     rand_chroms.push_back(chroms[chrom_idx]) ;
-  //   rand_starts.push_back( size_rng() ) ;
+     rand_chroms[i] = chroms[chrom_idx] ;
+     
+     gen_type size_rng = size_rngs[chrom_idx] ;
+     
+     int rand_start = size_rng() ;
+     rand_starts[i] = rand_start ;
   }
   
-  std::vector<int> rand_ends ;
+  NumericVector rand_ends = rand_starts + length ; 
   
   return DataFrame::create( Named("chrom") = rand_chroms,
                             Named("start") = rand_starts,

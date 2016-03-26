@@ -8,7 +8,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 #'
 #' @examples
-#' genome <- dplyr::tibble(
+#' genome <- tibble::frame_data(
 #'   ~chrom,  ~size,
 #'   "chr1",  10000000,
 #'   "chr2",  50000000,
@@ -26,19 +26,7 @@
 #' bed_random(genome, seed = 2016)
 #' 
 #' @export
-bed_random <- function(genome, length = 100, n = 100, seed = NULL) {
-
-  # randomly select chrom, sizes from genome
-  set.seed(seed)
-  rows <- genome[sample(nrow(genome), n, replace = TRUE), ]
-  
-  set.seed(seed)
-  res <- rows %>%
-    rowwise() %>%
-    mutate(start = as.double(sample(size, 1))) %>%
-    mutate(end = start + length) %>%
-    select(-size) %>% 
-    ungroup()
-    
-  res 
+bed_random <- function(genome, length = 1000, n = 100000, seed = 0) {
+  out <- random_impl(genome, length, n, seed) %>% tbl_df
+  out  
 }
