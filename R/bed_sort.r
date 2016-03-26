@@ -8,7 +8,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
 #'
 #' @examples
-#' bed_tbl <- dplyr::tibble(
+#' bed_tbl <- tibble::frame_data(
 #'    ~chrom, ~start, ~end,
 #'    "chr8", 500, 1000,
 #'    "chr8", 1000, 5000,

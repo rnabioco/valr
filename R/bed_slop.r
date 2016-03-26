@@ -2,18 +2,18 @@
 #'
 #' @inheritParams bed_flank
 #' 
-#' @return \code{dplyr::tbl_df}
+#' @return \code{data_frame}
 #' 
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/slop.html}
 #'   
 #' @examples 
-#' genome <- dplyr::tibble(
+#' genome <- tibble::frame_data(
 #'  ~chrom, ~size,
 #'  "chr1", 5000
 #' )
 #' 
-#' bed_df <- dplyr::tibble(
+#' bed_df <- tibble::frame_data(
 #'  ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'  "chr1", 500,    1000, '.',   '.',     '+',
 #'  "chr1", 1000,   1500, '.',   '.',     '-'

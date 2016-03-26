@@ -21,18 +21,18 @@ bed_slop(bed_df, genome, both = 0, left = 0, right = 0,
 \item{strand}{define \code{left} and \code{right} based on strand}
 }
 \value{
-\code{dplyr::tbl_df}
+\code{data_frame}
 }
 \description{
 increase the size of input intervals
 }
 \examples{
-genome <- dplyr::tibble(
+genome <- tibble::frame_data(
  ~chrom, ~size,
  "chr1", 5000
 )
 
-bed_df <- dplyr::tibble(
+bed_df <- tibble::frame_data(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
  "chr1", 500,    1000, '.',   '.',     '+',
  "chr1", 1000,   1500, '.',   '.',     '-'

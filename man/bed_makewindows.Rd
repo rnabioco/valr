@@ -23,19 +23,19 @@ bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
 \item{win_id}{one of \code{name}, \code{num}, \code{namenum} (default \code{name})}
 }
 \value{
-\code{data.frame} with \code{.win_id} column
+\code{data_frame} with \code{.win_id} column
 }
 \description{
 Divide intervals into new intervals with labels
 }
 \examples{
-genome <- dplyr::tibble(
+genome <- tibble::frame_data(
  ~chrom, ~size,
  "chr1", 5000,
  "chr2", 400
 )
 
-bed_df <- dplyr::tibble(
+bed_df <- tibble::frame_data(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100,    200,  'A',   '.',    '+',
   "chr2", 300,    350,  'B',   '.',    '-'
@@ -66,7 +66,7 @@ bed_makewindows(bed_df, genome, win_size = 10, win_id = 'namenum', TRUE)
 # named intervals (reversed namenum)
 bed_makewindows(bed_df, genome, win_size = 10, win_id = 'namenum', reverse = TRUE)
 
-small_bed_df <- dplyr::tibble(
+small_bed_df <- tibble::frame_data(
   ~chrom, ~start, ~end,
   "chr1", 100,    200, 
   "chr2", 300,    350

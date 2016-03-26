@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_genome.r
 \name{bound_intervals}
 \alias{bound_intervals}
-\title{select bounded intervals}
+\title{select intervals bounded by a genome}
 \usage{
 bound_intervals(bed_tbl, genome)
 }
@@ -11,7 +11,23 @@ bound_intervals(bed_tbl, genome)
 
 \item{genome}{a tbl of chrom sizes}
 }
+\value{
+\code{data_frame}
+}
 \description{
-select bounded intervals
+select intervals bounded by a genome
+}
+\examples{
+bed_tbl <- tlbble::frame_data(
+ ~chrom, ~start, ~end,
+ "chr1", -100,   500,
+ "chr1", 100,    1e9,
+ "chr1", 500,    1000
+)
+
+genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+
+bound_intervals(bed_tbl, genome)
+
 }
 

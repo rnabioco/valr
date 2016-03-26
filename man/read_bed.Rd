@@ -27,7 +27,7 @@ read_bedgraph(filename, ...)
 \item{...}{options to pass to \code{readr::read_tsv}}
 }
 \value{
-\code{dplyr::tbl_df}
+\code{data_frame}
 }
 \description{
 \code{read_bed} reads BED files and \code{read_bedgraph} reads

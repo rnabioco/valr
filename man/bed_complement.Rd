@@ -12,20 +12,20 @@ bed_complement(bed_tbl, genome)
 \item{genome}{chrom sizes}
 }
 \value{
-\code{data.frame}
+\code{data_frame}
 }
 \description{
 identify intervals in a genome that are not covered by a query
 }
 \examples{
-genome <- dplyr::tibble(
+genome <- tibble::frame_data(
    ~chrom,  ~size,
    "chr1", 500,
    "chr2", 600,
    "chr3", 800
 ) 
 
-bed_tbl <- dplyr::tibble(
+bed_tbl <- tibble::frame_data(
    ~chrom, ~start, ~end,
    "chr1", 100,    300,
    "chr1", 200,    400,

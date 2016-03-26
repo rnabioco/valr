@@ -17,7 +17,8 @@ Imports:
     tidyr,
     assertthat,
     stringr,
-    purrr
+    purrr,
+    tibble
 LinkingTo: Rcpp (>= 0.12.2), BH, dplyr
 Suggests:
     knitr,

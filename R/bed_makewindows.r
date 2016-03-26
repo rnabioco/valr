@@ -9,16 +9,16 @@
 #' 
 #' @param win_id one of \code{name}, \code{num}, \code{namenum} (default \code{name})
 #' 
-#' @return \code{data.frame} with \code{.win_id} column
+#' @return \code{data_frame} with \code{.win_id} column
 #' 
 #' @examples 
-#' genome <- dplyr::tibble(
+#' genome <- tibble::frame_data(
 #'  ~chrom, ~size,
 #'  "chr1", 5000,
 #'  "chr2", 400
 #' )
 #' 
-#' bed_df <- dplyr::tibble(
+#' bed_df <- tibble::frame_data(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'   "chr1", 100,    200,  'A',   '.',    '+',
 #'   "chr2", 300,    350,  'B',   '.',    '-'
@@ -49,7 +49,7 @@
 #' # named intervals (reversed namenum)
 #' bed_makewindows(bed_df, genome, win_size = 10, win_id = 'namenum', reverse = TRUE)
 #' 
-#' small_bed_df <- dplyr::tibble(
+#' small_bed_df <- tibble::frame_data(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 100,    200, 
 #'   "chr2", 300,    350
