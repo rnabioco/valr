@@ -17,8 +17,9 @@
 #' @export
 read_genome <- function(filename) {
   colnames <- c('chrom', 'size')
-  genome <- read_tsv(filename, col_names = colnames)
-  genome <- tbl_df(genome) %>% arrange(desc(size))
+  genome <-
+    read_tsv(filename, col_names = colnames) %>%
+    arrange(desc(size))
   genome
 }
 
