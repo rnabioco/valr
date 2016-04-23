@@ -19,7 +19,7 @@ Imports:
     stringr,
     purrr,
     tibble
-LinkingTo: Rcpp (>= 0.12.2), BH, dplyr
+LinkingTo: Rcpp (>= 0.12.2), BH
 Suggests:
     knitr,
     rmarkdown,
