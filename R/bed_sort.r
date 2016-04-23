@@ -70,7 +70,7 @@ bed_sort <- function(intervals, by_size = FALSE,
   } 
  
   # remove groups in result 
-  res <- res %>% ungroup() %>% tbl_df
+  res <- res %>% ungroup() %>% as_data_frame
  
   # add `sorted` attribute 
   attr(res, "sorted") <- TRUE

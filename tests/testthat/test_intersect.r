@@ -1,14 +1,14 @@
 context('bed_intersect')
  
 test_that("simple overlap", {
-   x <- tibble(
+   x <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    100,       200,
     "chr1",    150,       250,
     "chr1",    400,       500
   )
   
-  y <- tibble(
+  y <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    175,       200,
     "chr1",    175,       225
@@ -19,7 +19,7 @@ test_that("simple overlap", {
 })
 
 test_that("multple a's", {
-   x <- tibble(
+   x <- tibble::frame_data(
     ~chrom,    ~start,    ~end,
     "chr1",    100,       200,
     "chr1",    100,       200,
@@ -28,7 +28,7 @@ test_that("multple a's", {
     "chr1",    100,       200
   )
   
-  y <- tibble(
+  y <- tibble::frame_data(
     ~chrom,    ~start,    ~end,
     "chr1",    175,       200
   )
@@ -38,12 +38,12 @@ test_that("multple a's", {
 })
 
 test_that("multple b's", {
-   x <- tibble(
+   x <- tibble::frame_data(
     ~chrom,    ~start,    ~end,
     "chr1",    100,       200
   )
   
-  y <- tibble(
+  y <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    175,       200,
     "chr1",    175,       200,
@@ -57,11 +57,11 @@ test_that("multple b's", {
 })
 
 test_that("no overlaps returns empty df", {
-  x <- tibble(
+  x <- tibble::frame_data(
     ~chrom, ~start, ~end,
     "chr1", 100,    200
   )
-  y <- tibble(
+  y <- tibble::frame_data(
     ~chrom, ~start, ~end,
     "chr1", 300,    400
   )

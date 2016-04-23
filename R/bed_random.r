@@ -27,6 +27,6 @@
 #' 
 #' @export
 bed_random <- function(genome, length = 1000, n = 100000, seed = 0) {
-  out <- random_impl(genome, length, n, seed) %>% tbl_df
+  out <- random_impl(genome, length, n, seed) %>% as_data_frame
   out  
 }

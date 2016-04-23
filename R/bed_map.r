@@ -6,25 +6,35 @@
 #' @param operation operation to perform on intersected intervals. One of mean, median,
 #'        sum, min, max, absmin, absmax 
 #'        
-#' @return \code{data.frame}
+#' @return \code{data_frame}
 #' 
 #' @examples
-#' 
-#' signal <- read_bedgraph('inst/extdata/test.bg.gz')
-#' intervals <- read_bed('inst/extdata/3fields.bed.gz')
+#' bed_tbl <- tibble::frame_data(
+#'  ~chrom, ~start, ~end,
+#'  "chr1", 100, 250,
+#'  "chr2", 250, 500)
 #'  
+#' signal_tbl <- tibble::frame_data(
+#'  ~chrom, ~start, ~end, ~value,
+#'  "chr1", 100, 250, 10,
+#'  "chr1", 150, 250, 20,
+#'  "chr2", 250, 500, 500)
+#' 
+#' bed_map(bed_tbl, signal_tbl, value, 'sum')
+#' 
 #' @export
-bed_map <- function(bed_tbl, signal_tbl, signal_col,
-                    operation = op_choices) {
+bed_map <- function(bed_tbl, signal_tbl, signal_col, operation) {
  
   operation <- match.arg(operation, op_choices) 
   
-  intersect_res <- bed_intersect_(a, b, full = TRUE)
+  isect_res <- bed_intersect(bed_tbl, signal_tbl)
   
-  map_result <- intersection_result %>%
-    group_by(chrom, .start_a, .start_b) %>%
-    summarize(result = operation(signal_col)) %>%
-    select(chrom, col_spec, result)
+  map_result <- isect_res %>%
+    group_by(chrom, start.x, end.x) %>%
+    summarize(.result = sum(value)) %>%
+    ungroup()
+ 
+  colnames(map_result) <- str_replace(colnames(map_result), '.x$', '') 
   
   map_result 
 }

@@ -1,7 +1,7 @@
 context('bed_merge')
 
 test_that("merge on 1 chrom", {
-  bed_df <- tibble(
+  bed_df <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    100,       200,
     "chr1",    150,       250,
@@ -13,7 +13,7 @@ test_that("merge on 1 chrom", {
 })
 
 test_that("merge with interval at start", {
-  bed_df <- tibble(
+  bed_df <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    1,         50,
     "chr1",    100,       200,
@@ -25,7 +25,7 @@ test_that("merge with interval at start", {
 })
 
 test_that("merge with two chroms", {
-  bed_df <- tibble(
+  bed_df <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    1,         50,
     "chr1",    25,        75,
@@ -38,7 +38,7 @@ test_that("merge with two chroms", {
 })
 
 test_that("book-ended intervals are no merged", {
-  bed_df <- tibble(
+  bed_df <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    1,         50,
     "chr1",    50,        100
@@ -49,7 +49,7 @@ test_that("book-ended intervals are no merged", {
 })
 
 test_that("max_dist is enforced", {
-  bed_df <- tibble(
+  bed_df <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    1,         50,
     "chr1",    50,        100
@@ -60,7 +60,7 @@ test_that("max_dist is enforced", {
 })
 
 test_that("max_dist is a positive value", {
-  bed_df <- tibble(
+  bed_df <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    1,         50,
     "chr1",    50,        100

@@ -11,7 +11,8 @@
 #'   by \code{size}
 #'   
 #' @examples
-#' read_genome('hg19.chrom.sizes.gz')
+#' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'Rbedtools')
+#' read_genome(genome)
 #' read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 #' 
 #' @export
@@ -31,7 +32,7 @@ read_genome <- function(filename) {
 #' @return \code{data_frame}
 #'  
 #' @examples
-#' bed_tbl <- tlbble::frame_data(
+#' bed_tbl <- tibble::frame_data(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", -100,   500,
 #'  "chr1", 100,    1e9,

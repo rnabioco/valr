@@ -1,12 +1,12 @@
 context("bed_makewindows")
 
-genome <- dplyr::tibble(
+genome <- tibble::frame_data(
   ~chrom, ~size,
   "chr1", 5000,
   "chr2", 400
 )
 
-bed_df <- dplyr::tibble(
+bed_df <- tibble::frame_data(
   ~chrom, ~start, ~end, ~name,
   "chr1", 100, 200, 'A',
   "chr2", 300, 350, 'B'

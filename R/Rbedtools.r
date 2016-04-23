@@ -22,13 +22,13 @@
 #' @seealso \url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
 #'   
 #' @useDynLib Rbedtools
-#' @import dplyr
-#' @import tibble
+#' @importFrom tibble frame_data
 #' @importFrom readr read_tsv col_integer col_character
 #' @importFrom stringr str_replace str_split str_c
 #' @importFrom tidyr unnest
 #' @importFrom assertthat assert_that is.flag
 #' @importFrom purrr by_row
 #' @importFrom Rcpp evalCpp
+#' @import dplyr
 #' @exportPattern "^[[:alpha:]]+"
 NULL

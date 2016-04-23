@@ -19,11 +19,11 @@
 #'  "chr1", 1000,   1500, '.',   '.',     '-'
 #' )
 #' 
-#' bed_df %>% bed_slop(genome, left = 100)
-#' bed_df %>% bed_slop(genome, right = 100)
-#' bed_df %>% bed_slop(genome, both = 100)
+#' bed_slop(bed_df, genome, left = 100)
+#' bed_slop(bed_df, genome, right = 100)
+#' bed_slop(bed_df, genome, both = 100)
 #'
-#' bed_df %>% bed_slop(genome, both = 0.5, fraction=TRUE)
+#' bed_slop(bed_df, genome, both = 0.5, fraction=TRUE)
 #' 
 #' @export
 bed_slop <- function(bed_df, genome, both = 0, left = 0,

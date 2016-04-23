@@ -11,7 +11,7 @@ test_that("genomes are correctly read", {
 
 test_that("unbounded intervals are removed", {
   
-  bed_tbl <- dplyr::tibble(
+  bed_tbl <- tibble::frame_data(
    ~chrom, ~start, ~end,
    "chr1", -100,   500,
    "chr1", 100,    1e9,

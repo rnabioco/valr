@@ -43,7 +43,7 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
   colnames <- names(coltypes)
   
   bed_raw <- read_tsv(filename, col_names = colnames, col_types = coltypes, ...)
-  bed_tbl <- tbl_df(bed_raw) 
+  bed_tbl <- as_data_frame(bed_raw) 
 
   # factorize chrom and strand
   if (factor_cols) {

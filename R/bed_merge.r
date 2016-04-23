@@ -20,8 +20,6 @@
 #' 
 #' bed_merge(bed_tbl)
 #' 
-#' bed_merge(bed_tbl, max_dist)
-#' 
 #' @export
 bed_merge <- function(bed_tbl, max_dist = 0) {
  
