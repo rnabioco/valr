@@ -48,7 +48,21 @@ Interval intersections are implemented in Rcpp/C++ for speed using the ["chrom s
     sample        Sample random records from file using reservoir sampling.
     spacing       Report the gap lengths between intervals in a file.
     annotate      Annotate coverage of features from multiple files.
-    
+
+### random
+
+Generate random intervals on a genome reference.
+
+```{r random}
+library(stringr)
+genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg38.chrom.sizes')
+genome %>%
+  # filter un, hap, alt, random chroms
+  filter(!str_detect(chrom, '_')) %>%
+  # 1 million 1kb intervals
+  bed_random(n = 1e6)
+```
+
 [1]: http://bedtools.readthedocs.org/en/latest/
 [2]: https://github.com/arq5x/chrom_sweep
 [3]: https://github.com/hadley/dplyr
