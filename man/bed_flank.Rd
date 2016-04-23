@@ -4,11 +4,13 @@
 \alias{bed_flank}
 \title{create flanking intervals from input intervals}
 \usage{
-bed_flank(bed_tbl, both = 0, left = 0, right = 0, fraction = FALSE,
-  strand = FALSE)
+bed_flank(bed_tbl, genome, both = 0, left = 0, right = 0,
+  fraction = FALSE, strand = FALSE)
 }
 \arguments{
 \item{bed_tbl}{tbl of intervals}
+
+\item{genome}{tbl of chrom sizes}
 
 \item{both}{number of bases on both sizes}
 
@@ -21,18 +23,18 @@ bed_flank(bed_tbl, both = 0, left = 0, right = 0, fraction = FALSE,
 \item{strand}{define \code{left} and \code{right} based on strand}
 }
 \value{
-\code{data.frame}
+\code{data_frame}
 }
 \description{
 create flanking intervals from input intervals
 }
 \examples{
-genome <- dplyr::tibble(
+genome <- tibble::frame_data(
  ~chrom, ~size,
  "chr1", 5000
 )
 
-bed_tbl <- dplyr::tibble(
+bed_tbl <- tibble::frame_data(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
  "chr1", 500,    1000, '.',   '.',    '+',
  "chr1", 1000,   1500, '.',   '.',    '-'
@@ -44,5 +46,8 @@ bed_flank(bed_tbl, both = 100)
 
 bed_flank(bed_tbl, both = 0.5, fraction=TRUE)
 
+}
+\seealso{
+\url{http://bedtools.readthedocs.org/en/latest/content/tools/flank.html}
 }
 

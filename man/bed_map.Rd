@@ -4,7 +4,7 @@
 \alias{bed_map}
 \title{Map signals over intervals}
 \usage{
-bed_map(bed_tbl, signal_tbl, signal_col, operation = op_choices)
+bed_map(bed_tbl, signal_tbl, signal_col, operation)
 }
 \arguments{
 \item{bed_tbl}{tbl of intervals}
@@ -17,15 +17,24 @@ bed_map(bed_tbl, signal_tbl, signal_col, operation = op_choices)
 sum, min, max, absmin, absmax}
 }
 \value{
-\code{data.frame}
+\code{data_frame}
 }
 \description{
 Map signals over intervals
 }
 \examples{
-
-signal <- read_bedgraph('inst/extdata/test.bg.gz')
-intervals <- read_bed('inst/extdata/3fields.bed.gz')
+bed_tbl <- tibble::frame_data(
+ ~chrom, ~start, ~end,
+ "chr1", 100, 250,
+ "chr2", 250, 500)
  
+signal_tbl <- tibble::frame_data(
+ ~chrom, ~start, ~end, ~value,
+ "chr1", 100, 250, 10,
+ "chr1", 150, 250, 20,
+ "chr2", 250, 500, 500)
+
+bed_map(bed_tbl, signal_tbl, value, sum)
+
 }
 

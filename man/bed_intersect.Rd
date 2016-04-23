@@ -4,15 +4,39 @@
 \alias{bed_intersect}
 \title{instersect BED intervals}
 \usage{
-bed_intersect(bed_tbl_a, bed_tbl_b)
+bed_intersect(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE)
 }
 \arguments{
-\item{bed_tbl_a}{BED intervals}
+\item{x}{BED intervals}
 
-\item{bed_tbl_b}{BED intervals}
+\item{y}{BED intervals}
+
+\item{max_dist}{maximum distance between intserections}
+
+\item{strand}{intersect intervals on same strand}
 }
 \description{
 instersect BED intervals
+}
+\examples{
+x <- tibble::frame_data(
+~chrom, ~start, ~end,
+"chr1", 100,    500,
+"chr2", 200,    400,
+"chr2", 300,    500,
+"chr2", 800,    900
+)
+
+y <- tibble::frame_data(
+~chrom, ~start, ~end,
+"chr1", 150,    400,
+"chr2", 230,    430,
+"chr2", 350,    430
+)
+
+bed_intersect(x, y)
+bed_intersect(x, y, max_dist = 50)
+ 
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}

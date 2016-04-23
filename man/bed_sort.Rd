@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_sort.r
 \name{bed_sort}
 \alias{bed_sort}
-\title{Sort intervals}
+\title{Sort intervals. sorting strips groups present in the input.}
 \usage{
 bed_sort(intervals, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 }
@@ -16,7 +16,7 @@ bed_sort(intervals, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 \item{reverse}{reverse sort order}
 }
 \description{
-Sort intervals
+Sort intervals. sorting strips groups present in the input.
 }
 \examples{
 bed_tbl <- tibble::frame_data(

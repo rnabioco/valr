@@ -16,7 +16,7 @@ Merge overlapping intervals
 TODO: implement strand (group_by?), max_dist
 }
 \examples{
-bed_tbl <- dplyr::tibble(
+bed_tbl <- tibble::frame_data(
  ~chrom, ~start, ~end,
  "chr1", 1,      50,
  "chr1", 100,    200,
