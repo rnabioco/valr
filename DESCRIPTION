@@ -18,7 +18,8 @@ Imports:
     assertthat,
     stringr,
     purrr,
-    tibble
+    tibble,
+    lazyeval
 LinkingTo: Rcpp (>= 0.12.2), BH
 Suggests:
     knitr,
