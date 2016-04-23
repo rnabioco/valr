@@ -18,7 +18,7 @@ bound_intervals(bed_tbl, genome)
 select intervals bounded by a genome
 }
 \examples{
-bed_tbl <- tlbble::frame_data(
+bed_tbl <- tibble::frame_data(
  ~chrom, ~start, ~end,
  "chr1", -100,   500,
  "chr1", 100,    1e9,

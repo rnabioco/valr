@@ -29,8 +29,6 @@ bed_tbl <- tibble::frame_data(
 
 bed_merge(bed_tbl)
 
-bed_merge(bed_tbl, max_dist)
-
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}

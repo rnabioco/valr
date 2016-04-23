@@ -34,7 +34,7 @@ signal_tbl <- tibble::frame_data(
  "chr1", 150, 250, 20,
  "chr2", 250, 500, 500)
 
-bed_map(bed_tbl, signal_tbl, value, sum)
+bed_map(bed_tbl, signal_tbl, value, 'sum')
 
 }
 
