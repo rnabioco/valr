@@ -31,8 +31,8 @@ DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0
   
   for (int i=0; i<nchrom; ++i) {
     
-    // sub length to avoid off-chrom coordinates
     int size = sizes[i] ;
+    // sub length to avoid off-chrom coordinates
     dist_type size_dist(1, size - length) ;
     gen_type size_rng(rng, size_dist) ;
     
