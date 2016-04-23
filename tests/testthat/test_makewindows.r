@@ -26,3 +26,12 @@ res <- bed_makewindows(bed_df, genome, win_size = 10, step_size = 5)
 
 # Reversed window numbering
 res <- bed_makewindows(bed_df, genome, win_size = 10, reverse = TRUE)
+
+test_that('window IDs are generated', {
+  res <- bed_makewindows(bed_df, genome, win_size = 10, win_id = 'name')
+  expect_true('.win_id' %in% colnames(res))
+  res <- bed_makewindows(bed_df, genome, win_size = 10, win_id = 'num')
+  expect_true('.win_id' %in% colnames(res))
+  res <- bed_makewindows(bed_df, genome, win_size = 10, win_id = 'namenum')
+  expect_true('.win_id' %in% colnames(res))
+})
