@@ -22,6 +22,9 @@ DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0
  
   int nchrom = chroms.size() ;
   
+  if (seed == 0)
+    seed = rand() ;
+  
   rng_type rng(seed) ;
   dist_type chrom_dist(0, nchrom - 1) ;
   gen_type chrom_rng(rng, chrom_dist) ;
