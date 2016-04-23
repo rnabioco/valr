@@ -37,7 +37,7 @@ bed_flank <- function(bed_tbl, genome, both = 0, left = 0,
                       strand = FALSE) {
 
   assert_that(both > 0 || left > 0 || right > 0)
-  assert_that(is.flag(strand) && 'strand' %in% colnames(bed_df))
+  assert_that(is.flag(strand) && 'strand' %in% colnames(bed_tbl))
   assert_that(!is.flag(both))
   assert_that(fraction >= 0 && fraction <= 1)
   
@@ -47,13 +47,13 @@ bed_flank <- function(bed_tbl, genome, both = 0, left = 0,
   
   if (both) {
     if (fraction) {
-      flank_result <- bed_df %>%
+      flank_result <- bed_tbl %>%
         mutate(.interval_size = end - start,
                .starts = list(start - (fraction * .interval_size), end),
                .ends = list(start, end + (fraction * .interval_size))) %>%
         select(-.interval_size)       
     } else {
-      flank_result <- bed_df %>%
+      flank_result <- bed_tbl %>%
         mutate(.starts = list(start - both, end),
                .ends = list(start, end + both))
     }
@@ -70,20 +70,20 @@ bed_flank <- function(bed_tbl, genome, both = 0, left = 0,
   # not `both`
   if (!strand) {
     if (left) {
-      flank_result <- bed_df %>%
+      flank_result <- bed_tbl %>%
         mutate(.start = start,
                start = start - left,
                end = .start) %>%
         select(-.start) 
     } else if (right) {
-      flank_result <- bed_df %>%
+      flank_result <- bed_tbl %>%
         mutate(start = end,
                end = end + right)
     } 
   } else {
     if (left) {
     # calc left and right based on strand
-      flank_result <- bed_df %>%
+      flank_result <- bed_tbl %>%
         mutate(start = ifelse(strand == '+',
                               start - left,
                               end),
@@ -91,7 +91,7 @@ bed_flank <- function(bed_tbl, genome, both = 0, left = 0,
                             start,
                             end + left))
     } else if (right) {
-       flank_result <- bed_df %>%
+       flank_result <- bed_tbl %>%
         mutate(start = ifelse(strand == '+',
                               end,
                               start - right),
