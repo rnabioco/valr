@@ -1,4 +1,4 @@
-#' Sort intervals
+#' Sort intervals. sorting strips groups present in the input.
 #'
 #' @param intervals tbl of intervals
 #' @param by_size sort by interval size
