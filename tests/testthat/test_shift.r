@@ -1,6 +1,6 @@
 context('bed_shift')
 
-input_bed <- tibble(
+bed_tbl <- tibble::frame_data(
   ~chrom, ~start, ~end, ~strand,
   "chr1", 100, 150, "+",
   "chr1", 200, 250, "+",
@@ -16,81 +16,74 @@ genome <- tibble(
   "chr3", 3000 )
 
 test_that("pos increment works", {
-  shift <- 100
-  out <- bed_shift(input_bed, genome, shift)
-  expect_true(all(out$start - input_bed$start == shift),
-              all(out$end - input_bed$end == shift))
+  size <- 100
+  out <- bed_shift(bed_tbl, genome, size)
+  expect_true(all(out$start - bed_tbl$start == size),
+              all(out$end - bed_tbl$end == size))
 })
 
 test_that("neg increment works", {
-  shift <- -100
-  out <- bed_shift(input_bed, genome, shift)
-  expect_true(all(out$start - input_bed$start == shift),
-              all(out$end - input_bed$end == shift))
+  size <- -50
+  out <- bed_shift(bed_tbl, genome, size)
+  expect_true(all(out$start - bed_tbl$start == size),
+              all(out$end - bed_tbl$end == size))
 })
 
 test_that("starts forced to 0", {
-  shift <- -120
-  out <- bed_shift(input_bed, genome, shift)
+  size <- -120
+  out <- bed_shift(bed_tbl, genome, size)
   expect_true(all(out$start >= 0))
 })
 
 test_that("end forced to chrom length", {
-  shift <- 1675
-  out <- bed_shift(input_bed, genome, shift) %>% left_join(genome, by = "chrom")
+  size <- 1675
+  out <- bed_shift(bed_tbl, genome, size) %>% left_join(genome, by = "chrom")
   expect_true(all(out$end <= out$size))
 })
 
-test_that("increment is rounded", {
-  shift <- 0.9
-  out <- bed_shift(input_bed, genome, shift)
-  expect_true(all(out$start - input_bed$start == round(shift)),
-              all(out$end - input_bed$end == round(shift)))
+test_that("fraction increment works", {
+  fraction <- 0.5
+  interval <- bed_tbl$end - bed_tbl$start
+  out <- bed_shift(bed_tbl, genome, fraction = fraction)
+  expect_true(all(out$start - bed_tbl$start == fraction*interval,
+              all(out$end - bed_tbl$end == fraction*interval)))
 })
 
-test_that("percent increment works", {
-  shift <- 0.5
-  interval <- input_bed$end - input_bed$start
-  out <- bed_shift(input_bed, genome, shift, pct = TRUE)
-  expect_true(all(out$start - input_bed$start == shift*interval,
-              all(out$end - input_bed$end == shift*interval)))
+test_that("negative fraction increment works", {
+  fraction <- -0.5
+  interval <- bed_tbl$end - bed_tbl$start
+  out <- bed_shift(bed_tbl, genome, fraction = fraction)
+  expect_true(all(out$start - bed_tbl$start == fraction*interval,
+              all(out$end - bed_tbl$end == fraction*interval)))
 })
 
-test_that("negative percent increment works", {
-  shift <- -0.5
-  interval <- input_bed$end - input_bed$start
-  out <- bed_shift(input_bed, genome, shift, pct = TRUE)
-  expect_true(all(out$start - input_bed$start == shift*interval,
-              all(out$end - input_bed$end == shift*interval)))
-})
-
-test_that("rounding percent increment works", {
-  shift <- 0.51234
-  interval <- input_bed$end - input_bed$start
-  out <- bed_shift(input_bed, genome, shift, pct = TRUE)
-  expect_true(all(out$start - input_bed$start == round(shift*interval),
-              all(out$end - input_bed$end == round(shift*interval))))
+test_that("rounding fraction increment works", {
+  fraction <- 0.51234
+  interval <- bed_tbl$end - bed_tbl$start
+  out <- bed_shift(bed_tbl, genome, fraction = fraction)
+  expect_true(all(out$start - bed_tbl$start == round(fraction*interval),
+              all(out$end - bed_tbl$end == round(fraction*interval))))
 })
 
 test_that("shift by strand works", {
-  shift <- 100
-  out <- bed_shift(input_bed, genome, shift, dna = TRUE)
+  size <- 100
+  out <- bed_shift(bed_tbl, genome, size, strand = TRUE)
   expect_true(all(ifelse(out$strand == '+',
-                         out$start - input_bed$start == shift,
-                         out$start - input_bed$start == -shift),
+                         out$start - bed_tbl$start == size,
+                         out$start - bed_tbl$start == -size),
                   ifelse(out$strand == '+',
-                         out$end - input_bed$end == shift,
-                         out$end - input_bed$end == -shift)))
+                         out$end - bed_tbl$end == size,
+                         out$end - bed_tbl$end == -size)))
 })
 
-test_that("shift by strand and percent works", {
-  shift <- 0.5
-  interval <- input_bed$end - input_bed$start
-  out <- bed_shift(input_bed, genome, shift, dna = TRUE, pct = TRUE)
+test_that("shift by strand and fraction works", {
+  fraction <- 0.5
+  sizes <- bed_tbl$end - bed_tbl$start
+  out <- bed_shift(bed_tbl, genome, strand = TRUE, fraction = fraction)
   expect_true(all(ifelse(out$strand == '+',
-                         out$start - input_bed$start == shift*interval,
-                         out$start - input_bed$start == -shift*interval),
+                         out$start - bed_tbl$start == sizes * fraction,
+                         out$start - bed_tbl$start == -sizes * fraction),
                   ifelse(out$strand == '+',
-                         out$end - input_bed$end == shift*interval,
-                         out$end - input_bed$end == -shift*interval)))
+                         out$end - bed_tbl$end == sizes * fraction,
+                         out$end - bed_tbl$end == -sizes * fraction)))
 })
