@@ -4,7 +4,7 @@
 \alias{bed_random}
 \title{generate randomly placed intervals on a genome}
 \usage{
-bed_random(genome, length = 1000, n = 1e+05, seed = 0)
+bed_random(genome, length = 1000, n = 1e+06, seed = 0)
 }
 \arguments{
 \item{genome}{genome tbl}
