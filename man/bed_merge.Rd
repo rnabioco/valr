@@ -2,32 +2,41 @@
 % Please edit documentation in R/bed_merge.r
 \name{bed_merge}
 \alias{bed_merge}
-\title{Merge overlapping intervals}
+\title{Merge overlapping intervals.}
 \usage{
-bed_merge(bed_tbl, max_dist = 0)
+bed_merge(bed_tbl, max_dist = 0, strand = FALSE, .keep = FALSE, ...)
 }
 \arguments{
+\item{bed_tbl}{tbl of intervals}
+
 \item{max_dist}{maximum distance between intervals to merge}
+
+\item{.keep}{keep dot columns (\code{.merge_id}, \code{.overlap})}
+
+\item{...}{name-value pairs that specify merging operations}
+}
+\value{
+\code{data_frame}
 }
 \description{
-Merge overlapping intervals
-}
-\note{
-TODO: implement strand (group_by?), max_dist
+Merge overlapping intervals.
 }
 \examples{
 bed_tbl <- tibble::frame_data(
- ~chrom, ~start, ~end,
- "chr1", 1,      50,
- "chr1", 100,    200,
- "chr1", 150,    250,
- "chr2", 1,      25,
- "chr2", 200,    400,
- "chr2", 400,    500,
- "chr2", 450,    550
-)
+ ~chrom, ~start, ~end, ~value, ~strand,
+ "chr1", 1,      50,   1,      '+',
+ "chr1", 100,    200,  2,      '+',
+ "chr1", 150,    250,  3,      '-',
+ "chr2", 1,      25,   4,      '+',
+ "chr2", 200,    400,  5,      '-',
+ "chr2", 400,    500,  6,      '+',
+ "chr2", 450,    550,  7,      '+'
+) \%>\% group_by(chrom)
 
 bed_merge(bed_tbl)
+bed_merge(bed_tbl, max_dist = 100)
+bed_merge(bed_tbl, strand = TRUE)
+bed_merge(bed_tbl, .value = sum(value))
 
 }
 \seealso{

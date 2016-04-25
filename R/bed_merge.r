@@ -1,27 +1,33 @@
-#' Merge overlapping intervals
-#' 
+#' Merge overlapping intervals.
+#'
+#' @param bed_tbl tbl of intervals 
 #' @param max_dist maximum distance between intervals to merge
-#' 
-#' @note TODO: implement strand (group_by?), max_dist
-#' 
+#' @param .keep keep dot columns (\code{.merge_id}, \code{.overlap})
+#' @param ... name-value pairs that specify merging operations
+#'
+#' @return \code{data_frame}
+#'  
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #' 
 #' @examples 
 #' bed_tbl <- tibble::frame_data(
-#'  ~chrom, ~start, ~end,
-#'  "chr1", 1,      50,
-#'  "chr1", 100,    200,
-#'  "chr1", 150,    250,
-#'  "chr2", 1,      25,
-#'  "chr2", 200,    400,
-#'  "chr2", 400,    500,
-#'  "chr2", 450,    550
-#' )
+#'  ~chrom, ~start, ~end, ~value, ~strand,
+#'  "chr1", 1,      50,   1,      '+',
+#'  "chr1", 100,    200,  2,      '+',
+#'  "chr1", 150,    250,  3,      '-',
+#'  "chr2", 1,      25,   4,      '+',
+#'  "chr2", 200,    400,  5,      '-',
+#'  "chr2", 400,    500,  6,      '+',
+#'  "chr2", 450,    550,  7,      '+'
+#' ) %>% group_by(chrom)
 #' 
 #' bed_merge(bed_tbl)
+#' bed_merge(bed_tbl, max_dist = 100)
+#' bed_merge(bed_tbl, strand = TRUE)
+#' bed_merge(bed_tbl, .value = sum(value))
 #' 
 #' @export
-bed_merge <- function(bed_tbl, max_dist = 0) {
+bed_merge <- function(bed_tbl, max_dist = 0, strand = FALSE, .keep = FALSE, ...) {
  
   assert_that(max_dist >= 0)
   
@@ -29,17 +35,37 @@ bed_merge <- function(bed_tbl, max_dist = 0) {
     res <- bed_sort(bed_tbl)
   }
   
-  # res must be sorted *again*
-  res <- merge_impl(res, max_dist) %>% bed_sort
+  res <- group_by(res, chrom)
   
-  # add `merged` attribute. this attribute can be tested to determine whether a 
-  # merge needs to be done
+  if (strand)
+    res <- group_by(res, strand, add = TRUE)
+
+  # XXX 
+  # res <- merge_impl(res, max_dist)
+  
+  mlabels <- merge_labels(res)
+  res$.merge_id <- mlabels
+
+  dots <- list(.start = ~min(start), .end = ~max(end))
+  dots <- c(dots, lazyeval::lazy_dots(...))
+  
+  res <- res %>% 
+    group_by(.merge_id, add = TRUE) %>%
+    summarize_(.dots = dots) %>%
+    rename(start = .start, end = .end) %>%
+    bed_sort
+  
+  # XXX 
+  if (!.keep) 
+  #   res <- select(res, -.merge_id, -.overlap)
+    res <- select(res, -.merge_id)
+  
   attr(res, 'merged') <- TRUE
 
   res  
 }
 
-#' determine whether tbl has been previously merged
+#' Ask whether a tbl is already merged.
 #' 
 #' @export
 is_merged <- function(bed_tbl) {

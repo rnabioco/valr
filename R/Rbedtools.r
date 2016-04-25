@@ -12,7 +12,7 @@
 #' To learn more about Rbedtools, start with the vignette: 
 #' \code{browseVignettes(package = "Rbedtools")}
 #' 
-#' @author Jay Hesselberth <jay.hesselberth@gmail.com>
+#' @author Jay Hesselberth <jay.hesselberth@@gmail.com>
 #'   
 #' @docType package
 #' @name Rbedtools
@@ -29,7 +29,7 @@
 #' @importFrom assertthat assert_that is.flag
 #' @importFrom purrr by_row
 #' @importFrom Rcpp evalCpp
-#' @importFrom lazyeval lazy_dots
+#' @importFrom lazyeval lazy_eval lazy_dots
 #' @import dplyr
 #' @exportPattern "^[[:alpha:]]+"
 NULL

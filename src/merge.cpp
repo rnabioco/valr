@@ -1,101 +1,86 @@
-//
-// merge.cpp
-//
-// algorithm from www.geeksforgeeks.org/merging-intervals/
-//
-
 #include <Rcpp.h>
-#include <stack>
-#include "Rbedtools.h"
-
 using namespace Rcpp ;
 
-void
-store_intervals(std::stack<interval_t>& chrom_intervals, std::list<interval_t>& merged_intervals) {
+// [[Rcpp::depends(dplyr,BH)]]
+#include <dplyr.h>
+using namespace dplyr ;
+
+std::size_t label_hasher(int const& start, int const& end) {
   
-  while ( ! chrom_intervals.empty() ) {
-    merged_intervals.push_back( chrom_intervals.top() ) ; 
-    chrom_intervals.pop() ;
-  }
+  std::size_t seed = 0;
+  boost::hash_combine(seed, start) ;
+  boost::hash_combine(seed, end) ;
+  
+  return seed ;
 }
 
-
-std::list <interval_t>
-merge_intervals(std::list <interval_t> intervals, int max_dist) {
-
-  // make an empty previous to start with
-  interval_t previous = make_interval("", 0, 0) ;
-  
-  std::list <interval_t> merged_intervals ;
-  std::stack <interval_t> chrom_intervals ;
-  
-  int overlap = 0 ;
-  
-  std::list<interval_t>::iterator it ; 
-  for (it = intervals.begin(); it != intervals.end(); ++it) {
- 
-    interval_t current = *it ;
-    
-    if ( ! chrom_intervals.empty() ) {
-      overlap = interval_overlap(current, chrom_intervals.top() ) ;
-    }
-  
-    // switch chroms, can "switch" onto first chrom from null first previous
-    if ( current.chrom != previous.chrom ) {
-      
-      // store current set of intervals
-      store_intervals(chrom_intervals, merged_intervals) ;
-      
-      // store curr, which is the first on the new chrom
-      chrom_intervals.push(current) ;
-    } 
-
-    else if ( ! isnan(overlap) && (overlap > 0 || std::abs(overlap) < max_dist )) {
-      // update the stack interval with new end
-      chrom_intervals.top().end = current.end ;
-    }
-    
-    else {
-      chrom_intervals.push(current) ;
-    }
-    
-    previous = *it ;
-    
-  }
- 
-  // store last set of intervals 
-  store_intervals(chrom_intervals, merged_intervals) ;
-
-  return merged_intervals ;
+int interval_overlap2(int const& start_x, int const& end_x, int const& start_y, int const& end_y) {
+  return(std::min(end_x, end_y) - std::max(start_x, start_y)) ;    
 }
-
 
 // [[Rcpp::export]]
-Rcpp::DataFrame
-merge_impl(DataFrame df, int max_dist) {
-
-  // should be replaced with efficient iterator  
-  std::list <interval_t> intervals = create_intervals(df) ;
-
-  Rcpp::CharacterVector chroms_v ;
-  Rcpp::NumericVector starts_v ;    
-  Rcpp::NumericVector ends_v ;    
-
-  std::list<interval_t> merged_intervals = merge_intervals(intervals, max_dist) ;
- 
-  std::list<interval_t>::const_iterator it; 
-  for (it = merged_intervals.begin(); it != merged_intervals.end(); ++it) {
-   
-    interval_t interval = *it;
+CharacterVector merge_labels(GroupedDataFrame gdf, int max_dist = 0) {
   
-    chroms_v.push_back(interval.chrom) ; 
-    starts_v.push_back(interval.start) ;
-    ends_v.push_back(interval.end) ;
+  int ng = gdf.ngroups() ;
+  int nr = gdf.nrows() ;
+  
+  std::vector<std::size_t> res(nr) ;
+  
+  DataFrame df = gdf.data() ;
+  IntegerVector starts = df["start"] ;
+  IntegerVector ends = df["end"] ;
+  
+  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+  for(int i=0; i<ng; i++, ++git) {
+    
+    SlicingIndex indices = *git ;
+    int ni = indices.size() ;
    
- }
- 
- return DataFrame::create( Named("chrom") = chroms_v,
-                           Named("start") = starts_v,
-                           Named("end") = ends_v) ;
- 
+    int last_start = 0 ;
+    int last_end = 0 ;
+    std::size_t last_hash = 0 ;
+  
+    for(int j=0; j<ni; j++) {
+      int idx = indices[j] ;
+      
+      int start = starts[idx] ;
+      int end = ends[idx] ;
+     
+      std::size_t hash = label_hasher(start, end) ;
+
+      if (interval_overlap2(start, end, last_start, last_end) > max_dist) {
+        
+        res[idx] = last_hash ;
+        last_end = end ; last_start = start ;
+        continue ;
+        
+      } else {
+        res[idx] = hash ;
+      }
+      
+      last_end = end ; last_start = start ; last_hash = hash ;
+    }
+  }
+  
+  return Rcpp::wrap(res) ;
+  
 }
+
+// /*** R
+//   library(dplyr)
+//   bed_tbl <- tibble::frame_data(
+//     ~chrom, ~start, ~end, ~value,
+//     "chr1", 1,      50,   1,
+//     "chr1", 100,    200,  2,
+//     "chr1", 150,    250,  3,
+//     "chr1", 175,    225,  3.5,
+//     "chr2", 1,      25,   4,
+//     "chr2", 200,    400,  5,
+//     "chr2", 400,    500,  6,
+//     "chr2", 450,    550,  7,
+//     "chr3", 450,    550,  8,
+//     "chr3", 500,    600,  9
+//   ) %>% group_by(chrom)
+//   
+//   merge_labels(bed_tbl)
+// */
