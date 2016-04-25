@@ -37,7 +37,7 @@ test_that("merge with two chroms", {
   expect_equal(nrow(res), 2)   
 })
 
-test_that("book-ended intervals are no merged", {
+test_that("book-ended intervals are merged", {
   bed_df <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    1,         50,
@@ -45,7 +45,7 @@ test_that("book-ended intervals are no merged", {
   )
   
   res <- bed_merge(bed_df)
-  expect_equal(nrow(res), 2)   
+  expect_equal(nrow(res), 1)   
 })
 
 test_that("max_dist is enforced", {

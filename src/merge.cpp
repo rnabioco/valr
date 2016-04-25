@@ -1,101 +1,113 @@
-//
-// merge.cpp
-//
-// algorithm from www.geeksforgeeks.org/merging-intervals/
-//
-
 #include <Rcpp.h>
-#include <stack>
-#include "Rbedtools.h"
-
 using namespace Rcpp ;
 
-void
-store_intervals(std::stack<interval_t>& chrom_intervals, std::list<interval_t>& merged_intervals) {
-  
-  while ( ! chrom_intervals.empty() ) {
-    merged_intervals.push_back( chrom_intervals.top() ) ; 
-    chrom_intervals.pop() ;
-  }
+//[[Rcpp::depends(dplyr,BH)]]
+#include <dplyr.h>
+using namespace dplyr ;
+
+std::string interval_id(std::string const& chrom, int const& start, int const& end) {
+  std::ostringstream id ;
+  id << chrom << ':' << start << '-' << end ;
+  return id.str() ;
+}
+int interval_overlap(int const& start_x, int const& end_x, int const& start_y, int const& end_y) {
+  return(std::min(end_x, end_y) - std::max(start_x, start_y)) ;    
 }
 
-
-std::list <interval_t>
-merge_intervals(std::list <interval_t> intervals, int max_dist) {
-
-  // make an empty previous to start with
-  interval_t previous = make_interval("", 0, 0) ;
+//[[Rcpp::export]]
+DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   
-  std::list <interval_t> merged_intervals ;
-  std::stack <interval_t> chrom_intervals ;
+  int ng = gdf.ngroups() ;
   
-  int overlap = 0 ;
+  DataFrame df = gdf.data() ;
   
-  std::list<interval_t>::iterator it ; 
-  for (it = intervals.begin(); it != intervals.end(); ++it) {
+  int nr = df.nrows() ;
+  int nc = df.size() ;
+  
+  CharacterVector ids(nr) ;
+  IntegerVector overlaps(nr) ;
+  
+  CharacterVector chroms = df["chrom"] ; 
+  IntegerVector starts = df["start"] ;
+  IntegerVector ends = df["end"] ;
  
-    interval_t current = *it ;
+  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+  for(int i=0; i<ng; i++, ++git) {
     
-    if ( ! chrom_intervals.empty() ) {
-      overlap = interval_overlap(current, chrom_intervals.top() ) ;
-    }
-  
-    // switch chroms, can "switch" onto first chrom from null first previous
-    if ( current.chrom != previous.chrom ) {
-      
-      // store current set of intervals
-      store_intervals(chrom_intervals, merged_intervals) ;
-      
-      // store curr, which is the first on the new chrom
-      chrom_intervals.push(current) ;
-    } 
-
-    else if ( ! isnan(overlap) && (overlap > 0 || std::abs(overlap) < max_dist )) {
-      // update the stack interval with new end
-      chrom_intervals.top().end = current.end ;
-    }
-    
-    else {
-      chrom_intervals.push(current) ;
-    }
-    
-    previous = *it ;
-    
-  }
- 
-  // store last set of intervals 
-  store_intervals(chrom_intervals, merged_intervals) ;
-
-  return merged_intervals ;
-}
-
-
-// [[Rcpp::export]]
-Rcpp::DataFrame
-merge_impl(DataFrame df, int max_dist) {
-
-  // should be replaced with efficient iterator  
-  std::list <interval_t> intervals = create_intervals(df) ;
-
-  Rcpp::CharacterVector chroms_v ;
-  Rcpp::NumericVector starts_v ;    
-  Rcpp::NumericVector ends_v ;    
-
-  std::list<interval_t> merged_intervals = merge_intervals(intervals, max_dist) ;
- 
-  std::list<interval_t>::const_iterator it; 
-  for (it = merged_intervals.begin(); it != merged_intervals.end(); ++it) {
+    SlicingIndex indices = *git ;
+    int ni = indices.size() ;
    
-    interval_t interval = *it;
+    int last_start = 0 ;
+    int last_end = 0 ;
+    std::string last_id ;
   
-    chroms_v.push_back(interval.chrom) ; 
-    starts_v.push_back(interval.start) ;
-    ends_v.push_back(interval.end) ;
-   
- }
+    for(int j=0; j<ni; j++) {
+      int idx = indices[j] ;
+     
+      std::string chrom = as<std::string>(chroms[idx]) ; 
+      int start = starts[idx] ;
+      int end = ends[idx] ;
+     
+      std::string id = interval_id(chrom, start, end) ; 
+     
+      int overlap = interval_overlap(start, end, last_start, last_end) ;
+      overlaps[idx] = overlap ;
+     
+      if ( overlap > 0 ) {
+        ids[idx] = last_id ;
+      } else if ( overlap <= 0 && std::abs(overlap) <= max_dist ) {
+        ids[idx] = last_id ;
+      } else {
+        ids[idx] = id ;
+        last_id = id ;
+      }
+      
+      last_end = end ; last_start = start ;
+    }
+  }
+  
+  // add two new columns, hashes and overlaps
+  List out(nc + 2) ;
+  CharacterVector onames = df.attr("names") ;
+  CharacterVector names( nc + 2 ) ;
+  
+  for( int i=0; i<nc; i++) {
+    out[i] = df[i] ;
+    names[i] = onames[i] ;
+  }
  
- return DataFrame::create( Named("chrom") = chroms_v,
-                           Named("start") = starts_v,
-                           Named("end") = ends_v) ;
+  // add ids 
+  out[nc] = ids;
+  std::string id_name = ".merge_id" ;
+  names[nc] = id_name ;
+  
+  // add overlaps
+  out[nc+1] = overlaps ;
+  std::string overlaps_name = ".overlap" ;
+  names[nc+1] = overlaps_name;
  
+  out.attr("class") = df.attr("class") ;
+  out.attr("row.names") = df.attr("row.names") ;
+  out.attr("names") = names ;
+  
+  return out ;
 }
+
+// /*** R
+//   library(dplyr)
+//   bed_tbl <- tibble::frame_data(
+//     ~chrom, ~start, ~end, ~value,
+//     "chr1", 1,      50,   1,
+//     "chr1", 100,    200,  2,
+//     "chr1", 150,    250,  3,
+//     "chr1", 175,    225,  3.5,
+//     "chr2", 1,      25,   4,
+//     "chr2", 200,    400,  5,
+//     "chr2", 400,    500,  6,
+//     "chr2", 450,    550,  7,
+//     "chr3", 450,    550,  8,
+//     "chr3", 500,    600,  9
+//   ) %>% group_by(chrom)
+// 
+//   merge_impl(bed_tbl)
+// */

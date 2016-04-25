@@ -2,11 +2,11 @@
 % Please edit documentation in R/bed_merge.r
 \name{is_merged}
 \alias{is_merged}
-\title{determine whether tbl has been previously merged}
+\title{Ask whether a tbl is already merged.}
 \usage{
 is_merged(bed_tbl)
 }
 \description{
-determine whether tbl has been previously merged
+Ask whether a tbl is already merged.
 }
 
