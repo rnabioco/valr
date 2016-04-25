@@ -29,7 +29,7 @@
 bed_complement <- function(bed_tbl, genome) {
 
   if ( ! is_merged(bed_tbl) ) {
-    res <- bed_merge(bed_tbl) %>% mutate(chrom = as.character(chrom))
+    res <- bed_merge(bed_tbl)
   } 
 
   # tbl is sorted at this point
