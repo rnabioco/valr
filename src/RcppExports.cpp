@@ -18,15 +18,15 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// merge_labels
-CharacterVector merge_labels(GroupedDataFrame gdf, int max_dist);
-RcppExport SEXP Rbedtools_merge_labels(SEXP gdfSEXP, SEXP max_distSEXP) {
+// merge_impl
+DataFrame merge_impl(GroupedDataFrame gdf, int max_dist);
+RcppExport SEXP Rbedtools_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< GroupedDataFrame >::type gdf(gdfSEXP);
     Rcpp::traits::input_parameter< int >::type max_dist(max_distSEXP);
-    __result = Rcpp::wrap(merge_labels(gdf, max_dist));
+    __result = Rcpp::wrap(merge_impl(gdf, max_dist));
     return __result;
 END_RCPP
 }

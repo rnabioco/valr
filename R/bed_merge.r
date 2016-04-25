@@ -19,7 +19,7 @@
 #'  "chr2", 200,    400,  5,      '-',
 #'  "chr2", 400,    500,  6,      '+',
 #'  "chr2", 450,    550,  7,      '+'
-#' ) %>% group_by(chrom)
+#' )
 #' 
 #' bed_merge(bed_tbl)
 #' bed_merge(bed_tbl, max_dist = 100)
@@ -27,38 +27,29 @@
 #' bed_merge(bed_tbl, .value = sum(value))
 #' 
 #' @export
-bed_merge <- function(bed_tbl, max_dist = 0, strand = FALSE, .keep = FALSE, ...) {
+bed_merge <- function(bed_tbl, max_dist = 0, strand = FALSE, ...) {
  
   assert_that(max_dist >= 0)
   
   if ( ! is_sorted(bed_tbl) ) {
     res <- bed_sort(bed_tbl)
   }
-  
+ 
   res <- group_by(res, chrom)
   
   if (strand)
     res <- group_by(res, strand, add = TRUE)
 
-  # XXX 
-  # res <- merge_impl(res, max_dist)
+  res <- merge_impl(res, max_dist)
   
-  mlabels <- merge_labels(res)
-  res$.merge_id <- mlabels
-
   dots <- list(.start = ~min(start), .end = ~max(end))
   dots <- c(dots, lazyeval::lazy_dots(...))
   
   res <- res %>% 
-    group_by(.merge_id, add = TRUE) %>%
+    group_by(chrom, .merge_id) %>%
     summarize_(.dots = dots) %>%
     rename(start = .start, end = .end) %>%
-    bed_sort
-  
-  # XXX 
-  if (!.keep) 
-  #   res <- select(res, -.merge_id, -.overlap)
-    res <- select(res, -.merge_id)
+    select(-.merge_id)
   
   attr(res, 'merged') <- TRUE
 

@@ -5,8 +5,8 @@ intersect_impl <- function(df_a, df_b) {
     .Call('Rbedtools_intersect_impl', PACKAGE = 'Rbedtools', df_a, df_b)
 }
 
-merge_labels <- function(gdf, max_dist = 0L) {
-    .Call('Rbedtools_merge_labels', PACKAGE = 'Rbedtools', gdf, max_dist)
+merge_impl <- function(gdf, max_dist = 0L) {
+    .Call('Rbedtools_merge_impl', PACKAGE = 'Rbedtools', gdf, max_dist)
 }
 
 random_impl <- function(genome, length, n, seed = 0L) {

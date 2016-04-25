@@ -4,16 +4,16 @@
 \alias{bed_merge}
 \title{Merge overlapping intervals.}
 \usage{
-bed_merge(bed_tbl, max_dist = 0, strand = FALSE, .keep = FALSE, ...)
+bed_merge(bed_tbl, max_dist = 0, strand = FALSE, ...)
 }
 \arguments{
 \item{bed_tbl}{tbl of intervals}
 
 \item{max_dist}{maximum distance between intervals to merge}
 
-\item{.keep}{keep dot columns (\code{.merge_id}, \code{.overlap})}
-
 \item{...}{name-value pairs that specify merging operations}
+
+\item{.keep}{keep dot columns (\code{.merge_id}, \code{.overlap})}
 }
 \value{
 \code{data_frame}
@@ -31,7 +31,7 @@ bed_tbl <- tibble::frame_data(
  "chr2", 200,    400,  5,      '-',
  "chr2", 400,    500,  6,      '+',
  "chr2", 450,    550,  7,      '+'
-) \%>\% group_by(chrom)
+)
 
 bed_merge(bed_tbl)
 bed_merge(bed_tbl, max_dist = 100)
