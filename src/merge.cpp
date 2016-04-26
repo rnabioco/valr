@@ -1,6 +1,8 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 
+#include "Rbedtools.h"
+
 //[[Rcpp::depends(dplyr,BH)]]
 #include <dplyr.h>
 using namespace dplyr ;
@@ -9,9 +11,6 @@ std::string interval_id(std::string const& chrom, int const& start, int const& e
   std::ostringstream id ;
   id << chrom << ':' << start << '-' << end ;
   return id.str() ;
-}
-int interval_overlap(int const& start_x, int const& end_x, int const& start_y, int const& end_y) {
-  return(std::min(end_x, end_y) - std::max(start_x, start_y)) ;    
 }
 
 //[[Rcpp::export]]
