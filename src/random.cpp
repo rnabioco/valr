@@ -10,9 +10,10 @@
 
 using namespace Rcpp ;
 
+// http://stackoverflow.com/questions/883999/why-does-g-complain-when-using-templated-typedefs-in-graph-traits
 typedef boost::mt19937 rng_type ;
-typedef boost::uniform_int<> dist_type ;
-typedef boost::variate_generator<rng_type&, dist_type> gen_type ;
+typedef typename boost::uniform_int<> dist_type ;
+typedef typename boost::variate_generator<rng_type&, dist_type> gen_type ;
 
 // [[Rcpp::export]]
 DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0) {
@@ -63,3 +64,16 @@ DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0
                             Named("end") = rand_ends) ;
   
 }
+
+/*** R
+genome <- tibble::frame_data(
+  ~chrom,  ~size,
+  "chr1",  10000000,
+  "chr2",  50000000,
+  "chr3",  60000000,
+  "chrX",  5000000
+)
+
+# random intervals (unsorted)
+bed_random(genome)
+*/
