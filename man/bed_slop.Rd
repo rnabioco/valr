@@ -5,7 +5,7 @@
 \title{Increase the size of input intervals.}
 \usage{
 bed_slop(bed_df, genome, both = 0, left = 0, right = 0,
-  fraction = FALSE, strand = FALSE)
+  fraction = FALSE, strand = FALSE, trim = FALSE)
 }
 \arguments{
 \item{genome}{tbl of chrom sizes}
@@ -19,6 +19,8 @@ bed_slop(bed_df, genome, both = 0, left = 0, right = 0,
 \item{fraction}{define flanks based on fraction of interval length}
 
 \item{strand}{define \code{left} and \code{right} based on strand}
+
+\item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \value{
 \code{data_frame}

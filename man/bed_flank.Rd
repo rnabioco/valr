@@ -5,7 +5,7 @@
 \title{Create flanks from input intervals.}
 \usage{
 bed_flank(bed_tbl, genome, both = 0, left = 0, right = 0,
-  fraction = FALSE, strand = FALSE)
+  fraction = FALSE, strand = FALSE, trim = FALSE)
 }
 \arguments{
 \item{bed_tbl}{tbl of intervals}
@@ -21,6 +21,8 @@ bed_flank(bed_tbl, genome, both = 0, left = 0, right = 0,
 \item{fraction}{define flanks based on fraction of interval length}
 
 \item{strand}{define \code{left} and \code{right} based on strand}
+
+\item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \value{
 \code{data_frame}
@@ -40,11 +42,11 @@ bed_tbl <- tibble::frame_data(
  "chr1", 1000,   1500, '.',   '.',    '-'
 )
 
-bed_flank(bed_tbl, left = 100)
-bed_flank(bed_tbl, right = 100)
-bed_flank(bed_tbl, both = 100)
+bed_flank(bed_tbl, genome, left = 100)
+bed_flank(bed_tbl, genome, right = 100)
+bed_flank(bed_tbl, genome, both = 100)
 
-bed_flank(bed_tbl, both = 0.5, fraction=TRUE)
+bed_flank(bed_tbl, genome, both = 0.5, fraction=TRUE)
 
 }
 \seealso{

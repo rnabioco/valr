@@ -1,12 +1,13 @@
 #' Adjust intervals by a fixed size.
 #'
-#' Out-of-bounds intervals are removed.
+#' Out-of-bounds intervals are removed by default.
 #'  
 #' @param bed_tbl tbl of intervals 
 #' @param genome chromosome sizes
 #' @param size number of bases to shift. postive numbers shift right, negative shift left. 
 #' @param strand logical indicating shift according to +/- in strand column
 #' @param fraction define \code{size} as a fraction of interval
+#' @param trim adjust coordinates for out-of-bounds intervals
 #' 
 #' @return \code{data.frame}
 #' 
@@ -36,7 +37,7 @@
 #' bed_shift(bed_tbl, genome, strand = TRUE, fraction = 0.5)
 #' 
 #' @export
-bed_shift <- function(bed_tbl, genome, size = 0, strand = FALSE, fraction = 0){
+bed_shift <- function(bed_tbl, genome, size = 0, strand = FALSE, fraction = 0, trim = FALSE){
 
   # shift invervals
   if (!strand && !fraction) {
@@ -78,12 +79,7 @@ bed_shift <- function(bed_tbl, genome, size = 0, strand = FALSE, fraction = 0){
       select(-.size)
   }
   
-  res <- res %>%
-    left_join(genome, by = "chrom") %>%
-    filter(start >= 1, end <= size) %>%
-    mutate(start = ifelse(start < 0, 0, start),
-           end = ifelse(end > size, size, end)) %>%
-    select(-size)
+  res <- bound_intervals(res, genome, trim)
 
   res  
 }

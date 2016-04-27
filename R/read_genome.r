@@ -28,6 +28,7 @@ read_genome <- function(filename) {
 #' 
 #' @param bed_tbl a tbl of intervals
 #' @param genome a tbl of chrom sizes
+#' @param trim adjust coordinates for out-of-bounds intervals
 #'
 #' @return \code{data_frame}
 #'  
@@ -42,14 +43,22 @@ read_genome <- function(filename) {
 #' genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 #' 
 #' bound_intervals(bed_tbl, genome)
+#' bound_intervals(bed_tbl, genome, trim = TRUE)
 #' 
 #' @export
-bound_intervals <- function(bed_tbl, genome) {
-   res <-
-     bed_tbl %>% 
+bound_intervals <- function(bed_tbl, genome, trim = FALSE) {
+  if (trim) {
+   res <-bed_tbl %>% 
+    left_join(genome, by = "chrom") %>%
+      mutate(start = ifelse(start < 1, 1, start),
+             end = ifelse(end > size, size, end)) %>%
+      select(-size)
+  } else {
+   res <-bed_tbl %>% 
      left_join(genome, by = 'chrom') %>%
      filter(start >= 1 & end <= size) %>%
      select(-size)
+  }
    
    res
 }

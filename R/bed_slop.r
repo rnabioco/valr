@@ -1,6 +1,7 @@
 #' Increase the size of input intervals.
 #'
 #' @inheritParams bed_flank
+#' @param trim adjust coordinates for out-of-bounds intervals
 #' 
 #' @return \code{data_frame}
 #' 
@@ -28,7 +29,7 @@
 #' @export
 bed_slop <- function(bed_df, genome, both = 0, left = 0,
                      right = 0, fraction = FALSE,
-                     strand = FALSE) {
+                     strand = FALSE, trim = FALSE) {
 
   assert_that(is.flag(strand) && 'strand' %in% colnames(bed_df))
   
@@ -86,7 +87,7 @@ bed_slop <- function(bed_df, genome, both = 0, left = 0,
   if ( fraction ) out <- select(out, -.interval_size) 
   
   out <- out %>%
-    bound_intervals(genome) %>%
+    bound_intervals(genome, trim) %>%
     bed_sort()
 
   out

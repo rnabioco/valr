@@ -7,6 +7,7 @@
 #' @param right number of bases on right side
 #' @param strand define \code{left} and \code{right} based on strand
 #' @param fraction define flanks based on fraction of interval length
+#' @param trim adjust coordinates for out-of-bounds intervals
 #' 
 #' @return \code{data_frame}
 #' 
@@ -25,20 +26,18 @@
 #'  "chr1", 1000,   1500, '.',   '.',    '-'
 #' )
 #' 
-#' bed_flank(bed_tbl, left = 100)
-#' bed_flank(bed_tbl, right = 100)
-#' bed_flank(bed_tbl, both = 100)
+#' bed_flank(bed_tbl, genome, left = 100)
+#' bed_flank(bed_tbl, genome, right = 100)
+#' bed_flank(bed_tbl, genome, both = 100)
 #'
-#' bed_flank(bed_tbl, both = 0.5, fraction=TRUE)
+#' bed_flank(bed_tbl, genome, both = 0.5, fraction=TRUE)
 #' 
 #' @export
 bed_flank <- function(bed_tbl, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
-                      strand = FALSE) {
+                      strand = FALSE, trim = FALSE) {
 
   assert_that(both > 0 || left > 0 || right > 0)
-  assert_that(is.flag(strand) && 'strand' %in% colnames(bed_tbl))
-  assert_that(!is.flag(both))
   assert_that(fraction >= 0 && fraction <= 1)
   
   if (both != 0 && (left != 0 || right != 0)) {
@@ -101,5 +100,9 @@ bed_flank <- function(bed_tbl, genome, both = 0, left = 0,
     }
   }    
     
+  flank_result <- flank_result %>%
+    bound_intervals(genome, trim) %>%
+    bed_sort()
+  
   flank_result
 }

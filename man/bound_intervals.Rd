@@ -4,12 +4,14 @@
 \alias{bound_intervals}
 \title{select intervals bounded by a genome}
 \usage{
-bound_intervals(bed_tbl, genome)
+bound_intervals(bed_tbl, genome, trim = FALSE)
 }
 \arguments{
 \item{bed_tbl}{a tbl of intervals}
 
 \item{genome}{a tbl of chrom sizes}
+
+\item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \value{
 \code{data_frame}
@@ -28,6 +30,7 @@ bed_tbl <- tibble::frame_data(
 genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 
 bound_intervals(bed_tbl, genome)
+bound_intervals(bed_tbl, genome, trim = TRUE)
 
 }
 
