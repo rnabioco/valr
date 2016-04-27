@@ -9,7 +9,7 @@
 #' 
 #' @param win_id one of \code{name}, \code{num}, \code{namenum} (default \code{name})
 #' 
-#' @return \code{data_frame} with \code{.win_id} column
+#' @return \code{data_frame} with \code{win_id} column
 #' 
 #' @examples 
 #' genome <- tibble::frame_data(
@@ -108,14 +108,14 @@ split_interval <- function(interval, genome, win_size, step_size,
   
   if (win_id == 'name') {
     if ( ! 'name' %in% colnames(res) ) {
-      res <- mutate(res, .win_id = str_c(chrom, ':', start, '-', end)) %>% select(-.win_num) 
+      res <- mutate(res, win_id = str_c(chrom, ':', start, '-', end)) %>% select(-.win_num) 
     } else {
-      res <- mutate(res, .win_id = name) %>% select(-.win_num)
+      res <- mutate(res, win_id = name) %>% select(-.win_num)
     }
   } else if (win_id == 'num') {
-    res <- rename(res, .win_id = .win_num)
+    res <- rename(res, win_id = .win_num)
   } else if (win_id == 'namenum') {
-    res <- mutate(res, .win_id = str_c(name, "_", .win_num)) %>% select(-.win_num)
+    res <- mutate(res, win_id = str_c(name, "_", .win_num)) %>% select(-.win_num)
   }
   
   res
