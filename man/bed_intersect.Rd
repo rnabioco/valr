@@ -4,7 +4,8 @@
 \alias{bed_intersect}
 \title{Identify intersecting intervals.}
 \usage{
-bed_intersect(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE)
+bed_intersect(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE,
+  suffix_x = ".x", suffix_y = ".y")
 }
 \arguments{
 \item{x}{BED intervals}
@@ -14,6 +15,10 @@ bed_intersect(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE)
 \item{max_dist}{maximum distance between intersections}
 
 \item{strand}{intersect intervals on same strand}
+
+\item{suffix_x}{suffix for intersected intervals from x (except chrom)}
+
+\item{suffix_y}{suffix for intersected intervals from y (except chrom)}
 }
 \description{
 Identify intersecting intervals.

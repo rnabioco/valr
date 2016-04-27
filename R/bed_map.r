@@ -39,7 +39,7 @@
 #' @export
 bed_map <- function(bed_tbl, signal_tbl, ...) {
  
-  res <- bed_intersect(bed_tbl, signal_tbl) %>%
+  res <- bed_intersect(bed_tbl, signal_tbl, suffix_y = '') %>%
     group_by(chrom, start.x, end.x) %>%
     summarize_(.dots = lazyeval::lazy_dots(...)) %>%
     rename(start = start.x, end = end.x) %>%

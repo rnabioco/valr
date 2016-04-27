@@ -4,6 +4,9 @@
 #' @param y BED intervals 
 #' @param max_dist maximum distance between intersections
 #' @param strand intersect intervals on same strand
+#' @param suffix_x suffix for intersected intervals from x (except chrom)
+#' @param suffix_y suffix for intersected intervals from y (except chrom)
+#' 
 #' 
 #' @examples 
 #' x <- tibble::frame_data(
@@ -27,7 +30,8 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 #'  
 #' @export
-bed_intersect <- function(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE) {
+bed_intersect <- function(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE,
+                          suffix_x = '.x', suffix_y = '.y') {
  
   if ( ! is_sorted(x) )
     x <- bed_sort(x)
@@ -39,7 +43,7 @@ bed_intersect <- function(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE
   if (is.null(groups(y)) || groups(y) != "chrom")
     y <- group_by(y, chrom)
 
-  res <- intersect_impl(x, y, max_dist)
+  res <- intersect_impl(x, y, max_dist, suffix_x, suffix_y)
   
   if (strand) {
      res <- filter(res, strand.x == strand.y) 
