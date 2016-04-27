@@ -1,4 +1,4 @@
-#' create flanking intervals from input intervals
+#' Create flanks from input intervals.
 #' 
 #' @param bed_tbl tbl of intervals
 #' @param genome tbl of chrom sizes

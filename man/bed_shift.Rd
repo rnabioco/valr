@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_shift.r
 \name{bed_shift}
 \alias{bed_shift}
-\title{adjust each interval by a fixed size}
+\title{Adjust intervals by a fixed size.}
 \usage{
 bed_shift(bed_tbl, genome, size = 0, strand = FALSE, fraction = 0)
 }
@@ -21,7 +21,7 @@ bed_shift(bed_tbl, genome, size = 0, strand = FALSE, fraction = 0)
 \code{data.frame}
 }
 \description{
-adjust each interval by a fixed size
+Out-of-bounds intervals are removed.
 }
 \examples{
 bed_tbl <- tibble::frame_data(

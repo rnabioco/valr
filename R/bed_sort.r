@@ -1,4 +1,6 @@
-#' Sort intervals. sorting strips groups present in the input.
+#' Sort a tbl of intervals.
+#' 
+#' Sorting strips any groups from the input.
 #'
 #' @param intervals tbl of intervals
 #' @param by_size sort by interval size
@@ -78,7 +80,7 @@ bed_sort <- function(intervals, by_size = FALSE,
   res
 }
 
-#' determine whether tbl has been previously sorted
+#' Ask whether tbl is sorted.
 #' 
 #' @export
 is_sorted <- function(bed_tbl) {

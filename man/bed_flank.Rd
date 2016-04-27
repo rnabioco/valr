@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_flank.r
 \name{bed_flank}
 \alias{bed_flank}
-\title{create flanking intervals from input intervals}
+\title{Create flanks from input intervals.}
 \usage{
 bed_flank(bed_tbl, genome, both = 0, left = 0, right = 0,
   fraction = FALSE, strand = FALSE)
@@ -26,7 +26,7 @@ bed_flank(bed_tbl, genome, both = 0, left = 0, right = 0,
 \code{data_frame}
 }
 \description{
-create flanking intervals from input intervals
+Create flanks from input intervals.
 }
 \examples{
 genome <- tibble::frame_data(

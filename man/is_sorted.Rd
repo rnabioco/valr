@@ -2,11 +2,11 @@
 % Please edit documentation in R/bed_sort.r
 \name{is_sorted}
 \alias{is_sorted}
-\title{determine whether tbl has been previously sorted}
+\title{Ask whether tbl is sorted.}
 \usage{
 is_sorted(bed_tbl)
 }
 \description{
-determine whether tbl has been previously sorted
+Ask whether tbl is sorted.
 }
 

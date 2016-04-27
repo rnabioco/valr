@@ -1,10 +1,8 @@
-#' @title Read BED and related files
+#' Read BED and related files.
 #'   
-#' @description \code{read_bed} reads BED files and \code{read_bedgraph} reads
-#'   bedGraph files. Return value are \code{data.frame} that is sorted by chrom
-#'   and start unless otherwise specified.
-#'   
-#' @name read_bed
+#' \code{read_bed} reads BED files and \code{read_bedgraph} reads
+#' bedGraph files. Return value are \code{data.frame} that is sorted by chrom
+#' and start unless otherwise specified.
 #'   
 #' @param filename file or URL
 #' @param n_fields number fields in the BED file

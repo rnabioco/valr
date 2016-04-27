@@ -7,7 +7,7 @@
 \alias{distinct_only}
 \alias{first}
 \alias{last}
-\title{Map signals over intervals}
+\title{Map signals over intervals.}
 \usage{
 bed_map(bed_tbl, signal_tbl, ...)
 
@@ -33,7 +33,7 @@ last(.data)
 \code{data_frame}
 }
 \description{
-Map signals over intervals
+Map signals over intervals.
 }
 \examples{
 bed_tbl <- tibble::frame_data(

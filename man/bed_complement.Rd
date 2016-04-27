@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_complement.r
 \name{bed_complement}
 \alias{bed_complement}
-\title{identify intervals in a genome that are not covered by a query}
+\title{Identify intervals in a genome not covered by a query.}
 \usage{
 bed_complement(bed_tbl, genome)
 }
@@ -15,7 +15,7 @@ bed_complement(bed_tbl, genome)
 \code{data_frame}
 }
 \description{
-identify intervals in a genome that are not covered by a query
+Identify intervals in a genome not covered by a query.
 }
 \examples{
 genome <- tibble::frame_data(

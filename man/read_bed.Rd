@@ -4,7 +4,11 @@
 \alias{read_bed}
 \alias{read_bed12}
 \alias{read_bedgraph}
-\title{Read BED and related files}
+\title{Read BED and related files.
+  
+\code{read_bed} reads BED files and \code{read_bedgraph} reads
+bedGraph files. Return value are \code{data.frame} that is sorted by chrom
+and start unless otherwise specified.}
 \usage{
 read_bed(filename, n_fields = 3, col_types = bed12_coltypes, sort = TRUE,
   factor_cols = TRUE, ...)
@@ -30,9 +34,11 @@ read_bedgraph(filename, ...)
 \code{data_frame}
 }
 \description{
+Read BED and related files.
+  
 \code{read_bed} reads BED files and \code{read_bedgraph} reads
-  bedGraph files. Return value are \code{data.frame} that is sorted by chrom
-  and start unless otherwise specified.
+bedGraph files. Return value are \code{data.frame} that is sorted by chrom
+and start unless otherwise specified.
 }
 \details{
 \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}

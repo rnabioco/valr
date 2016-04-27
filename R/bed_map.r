@@ -1,4 +1,4 @@
-#' Map signals over intervals
+#' Map signals over intervals.
 #' 
 #' @param bed_tbl tbl of intervals 
 #' @param signal_tbl tbl of signals 

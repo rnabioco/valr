@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_random.r
 \name{bed_random}
 \alias{bed_random}
-\title{generate randomly placed intervals on a genome}
+\title{Generate randomly placed intervals on a genome.}
 \usage{
 bed_random(genome, length = 1000, n = 1e+06, seed = 0)
 }
@@ -16,7 +16,7 @@ bed_random(genome, length = 1000, n = 1e+06, seed = 0)
 \item{seed}{seed RNG for reproducible intervals}
 }
 \description{
-generate randomly placed intervals on a genome
+Generate randomly placed intervals on a genome.
 }
 \examples{
 genome <- tibble::frame_data(

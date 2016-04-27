@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_makewindows.r
 \name{bed_makewindows}
 \alias{bed_makewindows}
-\title{Divide intervals into new intervals with labels}
+\title{Divide intervals into new intervals with labels.}
 \usage{
 bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
   num_windows = 0, reverse = FALSE, win_id = NULL)
@@ -26,7 +26,7 @@ bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
 \code{data_frame} with \code{.win_id} column
 }
 \description{
-Divide intervals into new intervals with labels
+Divide intervals into new intervals with labels.
 }
 \examples{
 genome <- tibble::frame_data(

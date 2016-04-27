@@ -1,4 +1,4 @@
-#' generate randomly placed intervals on a genome
+#' Generate randomly placed intervals on a genome.
 #' 
 #' @param genome genome tbl
 #' @param length length of intervals

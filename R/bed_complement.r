@@ -1,4 +1,4 @@
-#' identify intervals in a genome that are not covered by a query
+#' Identify intervals in a genome not covered by a query.
 #' 
 #' @param bed_tbl tbl of intervals
 #' @param genome chrom sizes

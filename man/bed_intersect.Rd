@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_intersect.r
 \name{bed_intersect}
 \alias{bed_intersect}
-\title{instersect BED intervals}
+\title{Identify intersecting intervals.}
 \usage{
 bed_intersect(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE)
 }
@@ -11,12 +11,12 @@ bed_intersect(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE)
 
 \item{y}{BED intervals}
 
-\item{max_dist}{maximum distance between intserections}
+\item{max_dist}{maximum distance between intersections}
 
 \item{strand}{intersect intervals on same strand}
 }
 \description{
-instersect BED intervals
+Identify intersecting intervals.
 }
 \examples{
 x <- tibble::frame_data(

@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_slop.r
 \name{bed_slop}
 \alias{bed_slop}
-\title{increase the size of input intervals}
+\title{Increase the size of input intervals.}
 \usage{
 bed_slop(bed_df, genome, both = 0, left = 0, right = 0,
   fraction = FALSE, strand = FALSE)
@@ -24,7 +24,7 @@ bed_slop(bed_df, genome, both = 0, left = 0, right = 0,
 \code{data_frame}
 }
 \description{
-increase the size of input intervals
+Increase the size of input intervals.
 }
 \examples{
 genome <- tibble::frame_data(

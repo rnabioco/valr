@@ -1,4 +1,4 @@
-#' Divide intervals into new intervals with labels
+#' Divide intervals into new intervals with labels.
 #' 
 #' @param bed_df BED data in \code{dplyr::tbl_df} format
 #' @param genome genome file with chromosome sizes

@@ -1,5 +1,7 @@
-#' adjust each interval by a fixed size
-#' 
+#' Adjust intervals by a fixed size.
+#'
+#' Out-of-bounds intervals are removed.
+#'  
 #' @param bed_tbl tbl of intervals 
 #' @param genome chromosome sizes
 #' @param size number of bases to shift. postive numbers shift right, negative shift left. 

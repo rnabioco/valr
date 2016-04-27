@@ -1,4 +1,4 @@
-#' increase the size of input intervals
+#' Increase the size of input intervals.
 #'
 #' @inheritParams bed_flank
 #' 
