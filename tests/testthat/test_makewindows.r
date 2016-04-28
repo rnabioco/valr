@@ -13,8 +13,8 @@ x <- tibble::frame_data(
 ) 
 
 # Fixed number of windows 
-res <- bed_makewindows(x, genome, num_windows = 10)
-#test_that('num_windows are correct', {
+res <- bed_makewindows(x, genome, num_win = 10)
+#test_that('num_win are correct', {
 #  expect_that(nrow(res), 20)
 #})
 
@@ -28,10 +28,6 @@ res <- bed_makewindows(x, genome, win_size = 10, step_size = 5)
 res <- bed_makewindows(x, genome, win_size = 10, reverse = TRUE)
 
 test_that('window IDs are generated', {
-  res <- bed_makewindows(x, genome, win_size = 10, win_id = 'name')
-  expect_true('win_id' %in% colnames(res))
-  res <- bed_makewindows(x, genome, win_size = 10, win_id = 'num')
-  expect_true('win_id' %in% colnames(res))
-  res <- bed_makewindows(x, genome, win_size = 10, win_id = 'namenum')
+  res <- bed_makewindows(x, genome, win_size = 10)
   expect_true('win_id' %in% colnames(res))
 })
