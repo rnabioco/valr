@@ -1,14 +1,8 @@
-// random.cpp
-// 
-// generate random intervals on a genome
-// 
-// [[Rcpp::depends(BH)]]
 #include <Rcpp.h>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_int.hpp>
-#include <boost/random/variate_generator.hpp>
-
 using namespace Rcpp ;
+
+// [[Rcpp::depends(BH)]]
+#include <boost/random.hpp>
 
 typedef boost::mt19937 rng_type ;
 typedef boost::uniform_int<> dist_type ;
