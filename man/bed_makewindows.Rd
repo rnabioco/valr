@@ -59,8 +59,13 @@ bed_makewindows(x, genome, win_size = 10, step_size = 5)
 bed_makewindows(x, genome, win_size = 10, reverse = TRUE)
 
 # bedtools 'namenum'
+<<<<<<< HEAD
 wins <- bed_makewindows(x, genome, win_size = 10)
 dplyr::mutate(wins, namenum = stringr::str_c(name, '_', win_id))
+=======
+bed_makewindows(x, genome, win_size = 10) \%>\%
+ dplyr::mutate(namenum = stringr::str_c(name, '_', win_id))
+>>>>>>> a4fa416969053d8e5324fad8a7f39c700a940fe6
 
 }
 
