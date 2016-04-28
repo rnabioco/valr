@@ -1,6 +1,6 @@
 #' Identify intervals in a genome not covered by a query.
 #' 
-#' @param bed_tbl tbl of intervals
+#' @param x tbl of intervals
 #' @param genome chrom sizes
 #' 
 #' @return \code{data_frame}
@@ -13,7 +13,7 @@
 #'    "chr3", 800
 #' ) 
 #' 
-#' bed_tbl <- tibble::frame_data(
+#' x <- tibble::frame_data(
 #'    ~chrom, ~start, ~end,
 #'    "chr1", 100,    300,
 #'    "chr1", 200,    400,
@@ -22,18 +22,18 @@
 #'    "chr3", 500,    600
 #' )
 #' 
-#' # intervals not covered by bed_tbl
-#' bed_complement(bed_tbl, genome)
+#' # intervals not covered by x
+#' bed_complement(x, genome)
 #' 
 #' @export
-bed_complement <- function(bed_tbl, genome) {
+bed_complement <- function(x, genome) {
 
-  if ( ! is_merged(bed_tbl) ) {
-    res <- bed_merge(bed_tbl)
+  if ( ! is_merged(x) ) {
+    res <- bed_merge(x)
   } 
 
   # tbl is sorted at this point
-  lags <- bed_tbl %>% group_by(chrom) %>% mutate(.prev_end = lag(end))
+  lags <- x %>% group_by(chrom) %>% mutate(.prev_end = lag(end))
   
   first <- lags %>% filter(is.na(.prev_end) & start > 1) %>%
     mutate(.start = 1, .end = start) %>%

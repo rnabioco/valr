@@ -1,12 +1,12 @@
 #' Identify intersecting intervals.
 #' 
-#' @param x BED intervals 
-#' @param y BED intervals 
+#' @param x tbl of intervals 
+#' @param y tbl of intervals 
 #' @param max_dist maximum distance between intersections
 #' @param strand intersect intervals on same strand
+#' @param strand_opp intersect intervals on opposite strands
 #' @param suffix_x suffix for intersected intervals from x (except chrom)
 #' @param suffix_y suffix for intersected intervals from y (except chrom)
-#' 
 #' 
 #' @examples 
 #' x <- tibble::frame_data(

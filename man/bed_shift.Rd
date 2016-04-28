@@ -4,11 +4,11 @@
 \alias{bed_shift}
 \title{Adjust intervals by a fixed size.}
 \usage{
-bed_shift(bed_tbl, genome, size = 0, strand = FALSE, fraction = 0,
+bed_shift(x, genome, size = 0, strand = FALSE, fraction = 0,
   trim = FALSE)
 }
 \arguments{
-\item{bed_tbl}{tbl of intervals}
+\item{x}{tbl of intervals}
 
 \item{genome}{chromosome sizes}
 
@@ -27,7 +27,7 @@ bed_shift(bed_tbl, genome, size = 0, strand = FALSE, fraction = 0,
 Out-of-bounds intervals are removed by default.
 }
 \examples{
-bed_tbl <- tibble::frame_data(
+x <- tibble::frame_data(
    ~chrom, ~start, ~end, ~strand,
    "chr1", 100, 150, "+",
    "chr1", 200, 250, "+",
@@ -44,10 +44,10 @@ genome <- tibble::frame_data(
    "chr3", 3000
    )
 
-bed_shift(bed_tbl, genome, 100)
-bed_shift(bed_tbl, genome, fraction = 0.5)
-bed_shift(bed_tbl, genome, 100, strand = TRUE)
-bed_shift(bed_tbl, genome, strand = TRUE, fraction = 0.5)
+bed_shift(x, genome, 100)
+bed_shift(x, genome, fraction = 0.5)
+bed_shift(x, genome, 100, strand = TRUE)
+bed_shift(x, genome, strand = TRUE, fraction = 0.5)
 
 }
 \seealso{

@@ -4,22 +4,22 @@
 #' number, with respect to strand (i.e., exon 1 for `-` strand genes will have 
 #' larger start and end coordinates).
 #' 
-#' @param bed12_tbl tbl in BED12 format
+#' @param x tbl in BED12 format
 #'   
 #' @examples
 #' bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'Rbedtools')
-#' bed12_tbl <- read_bed12(bed12_path)
-#' bed6_exon_tbl <- bed12_to_exons(bed12_tbl) 
+#' x <- read_bed12(bed12_path)
+#' y <- bed12_to_exons(x) 
 #' 
 #' # first exons
-#' subset(bed6_exon_tbl, score == 1)
+#' subset(y, score == 1)
 #' 
 #' @export
-bed12_to_exons <- function(bed12_tbl) {
+bed12_to_exons <- function(x) {
   
-  assert_that(ncol(bed12_tbl) == 12)
+  assert_that(ncol(x) == 12)
   
-  res <- bed12_tbl %>%
+  res <- x %>%
     tidyr::unnest(.exon_size = str_split(str_replace(exon_sizes, ',$', ''), ','),
                   .exon_start = str_split(str_replace(exon_starts, ',$', ''), ',')) %>%
     mutate(.exon_size = as.double(.exon_size),

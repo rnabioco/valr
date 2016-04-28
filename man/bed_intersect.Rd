@@ -8,13 +8,15 @@ bed_intersect(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE,
   suffix_x = ".x", suffix_y = ".y")
 }
 \arguments{
-\item{x}{BED intervals}
+\item{x}{tbl of intervals}
 
-\item{y}{BED intervals}
+\item{y}{tbl of intervals}
 
 \item{max_dist}{maximum distance between intersections}
 
 \item{strand}{intersect intervals on same strand}
+
+\item{strand_opp}{intersect intervals on opposite strands}
 
 \item{suffix_x}{suffix for intersected intervals from x (except chrom)}
 

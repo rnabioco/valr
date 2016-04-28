@@ -4,11 +4,11 @@
 \alias{bed_flank}
 \title{Create flanks from input intervals.}
 \usage{
-bed_flank(bed_tbl, genome, both = 0, left = 0, right = 0,
-  fraction = FALSE, strand = FALSE, trim = FALSE)
+bed_flank(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
+  strand = FALSE, trim = FALSE)
 }
 \arguments{
-\item{bed_tbl}{tbl of intervals}
+\item{x}{tbl of intervals}
 
 \item{genome}{tbl of chrom sizes}
 
@@ -36,17 +36,17 @@ genome <- tibble::frame_data(
  "chr1", 5000
 )
 
-bed_tbl <- tibble::frame_data(
+x <- tibble::frame_data(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
  "chr1", 500,    1000, '.',   '.',    '+',
  "chr1", 1000,   1500, '.',   '.',    '-'
 )
 
-bed_flank(bed_tbl, genome, left = 100)
-bed_flank(bed_tbl, genome, right = 100)
-bed_flank(bed_tbl, genome, both = 100)
+bed_flank(x, genome, left = 100)
+bed_flank(x, genome, right = 100)
+bed_flank(x, genome, both = 100)
 
-bed_flank(bed_tbl, genome, both = 0.5, fraction=TRUE)
+bed_flank(x, genome, both = 0.5, fraction=TRUE)
 
 }
 \seealso{

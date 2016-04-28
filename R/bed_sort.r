@@ -1,8 +1,8 @@
 #' Sort a tbl of intervals.
 #' 
-#' Sorting strips any groups from the input.
+#' Sorting strips groups from the input.
 #'
-#' @param intervals tbl of intervals
+#' @param x tbl of intervals
 #' @param by_size sort by interval size
 #' @param by_chrom sort within chromosome
 #' @param reverse reverse sort order
@@ -10,7 +10,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
 #'
 #' @examples
-#' bed_tbl <- tibble::frame_data(
+#' x <- tibble::frame_data(
 #'    ~chrom, ~start, ~end,
 #'    "chr8", 500, 1000,
 #'    "chr8", 1000, 5000,
@@ -20,27 +20,27 @@
 #' )
 #' 
 #' # sort by chrom and start
-#' bed_sort(bed_tbl)
+#' bed_sort(x)
 #' 
 #' # reverse sort order
-#' bed_sort(bed_tbl, reverse = TRUE)
+#' bed_sort(x, reverse = TRUE)
 #' 
 #' # sort by interval size
-#' bed_sort(bed_tbl, by_size = TRUE)
+#' bed_sort(x, by_size = TRUE)
 #' 
 #' # sort by decreasing interval size
-#' bed_sort(bed_tbl, by_size = TRUE, reverse = TRUE)
+#' bed_sort(x, by_size = TRUE, reverse = TRUE)
 #' 
 #' # sort by interval size within chrom
-#' bed_sort(bed_tbl, by_size = TRUE, by_chrom = TRUE)
+#' bed_sort(x, by_size = TRUE, by_chrom = TRUE)
 #' 
 #' @export
-bed_sort <- function(intervals, by_size = FALSE,
+bed_sort <- function(x, by_size = FALSE,
                      by_chrom = FALSE, reverse = FALSE) {
 
   if (by_size) {
     
-    res <- intervals %>% mutate(.size = end - start) 
+    res <- x %>% mutate(.size = end - start) 
     
     if (by_chrom) {
        res <- res %>% group_by(chrom) 
@@ -63,10 +63,10 @@ bed_sort <- function(intervals, by_size = FALSE,
     
     # sort by coordinate 
     if (reverse) {
-      res <- intervals %>%
+      res <- x %>%
         arrange(chrom, desc(start))
     } else {
-      res <- intervals %>%
+      res <- x %>%
         arrange(chrom, start)
     } 
   } 
@@ -82,10 +82,12 @@ bed_sort <- function(intervals, by_size = FALSE,
 
 #' Ask whether tbl is sorted.
 #' 
+#' @param x tbl of intervals
+#' 
 #' @export
-is_sorted <- function(bed_tbl) {
+is_sorted <- function(x) {
   
-  sorted_attr <- attr(bed_tbl, "sorted")
+  sorted_attr <- attr(x, "sorted")
   
   if (is.null(sorted_attr) || ! sorted_attr) {
     return (FALSE)

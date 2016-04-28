@@ -4,7 +4,10 @@
 \alias{is_sorted}
 \title{Ask whether tbl is sorted.}
 \usage{
-is_sorted(bed_tbl)
+is_sorted(x)
+}
+\arguments{
+\item{x}{tbl of intervals}
 }
 \description{
 Ask whether tbl is sorted.

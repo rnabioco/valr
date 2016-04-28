@@ -1,49 +1,50 @@
 #' Map signals over intervals.
 #' 
-#' @param bed_tbl tbl of intervals 
-#' @param signal_tbl tbl of signals 
-#' @param ... name-value pairs of summary functions like \code{\link{min}()},
-#'   \code{\link{count}()}, \code{\link{concat}()}
-#'        
+#' @param x tbl of intervals
+#' @param y tbl of signals
+#' @param ... name-value pairs of summary functions like \code{\link{min}()}, 
+#'   \code{\link{count}()}, \code{\link{concat}()}. colnames in values have .x 
+#'   and .y suffixes.
+#'   
 #' @return \code{data_frame}
-#' 
+#'   
 #' @examples
-#' bed_tbl <- tibble::frame_data(
+#' x <- tibble::frame_data(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100, 250,
 #'  "chr2", 250, 500)
 #'  
-#' signal_tbl <- tibble::frame_data(
+#' y <- tibble::frame_data(
 #'  ~chrom, ~start, ~end, ~value,
 #'  "chr1", 100, 250, 10,
 #'  "chr1", 150, 250, 20,
 #'  "chr2", 250, 500, 500)
 #' 
+#' # Note colnames (except \code{chrom}) are suffixed \code{.x} and \code{.y}
+#' 
 #' # mean, median, sd etc
-#' bed_map(bed_tbl, signal_tbl, sum = sum(value))
-#' bed_map(bed_tbl, signal_tbl, min = min(value), max = max(value))
+#' bed_map(x, y, sum = sum(value.y))
+#' bed_map(x, y, min = min(value.y), max = max(value.y))
 #' 
-#' bed_map(bed_tbl, signal_tbl, concat(value))
-#' bed_map(bed_tbl, signal_tbl, distinct(value))
-#' bed_map(bed_tbl, signal_tbl, first(value))
-#' bed_map(bed_tbl, signal_tbl, last(value))
+#' bed_map(x, y, concat(value.y))
+#' bed_map(x, y, distinct(value.y))
+#' bed_map(x, y, first(value.y))
+#' bed_map(x, y, last(value.y))
 #' 
-#' bed_map(bed_tbl, signal_tbl, absmax = abs(max(value)))
-#' bed_map(bed_tbl, signal_tbl, absmin = abs(min(value)))
-#' bed_map(bed_tbl, signal_tbl, count = length(value))
-#' bed_map(bed_tbl, signal_tbl, count_distinct = length(unique(value)))
+#' bed_map(x, y, absmax = abs(max(value.y)))
+#' bed_map(x, y, absmin = abs(min(value.y)))
+#' bed_map(x, y, count = length(value.y))
+#' bed_map(x, y, count_distinct = length(unique(value.y)))
 #' 
 #' # use decreasing = TRUE to reverse numbers
-#' bed_map(bed_tbl, signal_tbl, distinct_num = distinct(sort(value)))
+#' bed_map(x, y, distinct_num = distinct(sort(value.y)))
 #' 
 #' @export
-bed_map <- function(bed_tbl, signal_tbl, ...) {
- 
-  res <- bed_intersect(bed_tbl, signal_tbl, suffix_y = '') %>%
+bed_map <- function(x, y, ...) {
+
+  res <- bed_intersect(x, y) %>%
     group_by(chrom, start.x, end.x) %>%
-    summarize_(.dots = lazyeval::lazy_dots(...)) %>%
-    rename(start = start.x, end = end.x) %>%
-    ungroup()
+    summarize_(.dots = lazyeval::lazy_dots(...))
 
   res 
 }

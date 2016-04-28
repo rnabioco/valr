@@ -4,10 +4,10 @@
 \alias{bed_sort}
 \title{Sort a tbl of intervals.}
 \usage{
-bed_sort(intervals, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
+bed_sort(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 }
 \arguments{
-\item{intervals}{tbl of intervals}
+\item{x}{tbl of intervals}
 
 \item{by_size}{sort by interval size}
 
@@ -16,10 +16,10 @@ bed_sort(intervals, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 \item{reverse}{reverse sort order}
 }
 \description{
-Sorting strips any groups from the input.
+Sorting strips groups from the input.
 }
 \examples{
-bed_tbl <- tibble::frame_data(
+x <- tibble::frame_data(
    ~chrom, ~start, ~end,
    "chr8", 500, 1000,
    "chr8", 1000, 5000,
@@ -29,19 +29,19 @@ bed_tbl <- tibble::frame_data(
 )
 
 # sort by chrom and start
-bed_sort(bed_tbl)
+bed_sort(x)
 
 # reverse sort order
-bed_sort(bed_tbl, reverse = TRUE)
+bed_sort(x, reverse = TRUE)
 
 # sort by interval size
-bed_sort(bed_tbl, by_size = TRUE)
+bed_sort(x, by_size = TRUE)
 
 # sort by decreasing interval size
-bed_sort(bed_tbl, by_size = TRUE, reverse = TRUE)
+bed_sort(x, by_size = TRUE, reverse = TRUE)
 
 # sort by interval size within chrom
-bed_sort(bed_tbl, by_size = TRUE, by_chrom = TRUE)
+bed_sort(x, by_size = TRUE, by_chrom = TRUE)
 
 }
 \seealso{

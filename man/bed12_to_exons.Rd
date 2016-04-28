@@ -4,10 +4,10 @@
 \alias{bed12_to_exons}
 \title{Convert BED12 to individual exons in BED6.}
 \usage{
-bed12_to_exons(bed12_tbl)
+bed12_to_exons(x)
 }
 \arguments{
-\item{bed12_tbl}{tbl in BED12 format}
+\item{x}{tbl in BED12 format}
 }
 \description{
 After conversion to BED6 format, the \code{score} column contains the exon 
@@ -16,11 +16,11 @@ larger start and end coordinates).
 }
 \examples{
 bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'Rbedtools')
-bed12_tbl <- read_bed12(bed12_path)
-bed6_exon_tbl <- bed12_to_exons(bed12_tbl) 
+x <- read_bed12(bed12_path)
+y <- bed12_to_exons(x) 
 
 # first exons
-subset(bed6_exon_tbl, score == 1)
+subset(y, score == 1)
 
 }
 

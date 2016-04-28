@@ -1,7 +1,7 @@
 #' Increase the size of input intervals.
 #'
 #' @inheritParams bed_flank
-#' @param trim adjust coordinates for out-of-bounds intervals
+#' @param trim adjust coordinates for res-of-bounds intervals
 #' 
 #' @return \code{data_frame}
 #' 
@@ -14,40 +14,40 @@
 #'  "chr1", 5000
 #' )
 #' 
-#' bed_df <- tibble::frame_data(
+#' x <- tibble::frame_data(
 #'  ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'  "chr1", 500,    1000, '.',   '.',     '+',
 #'  "chr1", 1000,   1500, '.',   '.',     '-'
 #' )
 #' 
-#' bed_slop(bed_df, genome, left = 100)
-#' bed_slop(bed_df, genome, right = 100)
-#' bed_slop(bed_df, genome, both = 100)
+#' bed_slop(x, genome, left = 100)
+#' bed_slop(x, genome, right = 100)
+#' bed_slop(x, genome, both = 100)
 #'
-#' bed_slop(bed_df, genome, both = 0.5, fraction=TRUE)
+#' bed_slop(x, genome, both = 0.5, fraction=TRUE)
 #' 
 #' @export
-bed_slop <- function(bed_df, genome, both = 0, left = 0,
+bed_slop <- function(x, genome, both = 0, left = 0,
                      right = 0, fraction = FALSE,
                      strand = FALSE, trim = FALSE) {
 
-  assert_that(is.flag(strand) && 'strand' %in% colnames(bed_df))
+  assert_that(is.flag(strand) && 'strand' %in% colnames(x))
   
   if (both != 0 && (left != 0 || right != 0)) {
     stop('ambiguous side spec for bed_slop')
   } 
 
   if (fraction) {
-    bed_df <- mutate(bed_df, .interval_size = end - start)
+    x <- mutate(x, .interval_size = end - start)
   }  
   
   if (both != 0) {
     if (fraction) {
-      out <- bed_df %>%
+      res <- x %>%
         mutate(start = start - both * .interval_size,
                end = end + both * .interval_size)
     } else {
-      out <- bed_df %>%
+      res <- x %>%
         mutate(start = start - both,
                end = end + both)
     }
@@ -55,7 +55,7 @@ bed_slop <- function(bed_df, genome, both = 0, left = 0,
     # calc left and rigth based on strand
     if (strand) {
       if (fraction) {
-        out <- bed_df %>%
+        res <- x %>%
           mutate(start = ifelse(strand == '+',
                                 start - left * .interval_size,
                                 start - right * .interval_size),
@@ -63,7 +63,7 @@ bed_slop <- function(bed_df, genome, both = 0, left = 0,
                               end + right * .interval_size,
                               end + left * .interval_size))
       } else {
-        out <- bed_df %>%
+        res <- x %>%
           mutate(start = ifelse(strand == '+',
                                 start - left,
                                 end - right),
@@ -73,23 +73,23 @@ bed_slop <- function(bed_df, genome, both = 0, left = 0,
       }
     } else {
       if ( fraction ) {
-        out <- bed_df %>%
+        res <- x %>%
           mutate(start = start - left * .interval_size,
                  end = end + right * .interval_size)
       } else {
-        out <- bed_df %>%
+        res <- x %>%
           mutate(start = start - left,
                  end = end + right)
       }
     }    
   }
    
-  if ( fraction ) out <- select(out, -.interval_size) 
+  if ( fraction ) res <- select(res, -.interval_size) 
   
-  out <- out %>%
+  res <- res %>%
     bound_intervals(genome, trim) %>%
     bed_sort()
 
-  out
+  res
 
 }

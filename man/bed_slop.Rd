@@ -4,10 +4,12 @@
 \alias{bed_slop}
 \title{Increase the size of input intervals.}
 \usage{
-bed_slop(bed_df, genome, both = 0, left = 0, right = 0,
-  fraction = FALSE, strand = FALSE, trim = FALSE)
+bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
+  strand = FALSE, trim = FALSE)
 }
 \arguments{
+\item{x}{tbl of intervals}
+
 \item{genome}{tbl of chrom sizes}
 
 \item{both}{number of bases on both sizes}
@@ -20,7 +22,7 @@ bed_slop(bed_df, genome, both = 0, left = 0, right = 0,
 
 \item{strand}{define \code{left} and \code{right} based on strand}
 
-\item{trim}{adjust coordinates for out-of-bounds intervals}
+\item{trim}{adjust coordinates for res-of-bounds intervals}
 }
 \value{
 \code{data_frame}
@@ -34,17 +36,17 @@ genome <- tibble::frame_data(
  "chr1", 5000
 )
 
-bed_df <- tibble::frame_data(
+x <- tibble::frame_data(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
  "chr1", 500,    1000, '.',   '.',     '+',
  "chr1", 1000,   1500, '.',   '.',     '-'
 )
 
-bed_slop(bed_df, genome, left = 100)
-bed_slop(bed_df, genome, right = 100)
-bed_slop(bed_df, genome, both = 100)
+bed_slop(x, genome, left = 100)
+bed_slop(x, genome, right = 100)
+bed_slop(x, genome, both = 100)
 
-bed_slop(bed_df, genome, both = 0.5, fraction=TRUE)
+bed_slop(x, genome, both = 0.5, fraction=TRUE)
 
 }
 \seealso{

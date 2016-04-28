@@ -4,10 +4,10 @@
 \alias{bed_complement}
 \title{Identify intervals in a genome not covered by a query.}
 \usage{
-bed_complement(bed_tbl, genome)
+bed_complement(x, genome)
 }
 \arguments{
-\item{bed_tbl}{tbl of intervals}
+\item{x}{tbl of intervals}
 
 \item{genome}{chrom sizes}
 }
@@ -25,7 +25,7 @@ genome <- tibble::frame_data(
    "chr3", 800
 ) 
 
-bed_tbl <- tibble::frame_data(
+x <- tibble::frame_data(
    ~chrom, ~start, ~end,
    "chr1", 100,    300,
    "chr1", 200,    400,
@@ -34,8 +34,8 @@ bed_tbl <- tibble::frame_data(
    "chr3", 500,    600
 )
 
-# intervals not covered by bed_tbl
-bed_complement(bed_tbl, genome)
+# intervals not covered by x
+bed_complement(x, genome)
 
 }
 

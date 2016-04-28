@@ -4,7 +4,10 @@
 \alias{is_merged}
 \title{Ask whether a tbl is already merged.}
 \usage{
-is_merged(bed_tbl)
+is_merged(x)
+}
+\arguments{
+\item{x}{tbl of intervals}
 }
 \description{
 Ask whether a tbl is already merged.

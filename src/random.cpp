@@ -1,8 +1,18 @@
+// random.cpp
+// 
+// generate random intervals on a genome
+// 
+// [[Rcpp::depends(BH)]]
 #include <Rcpp.h>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int.hpp>
+#include <boost/random/variate_generator.hpp>
+
 using namespace Rcpp ;
 
-// [[Rcpp::depends(BH)]]
-#include <boost/random.hpp>
+typedef boost::mt19937 rng_type ;
+typedef boost::uniform_int<> dist_type ;
+typedef boost::variate_generator<rng_type&, dist_type> gen_type ;
 
 // [[Rcpp::export]]
 DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0) {
@@ -15,19 +25,19 @@ DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0
   if (seed == 0)
     seed = rand() ;
   
-  boost::mt19937 rng(seed) ;
-  boost::uniform_int<> chrom_dist(0, nchrom - 1) ;
-  boost::variate_generator< boost::mt19937&, boost::uniform_int<> > chrom_rng(rng, chrom_dist) ;
+  rng_type rng(seed) ;
+  dist_type chrom_dist(0, nchrom - 1) ;
+  gen_type chrom_rng(rng, chrom_dist) ;
   
   // make and store a RNG for each chrom size
-  std::vector< boost::variate_generator< boost::mt19937&, boost::uniform_int<> > > size_rngs ;
+  std::vector< gen_type > size_rngs ;
   
   for (int i=0; i<nchrom; ++i) {
     
     int size = sizes[i] ;
     // sub length to avoid off-chrom coordinates
-    boost::uniform_int<> size_dist(1, size - length) ;
-    boost::variate_generator< boost::mt19937&, boost::uniform_int<> > size_rng(rng, size_dist) ;
+    dist_type size_dist(1, size - length) ;
+    gen_type size_rng(rng, size_dist) ;
     
     size_rngs.push_back(size_rng) ;
   }
@@ -40,7 +50,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0
      int chrom_idx = chrom_rng() ;
      rand_chroms[i] = chroms[chrom_idx] ;
      
-     boost::variate_generator< boost::mt19937&, boost::uniform_int<> > size_rng = size_rngs[chrom_idx] ;
+     gen_type size_rng = size_rngs[chrom_idx] ;
      
      int rand_start = size_rng() ;
      rand_starts[i] = rand_start ;
@@ -53,16 +63,3 @@ DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0
                             Named("end") = rand_ends) ;
   
 }
-
-/*** R
-genome <- tibble::frame_data(
-  ~chrom,  ~size,
-  "chr1",  10000000,
-  "chr2",  50000000,
-  "chr3",  60000000,
-  "chrX",  5000000
-)
-
-# random intervals (unsorted)
-bed_random(genome)
-*/

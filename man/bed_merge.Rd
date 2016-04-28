@@ -4,10 +4,10 @@
 \alias{bed_merge}
 \title{Merge overlapping intervals.}
 \usage{
-bed_merge(bed_tbl, max_dist = 0, strand = FALSE, ...)
+bed_merge(x, max_dist = 0, strand = FALSE, ...)
 }
 \arguments{
-\item{bed_tbl}{tbl of intervals}
+\item{x}{tbl of intervals}
 
 \item{max_dist}{maximum distance between intervals to merge}
 
@@ -22,7 +22,7 @@ bed_merge(bed_tbl, max_dist = 0, strand = FALSE, ...)
 Merge overlapping intervals.
 }
 \examples{
-bed_tbl <- tibble::frame_data(
+x <- tibble::frame_data(
  ~chrom, ~start, ~end, ~value, ~strand,
  "chr1", 1,      50,   1,      '+',
  "chr1", 100,    200,  2,      '+',
@@ -33,10 +33,10 @@ bed_tbl <- tibble::frame_data(
  "chr2", 450,    550,  7,      '+'
 )
 
-bed_merge(bed_tbl)
-bed_merge(bed_tbl, max_dist = 100)
-bed_merge(bed_tbl, strand = TRUE)
-bed_merge(bed_tbl, .value = sum(value))
+bed_merge(x)
+bed_merge(x, max_dist = 100)
+bed_merge(x, strand = TRUE)
+bed_merge(x, .value = sum(value))
 
 }
 \seealso{

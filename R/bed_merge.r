@@ -1,6 +1,6 @@
 #' Merge overlapping intervals.
 #'
-#' @param bed_tbl tbl of intervals 
+#' @param x tbl of intervals 
 #' @param max_dist maximum distance between intervals to merge
 #' @param .keep keep dot columns (\code{.merge_id}, \code{.overlap})
 #' @param ... name-value pairs that specify merging operations
@@ -10,7 +10,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #' 
 #' @examples 
-#' bed_tbl <- tibble::frame_data(
+#' x <- tibble::frame_data(
 #'  ~chrom, ~start, ~end, ~value, ~strand,
 #'  "chr1", 1,      50,   1,      '+',
 #'  "chr1", 100,    200,  2,      '+',
@@ -21,18 +21,18 @@
 #'  "chr2", 450,    550,  7,      '+'
 #' )
 #' 
-#' bed_merge(bed_tbl)
-#' bed_merge(bed_tbl, max_dist = 100)
-#' bed_merge(bed_tbl, strand = TRUE)
-#' bed_merge(bed_tbl, .value = sum(value))
+#' bed_merge(x)
+#' bed_merge(x, max_dist = 100)
+#' bed_merge(x, strand = TRUE)
+#' bed_merge(x, .value = sum(value))
 #' 
 #' @export
-bed_merge <- function(bed_tbl, max_dist = 0, strand = FALSE, ...) {
+bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
  
   assert_that(max_dist >= 0)
   
-  if ( ! is_sorted(bed_tbl) ) {
-    res <- bed_sort(bed_tbl)
+  if ( ! is_sorted(x) ) {
+    res <- bed_sort(x)
   }
  
   res <- group_by(res, chrom)
@@ -58,10 +58,12 @@ bed_merge <- function(bed_tbl, max_dist = 0, strand = FALSE, ...) {
 
 #' Ask whether a tbl is already merged.
 #' 
+#' @param x tbl of intervals
+#' 
 #' @export
-is_merged <- function(bed_tbl) {
+is_merged <- function(x) {
   
-  merged_attr <- attr(bed_tbl, "merged")
+  merged_attr <- attr(x, "merged")
   
   if ( is.null(merged_attr) || ! merged_attr ) {
     return (FALSE)

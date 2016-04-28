@@ -4,11 +4,11 @@
 \alias{bed_makewindows}
 \title{Divide intervals into new intervals with labels.}
 \usage{
-bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
-  num_windows = 0, reverse = FALSE, win_id = NULL)
+bed_makewindows(x, genome, win_size = 0, step_size = 0, num_windows = 0,
+  reverse = FALSE, win_id = NULL)
 }
 \arguments{
-\item{bed_df}{BED data in \code{dplyr::tbl_df} format}
+\item{x}{tbl of intervals}
 
 \item{genome}{genome file with chromosome sizes}
 
@@ -23,7 +23,7 @@ bed_makewindows(bed_df, genome, win_size = 0, step_size = 0,
 \item{win_id}{one of \code{name}, \code{num}, \code{namenum} (default \code{name})}
 }
 \value{
-\code{data_frame} with \code{.win_id} column
+\code{data_frame} with \code{win_id} column
 }
 \description{
 Divide intervals into new intervals with labels.
@@ -35,7 +35,7 @@ genome <- tibble::frame_data(
  "chr2", 400
 )
 
-bed_df <- tibble::frame_data(
+x <- tibble::frame_data(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100,    200,  'A',   '.',    '+',
   "chr2", 300,    350,  'B',   '.',    '-'
@@ -43,37 +43,37 @@ bed_df <- tibble::frame_data(
 
 
 # Fixed number of windows 
-bed_makewindows(bed_df, genome, num_windows = 10)
+bed_makewindows(x, genome, num_windows = 10)
 
 # Fixed window size
-bed_makewindows(bed_df, genome, win_size = 10)
+bed_makewindows(x, genome, win_size = 10)
 
 # Fixed window size with overlaps
-bed_makewindows(bed_df, genome, win_size = 10, step_size = 5)
+bed_makewindows(x, genome, win_size = 10, step_size = 5)
 
 # named intervals (name)
-bed_makewindows(bed_df, genome, win_size = 10, win_id = 'name')
+bed_makewindows(x, genome, win_size = 10, win_id = 'name')
 
 # named intervals (num)
-bed_makewindows(bed_df, genome, win_size = 10, win_id = 'num')
+bed_makewindows(x, genome, win_size = 10, win_id = 'num')
 
 # named intervals (reversed num)
-bed_makewindows(bed_df, genome, win_size = 10, win_id = 'num', reverse = TRUE)
+bed_makewindows(x, genome, win_size = 10, win_id = 'num', reverse = TRUE)
 
 # named intervals (namenum)
-bed_makewindows(bed_df, genome, win_size = 10, win_id = 'namenum', TRUE)
+bed_makewindows(x, genome, win_size = 10, win_id = 'namenum', TRUE)
 
 # named intervals (reversed namenum)
-bed_makewindows(bed_df, genome, win_size = 10, win_id = 'namenum', reverse = TRUE)
+bed_makewindows(x, genome, win_size = 10, win_id = 'namenum', reverse = TRUE)
 
-small_bed_df <- tibble::frame_data(
+small_x <- tibble::frame_data(
   ~chrom, ~start, ~end,
   "chr1", 100,    200, 
   "chr2", 300,    350
 )
 
 # named intervals (for BED3 tbls)
-bed_makewindows(small_bed_df, genome, win_size = 10, win_id = 'name')
+bed_makewindows(small_x, genome, win_size = 10, win_id = 'name')
 
 }
 
