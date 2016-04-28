@@ -3,7 +3,7 @@ using namespace Rcpp ;
 
 #include "Rbedtools.h"
 
-//[[Rcpp::depends(dplyr,BH)]]
+//[[Rcpp::depends(dplyr)]]
 #include <dplyr.h>
 using namespace dplyr ;
 
