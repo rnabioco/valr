@@ -2,8 +2,14 @@
 #' 
 #' @param x BED intervals 
 #' @param y BED intervals 
-#' @param w basepairs upstream and downstream to add to x features
+#' @param both add basepairs upstream and downstream to x features
+#' @param left add left basepairs to x features 
+#' @param right add right basepairs to x features 
+#' @param fraction define both, left, and right distance based on fraction of x interval length
+#' @param sw define left and right based on strand 
 #' @param strand intersect intervals on same strand
+#' @param strand_opp intersect intervals on opposite strand
+#' @param trim adjust coordinates for out-of-bounds intervals
 #' 
 #' @examples 
 #' x <- tibble::frame_data(
@@ -28,41 +34,24 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/window.html}
 #'  
 #' @export
-bed_window <- function(x, 
-                       y, 
-                       w = 1000,
-                       l = 0,
-                       r = 0,
-                       strand = FALSE, 
-                       strand_opp = FALSE){
+bed_window <- function(x, y, genome, both = 0, left = 0, right = 0,
+                       fraction = FALSE, sw = FALSE, strand = FALSE, 
+                       strand_opp = FALSE, trim = FALSE){
   
-  if (strand && x$strand == "-"){
-    if (l > 0 || r > 0)
-      x$start.org <- x$start
-      x$end.org <- x$end
-      x$start <- x$start - r  
-      x$end <- x$end + l 
-  } else {
-  if (l > 0 || r > 0) {
-    x$start.org <- x$start
-    x$end.org <- x$end
-    x$start <- x$start - l  
-    x$end <- x$end + r 
-  } else {
-    x$start.org <- x$start
-    x$end.org <- x$end
-    x$start <- x$start - w  
-    x$end <- x$end + w  
-  }
-  }  
-  # need genome info to avoid having intervals past chrom end
+  x <- mutate(x, start.org = start,
+                 end.org = end)
   
-  res <- bed_intersect(x, y, strand, strand_opp)
+  x_slop <- bed_slop(x, genome, both = both, left = left,
+           right = right, fraction = fraction,
+           strand = sw, trim = trim)
   
-  res <- select(res, -start.x, -end.x)
+  res <- bed_intersect(x_slop, y, strand = strand, strand_opp = strand_opp)
+  
+  # reassign original x bed_df start and end positions
+  res <- mutate(res, start.x = start.org.x)
+  res <- mutate(res, end.x = end.org.x)
+  res <- select(res, -start.org.x, -end.org.x)
 
-  colnames(res)[colnames(res) == "start.org.x"] <- "start.x"
-  colnames(res)[colnames(res) == "end.org.x"] <- "end.x"
-  
   res
+
 }
