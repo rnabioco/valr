@@ -4,17 +4,30 @@
 \alias{bed_window}
 \title{Identify intersecting intervals within a specified distance}
 \usage{
-bed_window(x, y, w = 1000, l = 0, r = 0, strand = FALSE,
-  strand_opp = FALSE)
+bed_window(x, y, genome, both = 0, left = 0, right = 0,
+  fraction = FALSE, sw = FALSE, strand = FALSE, strand_opp = FALSE,
+  trim = FALSE)
 }
 \arguments{
 \item{x}{BED intervals}
 
 \item{y}{BED intervals}
 
-\item{w}{basepairs upstream and downstream to add to x features}
+\item{both}{add basepairs upstream and downstream to x features}
+
+\item{left}{add left basepairs to x features}
+
+\item{right}{add right basepairs to x features}
+
+\item{fraction}{define both, left, and right distance based on fraction of x interval length}
+
+\item{sw}{define left and right based on strand}
 
 \item{strand}{intersect intervals on same strand}
+
+\item{strand_opp}{intersect intervals on opposite strand}
+
+\item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \description{
 Identify intersecting intervals within a specified distance
