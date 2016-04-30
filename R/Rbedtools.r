@@ -18,6 +18,7 @@
 #' @name Rbedtools
 #'   
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/index.html}
+#' @seealso \url{https://pythonhosted.org/pybedtools/}
 #' @seealso \url{http://bedops.readthedocs.org/en/latest/index.html}
 #' @seealso \url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
 #'   
