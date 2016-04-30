@@ -2,7 +2,6 @@
 #'
 #' @param x tbl of intervals 
 #' @param max_dist maximum distance between intervals to merge
-#' @param .keep keep dot columns (\code{.merge_id}, \code{.overlap})
 #' @param ... name-value pairs that specify merging operations
 #'
 #' @return \code{data_frame}

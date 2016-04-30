@@ -4,13 +4,12 @@
 \alias{bed_cluster}
 \title{Cluster neighboring intervals.}
 \usage{
-bed_cluster(bed_tbl, max_dist = 0, strand = FALSE)
+bed_cluster(x, max_dist = 0, strand = FALSE)
 }
 \arguments{
-\item{bed_tbl}{tbl of intervals}
+\item{x}{tbl of intervals}
 
-\item{max_dist}{maximum distance between clustered intervals.
-default is 0 to cluster book-ended intervals.}
+\item{max_dist}{maximum distance between clustered intervals.}
 
 \item{strand}{cluster features on same strand}
 }
@@ -18,18 +17,20 @@ default is 0 to cluster book-ended intervals.}
 \code{data_frame}
 }
 \description{
-returned \code{data_frame} contains a new \code{.id} column that can be used for
-grouping along with \code{chrom}.
+Returned \code{data_frame} contains a new \code{.id} column that can be used for
+grouping along with \code{chrom}. Default \code{max_dist} of 0 means that
+overlapping and book-ended intervals will be clustered.
 }
 \examples{
-bed_tbl <- tibble::frame_data(
+x <- tibble::frame_data(
  ~chrom, ~start, ~end,
  "chr1", 100,  200,
  "chr1", 180,  250,
+ "chr1", 250,  500,
  "chr1", 501,  1000
 )
 
-bed_cluster(bed_tbl)
+bed_cluster(x)
 
 }
 \seealso{

@@ -1,18 +1,11 @@
-#include <Rcpp.h>
-using namespace Rcpp ;
+//[[Rcpp::depends(dplyr)]]
+#include <dplyr.h>
 
 #include "Rbedtools.h"
 
-//[[Rcpp::depends(dplyr)]]
-#include <dplyr.h>
-using namespace dplyr ;
-
-std::string interval_id(std::string const& chrom, int const& start, int const& end) {
-  std::ostringstream id ;
-  id << chrom << ':' << start << '-' << end ;
-  return id.str() ;
-}
-
+//* @param df tbl of intervals
+//* @param max_dist max distance between intervals
+//
 //[[Rcpp::export]]
 DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   
@@ -23,7 +16,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   int nr = df.nrows() ;
   int nc = df.size() ;
   
-  CharacterVector ids(nr) ;
+  IntegerVector ids(nr) ;
   IntegerVector overlaps(nr) ;
   
   CharacterVector chroms = df["chrom"] ; 
@@ -38,7 +31,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
    
     int last_start = 0 ;
     int last_end = 0 ;
-    std::string last_id ;
+    int id, last_id = 0 ; // holds start of the first of intervals to be merged
   
     for(int j=0; j<ni; j++) {
       int idx = indices[j] ;
@@ -47,18 +40,18 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
       int start = starts[idx] ;
       int end = ends[idx] ;
      
-      std::string id = interval_id(chrom, start, end) ; 
-     
       int overlap = interval_overlap(start, end, last_start, last_end) ;
       overlaps[idx] = overlap ;
-     
+      
+      id = start ;
+      
       if ( overlap > 0 ) {
         ids[idx] = last_id ;
       } else if ( overlap <= 0 && std::abs(overlap) <= max_dist ) {
         ids[idx] = last_id ;
       } else {
         ids[idx] = id ;
-        last_id = id ;
+        last_id = start ;
       }
       
       last_end = end ; last_start = start ;
@@ -92,21 +85,21 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   return out ;
 }
 
-// /*** R
-//   library(dplyr)
-//   bed_tbl <- tibble::frame_data(
-//     ~chrom, ~start, ~end, ~value,
-//     "chr1", 1,      50,   1,
-//     "chr1", 100,    200,  2,
-//     "chr1", 150,    250,  3,
-//     "chr1", 175,    225,  3.5,
-//     "chr2", 1,      25,   4,
-//     "chr2", 200,    400,  5,
-//     "chr2", 400,    500,  6,
-//     "chr2", 450,    550,  7,
-//     "chr3", 450,    550,  8,
-//     "chr3", 500,    600,  9
-//   ) %>% group_by(chrom)
-// 
-//   merge_impl(bed_tbl)
-// */
+/*** R
+  library(dplyr)
+  bed_tbl <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~value,
+    "chr1", 1,      50,   1,
+    "chr1", 100,    200,  2,
+    "chr1", 150,    250,  3,
+    "chr1", 175,    225,  3.5,
+    "chr2", 1,      25,   4,
+    "chr2", 200,    400,  5,
+    "chr2", 400,    500,  6,
+    "chr2", 450,    550,  7,
+    "chr3", 450,    550,  8,
+    "chr3", 500,    600,  9
+  ) %>% group_by(chrom)
+
+  merge_impl(bed_tbl)
+*/

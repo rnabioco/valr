@@ -12,8 +12,6 @@ bed_merge(x, max_dist = 0, strand = FALSE, ...)
 \item{max_dist}{maximum distance between intervals to merge}
 
 \item{...}{name-value pairs that specify merging operations}
-
-\item{.keep}{keep dot columns (\code{.merge_id}, \code{.overlap})}
 }
 \value{
 \code{data_frame}
