@@ -8,7 +8,7 @@ Rbedtools - Genome arithmetic in R
 Installation
 ============
 
-Rbedtools can be installed from github:
+`Rbedtools` can be installed from github:
 
 ``` r
 > devtools::install_github('jayhesselberth/Rbedtools')
@@ -19,7 +19,7 @@ Overview
 
 `Rbedtools` enables the analysis of genome intervals in R. To keep the package lightweight, `Rbedtools` only supports BED+ and bedGraph formats. Key parts are implemented in `Rcpp` for speed.
 
-The goal of `Rbedtools` is to enable easy analysis of genome-scale data sets **within R**. So a workflow like [this](https://github.com/arq5x/bedtools-protocols/blob/master/bedtools.md#bp3-plot-transcription-factor-occupancy-surrounding-the-transcription-start-site) becomes:
+The goal of `Rbedtools` is to enable easy analysis of genome-scale data sets **within R**. Moreover, `Rbedtools` makes use of new R libraries like `dplyr` and its pipe operator(`%>%`) for an expressive syntax that makes genome analysis fun. So a workflow like [this](https://github.com/arq5x/bedtools-protocols/blob/master/bedtools.md#bp3-plot-transcription-factor-occupancy-surrounding-the-transcription-start-site) becomes:
 
 ``` r
 library(Rbedtools)
@@ -30,72 +30,16 @@ chip_signal <- read_bedgraph('signal.bg.gz')
 
 tss_intervals %>%
   bed_flank(size = 1000) %>%
-  bed_makewindows(win_size = 50, win_id = 'num') %>%
-  bed_map(chip_signal, .groups = .win_id, agg = sum(value)) %>%
-  ggplot(aes(x = .win_id, y = agg)) + geom_point()
+  bed_makewindows(chip_signal, genome, win_size = 50) %>%
+  bed_map(chip_signal, map_value = sum(value)) %>%
+  group_by(win_id.y) %>%
+  summarize(value_mean = mean(map_value), value_var = var(map_value)) %>%
+  ggplot(aes(x = win_id.y, y = map_value)) + geom_point()
 ```
 
-The main methods defined include:
+The main methods have the similar names to their `BEDtools` counterparts, so should be familiar to those users.
 
--   `bed_intersect()`: intersections between sets of intervals
--   `bed_complement()`: identify intervals not covered by a query
--   `bed_merge()`: merge sets of intervals
--   `bed_map()`: analyze signals within intervals
--   `bed_sort()`: sort intervals. "If you make a BED file, sort the BED file."
--   `bed_makewindows()`: created labeled sub-intervals from a set of intervals
--   `bed12_to_exons()`: generate individual exons from BED12 format
+Vignette
+========
 
-Reading BED files
-=================
-
-Reading is done with `readr` for speed. Column types are coerced during reading.
-
-Methods include:
-
--   `read_bed()` (default BED3)
--   `read_bed12()`
--   `read_bedgraph()`
--   `read_genome()`: read `chromSize` files from USCS containing `chrom` and `size` information.
-
-Interval comparisons
-====================
-
-Intersection
-------------
-
-Interval intersections are implemented in `Rcpp` with the `chrom_sweep` algorithm from BEDtools.
-
-``` r
-# bed_tbl = "A" file
-# bedgraph_tbl = "B" file
-# A intersect B == B regions that intersect A intervals
-bed_tbl %>%
-  bed_intersect(bedgraph_tbl) %>%
-  summarize(n_insersects = n())
-```
-
-Merge
------
-
-Interval merging is implemented in `Rcpp` for speed.
-
-``` r
-overlapping_intervals %>%
-  bed_merge()
-```
-
-Complement
-----------
-
-``` r
-intervals %>%
-  bed_complement()
-```
-
-Map
----
-
-``` r
-feature_intervals %>%
-  bed_map(signal_intervals)
-```
+See the vignettes for a full description of the package and examples (`browseVignettes(package = "Rbedtools")`)

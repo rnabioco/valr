@@ -1,5 +1,5 @@
 ---
-title: "Rbedtools"
+title: "Rbedtools: Genome Arimetic in R"
 author: "Jay Hesselberth"
 date: "January 13, 2016"
 output:
@@ -16,44 +16,139 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r init, echo = FALSE}
+library(Rbedtools)
+```
+
+# Overview 
+
 Rbedtools provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite.
 
-Interval intersections are implemented in Rcpp/C++ for speed using the ["chrom sweep" algorithm][2]. Other manipulations take advantage of the speed and grouping capability provided by [`dplyr`][3].
+Key operations including interval intersections are implemented in [`Rcpp`][5]/C++ for speed. Other manipulations take advantage of the speed and grouping capability provided by [`dplyr`][3].
 
-# Methods
+## Parameters use non-standard evaluation
 
-## Reading BED files
+Methods use [NSE][4] where appropriate for an expressive syntax. No more counting to identify value columns!
 
-    - `read_bed()` and `read_bedgraph`
- 
-## Genome arithmetic 
+```{r NSE, eval = FALSE}
+bed_map(x, y, mean = mean(value))
+bed_merge(x, values = concat(value))
+```
 
-    - `bed_closest()`: find the closest intervals independent of overlaps
-    - `bed_complement()`: extract intervals *not* represented by an interval file.
-    - `bed_coverage()`: Compute coverage for defined intervals
-    - `bed_flank()`: XXX
-    - `bed_genomecov()`: Compute the coverage over an entire genome.
-    - `bed_intersect()`: find overlapping intervals
-    - `bed_map()`: apply a function to selected columns for overlapping intervals
-    - `bed_merge()`: combine overlapping and nearby intervals into a single interval.
-    - `bed_slop()`: XXX
-    - `bed_sort()`: order intervals 
-    - `bed_window()`: Find overlapping intervals within a window
-    
-  * Not Implemented (yet)
-    - `bed_cluster()`: Cluster (but don't merge) overlapping/nearby intervals.
-    subtract      Remove intervals based on overlaps b/w two files.
-    random        Generate random intervals in a genome.
-    shuffle       Randomly redistrubute intervals in a genome.
-    sample        Sample random records from file using reservoir sampling.
-    spacing       Report the gap lengths between intervals in a file.
-    annotate      Annotate coverage of features from multiple files.
+## Comparison to other tools
 
-### random
+Why another tool set for interval manipulations? We already have [BEDtools][1], [bedops][8], [pybedtools][7] and [GenomeRanges][9]. Our motivation was to develop a toolset that combines the best of these tools with the expressiveness of the the "new R" syntax and the ability to immediately create visualizations without the need to move data in and out of R. Eventually this package will interactive visulaizations of genomic data with [`shiny`][10].
 
-Generate random intervals on a genome reference.
+We anticipate `Rbedtools` will be used for exploratory analysis of processed data, and thus we have focused on reading data in BED, bedGraph and VCF formats. We anticipate that most users will have processed their aligned reads in BAM format to bedGraph, so we do not foresee supporting BAM directly. We would entertain requests for GTF / GFF support if there is interest, as `tidyr` makes it easy to convert these to BED12.
 
-```{r random}
+At this point you might be expecting a plot of speed / memory usage versus interval number. Certain algorithms in Rbedtools were implemented in `Rcpp` to be fast, but this was done to make interactive analysis very fluid.
+
+```{r fake_init}
+library(Rbedtools)
+```
+
+## Tools
+
+### Overview
+
+#### Reading data
+
+`Rbedtools` has several methods to read data for processing. Features of these methods include:
+
+  - They all return a `data.frame` in dplyr `tbl_df` format.
+  - They use [`readr`][6] for speed.
+  - They assign `chrom`, `start` and `end` column names.
+  - They take local files or URLs as input.
+
+Several methods are implemented:
+
+  - `read_bed()`: read a BED3+ file
+  - `read_bed12()`: read a BED12 file
+  - `read_bedgraph()`: read a bedGraph file
+  - `read_genome()`: read a UCSC "chrom size" file
+  
+  - `read_vcf()`: not implemented yet
+  
+#### Interval manipulations
+
+These methods compares sets of intervals in a vareity of ways. Many have the same name as the corresponding `BEDtool`. Some familiar BEDtools are implemented as `dplyr` pipes (e.g., see the [`coverage`](#coverage) section).
+
+  - `bed_intersect()`: find overlapping intervals
+  - `bed_merge()`: combine overlapping and nearby intervals into a single interval.
+  - `bed_cluster()`: Cluster (but don't merge) overlapping/nearby intervals.
+  - `bed_random()`: Generate random intervals in a genome.
+  - `bed_closest()`: find the closest intervals independent of overlaps
+  - `bed_map()`: apply a function to selected columns for overlapping intervals
+  - `bed_complement()`: extract intervals *not* represented by an interval file.
+  - `bed_sort()`: order intervals 
+  - `bed_flank()`: Generate new flanking intervals
+  - `bed_slop()`: Expand the size of input intervals
+  - `bed_window()`: Find overlapping intervals within a window
+  - `bed_subtract()`: Remove intervals based on overlaps b/w two files (not implemented yet)
+  - `bed_shuffle()`:  Randomly redistrubute intervals in a genome (not implemented yet)
+
+### Interval manipulations
+
+#### coverage
+
+Instead of implementing `coverage` and `genomecov` directly, coverage calculations are done with the `summarize` tool in `dplyr`.
+
+```{r coverage}
+```
+
+#### cluster
+
+`bed_cluster` identifies clustered intervals and assigns them a unique `.id`.
+
+```{r cluster}
+```
+
+#### complement
+
+`bed_complement` identifies intervals that are not covered by and input.
+
+```{r}
+
+```
+
+#### group_by
+
+The `group_by` operation from `dplyr` serves a similar purpose to BEDtools `groupby`, and can be combined with `dplyr::summarize` to calculate summary statistics from groups.
+
+```{r group_by}
+```
+
+#### makewindows
+
+`bed_makewindows` creates sub-intervals from input intervals. The returned `data_frame` has a `win_id` column that can be used for grouping. Instead of naming intervals directly, new names for the intervals can be created with `dplyr`.
+
+```{r makewindows, eval = FALSE}
+# tally number of created intervals
+bed_makewindows(x, genome, win_size = 10) %>%
+  group_by(win_id) %>%
+  summarize(num.win = n())
+
+# create new ID based on `name` and `win_id`
+bed_makewindows(x, genome, win_size = 10) %>%
+  mutate(id = str_c(name, '_' win_id))
+```
+
+#### map
+
+`bed_map` 
+
+```{r map}
+```
+
+#### merge
+
+`bed_merge` identifies overlapping intervals and reports new merged ones. `is_merged` asks whether a tbl is already merged.
+
+#### random
+
+`bed_random` generates random intervals from an input genome.
+
+```{r random, eval = FALSE}
 library(stringr)
 genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg38.chrom.sizes')
 genome %>%
@@ -63,6 +158,33 @@ genome %>%
   bed_random(n = 1e6)
 ```
 
+#### sample
+
+Sampling can be done using `dplyr`:
+
+```{r sample, eval = FALSE}
+sample_n(x, 1e3, replace = FALSE)
+ sample_frac(x, 0.1, replace = FALSE)
+```
+
+#### sort
+
+`bed_sort` orders intervals based on a specification. `is_sorted` asks whether a tbl is already sorted.
+```{r sort}
+```
+
+
+
+# Combining tools
+
 [1]: http://bedtools.readthedocs.org/en/latest/
 [2]: https://github.com/arq5x/chrom_sweep
 [3]: https://github.com/hadley/dplyr
+[4]: https://cran.r-project.org/web/packages/dplyr/vignettes/nse.html
+[5]: http://www.rcpp.org/
+[6]: https://github.com/hadley/readr
+[7]: https://pythonhosted.org/pybedtools/
+[8]: http://bedops.readthedocs.org/en/latest/index.html
+[9]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
+[10]: http://shiny.rstudio.com/
+
