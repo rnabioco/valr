@@ -2,6 +2,7 @@
 #'
 #' @param x tbl of intervals 
 #' @param max_dist maximum distance between intervals to merge
+#' @param strand merge intervals on the same strand
 #' @param ... name-value pairs that specify merging operations
 #'
 #' @return \code{data_frame}
@@ -43,11 +44,15 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   
   dots <- list(.start = ~min(start), .end = ~max(end))
   dots <- c(dots, lazyeval::lazy_dots(...))
-  
-  res <- res %>% 
-    group_by(chrom, .merge_id) %>%
-    summarize_(.dots = dots) %>%
+ 
+  res <- group_by(res, chrom, .merge_id)
+    
+  if (strand)
+    res <- group_by(res, strand, add = TRUE)
+   
+  res <- summarize_(res, .dots = dots) %>%
     rename(start = .start, end = .end) %>%
+    ungroup() %>%
     select(-.merge_id)
   
   attr(res, 'merged') <- TRUE

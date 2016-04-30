@@ -11,6 +11,8 @@ bed_merge(x, max_dist = 0, strand = FALSE, ...)
 
 \item{max_dist}{maximum distance between intervals to merge}
 
+\item{strand}{merge intervals on the same strand}
+
 \item{...}{name-value pairs that specify merging operations}
 }
 \value{
