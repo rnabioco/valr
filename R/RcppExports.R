@@ -13,6 +13,15 @@ merge_impl <- function(gdf, max_dist = 0L) {
     .Call('Rbedtools_merge_impl', PACKAGE = 'Rbedtools', gdf, max_dist)
 }
 
+#' Generate random intervals on a genome.
+#'
+#' @param genome tbl of genome sizes
+#' @param length legnth of output intervals
+#' @param n number of random intervals
+#' @param seed integer seed for reproducible intervals
+#' 
+#' @return \code{data_frame}
+#' 
 random_impl <- function(genome, length, n, seed = 0L) {
     .Call('Rbedtools_random_impl', PACKAGE = 'Rbedtools', genome, length, n, seed)
 }

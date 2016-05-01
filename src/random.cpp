@@ -1,15 +1,24 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 
-// [[Rcpp::depends(BH)]]
-#include <boost/random.hpp>
+//[[Rcpp::plugins(cpp11)]]
+#include <random>
 
-typedef boost::mt19937 rng_type ;
-typedef boost::uniform_int<> dist_type ;
-typedef boost::variate_generator<rng_type&, dist_type> gen_type ;
+typedef std::mt19937                           ENG ;
+typedef std::uniform_int_distribution<int>     UDIST ;
+typedef std::piecewise_constant_distribution<> PDIST ;
 
+//' Generate random intervals on a genome.
+//'
+//' @param genome tbl of genome sizes
+//' @param length legnth of output intervals
+//' @param n number of random intervals
+//' @param seed integer seed for reproducible intervals
+//' 
+//' @return \code{data_frame}
+//' 
 // [[Rcpp::export]]
-DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0) {
+DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
  
   CharacterVector chroms = genome["chrom"] ;
   NumericVector sizes = genome["size"] ;
@@ -17,43 +26,67 @@ DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed = 0
   int nchrom = chroms.size() ;
   
   if (seed == 0)
-    seed = rand() ;
+    seed = round(R::runif(0, RAND_MAX)) ;
+
+  // seed the generator
+  auto generator = ENG(seed) ;
+
+  // calculate weights for chrom distribution
+  float mass = sum(sizes) ;
+  NumericVector weights = sizes / mass ;
   
-  rng_type rng(seed) ;
-  dist_type chrom_dist(0, nchrom - 1) ;
-  gen_type chrom_rng(rng, chrom_dist) ;
+  Range chromidx(0, nchrom) ;
+  PDIST chrom_dist(chromidx.begin(), chromidx.end(), weights.begin()) ;
   
-  // make and store a RNG for each chrom size
-  std::vector< gen_type > size_rngs ;
+  // make and store a DIST for each chrom size
+  std::vector< UDIST > size_rngs ;
   
   for (int i=0; i<nchrom; ++i) {
     
-    int size = sizes[i] ;
+    auto size = sizes[i] ;
     // sub length to avoid off-chrom coordinates
-    dist_type size_dist(1, size - length) ;
-    gen_type size_rng(rng, size_dist) ;
-    
-    size_rngs.push_back(size_rng) ;
+    UDIST size_dist(1, size - length) ;
+    size_rngs.push_back(size_dist) ;
   }
   
   CharacterVector rand_chroms(n) ;
-  NumericVector rand_starts(n) ;
+  IntegerVector rand_starts(n) ;
   
   for (int i=0; i<n; ++i) {
-    
-     int chrom_idx = chrom_rng() ;
+     
+     auto chrom_idx = chrom_dist(generator) ;
      rand_chroms[i] = chroms[chrom_idx] ;
      
-     gen_type size_rng = size_rngs[chrom_idx] ;
+     UDIST size_dist = size_rngs[chrom_idx] ;
      
-     int rand_start = size_rng() ;
+     auto rand_start = size_dist(generator) ;
      rand_starts[i] = rand_start ;
   }
   
-  NumericVector rand_ends = rand_starts + length ; 
+  IntegerVector rand_ends = rand_starts + length ; 
   
   return DataFrame::create( Named("chrom") = rand_chroms,
                             Named("start") = rand_starts,
                             Named("end") = rand_ends) ;
   
 }
+
+/***R
+library(dplyr)
+genome <- tibble::frame_data(
+  ~chrom, ~size,
+  "chr1", 191822,
+  "chr2", 17127713,
+  "chr3", 11923987
+)
+
+# show chrom disribution
+random_impl(genome, length = 1000, n = 1e6, seed = 0) %>%
+  group_by(chrom) %>% summarize(n = n())
+
+library(microbenchmark)
+microbenchmark(
+  random_impl(genome, length = 1000, n = 1e6, seed = 0),
+  times = 10
+)
+*/
