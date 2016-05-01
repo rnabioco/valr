@@ -48,7 +48,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // random_impl
-DataFrame random_impl(DataFrame genome, int length, int n, unsigned int seed);
+DataFrame random_impl(DataFrame genome, int length, int n, int seed);
 RcppExport SEXP Rbedtools_random_impl(SEXP genomeSEXP, SEXP lengthSEXP, SEXP nSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -56,7 +56,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
     Rcpp::traits::input_parameter< int >::type length(lengthSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type seed(seedSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
     __result = Rcpp::wrap(random_impl(genome, length, n, seed));
     return __result;
 END_RCPP
