@@ -40,7 +40,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
   
   // make and store a DIST for each chrom size
   std::vector< UDIST > size_rngs ;
-  
+ 
   for (int i=0; i<nchrom; ++i) {
     
     auto size = sizes[i] ;
