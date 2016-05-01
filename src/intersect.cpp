@@ -1,10 +1,8 @@
 #include <dplyr.h>
-// [[Rcpp::depends(dplyr,BH)]]
+using namespace dplyr ;
+// [[Rcpp::depends(dplyr)]]
 
 #include "Rbedtools.h"
-
-using namespace Rcpp ;
-using namespace dplyr ;
 
 // int interval_overlap(int const& start_x, int const& end_x, int const& start_y, int const& end_y) {
 //   return(std::min(end_x, end_y) - std::max(start_x, start_y)) ;    
@@ -92,6 +90,8 @@ void intersect_grouped(DataFrame x_data, DataFrame y_data,
   }
 }
 
+//' @rdname bed_intersect
+//' 
 // [[Rcpp::export]]
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, int max_dist = 0,
                          std::string suffix_x = ".x", std::string suffix_y = ".y") {

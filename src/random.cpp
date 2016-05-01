@@ -8,15 +8,8 @@ typedef std::mt19937                           ENG ;
 typedef std::uniform_int_distribution<int>     UDIST ;
 typedef std::piecewise_constant_distribution<> PDIST ;
 
-//' Generate random intervals on a genome.
+//' @rdname bed_random
 //'
-//' @param genome tbl of genome sizes
-//' @param length legnth of output intervals
-//' @param n number of random intervals
-//' @param seed integer seed for reproducible intervals
-//' 
-//' @return \code{data_frame}
-//' 
 // [[Rcpp::export]]
 DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
  

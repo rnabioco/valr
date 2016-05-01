@@ -1,11 +1,10 @@
-//[[Rcpp::depends(dplyr)]]
 #include <dplyr.h>
+//[[Rcpp::depends(dplyr)]]
 
 #include "Rbedtools.h"
 
-//* @param df tbl of intervals
-//* @param max_dist max distance between intervals
-//
+//' @rdname bed_merge
+//'
 //[[Rcpp::export]]
 DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   
@@ -36,7 +35,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
     for(int j=0; j<ni; j++) {
       int idx = indices[j] ;
      
-      std::string chrom = as<std::string>(chroms[idx]) ; 
+      auto chrom = as<std::string>(chroms[idx]) ; 
       int start = starts[idx] ;
       int end = ends[idx] ;
      
