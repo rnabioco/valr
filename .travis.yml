@@ -5,7 +5,19 @@ warnings_are_errors: false
 sudo: required
 r_github_packages:
   - jayhesselberth/dplyr
-
+  
+# add this block to get gcc 5  
+script:
+  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc
+  - gcc --version
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-5
+    - g++-5
+    
 r_packages:
   - covr
 after_success:
