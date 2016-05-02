@@ -38,14 +38,14 @@ test_that("right arg works", {
 
 test_that("strand position arg works", {
   out <- bed_window(bed_df_x, bed_df_y, genome, right = 110, 
-                    sw = TRUE)
+                    strand_pos = TRUE)
   expect_equal(nrow(out), 4)
 })
 
 test_that("strand intersect arg works", {
   dist <- 100
   out <- bed_window(bed_df_x, bed_df_y, genome, right = 110, 
-                    sw = TRUE, strand = TRUE)
+                    strand_pos = TRUE, strand = TRUE)
   expect_equal(nrow(out), 1)
 })
 
