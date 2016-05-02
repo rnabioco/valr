@@ -70,7 +70,7 @@ bed_slop <- function(x, genome, both = 0, left = 0,
         res <- x %>%
           mutate(start = ifelse(strand == '+',
                                 start - left,
-                                end - right),
+                                start - right),
                  end = ifelse(strand == '+',
                               end + right,
                               end + left))
