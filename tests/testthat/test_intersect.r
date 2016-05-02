@@ -15,7 +15,7 @@ test_that("simple overlap", {
   )
   
   res <- bed_intersect(x, y)
-  expect_equal(nrow(res), 6)   
+  expect_equal(nrow(res), 4)   
 })
 
 test_that("multple a's", {
@@ -34,7 +34,7 @@ test_that("multple a's", {
   )
   
   res <- bed_intersect(x, y)
-  expect_equal(nrow(res), 15)   
+  expect_equal(nrow(res), 5)   
 })
 
 test_that("multple b's", {
@@ -69,3 +69,20 @@ test_that("no overlaps returns empty df", {
   expect_is(res, "data.frame")
   expect_equal(nrow(res), 0)
 }) 
+
+test_that("duplicate intervals are removed (#23)", {
+  x <- tibble::frame_data(
+    ~chrom, ~start, ~end,
+    "chr1", 100,    500,
+    "chr1", 175,    200
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom, ~start, ~end,
+    "chr1", 150,    400,
+    "chr1", 151,    401
+  )
+  
+  res <- bed_intersect(x, y)
+  expect_equal(nrow(res), 4)
+})

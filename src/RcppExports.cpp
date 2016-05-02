@@ -7,31 +7,16 @@
 using namespace Rcpp;
 
 // intersect_impl
-DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, int max_dist, std::string suffix_x, std::string suffix_y);
-RcppExport SEXP Rbedtools_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP max_distSEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
+DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, std::string suffix_x, std::string suffix_y);
+RcppExport SEXP Rbedtools_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
     Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
-    Rcpp::traits::input_parameter< int >::type max_dist(max_distSEXP);
     Rcpp::traits::input_parameter< std::string >::type suffix_x(suffix_xSEXP);
     Rcpp::traits::input_parameter< std::string >::type suffix_y(suffix_ySEXP);
-    __result = Rcpp::wrap(intersect_impl(x, y, max_dist, suffix_x, suffix_y));
-    return __result;
-END_RCPP
-}
-// interval_overlap
-int interval_overlap(int const& start_x, int const& end_x, int const& start_y, int const& end_y);
-RcppExport SEXP Rbedtools_interval_overlap(SEXP start_xSEXP, SEXP end_xSEXP, SEXP start_ySEXP, SEXP end_ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< int const& >::type start_x(start_xSEXP);
-    Rcpp::traits::input_parameter< int const& >::type end_x(end_xSEXP);
-    Rcpp::traits::input_parameter< int const& >::type start_y(start_ySEXP);
-    Rcpp::traits::input_parameter< int const& >::type end_y(end_ySEXP);
-    __result = Rcpp::wrap(interval_overlap(start_x, end_x, start_y, end_y));
+    __result = Rcpp::wrap(intersect_impl(x, y, suffix_x, suffix_y));
     return __result;
 END_RCPP
 }

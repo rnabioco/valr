@@ -5,17 +5,15 @@
 \alias{intersect_impl}
 \title{Identify intersecting intervals.}
 \usage{
-intersect_impl(x, y, max_dist = 0L, suffix_x = ".x", suffix_y = ".y")
+intersect_impl(x, y, suffix_x = ".x", suffix_y = ".y")
 
-bed_intersect(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE,
-  suffix_x = ".x", suffix_y = ".y")
+bed_intersect(x, y, strand = FALSE, strand_opp = FALSE, suffix_x = ".x",
+  suffix_y = ".y")
 }
 \arguments{
 \item{x}{tbl of intervals}
 
 \item{y}{tbl of intervals}
-
-\item{max_dist}{maximum distance between intersections}
 
 \item{suffix_x}{suffix for intersected intervals from x (except chrom)}
 
@@ -38,14 +36,13 @@ x <- tibble::frame_data(
 )
 
 y <- tibble::frame_data(
-~chrom, ~start, ~end,
-"chr1", 150,    400,
-"chr2", 230,    430,
-"chr2", 350,    430
+~chrom, ~start, ~end, ~value,
+"chr1", 150,    400,  100,
+"chr2", 230,    430,  200,
+"chr2", 350,    430,  300
 )
 
 bed_intersect(x, y)
-bed_intersect(x, y, max_dist = 50)
  
 }
 \seealso{

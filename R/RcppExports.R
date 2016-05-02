@@ -3,12 +3,8 @@
 
 #' @rdname bed_intersect
 #' 
-intersect_impl <- function(x, y, max_dist = 0L, suffix_x = ".x", suffix_y = ".y") {
-    .Call('Rbedtools_intersect_impl', PACKAGE = 'Rbedtools', x, y, max_dist, suffix_x, suffix_y)
-}
-
-interval_overlap <- function(start_x, end_x, start_y, end_y) {
-    .Call('Rbedtools_interval_overlap', PACKAGE = 'Rbedtools', start_x, end_x, start_y, end_y)
+intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
+    .Call('Rbedtools_intersect_impl', PACKAGE = 'Rbedtools', x, y, suffix_x, suffix_y)
 }
 
 #' @rdname bed_merge
