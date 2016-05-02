@@ -2,7 +2,6 @@
 #' 
 #' @param x tbl of intervals 
 #' @param y tbl of intervals 
-#' @param max_dist maximum distance between intersections
 #' @param strand intersect intervals on same strand
 #' @param strand_opp intersect intervals on opposite strands
 #' @param suffix_x suffix for intersected intervals from x (except chrom)
@@ -18,19 +17,18 @@
 #' )
 #' 
 #' y <- tibble::frame_data(
-#' ~chrom, ~start, ~end,
-#' "chr1", 150,    400,
-#' "chr2", 230,    430,
-#' "chr2", 350,    430
+#' ~chrom, ~start, ~end, ~value,
+#' "chr1", 150,    400,  100,
+#' "chr2", 230,    430,  200,
+#' "chr2", 350,    430,  300
 #' )
 #'
 #' bed_intersect(x, y)
-#' bed_intersect(x, y, max_dist = 50)
 #'  
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 #'  
 #' @export
-bed_intersect <- function(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE,
+bed_intersect <- function(x, y, strand = FALSE, strand_opp = FALSE,
                           suffix_x = '.x', suffix_y = '.y') {
  
   if ( ! is_sorted(x) )
@@ -43,9 +41,12 @@ bed_intersect <- function(x, y, max_dist = 0, strand = FALSE, strand_opp = FALSE
   if (is.null(groups(y)) || groups(y) != "chrom")
     y <- group_by(y, chrom)
 
-  res <- intersect_impl(x, y, max_dist, suffix_x, suffix_y)
+  res <- intersect_impl(x, y, suffix_x, suffix_y)
   
   if (strand) {
+    if (! 'strand' %in% colnames(res)){
+      stop("strand arg specified on unstranded data_frame", .Call = FALSE)
+    }
      res <- filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
      res <- filter(res, strand.x != strand.y) 

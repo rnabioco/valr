@@ -15,7 +15,7 @@ test_that("simple overlap", {
   )
   
   res <- bed_intersect(x, y)
-  expect_equal(nrow(res), 6)   
+  expect_equal(nrow(res), 4)   
 })
 
 test_that("multple a's", {
@@ -34,7 +34,7 @@ test_that("multple a's", {
   )
   
   res <- bed_intersect(x, y)
-  expect_equal(nrow(res), 15)   
+  expect_equal(nrow(res), 5)   
 })
 
 test_that("multple b's", {

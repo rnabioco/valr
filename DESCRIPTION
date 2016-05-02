@@ -20,7 +20,7 @@ Imports:
     purrr,
     tibble,
     lazyeval
-LinkingTo: Rcpp (>= 0.12.2), dplyr
+LinkingTo: Rcpp (>= 0.12.2), BH, dplyr
 Suggests:
     knitr,
     rmarkdown,

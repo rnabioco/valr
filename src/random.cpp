@@ -1,7 +1,5 @@
-#include <Rcpp.h>
-using namespace Rcpp ;
+#include "Rbedtools.h"
 
-//[[Rcpp::plugins(cpp11)]]
 #include <random>
 
 typedef std::mt19937                           ENG ;

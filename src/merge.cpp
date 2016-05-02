@@ -1,6 +1,3 @@
-#include <dplyr.h>
-//[[Rcpp::depends(dplyr)]]
-
 #include "Rbedtools.h"
 
 //' @rdname bed_merge
@@ -8,41 +5,40 @@
 //[[Rcpp::export]]
 DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   
-  int ng = gdf.ngroups() ;
+  auto ng = gdf.ngroups() ;
   
   DataFrame df = gdf.data() ;
   
-  int nr = df.nrows() ;
-  int nc = df.size() ;
+  auto nr = df.nrows() ;
+  auto nc = df.size() ;
   
-  IntegerVector ids(nr) ;
-  IntegerVector overlaps(nr) ;
+  IntegerVector ids(nr) ;      // store ids
+  IntegerVector overlaps(nr) ; // store overlap values
   
-  CharacterVector chroms = df["chrom"] ; 
-  IntegerVector starts = df["start"] ;
-  IntegerVector ends = df["end"] ;
+  IntegerVector starts   = df["start"] ;
+  IntegerVector ends     = df["end"] ;
  
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
   for(int i=0; i<ng; i++, ++git) {
     
     SlicingIndex indices = *git ;
-    int ni = indices.size() ;
+    auto ni = indices.size() ;
+  
+    intervalVector intervals = makeIntervalVector(df, indices);
    
-    int last_start = 0 ;
-    int last_end = 0 ;
+    interval_t last_interval = interval_t(0,0,0) ;
+    
     int id, last_id = 0 ; // holds start of the first of intervals to be merged
   
-    for(int j=0; j<ni; j++) {
-      int idx = indices[j] ;
+    intervalVector::const_iterator it ;
+    for( it = intervals.begin(); it != intervals.end(); ++it) {
+      
+      auto idx = it->value ;
      
-      auto chrom = as<std::string>(chroms[idx]) ; 
-      int start = starts[idx] ;
-      int end = ends[idx] ;
-     
-      int overlap = interval_overlap(start, end, last_start, last_end) ;
+      auto overlap = intervalOverlap(*it, last_interval) ;
       overlaps[idx] = overlap ;
       
-      id = start ;
+      id = it->start ;
       
       if ( overlap > 0 ) {
         ids[idx] = last_id ;
@@ -50,14 +46,14 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
         ids[idx] = last_id ;
       } else {
         ids[idx] = id ;
-        last_id = start ;
+        last_id = it->start ;
       }
-      
-      last_end = end ; last_start = start ;
+    
+      last_interval = *it ;  
     }
   }
   
-  // add two new columns, hashes and overlaps
+  // add two new columns, ids and overlaps
   List out(nc + 2) ;
   CharacterVector onames = df.attr("names") ;
   CharacterVector names( nc + 2 ) ;
@@ -100,5 +96,5 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
     "chr3", 500,    600,  9
   ) %>% group_by(chrom)
 
-  merge_impl(bed_tbl)
+  merge_impl(bed_tbl) %>% as_data_frame
 */
