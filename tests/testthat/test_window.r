@@ -46,7 +46,7 @@ test_that("strand intersect arg works", {
   dist <- 100
   out <- bed_window(bed_df_x, bed_df_y, genome, right = 110, 
                     strand_pos = TRUE, strand = TRUE)
-  expect_equal(nrow(out), 1)
+  expect_equal(nrow(out), 2)
 })
 
 # test fraction
