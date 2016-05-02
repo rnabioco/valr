@@ -3,8 +3,8 @@
 #' @param x tbl of intervals
 #' @param y tbl of signals
 #' @param ... name-value pairs of summary functions like \code{\link{min}()}, 
-#'   \code{\link{count}()}, \code{\link{concat}()}. colnames in values have .x 
-#'   and .y suffixes.
+#'   \code{\link{count}()}, \code{\link{concat}()}. \code{start} and \code{end}
+#'   colnames in returned data from .x suffixes.
 #'   
 #' @return \code{data_frame}
 #'   
@@ -20,24 +20,22 @@
 #'  "chr1", 150, 250, 20,
 #'  "chr2", 250, 500, 500)
 #' 
-#' # Note colnames (except \code{chrom}) are suffixed \code{.x} and \code{.y}
-#' 
 #' # mean, median, sd etc
-#' bed_map(x, y, sum = sum(value.y))
-#' bed_map(x, y, min = min(value.y), max = max(value.y))
+#' bed_map(x, y, sum = sum(value))
+#' bed_map(x, y, min = min(value), max = max(value))
 #' 
-#' bed_map(x, y, concat(value.y))
-#' bed_map(x, y, distinct(value.y))
-#' bed_map(x, y, first(value.y))
-#' bed_map(x, y, last(value.y))
+#' bed_map(x, y, concat(value))
+#' bed_map(x, y, distinct(value))
+#' bed_map(x, y, first(value))
+#' bed_map(x, y, last(value))
 #' 
-#' bed_map(x, y, absmax = abs(max(value.y)))
-#' bed_map(x, y, absmin = abs(min(value.y)))
-#' bed_map(x, y, count = length(value.y))
-#' bed_map(x, y, count_distinct = length(unique(value.y)))
+#' bed_map(x, y, absmax = abs(max(value)))
+#' bed_map(x, y, absmin = abs(min(value)))
+#' bed_map(x, y, count = length(value))
+#' bed_map(x, y, count_distinct = length(unique(value)))
 #' 
 #' # use decreasing = TRUE to reverse numbers
-#' bed_map(x, y, distinct_num = distinct(sort(value.y)))
+#' bed_map(x, y, distinct_num = distinct(sort(value)))
 #' 
 #' @export
 bed_map <- function(x, y, ...) {

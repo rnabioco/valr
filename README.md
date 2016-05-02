@@ -32,7 +32,7 @@ tss_intervals %>%
   bed_flank(size = 1000) %>%
   bed_makewindows(chip_signal, genome, win_size = 50) %>%
   bed_map(chip_signal, map_value = sum(value)) %>%
-  group_by(win_id.y) %>%
+  group_by(win_id) %>%
   summarize(value_mean = mean(map_value), value_var = var(map_value)) %>%
   ggplot(aes(x = win_id.y, y = map_value)) + geom_point()
 ```
