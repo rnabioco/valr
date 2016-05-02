@@ -36,7 +36,7 @@ bed_slop <- function(x, genome, both = 0, left = 0,
   if (strand){
     assert_that('strand' %in% colnames(x))
   }
-  
+
   if (both != 0 && (left != 0 || right != 0)) {
     stop('ambiguous side spec for bed_slop')
   } 
