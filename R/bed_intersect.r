@@ -6,7 +6,9 @@
 #' @param strand_opp intersect intervals on opposite strands
 #' @param suffix_x suffix for intersected intervals from x (except chrom)
 #' @param suffix_y suffix for intersected intervals from y (except chrom)
-#' 
+#'
+#' @note Book-ended intervals have \code{.overlap} values of 0 in the output.
+#'  
 #' @examples 
 #' x <- tibble::frame_data(
 #' ~chrom, ~start, ~end,
@@ -19,6 +21,7 @@
 #' y <- tibble::frame_data(
 #' ~chrom, ~start, ~end, ~value,
 #' "chr1", 150,    400,  100,
+#' "chr1", 500,    550,  100,
 #' "chr2", 230,    430,  200,
 #' "chr2", 350,    430,  300
 #' )
