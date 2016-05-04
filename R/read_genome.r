@@ -24,7 +24,7 @@ read_genome <- function(filename) {
   genome
 }
 
-#' select intervals bounded by a genome
+#' Select intervals bounded by a genome.
 #' 
 #' @param bed_tbl a tbl of intervals
 #' @param genome a tbl of chrom sizes

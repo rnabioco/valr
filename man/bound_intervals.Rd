@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_genome.r
 \name{bound_intervals}
 \alias{bound_intervals}
-\title{select intervals bounded by a genome}
+\title{Select intervals bounded by a genome.}
 \usage{
 bound_intervals(bed_tbl, genome, trim = FALSE)
 }
@@ -17,7 +17,7 @@ bound_intervals(bed_tbl, genome, trim = FALSE)
 \code{data_frame}
 }
 \description{
-select intervals bounded by a genome
+Select intervals bounded by a genome.
 }
 \examples{
 bed_tbl <- tibble::frame_data(

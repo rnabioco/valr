@@ -26,6 +26,9 @@ bed_intersect(x, y, strand = FALSE, strand_opp = FALSE, suffix_x = ".x",
 \description{
 Identify intersecting intervals.
 }
+\note{
+Book-ended intervals have \code{.overlap} values of 0 in the output.
+}
 \examples{
 x <- tibble::frame_data(
 ~chrom, ~start, ~end,
@@ -38,6 +41,7 @@ x <- tibble::frame_data(
 y <- tibble::frame_data(
 ~chrom, ~start, ~end, ~value,
 "chr1", 150,    400,  100,
+"chr1", 500,    550,  100,
 "chr2", 230,    430,  200,
 "chr2", 350,    430,  300
 )
