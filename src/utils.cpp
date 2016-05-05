@@ -1,4 +1,4 @@
-#include "Rbedtools.h"
+#include "valr.h"
 
 int intervalOverlap(const interval_t& a, const interval_t& b) {
   return(std::min(a.stop, b.stop) - std::max(a.start, b.start)) ;    

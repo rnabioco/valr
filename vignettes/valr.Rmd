@@ -1,5 +1,5 @@
 ---
-title: "Rbedtools: Genome Arimetic in R"
+title: "valr: Genome Interval Arimetic in R"
 author: "Jay Hesselberth"
 date: "January 13, 2016"
 output:
@@ -17,12 +17,12 @@ knitr::opts_chunk$set(
 ```
 
 ```{r init, echo = FALSE}
-library(Rbedtools)
+library(valr)
 ```
 
 # Overview 
 
-Rbedtools provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite.
+valr provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite.
 
 Key operations including interval intersections are implemented in [`Rcpp`][5]/C++ for speed. Other manipulations take advantage of the speed and grouping capability provided by [`dplyr`][3].
 
@@ -39,12 +39,12 @@ bed_merge(x, values = concat(value))
 
 Why another tool set for interval manipulations? We already have [BEDtools][1], [bedops][8], [pybedtools][7] and [GenomeRanges][9]. Our motivation was to develop a toolset that combines the best of these tools with the expressiveness of the the "new R" syntax and the ability to immediately create visualizations without the need to move data in and out of R. Eventually this package will interactive visulaizations of genomic data with [`shiny`][10].
 
-We anticipate `Rbedtools` will be used for exploratory analysis of processed data, and thus we have focused on reading data in BED, bedGraph and VCF formats. We anticipate that most users will have processed their aligned reads in BAM format to bedGraph, so we do not foresee supporting BAM directly. We would entertain requests for GTF / GFF support if there is interest, as `tidyr` makes it easy to convert these to BED12.
+We anticipate `valr` will be used for exploratory analysis of processed data, and thus we have focused on reading data in BED, bedGraph and VCF formats. We anticipate that most users will have processed their aligned reads in BAM format to bedGraph, so we do not foresee supporting BAM directly. We would entertain requests for GTF / GFF support if there is interest, as `tidyr` makes it easy to convert these to BED12.
 
-At this point you might be expecting a plot of speed / memory usage versus interval number. Certain algorithms in Rbedtools were implemented in `Rcpp` to be fast, but this was done to make interactive analysis very fluid.
+At this point you might be expecting a plot of speed / memory usage versus interval number. Certain algorithms in valr were implemented in `Rcpp` to be fast, but this was done to make interactive analysis very fluid.
 
 ```{r fake_init}
-library(Rbedtools)
+library(valr)
 ```
 
 ## Tools
@@ -53,7 +53,7 @@ library(Rbedtools)
 
 #### Reading data
 
-`Rbedtools` has several methods to read data for processing. Features of these methods include:
+`valr` has several methods to read data for processing. Features of these methods include:
 
   - They all return a `data.frame` in dplyr `tbl_df` format.
   - They use [`readr`][6] for speed.

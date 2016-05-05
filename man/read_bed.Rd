@@ -49,10 +49,10 @@ and start unless otherwise specified.
 }
 \examples{
 # read_bed assumes 3 field BED format. 
-bed3_path <- system.file('extdata', '3fields.bed.gz', package = 'Rbedtools')
+bed3_path <- system.file('extdata', '3fields.bed.gz', package = 'valr')
 bed3_tbl <- read_bed(bed3_path)
 
-bed6_path <- system.file('extdata', '6fields.bed.gz', package = 'Rbedtools')
+bed6_path <- system.file('extdata', '6fields.bed.gz', package = 'valr')
 bed6_tbl <- read_bed(bed6_path, n_fields = 6)
 
 # Result is sorted by chrom and start unless `sort = FALSE`
@@ -65,10 +65,10 @@ is_sorted(unsorted_bed_tbl)
 bed_tbl <- read_bed(bed3_path, factor_cols = FALSE)
 is.factor(bed_tbl$chrom)
 
-bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'Rbedtools')
+bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'valr')
 bed12_tbl <- read_bed12(bed12_path)
 
-bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'Rbedtools')
+bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'valr')
 bedgraph_tbl <- read_bedgraph(bedgraph_path)
 
 }

@@ -1,4 +1,4 @@
-#include "Rbedtools.h"
+#include "valr.h"
 
 void intersect_group(intervalVector vx, intervalVector vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
@@ -119,7 +119,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
 }  
 
 /***R
-library(Rbedtools)
+library(valr)
 library(dplyr)
 
 genome <- tibble::frame_data(

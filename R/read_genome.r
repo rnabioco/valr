@@ -11,7 +11,7 @@
 #'   by \code{size}
 #'   
 #' @examples
-#' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'Rbedtools')
+#' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 #' read_genome(genome)
 #' read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 #' 

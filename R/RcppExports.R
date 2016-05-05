@@ -4,18 +4,18 @@
 #' @rdname bed_intersect
 #' 
 intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
-    .Call('Rbedtools_intersect_impl', PACKAGE = 'Rbedtools', x, y, suffix_x, suffix_y)
+    .Call('valr_intersect_impl', PACKAGE = 'valr', x, y, suffix_x, suffix_y)
 }
 
 #' @rdname bed_merge
 #'
 merge_impl <- function(gdf, max_dist = 0L) {
-    .Call('Rbedtools_merge_impl', PACKAGE = 'Rbedtools', gdf, max_dist)
+    .Call('valr_merge_impl', PACKAGE = 'valr', gdf, max_dist)
 }
 
 #' @rdname bed_random
 #'
 random_impl <- function(genome, length, n, seed = 0L) {
-    .Call('Rbedtools_random_impl', PACKAGE = 'Rbedtools', genome, length, n, seed)
+    .Call('valr_random_impl', PACKAGE = 'valr', genome, length, n, seed)
 }
 

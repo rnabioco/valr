@@ -1,5 +1,5 @@
-#ifndef Rbedtools_Rbedtools_H
-#define Rbedtools_Rbedtools_H
+#ifndef valr__valr_H 
+#define valr__valr_H 
 
 #include <Rcpp.h>
 #include <dplyr.h>

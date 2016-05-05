@@ -1,28 +1,28 @@
-#' Rbedtools: genome arithmetic in R
+#' valr: genome interval arithmetic in R
 #' 
-#' Rbedtools provides tools to read and manipulate intervals and signals on a 
+#' valr provides tools to read and manipulate intervals and signals on a 
 #' genome reference. While other analysis suites like BEDtools and BEDOPS enable
-#' fast command line analysis, Rbedtools enables similar analyses \emph{within
+#' fast command line analysis, valr enables similar analyses \emph{within
 #' R}.
 #' 
-#' Rbedtools focuses on manipulating intervals in BED format and signal in 
+#' valr focuses on manipulating intervals in BED format and signal in 
 #' bedGraph format. Eventually this package will power interactive 
 #' visualizations of genome-scale data with \code{shiny}.
 #' 
-#' To learn more about Rbedtools, start with the vignette: 
-#' \code{browseVignettes(package = "Rbedtools")}
+#' To learn more about valr, start with the vignette: 
+#' \code{browseVignettes(package = "valr")}
 #' 
 #' @author Jay Hesselberth <jay.hesselberth@@gmail.com>
 #'   
 #' @docType package
-#' @name Rbedtools
+#' @name valr
 #'   
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/index.html}
 #' @seealso \url{https://pythonhosted.org/pybedtools/}
 #' @seealso \url{http://bedops.readthedocs.org/en/latest/index.html}
 #' @seealso \url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
 #'   
-#' @useDynLib Rbedtools
+#' @useDynLib valr
 #' @importFrom tibble frame_data
 #' @importFrom readr read_tsv col_integer col_character
 #' @importFrom stringr str_replace str_split str_c

@@ -1,6 +1,6 @@
 context("genome file functions")
 
-genome_path <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'Rbedtools')
+genome_path <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 genome <- read_genome(genome_path)
 
 test_that("genomes are correctly read", {
