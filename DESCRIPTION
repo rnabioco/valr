@@ -11,6 +11,7 @@ Description: Read and manipulate genome intervals and signals. valr
 License: GPL (>= 2)
 Imports:
     Rcpp (>= 0.12.2),
+    BH,
     readr,
     magrittr,
     dplyr,
@@ -20,6 +21,9 @@ Imports:
     purrr,
     tibble,
     lazyeval
+Remotes:
+    hadley/dplyr,
+    eddelbuettel/BH
 LinkingTo: Rcpp (>= 0.12.2), BH, dplyr
 Suggests:
     knitr,

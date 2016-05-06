@@ -4,7 +4,7 @@
 \name{valr}
 \alias{valr}
 \alias{valr-package}
-\title{valr: genome arithmetic in R}
+\title{valr: genome interval arithmetic in R}
 \description{
 valr provides tools to read and manipulate intervals and signals on a 
 genome reference. While other analysis suites like BEDtools and BEDOPS enable

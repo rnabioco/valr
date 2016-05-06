@@ -47,3 +47,15 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// subtract_impl
+DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y);
+RcppExport SEXP valr_subtract_impl(SEXP gdf_xSEXP, SEXP gdf_ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type gdf_x(gdf_xSEXP);
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type gdf_y(gdf_ySEXP);
+    __result = Rcpp::wrap(subtract_impl(gdf_x, gdf_y));
+    return __result;
+END_RCPP
+}

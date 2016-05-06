@@ -17,4 +17,16 @@ typedef IntervalTree<int>            intervalTree ;
 extern int intervalOverlap(const interval_t& a, const interval_t& b) ;
 extern intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) ;
 
+// boost icl
+#include <boost/icl/interval_set.hpp>
+#include <boost/icl/discrete_interval.hpp>
+#include <boost/icl/right_open_interval.hpp>
+
+using namespace boost::icl ;
+
+typedef discrete_interval<int>   icl_interval_t ;
+typedef interval_set<int>        icl_interval_set_t ;
+
+extern icl_interval_set_t makeIclIntervalSet(DataFrame df, SlicingIndex si) ;
+
 #endif

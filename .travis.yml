@@ -4,7 +4,8 @@ language: r
 warnings_are_errors: false
 sudo: required
 r_github_packages:
-  - jayhesselberth/dplyr
+  - hadley/dplyr
+  - eddelbuettel/BH
 compiler:
   - clang
 addons:

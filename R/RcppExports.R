@@ -19,3 +19,9 @@ random_impl <- function(genome, length, n, seed = 0L) {
     .Call('valr_random_impl', PACKAGE = 'valr', genome, length, n, seed)
 }
 
+#' @rdname bed_subtract
+#'
+subtract_impl <- function(gdf_x, gdf_y) {
+    .Call('valr_subtract_impl', PACKAGE = 'valr', gdf_x, gdf_y)
+}
+
