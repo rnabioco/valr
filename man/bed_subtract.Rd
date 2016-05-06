@@ -27,7 +27,7 @@ x <- tibble::frame_data(
  "chr1", 500,    600,
  "chr1", 1000,   1200,
  "chr1", 1300,   1500
-) \%>\% group_by(chrom)
+)
 
 y <- tibble::frame_data(
  ~chrom, ~start, ~end,
@@ -40,7 +40,7 @@ y <- tibble::frame_data(
  "chr1", 1150,   1250,
  # full containment
  "chr1", 1299,   1501
-) \%>\% group_by(chrom)
+)
 
 bed_subtract(x, y)
 bed_subtract(x, y, any = TRUE)
