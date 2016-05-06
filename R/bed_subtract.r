@@ -37,13 +37,15 @@
 #' @export
 bed_subtract <- function(x, y, any = FALSE) {
 
-  # if `any` then only return x intervals without overlaps 
-  res <- bed_intersect(x, y)
-  # collect x intervals with no overlaps 
-  colspec <- c('chrom', 'start' = 'start.x', 'end' = 'end.x')
-  anti <- anti_join(x, res, by = colspec)
-  
-  if (any) return(anti)
+  if (any) {
+    # if `any` then only return x intervals without overlaps 
+    res <- bed_intersect(x, y)
+    # collect x intervals with no overlaps 
+    colspec <- c('chrom', 'start' = 'start.x', 'end' = 'end.x')
+    anti <- anti_join(x, res, by = colspec)
+   
+    return(anti)
+  }
 
   # otherwise return the subtracted set - this includes x intervals
   # without overlaps.
