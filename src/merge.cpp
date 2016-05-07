@@ -1,6 +1,8 @@
 #include "valr.h"
 
 //' @rdname bed_merge
+//' 
+//' @param gdf grouped tbl of intervals
 //'
 //[[Rcpp::export]]
 DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {

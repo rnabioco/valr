@@ -29,6 +29,10 @@ last(.data)
 \item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
 \code{\link{count}()}, \code{\link{concat}()}. \code{start} and \code{end}
 colnames in returned data from .x suffixes.}
+
+\item{.data}{vector of things}
+
+\item{sep}{separator character}
 }
 \value{
 \code{data_frame}

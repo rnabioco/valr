@@ -10,6 +10,8 @@ merge_impl(gdf, max_dist = 0L)
 bed_merge(x, max_dist = 0, strand = FALSE, ...)
 }
 \arguments{
+\item{gdf}{grouped tbl of intervals}
+
 \item{max_dist}{maximum distance between intervals to merge}
 
 \item{x}{tbl of intervals}

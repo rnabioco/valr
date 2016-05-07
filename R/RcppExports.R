@@ -8,6 +8,8 @@ intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
 }
 
 #' @rdname bed_merge
+#' 
+#' @param gdf grouped tbl of intervals
 #'
 merge_impl <- function(gdf, max_dist = 0L) {
     .Call('valr_merge_impl', PACKAGE = 'valr', gdf, max_dist)
@@ -20,6 +22,9 @@ random_impl <- function(genome, length, n, seed = 0L) {
 }
 
 #' @rdname bed_subtract
+#' 
+#' @param gdf_x grouped tbl of intervals
+#' @param gdf_y grouped tbl of intervals
 #'
 subtract_impl <- function(gdf_x, gdf_y) {
     .Call('valr_subtract_impl', PACKAGE = 'valr', gdf_x, gdf_y)

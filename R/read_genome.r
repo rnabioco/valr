@@ -10,6 +10,8 @@
 #' @return \code{data_frame} with colnames \code{chrom} and \code{size}, sorted
 #'   by \code{size}
 #'   
+#' @family read data
+#' 
 #' @examples
 #' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 #' read_genome(genome)
@@ -31,6 +33,8 @@ read_genome <- function(filename) {
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
 #' @return \code{data_frame}
+#' 
+#' @rdname read_genome
 #'  
 #' @examples
 #' bed_tbl <- tibble::frame_data(

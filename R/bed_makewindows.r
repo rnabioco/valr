@@ -62,6 +62,10 @@ bed_makewindows <- function(x, genome, win_size = 0,
   res 
 }
 
+#' @describeIn bed_makewindows Helper to divide interval into labeled sub-intervals.
+#' 
+#' @param interval row of data frame
+#' 
 split_interval <- function(interval, genome, win_size, step_size,
                            num_win, reverse) {
   

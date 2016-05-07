@@ -2,10 +2,13 @@
 % Please edit documentation in R/bed_makewindows.r
 \name{bed_makewindows}
 \alias{bed_makewindows}
+\alias{split_interval}
 \title{Divide intervals into new sub-intervals ("windows").}
 \usage{
 bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
   reverse = FALSE)
+
+split_interval(interval, genome, win_size, step_size, num_win, reverse)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -19,6 +22,8 @@ bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
 \item{num_win}{divide intervals to fixed number of windows}
 
 \item{reverse}{reverse window numbers}
+
+\item{interval}{row of data frame}
 }
 \value{
 \code{data_frame} with \code{win_id} column that contains a numeric 
@@ -27,6 +32,10 @@ bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
 \description{
 Divide intervals into new sub-intervals ("windows").
 }
+\section{Functions}{
+\itemize{
+\item \code{split_interval}: Helper to divide interval into labeled sub-intervals.
+}}
 \note{
 The \code{name} and \code{win_id} columns can be used to create new 
   interval names (see 'namenum' example below) or in subsequent 

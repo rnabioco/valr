@@ -1,4 +1,4 @@
 library(testthat)
-library(Rbedtools)
+library(valr)
 
-test_check("Rbedtools")
+test_check("valr")

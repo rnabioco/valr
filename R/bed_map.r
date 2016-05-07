@@ -49,6 +49,10 @@ bed_map <- function(x, y, ...) {
 
 #' @export
 #' @rdname bed_map
+#' 
+#' @param .data vector of things
+#' @param sep separator character
+#' 
 concat <- function(.data, sep = ',') {
   paste0(.data, collapse = sep)
 }

@@ -10,6 +10,10 @@ subtract_impl(gdf_x, gdf_y)
 bed_subtract(x, y, any = FALSE)
 }
 \arguments{
+\item{gdf_x}{grouped tbl of intervals}
+
+\item{gdf_y}{grouped tbl of intervals}
+
 \item{x}{tbl of intervals}
 
 \item{y}{tbl of intervals}
