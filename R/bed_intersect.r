@@ -31,8 +31,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 #'  
 #' @export
-bed_intersect <- function(x, y, strand = FALSE, strand_opp = FALSE,
-                          suffix_x = '.x', suffix_y = '.y') {
+bed_intersect <- function(x, y, strand = FALSE, strand_opp = FALSE, suffix = c('.x', '.y')) {
  
   if ( ! is_sorted(x) )
     x <- bed_sort(x)
@@ -44,11 +43,18 @@ bed_intersect <- function(x, y, strand = FALSE, strand_opp = FALSE,
   if (is.null(groups(y)) || groups(y) != "chrom")
     y <- group_by(y, chrom)
 
-  res <- intersect_impl(x, y, suffix_x, suffix_y)
+  # dplyr::check_suffix
+  if (!is.character(suffix) || length(suffix) != 2) {
+    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
+  }
+  
+  suffix <- list(x = suffix[1], y = suffix[2])
+
+  res <- intersect_impl(x, y, suffix$x, suffix$y)
   
   if (strand) {
     if (! 'strand' %in% colnames(res)){
-      stop("strand arg specified on unstranded data_frame", .Call = FALSE)
+      stop("strand arg specified on unstranded data_frame", call. = FALSE)
     }
      res <- filter(res, strand.x == strand.y) 
   } else if (strand_opp) {

@@ -8,15 +8,15 @@
 using namespace Rcpp;
 
 // intersect_impl
-DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, std::string suffix_x, std::string suffix_y);
+DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y);
 RcppExport SEXP valr_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
     Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
-    Rcpp::traits::input_parameter< std::string >::type suffix_x(suffix_xSEXP);
-    Rcpp::traits::input_parameter< std::string >::type suffix_y(suffix_ySEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type suffix_x(suffix_xSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type suffix_y(suffix_ySEXP);
     __result = Rcpp::wrap(intersect_impl(x, y, suffix_x, suffix_y));
     return __result;
 END_RCPP

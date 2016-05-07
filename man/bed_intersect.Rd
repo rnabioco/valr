@@ -7,8 +7,8 @@
 \usage{
 intersect_impl(x, y, suffix_x = ".x", suffix_y = ".y")
 
-bed_intersect(x, y, strand = FALSE, strand_opp = FALSE, suffix_x = ".x",
-  suffix_y = ".y")
+bed_intersect(x, y, strand = FALSE, strand_opp = FALSE, suffix = c(".x",
+  ".y"))
 }
 \arguments{
 \item{x}{tbl of intervals}

@@ -86,3 +86,18 @@ test_that("duplicate intervals are removed (#23)", {
   res <- bed_intersect(x, y)
   expect_equal(nrow(res), 4)
 })
+
+test_that("suffixes disambiguate x/y columns (#28)", {
+  x <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 1000,   1500, '.',   '.',     '-'
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 1000,   1200, '.',   '.',     '-'
+  )
+  
+  res <- bed_intersect(x, y)
+  test_that("start.y" %in% colnames(res), TRUE)
+})
