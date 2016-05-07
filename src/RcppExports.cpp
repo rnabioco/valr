@@ -7,6 +7,18 @@
 
 using namespace Rcpp;
 
+// complement_impl
+DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome);
+RcppExport SEXP valr_complement_impl(SEXP gdfSEXP, SEXP genomeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type gdf(gdfSEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
+    __result = Rcpp::wrap(complement_impl(gdf, genome));
+    return __result;
+END_RCPP
+}
 // intersect_impl
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y);
 RcppExport SEXP valr_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {

@@ -31,30 +31,11 @@ bed_complement <- function(x, genome) {
   if ( ! is_merged(x) ) {
     res <- bed_merge(x)
   } 
+  
+  res <- group_by(res, chrom)
+  
+  res <- complement_impl(res, genome)
 
-  # tbl is sorted at this point
-  lags <- x %>% group_by(chrom) %>% mutate(.prev_end = lag(end))
-  
-  first <- lags %>% filter(is.na(.prev_end) & start > 1) %>%
-    mutate(.start = 1, .end = start) %>%
-    mutate(start = .start, end = .end) %>%
-    select(-.prev_end, -.start, -.end)
-  
-  internal <- lags %>%
-    filter(!is.na(.prev_end)) %>%
-    mutate(.start = .prev_end, .end = start) %>%
-    mutate(start = .start, end = .end) %>%
-    select(-.prev_end, -.start, -.end)
-  
-  final <- lags %>%
-    summarize(max.end = max(end)) %>%
-    left_join(genome, by = 'chrom') %>%
-    filter(size != max.end) %>%
-    mutate(start = max.end, end = size) %>%
-    select(-size, -max.end)
-  
-  res <- bind_rows(list(first, internal, final))
-  
   res <- bed_sort(res)
  
   res 
