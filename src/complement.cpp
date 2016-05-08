@@ -2,11 +2,6 @@
 
 typedef std::unordered_map<std::string, int> map_t ;
 
-//' @rdname bed_complement
-//' 
-//' @param gdf tbl grouped by chrom
-//' @param genome chrom sizes
-//' 
 //[[Rcpp::export]]
 DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
 

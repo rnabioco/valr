@@ -37,7 +37,7 @@
 #' 
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
-                     sort = TRUE, factor_cols = TRUE, ...) {
+                     sort = TRUE, factor_cols = FALSE, ...) {
   
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)

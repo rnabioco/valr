@@ -28,8 +28,6 @@ void intersect_group(intervalVector vx, intervalVector vy,
 }
 
 
-//' @rdname bed_intersect
-//' 
 //[[Rcpp::export]]
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
                          const std::string& suffix_x = ".x",

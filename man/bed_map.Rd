@@ -9,7 +9,7 @@
 \alias{last}
 \title{Map signals over intervals.}
 \usage{
-bed_map(x, y, ...)
+bed_map(x, y, ..., add_group = NULL)
 
 concat(.data, sep = ",")
 
@@ -28,6 +28,8 @@ last(.data)
 
 \item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
 \code{\link{count}()}, \code{\link{concat}()}.}
+
+\item{add_group}{additional grouping vars}
 
 \item{.data}{vector of things}
 

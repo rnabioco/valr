@@ -10,7 +10,7 @@
 \format{An object of class \code{list} of length 12.}
 \usage{
 read_bed(filename, n_fields = 3, col_types = bed12_coltypes, sort = TRUE,
-  factor_cols = TRUE, ...)
+  factor_cols = FALSE, ...)
 
 read_bed12(filename, ...)
 

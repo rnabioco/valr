@@ -1,10 +1,5 @@
 #include "valr.h"
 
-//' @rdname bed_subtract
-//' 
-//' @param gdf_x grouped tbl of intervals
-//' @param gdf_y grouped tbl of intervals
-//'
 //[[Rcpp::export]]
 DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
 
