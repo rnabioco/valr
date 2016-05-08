@@ -4,8 +4,7 @@
 #' @param y tbl of intervals 
 #' @param strand intersect intervals on same strand
 #' @param strand_opp intersect intervals on opposite strands
-#' @param suffix_x suffix for intersected intervals from x (except chrom)
-#' @param suffix_y suffix for intersected intervals from y (except chrom)
+#' @param suffix colname suffixes in output
 #'
 #' @note Book-ended intervals have \code{.overlap} values of 0 in the output.
 #'  
@@ -54,7 +53,7 @@ bed_intersect <- function(x, y, strand = FALSE, strand_opp = FALSE, suffix = c('
   
   if (strand) {
     if (! 'strand' %in% colnames(res)){
-      stop("strand arg specified on unstranded data_frame", call. = FALSE)
+      stop("`strand` specified on unstranded data_frame", call. = FALSE)
     }
      res <- filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
