@@ -29,7 +29,6 @@
 #' @importFrom tidyr unnest
 #' @importFrom assertthat assert_that is.flag
 #' @importFrom purrr by_row
-#' @importFrom Rcpp evalCpp
 #' @importFrom lazyeval lazy_eval lazy_dots
 #' @import dplyr
 #' @exportPattern "^[[:alpha:]]+"
