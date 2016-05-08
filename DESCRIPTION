@@ -18,7 +18,7 @@ Imports:
     magrittr,
     purrr,
     readr,
-    Rcpp (>= 0.12.2),
+    Rcpp (>= 0.12.3),
     stringr,
     tibble,
     tidyr,
@@ -26,11 +26,12 @@ Remotes:
     hadley/dplyr,
     eddelbuettel/BH
 SystemRequirements: C++11
-LinkingTo: Rcpp (>= 0.12.2), BH, dplyr
+LinkingTo: Rcpp (>= 0.12.3), BH, dplyr
 Suggests:
     knitr,
     rmarkdown,
     testthat,
+    microbenchmark,
     covr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
