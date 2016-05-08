@@ -5,6 +5,7 @@ warnings_are_errors: false
 sudo: required
 cache: packages
 r_github_packages:
+  - hadley/purrr
   - hadley/dplyr
   - eddelbuettel/BH
 after_success:
