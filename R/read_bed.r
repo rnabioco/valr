@@ -1,8 +1,8 @@
-#' Read BED and related files.
+#' @title Read BED and related files.
 #'   
-#' \code{read_bed} reads BED files and \code{read_bedgraph} reads
-#' bedGraph files. Return value are \code{data.frame} that is sorted by chrom
-#' and start unless otherwise specified.
+#' @description \code{read_bed} reads BED files and \code{read_bedgraph} reads 
+#'   bedGraph files. Return value are \code{data.frame} that is sorted by chrom 
+#'   and start unless otherwise specified.
 #'   
 #' @param filename file or URL
 #' @param n_fields number fields in the BED file
@@ -12,15 +12,17 @@
 #' @param ... options to pass to \code{readr::read_tsv}
 #'   
 #' @return \code{data_frame}
-#'
+#' 
+#' @family read data
+#'   
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #'   
 #' @examples
 #' # read_bed assumes 3 field BED format. 
-#' bed3_path <- system.file('extdata', '3fields.bed.gz', package = 'Rbedtools')
+#' bed3_path <- system.file('extdata', '3fields.bed.gz', package = 'valr')
 #' bed3_tbl <- read_bed(bed3_path)
 #' 
-#' bed6_path <- system.file('extdata', '6fields.bed.gz', package = 'Rbedtools')
+#' bed6_path <- system.file('extdata', '6fields.bed.gz', package = 'valr')
 #' bed6_tbl <- read_bed(bed6_path, n_fields = 6)
 #' 
 #' # Result is sorted by chrom and start unless `sort = FALSE`
@@ -35,7 +37,7 @@
 #' 
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
-                     sort = TRUE, factor_cols = TRUE, ...) {
+                     sort = TRUE, factor_cols = FALSE, ...) {
   
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
@@ -63,8 +65,10 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 #' 
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #' 
+#' @family read data
+#' 
 #' @examples
-#' bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'Rbedtools')
+#' bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'valr')
 #' bed12_tbl <- read_bed12(bed12_path)
 #' 
 #' @export
@@ -77,8 +81,10 @@ read_bed12 <- function(filename, ...) {
 #' 
 #' @details \url{https://genome.ucsc.edu/goldenPath/help/bedgraph.html}
 #' 
+#' @family read data
+#' 
 #' @examples
-#' bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'Rbedtools')
+#' bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'valr')
 #' bedgraph_tbl <- read_bedgraph(bedgraph_path)
 #' 
 #' @export
@@ -91,8 +97,7 @@ read_bedgraph <- function(filename, ...) {
   bedgraph_tbl
 }
 
-# thickStart renamed to cds_start
-# thickEnd renamed to cds_end
+#' @rdname read_bed
 bed12_coltypes <- list(chrom = col_character(),
                        start = col_integer(),
                        end = col_integer(),

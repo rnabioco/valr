@@ -1,12 +1,23 @@
-# Sample .travis.yml for R projects
-
+addons:
+  apt:
+    sources:
+      - llvm-toolchain-precise
+      - ubuntu-toolchain-r-test
+    packages:
+      - clang-3.7
+      - g++-5
+      - gcc-5
+before_install:
+  - export CC="gcc-5"
+  - export CXX="g++-5"
+    
 language: r
 warnings_are_errors: false
 sudo: required
+cache: packages
 r_github_packages:
-  - jayhesselberth/dplyr
-
-r_packages:
-  - covr
+  - hadley/purrr
+  - hadley/dplyr
+  - eddelbuettel/BH
 after_success:
   - Rscript -e 'covr::codecov()'

@@ -1,9 +1,9 @@
 context("reading BED files")
 
-bed3_path <- system.file('extdata', '3fields.bed.gz', package = 'Rbedtools')
-bed6_path <- system.file('extdata', '6fields.bed.gz', package = 'Rbedtools')
-bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'Rbedtools')
-bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'Rbedtools')
+bed3_path <- system.file('extdata', '3fields.bed.gz', package = 'valr')
+bed6_path <- system.file('extdata', '6fields.bed.gz', package = 'valr')
+bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'valr')
+bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'valr')
 
 bed3_tbl <- read_bed(bed3_path)
 

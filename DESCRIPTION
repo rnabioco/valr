@@ -1,29 +1,38 @@
-Package: Rbedtools
+Package: valr
 Type: Package
-Title: Genome Arithmetic in R
+Title: Genome interval arithmetic in R
 Version: 0.1
 Authors@R: person("Jay", "Hesselberth", email = "jay.hesselberth@gmail.com",
                   role = c("aut", "cre"))
 Maintainer: Jay Hesselberth <jay.hesselberth@gmail.com>
-Description: Read and manipulate genome intervals and signals. RBedtools
+Description: Read and manipulate genome intervals and signals. valr 
              provides functionality similar to BEDtools and bedops within R,
              enabling facile interactive visualization of genome-scale data. 
-License: GPL (>= 2)
+License: MIT + file LICENSE
+Depends:
+    R (>= 3.1.2)
 Imports:
-    Rcpp (>= 0.12.2),
-    readr,
-    magrittr,
-    dplyr,
-    tidyr,
     assertthat,
-    stringr,
+    dplyr,
+    lazyeval,
+    magrittr,
     purrr,
+    readr,
+    Rcpp (>= 0.12.3),
+    stringr,
     tibble,
-    lazyeval
-LinkingTo: Rcpp (>= 0.12.2), BH, dplyr
+    tidyr,
+Remotes:
+    hadley/dplyr,
+    eddelbuettel/BH
+SystemRequirements: C++11
+LinkingTo: Rcpp (>= 0.12.3), BH, dplyr
 Suggests:
     knitr,
+    cowplot,
     rmarkdown,
     testthat,
+    microbenchmark,
+    covr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

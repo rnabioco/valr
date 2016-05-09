@@ -10,8 +10,10 @@
 #' @return \code{data_frame} with colnames \code{chrom} and \code{size}, sorted
 #'   by \code{size}
 #'   
+#' @family read data
+#' 
 #' @examples
-#' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'Rbedtools')
+#' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 #' read_genome(genome)
 #' read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 #' 
@@ -24,13 +26,15 @@ read_genome <- function(filename) {
   genome
 }
 
-#' select intervals bounded by a genome
+#' Select intervals bounded by a genome.
 #' 
 #' @param bed_tbl a tbl of intervals
 #' @param genome a tbl of chrom sizes
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
 #' @return \code{data_frame}
+#' 
+#' @rdname read_genome
 #'  
 #' @examples
 #' bed_tbl <- tibble::frame_data(

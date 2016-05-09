@@ -1,3 +1,3 @@
-# Rbedtools 0.1
+# valr 0.1
 
 - unreleased

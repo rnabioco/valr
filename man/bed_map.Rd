@@ -9,7 +9,7 @@
 \alias{last}
 \title{Map signals over intervals.}
 \usage{
-bed_map(x, y, ...)
+bed_map(x, y, ..., add_group = NULL)
 
 concat(.data, sep = ",")
 
@@ -27,14 +27,22 @@ last(.data)
 \item{y}{tbl of signals}
 
 \item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
-\code{\link{count}()}, \code{\link{concat}()}. colnames in values have .x 
-and .y suffixes.}
+\code{\link{count}()}, \code{\link{concat}()}.}
+
+\item{add_group}{additional grouping vars}
+
+\item{.data}{vector of things}
+
+\item{sep}{separator character}
 }
 \value{
 \code{data_frame}
 }
 \description{
 Map signals over intervals.
+}
+\note{
+Column names have \code{.x} and \code{.y} suffixes.
 }
 \examples{
 x <- tibble::frame_data(
@@ -47,8 +55,6 @@ y <- tibble::frame_data(
  "chr1", 100, 250, 10,
  "chr1", 150, 250, 20,
  "chr2", 250, 500, 500)
-
-# Note colnames (except \\code{chrom}) are suffixed \\code{.x} and \\code{.y}
 
 # mean, median, sd etc
 bed_map(x, y, sum = sum(value.y))

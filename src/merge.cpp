@@ -1,7 +1,5 @@
-#include "Rbedtools.h"
+#include "valr.h"
 
-//' @rdname bed_merge
-//'
 //[[Rcpp::export]]
 DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   

@@ -1,12 +1,12 @@
-citHeader("To cite Rbedtools in publications use:")
+citHeader("To cite valr in publications use:")
 
 citEntry(entry        = "Unpublished",
-         title        = "Genome Arithmetic with {Rbedtools}",
+         title        = "Genome Interval Arithmetic with {valr}",
          author       = personList(as.person("Ryan Mackie"),
                                    as.person("Jay Hesselberth")),
          note         = "to be deposited in bioArxiv.",
          
          textVersion  =
            paste("Ryan Mackie and Jay Hesselberth (2016).",
-                 "Genome arithmetic with Rbedtools.")
+                 "Genome arithmetic with valr.")
 )

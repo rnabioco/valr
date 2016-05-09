@@ -1,4 +1,4 @@
-#include "Rbedtools.h"
+#include "valr.h"
 
 void intersect_group(intervalVector vx, intervalVector vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
@@ -28,11 +28,10 @@ void intersect_group(intervalVector vx, intervalVector vy,
 }
 
 
-//' @rdname bed_intersect
-//' 
 //[[Rcpp::export]]
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
-                         std::string suffix_x = ".x", std::string suffix_y = ".y") {
+                         const std::string& suffix_x = ".x",
+                         const std::string& suffix_y = ".y") {
   
   // indices for subsetting 
   std::vector<int> indices_x ;
@@ -84,8 +83,8 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   // x names, data
   for( int i=0; i<ncol_x; i++) {
     auto name_x = as<std::string>(names_x[i]) ;
-    if (name_x == "start" || name_x == "end") {
-      name_x = name_x + suffix_x ;
+    if (name_x != "chrom") {
+        name_x += suffix_x ;
     } 
     names[i] = name_x ;
     out[i] = subset_x[i] ;
@@ -97,9 +96,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
     
     if (name_y == "chrom") continue ;
     
-    if (name_y == "start" || name_y == "end") {
-      name_y = name_y + suffix_y ;
-    } 
+    name_y += suffix_y ;
     
     names[i+ncol_x-1] = name_y ;
     out[i+ncol_x-1] = subset_y[i] ;
@@ -119,7 +116,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
 }  
 
 /***R
-library(Rbedtools)
+library(valr)
 library(dplyr)
 
 genome <- tibble::frame_data(
