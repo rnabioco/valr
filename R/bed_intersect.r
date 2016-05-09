@@ -52,7 +52,7 @@ bed_intersect <- function(x, y, strand = FALSE, strand_opp = FALSE, suffix = c('
   res <- intersect_impl(x, y, suffix$x, suffix$y)
   
   if (strand) {
-    if (! 'strand' %in% colnames(res)){
+    if (!('strand' %in% colnames(x) && 'strand' %in% colnames(y))){
       stop("`strand` specified on unstranded data_frame", call. = FALSE)
     }
      res <- filter(res, strand.x == strand.y) 
