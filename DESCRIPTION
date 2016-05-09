@@ -29,6 +29,7 @@ SystemRequirements: C++11
 LinkingTo: Rcpp (>= 0.12.3), BH, dplyr
 Suggests:
     knitr,
+    cowplot,
     rmarkdown,
     testthat,
     microbenchmark,

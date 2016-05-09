@@ -27,14 +27,13 @@ knitr::opts_chunk$set(
 
 # Overview
 
-`valr` enables the analysis of genome intervals in R. To keep the package lightweight, `valr` only supports BED+ and bedGraph formats. Key parts are implemented in `Rcpp` for speed.
+The goal of `valr` is to enable easy analysis of genome-scale data sets **within R**. Key parts are implemented in `Rcpp` for speed. Moreover, `valr` makes use of new R libraries like `dplyr` and its pipe operator(`%>%`) for an expressive syntax that makes genome analysis fun. So a workflow like [this](https://github.com/arq5x/bedtools-protocols/blob/master/bedtools.md#bp3-plot-transcription-factor-occupancy-surrounding-the-transcription-start-site) becomes:
 
-The goal of `valr` is to enable easy analysis of genome-scale data sets **within R**. Moreover, `valr` makes use of new R libraries like `dplyr` and its pipe operator(`%>%`) for an expressive syntax that makes genome analysis fun. So a workflow like [this](https://github.com/arq5x/bedtools-protocols/blob/master/bedtools.md#bp3-plot-transcription-factor-occupancy-surrounding-the-transcription-start-site) becomes:
-
-```{r tss_signal_example, warning = FALSE, message = FALSE}
+```{r tss_signal_example, warning = FALSE, message = FALSE, fig.align='center'}
 library(valr)
 library(dplyr)
 library(ggplot2)
+library(cowplot)
 
 bedfile <- system.file('extdata', 'genes.hg19.chr22.bed.gz', package = 'valr')
 bgfile  <- system.file('extdata', 'hela.h3k4.chip.bg.gz', package = 'valr')
@@ -45,9 +44,12 @@ genome <- read_genome(genomefile)
 
 tss <- genes %>% filter(strand == '+') %>% mutate(end = start + 1)
 
+region_size <- 1000
+win_size <- 50
+
 x <- tss %>%
-  bed_slop(genome, both = 1000) %>%
-  bed_makewindows(genome, win_size = 50)
+  bed_slop(genome, both = region_size) %>%
+  bed_makewindows(genome, win_size = win_size)
 
 y <- read_bedgraph(bgfile)
 
@@ -55,9 +57,15 @@ res <- bed_map(x, y, add_group = 'win_id.x', sums = sum(value.y)) %>%
   group_by(win_id.x) %>%
   summarize(means = mean(sums), sds = sd(sums))
 
-limits <- aes(ymax = means + sds, ymin = means - sds)
+x_labels <- seq(-region_size, region_size, by = win_size * 5)
+x_breaks <- seq(1,41, by = 5)
+sd_limits <- aes(ymax = means + sds, ymin = means - sds)
+
 ggplot(res, aes(x = win_id.x, y = means)) +
-  geom_point()  + geom_pointrange(limits)
+  geom_point()  + geom_pointrange(sd_limits) + 
+  scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
+  ggtitle('H3K4me3 ChIP signal near TSSs') +
+  xlab('Position\n(bp from TSS)') + ylab('Signal')
 ```
 
 # Vignette
