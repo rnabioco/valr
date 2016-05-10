@@ -25,7 +25,7 @@
 #' @useDynLib valr
 #' @importFrom tibble frame_data
 #' @importFrom readr read_tsv col_integer col_character
-#' @importFrom stringr str_replace str_split str_c
+#' @importFrom stringr str_replace str_split str_c str_length str_detect
 #' @importFrom tidyr unnest
 #' @importFrom assertthat assert_that is.flag
 #' @importFrom purrr by_row
