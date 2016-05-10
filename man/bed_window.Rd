@@ -5,23 +5,23 @@
 \title{Identify intersecting intervals within a specified distance}
 \usage{
 bed_window(x, y, genome, both = 0, left = 0, right = 0,
-  fraction = FALSE, sw = FALSE, strand = FALSE, strand_opp = FALSE,
-  trim = FALSE)
+  fraction = FALSE, strand_pos = FALSE, strand = FALSE,
+  strand_opp = FALSE, trim = FALSE)
 }
 \arguments{
 \item{x}{BED intervals}
 
 \item{y}{BED intervals}
 
-\item{both}{add basepairs upstream and downstream to x features}
+\item{both}{number of bases added to both sides of x intervals}
 
-\item{left}{add left basepairs to x features}
+\item{left}{number of bases added to left side of x intervals}
 
-\item{right}{add right basepairs to x features}
+\item{right}{number of bases added to right side of x intervals}
 
-\item{fraction}{define both, left, and right distance based on fraction of x interval length}
+\item{fraction}{define flanks based on fraction of x interval length}
 
-\item{sw}{define left and right based on strand}
+\item{strand_pos}{define \code{left} and \code{right} based on strand}
 
 \item{strand}{intersect intervals on same strand}
 
