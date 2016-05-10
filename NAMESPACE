@@ -2,6 +2,7 @@
 
 export("%>%")
 export(bed12_to_exons)
+export(bed_closest)
 export(bed_cluster)
 export(bed_complement)
 export(bed_fisher)

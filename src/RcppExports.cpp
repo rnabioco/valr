@@ -7,6 +7,20 @@
 
 using namespace Rcpp;
 
+// closest_impl
+DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y);
+RcppExport SEXP valr_closest_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type suffix_x(suffix_xSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type suffix_y(suffix_ySEXP);
+    __result = Rcpp::wrap(closest_impl(x, y, suffix_x, suffix_y));
+    return __result;
+END_RCPP
+}
 // complement_impl
 DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome);
 RcppExport SEXP valr_complement_impl(SEXP gdfSEXP, SEXP genomeSEXP) {
