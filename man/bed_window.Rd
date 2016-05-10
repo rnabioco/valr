@@ -48,8 +48,13 @@ y <- tibble::frame_data(
 "chr2", 350,    430
 )
 
+genome <- tibble::frame_data(
+~chrom, ~size,
+"chr1", 500,
+"chr2",  1000
+)
 bed_intersect(x, y)
-bed_window(x, y, w = 100)
+bed_window(x, y, genome, both = 100)
 
  
 }

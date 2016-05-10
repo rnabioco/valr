@@ -11,7 +11,7 @@
 #' @param strand_opp intersect intervals on opposite strand
 #' @param trim adjust coordinates for out-of-bounds intervals
 #' 
-#' @examples 
+#' @examples
 #' x <- tibble::frame_data(
 #' ~chrom, ~start, ~end,
 #' "chr1", 10,    100,
@@ -27,8 +27,13 @@
 #' "chr2", 350,    430
 #' )
 #' 
+#' genome <- tibble::frame_data(
+#' ~chrom, ~size,
+#' "chr1", 500,
+#' "chr2",  1000
+#' )
 #' bed_intersect(x, y)
-#' bed_window(x, y, w = 100)
+#' bed_window(x, y, genome, both = 100)
 #' 
 #'  
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/window.html}
@@ -38,12 +43,11 @@ bed_window <- function(x, y, genome, both = 0, left = 0, right = 0,
                        fraction = FALSE, strand_pos = FALSE, strand = FALSE, 
                        strand_opp = FALSE, trim = FALSE){
   
-  x <- mutate(x, start.org = start,
-                 end.org = end)
+  x <- mutate(x, start.org = start, end.org = end)
   
   x_slop <- bed_slop(x, genome, both = both, left = left,
-           right = right, fraction = fraction,
-           strand = strand_pos, trim = trim)
+                     right = right, fraction = fraction,
+                     strand = strand_pos, trim = trim)
   
   res <- bed_intersect(x_slop, y, strand = strand, strand_opp = strand_opp)
   
