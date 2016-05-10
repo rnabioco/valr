@@ -1,6 +1,6 @@
 ---
 title: "`valr`: Genome interval arithmetic in R"
-author: Jay Hesselberth <jay.hesselberth@gmail.com>
+author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
 output: github_document
 ---
 

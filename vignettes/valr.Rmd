@@ -4,15 +4,17 @@ author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
 date: "`r Sys.Date()`"
 output:
   html_document:
-    theme: lumen
-    highlight: tango
+    theme: united
+    highlight: pygments
     keep_md: true
     # code_folding: show
     toc: true
-    toc_depth: 3
+    toc_depth: 4
     toc_float:
       collapsed: false
       smooth_scroll: true
+    mathjax: local
+    self_contained: false
 ---
 
 ```{r knitr_opts, echo = FALSE}
@@ -35,7 +37,7 @@ library(dplyr)
 We provide several introductions to `valr`:
 
   - A comprehensive [`vignette`][] covering the core methods.
-  - A tutorial that demonstrates how to use `valr` in "real-world" applicatins.
+  - A tutorial that demonstrates how to use `valr` in "real-world" applications.
   - A `shiny` application that demonstrates interactive analysis of genome-scale data sets.
 
 ## Installation
@@ -45,6 +47,7 @@ We provide several introductions to `valr`:
 ``` r
 > devtools::install_github('jayhesselberth/valr')
 ```
+
 ## Comparison to other tools
 
 **Why another tool set for interval manipulations?** We already have [BEDtools][1], [bedops][8], [pybedtools][7], [GenomeRanges][9], [bedr][11] and [IRanges][12]. 
@@ -71,7 +74,6 @@ bed_map(x, y, mean = mean(value), var = var(value))
 bed_merge(x, concat = concat(value), max = max(value))
 ```
 
-
 ## Getting started
 
 Here is an example using `valr` that creates 
@@ -80,7 +82,7 @@ Here is an example using `valr` that creates
 library(valr)
 ```
 
-## Reading data {.tabset}
+# Reading data {.tabset}
 
 `valr` has several methods to read interval data. These methods:
 
@@ -98,7 +100,7 @@ The methods include:
   - `read_genome()`: read a UCSC "chrom size" file
   - `read_vcf()`: `XXX` not implemented yet
 
-### Reading BED files 
+## Reading BED files 
 
 ```{r read_bed}
 read_bed(system.file('extdata', '3fields.bed.gz', package = 'valr'))
@@ -106,50 +108,59 @@ read_bed(n_fields = 6, system.file('extdata', '6fields.bed.gz', package = 'valr'
 read_bed12(system.file('extdata', '12fields.bed.gz', package = 'valr'))
 ```
 
-### Reading Genome files
+## Reading Genome files
 
 ```{r read_genome}
 genome <- read_genome(system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr'))
 ```
 
-### Reading bedGraph files
+## Reading bedGraph files
 
 ```{r read_bedgraph}
 read_bedgraph(system.file('extdata', 'test.bg.gz', package = 'valr'))
 ```
 
-### Reading VCF files
+## Reading VCF files
 
 ```{r read_vcf, eval = FALSE}
 read_vcf(system.file('extdata', 'sample.vcf.gz', package = 'valr'))
 ```
   
-## Interval manipulations
+# Interval manipulations
 
-These methods compares sets of intervals in a variety of ways. Many have the same name as the corresponding `BEDtool`. Some familiar BEDtools are implemented as `dplyr` pipes (e.g., see the [`coverage`](#coverage) section).
+`valr` implements several methods for manipulating sets of intervals. Some methods  operate on a single set of intervals, while others compare two sets of intervals.
 
-  - `bed_intersect()`: find overlapping intervals
-  - `bed_merge()`: combine overlapping and nearby intervals into a single interval.
-  - `bed_cluster()`: Cluster (but don't merge) overlapping/nearby intervals.
-  - `bed_random()`: Generate random intervals in a genome.
-  - `bed_closest()`: find the closest intervals independent of overlaps
-  - `bed_map()`: apply a function to selected columns for overlapping intervals
-  - `bed_complement()`: extract intervals *not* represented by an interval file.
+Many methods the same name as the corresponding `BEDtool`, and some commonly used `BEDtools` are implemented as `dplyr` pipes (e.g., see the [`group_by`](#groupby) section).
+
+All methods accept one or more sets of `x` and `y` intervals, which must either be created using the [`read` methods](#reading data), or have `chrom`, `start` and `end` columns.
+
+## Single set operations {.tabset}
+
+These methods operate on a single set of intervals:
+
   - `bed_sort()`: order intervals 
+  - `bed_cluster()`: Cluster (but don't merge) overlapping/nearby intervals.
+  - `bed_complement()`: extract intervals *not* represented by an interval file.
+  - `bed_merge()`: combine overlapping and nearby intervals into a single interval.
   - `bed_flank()`: Generate new flanking intervals
   - `bed_slop()`: Expand the size of input intervals
-  - `bed_window()`: Find overlapping intervals within a window
-  - `bed_subtract()`: Remove intervals based on overlaps b/w two files (not implemented yet)
-  - `bed_shuffle()`:  Randomly redistrubute intervals in a genome (not implemented yet)
+  - `bed_shift()`: Shift the coordinates of an input set, bounded by a genome
+  
+### Sort 
 
-### Calculating coverage
+`bed_sort` orders intervals based on a specification. `is_sorted` asks whether a tbl is already sorted.
 
-Instead of implementing `coverage` and `genomecov` directly, coverage calculations are done with the `summarize` tool in `dplyr`.
+```{r sort}
+x <- bed_random(genome)
+is_sorted(x)
 
-```{r coverage}
+y <- bed_sort(x)
+y
+
+is_sorted(y)
 ```
 
-### Clustering intervals
+### Cluster 
 
 `bed_cluster` identifies clustered intervals and assigns them a unique `.id`.
 
@@ -159,7 +170,7 @@ y <- bed_cluster(x)
 y
 ```
 
-### Mirror intervals
+### Complement 
 
 `bed_complement` identifies intervals in a genome that are not covered by an input.
 
@@ -167,6 +178,69 @@ y
 x <- bed_random(genome)
 
 bed_complement(x, genome)
+```
+
+### Merge 
+
+`bed_merge` identifies overlapping intervals and reports new merged ones. `is_merged` asks whether a tbl is already merged. Values from merged intervals can be reported using name / value pairs.
+
+```{r merge}
+# 1e6 random intervals
+n <- 1e6
+x <- bed_random(genome, n = n)
+is_merged(x)
+x
+
+# add some signal
+x <- x %>% mutate(signal = runif(n))
+
+y <- bed_merge(x)
+is_merged(y)
+y
+
+bed_merge(x, maxs = max(signal))
+```
+
+### Flank
+
+`bed_flank` creates new intervals that flank - but do not contain - the input intervals.
+
+```{r flank, eval = FALSE}
+bed_flank(x, genome, both = 100)
+```
+
+### Slop
+
+`bed_slop` pads input intervals based on a specification
+
+```{r slop, eval = FALSE}
+bed_slop(x, genome, both = 100)
+```
+
+### Shift
+
+`bed_shift` adjusts coordinates toward `start` or `end` by a defined `size`. Intervals created out of bounds are removed, or trimmed.
+
+```{r shift}
+bed_shift(x, genome, size = 100)
+```
+
+## Multiple set operations {.tabset}
+
+These methods compare two sets of intervals:
+
+  - `bed_intersect()`: find overlapping intervals
+  - `bed_subtract()`: Remove intervals based on overlaps between two files
+  - `bed_window()`: Find overlapping intervals within a window
+  - `bed_closest()`: find the closest intervals independent of overlaps
+  - `bed_map()`: apply a function to selected columns for overlapping intervals
+  
+### Calculating coverage
+
+Instead of implementing `coverage` directly, coverage calculations are done with the `summarize` tool in `dplyr`.
+
+```{r coverage, eval = FALSE}
+
 ```
 
 ### Grouping related intervals
@@ -194,21 +268,6 @@ y <- bed_random(genome)
 bed_intersect(x, y)
 ```
 
-### Creating sub-intervals
-
-`bed_makewindows` creates sub-intervals from input intervals. The returned `data_frame` has a `win_id` column that can be used for grouping. Instead of naming intervals directly, new names for the intervals can be created with `dplyr`.
-
-```{r makewindows}
-# tally number of created intervals
-x <- bed_random(genome, n = 1)
-wins <- bed_makewindows(x, genome, win_size = 10)
-
-group_by(wins, win_id) %>% summarize(num.win = n())
-
-# create new ID based on `name` and `win_id`
-bed_makewindows(x, genome, win_size = 10) %>%
-  mutate(id = stringr::str_c('newid', '-', win_id))
-```
 
 ### Mapping signals to intervals
 
@@ -224,28 +283,10 @@ y <- read_bedgraph(bgfile)
 bed_map(x, y, means = mean(value.y), sds = sd(value.y))
 ```
 
-### Merging intervals
 
-`bed_merge` identifies overlapping intervals and reports new merged ones. `is_merged` asks whether a tbl is already merged. Values from merged intervals can be reported using name / value pairs.
 
-```{r merge}
-# 1e6 random intervals
-n <- 1e6
-x <- bed_random(genome, n = n)
-is_merged(x)
-x
 
-# add some signal
-x <- x %>% mutate(signal = runif(n))
-
-y <- bed_merge(x)
-is_merged(y)
-y
-
-bed_merge(x, maxs = max(signal))
-```
-
-### Randomzing intervals {.tabset}
+## Randomzing intervals {.tabset}
 
 `valr` provides methods for creating new random intervals or permutations of existing intervals:
 
@@ -253,7 +294,7 @@ bed_merge(x, maxs = max(signal))
   - `bed_shuffle` shuffles coordinates given a set of input intervals.
   - Random sampling of input intervals is done with `dplyr`.
 
-#### Random
+### Random
 
 `bed_random` generates random intervals from an input genome. The numbers of intervals from each `chrom` are proporitional to each chrom `size`.
 
@@ -265,7 +306,7 @@ x
 group_by(x, chrom) %>% summarize(n = n()) %>% arrange(desc(n))
 ```
 
-#### Sample
+### Sample
 
 Sampling can be done using `dplyr`:
 
@@ -282,7 +323,7 @@ sample_frac(x, 0.1, replace = FALSE)
 group_by(x, chrom) %>% sample_n(1)
 ```
 
-#### Shuffle
+### Shuffle
 
 `bed_shuffle` shuffles input intervals. Interval sizes are equal in the input and output.
 
@@ -294,18 +335,50 @@ any(x$start == y$start)
 all(x$end - x$start == y$end - y$start)
 ```
 
-### Sorting intervals
+# Interval Statistics {.tabset}
 
-`bed_sort` orders intervals based on a specification. `is_sorted` asks whether a tbl is already sorted.
+`valr` provides several methods to assess statistical properties of interval sets including:
 
-```{r sort}
+  - `bed_fisher()`
+  - `bed_reldist()`
+  - `bed_jaccard()`
+
+## Fisher's test
+
+The Fisher's test assesses whether two sets of intervals are drawn from the same background genome.
+
+```{r fisher}
 x <- bed_random(genome)
-is_sorted(x)
+y <- bed_random(genome)
 
-y <- bed_sort(x)
-y
+bed_fisher(x, y, genome)
+```
 
-is_sorted(y)
+## Relative distance
+
+`bed_reldist()` tests whether two sets of (possibly non-overlapping) intervals are closer two each other in aggregate than a random set.
+
+```{r reldist, eval = FALSE}
+x <- bed_random(genome)
+y <- bed_random(genome)
+
+bed_reldist(x, y)
+```
+
+## Jaccard similarity
+
+`bed_jaccard()` quantifies the extent of overlap between to sets of intervals. The Jaccard statistic takes values of `[0,1]` and is measured as:
+
+$$
+J(x,y) = \frac{\mid x \bigcap y \mid}
+              {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid}
+$$
+
+```{r jaccard}
+x <- bed_random(genome)
+y <- bed_random(genome)
+
+bed_jaccard(x, y)
 ```
 
 # Combining tools
@@ -329,14 +402,6 @@ microbenchmark(
 )
 ```
 
-<!-- # On naming things -->
-
-<!-- > In a false quarrel there is no true valor. -->
-<!-- >   *- William Shakespeare* -->
-
-<!-- ![](http://i.imgur.com/afBYE36.jpg) -->
-
-
 [1]: http://bedtools.readthedocs.org/en/latest/
 [2]: https://github.com/arq5x/chrom_sweep
 [3]: https://github.com/hadley/dplyr
@@ -353,4 +418,3 @@ microbenchmark(
 [14]: https://github.com/jayhesselberth/valr/tree/master/src
 [15]: https://rcppcore.github.io/RcppParallel/
 [16]: https://github.com/ekg/intervaltree/
-
