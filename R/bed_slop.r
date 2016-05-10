@@ -31,8 +31,12 @@ bed_slop <- function(x, genome, both = 0, left = 0,
                      right = 0, fraction = FALSE,
                      strand = FALSE, trim = FALSE) {
 
-  assert_that(is.flag(strand) && 'strand' %in% colnames(x))
+  assert_that(is.flag(strand))
   
+  if (strand){
+    assert_that('strand' %in% colnames(x))
+  }
+
   if (both != 0 && (left != 0 || right != 0)) {
     stop('ambiguous side spec for bed_slop')
   } 
@@ -66,7 +70,7 @@ bed_slop <- function(x, genome, both = 0, left = 0,
         res <- x %>%
           mutate(start = ifelse(strand == '+',
                                 start - left,
-                                end - right),
+                                start - right),
                  end = ifelse(strand == '+',
                               end + right,
                               end + left))
