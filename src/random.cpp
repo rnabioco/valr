@@ -56,7 +56,8 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
   
   return DataFrame::create( Named("chrom") = rand_chroms,
                             Named("start") = rand_starts,
-                            Named("end") = rand_ends) ;
+                            Named("end") = rand_ends,
+                            Named("stringsAsFactors") = false) ;
   
 }
 
