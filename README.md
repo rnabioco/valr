@@ -1,10 +1,11 @@
 `valr`: Genome interval arithmetic in R
 ================
 Jay Hesselberth <jay.hesselberth@gmail.com>
+2016-05-13
 
 [![Build Status](https://travis-ci.com/jayhesselberth/valr.svg?token=Q9WRSyqYnpS7KpFfTscp&branch=master)](https://travis-ci.com/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
-`valr` provides methods to do interval manipulations **within the R environment**, enabling fast explorative analysis of genome-scale data.
+`valr` provides methods to do interval manipulations **within the R environment**, enabling fast explorative analysis of genome-scale data. `valr` is a work-in-progress, but is nearing feature complete. Checkout the [vignette](http://rpubs.com/jayhesselberth/valr) for examples.
 
 Installation
 ============
@@ -12,6 +13,9 @@ Installation
 `valr` can be installed from github:
 
 ``` r
+# There are issues with dev dplyr
+> devtools::install_github('jayhesselberth/dplyr')
+> devtools::install_github('eddelbuettel/BH')
 > devtools::install_github('jayhesselberth/valr')
 ```
 
@@ -59,9 +63,4 @@ ggplot(res, aes(x = win_id.x, y = means)) +
   xlab('Position\n(bp from TSS)') + ylab('Signal')
 ```
 
-<img src="README-tss_signal_example-1.png" title="" alt="" style="display: block; margin: auto;" />
-
-Vignette
-========
-
-See the vignettes for a full description of the package and examples (`browseVignettes(package = "valr")`)
+<img src="README-tss_signal_example-1.png" style="display: block; margin: auto;" />

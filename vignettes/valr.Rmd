@@ -6,8 +6,8 @@ output:
   html_document:
     highlight: pygments
     keep_md: yes
-    mathjax: local
-    self_contained: no
+    mathjax: default
+    self_contained: yes
     theme: lumen
     toc: yes
     toc_depth: 4
@@ -49,7 +49,10 @@ We provide several introductions to `valr`:
 
 `valr` can be installed from github, and will be eventually deposited in CRAN.
 
-``` r
+```r
+# There are issues with dev dplyr
+> devtools::install_github('jayhesselberth/dplyr')
+> devtools::install_github('eddelbuettel/BH')
 > devtools::install_github('jayhesselberth/valr')
 ```
 
@@ -461,8 +464,6 @@ bed_jaccard(x, y)
 ```{r projection}
 
 ```
-
-# Combining tools
 
 # Benchmarks
 

@@ -1,6 +1,7 @@
 ---
 title: "`valr`: Genome interval arithmetic in R"
 author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
+date: '`r Sys.Date()`'
 output: github_document
 ---
 
@@ -15,13 +16,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-`valr` provides methods to do interval manipulations **within the R environment**, enabling fast explorative analysis of genome-scale data.
+`valr` provides methods to do interval manipulations **within the R environment**, enabling fast explorative analysis of genome-scale data. `valr` is a work-in-progress, but is nearing feature complete. Checkout the [vignette](http://rpubs.com/jayhesselberth/valr) for examples.
 
 # Installation
 
 `valr` can be installed from github:
 
 ```r
+# There are issues with dev dplyr
+> devtools::install_github('jayhesselberth/dplyr')
+> devtools::install_github('eddelbuettel/BH')
 > devtools::install_github('jayhesselberth/valr')
 ```
 
@@ -67,8 +71,4 @@ ggplot(res, aes(x = win_id.x, y = means)) +
   ggtitle('H3K4me3 ChIP signal near TSSs') +
   xlab('Position\n(bp from TSS)') + ylab('Signal')
 ```
-
-# Vignette
-
-See the vignettes for a full description of the package and examples (`browseVignettes(package = "valr")`)
 
