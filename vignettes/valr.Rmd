@@ -1,20 +1,25 @@
 ---
-title: "`valr`: Genome interval arithmetic in R"
+title: '`valr`: Genome interval arithmetic in R'
 author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
-date: "`r Sys.Date()`"
+date: '`r Sys.Date()`'
 output:
+  word_document:
+    toc: yes
+    toc_depth: '4'
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
   html_document:
-    theme: united
     highlight: pygments
-    keep_md: true
-    # code_folding: show
-    toc: true
+    keep_md: yes
+    mathjax: local
+    self_contained: no
+    theme: lumen
+    toc: yes
     toc_depth: 4
     toc_float:
-      collapsed: false
-      smooth_scroll: true
-    mathjax: local
-    self_contained: false
+      collapsed: no
+      smooth_scroll: yes
 ---
 
 ```{r knitr_opts, echo = FALSE}
@@ -100,7 +105,7 @@ The methods include:
   - `read_genome()`: read a UCSC "chrom size" file
   - `read_vcf()`: `XXX` not implemented yet
 
-## Reading BED files 
+## BED files 
 
 ```{r read_bed}
 read_bed(system.file('extdata', '3fields.bed.gz', package = 'valr'))
@@ -108,22 +113,24 @@ read_bed(n_fields = 6, system.file('extdata', '6fields.bed.gz', package = 'valr'
 read_bed12(system.file('extdata', '12fields.bed.gz', package = 'valr'))
 ```
 
-## Reading Genome files
+## Genome files
 
 ```{r read_genome}
 genome <- read_genome(system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr'))
 ```
 
-## Reading bedGraph files
+## bedGraph files
 
 ```{r read_bedgraph}
 read_bedgraph(system.file('extdata', 'test.bg.gz', package = 'valr'))
 ```
 
-## Reading VCF files
+## VCF files
 
-```{r read_vcf, eval = FALSE}
-read_vcf(system.file('extdata', 'sample.vcf.gz', package = 'valr'))
+`read_vcf()` reads VCF files and assigns `chrom`, `start` and `end` columns to be used to downstream interval comparisons. Note the interval size is calculated as the length of the `REF` field in the original file.
+
+```{r read_vcf}
+read_vcf(system.file('extdata', 'test.vcf.gz', package = 'valr'))
 ```
   
 # Interval manipulations
@@ -230,33 +237,12 @@ bed_shift(x, genome, size = 100)
 These methods compare two sets of intervals:
 
   - `bed_intersect()`: find overlapping intervals
+  - `bed_map()`: apply a function to selected columns for overlapping intervals
   - `bed_subtract()`: Remove intervals based on overlaps between two files
   - `bed_window()`: Find overlapping intervals within a window
   - `bed_closest()`: find the closest intervals independent of overlaps
-  - `bed_map()`: apply a function to selected columns for overlapping intervals
   
-### Calculating coverage
-
-Instead of implementing `coverage` directly, coverage calculations are done with the `summarize` tool in `dplyr`.
-
-```{r coverage, eval = FALSE}
-
-```
-
-### Grouping related intervals
-
-The `group_by` operation from `dplyr` serves a similar purpose to BEDtools `groupby`, and can be combined with `dplyr::summarize` to calculate summary statistics from groups.
-
-```{r group_by}
-x <- bed_random(genome)
-y <- bed_random(genome)
-
-bed_intersect(x, y) %>%
-  group_by(chrom) %>%
-  summarize(overlap.total = sum(.overlap))
-```
-
-### Intersecting intervals
+### Intersection
 
 `bed_intersect` is implement using an [interval tree][16] in `Rcpp`. Column names in the result have `.x` and `.y` suffixes, and an `.overlap` column contains the size of the intersection (values of `0` indicate book-ended, or touching intervals). See the [benchmarks](#benchmarks) section for timing. Though `bed_intersect` is pretty fast already, we intend to further improve upon this by parallization with [`RcppParallel`][15].
 
@@ -268,8 +254,7 @@ y <- bed_random(genome)
 bed_intersect(x, y)
 ```
 
-
-### Mapping signals to intervals
+### Map
 
 `bed_map` maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs. 
 
@@ -283,8 +268,42 @@ y <- read_bedgraph(bgfile)
 bed_map(x, y, means = mean(value.y), sds = sd(value.y))
 ```
 
+### Subtract
 
+`bed_substract()` removes `x` intervals that intersect with `y`.
 
+```{r subtract}
+x <- bed_random(genome)
+y <- bed_random(genome)
+
+bed_subtract(x, y)
+```
+
+### Window
+
+`bed_window()` identifies `y` intervals that intersect an expanded window of `x` intervals.
+
+```{r window, warning = FALSE}
+x <- bed_random(genome, n = 100)
+y <- bed_random(genome, n = 100)
+
+# a few intersections
+bed_intersect(x, y)
+
+# can be expanded by casting a wider net
+bed_window(x, y, genome, both = 1e6)
+```
+
+### Closest
+
+`bed_closest()` identifies `y` intervals that are closest to `x`.
+
+```{r closest, eval = FALSE}
+x <- bed_random(genome, n = 100)
+y <- bed_random(genome, n = 100)
+
+bed_closest(x, y)
+```
 
 ## Randomzing intervals {.tabset}
 
@@ -335,23 +354,58 @@ any(x$start == y$start)
 all(x$end - x$start == y$end - y$start)
 ```
 
+## Other
+
+### Calculating coverage
+
+Instead of implementing `coverage` directly, coverage calculations are done with the `summarize` tool in `dplyr`.
+
+```{r coverage, eval = FALSE}
+
+```
+
+### Grouping related intervals
+
+The `group_by` operation from `dplyr` serves a similar purpose to BEDtools `groupby`, and can be combined with `dplyr::summarize` to calculate summary statistics from groups.
+
+```{r group_by}
+x <- bed_random(genome)
+y <- bed_random(genome)
+
+bed_intersect(x, y) %>%
+  group_by(chrom) %>%
+  summarize(overlap.total = sum(.overlap))
+```
+
 # Interval Statistics {.tabset}
 
 `valr` provides several methods to assess statistical properties of interval sets including:
 
   - `bed_fisher()`
+  - `bed_absdist()`
   - `bed_reldist()`
   - `bed_jaccard()`
+  - `bed_projection()`
+
+Several of these methods were described in the [Genometricorr][17] software package.
 
 ## Fisher's test
 
 The Fisher's test assesses whether two sets of intervals are drawn from the same background genome.
 
 ```{r fisher}
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome, n = 100)
+y <- bed_random(genome, n = 100)
 
 bed_fisher(x, y, genome)
+```
+
+## Absolute distance
+
+`bed_absdist()` - TBD
+
+```{r absdist}
+
 ```
 
 ## Relative distance
@@ -379,6 +433,14 @@ x <- bed_random(genome)
 y <- bed_random(genome)
 
 bed_jaccard(x, y)
+```
+
+## Projection
+
+`bed_projection()` TBD
+
+```{r projection}
+
 ```
 
 # Combining tools
@@ -418,3 +480,4 @@ microbenchmark(
 [14]: https://github.com/jayhesselberth/valr/tree/master/src
 [15]: https://rcppcore.github.io/RcppParallel/
 [16]: https://github.com/ekg/intervaltree/
+[17]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
