@@ -2,7 +2,7 @@
 
 void closest_grouped(intervalVector& vx, intervalVector& vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
-                     std::vector<int>& overlap_sizes) {
+                     std::vector<int>& overlap_sizes, std::vector<int>& distance_sizes) {
 
   intervalVector::const_iterator vx_it ;
   for(vx_it = vx.begin(); vx_it != vx.end(); ++vx_it ) {
@@ -19,52 +19,62 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
      
       auto overlap = intervalOverlap(*vx_it, *vy_it) ;
       
-      // store touching and overlapping, to be filtered later
-      if(overlap >= 0) {
+      // store overlapping 
+      if(overlap > 0) {
         indices_x.push_back(vx_it->value) ;
         indices_y.push_back(vy_it->value) ;
         overlap_sizes.push_back(overlap) ;
+        distance_sizes.push_back(0);
         continue ;
       }
       
       // left y intervals
-      if(vy_it->stop < vx_it->start) {
+      if(vy_it->stop <= vx_it->start) {
         if(ivl_left.value == 0 || vy_it->stop > ivl_left.stop) {
           ivl_left = *vy_it ;
-          left_overlap = overlap ;
+          ivl_left.value += 1 ; // increment by 1 to avoid losing first left interval if in SlicingIndex 0
+          left_overlap = overlap; 
         }
       }
       
       // right y intervals
-      if(vy_it->start > vx_it->stop) {
+      if(vy_it->start >= vx_it->stop) {
                      
         if(ivl_right.value != 0 && vy_it->start > ivl_right.stop) {
           break ;
         } else {
           ivl_right = *vy_it ;
-          right_overlap = overlap ;
+          ivl_right.value += 1 ; // increment by 1 to avoid losing first left interval if in SlicingIndex 0
+          right_overlap = overlap; 
         }
       }
       
     } // for y
     
-    // store left and rigtht intervals
+    // store left and right intervals 
+    // touching intervals stored as distance +/- 1 (Depending on left/right orientation)
     if (ivl_left.value != 0) {
+      ivl_left.value -= 1; // decrease by 1 to return index to correct pos (see line 35)
       indices_x.push_back(vx_it->value) ;
       indices_y.push_back(ivl_left.value) ;
       overlap_sizes.push_back(left_overlap) ;
+      distance_sizes.push_back(left_overlap - 1);
     }
     
     if (ivl_right.value != 0) {
-      indices_x.push_back(vx_it->value) ;
+      ivl_right.value -= 1; // decrease by 1 to return index to correct pos (see line 47)
+      indices_x.push_back(vx_it->value) ; 
       indices_y.push_back(ivl_right.value) ;
       overlap_sizes.push_back(right_overlap) ;
+      distance_sizes.push_back(-right_overlap + 1);
     }
 
   } // for x
 }   // void
 
-// XXX the following is verbatim from intersect.cpp except for fxn call , should be reused
+// XXX the following is verbatim from intersect.cpp except for fxn call  
+// XXX and an additional column (distance) is added to output df. should be reused
+ 
 //[[Rcpp::export]]
 DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
                        const std::string& suffix_x, const std::string& suffix_y) {
@@ -82,6 +92,7 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   std::vector<int> indices_x ;
   std::vector<int> indices_y ;
   std::vector<int> overlap_sizes ;
+  std::vector<int> distance_sizes ;
   
   // XXX this shoudld be refactored as a reusable function, used in intersect,
   // subtract, here, possibely more
@@ -101,7 +112,7 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
         intervalVector vx = makeIntervalVector(df_x, si_x) ;
         intervalVector vy = makeIntervalVector(df_y, si_y) ;
         
-        closest_grouped(vx, vy, indices_x, indices_y, overlap_sizes) ;
+        closest_grouped(vx, vy, indices_x, indices_y, overlap_sizes, distance_sizes) ;
       } 
     }
   }
@@ -112,12 +123,12 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   auto ncol_x = subset_x.size() ;
   auto ncol_y = subset_y.size() ;
   
-  CharacterVector names(ncol_x + ncol_y) ;
+  CharacterVector names(ncol_x + ncol_y + 1) ;
   CharacterVector names_x = subset_x.attr("names") ;
   CharacterVector names_y = subset_y.attr("names") ;
   
-  // replacing y chrom with overlap, same number of cols 
-  List out(ncol_x + ncol_y) ;
+  // replacing y chrom with overlap, and adding distance col
+  List out(ncol_x + ncol_y + 1) ;
   
   // x names, data
   for( int i=0; i<ncol_x; i++) {
@@ -144,6 +155,10 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   // overlaps 
   out[ncol_x + ncol_y - 1] = overlap_sizes ;
   names[ncol_x + ncol_y - 1] = ".overlap" ;
+
+  //distances
+  out[ncol_x + ncol_y] = distance_sizes ;
+  names[ncol_x + ncol_y] = ".distance";
   
   out.attr("names") = names ; 
   out.attr("class") = classes_not_grouped() ;

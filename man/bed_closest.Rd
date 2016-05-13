@@ -4,14 +4,27 @@
 \alias{bed_closest}
 \title{Identify closest intervals.}
 \usage{
-bed_closest(x, y, overlap)
+bed_closest(x, y, overlap = TRUE, strand = FALSE, strand_opp = FALSE,
+  suffix = c(".x", ".y"), distance_type = c("genome", "strand", "abs"))
 }
 \arguments{
 \item{x}{tbl of intervals}
 
 \item{y}{tbl of intervals}
 
-\item{overlap}{include overlapping intervals}
+\item{overlap}{include overlapping intervals and report overlap}
+
+\item{strand}{intersect intervals on same strand}
+
+\item{strand_opp}{intersect intervals on opposite strands}
+
+\item{suffix}{colname suffixes in output}
+
+\item{distance_type}{reporting method for distance to 
+nearest interval (
+genome (default) = use negative distances to report upstream intervals,
+          strand = define upstream based on strand,
+             abs = report absolute value of distance)}
 }
 \value{
 \code{data_frame}
@@ -20,6 +33,23 @@ bed_closest(x, y, overlap)
 Identify closest intervals.
 }
 \examples{
+x <- tibble::frame_data(
+~chrom, ~start, ~end,
+"chr1", 500,    600,
+"chr2", 5000,   6000
+) 
+
+y <- tibble::frame_data(
+~chrom, ~start, ~end,
+"chr1", 100,    200,
+"chr1", 150,    200,
+"chr1", 550,    580,
+"chr2", 7000,   8500
+) 
+
+bed_closest(x, y)
+bed_closest(x, y, overlap = F)
+
 
 }
 \seealso{
