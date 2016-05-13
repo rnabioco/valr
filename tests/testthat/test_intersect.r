@@ -1,21 +1,26 @@
 context('bed_intersect')
- 
-test_that("simple overlap", {
-   x <- tibble::frame_data(
-    ~chrom,   ~start,    ~end,
-    "chr1",    100,       200,
-    "chr1",    150,       250,
-    "chr1",    400,       500
-  )
-  
-  y <- tibble::frame_data(
-    ~chrom,   ~start,    ~end,
-    "chr1",    175,       200,
-    "chr1",    175,       225
-  )
-  
+
+x <- tibble::frame_data(
+  ~chrom,   ~start,    ~end,
+  "chr1",    100,       200,
+  "chr1",    150,       250,
+  "chr1",    400,       500
+)
+
+y <- tibble::frame_data(
+  ~chrom,   ~start,    ~end,
+  "chr1",    175,       200,
+  "chr1",    175,       225
+)
+
+test_that("simple overlap works", {
   res <- bed_intersect(x, y)
   expect_equal(nrow(res), 4)   
+})
+
+test_that("invert param works", {
+  res <- bed_intersect(x, y, invert = TRUE)
+  expect_equal(nrow(res), 1)   
 })
 
 test_that("multple a's", {

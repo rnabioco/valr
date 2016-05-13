@@ -30,7 +30,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 #'  
 #' @export
-bed_intersect <- function(x, y, strand = FALSE, strand_opp = FALSE, suffix = c('.x', '.y')) {
+bed_intersect <- function(x, y, invert = FALSE, strand = FALSE, strand_opp = FALSE, suffix = c('.x', '.y')) {
  
   if ( ! is_sorted(x) )
     x <- bed_sort(x)
@@ -58,6 +58,11 @@ bed_intersect <- function(x, y, strand = FALSE, strand_opp = FALSE, suffix = c('
      res <- filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
      res <- filter(res, strand.x != strand.y) 
+  }
+ 
+  if (invert) {
+    colspec <- c('chrom' = 'chrom', 'start' = 'start.x', 'end' = 'end.x') 
+    res <- x %>% anti_join(res, by = colspec)
   }
   
   res

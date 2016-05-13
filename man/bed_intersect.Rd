@@ -4,8 +4,8 @@
 \alias{bed_intersect}
 \title{Identify intersecting intervals.}
 \usage{
-bed_intersect(x, y, strand = FALSE, strand_opp = FALSE, suffix = c(".x",
-  ".y"))
+bed_intersect(x, y, invert = FALSE, strand = FALSE, strand_opp = FALSE,
+  suffix = c(".x", ".y"))
 }
 \arguments{
 \item{x}{tbl of intervals}

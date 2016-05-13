@@ -3,12 +3,6 @@ title: '`valr`: Genome interval arithmetic in R'
 author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
 date: '`r Sys.Date()`'
 output:
-  word_document:
-    toc: yes
-    toc_depth: '4'
-  pdf_document:
-    toc: yes
-    toc_depth: '4'
   html_document:
     highlight: pygments
     keep_md: yes
@@ -20,6 +14,12 @@ output:
     toc_float:
       collapsed: no
       smooth_scroll: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+  word_document:
+    toc: yes
+    toc_depth: '4'
 ---
 
 ```{r knitr_opts, echo = FALSE}
@@ -244,7 +244,7 @@ These methods compare two sets of intervals:
   
 ### Intersection
 
-`bed_intersect` is implement using an [interval tree][16] in `Rcpp`. Column names in the result have `.x` and `.y` suffixes, and an `.overlap` column contains the size of the intersection (values of `0` indicate book-ended, or touching intervals). See the [benchmarks](#benchmarks) section for timing. Though `bed_intersect` is pretty fast already, we intend to further improve upon this by parallization with [`RcppParallel`][15].
+`bed_intersect` is implemented using an [interval tree][16] in `Rcpp`. Column names in the result have `.x` and `.y` suffixes, and an `.overlap` column contains the size of the intersection (values of `0` indicate book-ended, or touching intervals). See the [benchmarks](#benchmarks) section for timing. Though `bed_intersect` is pretty fast already, we intend to further improve upon this by parallization with [`RcppParallel`][15].
 
 ```{r intersect}
 # intersect two sets of 1e6 intervals from hg19
@@ -252,6 +252,25 @@ x <- bed_random(genome)
 y <- bed_random(genome)
 
 bed_intersect(x, y)
+
+# A records with no overlaps (i.e., `-v`)
+bed_intersect(x, y, invert = TRUE)
+```
+
+One can achieve behaviour similar to BEDtools by combining `bed_intersect` with `dplyr` tools.
+
+```{r intersect_opts}
+# A records with overlaps (i.e., `-wa`)
+bed_intersect(x, y) %>% select(chrom, start = start.x, end = end.x)
+
+# B records with overlaps (i.e., `-wb`)
+bed_intersect(x, y) %>% select(chrom, start = start.y, end = end.y)
+
+# Unique records in A (i.e., `-u`)
+bed_intersect(x, y) %>% select(chrom, start = start.x, end = end.x) %>% unique()
+
+# Count overlaps
+bed_intersect(x, y) %>% group_by(chrom, start.x, end.x) %>% summarize(count = n()) %>% ungroup()
 ```
 
 ### Map
