@@ -1,19 +1,30 @@
-addons:
-  apt:
-    sources:
-      - llvm-toolchain-precise
-      - ubuntu-toolchain-r-test
-    packages:
-      - clang-3.7
-      - g++-5
-      - gcc-5
+# Opt into fully virtualized infrastructure
+# cf http://blog.travis-ci.com/2015-03-31-docker-default-on-the-way/
+sudo: required
+
+env:
+  global:
+    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+    - R_CHECK_ARGS="--no-build-vignettes --no-manual"
+    - _R_CHECK_FORCE_SUGGESTS_=FALSE
+
 before_install:
-  - export CC="gcc-5"
-  - export CXX="g++-5"
-    
+  - curl -OL http://raw.github.com/eddelbuettel/r-travis/master/scripts/travis-tool.sh
+  - chmod 755 ./travis-tool.sh
+  - ./travis-tool.sh bootstrap
+  - sudo add-apt-repository -y ppa:edd/misc
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+  - ./travis-tool.sh install_aptget r-cran-rcpp g++-4.9
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 50
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
 language: r
 warnings_are_errors: false
-sudo: required
 cache: packages
 r_github_packages:
   - hadley/purrr
