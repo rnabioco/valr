@@ -15,20 +15,13 @@ before_install:
   - sudo add-apt-repository -y ppa:edd/misc
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
-  - ./travis-tool.sh install_aptget r-cran-rcpp g++-4.9
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 50
+  - ./travis-tool.sh install_aptget r-cran-rcpp g++-5
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 50
 
 notifications:
   email:
     on_success: change
     on_failure: change
 
-language: r
-warnings_are_errors: false
-cache: packages
-r_github_packages:
-  - hadley/purrr
-  - hadley/dplyr
-  - eddelbuettel/BH
 after_success:
   - Rscript -e 'covr::codecov()'
