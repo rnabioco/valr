@@ -1,27 +1,36 @@
-# Opt into fully virtualized infrastructure
-# cf http://blog.travis-ci.com/2015-03-31-docker-default-on-the-way/
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources: 
+            -'ubuntu-toolchain-r-test'
+          packages: 
+            - 'g++-5'
+      env: COMPILER=g++-5
+    - os: linux
+      compiler: clang
+      addons:
+        apt:
+          sources: 
+           - 'ubuntu-toolchain-r-test'
+           - 'llvm-toolchain-precise-3.7'
+          packages: 
+           - 'clang-3.7'
+      env: COMPILER=clang++-3.7
+    - os: osx
+      compiler: clang
+      env: COMPILER=clang++
+
+language: r 
+warnings_are_errors: false
 sudo: required
-
-env:
-  global:
-    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-    - R_CHECK_ARGS="--no-build-vignettes --no-manual"
-    - _R_CHECK_FORCE_SUGGESTS_=FALSE
-
-before_install:
-  - curl -OL http://raw.github.com/eddelbuettel/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-  - sudo add-apt-repository -y ppa:edd/misc
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update -qq
-  - ./travis-tool.sh install_aptget r-cran-rcpp g++-5
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 50
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
-
+cache: packages
+r_github_packages:
+  - hadley/purrr
+  - hadley/dplyr
+  - eddelbuettel/BH     
+  
 after_success:
   - Rscript -e 'covr::codecov()'
