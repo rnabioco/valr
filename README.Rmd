@@ -22,10 +22,7 @@ knitr::opts_chunk$set(
 
 `valr` can be installed from github:
 
-```r
-# There are issues with dev dplyr
-> devtools::install_github('jayhesselberth/dplyr')
-> devtools::install_github('eddelbuettel/BH')
+``` r
 > devtools::install_github('jayhesselberth/valr')
 ```
 

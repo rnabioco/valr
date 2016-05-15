@@ -1,7 +1,7 @@
 `valr`: Genome interval arithmetic in R
 ================
 Jay Hesselberth <jay.hesselberth@gmail.com>
-2016-05-13
+2016-05-15
 
 [![Build Status](https://travis-ci.com/jayhesselberth/valr.svg?token=Q9WRSyqYnpS7KpFfTscp&branch=master)](https://travis-ci.com/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
@@ -13,9 +13,6 @@ Installation
 `valr` can be installed from github:
 
 ``` r
-# There are issues with dev dplyr
-> devtools::install_github('jayhesselberth/dplyr')
-> devtools::install_github('eddelbuettel/BH')
 > devtools::install_github('jayhesselberth/valr')
 ```
 

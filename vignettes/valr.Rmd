@@ -50,9 +50,6 @@ We provide several introductions to `valr`:
 `valr` can be installed from github, and will be eventually deposited in CRAN.
 
 ```r
-# There are issues with dev dplyr
-> devtools::install_github('jayhesselberth/dplyr')
-> devtools::install_github('eddelbuettel/BH')
 > devtools::install_github('jayhesselberth/valr')
 ```
 
@@ -320,7 +317,7 @@ bed_window(x, y, genome, both = 1e6)
 
 `bed_closest()` identifies `y` intervals that are closest to `x`.
 
-```{r closest, eval = FALSE}
+```{r closest}
 x <- bed_random(genome, n = 100)
 y <- bed_random(genome, n = 100)
 
@@ -470,11 +467,13 @@ bed_jaccard(x, y)
 ```{r benchmarks}
 # 1e6 random 1 kb intervals from hg19
 x <- bed_random(genome)
+small.x <- bed_random(genome, n = 100)
 y <- bed_random(genome)
 
 library(microbenchmark)
 microbenchmark(
   bed_random(genome),
+  bed_closest(small.x, y),
   bed_intersect(x, y),
   bed_merge(x),
   bed_subtract(x, y),
@@ -496,7 +495,7 @@ microbenchmark(
 [10]: http://shiny.rstudio.com/
 [11]: https://cran.r-project.org/web/packages/bedr/index.html
 [12]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
-[13]: http://bedtools.readthedocs.io/en/latest/#performance
+[13]: http://bedtools.readthedocs.io/en/latest/#p %>% erformance
 [14]: https://github.com/jayhesselberth/valr/tree/master/src
 [15]: https://rcppcore.github.io/RcppParallel/
 [16]: https://github.com/ekg/intervaltree/
