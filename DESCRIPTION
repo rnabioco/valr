@@ -23,8 +23,7 @@ Imports:
     tibble,
     tidyr,
 Remotes:
-    hadley/dplyr,
-    eddelbuettel/BH
+    hadley/dplyr@97754bf65c521b2b3f82d46e9cf4ebf172d1122b,
 SystemRequirements: C++11
 LinkingTo: Rcpp (>= 0.12.3), BH, dplyr
 Suggests:
