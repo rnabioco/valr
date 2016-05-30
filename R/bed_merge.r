@@ -33,6 +33,8 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   
   if ( ! is_sorted(x) ) {
     res <- bed_sort(x)
+  } else {
+    res <- x
   }
  
   res <- group_by(res, chrom)
