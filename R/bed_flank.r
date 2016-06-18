@@ -46,26 +46,43 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   
   if (both) {
     if (fraction) {
+      
       res <- x %>%
         mutate(.interval_size = end - start,
-               .starts = list(start - (fraction * .interval_size), end),
-               .ends = list(start, end + (fraction * .interval_size))) %>%
-        select(-.interval_size)       
+               start_r = start - (fraction * .interval_size), end_r = start, 
+               start_l = end, end_l = end + (fraction * .interval_size)) %>%
+        select(-start, -end, -.interval_size) 
+      
+      #res <- x %>%
+      #  mutate(.interval_size = end - start,
+      #         .starts = list(start - (fraction * .interval_size), end),
+      #         .ends = list(start, end + (fraction * .interval_size))) %>%
+      #  select(-.interval_size)       
     } else {
+      
       res <- x %>%
-        mutate(.starts = list(start - both, end),
-               .ends = list(start, end + both))
+        mutate(start_r = start - both, end_r = start, 
+               start_l = end, end_l = end + both) %>%
+        select(-start, -end)
+      
+      #res <- x %>%
+      #  mutate(.starts = list(start - both, end),
+      #         .ends = list(start, end + both))
     }
    
-    # XXX figure out how to put start, end in original position, they come out the end
-    res <- res %>% 
-      tidyr::unnest() %>%
-      select(-start, -end) %>%
-      rename(start = .starts, end = .ends)
+    res <- res %>%
+      gather(key, value, start_r, end_r, start_l, end_l) %>% 
+      separate(key, c("key", "pos"), sep = "_") %>% 
+      spread(key, value) %>%
+      select(chrom, start, end, everything(), -pos)
     
-    res
+    # XXX figure out how to put start, end in original position, they come out the end
+    #res <- res %>% 
+    #  tidyr::unnest() %>%
+    #  select(-start, -end) %>%
+    #  rename(start = .starts, end = .ends)
+    #res
   } 
-  
   
   # not `both`
   if (!strand) {
