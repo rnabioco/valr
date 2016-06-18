@@ -66,6 +66,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
     res
   } 
   
+  
   # not `both`
   if (!strand) {
     if (left) {
@@ -87,7 +88,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                               start - left,
                               end),
                end = ifelse(strand == '+',
-                            start,
+                            start + left,
                             end + left))
     } else if (right) {
        res <- x %>%
@@ -96,7 +97,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                               start - right),
                end = ifelse(strand == '+',
                             end + right,
-                            start))
+                            start + right))
     }
   }    
     
