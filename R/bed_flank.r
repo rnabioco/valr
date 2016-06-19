@@ -80,10 +80,9 @@ bed_flank <- function(x, genome, both = 0, left = 0,
       } else {
         res <- x %>%
           mutate(.start = start,
-                 .interval_size = end - start,
                  start = start - left,
                  end = .start) %>%
-          select(-.start, -.interval_size)
+          select(-.start)
       }
     
     } else if (right) {
@@ -96,10 +95,8 @@ bed_flank <- function(x, genome, both = 0, left = 0,
         
       } else {
         res <- x %>%
-          mutate(.interval_size = end - start,
-                 start = end,
-                 end = end + right) %>%
-          select(-.interval_size)
+          mutate(start = end,
+                 end = end + right)
       }
     }
   
@@ -119,14 +116,12 @@ bed_flank <- function(x, genome, both = 0, left = 0,
         
       } else {
         res <- x %>%
-          mutate(.interval_size = end - start,
-                 start = ifelse(strand == '+',
+          mutate(start = ifelse(strand == '+',
                                 start - left,
                                 end),
                  end = ifelse(strand == '+',
                               start + left,
-                              end + left)) %>%
-          select(-.interval_size)
+                              end + left))
       }
       
       # WHY DOESN'T THIS WORK?
@@ -156,14 +151,12 @@ bed_flank <- function(x, genome, both = 0, left = 0,
         
       } else {
         res <- x %>%
-          mutate(.interval_size = end - start,
-                 start = ifelse(strand == '+',
+          mutate(start = ifelse(strand == '+',
                                 end,
                                 start - right),
                  end = ifelse(strand == '+',
                               end + right,
-                              start + right)) %>%
-          select(-.interval_size)
+                              start + right))
       }
     }
   }    
