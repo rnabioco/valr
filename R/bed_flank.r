@@ -38,7 +38,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                       strand = FALSE, trim = FALSE) {
 
   assert_that(both > 0 || left > 0 || right > 0)
-  assert_that(fraction >= 0 && fraction <= 1)
+  #assert_that(fraction >= 0 && fraction <= 1)
   
   if (both != 0 && (left != 0 || right != 0)) {
     stop('ambiguous side spec for bed_flank')
@@ -46,28 +46,17 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   
   if (both) {
     if (fraction) {
-      
       res <- x %>%
         mutate(.interval_size = end - start,
-               start_r = start - (fraction * .interval_size), end_r = start, 
-               start_l = end, end_l = end + (fraction * .interval_size)) %>%
+               start_r = start - (both * .interval_size), end_r = start, 
+               start_l = end, end_l = end + (both * .interval_size)) %>%
         select(-start, -end, -.interval_size) 
       
-      #res <- x %>%
-      #  mutate(.interval_size = end - start,
-      #         .starts = list(start - (fraction * .interval_size), end),
-      #         .ends = list(start, end + (fraction * .interval_size))) %>%
-      #  select(-.interval_size)       
     } else {
-      
       res <- x %>%
         mutate(start_r = start - both, end_r = start, 
                start_l = end, end_l = end + both) %>%
         select(-start, -end)
-      
-      #res <- x %>%
-      #  mutate(.starts = list(start - both, end),
-      #         .ends = list(start, end + both))
     }
    
     res <- res %>%
@@ -75,46 +64,107 @@ bed_flank <- function(x, genome, both = 0, left = 0,
       separate(key, c("key", "pos"), sep = "_") %>% 
       spread(key, value) %>%
       select(chrom, start, end, everything(), -pos)
-    
-    # XXX figure out how to put start, end in original position, they come out the end
-    #res <- res %>% 
-    #  tidyr::unnest() %>%
-    #  select(-start, -end) %>%
-    #  rename(start = .starts, end = .ends)
-    #res
   } 
   
   # not `both`
   if (!strand) {
     if (left) {
-      res <- x %>%
-        mutate(.start = start,
-               start = start - left,
-               end = .start) %>%
-        select(-.start) 
+      if (fraction) {
+        res <- x %>%
+          mutate(.start = start,
+                 .interval_size = end - start,
+                 start = start - (left * .interval_size),
+                 end = .start) %>%
+          select(-.start, -.interval_size)
+        
+      } else {
+        res <- x %>%
+          mutate(.start = start,
+                 .interval_size = end - start,
+                 start = start - left,
+                 end = .start) %>%
+          select(-.start, -.interval_size)
+      }
+    
     } else if (right) {
-      res <- x %>%
-        mutate(start = end,
-               end = end + right)
-    } 
+      if (fraction) {
+        res <- x %>%
+          mutate(.interval_size = end - start,
+                 start = end,
+                 end = end + (right * .interval_size)) %>%
+          select(-.interval_size)
+        
+      } else {
+        res <- x %>%
+          mutate(.interval_size = end - start,
+                 start = end,
+                 end = end + right) %>%
+          select(-.interval_size)
+      }
+    }
+  
   } else {
-    if (left) {
     # calc left and right based on strand
-      res <- x %>%
-        mutate(start = ifelse(strand == '+',
-                              start - left,
-                              end),
-               end = ifelse(strand == '+',
-                            start + left,
-                            end + left))
+    if (left) {
+      if (fraction) {
+        res <- x %>%
+          mutate(.interval_size = end - start,
+                 start = ifelse(strand == '+',
+                                start - (left * .interval_size),
+                                end),
+                 end = ifelse(strand == '+',
+                              start + (left * .interval_size),
+                              end + (left * .interval_size))) %>%
+          select(-.interval_size)
+        
+      } else {
+        res <- x %>%
+          mutate(.interval_size = end - start,
+                 start = ifelse(strand == '+',
+                                start - left,
+                                end),
+                 end = ifelse(strand == '+',
+                              start + left,
+                              end + left)) %>%
+          select(-.interval_size)
+      }
+      
+      # WHY DOESN'T THIS WORK?
+      #res <- x %>%
+      #  mutate(.interval_size = end - start,
+      #         .shift_amt = ifelse(fraction == T,
+      #                             left * .interval_size,
+      #                             left),
+      #         start = ifelse(strand == '+',
+      #                        start - .shift_amt,
+      #                        end),
+      #         end = ifelse(strand == '+',
+      #                      start + .shift_amt,
+      #                      end + .shift_amt)) 
+     
     } else if (right) {
-       res <- x %>%
-        mutate(start = ifelse(strand == '+',
-                              end,
-                              start - right),
-               end = ifelse(strand == '+',
-                            end + right,
-                            start + right))
+      if (fraction) {
+        res <- x %>%
+          mutate(.interval_size = end - start,
+                 start = ifelse(strand == '+',
+                                end,
+                                start - (right * .interval_size)),
+                 end = ifelse(strand == '+',
+                              end + (right * .interval_size),
+                              start + (right * .interval_size))) %>%
+          select(-.interval_size)
+        
+      } else {
+        res <- x %>%
+          mutate(.interval_size = end - start,
+                 start = ifelse(strand == '+',
+                                end,
+                                start - right),
+                 end = ifelse(strand == '+',
+                              end + right,
+                              start + right)) %>%
+          select(-.interval_size)
+      }
     }
   }    
     
