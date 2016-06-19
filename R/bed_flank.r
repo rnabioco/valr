@@ -48,8 +48,8 @@ bed_flank <- function(x, genome, both = 0, left = 0,
     if (fraction) {
       res <- x %>%
         mutate(.interval_size = end - start,
-               start_r = start - (both * .interval_size), end_r = start, 
-               start_l = end, end_l = end + (both * .interval_size)) %>%
+               start_r = start - round(both * .interval_size), end_r = start, 
+               start_l = end, end_l = end + round(both * .interval_size)) %>%
         select(-start, -end, -.interval_size) 
       
     } else {
@@ -73,7 +73,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
         res <- x %>%
           mutate(.start = start,
                  .interval_size = end - start,
-                 start = start - (left * .interval_size),
+                 start = start - round(left * .interval_size),
                  end = .start) %>%
           select(-.start, -.interval_size)
         
@@ -90,7 +90,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
         res <- x %>%
           mutate(.interval_size = end - start,
                  start = end,
-                 end = end + (right * .interval_size)) %>%
+                 end = end + round(right * .interval_size)) %>%
           select(-.interval_size)
         
       } else {
@@ -107,11 +107,11 @@ bed_flank <- function(x, genome, both = 0, left = 0,
         res <- x %>%
           mutate(.interval_size = end - start,
                  start = ifelse(strand == '+',
-                                start - (left * .interval_size),
+                                start - round(left * .interval_size),
                                 end),
                  end = ifelse(strand == '+',
-                              start + (left * .interval_size),
-                              end + (left * .interval_size))) %>%
+                              start + round(left * .interval_size),
+                              end + round(left * .interval_size))) %>%
           select(-.interval_size)
         
       } else {
@@ -143,10 +143,10 @@ bed_flank <- function(x, genome, both = 0, left = 0,
           mutate(.interval_size = end - start,
                  start = ifelse(strand == '+',
                                 end,
-                                start - (right * .interval_size)),
+                                start - round(right * .interval_size)),
                  end = ifelse(strand == '+',
-                              end + (right * .interval_size),
-                              start + (right * .interval_size))) %>%
+                              end + round(right * .interval_size),
+                              start + round(right * .interval_size))) %>%
           select(-.interval_size)
         
       } else {
