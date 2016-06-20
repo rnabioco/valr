@@ -5,7 +5,7 @@ date: '`r Sys.Date()`'
 output: github_document
 ---
 
-[![Build Status](https://travis-ci.com/jayhesselberth/valr.svg?token=Q9WRSyqYnpS7KpFfTscp&branch=master)](https://travis-ci.com/jayhesselberth/valr)
+[![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
 ```{r knitr_opts, echo=FALSE}

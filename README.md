@@ -1,9 +1,9 @@
 `valr`: Genome interval arithmetic in R
 ================
 Jay Hesselberth <jay.hesselberth@gmail.com>
-2016-05-15
+2016-06-20
 
-[![Build Status](https://travis-ci.com/jayhesselberth/valr.svg?token=Q9WRSyqYnpS7KpFfTscp&branch=master)](https://travis-ci.com/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
+[![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
 `valr` provides methods to do interval manipulations **within the R environment**, enabling fast explorative analysis of genome-scale data. `valr` is a work-in-progress, but is nearing feature complete. Checkout the [vignette](http://rpubs.com/jayhesselberth/valr) for examples.
 

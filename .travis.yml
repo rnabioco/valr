@@ -5,9 +5,9 @@ matrix:
       addons:
         apt:
           sources: 
-            -'ubuntu-toolchain-r-test'
+           -'ubuntu-toolchain-r-test'
           packages: 
-            - 'g++-5'
+           - 'g++-5'
       env: COMPILER=g++-5
     - os: linux
       compiler: clang
