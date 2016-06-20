@@ -8,6 +8,8 @@
 #'   
 #' @return \code{data_frame}
 #' 
+#' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
+#' 
 #' @note Column names have \code{.x} and \code{.y} suffixes.
 #'   
 #' @examples

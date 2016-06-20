@@ -5,7 +5,7 @@
 #' @param genome tbl of genome intervals
 #' @param strand group intervals by strand
 #' 
-#' @seealso http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html
+#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 #' 
 #' @return \code{data_frame}
 #' 
