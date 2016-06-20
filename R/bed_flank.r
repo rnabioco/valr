@@ -39,6 +39,10 @@ bed_flank <- function(x, genome, both = 0, left = 0,
 
   assert_that(both > 0 || left > 0 || right > 0)
   
+  if (strand) {
+    assert_that( 'strand' %in% colnames(x) )
+  }
+  
   if (both != 0 && (left != 0 || right != 0)) {
     stop('ambiguous side spec for bed_flank')
   } 
@@ -125,17 +129,10 @@ bed_flank <- function(x, genome, both = 0, left = 0,
       select(chrom, start, end, everything(), -pos) 
   }   
 
-  if (trim) {
-    res <- res %>%
-      bound_intervals(genome, trim = T) %>%
-      bed_sort()
-
-  } else {
-    res <- res %>%
-      bound_intervals(genome, trim = F) %>%
-      bed_sort()
-  }
-
+  res <- res %>%
+    bound_intervals(genome, trim) %>%
+    bed_sort()
+  
   res
 }
  
