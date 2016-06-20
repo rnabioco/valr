@@ -47,6 +47,6 @@ bed_fisher(x, y, genome)
 
 }
 \seealso{
-http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html
+\url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 }
 

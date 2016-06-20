@@ -74,4 +74,7 @@ bed_map(x, y, count_distinct = length(unique(value.y)))
 bed_map(x, y, distinct_num = distinct(sort(value.y)))
 
 }
+\seealso{
+\url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
+}
 
