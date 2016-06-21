@@ -39,6 +39,10 @@ bed_flank <- function(x, genome, both = 0, left = 0,
 
   assert_that(both > 0 || left > 0 || right > 0)
   
+  if (strand) {
+    assert_that( 'strand' %in% colnames(x) )
+  }
+  
   if (both != 0 && (left != 0 || right != 0)) {
     stop('ambiguous side spec for bed_flank')
   } 
@@ -87,18 +91,18 @@ bed_flank <- function(x, genome, both = 0, left = 0,
     if (fraction) {
       res <- x %>%
         mutate(.interval_size = end - start,
-               right_start =  start - round( left * .interval_size ), 
-               right_end = start, 
-               left_start = end, 
-               left_end = end + round( right * .interval_size )) %>%
+               left_start =  start - round( left * .interval_size ), 
+               left_end = start, 
+               right_start = end, 
+               right_end = end + round( right * .interval_size )) %>%
         select(-start, -end, -.interval_size) 
       
     } else {
       res <- x %>%
-        mutate(right_start = start - left, 
-               right_end = start, 
-               left_start = end, 
-               left_end = end + right) %>%
+        mutate(left_start = start - left, 
+               left_end = start, 
+               right_start = end, 
+               right_end = end + right) %>%
         select(-start, -end)
     }
   }
@@ -109,32 +113,25 @@ bed_flank <- function(x, genome, both = 0, left = 0,
              end = right_end) %>%
       select(chrom, start, end, everything(), 
              -left_start, -left_end, -right_start, -right_end)
-    
+
   } else if (left && !right) {
     res <- res %>%
       mutate(start = left_start,
              end = left_end) %>%
       select(chrom, start, end, everything(), 
              -left_start, -left_end, -right_start, -right_end)
-    
+
   } else {
     res <- res %>%
-      gather(key, value, right_start, right_end, left_start, left_end) %>% 
-      separate(key, c('key', 'pos'), sep = '_') %>% 
+      gather(key, value, left_start, left_end, right_start, right_end) %>% 
+      separate(key, c('pos', 'key'), sep = '_') %>% 
       spread(key, value) %>%
       select(chrom, start, end, everything(), -pos) 
   }   
-  
-  if (trim) {
-    res <- res %>%
-      bound_intervals(genome, trim = T) %>%
-      bed_sort()
-    
-  } else {
-    res <- res %>%
-      bound_intervals(genome, trim = F) %>%
-      bed_sort()
-  }
+
+  res <- res %>%
+    bound_intervals(genome, trim) %>%
+    bed_sort()
   
   res
 }
