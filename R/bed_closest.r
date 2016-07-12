@@ -33,7 +33,7 @@
 #' ) 
 #' 
 #' bed_closest(x, y)
-#' bed_closest(x, y, overlap = F)
+#' bed_closest(x, y, overlap = FALSE)
 #' 
 #' 
 #' @export
