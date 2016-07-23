@@ -119,7 +119,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   } else {
     res <- gather(res, key, value, left_start, left_end, right_start, right_end)
     res <- separate(res, key, c('pos', 'key'), sep = '_')
-    res <- spread(key, value)
+    res <- spread(res, key, value)
     res <- select(res, chrom, start, end, everything(), -pos) 
   }   
 
