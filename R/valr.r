@@ -35,7 +35,3 @@
 #' @import dplyr
 #' @exportPattern "^[[:alpha:]]+"
 NULL
-
-#' @importFrom magrittr %>%
-#' @export
-magrittr::`%>%`

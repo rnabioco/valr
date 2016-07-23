@@ -19,22 +19,21 @@ bed12_to_exons <- function(x) {
   
   assert_that(ncol(x) == 12)
   
-  res <- x %>%
-    tidyr::unnest(.exon_size = str_split(str_replace(exon_sizes, ',$', ''), ','),
-                  .exon_start = str_split(str_replace(exon_starts, ',$', ''), ',')) %>%
-    mutate(.exon_size = as.double(.exon_size),
-           .exon_start = as.double(.exon_start)) %>%
-    group_by(name) %>%
-    mutate(.exon_num = ifelse(strand == '+',
-                              row_number(),
-                              rev(row_number()))) %>%
-    mutate(.start = start + .exon_start,
+  res <- tidyr::unnest(x, .exon_size = str_split(str_replace(exon_sizes, ',$', ''), ','),
+                          .exon_start = str_split(str_replace(exon_starts, ',$', ''), ',')) 
+  res <- mutate(res, .exon_size = as.double(.exon_size),
+                .exon_start = as.double(.exon_start))
+  res <- group_by(res, name)
+  res <-  mutate(res, .exon_num = ifelse(strand == '+',
+                                row_number(),
+                                rev(row_number())))
+  res <- mutate(res, .start = start + .exon_start,
            .end = .start + .exon_size,
-           .score = .exon_num) %>%
-    select(chrom, .start, .end, name, .exon_num, strand) %>%
-    rename(start = .start, end = .end, score = .exon_num) %>%
-    ungroup() %>%
-    bed_sort()
+           .score = .exon_num)
+  res <- select(res, chrom, .start, .end, name, .exon_num, strand)
+  res <- rename(res, start = .start, end = .end, score = .exon_num)
+  res <- ungroup(res)
+  res <- bed_sort(res)
   
   res
 }

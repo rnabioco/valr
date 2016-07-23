@@ -54,8 +54,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   
   if (strand) {
     if (fraction) {
-      res <- x %>%
-        mutate(.interval_size = end - start,
+      res <- mutate(x, .interval_size = end - start,
                left_start = ifelse(strand == '+', 
                                 start - round( left * .interval_size ),
                                 end),
@@ -67,12 +66,12 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                                 start - round( right * .interval_size )),
                right_end = ifelse(strand == '+',
                               end + round( right * .interval_size ),
-                              start)) %>%
-        select(-start, -end, -.interval_size) 
+                              start))
+      
+     res <- select(res, -start, -end, -.interval_size) 
       
     } else {
-      res <- x %>%
-        mutate(left_start = ifelse(strand == '+', 
+      res <- mutate(x, left_start = ifelse(strand == '+', 
                                 start - left,
                                 end),
                left_end = ifelse(strand == '+',
@@ -83,55 +82,49 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                                 start - right),
                right_end = ifelse(strand == '+',
                               end + right,
-                              start)) %>%
-        select(-start, -end)
+                              start))
+      res <- select(res, -start, -end)
     }
     
   } else {
     if (fraction) {
-      res <- x %>%
-        mutate(.interval_size = end - start,
+      res <- mutate(x, .interval_size = end - start,
                left_start =  start - round( left * .interval_size ), 
                left_end = start, 
                right_start = end, 
-               right_end = end + round( right * .interval_size )) %>%
-        select(-start, -end, -.interval_size) 
+               right_end = end + round( right * .interval_size ))
+      res <- select(res, -start, -end, -.interval_size) 
       
     } else {
-      res <- x %>%
-        mutate(left_start = start - left, 
+      res <- mutate(x, left_start = start - left, 
                left_end = start, 
                right_start = end, 
-               right_end = end + right) %>%
-        select(-start, -end)
+               right_end = end + right)
+      res <- select(res, -start, -end)
     }
   }
   
   if (right && !left) {
-    res <- res %>%
-      mutate(start = right_start,
-             end = right_end) %>%
-      select(chrom, start, end, everything(), 
+    res <- mutate(res, start = right_start,
+             end = right_end)
+    res <- select(res, chrom, start, end, everything(), 
              -left_start, -left_end, -right_start, -right_end)
 
   } else if (left && !right) {
-    res <- res %>%
-      mutate(start = left_start,
-             end = left_end) %>%
-      select(chrom, start, end, everything(), 
+    res <- mutate(res, start = left_start,
+             end = left_end)
+    res <- select(res, chrom, start, end, everything(), 
              -left_start, -left_end, -right_start, -right_end)
 
   } else {
-    res <- res %>%
-      gather(key, value, left_start, left_end, right_start, right_end) %>% 
-      separate(key, c('pos', 'key'), sep = '_') %>% 
-      spread(key, value) %>%
-      select(chrom, start, end, everything(), -pos) 
+    res <- gather(res, key, value, left_start, left_end, right_start, right_end)
+    res <- separate(res, key, c('pos', 'key'), sep = '_')
+    res <- spread(key, value)
+    res <- select(res, chrom, start, end, everything(), -pos) 
   }   
 
-  res <- res %>%
-    bound_intervals(genome, trim) %>%
-    bed_sort()
+  res <- bound_intervals(res, genome, trim)
+  res <- bed_sort(res)
   
   res
 }

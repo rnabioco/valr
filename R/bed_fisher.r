@@ -50,31 +50,28 @@ bed_fisher <- function(x, y, genome, strand = FALSE) {
   n_y <- summarize(y, n_y = n()) 
 
   # number of intersections 
-  n_i <- bed_intersect(x, y) %>%
-    group_by(chrom) %>%
-    unique() %>%
-    summarize(n_i = n())
+  n_i <- bed_intersect(x, y)
+  n_i <- group_by(n_i, chrom)
+  n_i <- unique(n_i)
+  n_i <- summarize(n_i, n_i = n())
   
   # estimate number of possible intervals as chrom_size / mean(interval_size)
   xy <- bind_rows(list(x, y))
-  n_xy <- suppressMessages(
-    xy %>%
-    mutate(.size = end - start) %>%
-    group_by(chrom) %>%
-    summarize(size_mean = mean(.size)) %>%
-    left_join(genome) %>%
-    mutate(int_est = size / size_mean))
+  n_xy <- mutate(xy, .size = end - start)
+  n_xy <- group_by(n_xy, chrom)
+  n_xy <- summarize(n_xy, size_mean = mean(.size))
+  n_xy <- left_join(n_xy, genome)
+  n_xy <- mutate(n_xy, int_est = size / size_mean)
 
-  res <- suppressMessages(
-    n_x %>% 
-    left_join(n_y) %>% 
-    left_join(n_i) %>% 
-    left_join(n_xy) %>% 
-    group_by(chrom) %>%
-    mutate(p.value = phyper(n_i - (n_x - n_y),
-                            n_x + n_y,
-                            int_est - (n_x + n_y),
-                            n_i, lower.tail = FALSE)))
+  res <- left_join(n_x, n_y)
+  res <- left_join(res, n_i)
+  res <- left_join(res, n_xy)
+  res <- group_by(res, chrom)
+  res <- mutate(res,
+                p.value = phyper(n_i - (n_x - n_y),
+                                 n_x + n_y,
+                                 int_est - (n_x + n_y),
+                                 n_i, lower.tail = FALSE))
   
   res
   

@@ -45,9 +45,9 @@
 bed_map <- function(x, y, ..., add_group = NULL) {
 
   groups_default <- c('chrom', 'start.x', 'end.x')
-  res <- bed_intersect(x, y) %>%
-    group_by_(.dots = c(groups_default, add_group)) %>%
-    summarize_(.dots = lazyeval::lazy_dots(...))
+  res <- bed_intersect(x, y)
+  res <- group_by_(res, .dots = c(groups_default, add_group))
+  res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
 
   res 
 }

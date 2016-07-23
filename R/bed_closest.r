@@ -89,9 +89,8 @@ bed_closest <- function(x, y, overlap = TRUE,
   res$.overlap <- ifelse(res$.overlap < 0, 0, res$.overlap )
   
   if (!overlap){
-    res <- res %>% 
-      filter(.overlap < 1) %>% 
-      select(-.overlap)
+    res <- filter(res, .overlap < 1)
+    res <- select(res, -.overlap)
   }
     
   res

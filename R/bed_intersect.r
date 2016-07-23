@@ -62,7 +62,7 @@ bed_intersect <- function(x, y, invert = FALSE, strand = FALSE, strand_opp = FAL
  
   if (invert) {
     colspec <- c('chrom' = 'chrom', 'start' = 'start.x', 'end' = 'end.x') 
-    res <- x %>% anti_join(res, by = colspec)
+    res <- anti_join(x, res, by = colspec)
   }
   
   res

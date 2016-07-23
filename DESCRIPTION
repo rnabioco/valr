@@ -15,7 +15,6 @@ Imports:
     assertthat,
     dplyr,
     lazyeval,
-    magrittr,
     purrr,
     readr,
     Rcpp (>= 0.12.3),
