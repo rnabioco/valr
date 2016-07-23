@@ -40,39 +40,38 @@ bed_sort <- function(x, by_size = FALSE,
 
   if (by_size) {
     
-    res <- x %>% mutate(.size = end - start) 
+    res <- mutate(x, .size = end - start) 
     
     if (by_chrom) {
-       res <- res %>% group_by(chrom) 
+       res <- group_by(res, chrom) 
     }
     
     if (reverse) {
-      res <- res %>% arrange(desc(.size))
+      res <- arrange(res, desc(.size))
     } else {       
-      res <- res %>% arrange(.size)
+      res <- arrange(res, .size)
     }
     
     # remove .size column and groups in result
-    res <- res %>% select(-.size)
+    res <- select(res, -.size)
     
   } else {
   
     if (by_chrom) {
-       res <- res %>% group_by(chrom) 
+       res <- group_by(x, chrom) 
     }
     
     # sort by coordinate 
     if (reverse) {
-      res <- x %>%
-        arrange(chrom, desc(start))
+      res <- arrange(x, chrom, desc(start))
     } else {
-      res <- x %>%
-        arrange(chrom, start)
+      res <- arrange(x, chrom, start)
     } 
   } 
  
   # remove groups in result 
-  res <- res %>% ungroup() %>% as_data_frame
+  res <- ungroup(res) 
+  res <- as_data_frame(res)
  
   # add `sorted` attribute 
   attr(res, "sorted") <- TRUE

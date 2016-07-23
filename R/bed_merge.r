@@ -52,10 +52,10 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   if (strand)
     res <- group_by(res, strand, add = TRUE)
    
-  res <- summarize_(res, .dots = dots) %>%
-    rename(start = .start, end = .end) %>%
-    ungroup() %>%
-    select(-.merge_id)
+  res <- summarize_(res, .dots = dots)
+  res <- rename(res, start = .start, end = .end)
+  res <- ungroup(res)
+  res <- select(res, -.merge_id)
   
   attr(res, 'merged') <- TRUE
 

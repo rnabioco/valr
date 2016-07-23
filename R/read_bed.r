@@ -47,10 +47,10 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 
   # factorize chrom and strand
   if (factor_cols) {
-    bed_tbl <- bed_tbl %>% mutate(chrom = as.factor(chrom))
+    bed_tbl <- mutate(bed_tbl, chrom = as.factor(chrom))
     
     if ('strand' %in% colnames(bed_tbl)) {
-      bed_tbl <- bed_tbl %>% mutate(strand = as.factor(strand))
+      bed_tbl <- mutate(bed_tbl, strand = as.factor(strand))
     }
   } 
   

@@ -41,42 +41,38 @@ bed_shift <- function(x, genome, size = 0, strand = FALSE, fraction = 0, trim = 
 
   # shift invervals
   if (!strand && !fraction) {
-    res <- x %>%
-      mutate(start = start + size,
+    res <- mutate(x, start = start + size,
              end = end + size)
   }
   
   # shift by percent of interval size
   if (!strand && fraction){
-    res <- x %>%
-      mutate(.size = end - start) %>%
-      mutate(start = start + round(.size * fraction),
-             end = end + round(.size * fraction)) %>%
-      select(-.size)
+    res <- mutate(x, .size = end - start)
+    res <- mutate(res, start = start + round(.size * fraction),
+             end = end + round(.size * fraction))
+    res <- select(res, -.size)
   }
   
   # shift by strand
   if (strand && !fraction){
-    res <- x %>%
-      mutate(start = ifelse(strand == '+',
+    res <- mutate(x, start = ifelse(strand == '+',
                             start + size,
                             start - size),
-             end = ifelse(strand == '+',
+              end = ifelse(strand == '+',
                           end + size,
                           end - size))
   }
   
   # shift by strand and percent
   if (strand && fraction){
-    res <- x %>%
-      mutate(.size = end - start) %>%
-      mutate(start = ifelse(strand == "+",
+    res <- mutate(x, .size = end - start)
+    res <- mutate(res, start = ifelse(strand == "+",
                             start + round(.size * fraction),
                             start - round(.size * fraction)),
              end = ifelse(strand == "+",
                           end + round(.size * fraction),
-                          end - round(.size * fraction))) %>%
-      select(-.size)
+                          end - round(.size * fraction)))
+    res <- select(res, -.size)
   }
   
   res <- bound_intervals(res, genome, trim)

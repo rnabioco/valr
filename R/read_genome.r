@@ -10,7 +10,7 @@
 #' @return \code{data_frame} with colnames \code{chrom} and \code{size}, sorted
 #'   by \code{size}
 #'   
-#' @family read data
+#' @family read functions
 #' 
 #' @examples
 #' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
@@ -20,9 +20,8 @@
 #' @export
 read_genome <- function(filename) {
   colnames <- c('chrom', 'size')
-  genome <-
-    read_tsv(filename, col_names = colnames) %>%
-    arrange(desc(size))
+  genome <- read_tsv(filename, col_names = colnames)
+  genome <- arrange(genome, desc(size))
   genome
 }
 
@@ -52,17 +51,16 @@ read_genome <- function(filename) {
 #' @export
 bound_intervals <- function(bed_tbl, genome, trim = FALSE) {
   if (trim) {
-   res <-bed_tbl %>% 
-    left_join(genome, by = "chrom") %>%
-      mutate(start = ifelse(start < 1, 1, start),
-             end = ifelse(end > size, size, end)) %>%
-      select(-size)
+    res <- left_join(bed_tbl, genome, by = "chrom") 
+    res <- mutate(res,
+                  start = ifelse(start < 1, 1, start),
+                  end = ifelse(end > size, size, end))
+    res <- select(res, -size)
   } else {
-   res <-bed_tbl %>% 
-     left_join(genome, by = 'chrom') %>%
-     filter(start >= 1 & end <= size) %>%
-     select(-size)
+    res <- left_join(bed_tbl, genome, by = 'chrom')
+    res <- filter(res, start >= 1 & end <= size)
+    res <- select(res, -size)
   }
    
-   res
+  res
 }
