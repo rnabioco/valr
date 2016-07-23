@@ -9,7 +9,7 @@ bed_tbl <- tibble::frame_data(
   "chr3", 500, 550, "-",
   "chr3", 600, 650, "-" )
 
-genome <- tibble(
+genome <- tibble::frame_data(
   ~chrom, ~size,
   "chr1", 1000,
   "chr2", 2000,
