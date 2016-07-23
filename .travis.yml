@@ -1,3 +1,9 @@
+sudo: required
+dist: trusty
+language: r
+warnings_are_errors: false
+cache: packages
+
 matrix:
   include:
     - os: linux
@@ -23,14 +29,5 @@ matrix:
       compiler: clang
       env: COMPILER=clang++
 
-language: r 
-warnings_are_errors: false
-sudo: required
-cache: packages
-r_github_packages:
-  - hadley/purrr
-  - hadley/dplyr
-  - eddelbuettel/BH     
-  
 after_success:
   - Rscript -e 'covr::codecov()'
