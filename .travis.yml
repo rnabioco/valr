@@ -1,3 +1,5 @@
+dist: trusty
+sudo: required
 language: r
 warnings_are_errors: false
 cache: packages
@@ -6,19 +8,16 @@ matrix:
   include:
     - os: linux
       compiler: gcc
-      dist: trusty
-      sudo: required
       addons:
         apt:
           sources: 
            - 'ubuntu-toolchain-r-test'
           packages: 
            - 'g++-5'
-      env: CXX=g++-5
+      before_script:
+        - export CXX="g++-5"
     - os: linux
       compiler: clang
-      dist: trusty
-      sudo: required
       addons:
         apt:
           sources: 
@@ -26,11 +25,10 @@ matrix:
            - 'llvm-toolchain-precise-3.7'
           packages: 
            - 'clang-3.7'
-      env: CXX=clang++-3.7
+      before_script:
+        - export CXX="clang++-3.7"
     - os: osx
       compiler: clang
-      sudo: required
-      env: CXX=clang++
 
 after_success:
   - Rscript -e 'covr::codecov()'
