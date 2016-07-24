@@ -37,15 +37,14 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE) {
 
-  assert_that(both > 0 || left > 0 || right > 0)
+  if ( !any(c(both, left, right) > 0))
+    stop('specify one of both, left, right', call. = FALSE)
   
-  if (strand) {
-    assert_that( 'strand' %in% colnames(x) )
-  }
+  if(strand && !'strand' %in% colnames(x) )
+    stop('expect `strand` in `x`', call. = FALSE)
   
-  if (both != 0 && (left != 0 || right != 0)) {
-    stop('ambiguous side spec for bed_flank')
-  } 
+  if (both != 0 && (left != 0 || right != 0))
+    stop('ambiguous side spec for bed_flank', call. = FALSE)
   
   if (both) {
     left <- both 

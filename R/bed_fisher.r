@@ -40,7 +40,9 @@ bed_fisher <- function(x, y, genome, strand = FALSE) {
   y <- group_by(y, chrom)
   
   if (strand) {
-    assert_that(strand %in% colnames(x) & strand %in% colnames(y))
+    if (! 'strand' %in% colnames(x) || ! 'strand' %in% colnames(y))
+      stop('expect `strand` column in input', call. = FALSE)
+    
     x <- group_by(x, strand, add = TRUE)
     y <- group_by(y, strand, add = TRUE)
   }

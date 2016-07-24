@@ -28,8 +28,9 @@
 #' 
 #' @export
 bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
- 
-  assert_that(max_dist >= 0)
+
+  if (max_dist < 0)
+    stop('max_dist must be positive', call. = FALSE)
   
   if ( ! is_sorted(x) ) {
     res <- bed_sort(x)

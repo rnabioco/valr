@@ -27,9 +27,8 @@
 #' @importFrom readr read_tsv col_integer col_character
 #' @importFrom stringr str_replace str_split str_c str_length str_detect
 #' @importFrom tidyr unnest gather separate spread
-#' @importFrom assertthat assert_that is.flag
 #' @importFrom purrr by_row
-#' @importFrom lazyeval lazy_eval lazy_dots
+#' @importFrom lazyeval lazy_dots
 #' @importFrom stats phyper
 #' @importFrom utils head tail
 #' @import dplyr
