@@ -13,6 +13,8 @@ bed_window(x, y, genome, both = 0, left = 0, right = 0,
 
 \item{y}{BED intervals}
 
+\item{genome}{chrom sizes}
+
 \item{both}{number of bases added to both sides of x intervals}
 
 \item{left}{number of bases added to left side of x intervals}

@@ -12,6 +12,8 @@ bed_intersect(x, y, invert = FALSE, strand = FALSE, strand_opp = FALSE,
 
 \item{y}{tbl of intervals}
 
+\item{invert}{report `x` intervals not in `y`}
+
 \item{strand}{intersect intervals on same strand}
 
 \item{strand_opp}{intersect intervals on opposite strands}

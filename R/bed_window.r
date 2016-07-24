@@ -2,6 +2,7 @@
 #' 
 #' @param x BED intervals 
 #' @param y BED intervals 
+#' @param genome chrom sizes
 #' @param both number of bases added to both sides of x intervals
 #' @param left number of bases added to left side of x intervals
 #' @param right number of bases added to right side of x intervals

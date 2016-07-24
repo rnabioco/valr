@@ -2,6 +2,7 @@
 #' 
 #' @param x tbl of intervals 
 #' @param y tbl of intervals 
+#' @param invert report `x` intervals not in `y`
 #' @param strand intersect intervals on same strand
 #' @param strand_opp intersect intervals on opposite strands
 #' @param suffix colname suffixes in output
