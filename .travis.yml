@@ -4,6 +4,7 @@ language: r
 warnings_are_errors: false
 cache: packages
 
+# based on: https://github.com/wesm/feather/issues/154
 matrix:
   include:
     - os: linux
@@ -14,17 +15,25 @@ matrix:
            - 'ubuntu-toolchain-r-test'
           packages: 
            - 'g++-5'
-      env: CXX=g++-5 
+      before_install: |
+        mkdir ~/.R
+        cat <<EOF > ~/.R/Makevars
+        CXX1X=g++-5
+        CXX1XSTD=-std=c++11
     - os: linux
       compiler: clang
       addons:
         apt:
           sources: 
-           - 'ubuntu-toolchain-r-test'
-           - 'llvm-toolchain-precise-3.7'
+            - 'ubuntu-toolchain-r-test'
+            - 'llvm-toolchain-precise-3.7'
           packages: 
-           - 'clang-3.7'
-      env: CXX=clang++-3.7
+            - 'clang-3.7'
+      before_install: |
+        mkdir ~/.R
+        cat <<EOF > ~/.R/Makevars
+        CXX1X=clang-3.7
+        CXX1XSTD=-std=c++11
     - os: osx
       compiler: clang
 
