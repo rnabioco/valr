@@ -1,7 +1,7 @@
 `valr`: Genome interval arithmetic in R
 ================
 Jay Hesselberth <jay.hesselberth@gmail.com>
-2016-06-20
+2016-07-29
 
 [![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
@@ -25,7 +25,6 @@ The goal of `valr` is to enable easy analysis of genome-scale data sets **within
 library(valr)
 library(dplyr)
 library(ggplot2)
-library(cowplot)
 
 bedfile <- system.file('extdata', 'genes.hg19.chr22.bed.gz', package = 'valr')
 bgfile  <- system.file('extdata', 'hela.h3k4.chip.bg.gz', package = 'valr')
@@ -54,10 +53,11 @@ x_breaks <- seq(1,41, by = 5)
 sd_limits <- aes(ymax = means + sds, ymin = means - sds)
 
 ggplot(res, aes(x = win_id.x, y = means)) +
-  geom_point()  + geom_pointrange(sd_limits) + 
+  geom_point() + geom_pointrange(sd_limits) + 
   scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
   ggtitle('H3K4me3 ChIP signal near TSSs') +
-  xlab('Position\n(bp from TSS)') + ylab('Signal')
+  xlab('Position\n(bp from TSS)') + ylab('Signal') +
+  theme_bw()
 ```
 
 <img src="README-tss_signal_example-1.png" style="display: block; margin: auto;" />
