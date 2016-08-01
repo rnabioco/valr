@@ -106,3 +106,48 @@ test_that("suffixes disambiguate x/y columns (#28)", {
   res <- bed_intersect(x, y)
   test_that("start.y" %in% colnames(res), TRUE)
 })
+
+test_that("`strand` arg throws an error for unstranded df", {
+  x <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~name, ~score,
+    "chr1", 1000,   1500, '.',   '.'
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~name, ~score,
+    "chr1", 1000,   1200, '.',   '.'
+  )
+  
+  expect_error(bed_intersect(x, y, strand = TRUE))
+})
+
+test_that("incorrect `suffix` args throw errors", {
+   x <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~name, ~score,
+    "chr1", 1000,   1500, '.',   '.'
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~name, ~score,
+    "chr1", 1000,   1200, '.',   '.'
+  )
+  
+  expect_error(bed_intersect(x, y, suffix = 'TESTING')) 
+})
+
+test_that("`strand_opp` results are processed correctly", {
+  x <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 1000,   1500, '.',   '.',     '-',
+    "chr1", 1000,   1500, '.',   '.',     '+'
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 1000,   1200, '.',   '.',     '-'
+  )
+  
+  res <- bed_intersect(x, y, strand_opp = TRUE)
+  
+  expect_false(res$strand.x == res$strand.y)
+})
