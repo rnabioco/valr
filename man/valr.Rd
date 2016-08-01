@@ -7,8 +7,8 @@
 \title{valr: genome interval arithmetic in R}
 \description{
 valr provides tools to read and manipulate intervals and signals on a 
-genome reference. While other analysis suites like BEDtools and BEDOPS enable
-fast command line analysis, valr enables similar analyses \emph{within
+genome reference. While other analysis suites enable
+command-line analysis, valr enables similar analyses \emph{within
 R}.
 }
 \details{
@@ -30,5 +30,7 @@ Jay Hesselberth <jay.hesselberth@gmail.com>
 \url{http://bedops.readthedocs.org/en/latest/index.html}
 
 \url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
+
+\url{https://cran.r-project.org/web/packages/bedr/index.html}
 }
 
