@@ -3,19 +3,19 @@
 \name{bed_map}
 \alias{bed_map}
 \alias{concat}
-\alias{distinct}
-\alias{distinct_only}
 \alias{first}
 \alias{last}
+\alias{values}
+\alias{values_unique}
 \title{Map signals over intervals.}
 \usage{
-bed_map(x, y, ..., add_group = NULL)
+bed_map(x, y, ...)
 
 concat(.data, sep = ",")
 
-distinct_only(.data, sep = ",")
+values_unique(.data, sep = ",")
 
-distinct(.data, sep = ",")
+values(.data, sep = ",")
 
 first(.data)
 
@@ -28,18 +28,13 @@ last(.data)
 
 \item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
 \code{\link{count}()}, \code{\link{concat}()}.}
-
-\item{add_group}{additional grouping vars}
-
-\item{.data}{vector of things}
-
-\item{sep}{separator character}
 }
 \value{
 \code{data_frame}
 }
 \description{
-Map signals over intervals.
+Multiple mapping functions can be specified. Note that variables from the `x` and `y` tables
+should be used with `.x` and `.y` suffixes. Existing grouping variables are maintained.
 }
 \note{
 Column names have \code{.x} and \code{.y} suffixes.
@@ -61,7 +56,7 @@ bed_map(x, y, sum = sum(value.y))
 bed_map(x, y, min = min(value.y), max = max(value.y))
 
 bed_map(x, y, concat(value.y))
-bed_map(x, y, distinct(value.y))
+bed_map(x, y, values_unique(value.y))
 bed_map(x, y, first(value.y))
 bed_map(x, y, last(value.y))
 
@@ -70,8 +65,8 @@ bed_map(x, y, absmin = abs(min(value.y)))
 bed_map(x, y, count = length(value.y))
 bed_map(x, y, count_distinct = length(unique(value.y)))
 
-# use decreasing = TRUE to reverse numbers
-bed_map(x, y, distinct_num = distinct(sort(value.y)))
+bed_map(x, y, vals = values(value.y))
+bed_map(x, y, vals.unique = values_unique(value.y))
 
 }
 \seealso{

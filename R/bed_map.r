@@ -1,8 +1,10 @@
 #' Map signals over intervals.
 #' 
+#' Multiple mapping functions can be specified. Note that variables from the `x` and `y` tables
+#' should be used with `.x` and `.y` suffixes. Existing grouping variables are maintained.
+#' 
 #' @param x tbl of intervals
 #' @param y tbl of signals
-#' @param add_group additional grouping vars
 #' @param ... name-value pairs of summary functions like \code{\link{min}()}, 
 #'   \code{\link{count}()}, \code{\link{concat}()}. 
 #'   
@@ -29,7 +31,7 @@
 #' bed_map(x, y, min = min(value.y), max = max(value.y))
 #' 
 #' bed_map(x, y, concat(value.y))
-#' bed_map(x, y, distinct(value.y))
+#' bed_map(x, y, values_unique(value.y))
 #' bed_map(x, y, first(value.y))
 #' bed_map(x, y, last(value.y))
 #' 
@@ -38,39 +40,48 @@
 #' bed_map(x, y, count = length(value.y))
 #' bed_map(x, y, count_distinct = length(unique(value.y)))
 #' 
-#' # use decreasing = TRUE to reverse numbers
-#' bed_map(x, y, distinct_num = distinct(sort(value.y)))
+#' bed_map(x, y, vals = values(value.y))
+#' bed_map(x, y, vals.unique = values_unique(value.y))
 #' 
 #' @export
-bed_map <- function(x, y, ..., add_group = NULL) {
+bed_map <- function(x, y, ...) {
 
-  groups_default <- c('chrom', 'start.x', 'end.x')
+  groups_x <- groups(x)
+  groups_y <- groups(y)
+  
+  if('chrom' %in% c(groups_x, groups_y))
+    stop('`chrom` cannot be used as grouping variable', call. = FALSE)
+  
+  if(!is.null(groups_x))
+    groups_x <- str_c(groups_x, '.x')
+  if(!is.null(groups_y))
+    groups_y <- str_c(groups_y, '.y')
+  
   res <- bed_intersect(x, y)
-  res <- group_by_(res, .dots = c(groups_default, add_group))
+ 
+  groups_map <- c('chrom', 'start.x', 'end.x')
+  res <- group_by_(res, .dots = c(groups_map, groups_x, groups_y))
+  
   res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
-
+ 
   res 
 }
 
 #' @export
 #' @rdname bed_map
-#' 
-#' @param .data vector of things
-#' @param sep separator character
-#' 
 concat <- function(.data, sep = ',') {
   paste0(.data, collapse = sep)
 }
 
 #' @export
 #' @rdname bed_map
-distinct_only <- function(.data, sep = ',') {
+values_unique <- function(.data, sep = ',') {
   concat(unique(.data), sep = sep)
 }
 
 #' @export
 #' @rdname bed_map
-distinct <- function(.data, sep = ',') {
+values <- function(.data, sep = ',') {
   concat(rle(.data)$values, sep = sep)
 }
 
