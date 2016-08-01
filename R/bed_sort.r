@@ -1,14 +1,18 @@
 #' Sort a tbl of intervals.
 #' 
+#' Multiple sorting parameters can be combined. note that \code{by_chrom} sorts
+#' within a chrom, not by chrom.
+#' 
 #' Sorting strips groups from the input.
-#'
+#' 
 #' @param x tbl of intervals
 #' @param by_size sort by interval size
 #' @param by_chrom sort within chromosome
 #' @param reverse reverse sort order
-#' 
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
-#'
+#'   
+#' @seealso
+#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
+#'   
 #' @examples
 #' x <- tibble::frame_data(
 #'    ~chrom, ~start, ~end,

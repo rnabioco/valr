@@ -16,6 +16,10 @@ bed_sort(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 \item{reverse}{reverse sort order}
 }
 \description{
+Multiple sorting parameters can be combined. note that \code{by_chrom} sorts
+within a chrom, not by chrom.
+}
+\details{
 Sorting strips groups from the input.
 }
 \examples{
