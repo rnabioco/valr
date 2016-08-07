@@ -25,7 +25,7 @@
 #'   
 #' @useDynLib valr
 #' @importFrom tibble frame_data
-#' @importFrom readr read_tsv col_integer col_character
+#' @importFrom readr read_tsv col_integer col_character col_double
 #' @importFrom stringr str_replace str_split str_c str_length
 #' @importFrom tidyr unnest gather separate spread
 #' @importFrom purrr by_row

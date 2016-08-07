@@ -1,8 +1,7 @@
 #' @title Read BED and related files.
 #'   
-#' @description \code{read_bed} reads BED files and \code{read_bedgraph} reads 
-#'   bedGraph files. Return value are \code{data.frame} that is sorted by chrom 
-#'   and start unless otherwise specified.
+#' @description read functions for BED and related formats. Filenames can be
+#'   local file or URLs.
 #'   
 #' @param filename file or URL
 #' @param n_fields number fields in the BED file
@@ -12,7 +11,7 @@
 #' @param ... options to pass to \code{readr::read_tsv}
 #'   
 #' @return \code{data_frame}
-#' 
+#'   
 #' @family read data
 #'   
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
@@ -98,15 +97,64 @@ read_bedgraph <- function(filename, ...) {
 }
 
 #' @rdname read_bed
-bed12_coltypes <- list(chrom = col_character(),
-                       start = col_integer(),
-                       end = col_integer(),
-                       name = col_character(),
-                       score = col_character(),
-                       strand = col_character(),
-                       cds_start = col_integer(),
-                       cds_end = col_integer(),
-                       item_rgb = col_character(),
-                       exon_count = col_integer(),
-                       exon_sizes = col_character(),
-                       exon_starts = col_character())
+#' 
+#' @family read data
+#' 
+#' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format12}
+#' 
+#' @examples
+#' narrowpeak_url <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeUwTfbs/wgEncodeUwTfbsGm12801CtcfStdPkRep1.narrowPeak.gz'
+#' read_narrowpeak(narrowpeak_url)
+#' 
+#' @export
+read_narrowpeak <- function(filename, ...) {
+  colnames <- names(peak_coltypes)
+  x <- readr::read_tsv(filename, col_types = peak_coltypes, col_names = colnames)
+  x
+}
+
+#' @rdname read_bed
+#' 
+#' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format13}
+#' 
+#' @family read data
+#' 
+#' @examples
+#' broadpeak_url <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneK562NcorPk.broadPeak.gz'
+#' read_broadpeak(broadpeak_url)
+#' 
+#' @export
+read_broadpeak <- function(filename, ...) {
+  coltypes <- peak_coltypes[1:length(peak_coltypes)-1]
+  colnames <- names(coltypes)
+  x <- readr::read_tsv(filename, col_names = colnames, col_types = coltypes)
+  x
+}
+
+peak_coltypes <- list(
+  chrom = col_character(),
+  start = col_integer(),
+  end = col_integer(),
+  name = col_character(),
+  score = col_integer(),
+  strand = col_character(),
+  signal = col_double(),
+  pvalue = col_double(),
+  qvalue = col_double(),
+  peak = col_integer()
+)
+
+bed12_coltypes <- list(
+  chrom = col_character(),
+  start = col_integer(),
+  end = col_integer(),
+  name = col_character(),
+  score = col_character(),
+  strand = col_character(),
+  cds_start = col_integer(),
+  cds_end = col_integer(),
+  item_rgb = col_character(),
+  exon_count = col_integer(),
+  exon_sizes = col_character(),
+  exon_starts = col_character()
+)
