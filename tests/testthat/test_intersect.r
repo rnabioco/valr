@@ -151,3 +151,33 @@ test_that("`strand_opp` results are processed correctly", {
   
   expect_false(res$strand.x == res$strand.y)
 })
+
+test_that("intersections from x bed table with more chroms than y are captured", {
+  x <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr1",    100,       200,
+    "chr3",    400,       500
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr3",    425,       475) 
+  
+  res <- bed_intersect(x, y)
+  expect_true("chr3" %in% res$chrom)
+})
+
+test_that("intersections from y bed table with more chroms are captured", {
+  x <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr3",    400,       500
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr1",    100,       200,
+    "chr3",    425,       475) 
+  
+  res <- bed_intersect(x, y)
+  expect_true("chr3" %in% res$chrom)
+})
