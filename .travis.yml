@@ -14,11 +14,11 @@ matrix:
           sources: 
            - 'ubuntu-toolchain-r-test'
           packages: 
-           - 'g++-5'
+           - 'g++-6'
       before_install: |
         mkdir ~/.R
         cat <<EOF > ~/.R/Makevars
-        CXX1X=g++-5
+        CXX1X=g++-6
         CXX1XSTD=-std=c++11
     - os: linux
       compiler: clang
@@ -32,7 +32,7 @@ matrix:
       before_install: |
         mkdir ~/.R
         cat <<EOF > ~/.R/Makevars
-        CXX1X=clang-3.7
+        CXX1X=clang++-3.7
         CXX1XSTD=-std=c++11
     - os: osx
       compiler: clang
