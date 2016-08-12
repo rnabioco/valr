@@ -7,7 +7,6 @@
 #' @param n_fields number fields in the BED file
 #' @param col_types column type spec for \code{readr::read_tsv}
 #' @param sort sort the tbl by chrom and start
-#' @param factor_cols factor the \code{chrom} and \code{strand} columns
 #' @param ... options to pass to \code{readr::read_tsv}
 #'   
 #' @return \code{data_frame}
@@ -30,13 +29,9 @@
 #' # use `is_sorted` 
 #' is_sorted(unsorted_bed_tbl)
 #' 
-#' # chrom and strand are converted to factors unless specified
-#' bed_tbl <- read_bed(bed3_path, factor_cols = FALSE)
-#' is.factor(bed_tbl$chrom)
-#' 
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
-                     sort = TRUE, factor_cols = FALSE, ...) {
+                     sort = TRUE, ...) {
   
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
@@ -44,15 +39,6 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
   bed_raw <- readr::read_tsv(filename, col_names = colnames, col_types = coltypes, ...)
   bed_tbl <- tibble::as_tibble(bed_raw) 
 
-  # factorize chrom and strand
-  if (factor_cols) {
-    bed_tbl <- dplyr::mutate(bed_tbl, chrom = as.factor(chrom))
-    
-    if ('strand' %in% colnames(bed_tbl)) {
-      bed_tbl <- dplyr::mutate(bed_tbl, strand = as.factor(strand))
-    }
-  } 
-  
   if (sort) {
     bed_tbl <- bed_sort(bed_tbl)
   }

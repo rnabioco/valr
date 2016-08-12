@@ -9,7 +9,7 @@
 \title{Read BED and related files.}
 \usage{
 read_bed(filename, n_fields = 3, col_types = bed12_coltypes, sort = TRUE,
-  factor_cols = FALSE, ...)
+  ...)
 
 read_bed12(filename, ...)
 
@@ -27,8 +27,6 @@ read_broadpeak(filename, ...)
 \item{col_types}{column type spec for \code{readr::read_tsv}}
 
 \item{sort}{sort the tbl by chrom and start}
-
-\item{factor_cols}{factor the \code{chrom} and \code{strand} columns}
 
 \item{...}{options to pass to \code{readr::read_tsv}}
 }
@@ -63,10 +61,6 @@ unsorted_bed_tbl <- read_bed(bed3_path, sort = FALSE)
 
 # use `is_sorted` 
 is_sorted(unsorted_bed_tbl)
-
-# chrom and strand are converted to factors unless specified
-bed_tbl <- read_bed(bed3_path, factor_cols = FALSE)
-is.factor(bed_tbl$chrom)
 
 bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'valr')
 bed12_tbl <- read_bed12(bed12_path)
