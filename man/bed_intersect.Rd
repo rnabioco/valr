@@ -5,7 +5,7 @@
 \title{Identify intersecting intervals.}
 \usage{
 bed_intersect(x, y, invert = FALSE, strand = FALSE, strand_opp = FALSE,
-  suffix = c(".x", ".y"))
+  suffix = c(".x", ".y"), ...)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -19,6 +19,8 @@ bed_intersect(x, y, invert = FALSE, strand = FALSE, strand_opp = FALSE,
 \item{strand_opp}{intersect intervals on opposite strands}
 
 \item{suffix}{colname suffixes in output}
+
+\item{...}{extra arguments (not used)}
 }
 \description{
 Identify intersecting intervals.

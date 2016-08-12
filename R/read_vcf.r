@@ -14,12 +14,13 @@
 #' @export
 read_vcf <- function(vcf) {
   
-   res <- read_tsv(vcf, comment = '##')
-   colnames(res) <- str_replace(colnames(res), '^#', '')
+   res <- suppressMessages(readr::read_tsv(vcf, comment = '##'))
+   colnames(res) <- stringr::str_replace(colnames(res), '^#', '')
    
-   res <- mutate(res, chrom = str_c('chr', CHROM),
-                 start = POS,
-                 end = start + stringr::str_length(REF))
+   res <- dplyr::mutate(res,
+                        chrom = str_c('chr', CHROM),
+                        start = POS,
+                        end = start + stringr::str_length(REF))
    
    res
 }

@@ -74,11 +74,11 @@ bed12_tbl <- read_bed12(bed12_path)
 bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'valr')
 bedgraph_tbl <- read_bedgraph(bedgraph_path)
 
-narrowpeak_url <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeUwTfbs/wgEncodeUwTfbsGm12801CtcfStdPkRep1.narrowPeak.gz'
-read_narrowpeak(narrowpeak_url)
+narrowpeak_path <- system.file('extdata', 'sample.narrowPeak.gz', package = 'valr')
+read_narrowpeak(narrowpeak_path)
 
-broadpeak_url <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHistone/wgEncodeBroadHistoneK562NcorPk.broadPeak.gz'
-read_broadpeak(broadpeak_url)
+broadpeak_path <- system.file('extdata', 'sample.broadPeak.gz', package = 'valr')
+read_broadpeak(broadpeak_path)
 
 }
 

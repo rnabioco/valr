@@ -41,15 +41,15 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
   
-  bed_raw <- read_tsv(filename, col_names = colnames, col_types = coltypes, ...)
-  bed_tbl <- as_data_frame(bed_raw) 
+  bed_raw <- readr::read_tsv(filename, col_names = colnames, col_types = coltypes, ...)
+  bed_tbl <- tibble::as_tibble(bed_raw) 
 
   # factorize chrom and strand
   if (factor_cols) {
-    bed_tbl <- mutate(bed_tbl, chrom = as.factor(chrom))
+    bed_tbl <- dplyr::mutate(bed_tbl, chrom = as.factor(chrom))
     
     if ('strand' %in% colnames(bed_tbl)) {
-      bed_tbl <- mutate(bed_tbl, strand = as.factor(strand))
+      bed_tbl <- dplyr::mutate(bed_tbl, strand = as.factor(strand))
     }
   } 
   
@@ -132,29 +132,29 @@ read_broadpeak <- function(filename, ...) {
 }
 
 peak_coltypes <- list(
-  chrom = col_character(),
-  start = col_integer(),
-  end = col_integer(),
-  name = col_character(),
-  score = col_integer(),
-  strand = col_character(),
-  signal = col_double(),
-  pvalue = col_double(),
-  qvalue = col_double(),
-  peak = col_integer()
+  chrom = readr::col_character(),
+  start = readr::col_integer(),
+  end = readr::col_integer(),
+  name = readr::col_character(),
+  score = readr::col_integer(),
+  strand = readr::col_character(),
+  signal = readr::col_double(),
+  pvalue = readr::col_double(),
+  qvalue = readr::col_double(),
+  peak = readr::col_integer()
 )
 
 bed12_coltypes <- list(
-  chrom = col_character(),
-  start = col_integer(),
-  end = col_integer(),
-  name = col_character(),
-  score = col_character(),
-  strand = col_character(),
-  cds_start = col_integer(),
-  cds_end = col_integer(),
-  item_rgb = col_character(),
-  exon_count = col_integer(),
-  exon_sizes = col_character(),
-  exon_starts = col_character()
+  chrom = readr::col_character(),
+  start = readr::col_integer(),
+  end = readr::col_integer(),
+  name = readr::col_character(),
+  score = readr::col_character(),
+  strand = readr::col_character(),
+  cds_start = readr::col_integer(),
+  cds_end = readr::col_integer(),
+  item_rgb = readr::col_character(),
+  exon_count = readr::col_integer(),
+  exon_sizes = readr::col_character(),
+  exon_starts = readr::col_character()
 )

@@ -4,16 +4,14 @@
 \alias{bed_fisher}
 \title{Fisher's test on number of shared and unique intervals.}
 \usage{
-bed_fisher(x, y, genome, strand = FALSE)
+bed_fisher(x, y, genome)
 }
 \arguments{
 \item{x}{tbl of intervals}
 
 \item{y}{tbl of intervals}
 
-\item{genome}{tbl of genome intervals}
-
-\item{strand}{group intervals by strand}
+\item{genome}{tbl of chrom sizes}
 }
 \value{
 \code{data_frame}

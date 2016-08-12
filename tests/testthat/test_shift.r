@@ -67,7 +67,8 @@ test_that("rounding fraction increment works", {
 
 test_that("shift by strand works", {
   size <- 100
-  out <- bed_shift(bed_tbl, genome, size, strand = TRUE)
+  x <- group_by(bed_tbl, strand)
+  out <- bed_shift(x, genome, size)
   expect_true(all(ifelse(out$strand == '+',
                          out$start - bed_tbl$start == size,
                          out$start - bed_tbl$start == -size),
@@ -78,8 +79,9 @@ test_that("shift by strand works", {
 
 test_that("shift by strand and fraction works", {
   fraction <- 0.5
+  x <- group_by(bed_tbl, strand)
   sizes <- bed_tbl$end - bed_tbl$start
-  out <- bed_shift(bed_tbl, genome, strand = TRUE, fraction = fraction)
+  out <- bed_shift(x, genome, fraction = fraction)
   expect_true(all(ifelse(out$strand == '+',
                          out$start - bed_tbl$start == sizes * fraction,
                          out$start - bed_tbl$start == -sizes * fraction),

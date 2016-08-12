@@ -6,6 +6,7 @@
 #' @param strand intersect intervals on same strand
 #' @param strand_opp intersect intervals on opposite strands
 #' @param suffix colname suffixes in output
+#' @param ... extra arguments (not used)
 #'
 #' @note Book-ended intervals have \code{.overlap} values of 0 in the output.
 #'  
@@ -31,42 +32,41 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 #'  
 #' @export
-bed_intersect <- function(x, y, invert = FALSE, strand = FALSE, strand_opp = FALSE, suffix = c('.x', '.y')) {
+bed_intersect <- function(x, y, invert = FALSE,
+                          strand = FALSE, strand_opp = FALSE,
+                          suffix = c('.x', '.y'), ...) {
+  
+  # dplyr::check_suffix
+  if (!is.character(suffix) || length(suffix) != 2)
+    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
  
+  if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
+    stop("`strand` specified on unstranded data_frame", call. = FALSE)
+  
   if ( ! is_sorted(x) )
     x <- bed_sort(x)
   if ( ! is_sorted(y) )
     y <- bed_sort(y)
  
-  if (is.null(groups(x)) || groups(x) != "chrom")
-    x <- group_by(x, chrom)
-  if (is.null(groups(y)) || groups(y) != "chrom")
-    y <- group_by(y, chrom)
+  x <- dplyr::group_by(x, chrom, add = TRUE)
+  y <- dplyr::group_by(y, chrom, add = TRUE)
 
-  # dplyr::check_suffix
-  if (!is.character(suffix) || length(suffix) != 2) {
-    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
-  }
-  
   suffix <- list(x = suffix[1], y = suffix[2])
 
   res <- intersect_impl(x, y, suffix$x, suffix$y)
   
+  # XXX: probably better to group matched / mismatched strands and intersect
+  # among those
   if (strand) {
-    if (!('strand' %in% colnames(x) && 'strand' %in% colnames(y))){
-      stop("`strand` specified on unstranded data_frame", call. = FALSE)
-    }
-     res <- filter(res, strand.x == strand.y) 
+     res <- dplyr::filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
-     res <- filter(res, strand.x != strand.y) 
+     res <- dplyr::filter(res, strand.x != strand.y) 
   }
  
   if (invert) {
     colspec <- c('chrom' = 'chrom', 'start' = 'start.x', 'end' = 'end.x') 
-    res <- anti_join(x, res, by = colspec)
+    res <- dplyr::anti_join(x, res, by = colspec)
   }
   
   res
 }
-
-

@@ -28,6 +28,6 @@
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6, seed = 0) {
   out <- random_impl(genome, length, n, seed)
-  out <- as_data_frame(out)
+  out <- tibble::as_tibble(out)
   out  
 }

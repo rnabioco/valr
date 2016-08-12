@@ -2,7 +2,6 @@
 #' 
 #' @param x tbl of intervals
 #' @param y tbl of intervals
-#' @param strand group intervals by strand
 #' 
 #' @return \code{data_frame} with the following columns:
 #'  \itemize{
@@ -29,18 +28,18 @@
 #' bed_jaccard(x, y)
 #'  
 #' @export
-bed_jaccard <- function(x, y, strand = FALSE) {
+bed_jaccard <- function(x, y) {
   
   res_intersect <- bed_intersect(x, y)
-  res_intersect <- summarize(res_intersect, 
-                             sum_overlap = sum(.overlap),
-                             n_int = n())
+  res_intersect <- dplyr::summarize(res_intersect, 
+                                    sum_overlap = sum(.overlap),
+                                    n_int = n())
+        
+  res_x <- dplyr::mutate(x, .size = end - start)
+  res_x <- dplyr::summarize(res_x, sum_x = sum(.size))
   
-  res_x <- mutate(x, .size = end - start)
-  res_x <- summarize(res_x, sum_x = sum(.size))
-  
-  res_y <- mutate(y, .size = end - start)
-  res_y <- summarize(res_y, sum_y = sum(.size))
+  res_y <- dplyr::mutate(y, .size = end - start)
+  res_y <- dplyr::summarize(res_y, sum_y = sum(.size))
 
   n_i <- res_intersect$sum_overlap
   n <- res_intersect$n_int

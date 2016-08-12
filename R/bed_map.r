@@ -46,23 +46,23 @@
 #' @export
 bed_map <- function(x, y, ...) {
 
-  groups_x <- groups(x)
-  groups_y <- groups(y)
+  groups_x <- dplyr::groups(x)
+  groups_y <- dplyr::groups(y)
   
   if('chrom' %in% c(groups_x, groups_y))
     stop('`chrom` cannot be used as grouping variable', call. = FALSE)
   
   if(!is.null(groups_x))
-    groups_x <- str_c(groups_x, '.x')
+    groups_x <- stringr::str_c(groups_x, '.x')
   if(!is.null(groups_y))
-    groups_y <- str_c(groups_y, '.y')
+    groups_y <- stringr::str_c(groups_y, '.y')
   
   res <- bed_intersect(x, y)
  
   groups_map <- c('chrom', 'start.x', 'end.x')
-  res <- group_by_(res, .dots = c(groups_map, groups_x, groups_y))
+  res <- dplyr::group_by_(res, .dots = c(groups_map, groups_x, groups_y))
   
-  res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
+  res <- dplyr::summarize_(res, .dots = lazyeval::lazy_dots(...))
  
   res 
 }

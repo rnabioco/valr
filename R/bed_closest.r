@@ -41,21 +41,22 @@
 bed_closest <- function(x, y, overlap = TRUE,
                         strand = FALSE, strand_opp = FALSE, suffix = c('.x', '.y'),
                         distance_type = c("genome", "strand", "abs")) {
+  
+  if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
+    stop("`strand` specified on unstranded data_frame", call. = FALSE)
+  
+  # dplyr::check_suffix
+  if (!is.character(suffix) || length(suffix) != 2)
+    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
+ 
   if ( ! is_sorted(x) )
     x <- bed_sort(x)
   if ( ! is_sorted(y) )
     y <- bed_sort(y)
   
-  if (is.null(groups(x)) || groups(x) != "chrom")
-    x <- group_by(x, chrom)
-  if (is.null(groups(y)) || groups(y) != "chrom")
-    y <- group_by(y, chrom)
-  
-  # dplyr::check_suffix
-  if (!is.character(suffix) || length(suffix) != 2) {
-    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
-  }
-  
+  x <- dplyr::group_by(x, chrom, add = TRUE)
+  y <- dplyr::group_by(y, chrom, add = TRUE)
+ 
   suffix <- list(x = suffix[1], y = suffix[2])
   
   res <- closest_impl(x, y, suffix$x, suffix$y)
@@ -66,12 +67,9 @@ bed_closest <- function(x, y, overlap = TRUE,
   distance_type <- match.arg(distance_type, c("genome", "strand", "abs"))
   
   if (strand) {
-    if (!('strand' %in% colnames(x) && 'strand' %in% colnames(y))){
-      stop("`strand` specified on unstranded data_frame", call. = FALSE)
-    }
-    res <- filter(res, strand.x == strand.y) 
+    res <- dplyr::filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
-    res <- filter(res, strand.x != strand.y) 
+    res <- dplyr::filter(res, strand.x != strand.y) 
   }
   
   # modify distance output based on user input 
@@ -89,8 +87,8 @@ bed_closest <- function(x, y, overlap = TRUE,
   res$.overlap <- ifelse(res$.overlap < 0, 0, res$.overlap )
   
   if (!overlap){
-    res <- filter(res, .overlap < 1)
-    res <- select(res, -.overlap)
+    res <- dplyr::filter(res, .overlap < 1)
+    res <- dplyr::select(res, -.overlap)
   }
     
   res

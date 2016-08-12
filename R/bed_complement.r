@@ -32,7 +32,7 @@ bed_complement <- function(x, genome) {
     res <- bed_merge(x)
   } 
   
-  res <- group_by(res, chrom)
+  res <- dplyr::group_by(res, chrom)
   
   res <- complement_impl(res, genome)
 

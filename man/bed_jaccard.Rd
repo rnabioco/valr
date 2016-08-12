@@ -4,14 +4,12 @@
 \alias{bed_jaccard}
 \title{Calculate jaccard statistics on two sets of intervals.}
 \usage{
-bed_jaccard(x, y, strand = FALSE)
+bed_jaccard(x, y)
 }
 \arguments{
 \item{x}{tbl of intervals}
 
 \item{y}{tbl of intervals}
-
-\item{strand}{group intervals by strand}
 }
 \value{
 \code{data_frame} with the following columns:

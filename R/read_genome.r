@@ -20,14 +20,14 @@
 #' @export
 read_genome <- function(filename) {
   colnames <- c('chrom', 'size')
-  genome <- read_tsv(filename, col_names = colnames)
-  genome <- arrange(genome, desc(size))
+  genome <- suppressMessages(readr::read_tsv(filename, col_names = colnames))
+  genome <- dplyr::arrange(genome, desc(size))
   genome
 }
 
 #' Select intervals bounded by a genome.
 #' 
-#' @param bed_tbl a tbl of intervals
+#' @param x a tbl of intervals
 #' @param genome a tbl of chrom sizes
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
@@ -36,7 +36,7 @@ read_genome <- function(filename) {
 #' @rdname read_genome
 #'  
 #' @examples
-#' bed_tbl <- tibble::frame_data(
+#' x <- tibble::frame_data(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", -100,   500,
 #'  "chr1", 100,    1e9,
@@ -45,21 +45,20 @@ read_genome <- function(filename) {
 #' 
 #' genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 #' 
-#' bound_intervals(bed_tbl, genome)
-#' bound_intervals(bed_tbl, genome, trim = TRUE)
+#' bound_intervals(x, genome)
+#' bound_intervals(x, genome, trim = TRUE)
 #' 
 #' @export
-bound_intervals <- function(bed_tbl, genome, trim = FALSE) {
+bound_intervals <- function(x, genome, trim = FALSE) {
+  res <- dplyr::left_join(x, genome, by = "chrom") 
   if (trim) {
-    res <- left_join(bed_tbl, genome, by = "chrom") 
-    res <- mutate(res,
-                  start = ifelse(start < 1, 1, start),
-                  end = ifelse(end > size, size, end))
-    res <- select(res, -size)
+    res <- dplyr::mutate(res,
+                         start = ifelse(start < 1, 1, start),
+                         end = ifelse(end > size, size, end))
+    res <- dplyr::select(res, -size)
   } else {
-    res <- left_join(bed_tbl, genome, by = 'chrom')
-    res <- filter(res, start >= 1 & end <= size)
-    res <- select(res, -size)
+    res <- dplyr::filter(res, start >= 1 & end <= size)
+    res <- dplyr::select(res, -size)
   }
    
   res

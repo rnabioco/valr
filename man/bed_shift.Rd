@@ -4,8 +4,7 @@
 \alias{bed_shift}
 \title{Adjust intervals by a fixed size.}
 \usage{
-bed_shift(x, genome, size = 0, strand = FALSE, fraction = 0,
-  trim = FALSE)
+bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -14,14 +13,14 @@ bed_shift(x, genome, size = 0, strand = FALSE, fraction = 0,
 
 \item{size}{number of bases to shift. postive numbers shift right, negative shift left.}
 
-\item{strand}{logical indicating shift according to +/- in strand column}
-
 \item{fraction}{define \code{size} as a fraction of interval}
 
 \item{trim}{adjust coordinates for out-of-bounds intervals}
+
+\item{strand}{logical indicating shift according to +/- in strand column}
 }
 \value{
-\code{data.frame}
+\code{data_frame}
 }
 \description{
 Out-of-bounds intervals are removed by default.
@@ -46,8 +45,10 @@ genome <- tibble::frame_data(
 
 bed_shift(x, genome, 100)
 bed_shift(x, genome, fraction = 0.5)
-bed_shift(x, genome, 100, strand = TRUE)
-bed_shift(x, genome, strand = TRUE, fraction = 0.5)
+
+# shift with respect to strand
+stranded <- dplyr::group_by(x, strand)
+bed_shift(stranded, genome, 100) 
 
 }
 \seealso{

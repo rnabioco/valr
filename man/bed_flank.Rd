@@ -2,10 +2,10 @@
 % Please edit documentation in R/bed_flank.r
 \name{bed_flank}
 \alias{bed_flank}
-\title{Create flanks from input intervals.}
+\title{Create flanking intervals from input intervals.}
 \usage{
 bed_flank(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
-  strand = FALSE, trim = FALSE)
+  strand = FALSE, trim = FALSE, ...)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -23,12 +23,14 @@ bed_flank(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 \item{strand}{define \code{left} and \code{right} based on strand}
 
 \item{trim}{adjust coordinates for out-of-bounds intervals}
+
+\item{...}{extra arguments (not used)}
 }
 \value{
 \code{data_frame}
 }
 \description{
-Create flanks from input intervals.
+Create flanking intervals from input intervals.
 }
 \examples{
 genome <- tibble::frame_data(
@@ -46,7 +48,7 @@ bed_flank(x, genome, left = 100)
 bed_flank(x, genome, right = 100)
 bed_flank(x, genome, both = 100)
 
-bed_flank(x, genome, both = 0.5, fraction=TRUE)
+bed_flank(x, genome, both = 0.5, fraction = TRUE)
 
 }
 \seealso{

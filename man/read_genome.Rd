@@ -7,13 +7,13 @@
 \usage{
 read_genome(filename)
 
-bound_intervals(bed_tbl, genome, trim = FALSE)
+bound_intervals(x, genome, trim = FALSE)
 }
 \arguments{
 \item{filename}{file containing chrom/contig names and sizes,
 one-pair-per-line, tab-delimited}
 
-\item{bed_tbl}{a tbl of intervals}
+\item{x}{a tbl of intervals}
 
 \item{genome}{a tbl of chrom sizes}
 
@@ -37,7 +37,7 @@ genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 read_genome(genome)
 read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 
-bed_tbl <- tibble::frame_data(
+x <- tibble::frame_data(
  ~chrom, ~start, ~end,
  "chr1", -100,   500,
  "chr1", 100,    1e9,
@@ -46,11 +46,8 @@ bed_tbl <- tibble::frame_data(
 
 genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 
-bound_intervals(bed_tbl, genome)
-bound_intervals(bed_tbl, genome, trim = TRUE)
+bound_intervals(x, genome)
+bound_intervals(x, genome, trim = TRUE)
 
-}
-\seealso{
-Other read.data: \code{\link{read_bed}}
 }
 

@@ -1,7 +1,6 @@
 #' Increase the size of input intervals.
 #'
 #' @inheritParams bed_flank
-#' @param trim adjust coordinates for res-of-bounds intervals
 #' 
 #' @return \code{data_frame}
 #' 
@@ -24,62 +23,64 @@
 #' bed_slop(x, genome, right = 100)
 #' bed_slop(x, genome, both = 100)
 #'
-#' bed_slop(x, genome, both = 0.5, fraction=TRUE)
+#' bed_slop(x, genome, both = 0.5, fraction = TRUE)
 #' 
 #' @export
 bed_slop <- function(x, genome, both = 0, left = 0,
                      right = 0, fraction = FALSE,
-                     strand = FALSE, trim = FALSE) {
+                     strand = FALSE, trim = FALSE, ...) {
 
   if (strand && ! 'strand' %in% colnames(x))
     stop('expected `strand` in `x`', call. = FALSE)
 
-  if (both != 0 && (left != 0 || right != 0)) {
+  if (both != 0 && (left != 0 || right != 0))
     stop('ambiguous side spec for bed_slop', call. = FALSE)
-  } 
 
-  if (fraction) {
-    x <- mutate(x, .interval_size = end - start)
-  }  
+  if (fraction)
+    x <- dplyr::mutate(x, .size = end - start)
   
   if (both != 0) {
     if (fraction) {
-      res <- mutate(x, start = start - round( both * .interval_size ),
-               end = end + round( both * .interval_size ))
+      res <- dplyr::mutate(x,
+                           start = start - round( both * .size ),
+                           end = end + round( both * .size ))
     } else {
-      res <- mutate(x, start = start - both,
-               end = end + both)
+      res <- dplyr::mutate(x,
+                           start = start - both,
+                           end = end + both)
     }
   } else {
     # calc left and right based on strand
     if (strand) {
       if (fraction) {
-        res <- mutate(x, start = ifelse(strand == '+',
-                                start - round( left * .interval_size ),
-                                start - round( right * .interval_size )),
-                         end = ifelse(strand == '+',
-                              end + round( right * .interval_size ),
-                              end + round( left * .interval_size )))
+        res <- dplyr::mutate(x, start = ifelse(strand == '+',
+                                start - round( left * .size ),
+                                start - round( right * .size )),
+                             end = ifelse(strand == '+',
+                                end + round( right * .size ),
+                                end + round( left * .size )))
       } else {
-        res <- mutate(x, start = ifelse(strand == '+',
+        res <- dplyr::mutate(x, start = ifelse(strand == '+',
                                 start - left,
                                 start - right),
-                         end = ifelse(strand == '+',
-                              end + right,
-                              end + left))
+                             end = ifelse(strand == '+',
+                                end + right,
+                                end + left))
       }
     } else {
       if ( fraction ) {
-        res <- mutate(x, start = start - round( left * .interval_size ),
-                 end = end + round( right * .interval_size ))
+        res <- dplyr::mutate(x,
+                             start = start - round( left * .size ),
+                             end = end + round( right * .size ))
       } else {
-        res <- mutate(x, start = start - left,
-                 end = end + right)
+        res <- dplyr::mutate(x,
+                             start = start - left,
+                             end = end + right)
       }
     }    
   }
    
-  if ( fraction ) res <- select(res, -.interval_size) 
+  if ( fraction ) res <- dplyr::select(res, -.size) 
   
   res <- bound_intervals(res, genome, trim)
   res <- bed_sort(res)

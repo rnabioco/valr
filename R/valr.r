@@ -24,7 +24,7 @@
 #' @seealso \url{https://cran.r-project.org/web/packages/bedr/index.html}
 #'   
 #' @useDynLib valr
-#' @importFrom tibble frame_data
+#' @importFrom tibble frame_data as_tibble
 #' @importFrom readr read_tsv col_integer col_character col_double
 #' @importFrom stringr str_replace str_split str_c str_length
 #' @importFrom tidyr unnest gather separate spread

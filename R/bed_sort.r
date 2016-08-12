@@ -44,38 +44,38 @@ bed_sort <- function(x, by_size = FALSE,
 
   if (by_size) {
     
-    res <- mutate(x, .size = end - start) 
+    res <- dplyr::mutate(x, .size = end - start) 
     
     if (by_chrom) {
-       res <- group_by(res, chrom) 
+       res <- dplyr::group_by(res, chrom) 
     }
     
     if (reverse) {
-      res <- arrange(res, desc(.size))
+      res <- dplyr::arrange(res, desc(.size))
     } else {       
-      res <- arrange(res, .size)
+      res <- dplyr::arrange(res, .size)
     }
     
     # remove .size column and groups in result
-    res <- select(res, -.size)
+    res <- dplyr::select(res, -.size)
     
   } else {
   
     if (by_chrom) {
-       res <- group_by(x, chrom) 
+       res <- dplyr::group_by(x, chrom) 
     }
     
     # sort by coordinate 
     if (reverse) {
-      res <- arrange(x, chrom, desc(start))
+      res <- dplyr::arrange(x, chrom, desc(start))
     } else {
-      res <- arrange(x, chrom, start)
+      res <- dplyr::arrange(x, chrom, start)
     } 
   } 
  
   # remove groups in result 
-  res <- ungroup(res) 
-  res <- as_data_frame(res)
+  res <- dplyr::ungroup(res) 
+  res <- tibble::as_tibble(res)
  
   # add `sorted` attribute 
   attr(res, "sorted") <- TRUE

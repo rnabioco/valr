@@ -5,7 +5,7 @@
 \title{Increase the size of input intervals.}
 \usage{
 bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
-  strand = FALSE, trim = FALSE)
+  strand = FALSE, trim = FALSE, ...)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -22,7 +22,9 @@ bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 
 \item{strand}{define \code{left} and \code{right} based on strand}
 
-\item{trim}{adjust coordinates for res-of-bounds intervals}
+\item{trim}{adjust coordinates for out-of-bounds intervals}
+
+\item{...}{extra arguments (not used)}
 }
 \value{
 \code{data_frame}
@@ -46,7 +48,7 @@ bed_slop(x, genome, left = 100)
 bed_slop(x, genome, right = 100)
 bed_slop(x, genome, both = 100)
 
-bed_slop(x, genome, both = 0.5, fraction=TRUE)
+bed_slop(x, genome, both = 0.5, fraction = TRUE)
 
 }
 \seealso{
