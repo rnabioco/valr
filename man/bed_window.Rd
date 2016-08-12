@@ -4,61 +4,44 @@
 \alias{bed_window}
 \title{Identify intersecting intervals within a specified distance}
 \usage{
-bed_window(x, y, genome, both = 0, left = 0, right = 0,
-  fraction = FALSE, strand_pos = FALSE, strand = FALSE,
-  strand_opp = FALSE, trim = FALSE)
+bed_window(x, y, genome, ...)
 }
 \arguments{
-\item{x}{BED intervals}
+\item{x}{tbl of intervals}
 
-\item{y}{BED intervals}
+\item{y}{tbl of intervals}
 
-\item{genome}{chrom sizes}
+\item{genome}{tbl of chrom sizes}
 
-\item{both}{number of bases added to both sides of x intervals}
-
-\item{left}{number of bases added to left side of x intervals}
-
-\item{right}{number of bases added to right side of x intervals}
-
-\item{fraction}{define flanks based on fraction of x interval length}
-
-\item{strand_pos}{define \code{left} and \code{right} based on strand}
-
-\item{strand}{intersect intervals on same strand}
-
-\item{strand_opp}{intersect intervals on opposite strand}
-
-\item{trim}{adjust coordinates for out-of-bounds intervals}
+\item{...}{params for bed_slop and bed_intersect}
 }
 \description{
 Identify intersecting intervals within a specified distance
 }
 \examples{
 x <- tibble::frame_data(
-~chrom, ~start, ~end,
-"chr1", 10,    100,
-"chr2", 200,    400,
-"chr2", 300,    500,
-"chr2", 800,    900
+  ~chrom, ~start, ~end,
+  "chr1", 10,    100,
+  "chr2", 200,    400,
+  "chr2", 300,    500,
+  "chr2", 800,    900
 )
 
 y <- tibble::frame_data(
-~chrom, ~start, ~end,
-"chr1", 150,    400,
-"chr2", 230,    430,
-"chr2", 350,    430
+  ~chrom, ~start, ~end,
+  "chr1", 150,    400,
+  "chr2", 230,    430,
+  "chr2", 350,    430
 )
 
 genome <- tibble::frame_data(
-~chrom, ~size,
-"chr1", 500,
-"chr2",  1000
+  ~chrom, ~size,
+  "chr1", 500,
+  "chr2", 1000
 )
-bed_intersect(x, y)
+
 bed_window(x, y, genome, both = 100)
 
- 
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/window.html}

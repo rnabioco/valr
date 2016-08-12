@@ -6,14 +6,14 @@ genome <- tibble::frame_data(
   "chr2", 10000
 )
 
-bed_df_x <- tibble::frame_data(
+x <- tibble::frame_data(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 500,    1000, '.',   '.',     '+',
   "chr1", 1000,   1500, '.',   '.',     '-',
   "chr2", 1000,   1200, '.',   '.',     '-'
 )
 
-bed_df_y <- tibble::frame_data(
+y <- tibble::frame_data(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 400,    450, '.',   '.',     '+',
   "chr1", 1000,   1200, '.',   '.',     '-',
@@ -22,30 +22,29 @@ bed_df_y <- tibble::frame_data(
 )
 
 test_that("both arg works", {
-  out <- bed_window(bed_df_x, bed_df_y, genome, both = 110)
+  out <- bed_window(x, y, genome, both = 110)
   expect_equal(nrow(out), 6)
 })
 
 test_that("left arg works", {
-  out <- bed_window(bed_df_x, bed_df_y, genome, left = 110)
+  out <- bed_window(x, y, genome, left = 110)
   expect_equal(nrow(out), 4)
 })
 
 test_that("right arg works", {
-  out <- bed_window(bed_df_x, bed_df_y, genome, right = 110)
+  out <- bed_window(x, y, genome, right = 110)
   expect_equal(nrow(out), 5)
 })
 
-test_that("strand position arg works", {
-  out <- bed_window(bed_df_x, bed_df_y, genome, right = 110, 
-                    strand_pos = TRUE)
-  expect_equal(nrow(out), 4)
+test_that("strand arg works", {
+  out <- bed_window(x, y, genome, right = 110, strand = TRUE)
+  expect_equal(nrow(out), 2)
 })
 
-test_that("strand intersect arg works", {
+test_that("strand_opp arg works", {
   dist <- 100
-  out <- bed_window(bed_df_x, bed_df_y, genome, right = 110, 
-                    strand_pos = TRUE, strand = TRUE)
+  out <- bed_window(x, y, genome, right = 110, 
+                    strand_opp = TRUE, strand = TRUE)
 
   expect_equal(nrow(out), 2)
 
