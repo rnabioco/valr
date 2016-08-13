@@ -24,10 +24,6 @@ void intersect_group(intervalVector vx, intervalVector vy,
 
     overlaps.clear() ;
   }
-//  int n = 10;
-//  for(int i=0; i < n; i++){
-//    Rcout << vx[i] <<"\t" << vy[i] << "\t" << overlap_sizes[i] << "\t" << indices_x[i] << "\t" << indices_y[i] << "\n";
-//  }
 }
 
 
@@ -47,8 +43,6 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
 
   // set up interval trees for each chromosome and apply intersect_group
   chromLoop(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes)); 
-//  overlap_sizes[0] = 1;
-
   
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(data_y, names(data_y)).subset(indices_y, "data.frame");

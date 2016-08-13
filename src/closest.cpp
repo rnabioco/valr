@@ -79,14 +79,14 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
 DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
                        const std::string& suffix_x, const std::string& suffix_y) {
 
-  auto ng_x = x.ngroups() ;
-  auto ng_y = y.ngroups() ;
+//  auto ng_x = x.ngroups() ;
+//  auto ng_y = y.ngroups() ;
 
   DataFrame df_x = x.data() ;
   DataFrame df_y = y.data() ;
   
-  auto nr_x = df_x.nrows() ;
-  auto nr_y = df_y.nrows() ;
+//  auto nr_x = df_x.nrows() ;
+//  auto nr_y = df_y.nrows() ;
  
   // for subsetting / return df
   std::vector<int> indices_x ;
@@ -94,28 +94,9 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   std::vector<int> overlap_sizes ;
   std::vector<int> distance_sizes ;
   
-  // XXX this shoudld be refactored as a reusable function, used in intersect,
-  // subtract, here, possibely more
-  GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-  for( int nx=0; nx<ng_x; nx++, ++git_x) {
-    
-    SlicingIndex si_x = *git_x ;
-    auto label_x = si_x.group() ;
-    
-    GroupedDataFrame::group_iterator git_y = y.group_begin() ;
-    for (int ny=0; ny<ng_y; ny++, ++git_y) {
-      
-      SlicingIndex si_y = *git_y ;
-      auto label_y = si_y.group() ;
-     
-      if (label_x == label_y) {
-        intervalVector vx = makeIntervalVector(df_x, si_x) ;
-        intervalVector vy = makeIntervalVector(df_y, si_y) ;
-        
-        closest_grouped(vx, vy, indices_x, indices_y, overlap_sizes, distance_sizes) ;
-      } 
-    }
-  }
+  // set up interval trees for each chromosome and apply closest_grouped
+  chromLoop(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y), 
+            std::ref(overlap_sizes), std::ref(distance_sizes)); 
   
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(indices_y, "data.frame");
