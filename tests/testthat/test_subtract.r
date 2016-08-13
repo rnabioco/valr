@@ -72,3 +72,32 @@ test_that("fully contained x intervals are removed", {
   
 })
 
+test_that("subtractions from x bed_tbl with more chroms than y are captured", {
+  x <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr1",    100,       200,
+    "chr3",    400,       500
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr3",    425,       475) 
+  
+  res <- bed_subtract(x, y)
+  expect_true("chr3" %in% res$chrom)
+})
+
+test_that("non-overlapping x intervals are maintained", {
+  x <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr1",    100,       200,
+    "chr3",    400,       500
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr3",    425,       475) 
+  
+  res <- bed_subtract(x, y)
+  expect_true("chr1" %in% res$chrom)
+})

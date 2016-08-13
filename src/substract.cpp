@@ -13,22 +13,23 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   DataFrame df_x = gdf_x.data() ;
   DataFrame df_y = gdf_y.data() ; 
   
-  CharacterVector chroms = df_x["chrom"] ;
+  CharacterVector chroms_x = df_x["chrom"] ;
+  CharacterVector chroms_y = df_y["chrom"] ;
   
   GroupedDataFrame::group_iterator git_x = gdf_x.group_begin() ;
   
   for(int nx=0; nx<ng_x; nx++, ++git_x) {
     
     SlicingIndex indices_x = *git_x ; 
-    auto group_x = indices_x.group() ;
+    std::string chrom_x = as<std::string>(chroms_x[indices_x[0]]);
     
     GroupedDataFrame::group_iterator git_y = gdf_y.group_begin() ;
     for(int ny=0; ny<ng_y; ny++, ++git_y) {
   
       SlicingIndex indices_y = *git_y ; 
-      auto group_y = indices_y.group() ;
+      std::string chrom_y = as<std::string>(chroms_y[indices_y[0]]);
       
-      if ( group_x == group_y ) {
+      if( chrom_x == chrom_y ) {
 
   	    icl_interval_set_t interval_set_x = makeIclIntervalSet(df_x, indices_x) ; 
   	    icl_interval_set_t interval_set_y = makeIclIntervalSet(df_y, indices_y) ;
@@ -41,12 +42,12 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   	    // get chrom name based on first index in indices_x
   	    // XXX it would be a lot nicer to fectch this from the current data 
   	    // in indices_y via symbol or label but that doesn't seem to work.
-  	    std::string chrom = as<std::string>(chroms[indices_x[0]]) ;
+
   	    
         icl_interval_set_t::iterator it ;
         for( it = interval_sub.begin(); it != interval_sub.end(); ++it) {
           
-          chrom_out.push_back(chrom) ;
+          chrom_out.push_back(chrom_x) ;
           starts_out.push_back(it->lower()) ;
           ends_out.push_back(it->upper()) ;
         }
