@@ -1,5 +1,6 @@
 #include "valr.h"
 
+
 int intervalOverlap(const interval_t& a, const interval_t& b) {
   return(std::min(a.stop, b.stop) - std::max(a.start, b.start)) ;    
 }
@@ -41,3 +42,41 @@ icl_interval_set_t makeIclIntervalSet(DataFrame df, SlicingIndex indices) {
   return iset ;
 }
  
+ // generic function to loop through x and y bed_tbls and apply a function to each matched chromosomes
+ 
+// void chromLoop( const GroupedDataFrame& x, const GroupedDataFrame& y,
+//                std::function<void (intervalVector&, intervalVector&)> fxn) {
+
+//   auto data_x = x.data() ;
+//   auto data_y = y.data() ;
+   
+   //   auto ng_x = x.ngroups() ;
+   //   auto ng_y = y.ngroups() ;
+   
+   //CharacterVector chrom_x = data_x["chrom"];
+   //CharacterVector chrom_y = data_y["chrom"];
+   
+   
+   //   GroupedDataFrame::group_iterator git_x = x.group_begin() ;
+   // for( int nx=0; nx<ng_x; nx++, ++git_x){
+     
+     // SlicingIndex gi_x = *git_x ;
+     //   int group_x = gi_x[0];
+     
+     // GroupedDataFrame::group_iterator git_y = y.group_begin() ;
+     //     for( int ny=0; ny<ng_y; ny++, ++git_y) {
+       
+       //SlicingIndex gi_y = *git_y ;
+       // int group_y = gi_y[0];
+       
+       // if( chrom_x[group_x] == chrom_y[group_y] ) {
+         
+         //intervalVector vx = makeIntervalVector(data_x, gi_x) ;
+         // intervalVector vy = makeIntervalVector(data_y, gi_y) ;
+         
+         //fxn(vx, vy ) ; 
+         //}
+       //} 
+     //}
+   // }
+
