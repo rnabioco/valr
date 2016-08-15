@@ -23,7 +23,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     SlicingIndex indices_x = *git_x ; 
     std::string chrom_x = as<std::string>(chroms_x[indices_x[0]]);
     // keep track of if x chrom is present in y
-    bool s_chrom_x_seen(false);
+    bool chrom_x_seen(false);
     
     GroupedDataFrame::group_iterator git_y = gdf_y.group_begin() ;
     for(int ny=0; ny<ng_y; ny++, ++git_y) {
@@ -32,7 +32,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
       std::string chrom_y = as<std::string>(chroms_y[indices_y[0]]);
       
       if( chrom_x == chrom_y ) {
-        s_chrom_x_seen = true ;
+        chrom_x_seen = true ;
   	    icl_interval_set_t interval_set_x = makeIclIntervalSet(df_x, indices_x) ; 
   	    icl_interval_set_t interval_set_y = makeIclIntervalSet(df_y, indices_y) ;
   	  
@@ -52,7 +52,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
       }
     }
     // return x intervals if x chromosome not found in y
-    if (s_chrom_x_seen) {
+    if (chrom_x_seen) {
       continue;
       }
     else {
