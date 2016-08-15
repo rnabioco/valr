@@ -5,17 +5,8 @@ typedef std::unordered_map<std::string, int> map_t ;
 //[[Rcpp::export]]
 DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
 
-  map_t chrom_sizes ;
-  CharacterVector gchroms = genome["chrom"] ;
-  IntegerVector gsizes = genome["size"] ;
-  
-  int nchrom = genome.nrows() ;
-  for( int i=0; i<nchrom; ++i) {
-    std::string chrom = as<std::string>(gchroms[i]) ;
-    int size = gsizes[i] ;
-    chrom_sizes.insert({chrom, size}) ;
-  }
-  
+  genome_map_t chrom_sizes = makeChromSizes(genome) ;
+ 
   DataFrame df = gdf.data() ;
   
   IntegerVector starts = df["start"] ;

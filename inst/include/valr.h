@@ -10,6 +10,9 @@
 using namespace Rcpp ;
 using namespace dplyr ;
 
+typedef std::unordered_map<std::string, int> genome_map_t ;
+extern genome_map_t makeChromSizes(DataFrame genome) ;
+
 typedef Interval<int>                interval_t ;
 typedef std::vector< interval_t >    intervalVector ;
 typedef IntervalTree<int>            intervalTree ;

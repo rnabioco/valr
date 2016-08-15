@@ -1,5 +1,22 @@
 #include "valr.h"
 
+genome_map_t makeChromSizes(DataFrame genome) {
+  
+  genome_map_t chrom_sizes ; 
+  
+  CharacterVector chroms = genome["chrom"] ;
+  IntegerVector sizes = genome["size"] ;
+  
+  int nchrom = genome.nrows() ;
+  for( int i=0; i<nchrom; ++i) {
+    std::string chrom = as<std::string>(chroms[i]) ;
+    int size = sizes[i] ;
+    chrom_sizes.insert({chrom, size}) ;
+  }
+ 
+  return chrom_sizes ; 
+}
+ 
 int intervalOverlap(const interval_t& a, const interval_t& b) {
   return(std::min(a.stop, b.stop) - std::max(a.start, b.start)) ;    
 }
