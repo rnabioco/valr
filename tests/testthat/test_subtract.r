@@ -87,7 +87,7 @@ test_that("subtractions from x bed_tbl with more chroms than y are captured", {
   expect_true("chr3" %in% res$chrom)
 })
 
-test_that("non-overlapping x intervals are maintained", {
+test_that("non-overlapping intervals from different chrom are not dropped", {
   x <- tibble::frame_data(
     ~chrom,   ~start,    ~end,
     "chr1",    100,       200,

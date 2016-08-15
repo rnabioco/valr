@@ -22,6 +22,8 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     
     SlicingIndex indices_x = *git_x ; 
     std::string chrom_x = as<std::string>(chroms_x[indices_x[0]]);
+    // keep track of if x chrom is present in y
+    bool s_chrom_x_seen(false);
     
     GroupedDataFrame::group_iterator git_y = gdf_y.group_begin() ;
     for(int ny=0; ny<ng_y; ny++, ++git_y) {
@@ -30,7 +32,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
       std::string chrom_y = as<std::string>(chroms_y[indices_y[0]]);
       
       if( chrom_x == chrom_y ) {
-
+        s_chrom_x_seen = true ;
   	    icl_interval_set_t interval_set_x = makeIclIntervalSet(df_x, indices_x) ; 
   	    icl_interval_set_t interval_set_y = makeIclIntervalSet(df_y, indices_y) ;
   	  
@@ -38,11 +40,6 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   	    icl_interval_set_t interval_sub =  interval_set_x - interval_set_y ;
   	    
   	    if (interval_sub.empty()) continue ;
-  	   
-  	    // get chrom name based on first index in indices_x
-  	    // XXX it would be a lot nicer to fectch this from the current data 
-  	    // in indices_y via symbol or label but that doesn't seem to work.
-
   	    
         icl_interval_set_t::iterator it ;
         for( it = interval_sub.begin(); it != interval_sub.end(); ++it) {
@@ -54,6 +51,20 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
         
       }
     }
+    // return x intervals if x chromosome not found in y
+    if (s_chrom_x_seen) {
+      continue;
+      }
+    else {
+      DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
+      std::vector<std::string> x_chr = subset_x["chrom"] ;
+      std::vector<int> x_str = subset_x["start"] ;
+      std::vector<int> x_end = subset_x["end"] ;
+      
+      chrom_out.insert(chrom_out.end(), x_chr.begin(), x_chr.end());
+      starts_out.insert(starts_out.end(), x_str.begin(), x_str.end());
+      ends_out.insert(ends_out.end(), x_end.begin(), x_end.end());
+      }
 	}
   
   return DataFrame::create( Named("chrom") = chrom_out,
