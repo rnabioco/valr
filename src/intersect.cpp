@@ -42,7 +42,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   auto data_y = y.data() ;
 
   // set up interval trees for each chromosome and apply intersect_group
-  chromLoop(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes)); 
+  PairedGroupApply(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes)); 
   
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(data_y, names(data_y)).subset(indices_y, "data.frame");

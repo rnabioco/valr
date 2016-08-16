@@ -22,7 +22,7 @@ extern intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) ;
 // interval vectors and apply a function to each interval vector
 
 template < typename FN, typename... ARGS >
-void chromLoop( const GroupedDataFrame& x, 
+void PairedGroupApply( const GroupedDataFrame& x, 
                 const GroupedDataFrame& y,
                 FN&& fn, ARGS&&... args ){
   

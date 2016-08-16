@@ -95,7 +95,7 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   std::vector<int> distance_sizes ;
   
   // set up interval trees for each chromosome and apply closest_grouped
-  chromLoop(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y), 
+  PairedGroupApply(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y), 
             std::ref(overlap_sizes), std::ref(distance_sizes)); 
   
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
