@@ -3,7 +3,6 @@
 void intersect_group(intervalVector vx, intervalVector vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes) {
-  
   intervalTree tree_y(vy) ;
   intervalVector overlaps ;
 
@@ -18,13 +17,13 @@ void intersect_group(intervalVector vx, intervalVector vy,
       
       int overlap_size = intervalOverlap(*it, *oit) ;
       overlap_sizes.push_back(overlap_size) ;
-      
+
       indices_x.push_back(it->value) ;
       indices_y.push_back(oit->value) ;
     }
-    
+
     overlaps.clear() ;
-  } 
+  }
 }
 
 
@@ -41,34 +40,9 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   
   auto data_x = x.data() ;
   auto data_y = y.data() ;
-  
-  auto ng_x = x.ngroups() ;
-  auto ng_y = y.ngroups() ;
-  
-  CharacterVector chrom_x = data_x["chrom"];
-  CharacterVector chrom_y = data_y["chrom"];
-  
-  GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-  for( int nx=0; nx<ng_x; nx++, ++git_x){
-    
-    SlicingIndex gi_x = *git_x ;
-    int group_x = gi_x[0];
-    
-    GroupedDataFrame::group_iterator git_y = y.group_begin() ;
-    for( int ny=0; ny<ng_y; ny++, ++git_y) {
-      
-      SlicingIndex gi_y = *git_y ;
-      int group_y = gi_y[0];
 
-      if( chrom_x[group_x] == chrom_y[group_y] ) {
-        
-        intervalVector vx = makeIntervalVector(data_x, gi_x) ;
-        intervalVector vy = makeIntervalVector(data_y, gi_y) ;
-       
-        intersect_group(vx, vy, indices_x, indices_y, overlap_sizes) ; 
-      }
-    } 
-  }
+  // set up interval trees for each chromosome and apply intersect_group
+  PairedGroupApply(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes)); 
   
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(data_y, names(data_y)).subset(indices_y, "data.frame");

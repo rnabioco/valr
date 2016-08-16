@@ -13,23 +13,26 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   DataFrame df_x = gdf_x.data() ;
   DataFrame df_y = gdf_y.data() ; 
   
-  CharacterVector chroms = df_x["chrom"] ;
+  CharacterVector chroms_x = df_x["chrom"] ;
+  CharacterVector chroms_y = df_y["chrom"] ;
   
   GroupedDataFrame::group_iterator git_x = gdf_x.group_begin() ;
   
   for(int nx=0; nx<ng_x; nx++, ++git_x) {
     
     SlicingIndex indices_x = *git_x ; 
-    auto group_x = indices_x.group() ;
+    std::string chrom_x = as<std::string>(chroms_x[indices_x[0]]);
+    // keep track of if x chrom is present in y
+    bool chrom_x_seen(false);
     
     GroupedDataFrame::group_iterator git_y = gdf_y.group_begin() ;
     for(int ny=0; ny<ng_y; ny++, ++git_y) {
   
       SlicingIndex indices_y = *git_y ; 
-      auto group_y = indices_y.group() ;
+      std::string chrom_y = as<std::string>(chroms_y[indices_y[0]]);
       
-      if ( group_x == group_y ) {
-
+      if( chrom_x == chrom_y ) {
+        chrom_x_seen = true ;
   	    icl_interval_set_t interval_set_x = makeIclIntervalSet(df_x, indices_x) ; 
   	    icl_interval_set_t interval_set_y = makeIclIntervalSet(df_y, indices_y) ;
   	  
@@ -37,22 +40,31 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   	    icl_interval_set_t interval_sub =  interval_set_x - interval_set_y ;
   	    
   	    if (interval_sub.empty()) continue ;
-  	   
-  	    // get chrom name based on first index in indices_x
-  	    // XXX it would be a lot nicer to fectch this from the current data 
-  	    // in indices_y via symbol or label but that doesn't seem to work.
-  	    std::string chrom = as<std::string>(chroms[indices_x[0]]) ;
   	    
         icl_interval_set_t::iterator it ;
         for( it = interval_sub.begin(); it != interval_sub.end(); ++it) {
           
-          chrom_out.push_back(chrom) ;
+          chrom_out.push_back(chrom_x) ;
           starts_out.push_back(it->lower()) ;
           ends_out.push_back(it->upper()) ;
         }
         
       }
     }
+    // return x intervals if x chromosome not found in y
+    if (chrom_x_seen) {
+      continue;
+      }
+    else {
+      DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
+      std::vector<std::string> x_chr = subset_x["chrom"] ;
+      std::vector<int> x_str = subset_x["start"] ;
+      std::vector<int> x_end = subset_x["end"] ;
+      
+      chrom_out.insert(chrom_out.end(), x_chr.begin(), x_chr.end());
+      starts_out.insert(starts_out.end(), x_str.begin(), x_str.end());
+      ends_out.insert(ends_out.end(), x_end.begin(), x_end.end());
+      }
 	}
   
   return DataFrame::create( Named("chrom") = chrom_out,
