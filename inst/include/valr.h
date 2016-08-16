@@ -5,11 +5,21 @@
 #include <dplyr.h>
 #include "IntervalTree.h"
 #include <functional>
+#include <random>
+#include <boost/icl/interval_set.hpp>
+#include <boost/icl/discrete_interval.hpp>
+#include <boost/icl/right_open_interval.hpp>
+
 //[[Rcpp::depends(dplyr)]]
 //[[Rcpp::plugins(cpp11)]]
 
 using namespace Rcpp ;
 using namespace dplyr ;
+using namespace boost::icl ;
+
+typedef std::mt19937                           ENG ;
+typedef std::uniform_int_distribution<int>     UDIST ;
+typedef std::piecewise_constant_distribution<> PDIST ;
 
 typedef std::unordered_map<std::string, int> genome_map_t ;
 extern genome_map_t makeChromSizes(DataFrame genome) ;
@@ -63,12 +73,6 @@ void PairedGroupApply( const GroupedDataFrame& x,
 }
 
 // boost icl
-#include <boost/icl/interval_set.hpp>
-#include <boost/icl/discrete_interval.hpp>
-#include <boost/icl/right_open_interval.hpp>
-
-using namespace boost::icl ;
-
 typedef discrete_interval<int>   icl_interval_t ;
 typedef interval_set<int>        icl_interval_set_t ;
 

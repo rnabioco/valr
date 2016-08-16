@@ -73,6 +73,21 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// shuffle_impl
+DataFrame shuffle_impl(DataFrame df, DataFrame incl, DataFrame excl, DataFrame genome, int max_tries);
+RcppExport SEXP valr_shuffle_impl(SEXP dfSEXP, SEXP inclSEXP, SEXP exclSEXP, SEXP genomeSEXP, SEXP max_triesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type incl(inclSEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type excl(exclSEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
+    Rcpp::traits::input_parameter< int >::type max_tries(max_triesSEXP);
+    __result = Rcpp::wrap(shuffle_impl(df, incl, excl, genome, max_tries));
+    return __result;
+END_RCPP
+}
 // subtract_impl
 DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y);
 RcppExport SEXP valr_subtract_impl(SEXP gdf_xSEXP, SEXP gdf_ySEXP) {

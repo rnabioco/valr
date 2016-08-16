@@ -21,6 +21,10 @@ random_impl <- function(genome, length, n, seed = 0L) {
     .Call('valr_random_impl', PACKAGE = 'valr', genome, length, n, seed)
 }
 
+shuffle_impl <- function(df, incl, excl, genome, max_tries) {
+    .Call('valr_shuffle_impl', PACKAGE = 'valr', df, incl, excl, genome, max_tries)
+}
+
 subtract_impl <- function(gdf_x, gdf_y) {
     .Call('valr_subtract_impl', PACKAGE = 'valr', gdf_x, gdf_y)
 }

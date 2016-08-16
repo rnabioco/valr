@@ -1,11 +1,5 @@
 #include "valr.h"
 
-#include <random>
-
-typedef std::mt19937                           ENG ;
-typedef std::uniform_int_distribution<int>     UDIST ;
-typedef std::piecewise_constant_distribution<> PDIST ;
-
 // [[Rcpp::export]]
 DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
  
