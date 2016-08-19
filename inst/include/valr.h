@@ -18,7 +18,6 @@ typedef Interval<int>                interval_t ;
 typedef std::vector< interval_t >    intervalVector ;
 typedef IntervalTree<int>            intervalTree ;
 
-extern int intervalOverlap(const interval_t& a, const interval_t& b) ;
 extern intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) ;
 
 // template function to generate matched chromosome

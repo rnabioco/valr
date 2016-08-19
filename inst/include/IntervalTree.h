@@ -39,6 +39,11 @@ template <class T, typename K>
 }
 
 template <class T, typename K = std::size_t>
+K intervalOverlap (const Interval<T,K>& a, const Interval<T,K>& b) {
+    return std::min(a.stop, b.stop) - std::max(a.start, b.start) ;
+}
+
+template <class T, typename K = std::size_t>
 class IntervalStartSorter {
 public:
     bool operator() (const Interval<T,K>& a, const Interval<T,K>& b) {
