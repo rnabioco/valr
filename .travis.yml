@@ -6,12 +6,12 @@ cache: packages
 
 # based on: https://github.com/wesm/feather/issues/154
 matrix:
+  r:
+    - oldrel
+    - release
+    - devel
   include:
     - os: linux
-      r:
-        - oldrel
-        - release
-        - devel
       compiler: gcc-6
       addons:
         apt:
@@ -26,10 +26,6 @@ matrix:
         CXX1XSTD=-std=c++11
      
     - os: linux
-      r:
-        - oldrel
-        - release
-        - devel
       compiler: clang-3.7
       addons:
         apt:
@@ -44,10 +40,6 @@ matrix:
         CXX1X=clang++-3.7
         CXX1XSTD=-std=c++11
     - os: osx
-      r:
-        - oldrel
-        - release
-        - devel
       compiler: clang
 
 after_success:
