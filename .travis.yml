@@ -3,6 +3,10 @@ sudo: required
 language: r
 warnings_are_errors: false
 cache: packages
+r:
+  - oldrel
+  - release
+  - devel
 
 # based on: https://github.com/wesm/feather/issues/154
 matrix:
