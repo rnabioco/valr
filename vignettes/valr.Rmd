@@ -464,7 +464,7 @@ This data was taken Maurano et al. Systematic Localization of Common Disease-Ass
 
 We first need to read the data into R studio as a list. 
 
-```{r}
+```{r jaccard files}
 file_names <- list(
   'fBrain-DS14718.hotspot.twopass.fdr0.05.merge.bed',
   'fBrain-DS16302.hotspot.twopass.fdr0.05.merge.bed',
@@ -494,7 +494,7 @@ DNase_files <- lapply(file_names, function(x) {
 
 We can then use the following function to generate a 20x20 table of jaccard similarities.
 
-```{r}
+```{r jaccard function}
 jaccard_func <- function(list_in) {
   
   output <- lapply(list_in, function(x) {
@@ -521,7 +521,7 @@ jaccard_table <- jaccard_func(DNase_files)
 
 This next part will simplify our original list of file names to generate labels for the table.
 
-```{r}
+```{r jaccard names}
 col_names <- lapply(file_names, function(x) str_split(x, '\\.', 2)[[1]][[1]])
 colnames(jaccard_table) <- col_names
 rownames(jaccard_table) <- col_names
@@ -529,7 +529,7 @@ rownames(jaccard_table) <- col_names
 
 The following code will create a plot for the princible component analysis. This requires that you have installed `ggplot2` and `RColorBrewer` by running `install.packages('ggplot2')` and `install.packages('RColorBrewer')`.
 
-```{r}
+```{r jaccard PCA}
 blues <- colorRampPalette(c('dark blue', 'light blue'))
 reds <- colorRampPalette(c('pink', 'dark red'))
 
@@ -548,7 +548,7 @@ ggplot(plot_data, aes(pca_scores_1, pca_scores_2, color = unlist(pca_labels))) +
 
 The data can also be visualized as a heat map. This requires the `gplots` package, which can be installed by running `install.packages('gplots')`.
 
-```{r}
+```{r jaccard heatmap}
 heatmap.2(as.matrix(jaccard_table), 
           col = brewer.pal(9,"Blues"), 
           #margins = c(14, 14), 
