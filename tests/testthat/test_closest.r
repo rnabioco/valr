@@ -94,7 +94,7 @@ test_that("check that first right interval at index 0 is not lost", {
 }
 )
 
-test_that("check that strand overlap works", {
+test_that("check that strand closest works", {
   x <- tibble::frame_data(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10,	"+")
@@ -107,4 +107,67 @@ test_that("check that strand overlap works", {
   expect_equal(nrow(res), 0)
 }
 )
+
+test_that("check that reciprocal strand closest works", {
+  x <- tibble::frame_data(
+    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+    "chr1", 100, 200, "a", 10,	"+")
   
+  y <- tibble::frame_data(
+    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+    "chr1", 80, 90, "b", 1,	"-")
+  
+  res <- bed_closest(x, y, strand_opp = TRUE)
+  expect_equal(nrow(res), 1)
+}
+)
+
+test_that("check that stranded distance reporting works", {
+  x <- tibble::frame_data(
+    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+    "chr1", 100, 200, "a", 10,	"+",
+    "chr1", 100, 200, "a", 10,	"-"
+    )
+  
+  y <- tibble::frame_data(
+    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+    "chr1", 310, 320, "b", 1,	"-")
+  
+  res <- bed_closest(x, y, distance_type = "strand")
+  expect_true(res$.distance[1] > 0 &&  res$.distance[2] < 0)
+}
+)
+
+test_that("check that abs distance reporting works", {
+  x <- tibble::frame_data(
+    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+    "chr1", 100, 200, "a", 10,	"+",
+    "chr1", 350, 400, "a", 10,	"+"
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+    "chr1", 310, 320, "b", 1,	"+")
+  
+  res <- bed_closest(x, y, distance_type = "abs")
+  expect_true(res$.distance[1] > 0 &&  res$.distance[2] > 0)
+}
+)
+
+test_that("overlapping intervals are removed (overlap = F)", {
+  x <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr1",	10,	20
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom,   ~start,    ~end,
+    "chr1", 9, 10,
+    "chr1", 19, 21,
+    "chr1",	20, 21
+  ) 
+  
+  res <- bed_closest(x, y, overlap = F)
+  expect_true(res[2, "start.y"] != 19)
+}
+)
