@@ -458,11 +458,11 @@ y <- bed_random(genome)
 bed_jaccard(x, y)
 ```
 
-`bed_jaccard` can also be used for the large-scale comparison of many datasets. As shown in the bedtools tutorial (http://quinlanlab.org/tutorials/bedtools/bedtools.html), we can measure the similarity of DNaseI hypersensitivity sites for 20 fetal tissue samples. 
+`bed_jaccard` can also be used for the large-scale comparison of many datasets. As shown in the [`BEDtools`][1] tutorial (http://quinlanlab.org/tutorials/bedtools/bedtools.html), we can measure the similarity of DNaseI hypersensitivity sites for 20 fetal tissue samples. 
 
-This data was taken Maurano et al. Systematic Localization of Common Disease-Associated Variation in Regulatory DNA. Science. 2012. Vol. 337 no. 6099 pp. 1190-1195. (www.sciencemag.org/content/337/6099/1190.short).
+This data was taken from Maurano et al. Systematic Localization of Common Disease-Associated Variation in Regulatory DNA. Science. 2012. Vol. 337 no. 6099 pp. 1190-1195. (www.sciencemag.org/content/337/6099/1190.short).
 
-We first need to read the data into R studio as a list. 
+We first need to read the data into RStudio as a list. 
 
 ```{r jaccard files}
 file_names <- list(
@@ -492,7 +492,7 @@ DNase_files <- lapply(file_names, function(x) {
 })
 ```
 
-We can then use the following function to generate a 20x20 table of jaccard similarities.
+We can then use the following function to generate a 20x20 table containing a Jaccard statistic for each of the 400 pairwise tests.
 
 ```{r jaccard function}
 jaccard_func <- function(list_in) {
@@ -527,7 +527,7 @@ colnames(jaccard_table) <- col_names
 rownames(jaccard_table) <- col_names
 ```
 
-The following code will create a plot for the princible component analysis. This requires that you have installed `ggplot2` and `RColorBrewer` by running `install.packages('ggplot2')` and `install.packages('RColorBrewer')`.
+The following code will create a plot for the principal component analysis. This requires that you have installed `ggplot2` and `RColorBrewer` by running `install.packages('ggplot2')` and `install.packages('RColorBrewer')`.
 
 ```{r jaccard PCA}
 blues <- colorRampPalette(c('dark blue', 'light blue'))
