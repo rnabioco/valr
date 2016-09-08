@@ -6,9 +6,11 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
   
   intervalTree tree_y(vy) ;
   intervalVector closest ; 
+  
   std::pair<int, intervalVector> min_dist_l, min_dist_r ;
   // initiatialize maximum left and right distances to minimize for closest
-  int max_end = std::max(vx.back().stop, vy.back().stop) ; 
+  int max_end = std::max(vx.back().stop, vy.back().stop) ;
+  // initialize interval type as placeholder for pair generation
   intervalVector closest_ivls ;
   
   intervalVector::const_iterator vx_it ;
@@ -22,15 +24,18 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
     for(ov_it = closest.begin(); ov_it != closest.end(); ++ov_it ) {
      
       auto overlap = intervalOverlap(*vx_it, *ov_it) ;
-  //    Rcout << vx_it->value << "= og ovl "  << std::endl ; 
-  //    Rcout << ov_it->value << " = closest " << std::endl ;
-    //  Rcout <<  overlap << " = overlap" << std::endl ;
+      
       if(overlap > 0) {
         indices_x.push_back(vx_it->value) ;
         indices_y.push_back(ov_it->value) ;
         overlap_sizes.push_back(overlap) ;
         distance_sizes.push_back(0);
         continue ;
+      } else if (ov_it->start > vx_it->stop) {
+        indices_x.push_back(vx_it->value) ;
+        indices_y.push_back(ov_it->value) ;
+        overlap_sizes.push_back(0) ;
+        distance_sizes.push_back(-overlap);
       } else {
         indices_x.push_back(vx_it->value) ;
         indices_y.push_back(ov_it->value) ;
@@ -136,14 +141,6 @@ y <- tibble::frame_data(
   "chr1", 550,    580,
   "chr2", 7000,   8500
 ) %>% group_by(chrom)
-
-genome <- tibble::frame_data(
-  ~chrom, ~size, 
-  "chr1", 1000
-
-)
-x_rand <- bed_random(genome, length = 50, n = 5) %>% bed_sort() %>% group_by(chrom)
-y_rand <- bed_random(genome, length = 100, n = 5) %>% bed_sort() %>% group_by(chrom)
 
 suffix_x <- '.x'
 suffix_y <- '.y'
