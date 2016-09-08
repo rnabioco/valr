@@ -38,6 +38,12 @@ template <class T, typename K>
     return out;
 }
 
+
+template <class T, typename K = int>
+K intervalOverlap (const Interval<T,K>& a, const Interval<T,K>& b) {
+    return std::min(a.stop, b.stop) - std::max(a.start, b.start) ;
+}
+
 template <class T, typename K = int>
 class IntervalStartSorter {
 public:

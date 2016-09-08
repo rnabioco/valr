@@ -33,7 +33,8 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
       
       auto idx = it->value ;
      
-      auto overlap = intervalOverlap(*it, last_interval) ;
+      // must be `int` type, not `auto`
+      int overlap = intervalOverlap(*it, last_interval) ;
       overlaps[idx] = overlap ;
       
       id = it->start ;

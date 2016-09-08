@@ -6,6 +6,10 @@ cache: packages
 
 # based on: https://github.com/wesm/feather/issues/154
 matrix:
+  r:
+    - oldrel
+    - release
+    - devel
   include:
     - os: linux
       compiler: gcc-6
@@ -20,6 +24,7 @@ matrix:
         cat <<EOF > ~/.R/Makevars
         CXX1X=g++-6
         CXX1XSTD=-std=c++11
+     
     - os: linux
       compiler: clang-3.7
       addons:
