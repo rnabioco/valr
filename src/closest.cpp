@@ -3,74 +3,50 @@
 void closest_grouped(intervalVector& vx, intervalVector& vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes, std::vector<int>& distance_sizes) {
-
+  
+  intervalTree tree_y(vy) ;
+  intervalVector closest ; 
+  
+  std::pair<int, intervalVector> min_dist_l, min_dist_r ;
+  // initiatialize maximum left and right distances to minimize for closest
+  int max_end = std::max(vx.back().stop, vy.back().stop) ;
+  // initialize interval type as placeholder for pair generation
+  intervalVector closest_ivls ;
+  
   intervalVector::const_iterator vx_it ;
   for(vx_it = vx.begin(); vx_it != vx.end(); ++vx_it ) {
-   
-    // storage for minimum distance and intervals 
-    int left_min, right_min = 0;
+
+    min_dist_l = std::make_pair(max_end, closest_ivls) ;
+    min_dist_r = std::make_pair(max_end, closest_ivls) ;
+    tree_y.findClosest(vx_it->start, vx_it->stop, closest, min_dist_l, min_dist_r) ;
     
-    interval_t ivl_left  = interval_t(0,0,0);
-    interval_t ivl_right = interval_t(0,0,0);
-    int left_overlap, right_overlap = 0 ;
-    
-    intervalVector::const_iterator vy_it ;
-    for(vy_it = vy.begin(); vy_it != vy.end(); ++vy_it ) {
+    intervalVector::const_iterator ov_it ;
+    for(ov_it = closest.begin(); ov_it != closest.end(); ++ov_it ) {
      
-      auto overlap = intervalOverlap(*vx_it, *vy_it) ;
+      auto overlap = intervalOverlap(*vx_it, *ov_it) ;
       
-      // store overlapping 
       if(overlap > 0) {
         indices_x.push_back(vx_it->value) ;
-        indices_y.push_back(vy_it->value) ;
+        indices_y.push_back(ov_it->value) ;
         overlap_sizes.push_back(overlap) ;
         distance_sizes.push_back(0);
         continue ;
+      } else if (ov_it->start > vx_it->stop) {
+        indices_x.push_back(vx_it->value) ;
+        indices_y.push_back(ov_it->value) ;
+        overlap_sizes.push_back(0) ;
+        distance_sizes.push_back(-overlap);
+      } else {
+        indices_x.push_back(vx_it->value) ;
+        indices_y.push_back(ov_it->value) ;
+        overlap_sizes.push_back(0) ;
+        distance_sizes.push_back(overlap);
       }
-      
-      // left y intervals
-      if(vy_it->stop <= vx_it->start) {
-        if(ivl_left.value == 0 || vy_it->stop > ivl_left.stop) {
-          ivl_left = *vy_it ;
-          ivl_left.value += 1 ; // increment by 1 to avoid losing first left interval if in SlicingIndex 0
-          left_overlap = overlap; 
-        }
-      }
-      
-      // right y intervals
-      if(vy_it->start >= vx_it->stop) {
-                     
-        if(ivl_right.value != 0 && vy_it->start > ivl_right.stop) {
-          break ;
-        } else {
-          ivl_right = *vy_it ;
-          ivl_right.value += 1 ; // increment by 1 to avoid losing first left interval if in SlicingIndex 0
-          right_overlap = overlap; 
-        }
-      }
-      
-    } // for y
-    
-    // store left and right intervals 
-    // touching intervals stored as distance +/- 1 (Depending on left/right orientation)
-    if (ivl_left.value != 0) {
-      ivl_left.value -= 1; // decrease by 1 to return index to correct pos (see line 35)
-      indices_x.push_back(vx_it->value) ;
-      indices_y.push_back(ivl_left.value) ;
-      overlap_sizes.push_back(left_overlap) ;
-      distance_sizes.push_back(left_overlap - 1);
-    }
-    
-    if (ivl_right.value != 0) {
-      ivl_right.value -= 1; // decrease by 1 to return index to correct pos (see line 47)
-      indices_x.push_back(vx_it->value) ; 
-      indices_y.push_back(ivl_right.value) ;
-      overlap_sizes.push_back(right_overlap) ;
-      distance_sizes.push_back(-right_overlap + 1);
-    }
 
-  } // for x
-}   // void
+    }
+    closest.clear() ; 
+  } 
+}   
 
 // XXX the following is verbatim from intersect.cpp except for fxn call  
 // XXX and an additional column (distance) is added to output df. should be reused
