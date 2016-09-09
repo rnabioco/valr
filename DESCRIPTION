@@ -7,12 +7,12 @@ Authors@R: person("Jay", "Hesselberth", email = "jay.hesselberth@gmail.com",
 Maintainer: Jay Hesselberth <jay.hesselberth@gmail.com>
 Description: Read and manipulate genome intervals and signals. valr 
              provides functionality similar to BEDtools and bedops within R,
-             enabling facile interactive visualization of genome-scale data. 
+             enabling interactive analysis and visualization of genome-scale data. 
 License: MIT + file LICENSE
 Depends:
     R (>= 3.1.2)
 Imports:
-    dplyr,
+    dplyr (>= 0.5.0),
     lazyeval,
     purrr,
     readr,
@@ -21,7 +21,7 @@ Imports:
     tibble,
     tidyr,
 SystemRequirements: C++11
-LinkingTo: Rcpp (>= 0.12.3), BH, dplyr
+LinkingTo: Rcpp (>= 0.12.3), BH, dplyr (>= 0.5.0)
 Suggests:
     knitr,
     rmarkdown,
