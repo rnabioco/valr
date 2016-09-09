@@ -1,16 +1,22 @@
 #' Map signals over intervals.
 #' 
-#' Multiple mapping functions can be specified. Note that variables from the `x` and `y` tables
-#' should be used with `.x` and `.y` suffixes. Existing grouping variables are maintained.
+#' Multiple mapping functions can be specified.
+#' 
+#' Variables from the `x` and `y` tables should be used with `.x` and `.y`
+#' suffixes.
+#' 
+#' Existing grouping variables are maintained in the output, but have `.x` or 
+#' `.y` suffixes`.
 #' 
 #' @param x tbl of intervals
 #' @param y tbl of signals
 #' @param ... name-value pairs of summary functions like \code{\link{min}()}, 
-#'   \code{\link{count}()}, \code{\link{concat}()}. 
+#'   \code{\link{count}()}, \code{\link{concat}()}.
 #'   
 #' @return \code{data_frame}
-#' 
-#' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
+#'   
+#' @seealso 
+#' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #' 
 #' @note Column names have \code{.x} and \code{.y} suffixes.
 #'   
@@ -63,6 +69,9 @@ bed_map <- function(x, y, ...) {
   res <- dplyr::group_by_(res, .dots = c(groups_map, groups_x, groups_y))
   
   res <- dplyr::summarize_(res, .dots = lazyeval::lazy_dots(...))
+ 
+  # reset to original groups 
+  res <- dplyr::group_by_(res, .dots = c(groups_x, groups_y))
  
   res 
 }
