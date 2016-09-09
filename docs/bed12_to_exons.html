@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>bed12_to_exons. valr 0.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">valr 0.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Convert BED12 to individual exons in BED6.</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='bed12_to_exons.html'>bed12_to_exons</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd>tbl in BED12 format</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>After conversion to BED6 format, the <code>score</code> column contains the exon 
+number, with respect to strand (i.e., exon 1 for `-` strand genes will have 
+larger start and end coordinates).</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="symbol">bed12_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'mm9.bed12.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
+<span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='read_bed.html'>read_bed12</a></span><span class="keyword">(</span><span class="symbol">bed12_path</span><span class="keyword">)</span>
+<span class="symbol">y</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='bed12_to_exons.html'>bed12_to_exons</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span>
+
+<span class="comment"># first exons</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span><span class="keyword">(</span><span class="symbol">y</span><span class="keyword">,</span> <span class="symbol">score</span> == <span class="number">1</span><span class="keyword">)</span></div>
+<div class='output'># A tibble: 3 × 6
+  chrom   start     end      name score strand
+  &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;
+1  chr1 4797973 4798063  testgene     1      +
+2 chr10 4848118 4848584 diffchrom     1      +
+3 chr20 5152185 5152630 negstrand     1      -
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>bed12_to_exons</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
