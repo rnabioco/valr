@@ -467,13 +467,12 @@ bed_jaccard(x, y)
 ```{r benchmarks}
 # 1e6 random 1 kb intervals from hg19
 x <- bed_random(genome)
-small.x <- bed_random(genome, n = 100)
 y <- bed_random(genome)
 
 library(microbenchmark)
 microbenchmark(
   bed_random(genome),
-  bed_closest(small.x, y),
+  bed_closest(x, y),
   bed_intersect(x, y),
   bed_merge(x),
   bed_subtract(x, y),

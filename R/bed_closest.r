@@ -75,9 +75,9 @@ bed_closest <- function(x, y, overlap = TRUE,
   # modify distance output based on user input 
   # genome type reporting is default output from closest_impl())
   if (distance_type == "strand" &&  "strand" %in% colnames(x)) {
-    res$.distance <- ifelse(strand.x == "+", 
-                            .distance,
-                            -(.distance))
+    res$.distance <- ifelse(res$strand.x == "+", 
+                            res$.distance,
+                            -(res$.distance))
   } else if (distance_type == "abs") {
     res$.distance <- abs(res$.distance)
   } 
