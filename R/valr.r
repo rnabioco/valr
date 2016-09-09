@@ -33,5 +33,4 @@
 #' @importFrom stats phyper
 #' @importFrom utils head tail
 #' @import dplyr
-#' @exportPattern "^[[:alpha:]]+"
 NULL
