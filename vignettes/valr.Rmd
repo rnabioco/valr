@@ -55,7 +55,7 @@ devtools::install_github('jayhesselberth/valr')
 
 ## Comparison to other tools
 
-**Why another tool set for interval manipulations?** We already have [BEDtools][1], [bedops][8], [pybedtools][7], [GenomeRanges][9], [bedr][11] and [IRanges][12]. 
+**Why another tool set for interval manipulations?** We already have [BEDtools][1], [bedops][8], [pybedtools][7], [GenomicRanges][9], [bedr][11] and [IRanges][12]. 
 
 We were motivated to develop a toolset that:
 
