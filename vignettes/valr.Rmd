@@ -33,6 +33,10 @@ knitr::opts_chunk$set(
 ```{r init, echo = FALSE, message = FALSE}
 library(valr)
 library(dplyr)
+library(ggplot2)
+library(RColorBrewer)
+library(gplots)
+library(stringr)
 ```
 
 # Overview 
@@ -41,7 +45,7 @@ library(dplyr)
 
 We provide several introductions to `valr`:
 
-  - A comprehensive [`vignette`][] covering the core methods.
+  - A comprehensive `vignette` covering the core methods.
   - A tutorial that demonstrates how to use `valr` in "real-world" applications.
   - A `shiny` application that demonstrates interactive analysis of genome-scale data sets.
 
@@ -452,6 +456,105 @@ x <- bed_random(genome)
 y <- bed_random(genome)
 
 bed_jaccard(x, y)
+```
+
+`bed_jaccard` can also be used for the large-scale comparison of many datasets. As shown in the [`BEDtools`][1] tutorial (http://quinlanlab.org/tutorials/bedtools/bedtools.html), we can measure the similarity of DNaseI hypersensitivity sites for 20 fetal tissue samples. 
+
+This data was taken from Maurano et al. Systematic Localization of Common Disease-Associated Variation in Regulatory DNA. Science. 2012. Vol. 337 no. 6099 pp. 1190-1195. (www.sciencemag.org/content/337/6099/1190.short).
+
+We first need to read the data into RStudio as a list. 
+
+```{r jaccard files}
+file_names <- list(
+  'fBrain-DS14718.hotspot.twopass.fdr0.05.merge.bed',
+  'fBrain-DS16302.hotspot.twopass.fdr0.05.merge.bed',
+  'fHeart-DS15643.hotspot.twopass.fdr0.05.merge.bed',
+  'fHeart-DS15839.hotspot.twopass.fdr0.05.merge.bed',
+  'fHeart-DS16621.hotspot.twopass.fdr0.05.merge.bed',
+  'fIntestine_Sm-DS16559.hotspot.twopass.fdr0.05.merge.bed',
+  'fIntestine_Sm-DS16712.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fIntestine_Sm-DS16822.hotspot.twopass.fdr0.05.merge.bed',
+  'fIntestine_Sm-DS17808.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fIntestine_Sm-DS18495.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fKidney_renal_cortex_L-DS17550.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fLung_L-DS17154.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fLung_L-DS18421.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fLung_R-DS15632.hotspot.twopass.fdr0.05.merge.bed',
+  'fMuscle_arm-DS19053.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fMuscle_back-DS18454.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fMuscle_leg-DS19115.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fMuscle_leg-DS19158.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fSkin_fibro_bicep_R-DS19745.hg19.hotspot.twopass.fdr0.05.merge.bed',
+  'fStomach-DS17659.hg19.hotspot.twopass.fdr0.05.merge.bed')
+
+DNase_files <- lapply(file_names, function(x) {
+  read_bed(n_fields = 4, system.file('extdata', x, package = 'valr'))
+})
+```
+
+We can then use the following function to generate a 20x20 table containing a Jaccard statistic for each of the 400 pairwise tests.
+
+```{r jaccard function}
+jaccard_func <- function(list_in) {
+  
+  output <- lapply(list_in, function(x) {
+    
+    res <- lapply(list_in, function(y) {
+      jac <- bed_jaccard(x, y)
+      select(jac, jaccard)
+    })
+    
+    vec <- 1:length(res)
+    for (i in 1:length(res)) vec[i] <- unlist(res[i])
+    vec
+  })
+
+  jac_table <- matrix(nrow = length(output), ncol = length(output))
+
+  for (i in 1:length(output)) jac_table[,i] <- unlist(output[i])
+
+  data.frame(jac_table)
+}
+
+jaccard_table <- jaccard_func(DNase_files)
+```
+
+This next part will simplify our original list of file names to generate labels for the table.
+
+```{r jaccard names}
+col_names <- lapply(file_names, function(x) str_split(x, '\\.', 2)[[1]][[1]])
+colnames(jaccard_table) <- col_names
+rownames(jaccard_table) <- col_names
+```
+
+The following code will create a plot for the principal component analysis. This requires that you have installed `ggplot2` and `RColorBrewer` by running `install.packages('ggplot2')` and `install.packages('RColorBrewer')`.
+
+```{r jaccard PCA}
+blues <- colorRampPalette(c('dark blue', 'light blue'))
+reds <- colorRampPalette(c('pink', 'dark red'))
+
+pca_labels <- lapply(file_names, function(x) str_split(x, '_', 2)[[1]][[1]])
+pca_labels <- lapply(pca_labels, function(x) str_split(x, '-', 2)[[1]][[1]]) 
+
+pca <- princomp(jaccard_table)
+
+plot_data <- data.frame(pca$scores[,1], pca$scores[,2])
+colnames(plot_data) <- c('pca_scores_1', 'pca_scores_2')
+
+ggplot(plot_data, aes(pca_scores_1, pca_scores_2, color = unlist(pca_labels))) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c(blues(4), reds(4)))
+```
+
+The data can also be visualized as a heat map. This requires the `gplots` package, which can be installed by running `install.packages('gplots')`.
+
+```{r jaccard heatmap}
+heatmap.2(as.matrix(jaccard_table), 
+          col = brewer.pal(9,"Blues"), 
+          #margins = c(14, 14), 
+          density.info = "none", 
+          #lhei = c(2, 8), 
+          trace = "none")
 ```
 
 ## Projection
