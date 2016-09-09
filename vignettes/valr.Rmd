@@ -403,7 +403,7 @@ x %>%
 
   - `bed_fisher()`: measure overlap significance of two sets of intervals.
   - `bed_absdist()`: XXX
-  - `bed_reldist()`: XXX
+  - `bed_reldist()`: quantify relative distances between query intervals and closest reference intervals
   - `bed_jaccard()`: quantify extent of overlap between two sets of intervals
   - `bed_projection()`: XXX
 
@@ -430,9 +430,9 @@ bed_fisher(x, y, genome)
 
 ## Relative distance
 
-`bed_reldist()` tests whether two sets of (possibly non-overlapping) intervals are closer two each other in aggregate than a random set.
+`bed_reldist()` computes the relative distance between a query interval and the two closest reference intervals. The relative distance can range between `[0,0.5]`. If the overall distribution of distances is biased toward zero, then the query and reference intervals tend to be closer in space ([17]). By default a summary with the frequency of each relative distance is reported.  
 
-```{r reldist, eval = FALSE}
+```{r reldist, eval = TRUE}
 x <- bed_random(genome)
 y <- bed_random(genome)
 
