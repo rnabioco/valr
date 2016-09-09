@@ -28,6 +28,10 @@ last(.data)
 
 \item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
 \code{\link{count}()}, \code{\link{concat}()}.}
+
+\item{.data}{data}
+
+\item{sep}{separator character}
 }
 \value{
 \code{data_frame}
