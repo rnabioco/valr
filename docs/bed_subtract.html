@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>bed_subtract. valr 0.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">valr 0.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Subtract intervals.</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='bed_subtract.html'>bed_subtract</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">,</span> <span class="argument">any</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd>tbl of intervals</dd>
+      <dt>y</dt>
+      <dd>tbl of intervals</dd>
+      <dt>any</dt>
+      <dd>remove any <code>x</code> intervals that overlap <code>y</code></dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Subtract <code>y</code> intervals from <code>x</code> intervals.</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>frame_data</a></span><span class="keyword">(</span>
+ <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">start</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">end</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">100</span><span class="keyword">,</span>    <span class="number">200</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">250</span><span class="keyword">,</span>    <span class="number">400</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">500</span><span class="keyword">,</span>    <span class="number">600</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">1000</span><span class="keyword">,</span>   <span class="number">1200</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">1300</span><span class="keyword">,</span>   <span class="number">1500</span>
+<span class="keyword">)</span>
+
+<span class="symbol">y</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>frame_data</a></span><span class="keyword">(</span>
+ <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">start</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">end</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">150</span><span class="keyword">,</span>    <span class="number">175</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">510</span><span class="keyword">,</span>    <span class="number">525</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">550</span><span class="keyword">,</span>    <span class="number">575</span><span class="keyword">,</span>
+ <span class="comment"># dangling left</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">900</span><span class="keyword">,</span>    <span class="number">1050</span><span class="keyword">,</span>
+ <span class="comment"># dangling right</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">1150</span><span class="keyword">,</span>   <span class="number">1250</span><span class="keyword">,</span>
+ <span class="comment"># full containment</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">1299</span><span class="keyword">,</span>   <span class="number">1501</span>
+<span class="keyword">)</span>
+
+<span class="functioncall"><a href='bed_subtract.html'>bed_subtract</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">)</span></div>
+<div class='output'># A tibble: 7 × 3
+   chrom start   end
+  &lt;fctr&gt; &lt;int&gt; &lt;int&gt;
+1   chr1   100   150
+2   chr1   175   200
+3   chr1   250   400
+4   chr1   500   510
+5   chr1   525   550
+6   chr1   575   600
+7   chr1  1050  1150
+</div>
+<div class='input'><span class="functioncall"><a href='bed_subtract.html'>bed_subtract</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">,</span> <span class="argument">any</span> <span class="argument">=</span> <span class="number">TRUE</span><span class="keyword">)</span></div>
+<div class='output'>Source: local data frame [1 x 3]
+Groups: chrom [1]
+
+  chrom start   end
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  chr1   250   400
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>bed_subtract</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html'>http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html</a></p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

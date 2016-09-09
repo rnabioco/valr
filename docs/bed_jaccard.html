@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>bed_jaccard. valr 0.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">valr 0.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Calculate jaccard statistics on two sets of intervals.</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='bed_jaccard.html'>bed_jaccard</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd>tbl of intervals</dd>
+      <dt>y</dt>
+      <dd>tbl of intervals</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+<code>data_frame</code> with the following columns:
+ <ul>
+<li><code>len_i</code> length of the intersection
+   </li>
+<li><code>len_u</code> length of the union
+   </li>
+<li><code>jaccard</code> jaccard statistic
+   </li>
+<li><code>n_int</code> number of intersecting intervals between x and y
+ </li>
+</ul></p>
+
+      <p></dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Calculate jaccard statistics on two sets of intervals.</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>frame_data</a></span><span class="keyword">(</span>
+  <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">start</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">end</span><span class="keyword">,</span>
+  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">10</span><span class="keyword">,</span>     <span class="number">20</span><span class="keyword">,</span>
+  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">30</span><span class="keyword">,</span>     <span class="number">40</span>
+<span class="keyword">)</span>
+
+<span class="symbol">y</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>frame_data</a></span><span class="keyword">(</span>
+  <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">start</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">end</span><span class="keyword">,</span>
+  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">15</span><span class="keyword">,</span>     <span class="number">20</span>
+<span class="keyword">)</span>
+
+<span class="functioncall"><a href='bed_jaccard.html'>bed_jaccard</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">)</span></div>
+<div class='output'># A tibble: 1 × 4
+  len_i len_u jaccard     n
+  &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+1     5    25    0.25     1
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>bed_jaccard</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html'>http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html</a></p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

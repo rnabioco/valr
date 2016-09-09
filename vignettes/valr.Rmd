@@ -37,11 +37,11 @@ library(dplyr)
 
 # Overview 
 
-`valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite. `valr` natively enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][5]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][3]. 
+`valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][5]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][3]. 
 
 We provide several introductions to `valr`:
 
-  - A comprehensive [`vignette`][] covering the core methods.
+  - This comprehensive `vignette` covering the core methods.
   - A tutorial that demonstrates how to use `valr` in "real-world" applications.
   - A `shiny` application that demonstrates interactive analysis of genome-scale data sets.
 
@@ -50,7 +50,7 @@ We provide several introductions to `valr`:
 `valr` can be installed from github, and will be eventually deposited in CRAN.
 
 ```r
-> devtools::install_github('jayhesselberth/valr')
+devtools::install_github('jayhesselberth/valr')
 ```
 
 ## Comparison to other tools
@@ -62,13 +62,13 @@ We were motivated to develop a toolset that:
   - Combines analysis and visualization in RStudio.
   - Can be used to generate reports with Rmarkdown.
   - Is highly extensible. New tools are quickly implemented on the R side.
-  - Leverages the "modern R" syntax, using `dplyr` and `%>%` for pipes.
+  - Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`%>%`).
   - Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
   - Facilitates interactive visulaizations with [`shiny`][10].
 
 We anticipate `valr` will mainly be used for analysis of pre-processed data in BED, bedGraph and VCF formats. Most users will have processed their aligned reads from BAM format to bedGraph, so we do not foresee supporting BAM directly. We would entertain requests for GTF / GFF support if there is interest, as `tidyr` makes it easy to convert these to BED12.
 
-At this point you might be expecting [plots][13] of speed / memory usage versus interval number. Certain algorithms in `valr` were implemented in `Rcpp` to be fast (including [intersect, merge, subtract, closest][14]), enabling fluid interactive analysis. See the [benchmarks](#benchmarks) section for demonstrations.
+Certain algorithms in `valr` were implemented in `Rcpp` (including [intersect, merge, subtract, closest][14]) to enable fluid interactive analysis. See the [benchmarks](#benchmarks) section for details.
 
 ## Non-standard evaluation
 
@@ -103,7 +103,9 @@ The methods include:
   - `read_bed12()`: read a BED12 file
   - `read_bedgraph()`: read a bedGraph file
   - `read_genome()`: read a UCSC "chrom size" file
-  - `read_vcf()`: `XXX` not implemented yet
+  - `read_vcf()`: read the Variant Call Format
+  - `read_narrowpeak()`: read narrowPeak files
+  - `read_broadpeak()`: read broadPeak files
 
 ## BED files 
 
@@ -169,11 +171,11 @@ is_sorted(y)
 
 ### Cluster 
 
-`bed_cluster` identifies clustered intervals and assigns them a unique `.id`.
+`bed_cluster` identifies clustered intervals based on a distance specification and assigns them a unique `.id`.
 
 ```{r cluster}
 x <- bed_random(genome)
-y <- bed_cluster(x)
+y <- bed_cluster(x, max_dist = 1000)
 y
 ```
 
@@ -192,25 +194,19 @@ bed_complement(x, genome)
 `bed_merge` identifies overlapping intervals and reports new merged ones. `is_merged` asks whether a tbl is already merged. Values from merged intervals can be reported using name / value pairs.
 
 ```{r merge}
-# 1e6 random intervals
 n <- 1e6
 x <- bed_random(genome, n = n)
 is_merged(x)
-x
 
 # add some signal
 x <- x %>% mutate(signal = runif(n))
-
-y <- bed_merge(x)
-is_merged(y)
-y
 
 bed_merge(x, maxs = max(signal))
 ```
 
 ### Flank
 
-`bed_flank` creates new intervals that flank - but do not contain - the input intervals.
+`bed_flank` creates new intervals that flank -- but do not contain -- the input intervals.
 
 ```{r flank, eval = FALSE}
 bed_flank(x, genome, both = 100)
@@ -260,17 +256,17 @@ bed_intersect(x, y, invert = TRUE)
 One can achieve behaviour similar to BEDtools by combining `bed_intersect` with `dplyr` tools.
 
 ```{r intersect_opts}
-# A records with overlaps (i.e., `-wa`)
+# `x` records with overlaps (i.e., `-wa`)
 bed_intersect(x, y) %>% select(chrom, start = start.x, end = end.x)
 
-# B records with overlaps (i.e., `-wb`)
+# `y` records with overlaps (i.e., `-wb`)
 bed_intersect(x, y) %>% select(chrom, start = start.y, end = end.y)
 
-# Unique records in A (i.e., `-u`)
+# Unique records in `x` (i.e., `-u`)
 bed_intersect(x, y) %>% select(chrom, start = start.x, end = end.x) %>% unique()
 
-# Count overlaps
-bed_intersect(x, y) %>% group_by(chrom, start.x, end.x) %>% summarize(count = n()) %>% ungroup()
+# Count `y` intervals that intersect each `x` interval
+bed_intersect(x, y) %>% group_by(chrom, start.x, end.x) %>% summarize(count = n())
 ```
 
 ### Map
@@ -375,14 +371,6 @@ all(x$end - x$start == y$end - y$start)
 
 ## Other
 
-### Calculating coverage
-
-Instead of implementing `coverage` directly, coverage calculations are done with the `summarize` tool in `dplyr`.
-
-```{r coverage, eval = FALSE}
-
-```
-
 ### Grouping related intervals
 
 The `group_by` operation from `dplyr` serves a similar purpose to BEDtools `groupby`, and can be combined with `dplyr::summarize` to calculate summary statistics from groups.
@@ -396,15 +384,28 @@ bed_intersect(x, y) %>%
   summarize(overlap.total = sum(.overlap))
 ```
 
+### Interval spacing
+
+Interval spacing is easily computed using `dplyr`. Overlapping intervals must first be merged. Spacing for the first interval of each chromosome is undefined.
+
+```{r spacing}
+x <- bed_random(genome)
+x <- bed_merge(x)
+
+x %>%
+  group_by(chrom) %>%
+  mutate(.spacing = start - lag(end))
+```
+
 # Interval Statistics {.tabset}
 
 `valr` provides several methods to assess statistical properties of interval sets including:
 
-  - `bed_fisher()`
-  - `bed_absdist()`
-  - `bed_reldist()`
-  - `bed_jaccard()`
-  - `bed_projection()`
+  - `bed_fisher()`: measure overlap significance of two sets of intervals.
+  - `bed_absdist()`: XXX
+  - `bed_reldist()`: XXX
+  - `bed_jaccard()`: quantify extent of overlap between two sets of intervals
+  - `bed_projection()`: XXX
 
 Several of these methods were described in the [Genometricorr][17] software package.
 
@@ -421,9 +422,9 @@ bed_fisher(x, y, genome)
 
 ## Absolute distance
 
-`bed_absdist()` - TBD
+`bed_absdist()` - XXX
 
-```{r absdist}
+```{r absdist, eval = FALSE}
 
 ```
 
@@ -444,8 +445,12 @@ bed_reldist(x, y)
 
 $$
 J(x,y) = \frac{\mid x \bigcap y \mid}
+              {\mid x \bigcup y \mid} 
+       = 
+         \frac{\mid x \bigcap y \mid}
               {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid}
 $$
+
 
 ```{r jaccard}
 x <- bed_random(genome)
@@ -458,14 +463,13 @@ bed_jaccard(x, y)
 
 `bed_projection()` TBD
 
-```{r projection}
-
+```{r projection, eval = FALSE}
 ```
 
 # Benchmarks
 
 ```{r benchmarks}
-# 1e6 random 1 kb intervals from hg19
+# two sets of 1e6 random 1 kb intervals from hg19
 x <- bed_random(genome)
 y <- bed_random(genome)
 
@@ -494,7 +498,7 @@ microbenchmark(
 [10]: http://shiny.rstudio.com/
 [11]: https://cran.r-project.org/web/packages/bedr/index.html
 [12]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
-[13]: http://bedtools.readthedocs.io/en/latest/#p %>% erformance
+[13]: http://bedtools.readthedocs.io/en/latest/#performance
 [14]: https://github.com/jayhesselberth/valr/tree/master/src
 [15]: https://rcppcore.github.io/RcppParallel/
 [16]: https://github.com/ekg/intervaltree/

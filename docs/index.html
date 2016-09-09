@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Home. valr 0.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">valr 0.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <div class="row">
+  <div class="span8">
+    <h1><code>valr</code>: Genome interval arithmetic in R</h1>
+
+<p>Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a>
+2016-09-08</p>
+
+<p><a href="https://travis-ci.org/jayhesselberth/valr"><img src="https://travis-ci.org/jayhesselberth/valr.svg?branch=master" alt="Build Status"/></a> <a href="https://codecov.io/github/jayhesselberth/valr?branch=master"><img src="https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg" alt="Coverage Status"/></a></p>
+
+<p><code>valr</code> provides methods to do interval manipulations <strong>within the R environment</strong>, enabling fast explorative analysis of genome-scale data. Checkout the <a href="http://rpubs.com/jayhesselberth/valr">vignette</a> for examples.</p>
+
+<h1>Installation</h1>
+
+<p><code>valr</code> can be installed from github:</p>
+
+<pre><code class="r">devtools::install_github(&#39;jayhesselberth/valr&#39;)
+</code></pre>
+
+<h1>Overview</h1>
+
+<p><code>valr</code> enables analysis of genome-scale data sets <strong>within R</strong>. Key parts are implemented in <code>Rcpp</code> for speed. Moreover, <code>valr</code> makes use of new R libraries like <code>dplyr</code> and the <code>magrittr</code> pipe operator (<code>%&gt;%</code>) for an expressive syntax that makes genome analysis fun. So a workflow like <a href="https://github.com/arq5x/bedtools-protocols/blob/master/bedtools.md#bp3-plot-transcription-factor-occupancy-surrounding-the-transcription-start-site">this</a> becomes:</p>
+
+<pre><code class="r">library(valr)
+library(dplyr)
+library(ggplot2)
+
+bedfile &lt;- system.file(&#39;extdata&#39;, &#39;genes.hg19.chr22.bed.gz&#39;, package = &#39;valr&#39;)
+bgfile  &lt;- system.file(&#39;extdata&#39;, &#39;hela.h3k4.chip.bg.gz&#39;, package = &#39;valr&#39;)
+genomefile &lt;- system.file(&#39;extdata&#39;, &#39;hg19.chrom.sizes.gz&#39;, package = &#39;valr&#39;)
+
+genes &lt;- read_bed(bedfile, n_fields = 6)
+genome &lt;- read_genome(genomefile)
+
+tss &lt;- genes %&gt;% filter(strand == &#39;+&#39;) %&gt;% mutate(end = start + 1)
+
+region_size &lt;- 1000
+win_size &lt;- 50
+
+x &lt;- tss %&gt;%
+  bed_slop(genome, both = region_size) %&gt;%
+  bed_makewindows(genome, win_size) %&gt;%
+  group_by(win_id)
+
+y &lt;- read_bedgraph(bgfile)
+
+res &lt;- bed_map(x, y, sums = sum(value.y)) %&gt;%
+  summarize(means = mean(sums), sds = sd(sums))
+
+x_labels &lt;- seq(-region_size, region_size, by = win_size * 5)
+x_breaks &lt;- seq(1, 41, by = 5)
+sd_limits &lt;- aes(ymax = means + sds, ymin = means - sds)
+
+ggplot(res, aes(x = win_id.x, y = means)) +
+  geom_point() + geom_pointrange(sd_limits) + 
+  scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
+  ggtitle(&#39;H3K4me3 ChIP signal near TSSs&#39;) +
+  xlab(&#39;Position\n(bp from TSS)&#39;) + ylab(&#39;Signal&#39;) +
+  theme_bw()
+</code></pre>
+
+<p><img src="README-tss_signal_example-1.png" style="display: block; margin: auto;" /></p>
+
+  </div>
+
+  <div class="span3 offset1 sidebar">
+        <h2>Authors</h2>
+    <ul>
+      <li><a href='mailto:jay.hesselberth@gmail.com'>Jay Hesselberth</a> [aut, cre]</li>
+    </ul>
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

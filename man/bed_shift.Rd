@@ -16,8 +16,6 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 \item{fraction}{define \code{size} as a fraction of interval}
 
 \item{trim}{adjust coordinates for out-of-bounds intervals}
-
-\item{strand}{logical indicating shift according to +/- in strand column}
 }
 \value{
 \code{data_frame}

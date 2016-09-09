@@ -1,7 +1,7 @@
 `valr`: Genome interval arithmetic in R
 ================
 Jay Hesselberth <jay.hesselberth@gmail.com>
-2016-08-16
+2016-09-08
 
 [![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
@@ -46,7 +46,6 @@ x <- tss %>%
 y <- read_bedgraph(bgfile)
 
 res <- bed_map(x, y, sums = sum(value.y)) %>%
-  group_by(win_id.x) %>%
   summarize(means = mean(sums), sds = sd(sums))
 
 x_labels <- seq(-region_size, region_size, by = win_size * 5)

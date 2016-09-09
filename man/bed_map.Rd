@@ -33,8 +33,14 @@ last(.data)
 \code{data_frame}
 }
 \description{
-Multiple mapping functions can be specified. Note that variables from the `x` and `y` tables
-should be used with `.x` and `.y` suffixes. Existing grouping variables are maintained.
+Multiple mapping functions can be specified.
+}
+\details{
+Variables from the `x` and `y` tables should be used with `.x` and `.y`
+suffixes.
+
+Existing grouping variables are maintained in the output, but have `.x` or 
+`.y` suffixes`.
 }
 \note{
 Column names have \code{.x} and \code{.y} suffixes.

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>read_genome. valr 0.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">valr 0.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>read genome files (i.e., UCSC &quot;chromSize&quot; files)</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='read_genome.html'>read_genome</a></span><span class="keyword">(</span><span class="symbol">filename</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='read_genome.html'>bound_intervals</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">genome</span><span class="keyword">,</span> <span class="argument">trim</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>filename</dt>
+      <dd>file containing chrom/contig names and sizes,
+one-pair-per-line, tab-delimited</dd>
+      <dt>x</dt>
+      <dd>a tbl of intervals</dd>
+      <dt>genome</dt>
+      <dd>a tbl of chrom sizes</dd>
+      <dt>trim</dt>
+      <dd>adjust coordinates for out-of-bounds intervals</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+<code>data_frame</code> with colnames <code>chrom</code> and <code>size</code>, sorted
+  by <code>size</code></p>
+
+      <p><code>data_frame</code>
+</dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Genome files contain chromosome name and size information. These sizes are 
+used by downstream functions to identify computed intervals that have ends
+outside the defined size.</p>
+
+      <p>Select intervals bounded by a genome.</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="symbol">genome</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'hg19.chrom.sizes.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
+<span class="functioncall"><a href='read_genome.html'>read_genome</a></span><span class="keyword">(</span><span class="symbol">genome</span><span class="keyword">)</span></div>
+<div class='output'># A tibble: 25 × 2
+   chrom      size
+   &lt;chr&gt;     &lt;int&gt;
+1   chr1 249250621
+2   chr2 243199373
+3   chr3 198022430
+4   chr4 191154276
+5   chr5 180915260
+6   chr6 171115067
+7   chr7 159138663
+8   chrX 155270560
+9   chr8 146364022
+10  chr9 141213431
+# ... with 15 more rows
+</div>
+<div class='input'><span class="functioncall"><a href='read_genome.html'>read_genome</a></span><span class="keyword">(</span><span class="string">'https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes'</span><span class="keyword">)</span></div>
+<div class='output'># A tibble: 93 × 2
+   chrom      size
+   &lt;chr&gt;     &lt;int&gt;
+1   chr1 249250621
+2   chr2 243199373
+3   chr3 198022430
+4   chr4 191154276
+5   chr5 180915260
+6   chr6 171115067
+7   chr7 159138663
+8   chrX 155270560
+9   chr8 146364022
+10  chr9 141213431
+# ... with 83 more rows
+</div>
+<div class='input'>
+<span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>frame_data</a></span><span class="keyword">(</span>
+ <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">start</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">end</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="keyword">-</span><span class="number">100</span><span class="keyword">,</span>   <span class="number">500</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">100</span><span class="keyword">,</span>    <span class="number">1e9</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">500</span><span class="keyword">,</span>    <span class="number">1000</span>
+<span class="keyword">)</span>
+
+<span class="symbol">genome</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='read_genome.html'>read_genome</a></span><span class="keyword">(</span><span class="string">'https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes'</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='read_genome.html'>bound_intervals</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">genome</span><span class="keyword">)</span></div>
+<div class='output'># A tibble: 1 × 3
+  chrom start   end
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  chr1   500  1000
+</div>
+<div class='input'><span class="functioncall"><a href='read_genome.html'>bound_intervals</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">genome</span><span class="keyword">,</span> <span class="argument">trim</span> <span class="argument">=</span> <span class="number">TRUE</span><span class="keyword">)</span></div>
+<div class='output'># A tibble: 3 × 3
+  chrom start       end
+  &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1  chr1     1       500
+2  chr1   100 249250621
+3  chr1   500      1000
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>bound_intervals</li><li>read_genome</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -55,7 +55,6 @@ x <- tss %>%
 y <- read_bedgraph(bgfile)
 
 res <- bed_map(x, y, sums = sum(value.y)) %>%
-  group_by(win_id.x) %>%
   summarize(means = mean(sums), sds = sd(sums))
 
 x_labels <- seq(-region_size, region_size, by = win_size * 5)
