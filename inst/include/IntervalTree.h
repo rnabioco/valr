@@ -275,9 +275,9 @@ public:
       right->findClosest(start, stop,  closest, min_dist_l, min_dist_r);
     }  
     
-    // handle edge case where remaing intervals 
-    // where stop < intervals.front().start
-    if (!intervals.empty()) {
+    // handle edge case where remaining intervals 
+    // are stop < intervals.front().start
+    if (!intervals.empty()  && (stop < intervals.front().start)) {
       for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
         const interval& interval = *i;
         if (stop < interval.start) {

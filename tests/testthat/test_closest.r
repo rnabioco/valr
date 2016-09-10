@@ -94,7 +94,7 @@ test_that("check that first right interval at index 0 is not lost", {
 }
 )
 
-test_that("check that strand closest works", {
+test_that("check that strand closest works (strand = TRUE)", {
   x <- tibble::frame_data(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10,	"+")
@@ -108,7 +108,7 @@ test_that("check that strand closest works", {
 }
 )
 
-test_that("check that reciprocal strand closest works", {
+test_that("check that reciprocal strand closest works (strand_opp = TRUE) ", {
   x <- tibble::frame_data(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10,	"+")
@@ -122,7 +122,7 @@ test_that("check that reciprocal strand closest works", {
 }
 )
 
-test_that("check that stranded distance reporting works", {
+test_that("check that stranded distance reporting works ( distance_type = 'strand') ", {
   x <- tibble::frame_data(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10,	"+",
@@ -138,7 +138,7 @@ test_that("check that stranded distance reporting works", {
 }
 )
 
-test_that("check that abs distance reporting works", {
+test_that("check that abs distance reporting works (distance_type = 'abs')", {
   x <- tibble::frame_data(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10,	"+",
@@ -171,3 +171,45 @@ test_that("overlapping intervals are removed (overlap = F)", {
   expect_true(res[2, "start.y"] != 19)
 }
 )
+
+test_that("duplicate intervals are not reported", {
+  x <- tibble::frame_data(
+    ~chrom, ~start, ~end,
+    "chr1", 100,    200
+    )
+  
+  y <- tibble::frame_data(
+    ~chrom, ~start, ~end,
+    "chr1", 100,    200,
+    "chr1", 150,    200,
+    "chr1", 550,    580,
+    "chr2", 7000,   8500
+    )
+  res <- bed_closest(x, y)
+  expect_false(any(duplicated(res)))
+}
+)
+
+test_that("all overlapping features are reported", {
+  x <- tibble::frame_data(
+    ~chrom, ~start, ~end,
+    "chr1", 100,    200
+  )
+  
+  y <- tibble::frame_data(
+    ~chrom, ~start, ~end,
+    "chr1", 100,    200,
+    "chr1", 150,    200,
+    "chr1", 50,    100,
+    "chr1", 200,   300
+  )
+  exp <- tibble::frame_data(
+    ~chrom, ~start.x, ~start.y,
+    "chr1", 100,    200
+  )
+  res <- bed_closest(x, y)
+  expect_true(nrow(res) == 4)
+}
+)
+
+

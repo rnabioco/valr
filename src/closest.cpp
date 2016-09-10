@@ -30,7 +30,6 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
         indices_y.push_back(ov_it->value) ;
         overlap_sizes.push_back(overlap) ;
         distance_sizes.push_back(0);
-        continue ;
       } else if (ov_it->start > vx_it->stop) {
         indices_x.push_back(vx_it->value) ;
         indices_y.push_back(ov_it->value) ;
