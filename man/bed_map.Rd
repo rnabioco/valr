@@ -66,7 +66,6 @@ bed_map(x, y, sum = sum(value.y))
 bed_map(x, y, min = min(value.y), max = max(value.y))
 
 bed_map(x, y, concat(value.y))
-bed_map(x, y, values_unique(value.y))
 bed_map(x, y, first(value.y))
 bed_map(x, y, last(value.y))
 

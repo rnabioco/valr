@@ -37,7 +37,6 @@
 #' bed_map(x, y, min = min(value.y), max = max(value.y))
 #' 
 #' bed_map(x, y, concat(value.y))
-#' bed_map(x, y, values_unique(value.y))
 #' bed_map(x, y, first(value.y))
 #' bed_map(x, y, last(value.y))
 #' 
@@ -65,13 +64,13 @@ bed_map <- function(x, y, ...) {
   
   res <- bed_intersect(x, y)
  
-  groups_map <- c('chrom', 'start.x', 'end.x')
-  res <- dplyr::group_by_(res, .dots = c(groups_map, groups_x, groups_y))
+  groups_default <- c('chrom', 'start.x', 'end.x')
+  res <- dplyr::group_by_(res, .dots = c(groups_default, groups_x, groups_y))
   
   res <- dplyr::summarize_(res, .dots = lazyeval::lazy_dots(...))
  
-  # reset to original groups 
-  res <- dplyr::group_by_(res, .dots = c(groups_x, groups_y))
+  # reassign original `x` groups 
+  res <- dplyr::group_by_(res, .dots = c(groups_x))
  
   res 
 }
