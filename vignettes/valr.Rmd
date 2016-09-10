@@ -3,6 +3,14 @@ title: '`valr`: Genome interval arithmetic in R'
 author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
 date: '`r Sys.Date()`'
 output:
+  rmarkdown::html_vignette:
+    vignette: >
+      %\VignetteIndexEntry{valr-overview}
+      %\VignetteEngine{knitr::rmarkdown}
+      %\VignetteEncoding{UTF-8}
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
   html_document:
     highlight: pygments
     keep_md: yes
@@ -14,9 +22,6 @@ output:
     toc_float:
       collapsed: no
       smooth_scroll: yes
-  pdf_document:
-    toc: yes
-    toc_depth: '4'
   word_document:
     toc: yes
     toc_depth: '4'
@@ -228,6 +233,19 @@ bed_slop(x, genome, both = 100)
 bed_shift(x, genome, size = 100)
 ```
 
+### Interval spacing
+
+Interval spacing is easily computed using `dplyr`. Overlapping intervals must first be merged. Spacing for the first interval of each chromosome is undefined.
+
+```{r spacing}
+x <- bed_random(genome)
+x <- bed_merge(x)
+
+x %>%
+  group_by(chrom) %>%
+  mutate(.spacing = start - lag(end))
+```
+
 ## Multiple set operations {.tabset}
 
 These methods compare two sets of intervals:
@@ -369,7 +387,7 @@ any(x$start == y$start)
 all(x$end - x$start == y$end - y$start)
 ```
 
-## Other
+## Other topics
 
 ### Grouping related intervals
 
@@ -382,19 +400,6 @@ y <- bed_random(genome)
 bed_intersect(x, y) %>%
   group_by(chrom) %>%
   summarize(overlap.total = sum(.overlap))
-```
-
-### Interval spacing
-
-Interval spacing is easily computed using `dplyr`. Overlapping intervals must first be merged. Spacing for the first interval of each chromosome is undefined.
-
-```{r spacing}
-x <- bed_random(genome)
-x <- bed_merge(x)
-
-x %>%
-  group_by(chrom) %>%
-  mutate(.spacing = start - lag(end))
 ```
 
 # Interval Statistics {.tabset}
