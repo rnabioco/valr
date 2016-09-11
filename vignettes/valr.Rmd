@@ -419,8 +419,8 @@ Several of these methods were described in the [Genometricorr][17] software pack
 The Fisher's test assesses whether two sets of intervals are drawn from the same background genome.
 
 ```{r fisher}
-x <- bed_random(genome, n = 100)
-y <- bed_random(genome, n = 100)
+x <- bed_random(genome)
+y <- bed_random(genome)
 
 bed_fisher(x, y, genome)
 ```

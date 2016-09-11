@@ -6,16 +6,11 @@
 \alias{valr-package}
 \title{valr: genome interval arithmetic in R}
 \description{
-valr provides tools to read and manipulate intervals and signals on a 
-genome reference. While other analysis suites enable
-command-line analysis, valr enables similar analyses \emph{within
-R}.
+valr provides tools to read and manipulate intervals and signals on a genome
+reference. valr was developed to enable facile interactive analysis of
+genome-scale data, leveraging the power of dplyr and piping.
 }
 \details{
-valr focuses on manipulating intervals in BED format and signal in 
-bedGraph format. Eventually this package will power interactive 
-visualizations of genome-scale data with \code{shiny}.
-
 To learn more about valr, start with the vignette: 
 \code{browseVignettes(package = "valr")}
 }

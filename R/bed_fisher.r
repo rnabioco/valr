@@ -13,21 +13,18 @@
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 10,     20,
 #'   "chr1", 30,     40,
-#'   "chr1", 51,     52,
-#'   "chr2", 10,     40
+#'   "chr1", 51,     52
 #' )
 #' 
 #' y <- tibble::frame_data(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 15,     25,
-#'   "chr1", 51,     52,
-#'   "chr2", 35,     60
+#'   "chr1", 51,     52
 #' )
 #' 
 #' genome <- tibble::frame_data(
 #'   ~chrom, ~size,
-#'   "chr1", 500,
-#'   "chr2", 1000
+#'   "chr1", 500
 #' )
 #' 
 #' bed_fisher(x, y, genome)
@@ -35,37 +32,54 @@
 #' @export
 bed_fisher <- function(x, y, genome) {
 
-  x <- dplyr::group_by(x, chrom, add = TRUE)
-  y <- dplyr::group_by(y, chrom, add = TRUE)
-  
   # number of intervals 
-  n_x <- dplyr::summarize(x, n_x = n())
-  n_y <- dplyr::summarize(y, n_y = n()) 
+  n_x <- nrow(x) 
+  n_y <- nrow(y)
+ 
+  # union of intervals (i.e. total bases covered)
+  union_x <- interval_union(x)
+  union_y <- interval_union(y)
+  
+  # mean interval sizes
+  mean_x <- union_x / n_x
+  mean_y <- union_y / n_y
+  
+  # heuristic from bedtools fisher.cpp
+  mean_total <- mean_x + mean_y
+  
+  # number of intersections (`n11` in fisher.cpp)
+  isect <- bed_intersect(x, y)
+  n_i <- nrow(isect)
 
-  # number of intersections 
-  n_i <- bed_intersect(x, y)
-  n_i <- dplyr::group_by(n_i, chrom)
-  n_i <- unique(n_i)
-  n_i <- dplyr::summarize(n_i, n_i = n())
-  
-  # estimate number of possible intervals as chrom_size / mean(interval_size)
-  xy <- dplyr::bind_rows(list(x, y))
-  n_xy <- dplyr::mutate(xy, .size = end - start)
-  n_xy <- dplyr::group_by(n_xy, chrom)
-  n_xy <- dplyr::summarize(n_xy, size_mean = mean(.size))
-  n_xy <- dplyr::left_join(n_xy, genome)
-  n_xy <- dplyr::mutate(n_xy, int_est = size / size_mean)
+  # x, not y (`n12` in fisher.cpp)
+  n_x_only <- max(0, n_x - n_i)
+  # y, not x (`n21` in fisher.cpp)
+  n_y_only <- max(0, n_y - n_i)
 
-  res <- dplyr::left_join(n_x, n_y)
-  res <- dplyr::left_join(res, n_i)
-  res <- dplyr::left_join(res, n_xy)
-  res <- dplyr::group_by(res, chrom)
-  res <- dplyr::mutate(res,
-                       p.value = phyper(n_i - (n_x - n_y),
-                                 n_x + n_y,
-                                 int_est - (n_x + n_y),
-                                 n_i, lower.tail = FALSE))
+  genome_size = sum(as.numeric(genome$size))
   
-  res
+  # estimated total intervals (`n22_full`) 
+  total_est <- round(max(n_i + n_x_only + n_y_only,
+                     genome_size / mean_total ))
   
+  # estimate n for neither x nor y (`n22`)
+  not_est <- total_est - n_i - n_x_only - n_y_only
+  
+  fisher_mat <- matrix(c(n_i, n_x_only, n_y_only, not_est),
+                       nrow = 2,
+                       dimnames = list('in y?' = c('yes', 'no'),
+                                       'in x?' = c('yes', 'no')))
+ 
+  stat <- stats::fisher.test(fisher_mat)
+  broom::tidy(stat)
+  
+}
+
+#' @rdname bed_fisher
+#' @export
+interval_union <- function(x) {
+  res <- bed_merge(x)
+  res <- mutate(res, .size = end - start)
+  
+  sum(res$.size) 
 }

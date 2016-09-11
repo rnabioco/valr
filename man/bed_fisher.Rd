@@ -2,9 +2,12 @@
 % Please edit documentation in R/bed_fisher.r
 \name{bed_fisher}
 \alias{bed_fisher}
+\alias{interval_union}
 \title{Fisher's test on number of shared and unique intervals.}
 \usage{
 bed_fisher(x, y, genome)
+
+interval_union(x)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -24,21 +27,18 @@ x <- tibble::frame_data(
   ~chrom, ~start, ~end,
   "chr1", 10,     20,
   "chr1", 30,     40,
-  "chr1", 51,     52,
-  "chr2", 10,     40
+  "chr1", 51,     52
 )
 
 y <- tibble::frame_data(
   ~chrom, ~start, ~end,
   "chr1", 15,     25,
-  "chr1", 51,     52,
-  "chr2", 35,     60
+  "chr1", 51,     52
 )
 
 genome <- tibble::frame_data(
   ~chrom, ~size,
-  "chr1", 500,
-  "chr2", 1000
+  "chr1", 500
 )
 
 bed_fisher(x, y, genome)
