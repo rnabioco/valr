@@ -29,7 +29,7 @@ Identify intersecting intervals.
 Book-ended intervals have \code{.overlap} values of 0 in the output.
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
 ~chrom, ~start, ~end,
 "chr1", 100,    500,
 "chr2", 200,    400,
@@ -37,7 +37,7 @@ x <- tibble::frame_data(
 "chr2", 800,    900
 )
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
 ~chrom, ~start, ~end, ~value,
 "chr1", 150,    400,  100,
 "chr1", 500,    550,  100,

@@ -14,13 +14,13 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html}
 #'  
 #' @examples
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 10,     20,
 #'   "chr1", 30,     40
 #' )
 #'  
-#' y <- tibble::frame_data(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 15,     20
 #' )
@@ -49,7 +49,7 @@ bed_jaccard <- function(x, y) {
   
   jaccard <- n_i / (n_u - n_i)
 
-  res <- tibble::frame_data(
+  res <- tibble::tribble(
     ~len_i, ~len_u, ~jaccard, ~n,
     n_i,    n_u,    jaccard,  n
   )  

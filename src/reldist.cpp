@@ -88,7 +88,7 @@ DataFrame reldist_impl(GroupedDataFrame x, GroupedDataFrame y) {
 
 /***R
 library(dplyr)
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
       ~chrom, ~start, ~end,
       "chr1", 5,    15,
       "chr1", 50, 150, 
@@ -96,7 +96,7 @@ library(dplyr)
       "chr3", 3000, 4000
   ) %>% group_by(chrom)
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
       ~chrom, ~start, ~end,
       "chr1", 25,    125,
       "chr1", 150,    250,

@@ -127,13 +127,13 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
 
 /***R
 library(dplyr)
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 500,    600,
   "chr2", 5000,   6000
 ) %>% group_by(chrom)
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 100,    200,
   "chr1", 150,    200,

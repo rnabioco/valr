@@ -37,7 +37,7 @@ genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 read_genome(genome)
 read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 
-x <- tibble::frame_data(
+x <- tibble::tribble(
  ~chrom, ~start, ~end,
  "chr1", -100,   500,
  "chr1", 100,    1e9,

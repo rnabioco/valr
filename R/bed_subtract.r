@@ -9,7 +9,7 @@
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 #' 
 #' @examples
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100,    200,
 #'  "chr1", 250,    400,
@@ -18,7 +18,7 @@
 #'  "chr1", 1300,   1500
 #' )
 #' 
-#' y <- tibble::frame_data(
+#' y <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 150,    175,
 #'  "chr1", 510,    525,

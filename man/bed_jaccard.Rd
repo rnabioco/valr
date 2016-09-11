@@ -24,13 +24,13 @@ bed_jaccard(x, y)
 Calculate jaccard statistics on two sets of intervals.
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 10,     20,
   "chr1", 30,     40
 )
  
-y <- tibble::frame_data(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 15,     20
 )

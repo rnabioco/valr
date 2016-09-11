@@ -42,13 +42,13 @@ The \code{name} and \code{win_id} columns can be used to create new
   \code{group_by} operations (see vignette).
 }
 \examples{
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
  ~chrom, ~size,
  "chr1", 5000,
  "chr2", 400
 )
 
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100,    200,  'A',   '.',    '+',
   "chr2", 300,    350,  'B',   '.',    '-'

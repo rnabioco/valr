@@ -21,12 +21,12 @@
 #' @note Column names have \code{.x} and \code{.y} suffixes.
 #'   
 #' @examples
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100, 250,
 #'  "chr2", 250, 500)
 #'  
-#' y <- tibble::frame_data(
+#' y <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~value,
 #'  "chr1", 100, 250, 10,
 #'  "chr1", 150, 250, 20,

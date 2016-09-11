@@ -76,7 +76,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
 library(dplyr)
 library(valr)
   
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 1e6,
   "chr2", 1e7
@@ -88,12 +88,12 @@ y <- bed_random(genome, n = n) %>% bed_sort %>% group_by(chrom)
 
 subtract_impl(x, y) %>% as_data_frame()
 
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 100,    200
 ) %>% group_by(chrom)
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 1000,    2000
 ) %>% group_by(chrom)

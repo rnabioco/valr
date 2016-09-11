@@ -81,7 +81,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
 
 /*** R
   library(dplyr)
-  bed_tbl <- tibble::frame_data(
+  bed_tbl <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 1,      50,   1,
     "chr1", 100,    200,  2,

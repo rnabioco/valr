@@ -8,7 +8,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 #'
 #' @examples
-#' genome <- tibble::frame_data(
+#' genome <- tibble::tribble(
 #'   ~chrom,  ~size,
 #'   "chr1",  10000000,
 #'   "chr2",  50000000,

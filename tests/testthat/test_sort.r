@@ -1,7 +1,7 @@
 context('bed_sort')
 
 test_that('intervals can be sorted by size', {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     'chr1', 1000,   2000,
     'chr1', 200,    400,
@@ -13,7 +13,7 @@ test_that('intervals can be sorted by size', {
 })
 
 test_that('intervals can be sorted by size and chrom', {
-    x <- tibble::frame_data(
+    x <- tibble::tribble(
     ~chrom, ~start, ~end,
     'chr1', 1000,   2000,
     'chr1', 200,    400,
@@ -25,7 +25,7 @@ test_that('intervals can be sorted by size and chrom', {
 })
 
 test_that('intervals can be reverse sorted by size', {
-    x <- tibble::frame_data(
+    x <- tibble::tribble(
     ~chrom, ~start, ~end,
     'chr1', 1000,   2000,
     'chr1', 200,    400,
@@ -37,7 +37,7 @@ test_that('intervals can be reverse sorted by size', {
 })
 
 test_that('intervals can be reverse sorted by size and chrom', {
-    x <- tibble::frame_data(
+    x <- tibble::tribble(
     ~chrom, ~start, ~end,
     'chr1', 1000,   2000,
     'chr1', 200,    400,
@@ -49,7 +49,7 @@ test_that('intervals can be reverse sorted by size and chrom', {
 })
 
 test_that('intervals can be sorted by chrom', {
-    x <- tibble::frame_data(
+    x <- tibble::tribble(
     ~chrom, ~start, ~end,
     'chr1', 1000,   2000,
     'chr2', 100,    200,
@@ -61,7 +61,7 @@ test_that('intervals can be sorted by chrom', {
 })
 
 test_that('intervals can be reverse sorted by start and chrom', {
-   x <- tibble::frame_data(
+   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     'chr1', 1000,   2000,
     'chr2', 100,    200,

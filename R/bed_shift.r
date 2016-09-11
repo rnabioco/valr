@@ -13,7 +13,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
 #' 
 #' @examples
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'    ~chrom, ~start, ~end, ~strand,
 #'    "chr1", 100, 150, "+",
 #'    "chr1", 200, 250, "+",
@@ -23,7 +23,7 @@
 #'    "chr3", 600, 650, "-" 
 #'    )
 #' 
-#' genome <- tibble::frame_data(
+#' genome <- tibble::tribble(
 #'    ~chrom, ~size,
 #'    "chr1", 1000,
 #'    "chr2", 2000,

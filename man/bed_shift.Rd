@@ -24,7 +24,7 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 Out-of-bounds intervals are removed by default.
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
    ~chrom, ~start, ~end, ~strand,
    "chr1", 100, 150, "+",
    "chr1", 200, 250, "+",
@@ -34,7 +34,7 @@ x <- tibble::frame_data(
    "chr3", 600, 650, "-" 
    )
 
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
    ~chrom, ~size,
    "chr1", 1000,
    "chr2", 2000,

@@ -23,20 +23,20 @@ interval_union(x)
 Fisher's test on number of shared and unique intervals.
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 10,     20,
   "chr1", 30,     40,
   "chr1", 51,     52
 )
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 15,     25,
   "chr1", 51,     52
 )
 
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 500
 )

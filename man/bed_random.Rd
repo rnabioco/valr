@@ -19,7 +19,7 @@ bed_random(genome, length = 1000, n = 1e+06, seed = 0)
 Generate randomly placed intervals on a genome.
 }
 \examples{
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
   ~chrom,  ~size,
   "chr1",  10000000,
   "chr2",  50000000,

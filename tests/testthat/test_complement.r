@@ -2,11 +2,11 @@ context('bed_complement')
 
 test_that("complement with covering interval", {
  
-  genome <- tibble::frame_data(
+  genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500
   ) 
-  bed <- tibble::frame_data(
+  bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",    1,       500
   )
@@ -17,11 +17,11 @@ test_that("complement with covering interval", {
 
 test_that("complement with middle interval", {
  
-  genome <- tibble::frame_data(
+  genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500
   ) 
-  bed <- tibble::frame_data(
+  bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",    100,       200
   )
@@ -32,11 +32,11 @@ test_that("complement with middle interval", {
 
 test_that("complement adds final interval", {
   
-  genome <- tibble::frame_data(
+  genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500
   ) 
-  bed <- tibble::frame_data(
+  bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",    1,        50,
     "chr1",    100,      200

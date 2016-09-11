@@ -17,7 +17,7 @@ bed_subtract(x, y, any = FALSE)
 Subtract \code{y} intervals from \code{x} intervals.
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
  ~chrom, ~start, ~end,
  "chr1", 100,    200,
  "chr1", 250,    400,
@@ -26,7 +26,7 @@ x <- tibble::frame_data(
  "chr1", 1300,   1500
 )
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
  ~chrom, ~start, ~end,
  "chr1", 150,    175,
  "chr1", 510,    525,

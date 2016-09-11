@@ -1,11 +1,11 @@
 context('bed_reldist')
 
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~chrom,   ~start,    ~end,
   "chr1",    75,       125
 )
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
   ~chrom,   ~start,    ~end,
   "chr1",    50,       100,
   "chr1",    100,       150

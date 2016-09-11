@@ -36,7 +36,7 @@ read_genome <- function(filename) {
 #' @rdname read_genome
 #'  
 #' @examples
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", -100,   500,
 #'  "chr1", 100,    1e9,

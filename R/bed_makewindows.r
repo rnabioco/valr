@@ -15,13 +15,13 @@
 #'   identifier for the window.
 #'   
 #' @examples 
-#' genome <- tibble::frame_data(
+#' genome <- tibble::tribble(
 #'  ~chrom, ~size,
 #'  "chr1", 5000,
 #'  "chr2", 400
 #' )
 #' 
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'   "chr1", 100,    200,  'A',   '.',    '+',
 #'   "chr2", 300,    350,  'B',   '.',    '-'

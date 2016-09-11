@@ -22,7 +22,7 @@ grouping along with \code{chrom}. Default \code{max_dist} of 0 means that
 overlapping and book-ended intervals will be clustered.
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
  ~chrom, ~start, ~end,
  "chr1", 100,  200,
  "chr1", 180,  250,

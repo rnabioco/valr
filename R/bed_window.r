@@ -5,7 +5,7 @@
 #' @inheritParams bed_intersect
 #' 
 #' @examples
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 10,    100,
 #'   "chr2", 200,    400,
@@ -13,14 +13,14 @@
 #'   "chr2", 800,    900
 #' )
 #' 
-#' y <- tibble::frame_data(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 150,    400,
 #'   "chr2", 230,    430,
 #'   "chr2", 350,    430
 #' )
 #' 
-#' genome <- tibble::frame_data(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   "chr1", 500,
 #'   "chr2", 1000

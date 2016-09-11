@@ -69,14 +69,14 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
 /***R
 library(dplyr)
 library(valr)
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
    ~chrom,  ~size,
    "chr1", 500,
    "chr2", 600,
    "chr3", 800
 ) 
 
-x <- tibble::frame_data(
+x <- tibble::tribble(
    ~chrom, ~start, ~end,
    "chr1", 100,    300,
    "chr1", 200,    400,

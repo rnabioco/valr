@@ -63,7 +63,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
 
 /***R
 library(dplyr)
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 191822,
   "chr2", 17127713,

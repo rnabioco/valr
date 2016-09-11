@@ -96,7 +96,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
 library(valr)
 library(dplyr)
 
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 1e6,
   "chr2", 1e7

@@ -11,7 +11,7 @@ test_that("genomes are correctly read", {
 
 test_that("unbounded intervals are removed", {
   
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
    ~chrom, ~start, ~end,
    "chr1", -100,   500,
    "chr1", 100,    1e9,
@@ -21,7 +21,7 @@ test_that("unbounded intervals are removed", {
 })
 
 test_that("trim param removes dangling intervals", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
    ~chrom, ~start, ~end,
    "chr1", 1,      249250721
   )

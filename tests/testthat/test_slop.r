@@ -1,11 +1,11 @@
 context('bed_slop')
 
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
  ~chrom, ~size,
  "chr1", 5000
 )
 
-bed_df <- tibble::frame_data(
+bed_df <- tibble::tribble(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
  "chr1", 500,    1000, '.',   '.',     '+',
  "chr1", 1000,   1500, '.',   '.',     '-'

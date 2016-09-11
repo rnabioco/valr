@@ -1,13 +1,13 @@
 context('bed_map')
 
 test_that("`chrom` grouping throws an error", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 250,
     "chr2", 250, 500
   ) %>% group_by(chrom)
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 250, 10,
     "chr1", 150, 250, 20,
@@ -18,14 +18,14 @@ test_that("`chrom` grouping throws an error", {
 })
 
 test_that("x/y groupings are respected", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end, ~id,
     "chr1", 100, 250, 1,
     "chr2", 250, 500, 2,
     "chr2", 250, 500, 3
   ) %>% group_by(id)
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~id,
     "chr1", 100, 250, 10,  1,
     "chr1", 150, 250, 20,  2,
@@ -37,14 +37,14 @@ test_that("x/y groupings are respected", {
 })
 
 test_that("concat works correctly", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 250,
     "chr2", 250, 500,
     "chr2", 250, 500
   )
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 250, 10,
     "chr1", 150, 250, 20,
@@ -56,12 +56,12 @@ test_that("concat works correctly", {
 })
 
 test_that("values works correctly", {
-   x <- tibble::frame_data(
+   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 250
    )
   
-   y <- tibble::frame_data(
+   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 250, 10,
     "chr1", 100, 250, 20,
@@ -74,12 +74,12 @@ test_that("values works correctly", {
 })
 
 test_that("values_unique works correctly", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 250
   )
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 250, 10,
     "chr1", 150, 250, 20,
@@ -92,12 +92,12 @@ test_that("values_unique works correctly", {
 })
 
 test_that("first works correctly", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 250
   )
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 250, 10,
     "chr1", 150, 250, 20,
@@ -110,12 +110,12 @@ test_that("first works correctly", {
 })
 
 test_that("last works correctly", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 250
   )
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 250, 10,
     "chr1", 150, 250, 20,

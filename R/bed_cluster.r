@@ -13,7 +13,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html} 
 #'
 #' @examples
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100,  200,
 #'  "chr1", 180,  250,

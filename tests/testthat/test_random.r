@@ -1,6 +1,6 @@
 context('bed_random')
 
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 5000,
   "chr2", 1e6

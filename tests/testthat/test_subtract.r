@@ -1,6 +1,6 @@
 context("bed_subtract")
 
-x <- tibble::frame_data(
+x <- tibble::tribble(
  ~chrom, ~start, ~end,
  "chr1", 100,    200,
  "chr1", 250,    400,
@@ -8,7 +8,7 @@ x <- tibble::frame_data(
  "chr1", 1000,   2000
 ) %>% group_by(chrom)
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
  ~chrom, ~start, ~end,
  "chr1", 150,    175,
  "chr1", 525,    575,
@@ -27,12 +27,12 @@ test_that("fully contained y intervals generate new intervals", {
 })
 
 test_that("left dangling y intervals adjust x starts", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100,    200
   ) %>% group_by(chrom)
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 75,    150
   ) %>% group_by(chrom)
@@ -42,12 +42,12 @@ test_that("left dangling y intervals adjust x starts", {
 })
 
 test_that("right dangling y intervals adjust x ends", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100,    200
   ) %>% group_by(chrom)
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 175,    250
   ) %>% group_by(chrom)
@@ -57,12 +57,12 @@ test_that("right dangling y intervals adjust x ends", {
 })
 
 test_that("fully contained x intervals are removed", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100,    200
   ) %>% group_by(chrom)
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 50,    250
   ) %>% group_by(chrom)
@@ -73,13 +73,13 @@ test_that("fully contained x intervals are removed", {
 })
 
 test_that("subtractions from x bed_tbl with more chroms than y are captured", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",    100,       200,
     "chr3",    400,       500
   )
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr3",    425,       475) 
   
@@ -88,13 +88,13 @@ test_that("subtractions from x bed_tbl with more chroms than y are captured", {
 })
 
 test_that("non-overlapping intervals from different chrom are not dropped", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",    100,       200,
     "chr3",    400,       500
   )
   
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr3",    425,       475) 
   

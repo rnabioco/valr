@@ -2,7 +2,7 @@ context("bed_cluster")
 
 # https://github.com/arq5x/bedtools2/blob/master/test/cluster/test-cluster.sh
  
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~chrom, ~start,  ~end,    ~name, ~id, ~strand,
   "chr1", 72017,   884436,  'a',   1,   '+',
   "chr1", 72017,   844113,  'b',   2,   '+',   

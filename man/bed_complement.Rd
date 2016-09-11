@@ -18,14 +18,14 @@ bed_complement(x, genome)
 Identify intervals in a genome not covered by a query.
 }
 \examples{
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
    ~chrom,  ~size,
    "chr1", 500,
    "chr2", 600,
    "chr3", 800
 ) 
 
-x <- tibble::frame_data(
+x <- tibble::tribble(
    ~chrom, ~start, ~end,
    "chr1", 100,    300,
    "chr1", 200,    400,

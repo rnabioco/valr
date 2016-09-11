@@ -10,7 +10,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #' 
 #' @examples 
-#' x <- tibble::frame_data(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~value, ~strand,
 #'  "chr1", 1,      50,   1,      '+',
 #'  "chr1", 100,    200,  2,      '+',

@@ -23,7 +23,7 @@ within a chrom, not by chrom.
 Sorting strips groups from the input.
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
    ~chrom, ~start, ~end,
    "chr8", 500, 1000,
    "chr8", 1000, 5000,
