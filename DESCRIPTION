@@ -22,6 +22,7 @@ Imports:
     stringr,
     tibble,
     tidyr,
+    broom,
 SystemRequirements: C++11
 LinkingTo: Rcpp (>= 0.12.3), BH, dplyr (>= 0.5.0)
 Suggests:
