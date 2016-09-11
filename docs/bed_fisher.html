@@ -54,7 +54,9 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><span class="functioncall"><a href='bed_fisher.html'>bed_fisher</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">,</span> <span class="symbol">genome</span><span class="keyword">)</span></pre>
+    <pre><span class="functioncall"><a href='bed_fisher.html'>bed_fisher</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">,</span> <span class="symbol">genome</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='bed_fisher.html'>interval_union</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -87,41 +89,29 @@
   <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">start</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">end</span><span class="keyword">,</span>
   <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">10</span><span class="keyword">,</span>     <span class="number">20</span><span class="keyword">,</span>
   <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">30</span><span class="keyword">,</span>     <span class="number">40</span><span class="keyword">,</span>
-  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">51</span><span class="keyword">,</span>     <span class="number">52</span><span class="keyword">,</span>
-  <span class="string">"chr2"</span><span class="keyword">,</span> <span class="number">10</span><span class="keyword">,</span>     <span class="number">40</span>
+  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">51</span><span class="keyword">,</span>     <span class="number">52</span>
 <span class="keyword">)</span>
 
 <span class="symbol">y</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>frame_data</a></span><span class="keyword">(</span>
   <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">start</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">end</span><span class="keyword">,</span>
   <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">15</span><span class="keyword">,</span>     <span class="number">25</span><span class="keyword">,</span>
-  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">51</span><span class="keyword">,</span>     <span class="number">52</span><span class="keyword">,</span>
-  <span class="string">"chr2"</span><span class="keyword">,</span> <span class="number">35</span><span class="keyword">,</span>     <span class="number">60</span>
+  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">51</span><span class="keyword">,</span>     <span class="number">52</span>
 <span class="keyword">)</span>
 
 <span class="symbol">genome</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>frame_data</a></span><span class="keyword">(</span>
   <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">size</span><span class="keyword">,</span>
-  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">500</span><span class="keyword">,</span>
-  <span class="string">"chr2"</span><span class="keyword">,</span> <span class="number">1000</span>
+  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">500</span>
 <span class="keyword">)</span>
 
 <span class="functioncall"><a href='bed_fisher.html'>bed_fisher</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">,</span> <span class="symbol">genome</span><span class="keyword">)</span></div>
-<strong class='message'>Joining, by = &quot;chrom&quot;</strong>
-<strong class='message'>Joining, by = &quot;chrom&quot;</strong>
-<strong class='message'>Joining, by = &quot;chrom&quot;</strong>
-<strong class='message'>Joining, by = &quot;chrom&quot;</strong>
-<div class='output'>Source: local data frame [2 x 8]
-Groups: chrom [2]
-
-  chrom   n_x   n_y   n_i size_mean  size  int_est     p.value
-  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-1  chr1     3     2     2       6.4   500 78.12500 0.003330003
-2  chr2     1     1     1      27.5  1000 36.36364 0.000000000
+<div class='output'>  estimate     p.value conf.low conf.high                             method alternative
+1      Inf 0.003846154 2.906919       Inf Fisher&#39;s Exact Test for Count Data   two.sided
 </div>
 <div class='input'></div></pre>
   </div>
   <div class="span4 sidebar">
     <!-- <ul>
-      <li>bed_fisher</li>
+      <li>bed_fisher</li><li>interval_union</li>
     </ul>
     <ul>
       

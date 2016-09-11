@@ -75,6 +75,10 @@
       <dt>...</dt>
       <dd>name-value pairs of summary functions like <code><a href='http://www.rdocumentation.org/packages/base/topics/Extremes'>min</a>()</code>, 
 <code><a href='http://www.rdocumentation.org/packages/plyr/topics/count'>count</a>()</code>, <code><a href='bed_map.html'>concat</a>()</code>.</dd>
+      <dt>.data</dt>
+      <dd>data</dd>
+      <dt>sep</dt>
+      <dd>separator character</dd>
     </dl>
     
     <div class="Value">
@@ -145,13 +149,6 @@ suffixes.</p>
   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;             &lt;chr&gt;
 1  chr1     100   250             10,20
 2  chr2     250   500               500
-</div>
-<div class='input'><span class="functioncall"><a href='bed_map.html'>bed_map</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">,</span> <span class="functioncall"><a href='bed_map.html'>values_unique</a></span><span class="keyword">(</span><span class="symbol">value.y</span><span class="keyword">)</span><span class="keyword">)</span></div>
-<div class='output'># A tibble: 2 × 4
-  chrom start.x end.x `values_unique(value.y)`
-  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                    &lt;chr&gt;
-1  chr1     100   250                    10,20
-2  chr2     250   500                      500
 </div>
 <div class='input'><span class="functioncall"><a href='bed_map.html'>bed_map</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">,</span> <span class="functioncall"><a href='bed_map.html'>first</a></span><span class="keyword">(</span><span class="symbol">value.y</span><span class="keyword">)</span><span class="keyword">)</span></div>
 <div class='output'># A tibble: 2 × 4

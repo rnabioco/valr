@@ -90,39 +90,44 @@
     <pre class="examples"><div class='input'><span class="symbol">v</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'test.vcf.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
 <span class="functioncall"><a href='read_vcf.html'>read_vcf</a></span><span class="keyword">(</span><span class="symbol">v</span><span class="keyword">)</span></div>
 <div class='output'># A tibble: 115 × 201
-   CHROM   POS    ID                                          REF                            ALT   QUAL FILTER
-   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                        &lt;chr&gt;                          &lt;chr&gt;  &lt;dbl&gt;  &lt;chr&gt;
-1      1 10172     .                                       CCCTAA                              C   92.0   PASS
-2      1 10390     . CCCCTAACCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAA                              C  211.2   PASS
-3      1 10397     .                                CCCCTAACCCTAA                              C   38.9   PASS
-4      1 10403     .       ACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAC                              A 4165.7   PASS
-5      1 10409     .             ACCCTAACCCTAACCCTAACCCTAACCCTAAC                              A 1051.7   PASS
-6      1 10415     .                   ACCCTAACCCTAACCCTAACCCTAAC                              A 1407.4   PASS
-7      1 10421     .                         ACCCTAACCCTAACCCTAAC                              A   94.1   PASS
-8      1 10428     .                                       CCCTAA                              C   75.4      .
-9      1 10440     .                                            C CCCCTAACCCTAACCCTAACCCAACCCTAA  696.8   PASS
-10     1 10478     .                                            C                              G  347.1   PASS
-# ... with 105 more rows, and 194 more variables: INFO &lt;chr&gt;, FORMAT &lt;chr&gt;, `101976-101976` &lt;chr&gt;,
-#   `100920-100920` &lt;chr&gt;, `100231-100231` &lt;chr&gt;, `100232-100232` &lt;chr&gt;, `100919-100919` &lt;chr&gt;, `101977-101977` &lt;chr&gt;,
-#   `100630-100630` &lt;chr&gt;, `100640-100640` &lt;chr&gt;, `100631-100631` &lt;chr&gt;, `101583-101583` &lt;chr&gt;, `101584-101584` &lt;chr&gt;,
-#   `101732-101732` &lt;chr&gt;, `101016-101016` &lt;chr&gt;, `101708-101708` &lt;chr&gt;, `101730-101730` &lt;chr&gt;, `101582-101582` &lt;chr&gt;,
-#   `101731-101731` &lt;chr&gt;, `101809-101809` &lt;chr&gt;, `101653-101653` &lt;chr&gt;, `101652-101652` &lt;chr&gt;, `101806-101806` &lt;chr&gt;,
-#   `101807-101807` &lt;chr&gt;, `101808-101808` &lt;chr&gt;, `101810-101810` &lt;chr&gt;, `101811-101811` &lt;chr&gt;, `101812-101812` &lt;chr&gt;,
-#   `101813-101813` &lt;chr&gt;, `101814-101814` &lt;chr&gt;, `101957-101957` &lt;chr&gt;, `101958-101958` &lt;chr&gt;, `100986-100986` &lt;chr&gt;,
-#   `100987-100987` &lt;chr&gt;, `101897-101897` &lt;chr&gt;, `102071-102071` &lt;chr&gt;, `102106-102106` &lt;chr&gt;, `101040-101040` &lt;chr&gt;,
-#   `101167-101167` &lt;chr&gt;, `101041-101041` &lt;chr&gt;, `101042-101042` &lt;chr&gt;, `101168-101168` &lt;chr&gt;, `101898-101898` &lt;chr&gt;,
-#   `102070-102070` &lt;chr&gt;, `102111-102111` &lt;chr&gt;, `100988-100988` &lt;chr&gt;, `101896-101896` &lt;chr&gt;, `102110-102110` &lt;chr&gt;,
-#   `102620-102620` &lt;chr&gt;, `102621-102621` &lt;chr&gt;, `102947-102947` &lt;chr&gt;, `102948-102948` &lt;chr&gt;, `103089-103089` &lt;chr&gt;,
-#   `102693-102693` &lt;chr&gt;, `102694-102694` &lt;chr&gt;, `102949-102949` &lt;chr&gt;, `102622-102622` &lt;chr&gt;, `102623-102623` &lt;chr&gt;,
-#   `102624-102624` &lt;chr&gt;, `102722-102722` &lt;chr&gt;, `102712-102712` &lt;chr&gt;, `103339-103339` &lt;chr&gt;, `103124-103124` &lt;chr&gt;,
-#   `103161-103161` &lt;chr&gt;, `103125-103125` &lt;chr&gt;, `103171-103171` &lt;chr&gt;, `103338-103338` &lt;chr&gt;, `103372-103372` &lt;chr&gt;,
-#   `103193-103193` &lt;chr&gt;, `100195-100195` &lt;chr&gt;, `100194-100194` &lt;chr&gt;, `101667-101667` &lt;chr&gt;, `101137-101137` &lt;chr&gt;,
-#   `101291-101291` &lt;chr&gt;, `101292-101292` &lt;chr&gt;, `101666-101666` &lt;chr&gt;, `32222-32222` &lt;chr&gt;, `32049-32049` &lt;chr&gt;,
-#   `32050-32050` &lt;chr&gt;, `32411-32411` &lt;chr&gt;, `32221-32221` &lt;chr&gt;, `100147-100147` &lt;chr&gt;, `100149-100149` &lt;chr&gt;,
-#   `100243-100243` &lt;chr&gt;, `100290-100290` &lt;chr&gt;, `100753-100753` &lt;chr&gt;, `100754-100754` &lt;chr&gt;, `101377-101377` &lt;chr&gt;,
-#   `101426-101426` &lt;chr&gt;, `101435-101435` &lt;chr&gt;, `101523-101523` &lt;chr&gt;, `101877-101877` &lt;chr&gt;, `100043-100043` &lt;chr&gt;,
-#   `100044-100044` &lt;chr&gt;, `100148-100148` &lt;chr&gt;, `100292-100292` &lt;chr&gt;, `101381-101381` &lt;chr&gt;, `101393-101393` &lt;chr&gt;,
-#   `101427-101427` &lt;chr&gt;, `101501-101501` &lt;chr&gt;, ...
+   CHROM   POS    ID                                          REF                            ALT
+   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                        &lt;chr&gt;                          &lt;chr&gt;
+1      1 10172     .                                       CCCTAA                              C
+2      1 10390     . CCCCTAACCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAA                              C
+3      1 10397     .                                CCCCTAACCCTAA                              C
+4      1 10403     .       ACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAC                              A
+5      1 10409     .             ACCCTAACCCTAACCCTAACCCTAACCCTAAC                              A
+6      1 10415     .                   ACCCTAACCCTAACCCTAACCCTAAC                              A
+7      1 10421     .                         ACCCTAACCCTAACCCTAAC                              A
+8      1 10428     .                                       CCCTAA                              C
+9      1 10440     .                                            C CCCCTAACCCTAACCCTAACCCAACCCTAA
+10     1 10478     .                                            C                              G
+# ... with 105 more rows, and 196 more variables: QUAL &lt;dbl&gt;, FILTER &lt;chr&gt;, INFO &lt;chr&gt;,
+#   FORMAT &lt;chr&gt;, `101976-101976` &lt;chr&gt;, `100920-100920` &lt;chr&gt;, `100231-100231` &lt;chr&gt;,
+#   `100232-100232` &lt;chr&gt;, `100919-100919` &lt;chr&gt;, `101977-101977` &lt;chr&gt;, `100630-100630` &lt;chr&gt;,
+#   `100640-100640` &lt;chr&gt;, `100631-100631` &lt;chr&gt;, `101583-101583` &lt;chr&gt;, `101584-101584` &lt;chr&gt;,
+#   `101732-101732` &lt;chr&gt;, `101016-101016` &lt;chr&gt;, `101708-101708` &lt;chr&gt;, `101730-101730` &lt;chr&gt;,
+#   `101582-101582` &lt;chr&gt;, `101731-101731` &lt;chr&gt;, `101809-101809` &lt;chr&gt;, `101653-101653` &lt;chr&gt;,
+#   `101652-101652` &lt;chr&gt;, `101806-101806` &lt;chr&gt;, `101807-101807` &lt;chr&gt;, `101808-101808` &lt;chr&gt;,
+#   `101810-101810` &lt;chr&gt;, `101811-101811` &lt;chr&gt;, `101812-101812` &lt;chr&gt;, `101813-101813` &lt;chr&gt;,
+#   `101814-101814` &lt;chr&gt;, `101957-101957` &lt;chr&gt;, `101958-101958` &lt;chr&gt;, `100986-100986` &lt;chr&gt;,
+#   `100987-100987` &lt;chr&gt;, `101897-101897` &lt;chr&gt;, `102071-102071` &lt;chr&gt;, `102106-102106` &lt;chr&gt;,
+#   `101040-101040` &lt;chr&gt;, `101167-101167` &lt;chr&gt;, `101041-101041` &lt;chr&gt;, `101042-101042` &lt;chr&gt;,
+#   `101168-101168` &lt;chr&gt;, `101898-101898` &lt;chr&gt;, `102070-102070` &lt;chr&gt;, `102111-102111` &lt;chr&gt;,
+#   `100988-100988` &lt;chr&gt;, `101896-101896` &lt;chr&gt;, `102110-102110` &lt;chr&gt;, `102620-102620` &lt;chr&gt;,
+#   `102621-102621` &lt;chr&gt;, `102947-102947` &lt;chr&gt;, `102948-102948` &lt;chr&gt;, `103089-103089` &lt;chr&gt;,
+#   `102693-102693` &lt;chr&gt;, `102694-102694` &lt;chr&gt;, `102949-102949` &lt;chr&gt;, `102622-102622` &lt;chr&gt;,
+#   `102623-102623` &lt;chr&gt;, `102624-102624` &lt;chr&gt;, `102722-102722` &lt;chr&gt;, `102712-102712` &lt;chr&gt;,
+#   `103339-103339` &lt;chr&gt;, `103124-103124` &lt;chr&gt;, `103161-103161` &lt;chr&gt;, `103125-103125` &lt;chr&gt;,
+#   `103171-103171` &lt;chr&gt;, `103338-103338` &lt;chr&gt;, `103372-103372` &lt;chr&gt;, `103193-103193` &lt;chr&gt;,
+#   `100195-100195` &lt;chr&gt;, `100194-100194` &lt;chr&gt;, `101667-101667` &lt;chr&gt;, `101137-101137` &lt;chr&gt;,
+#   `101291-101291` &lt;chr&gt;, `101292-101292` &lt;chr&gt;, `101666-101666` &lt;chr&gt;, `32222-32222` &lt;chr&gt;,
+#   `32049-32049` &lt;chr&gt;, `32050-32050` &lt;chr&gt;, `32411-32411` &lt;chr&gt;, `32221-32221` &lt;chr&gt;,
+#   `100147-100147` &lt;chr&gt;, `100149-100149` &lt;chr&gt;, `100243-100243` &lt;chr&gt;, `100290-100290` &lt;chr&gt;,
+#   `100753-100753` &lt;chr&gt;, `100754-100754` &lt;chr&gt;, `101377-101377` &lt;chr&gt;, `101426-101426` &lt;chr&gt;,
+#   `101435-101435` &lt;chr&gt;, `101523-101523` &lt;chr&gt;, `101877-101877` &lt;chr&gt;, `100043-100043` &lt;chr&gt;,
+#   `100044-100044` &lt;chr&gt;, `100148-100148` &lt;chr&gt;, `100292-100292` &lt;chr&gt;, `101381-101381` &lt;chr&gt;,
+#   `101393-101393` &lt;chr&gt;, ...
 </div>
 <div class='input'></div></pre>
   </div>
