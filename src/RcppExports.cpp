@@ -7,6 +7,18 @@
 
 using namespace Rcpp;
 
+// absdist_impl
+DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y);
+RcppExport SEXP valr_absdist_impl(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(absdist_impl(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
 // closest_impl
 DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y);
 RcppExport SEXP valr_closest_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
