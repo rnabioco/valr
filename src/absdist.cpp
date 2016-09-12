@@ -29,7 +29,6 @@ void absdist_grouped(intervalVector& vx, intervalVector& vy,
     // set up indexes for closest element, handling edge cases at start and end of x ivl vector
     if (low_idx == 0) {
       // just search for closest higher ivl, but do it twice to prevent indexing errors 
-      low_idx = low_idx ;
       upper_idx = low_idx + 1 ; 
     } else if (low_idx == ref_midpoints.size()) {
       // just search for closest lower ivl
@@ -41,8 +40,6 @@ void absdist_grouped(intervalVector& vx, intervalVector& vy,
       low_idx = low_idx - 1;
       upper_idx = low_idx + 1 ;
     }
-    
-
     
     int left = ref_midpoints[low_idx] ; 
     int right = ref_midpoints[upper_idx] ;
