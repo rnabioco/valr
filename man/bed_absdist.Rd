@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_absdist.r
 \name{bed_absdist}
 \alias{bed_absdist}
-\title{Compute the relative distance between query intervals and reference intervals}
+\title{Compute the absolute distance between query intervals and reference intervals}
 \usage{
 bed_absdist(x, y, genome)
 }
@@ -17,7 +17,7 @@ bed_absdist(x, y, genome)
 \code{data_frame}
 }
 \description{
-Compute the relative distance between query intervals and reference intervals
+Compute the absolute distance between query intervals and reference intervals
 }
 \examples{
 x <- tibble::frame_data(

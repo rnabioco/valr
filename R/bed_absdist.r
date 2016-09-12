@@ -1,4 +1,4 @@
-#' Compute the relative distance between query intervals and reference intervals
+#' Compute the absolute distance between query intervals and reference intervals
 #' 
 #' @param x tbl of intervals
 #' @param y tbl of intervals
