@@ -76,7 +76,7 @@
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class="symbol">genome</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>frame_data</a></span><span class="keyword">(</span>
+    <pre class="examples"><div class='input'><span class="symbol">genome</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span><span class="keyword">(</span>
   <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span>  <span class="keyword">~</span><span class="symbol">size</span><span class="keyword">,</span>
   <span class="string">"chr1"</span><span class="keyword">,</span>  <span class="number">10000000</span><span class="keyword">,</span>
   <span class="string">"chr2"</span><span class="keyword">,</span>  <span class="number">50000000</span><span class="keyword">,</span>
@@ -89,16 +89,16 @@
 <div class='output'># A tibble: 1,000,000 × 3
    chrom    start      end
    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-1   chr2 17321713 17322713
-2   chr1  7153736  7154736
-3   chr3 22078711 22079711
-4   chr3 45782441 45783441
-5   chr3 35811482 35812482
-6   chr3 27634562 27635562
-7   chr2 15906566 15907566
-8   chr3 58040744 58041744
-9   chr3 48107783 48108783
-10  chr3  5862100  5863100
+1   chr2 44731218 44732218
+2   chr2 37207144 37208144
+3   chr3 10037381 10038381
+4   chr2  1441232  1442232
+5   chr3 27830900 27831900
+6   chr3 15477528 15478528
+7   chr3 41375560 41376560
+8   chr2 33620298 33621298
+9   chr3 53832424 53833424
+10  chr3  8525307  8526307
 # ... with 999,990 more rows
 </div>
 <div class='input'>
@@ -107,16 +107,16 @@
 <div class='output'># A tibble: 500 × 3
    chrom    start      end
    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-1   chr2 44731218 44731718
-2   chr2 37207144 37207644
-3   chr3 10037381 10037881
-4   chr2  1441232  1441732
-5   chr3 27830900 27831400
-6   chr3 15477528 15478028
-7   chr3 41375560 41376060
-8   chr2 33620298 33620798
-9   chr3 53832424 53832924
-10  chr3  8525307  8525807
+1   chr3 55729873 55730373
+2   chr2  5485170  5485670
+3   chr3 31230044 31230544
+4   chr3  4470249  4470749
+5   chr3 25356969 25357469
+6   chr2 47638954 47639454
+7   chr2 35762230 35762730
+8   chr2 32337471 32337971
+9   chr3 29269765 29270265
+10  chr2 44194057 44194557
 # ... with 490 more rows
 </div>
 <div class='input'>
