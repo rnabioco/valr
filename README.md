@@ -1,63 +1,88 @@
-`valr`: Genome interval arithmetic in R
-================
-Jay Hesselberth <jay.hesselberth@gmail.com>
-2016-09-08
+# valr
 
-[![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
+[![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr)
+[![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
-`valr` provides methods to do interval manipulations **within the R environment**, enabling fast explorative analysis of genome-scale data. Checkout the [vignette](http://rpubs.com/jayhesselberth/valr) for examples.
+`valr` enables analysis of genome-scale data sets **within R**, enabling fast, explorative analysis of genome-scale data. Key parts are implemented in `Rcpp` for speed. Moreover, `valr` makes use of new R libraries like `dplyr` and the `magrittr` pipe operator (`%>%`) for an expressive syntax that makes genome analysis fun. See the [`valr` demo](http://jayhesselberth.github.io/valr-demo) for examples.
 
-Installation
-============
+## Installation
 
 `valr` can be installed from github:
 
-``` r
+```R
 devtools::install_github('jayhesselberth/valr')
 ```
+ 
+Note that `valr` requires a C++11 compiler (gcc>=6.0 or clang++)
 
-Overview
-========
+## Examples
 
-`valr` enables analysis of genome-scale data sets **within R**. Key parts are implemented in `Rcpp` for speed. Moreover, `valr` makes use of new R libraries like `dplyr` and the `magrittr` pipe operator (`%>%`) for an expressive syntax that makes genome analysis fun. So a workflow like [this](https://github.com/arq5x/bedtools-protocols/blob/master/bedtools.md#bp3-plot-transcription-factor-occupancy-surrounding-the-transcription-start-site) becomes:
+`valr` adopts the "modern R" philosophy, providing functions that can be combined with `dplyr`, `purrr` and the magrittr pipe (`%>%`) to enable interactive analysis.
 
-``` r
-library(valr)
-library(dplyr)
-library(ggplot2)
+## API
 
-bedfile <- system.file('extdata', 'genes.hg19.chr22.bed.gz', package = 'valr')
-bgfile  <- system.file('extdata', 'hela.h3k4.chip.bg.gz', package = 'valr')
-genomefile <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
+Function names are similar to their their [BEDtools][bedtools] counterparts, with some additions.
 
-genes <- read_bed(bedfile, n_fields = 6)
-genome <- read_genome(genomefile)
+### Reading data
 
-tss <- genes %>% filter(strand == '+') %>% mutate(end = start + 1)
+* BED and related files are read with `read_bed()`, `read_bed12()`, `read_bedgraph()`, `read_narrowpeak()` and `read_broadpeak()`.
+  
+* Genome files containing chromosome name and size information are loaded with `read_genome()`.
+  
+* VCF files are loaded with `read_vcf()`.
 
-region_size <- 1000
-win_size <- 50
+### Transforming single interval sets
 
-x <- tss %>%
-  bed_slop(genome, both = region_size) %>%
-  bed_makewindows(genome, win_size) %>%
-  group_by(win_id)
+* Intervals are ordered with `bed_sort()`.
 
-y <- read_bedgraph(bgfile)
+* Interval coordinates are adjusted with `bed_slop()` and `bed_shift()`, and new flanking intervals are created with `bed_flank()`.
 
-res <- bed_map(x, y, sums = sum(value.y)) %>%
-  summarize(means = mean(sums), sds = sd(sums))
+* Nearby intervals are combined with `bed_merge()` and combined (but not merged) with `bed_cluster()`.  
 
-x_labels <- seq(-region_size, region_size, by = win_size * 5)
-x_breaks <- seq(1, 41, by = 5)
-sd_limits <- aes(ymax = means + sds, ymin = means - sds)
+* The intervals in a genome that are not covered by a query are identified with `bed_complement()`.
 
-ggplot(res, aes(x = win_id.x, y = means)) +
-  geom_point() + geom_pointrange(sd_limits) + 
-  scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
-  ggtitle('H3K4me3 ChIP signal near TSSs') +
-  xlab('Position\n(bp from TSS)') + ylab('Signal') +
-  theme_bw()
-```
+### Comparing multiple interval sets
 
-<img src="README-tss_signal_example-1.png" style="display: block; margin: auto;" />
+* Find overlaps between two sets of intervals with `bed_intersect()`.
+
+* Apply functions to selected columns for overlapping intervals with `bed_map()`.
+
+* Remove intervals based on overlaps between two files with `bed_subtract()`.
+
+* Find overlapping intervals within a window with `bed_window()`.
+
+* Find the closest intervals independent of overlaps with `bed_closest()`.
+
+### Randomizing intervals
+
+* Generate random intervals from an input genome with `bed_random()`.
+
+* Shuffle the coordinates of input intervals with `bed_shuffle()`.
+
+* Random sampling of input intervals is done with the `sample` function family in `dplyr`.
+
+### Interval statistics
+
+* Measure overlap significance of two sets of intervals with `bed_fisher()`.
+
+* Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
+
+* Quantify extent of overlap between two sets of intervals with `bed_jaccard()`.
+
+## Related work
+
+* Command-line tools [BEDtools][1] and [bedops][5].
+
+* The Python library [pybedtools][4] wraps BEDtools.
+
+* The R packages [GenomicRanges][6], [bedr][7] and [IRanges][8] provide similar capability.
+
+[1]: http://bedtools.readthedocs.org/en/latest/
+[2]: https://github.com/hadley/dplyr
+[3]: http://www.rcpp.org/
+[4]: https://pythonhosted.org/pybedtools/
+[5]: http://bedops.readthedocs.org/en/latest/index.html
+[6]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
+[7]: https://cran.r-project.org/web/packages/bedr/index.html
+[8]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
+[9]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
