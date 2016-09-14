@@ -31,4 +31,4 @@
 #' @importFrom broom tidy
 #' @importFrom utils head tail
 #' @import dplyr
-NULL
+"_PACKAGE"
