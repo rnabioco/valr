@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
-`valr` enables analysis of genome-scale data sets **within R**, enabling fast, explorative analysis of genome-scale data. Key parts are implemented in `Rcpp` for speed. Moreover, `valr` makes use of new R libraries like `dplyr` and the `magrittr` pipe operator (`%>%`) for an expressive syntax that makes genome analysis fun. See the [`valr` demo](http://jayhesselberth.github.io/valr-demo) for examples.
+`valr` enables analysis of genome-scale data sets **within R**, enabling fast, explorative analysis of genome-scale data. Key parts are implemented in `Rcpp` for speed. Moreover, `valr` makes use of new R libraries like `dplyr` and the `magrittr` pipe operator (`%>%`) for an expressive syntax that makes genome analysis fun.
+
+See the [`valr` demo](http://jayhesselberth.github.io/valr-demo) for documentation and examples.
 
 ## Installation
 
@@ -14,10 +16,6 @@ devtools::install_github('jayhesselberth/valr')
 ```
  
 Note that `valr` requires a C++11 compiler (gcc>=6.0 or clang++)
-
-## Examples
-
-`valr` adopts the "modern R" philosophy, providing functions that can be combined with `dplyr`, `purrr` and the magrittr pipe (`%>%`) to enable interactive analysis.
 
 ## API
 
