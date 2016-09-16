@@ -92,10 +92,6 @@ test_that("values_unique works correctly", {
 })
 
 test_that("first works correctly", {
-  x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 250
-  )
   
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
@@ -105,15 +101,10 @@ test_that("first works correctly", {
     "chr1", 150, 250, 40
   )
   
-  res <- bed_map(x, y, vals = first(value.y))
-  expect_equal(res$vals, 10)
+  expect_equal(first(y$value), 10)
 })
 
 test_that("last works correctly", {
-  x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 250
-  )
   
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
@@ -123,6 +114,6 @@ test_that("last works correctly", {
     "chr1", 150, 250, 40
   )
   
-  res <- bed_map(x, y, vals = last(value.y))
-  expect_equal(res$vals, 40)
+  expect_equal(last(y$value), 40)
 })
+
