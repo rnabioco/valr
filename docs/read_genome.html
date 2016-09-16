@@ -112,23 +112,11 @@ outside the defined size.</p>
 10  chr9 141213431
 # ... with 15 more rows
 </div>
-<div class='input'><span class="functioncall"><a href='read_genome.html'>read_genome</a></span><span class="keyword">(</span><span class="string">'https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes'</span><span class="keyword">)</span></div>
-<div class='output'># A tibble: 93 × 2
-   chrom      size
-   &lt;chr&gt;     &lt;int&gt;
-1   chr1 249250621
-2   chr2 243199373
-3   chr3 198022430
-4   chr4 191154276
-5   chr5 180915260
-6   chr6 171115067
-7   chr7 159138663
-8   chrX 155270560
-9   chr8 146364022
-10  chr9 141213431
-# ... with 83 more rows
-</div>
-<div class='input'>
+<div class='input'><span class="comment">## Not run: ------------------------------------</span>
+<span class="comment"># # can also read from a URL</span>
+<span class="comment"># read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')</span>
+<span class="comment">## ---------------------------------------------</span>
+
 <span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span><span class="keyword">(</span>
  <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">start</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">end</span><span class="keyword">,</span>
  <span class="string">"chr1"</span><span class="keyword">,</span> <span class="keyword">-</span><span class="number">100</span><span class="keyword">,</span>   <span class="number">500</span><span class="keyword">,</span>

@@ -85,57 +85,39 @@
 <span class="keyword">)</span>
 
 <span class="comment"># random intervals (unsorted)</span>
-<span class="functioncall"><a href='bed_random.html'>bed_random</a></span><span class="keyword">(</span><span class="symbol">genome</span><span class="keyword">)</span></div>
+<span class="functioncall"><a href='bed_random.html'>bed_random</a></span><span class="keyword">(</span><span class="symbol">genome</span><span class="keyword">,</span> <span class="argument">seed</span> <span class="argument">=</span> <span class="number">10104</span><span class="keyword">)</span></div>
 <div class='output'># A tibble: 1,000,000 × 3
    chrom    start      end
    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-1   chr2 44731218 44732218
-2   chr2 37207144 37208144
-3   chr3 10037381 10038381
-4   chr2  1441232  1442232
-5   chr3 27830900 27831900
-6   chr3 15477528 15478528
-7   chr3 41375560 41376560
-8   chr2 33620298 33621298
-9   chr3 53832424 53833424
-10  chr3  8525307  8526307
+1   chr3 57732458 57733458
+2   chr3  3718192  3719192
+3   chr2 14303923 14304923
+4   chr2 35002562 35003562
+5   chr3 41721327 41722327
+6   chr3 57830589 57831589
+7   chr3 42197909 42198909
+8   chrX  3787840  3788840
+9   chr3 33492118 33493118
+10  chr2 14530350 14531350
 # ... with 999,990 more rows
 </div>
 <div class='input'>
 <span class="comment"># 500 random intervals of length 500 </span>
-<span class="functioncall"><a href='bed_random.html'>bed_random</a></span><span class="keyword">(</span><span class="symbol">genome</span><span class="keyword">,</span> <span class="argument">length</span> <span class="argument">=</span> <span class="number">500</span><span class="keyword">,</span> <span class="argument">n</span> <span class="argument">=</span> <span class="number">500</span><span class="keyword">)</span></div>
+<span class="functioncall"><a href='bed_random.html'>bed_random</a></span><span class="keyword">(</span><span class="symbol">genome</span><span class="keyword">,</span> <span class="argument">length</span> <span class="argument">=</span> <span class="number">500</span><span class="keyword">,</span> <span class="argument">n</span> <span class="argument">=</span> <span class="number">500</span><span class="keyword">,</span> <span class="argument">seed</span> <span class="argument">=</span> <span class="number">10104</span><span class="keyword">)</span></div>
 <div class='output'># A tibble: 500 × 3
    chrom    start      end
    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-1   chr3 55729873 55730373
-2   chr2  5485170  5485670
-3   chr3 31230044 31230544
-4   chr3  4470249  4470749
-5   chr3 25356969 25357469
-6   chr2 47638954 47639454
-7   chr2 35762230 35762730
-8   chr2 32337471 32337971
-9   chr3 29269765 29270265
-10  chr2 44194057 44194557
+1   chr3 57732458 57732958
+2   chr3  3718192  3718692
+3   chr2 14303923 14304423
+4   chr2 35002562 35003062
+5   chr3 41721327 41721827
+6   chr3 57830589 57831089
+7   chr3 42197909 42198409
+8   chrX  3787840  3788340
+9   chr3 33492118 33492618
+10  chr2 14530350 14530850
 # ... with 490 more rows
-</div>
-<div class='input'>
-<span class="comment"># reproducible random intervals</span>
-<span class="functioncall"><a href='bed_random.html'>bed_random</a></span><span class="keyword">(</span><span class="symbol">genome</span><span class="keyword">,</span> <span class="argument">seed</span> <span class="argument">=</span> <span class="number">2016</span><span class="keyword">)</span></div>
-<div class='output'># A tibble: 1,000,000 × 3
-   chrom    start      end
-   &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-1   chr3 49345803 49346803
-2   chr3 51581437 51582437
-3   chr3 38506508 38507508
-4   chr3 27585452 27586452
-5   chr2 23285708 23286708
-6   chr3 15969770 15970770
-7   chr1  7865844  7866844
-8   chr2 29877474 29878474
-9   chr2 42468499 42469499
-10  chr3  5370595  5371595
-# ... with 999,990 more rows
 </div>
 <div class='input'></div></pre>
   </div>
