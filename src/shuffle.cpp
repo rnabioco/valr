@@ -1,53 +1,36 @@
 #include "valr.h"
 
+typedef std::unordered_map<int, intervalTree> chrom_tree_t ;
+
 //[[Rcpp::export]]
-DataFrame shuffle_impl(DataFrame df, DataFrame genome, DataFrame interval_bounds,
-                       bool within = false, int max_tries = 1000, int seed = 0) {
+DataFrame shuffle_impl(DataFrame df, DataFrame incl, int max_tries = 1000, int seed = 0) {
 
   // seed for reproducible intervals
   if (seed == 0)
     seed = round(R::runif(0, RAND_MAX)) ;
   
+  CharacterVector df_chroms = df["chrom"] ;
+  IntegerVector df_starts = df["start"] ;
+  IntegerVector df_ends = df["end"] ;
+  
+  IntegerVector df_sizes = df_ends - df_starts ;
+    
   // seed the generator
   auto generator = ENG(seed) ;
-  
-  // generated weighted chromosomes to sample from
-  CharacterVector chroms_genome = genome["chrom"] ;
-  NumericVector sizes_genome = genome["size"] ;
-  int nchrom = chroms_genome.size() ;
-  
-  // calculate weights for chrom distribution
-  float mass = sum(sizes_genome) ;
-  NumericVector weights = sizes_genome / mass ;
-  
-  Range chromidx(0, nchrom) ;
-  PDIST chrom_dist(chromidx.begin(), chromidx.end(), weights.begin()) ;
-
-  // now deal with query data frame
-  CharacterVector chroms_df = df["chrom"] ;
-  IntegerVector starts_df = df["start"] ;
-  IntegerVector ends_df = df["end"] ;
-  
-  IntegerVector sizes_df = ends_df - starts_df ;
-  
-  // number of rows input == rows in output
-  int nr = df.size() ;  
-  
+ 
+  int nr = df.nrows() ; 
   CharacterVector chroms_out(nr) ;
   IntegerVector starts_out(nr) ; 
   IntegerVector ends_out(nr) ; 
  
-  std::unordered_map<int, intervalTree> interval_trees ;
+  chrom_tree_t interval_trees ;
  
   for (int i = 0; i<nr; ++i) {
     
     // select a chromosome 
-    if (within) {
-      chroms_out[i] = chroms_df[i] ;
-    } else {
-      auto chrom_idx = chrom_dist(generator) ;
-      chroms_out[i] = chroms_genome[chrom_idx] ;
-    }
+    chroms_out[i] = df_chroms[i] ;
+    auto chrom_idx = chrom_dist(generator) ;
+    chroms_out[i] = chroms_genome[chrom_idx] ;
     
     int rand_start = 0 ; 
     int niter = 0 ;
@@ -57,19 +40,26 @@ DataFrame shuffle_impl(DataFrame df, DataFrame genome, DataFrame interval_bounds
     while (!inbounds) {
      
       niter++ ;  
-   
-      tree->findOverlapping(rand_start, rand_end, overlaps) ;
       
-      if (!overlaps.empty()) continue ;
-        
-      if (niter == max_tries) {
+      int rand_start = chrom_rng() ;
+      int rand_end = df_sizes[i] ;
+   
+      tree->findContained(rand_start, rand_end, overlaps) ;
+     
+      if (overlaps.empty()) {
+        // didn't find an overlap
+        continue ;
+      } else if (niter == max_tries) {
+        // tried too many times to find an overlap
         stop('maximum iterations exceeded in bed_shuffle') ;
       }
-      
+     
+      // keep the interval 
+      inbounds = true ;
     }  
     
     starts_out[i] = rand_start ;
-    ends_out[i] = rand_start + sizes_df[i] ;
+    ends_out[i] = rand_end ;
   } 
  
   return DataFrame::create( Named("chrom") = chroms_out,

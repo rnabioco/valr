@@ -20,8 +20,7 @@
 #' )
 #' 
 #' @export
-bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
-                        within = FALSE, max_tries = 100, seed = 0) {
+bed_shuffle <- function(x, genome, incl = NULL, excl = NULL, max_tries = 100, seed = 0) {
 
   # flatten incl and excl
   if (!is.null(incl))
@@ -29,22 +28,17 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
   if (!is.null(excl))
       excl <- bed_merge(excl)
       
-  # find the intervals to be sampled from 
+  # find the intervals to be sampled from. case where only incl intervals are
+  # defined is not eval explicitly
   if (is.null(incl) && is.null(excl)) {
-    interval_bounds <- genome
+    incl <- genome
   } else if (is.null(incl) && !is.null(incl)) {
-    interval_bounds <- bed_subtract(genome, excl)
-  } else if (!is.null(incl) && is.null(excl)) {
-    interval_bounds <- incl
-  } else {
-    interval_bounds <- bed_subtract(incl, excl)  
+    incl <- bed_subtract(genome, excl)
+  } else if (!is.null(incl) && !is.null(excl)) {
+    incl <- bed_subtract(incl, excl)  
   }
-  
-  # remove chroms from genome that are not in interval bounds. this prevents sampling 
-  # excluded chroms on the Rcpp side.
-  genome <- dplyr::anti_join(genome, interval_bounds, by = 'chrom')
-  
-  res <- shuffle_impl(x, genome, interval_bounds, within, max_tries, seed)
+ 
+  res <- shuffle_impl(x, incl, max_tries, seed)
  
   res 
 }  
