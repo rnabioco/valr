@@ -116,10 +116,11 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                          -left_start, -left_end, -right_start, -right_end)
 
   } else {
-    res <- tidyr::gather(res, key, value, left_start, left_end, right_start, right_end)
-    res <- tidyr::separate(res, key, c('pos', 'key'), sep = '_')
-    res <- tidyr::spread(res, key, value)
-    res <- dplyr::select(res, chrom, start, end, everything(), -pos) 
+    res_left <- dplyr::select(res, chrom,  left_start,   left_end, everything(), -right_start, -right_end) 
+    res_right <- dplyr::select(res, chrom,  right_start,   right_end, everything(), -left_start, -left_end)
+    res_left <- dplyr::rename(res_left, start = left_start, end = left_end)
+    res_right<- dplyr::rename(res_right, start = right_start, end = right_end)
+    res <- dplyr::bind_rows(res_left, res_right)
   }   
 
   res <- bound_intervals(res, genome, trim)
