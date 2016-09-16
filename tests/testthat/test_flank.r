@@ -29,5 +29,13 @@ test_that("both arg works", {
   expect_equal(nrow(out), 4)
 })
 
+test_that("all left and right intervals are reported with both arg", {
+  dist <- 100
+  out_left <- bed_flank(x, genome, left = dist)
+  out_right <- bed_flank(x, genome, right = dist)
+  out_both <- bed_flank(x, genome, both = dist)
+  out_left_right <- dplyr::bind_rows(out_left, out_right) %>% bed_sort()
+  expect_true(all(out_both == out_left_right))
+})
 # test fraction
 # test off chrom
