@@ -35,7 +35,10 @@ Select intervals bounded by a genome.
 \examples{
 genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 read_genome(genome)
+\dontrun{
+# can also read from a URL
 read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+}
 
 x <- tibble::tribble(
  ~chrom, ~start, ~end,

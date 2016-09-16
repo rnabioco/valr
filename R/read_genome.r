@@ -15,7 +15,10 @@
 #' @examples
 #' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 #' read_genome(genome)
+#' \dontrun{
+#' # can also read from a URL
 #' read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+#' }
 #' 
 #' @export
 read_genome <- function(filename) {
