@@ -28,13 +28,10 @@ genome <- tibble::tribble(
 ) 
 
 # random intervals (unsorted)
-bed_random(genome)
+bed_random(genome, seed = 10104)
 
 # 500 random intervals of length 500 
-bed_random(genome, length = 500, n = 500)
-
-# reproducible random intervals
-bed_random(genome, seed = 2016)
+bed_random(genome, length = 500, n = 500, seed = 10104)
 
 }
 \seealso{

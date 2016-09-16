@@ -17,13 +17,10 @@
 #' ) 
 #' 
 #' # random intervals (unsorted)
-#' bed_random(genome)
+#' bed_random(genome, seed = 10104)
 #'
 #' # 500 random intervals of length 500 
-#' bed_random(genome, length = 500, n = 500)
-#' 
-#' # reproducible random intervals
-#' bed_random(genome, seed = 2016)
+#' bed_random(genome, length = 500, n = 500, seed = 10104)
 #' 
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6, seed = 0) {
