@@ -1,65 +1,294 @@
+/*****************************************************
+
+ shuffle.cpp
+ 
+ (c) 2016 
+     Jay Hesselberth
+     University of Colorado School of Medicine
+     <jay.hesselberth@gmail.com
+
+ MIT License
+ 
+*****************************************************/
+
 #include "valr.h"
 
-typedef std::unordered_map<int, intervalTree> chrom_tree_t ;
+typedef std::unordered_map<std::string, intervalVector> chrom_interval_t ;
+typedef std::unordered_map<std::string, intervalTree> chrom_tree_t ;
+typedef std::vector< std::tuple< std::string, int >> weighted_chroms ;
 
+chrom_tree_t makeIntervalTrees(DataFrame incl) {
+  
+  chrom_interval_t chrom_intervals ;
+  chrom_tree_t chrom_trees ;
+ 
+  CharacterVector incl_chroms = incl["chrom"] ;
+  IntegerVector incl_starts = incl["start"] ;
+  IntegerVector incl_ends = incl["end"] ;
+  
+  int nr = incl.nrows() ;
+  
+  // collect all intervals for each chrom and put them in an intervalVector
+  for(int i=0; i<nr; ++i) {
+    
+    std::string chrom = as<std::string>(incl_chroms[i]) ;
+    
+    // create interval vector if it doesn't exist 
+    if(!chrom_intervals.count(chrom))
+      chrom_intervals[chrom] = intervalVector() ;
+    
+    // value is the row num in incl
+    interval_t interval(incl_starts[i], incl_ends[i], i) ;
+    chrom_intervals[chrom].push_back(interval) ;
+  }
+
+  // now build a map of chrom to interval tree  
+  for(auto kv : chrom_intervals) {
+   
+    std::string chrom = kv.first ;
+    intervalVector iv = kv.second ;
+    
+    chrom_trees[chrom] = intervalTree(iv) ;
+    
+  }
+  return chrom_trees ;
+}
+
+// add up the mass for each chrom. Then make:
+// 
+//   1. a PDIST to select a specific chrom by mass
+//   2. a map that links a chrom to a PDIST that selects a specific incl interval
+//   
+// The selected incl interval is then used to draw a random start.
+
+// used to select a chrom by its weighted mass
+PDIST makeChromRNG(DataFrame incl) {
+
+  CharacterVector incl_chroms = incl["chrom"] ;
+  IntegerVector incl_starts = incl["start"] ;
+  IntegerVector incl_ends = incl["end"] ;
+ 
+  std::vector<std::string> chrom_names = 
+    as<std::vector< std::string >>(unique(incl_chroms)) ; 
+  
+  int nchrom = chrom_names.size() ;
+  
+  IntegerVector incl_sizes = incl_ends - incl_starts ; 
+  
+  std::unordered_map<std::string, int> chrom_mass ;
+  
+  int nr = incl.nrows() ;
+  for (int i=0; i<nr; i++) {
+    
+    std::string chrom = as<std::string>(incl_chroms[i]) ;
+    
+    if (!chrom_mass.count(chrom))
+      chrom_mass[chrom] = 0 ;
+    
+    int curr_mass = incl_sizes[i] ;
+    chrom_mass[chrom] += curr_mass ;
+  }
+ 
+  NumericVector masses ;
+  float total_mass = 0 ;
+  for (auto kv : chrom_mass)  {
+    float mass = kv.second ;
+    masses.push_back(mass) ;
+    total_mass += mass ;
+  }
+  
+  NumericVector weights = masses / total_mass ;
+  
+  Range chrom_range(0, nchrom) ;
+  PDIST chrom_rng(chrom_range.begin(), chrom_range.end(), weights.begin()) ;
+  
+  return chrom_rng ;
+}
+
+typedef std::unordered_map<std::string, intervalVector> interval_map_t ;
+interval_map_t makeIntervalMap (DataFrame incl) {
+   
+  CharacterVector incl_chroms = incl["chrom"] ;
+  IntegerVector incl_starts = incl["start"] ;
+  IntegerVector incl_ends = incl["end"] ;
+  
+  int nr = incl.nrows() ;
+  interval_map_t interval_map ;
+  
+  for(int i=0; i<nr; ++i) {
+    std::string chrom = as<std::string>(incl_chroms[i]) ;
+    
+    if (!interval_map.count(chrom))
+      interval_map[chrom] = intervalVector() ;
+    
+    interval_map[chrom].push_back(interval_t(incl_starts[i], incl_ends[i], i)) ;
+  }
+  
+  return interval_map ;
+}
+
+// used to select an interval for a specific chrom 
+typedef std::unordered_map<std::string, PDIST > interval_rng_t ;
+interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
+
+  interval_rng_t interval_map_rngs ;
+  
+  for(auto kv : interval_map) {
+    
+    std::string chrom = kv.first ;
+    intervalVector intervals = kv.second ;
+    
+    float total_mass = 0 ;
+    NumericVector masses ;
+    int n_ivls = intervals.size() ;
+    
+    for(intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
+      float mass = i->stop - i->start ;
+      masses.push_back(mass) ;
+      total_mass += mass ;
+    }
+    
+    NumericVector weights = masses / total_mass ;
+    Range ivl_range(0, n_ivls) ;
+    PDIST ivl_rng(ivl_range.begin(), ivl_range.end(), weights.begin()) ;
+    
+    interval_map_rngs[chrom] = ivl_rng ;
+    
+  } 
+  
+  return interval_map_rngs ;
+}
+
+
+typedef std::unordered_map<std::string,
+                           std::vector< std::uniform_int_distribution<int> > > start_rng_t ;
+start_rng_t makeStartRNGs(interval_map_t interval_map) {
+  
+  start_rng_t start_rngs ;
+  
+  for(auto kv : interval_map) {
+    
+    std::string chrom = kv.first ;
+    intervalVector intervals = kv.second ;
+   
+    if(!start_rngs.count(chrom)) start_rngs[chrom] = { }; 
+    
+    for(intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
+      std::uniform_int_distribution<int> rng(i->start, i->stop) ;
+      start_rngs[chrom].push_back(rng) ;
+    }
+  } 
+  
+  return start_rngs ;
+}
+
+//[[Rcpp::plugins(cpp11)]]
 //[[Rcpp::export]]
-DataFrame shuffle_impl(DataFrame df, DataFrame incl, int max_tries = 1000, int seed = 0) {
+DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
+                       int max_tries = 1000, int seed = 0) {
 
   // seed for reproducible intervals
   if (seed == 0)
     seed = round(R::runif(0, RAND_MAX)) ;
   
+  // seed the generator
+  auto generator = ENG(seed) ;
+
+  // data on incoming df 
   CharacterVector df_chroms = df["chrom"] ;
   IntegerVector df_starts = df["start"] ;
   IntegerVector df_ends = df["end"] ;
   
   IntegerVector df_sizes = df_ends - df_starts ;
-    
-  // seed the generator
-  auto generator = ENG(seed) ;
- 
   int nr = df.nrows() ; 
+
+  std::vector<std::string> chrom_names = 
+    as<std::vector< std::string >>(unique(df_chroms)) ; 
+  
+  // RNG weighted by chromosome masses
+  PDIST chrom_rng = makeChromRNG(incl) ;
+  // map of chrom to intervals
+  interval_map_t interval_map = makeIntervalMap(incl) ;
+  // maps chroms to RNGs for interval positions
+  interval_rng_t interval_rngs = makeIntervalWeights(interval_map) ; 
+  // maps chroms to RNGs for start dists
+  start_rng_t start_rngs = makeStartRNGs(interval_map) ;
+  
+  // storage for output 
   CharacterVector chroms_out(nr) ;
   IntegerVector starts_out(nr) ; 
   IntegerVector ends_out(nr) ; 
- 
-  chrom_tree_t interval_trees ;
- 
+
+  // make a map of chrom to interval tree for each set of included intervals 
+  chrom_tree_t interval_trees = makeIntervalTrees(incl) ;
+  
+  // flags for while loop
+  bool inbounds ;
+  bool enclosed ;
+  int niter ;
+  
   for (int i = 0; i<nr; ++i) {
-    
+   
     // select a chromosome 
-    chroms_out[i] = df_chroms[i] ;
-    auto chrom_idx = chrom_dist(generator) ;
-    chroms_out[i] = chroms_genome[chrom_idx] ;
+    if (within) {
+      chroms_out[i] = df_chroms[i] ;
+    } else {
+      // pick a random chrom index. 
+      int rand_idx = chrom_rng(generator) ;
+      chroms_out[i] = chrom_names[rand_idx] ;
+    }
+   
+    // get tree from map
+    std::string chrom = as<std::string>(chroms_out[i]) ;
+    intervalTree chrom_tree = interval_trees[chrom] ;
     
-    int rand_start = 0 ; 
-    int niter = 0 ;
-    bool inbounds = false ;
-    intervalVector overlaps ;
+    std::string curr_chrom = as<std::string>(chroms_out[i]) ;
+
+    inbounds = false ;
+    niter = 0 ;
+    
+    // get the interval rng
+    PDIST interval_rng = interval_rngs[curr_chrom] ;   
     
     while (!inbounds) {
      
       niter++ ;  
-      
-      int rand_start = chrom_rng() ;
-      int rand_end = df_sizes[i] ;
-   
-      tree->findContained(rand_start, rand_end, overlaps) ;
-     
-      if (overlaps.empty()) {
-        // didn't find an overlap
-        continue ;
-      } else if (niter == max_tries) {
-        // tried too many times to find an overlap
-        stop('maximum iterations exceeded in bed_shuffle') ;
+      if (niter > max_tries) {
+        // tried too many times to find an overlap, bail
+        stop("maximum iterations exceeded in bed_shuffle") ;
       }
+
+      // get a random interval index
+      int rand_ivl_idx = interval_rng(generator) ;
+      // get the start rng and pick a start
+      std::uniform_int_distribution<int> start_rng = start_rngs[chrom][rand_ivl_idx] ;
+      int rand_start = start_rng(generator) ;
+      
+      int rand_end = rand_start + df_sizes[i] ;
      
-      // keep the interval 
+      intervalVector overlaps = chrom_tree.findOverlapping(rand_start, rand_end) ;
+      
+      // didn't find an overlap, keep going
+      if (overlaps.empty()) continue ;
+    
+      // check that the chosen end is <= the end of the overlapping interval 
+      enclosed = true ;
+      for(intervalVector::const_iterator j = overlaps.begin(); j<overlaps.end(); ++j) {
+        if (rand_start >= j->start) {
+          if (rand_end > j->stop) {
+            enclosed = false ; 
+          }
+        }
+      }
+      if (!enclosed) continue ;
+    
+      // if we get here, all checks pass. keep the interval.
       inbounds = true ;
+      
+      starts_out[i] = rand_start ;
+      ends_out[i] = rand_end ;
     }  
     
-    starts_out[i] = rand_start ;
-    ends_out[i] = rand_end ;
   } 
  
   return DataFrame::create( Named("chrom") = chroms_out,
@@ -70,21 +299,42 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, int max_tries = 1000, int s
 /***R
 library(dplyr)
 library(valr)
+
 genome <- tibble::tribble(
    ~chrom,  ~size,
-   "chr1", 500,
-   "chr2", 600,
-   "chr3", 800
+   "chr1", 50000000,
+   "chr2", 60000000,
+   "chr3", 80000000
 ) 
 
-x <- tibble::tribble(
+# incl <- genome
+
+incl <- tibble::tribble(
    ~chrom, ~start, ~end,
-   "chr1", 100,    300,
-   "chr1", 200,    400,
-   "chr2", 1,      100,
-   "chr2", 200,    400,
-   "chr3", 500,    600
-) 
+   "chr1", 1, 50000000,
+   "chr2", 1, 60000000,
+   "chr3", 1, 80000000
+   # "chr1", 1,    1000,
+   # "chr2", 1,    1000,
+   # "chr2", 5000, 10000,
+   # "chr3", 500,  10000
+)
 
-x <- bed_shuffle(x, genome)
+x <- bed_random(genome, n = 1e6) %>% bed_sort()
+
+# x <- tibble::tribble(
+#    ~chrom, ~start, ~end,
+#    "chr1", 100,    300,
+#    "chr1", 200,    400,
+#    "chr2", 1,      100,
+#    "chr2", 100,    500,
+#    "chr2", 200,    400
+# ) 
+
+shuffle_impl(x, incl) %>%
+  group_by(chrom) %>%
+  summarize(count = n())
+
+library(microbenchmark)
+microbenchmark(shuffle_impl(x, incl))
 */

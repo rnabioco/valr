@@ -74,18 +74,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // shuffle_impl
-DataFrame shuffle_impl(DataFrame df, DataFrame genome, DataFrame interval_bounds, bool within, int max_tries, int seed);
-RcppExport SEXP valr_shuffle_impl(SEXP dfSEXP, SEXP genomeSEXP, SEXP interval_boundsSEXP, SEXP withinSEXP, SEXP max_triesSEXP, SEXP seedSEXP) {
+DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within, int max_tries, int seed);
+RcppExport SEXP valr_shuffle_impl(SEXP dfSEXP, SEXP inclSEXP, SEXP withinSEXP, SEXP max_triesSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
-    Rcpp::traits::input_parameter< DataFrame >::type interval_bounds(interval_boundsSEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type incl(inclSEXP);
     Rcpp::traits::input_parameter< bool >::type within(withinSEXP);
     Rcpp::traits::input_parameter< int >::type max_tries(max_triesSEXP);
     Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(shuffle_impl(df, genome, interval_bounds, within, max_tries, seed));
+    rcpp_result_gen = Rcpp::wrap(shuffle_impl(df, incl, within, max_tries, seed));
     return rcpp_result_gen;
 END_RCPP
 }
