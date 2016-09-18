@@ -13,37 +13,17 @@
 
 #include "valr.h"
 
-typedef std::unordered_map<std::string, intervalVector> chrom_interval_t ;
 typedef std::unordered_map<std::string, intervalTree> chrom_tree_t ;
-typedef std::vector< std::tuple< std::string, int >> weighted_chroms ;
+typedef std::unordered_map<std::string, intervalVector> interval_map_t ;
+typedef std::unordered_map<std::string, PDIST > interval_rng_t ;
+typedef std::unordered_map<std::string, std::vector< UDIST > > start_rng_t ;
 
-chrom_tree_t makeIntervalTrees(DataFrame incl) {
+chrom_tree_t makeIntervalTrees(DataFrame incl, interval_map_t interval_map) {
   
-  chrom_interval_t chrom_intervals ;
   chrom_tree_t chrom_trees ;
  
-  CharacterVector incl_chroms = incl["chrom"] ;
-  IntegerVector incl_starts = incl["start"] ;
-  IntegerVector incl_ends = incl["end"] ;
-  
-  int nr = incl.nrows() ;
-  
-  // collect all intervals for each chrom and put them in an intervalVector
-  for(int i=0; i<nr; ++i) {
-    
-    std::string chrom = as<std::string>(incl_chroms[i]) ;
-    
-    // create interval vector if it doesn't exist 
-    if(!chrom_intervals.count(chrom))
-      chrom_intervals[chrom] = intervalVector() ;
-    
-    // value is the row num in incl
-    interval_t interval(incl_starts[i], incl_ends[i], i) ;
-    chrom_intervals[chrom].push_back(interval) ;
-  }
-
   // now build a map of chrom to interval tree  
-  for(auto kv : chrom_intervals) {
+  for(auto kv : interval_map) {
    
     std::string chrom = kv.first ;
     intervalVector iv = kv.second ;
@@ -60,15 +40,10 @@ PDIST makeChromRNG(DataFrame incl) {
   CharacterVector incl_chroms = incl["chrom"] ;
   IntegerVector incl_starts = incl["start"] ;
   IntegerVector incl_ends = incl["end"] ;
- 
-  std::vector<std::string> chrom_names = 
-    as<std::vector< std::string >>(unique(incl_chroms)) ; 
-  
-  int nchrom = chrom_names.size() ;
-  
+
   IntegerVector incl_sizes = incl_ends - incl_starts ; 
   
-  std::map<std::string, int> chrom_mass ;
+  std::map<std::string, double> chrom_mass ;
   
   int nr = incl.nrows() ;
   for (int i=0; i<nr; i++) {
@@ -78,32 +53,37 @@ PDIST makeChromRNG(DataFrame incl) {
     if (!chrom_mass.count(chrom))
       chrom_mass[chrom] = 0 ;
     
-    int curr_mass = incl_sizes[i] ;
+    double curr_mass = incl_sizes[i] ;
     chrom_mass[chrom] += curr_mass ;
   }
- 
-  NumericVector masses ;
-  float total_mass = 0 ;
+
+  std::vector<double> masses ; 
+  double total_mass = 0 ;
   for (auto kv : chrom_mass)  {
-    float mass = kv.second ;
+    double mass = kv.second ;
     masses.push_back(mass) ;
     total_mass += mass ;
   }
   
-  NumericVector weights = masses / total_mass ;
+  std::vector<double> weights ;
+  for(auto mass : masses) {
+    double weight = mass / total_mass ;
+    weights.push_back(weight) ;
+  }
   
+  CharacterVector chrom_names = unique(incl_chroms) ; 
+  int nchrom = chrom_names.size() ;
   Range chrom_range(0, nchrom) ;
   PDIST chrom_rng(chrom_range.begin(), chrom_range.end(), weights.begin()) ;
   
   return chrom_rng ;
 }
 
-typedef std::unordered_map<std::string, intervalVector> interval_map_t ;
 interval_map_t makeIntervalMap (DataFrame incl) {
    
   CharacterVector incl_chroms = incl["chrom"] ;
-  IntegerVector incl_starts = incl["start"] ;
-  IntegerVector incl_ends = incl["end"] ;
+  IntegerVector incl_starts   = incl["start"] ;
+  IntegerVector incl_ends     = incl["end"] ;
   
   int nr = incl.nrows() ;
   interval_map_t interval_map ;
@@ -121,7 +101,6 @@ interval_map_t makeIntervalMap (DataFrame incl) {
 }
 
 // used to select an interval for a specific chrom 
-typedef std::unordered_map<std::string, PDIST > interval_rng_t ;
 interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
 
   interval_rng_t interval_map_rngs ;
@@ -131,17 +110,22 @@ interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
     std::string chrom = kv.first ;
     intervalVector intervals = kv.second ;
     
-    float total_mass = 0 ;
-    NumericVector masses ;
-    int n_ivls = intervals.size() ;
+    double total_mass = 0 ;
+    std::vector<double> masses ;
     
     for(intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-      float mass = i->stop - i->start ;
+      double mass = i->stop - i->start ;
       masses.push_back(mass) ;
       total_mass += mass ;
     }
+   
+    std::vector<double> weights ;
+    for(auto mass : masses) {
+      double weight = mass / total_mass ;
+      weights.push_back(weight) ;
+    }
     
-    NumericVector weights = masses / total_mass ;
+    int n_ivls = intervals.size() ;
     Range ivl_range(0, n_ivls) ;
     PDIST ivl_rng(ivl_range.begin(), ivl_range.end(), weights.begin()) ;
     
@@ -153,8 +137,6 @@ interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
 }
 
 
-typedef std::unordered_map<std::string,
-                           std::vector< std::uniform_int_distribution<int> > > start_rng_t ;
 start_rng_t makeStartRNGs(interval_map_t interval_map) {
   
   start_rng_t start_rngs ;
@@ -167,7 +149,7 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
     if(!start_rngs.count(chrom)) start_rngs[chrom] = { }; 
     
     for(intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-      std::uniform_int_distribution<int> rng(i->start, i->stop) ;
+      UDIST rng(i->start, i->stop) ;
       start_rngs[chrom].push_back(rng) ;
     }
   } 
@@ -175,50 +157,41 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
   return start_rngs ;
 }
 
-//[[Rcpp::plugins(cpp11)]]
 //[[Rcpp::export]]
 DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
                        int max_tries = 1000, int seed = 0) {
 
   // seed for reproducible intervals
-  if (seed == 0)
-    seed = round(R::runif(0, RAND_MAX)) ;
+  if (seed == 0) seed = round(R::runif(0, RAND_MAX)) ;
   
   // seed the generator
   auto generator = ENG(seed) ;
 
   // data on incoming df 
   CharacterVector df_chroms = df["chrom"] ;
-  IntegerVector df_starts = df["start"] ;
-  IntegerVector df_ends = df["end"] ;
+  IntegerVector df_starts   = df["start"] ;
+  IntegerVector df_ends     = df["end"] ;
   
   IntegerVector df_sizes = df_ends - df_starts ;
-  int nr = df.nrows() ; 
 
-  std::vector<std::string> chrom_names = 
-    as<std::vector< std::string >>(unique(df_chroms)) ; 
-  
   // RNG weighted by chromosome masses
   PDIST chrom_rng = makeChromRNG(incl) ;
   // map of chrom to intervals
   interval_map_t interval_map = makeIntervalMap(incl) ;
-  // maps chroms to RNGs for interval positions
+  // maps chroms to RNGs for interval index positions
   interval_rng_t interval_rngs = makeIntervalWeights(interval_map) ; 
   // maps chroms to RNGs for start dists
   start_rng_t start_rngs = makeStartRNGs(interval_map) ;
+  // make a map of chrom to interval tree for each set of included intervals 
+  chrom_tree_t interval_trees = makeIntervalTrees(incl, interval_map) ;
   
   // storage for output 
+  int nr = df.nrows() ; 
   CharacterVector chroms_out(nr) ;
-  IntegerVector starts_out(nr) ; 
-  IntegerVector ends_out(nr) ; 
-
-  // make a map of chrom to interval tree for each set of included intervals 
-  chrom_tree_t interval_trees = makeIntervalTrees(incl) ;
+  IntegerVector   starts_out(nr) ; 
+  IntegerVector   ends_out(nr) ; 
   
-  // flags for while loop
-  bool inbounds ;
-  bool enclosed ;
-  int niter ;
+  CharacterVector chrom_names = unique(df_chroms) ;
   
   for (int i = 0; i<nr; ++i) {
    
@@ -235,13 +208,11 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
     std::string chrom = as<std::string>(chroms_out[i]) ;
     intervalTree chrom_tree = interval_trees[chrom] ;
     
-    std::string curr_chrom = as<std::string>(chroms_out[i]) ;
-
-    inbounds = false ;
-    niter = 0 ;
+    bool inbounds = false ;
+    int niter = 0 ;
     
     // get the interval rng
-    PDIST interval_rng = interval_rngs[curr_chrom] ;   
+    PDIST interval_rng = interval_rngs[chrom] ;   
     
     while (!inbounds) {
      
@@ -254,7 +225,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
       // get a random interval index
       int rand_ivl_idx = interval_rng(generator) ;
       // get the start rng and pick a start
-      std::uniform_int_distribution<int> start_rng = start_rngs[chrom][rand_ivl_idx] ;
+      UDIST start_rng = start_rngs[chrom][rand_ivl_idx] ;
       int rand_start = start_rng(generator) ;
       
       int rand_end = rand_start + df_sizes[i] ;
@@ -265,7 +236,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
       if (overlaps.empty()) continue ;
     
       // check that the chosen end is <= the end of the overlapping interval 
-      enclosed = true ;
+      bool enclosed = true ;
       for(intervalVector::const_iterator j = overlaps.begin(); j<overlaps.end(); ++j) {
         if (rand_start >= j->start) {
           if (rand_end > j->stop) {
