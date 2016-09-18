@@ -365,8 +365,9 @@ group_by(x, chrom) %>% sample_n(1)
 
 `bed_shuffle` shuffles input intervals. Interval sizes are equal in the input and output.
 
-```{r shuffle, eval = FALSE}
-y <- bed_shuffle(x)
+```{r shuffle}
+y <- bed_shuffle(x, genome)
+y
 
 any(x$start == y$start)
 
@@ -478,6 +479,7 @@ microbenchmark(
   bed_merge(x),
   bed_subtract(x, y),
   bed_complement(x, genome),
+  bed_shuffle(x, genome),
   times = 1,
   unit = 's'
 )

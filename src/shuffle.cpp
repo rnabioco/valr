@@ -54,13 +54,6 @@ chrom_tree_t makeIntervalTrees(DataFrame incl) {
   return chrom_trees ;
 }
 
-// add up the mass for each chrom. Then make:
-// 
-//   1. a PDIST to select a specific chrom by mass
-//   2. a map that links a chrom to a PDIST that selects a specific incl interval
-//   
-// The selected incl interval is then used to draw a random start.
-
 // used to select a chrom by its weighted mass
 PDIST makeChromRNG(DataFrame incl) {
 
@@ -75,7 +68,7 @@ PDIST makeChromRNG(DataFrame incl) {
   
   IntegerVector incl_sizes = incl_ends - incl_starts ; 
   
-  std::unordered_map<std::string, int> chrom_mass ;
+  std::map<std::string, int> chrom_mass ;
   
   int nr = incl.nrows() ;
   for (int i=0; i<nr; i++) {
@@ -335,6 +328,6 @@ shuffle_impl(x, incl) %>%
   group_by(chrom) %>%
   summarize(count = n())
 
-library(microbenchmark)
-microbenchmark(shuffle_impl(x, incl))
+# library(microbenchmark)
+# microbenchmark(shuffle_impl(x, incl))
 */

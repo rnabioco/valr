@@ -4,7 +4,8 @@
 \alias{bed_shuffle}
 \title{shuffle input intervals}
 \usage{
-bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 100)
+bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
+  within = FALSE, seed = 0)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -16,6 +17,10 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 100)
 \item{excl}{tbl of excluded intervals}
 
 \item{max_tries}{maximum tries to identify a bounded region}
+
+\item{within}{shuffle within chromosomes}
+
+\item{seed}{seed for reproducible intervals}
 }
 \value{
 \code{data_frame}
@@ -24,11 +29,15 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 100)
 shuffle input intervals
 }
 \examples{
-x <- tibble::frame_data(
+genome <- tibble::tribble(
+ ~chrom, ~size,
+ "chr1", 1e6,
+ "chr2", 2e6,
+ "chr3", 4e6
 )
 
-genome <- tibble::frame_data(
-)
+x <- bed_random(genome)
+bed_shuffle(x, genome)
 
 }
 \seealso{
