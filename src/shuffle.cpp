@@ -173,7 +173,10 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
   IntegerVector df_ends     = df["end"] ;
   
   IntegerVector df_sizes = df_ends - df_starts ;
-
+  
+  // data on incl df
+  CharacterVector incl_chroms = incl["chrom"] ;
+  
   // RNG weighted by chromosome masses
   PDIST chrom_rng = makeChromRNG(incl) ;
   // map of chrom to intervals
@@ -191,7 +194,8 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
   IntegerVector   starts_out(nr) ; 
   IntegerVector   ends_out(nr) ; 
   
-  CharacterVector chrom_names = unique(df_chroms) ;
+  // make master list of chroms found in incl
+  CharacterVector chrom_names = unique(incl_chroms) ;
   
   for (int i = 0; i<nr; ++i) {
    
@@ -199,7 +203,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
     if (within) {
       chroms_out[i] = df_chroms[i] ;
     } else {
-      // pick a random chrom index. 
+      // pick a random chrom index.
       int rand_idx = chrom_rng(generator) ;
       chroms_out[i] = chrom_names[rand_idx] ;
     }

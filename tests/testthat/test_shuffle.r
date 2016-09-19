@@ -72,3 +72,5 @@ test_that('`seed` generates reproducible intervals',{
    res2 <- bed_shuffle(x, genome, seed = seed)
    expect_identical(res1, res2) 
 })
+
+
