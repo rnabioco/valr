@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>bed_shuffle. valr 0.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">valr 0.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>shuffle input intervals</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='bed_shuffle.html'>bed_shuffle</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">genome</span><span class="keyword">,</span> <span class="argument">incl</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">excl</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">max_tries</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1000</span><span class="keyword">,</span>
+  <span class="argument">within</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="argument">seed</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">0</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd>tbl of intervals</dd>
+      <dt>genome</dt>
+      <dd>chrom sizes</dd>
+      <dt>incl</dt>
+      <dd>tbl of included intervals</dd>
+      <dt>excl</dt>
+      <dd>tbl of excluded intervals</dd>
+      <dt>max_tries</dt>
+      <dd>maximum tries to identify a bounded interval</dd>
+      <dt>within</dt>
+      <dd>shuffle within chromosomes</dd>
+      <dt>seed</dt>
+      <dd>seed for reproducible intervals</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+<code>data_frame</code>
+</dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>shuffle input intervals</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="symbol">genome</span> <span class="assignement">&lt;-</span> <span class="package">tibble</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span><span class="keyword">(</span>
+ <span class="keyword">~</span><span class="symbol">chrom</span><span class="keyword">,</span> <span class="keyword">~</span><span class="symbol">size</span><span class="keyword">,</span>
+ <span class="string">"chr1"</span><span class="keyword">,</span> <span class="number">1e6</span><span class="keyword">,</span>
+ <span class="string">"chr2"</span><span class="keyword">,</span> <span class="number">2e6</span><span class="keyword">,</span>
+ <span class="string">"chr3"</span><span class="keyword">,</span> <span class="number">4e6</span>
+<span class="keyword">)</span>
+
+<span class="symbol">x</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='bed_random.html'>bed_random</a></span><span class="keyword">(</span><span class="symbol">genome</span><span class="keyword">)</span>
+<span class="functioncall"><a href='bed_shuffle.html'>bed_shuffle</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">genome</span><span class="keyword">)</span></div>
+<div class='output'># A tibble: 1,000,000 × 3
+    chrom   start     end
+   &lt;fctr&gt;   &lt;int&gt;   &lt;int&gt;
+1    chr2 1555560 1556560
+2    chr1  676566  677566
+3    chr2  567924  568924
+4    chr1  256551  257551
+5    chr2  562205  563205
+6    chr1  136699  137699
+7    chr2 1714252 1715252
+8    chr1    1605    2605
+9    chr1  686082  687082
+10   chr1  233103  234103
+# ... with 999,990 more rows
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>bed_shuffle</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html'>http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html</a></p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
