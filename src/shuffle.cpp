@@ -43,7 +43,7 @@ PDIST makeChromRNG(DataFrame incl) {
 
   IntegerVector incl_sizes = incl_ends - incl_starts ; 
   
-  std::map<std::string, double> chrom_mass ;
+  std::map<std::string, float> chrom_mass ;
   
   int nr = incl.nrows() ;
   for (int i=0; i<nr; i++) {
@@ -53,26 +53,27 @@ PDIST makeChromRNG(DataFrame incl) {
     if (!chrom_mass.count(chrom))
       chrom_mass[chrom] = 0 ;
     
-    double curr_mass = incl_sizes[i] ;
+    float curr_mass = incl_sizes[i] ;
     chrom_mass[chrom] += curr_mass ;
   }
 
-  std::vector<double> masses ; 
-  double total_mass = 0 ;
+  std::vector<float> weights ; 
+  float total_mass = 0 ;
   for (auto kv : chrom_mass)  {
-    double mass = kv.second ;
-    masses.push_back(mass) ;
+    auto mass = kv.second ;
+    weights.push_back(mass) ;
     total_mass += mass ;
   }
-  
-  std::vector<double> weights ;
-  for(auto mass : masses) {
-    double weight = mass / total_mass ;
-    weights.push_back(weight) ;
-  }
-  
+ 
+  std::transform(weights.begin(), weights.end(), weights.begin(),
+                 [total_mass](float mass) {return mass / total_mass; }) ;
+    
   CharacterVector chrom_names = unique(incl_chroms) ; 
   int nchrom = chrom_names.size() ;
+  
+  // if there is a single chrom, then we can only sample the range [0,0]
+  if (nchrom == 1) nchrom = 0;
+  
   Range chrom_range(0, nchrom) ;
   PDIST chrom_rng(chrom_range.begin(), chrom_range.end(), weights.begin()) ;
   
@@ -107,30 +108,30 @@ interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
   
   for(auto kv : interval_map) {
     
-    std::string chrom = kv.first ;
-    intervalVector intervals = kv.second ;
+    auto chrom = kv.first ;
+    auto intervals = kv.second ;
     
-    double total_mass = 0 ;
-    std::vector<double> masses ;
+    float total_mass = 0 ;
+    std::vector<float> weights ;
     
     for(intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-      double mass = i->stop - i->start ;
-      masses.push_back(mass) ;
+      float mass = i->stop - i->start ;
+      weights.push_back(mass) ;
       total_mass += mass ;
     }
    
-    std::vector<double> weights ;
-    for(auto mass : masses) {
-      double weight = mass / total_mass ;
-      weights.push_back(weight) ;
-    }
+    std::transform(weights.begin(), weights.end(), weights.begin(),
+                   [total_mass](float mass) {return mass / total_mass; }) ;
     
-    int n_ivls = intervals.size() ;
+    auto n_ivls = intervals.size() ;
+   
+    // if there is a single interval, then we can only sample the range [0,0]
+    if (n_ivls == 1) n_ivls = 0; 
+    
     Range ivl_range(0, n_ivls) ;
     PDIST ivl_rng(ivl_range.begin(), ivl_range.end(), weights.begin()) ;
     
     interval_map_rngs[chrom] = ivl_rng ;
-    
   } 
   
   return interval_map_rngs ;
@@ -143,8 +144,8 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
   
   for(auto kv : interval_map) {
     
-    std::string chrom = kv.first ;
-    intervalVector intervals = kv.second ;
+    auto chrom = kv.first ;
+    auto intervals = kv.second ;
    
     if(!start_rngs.count(chrom)) start_rngs[chrom] = { }; 
     
@@ -175,24 +176,25 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
   IntegerVector df_sizes = df_ends - df_starts ;
 
   // RNG weighted by chromosome masses
-  PDIST chrom_rng = makeChromRNG(incl) ;
+  auto chrom_rng = makeChromRNG(incl) ;
   // map of chrom to intervals
-  interval_map_t interval_map = makeIntervalMap(incl) ;
+  auto interval_map = makeIntervalMap(incl) ;
   // maps chroms to RNGs for interval index positions
-  interval_rng_t interval_rngs = makeIntervalWeights(interval_map) ; 
+  auto interval_rngs = makeIntervalWeights(interval_map) ; 
   // maps chroms to RNGs for start dists
-  start_rng_t start_rngs = makeStartRNGs(interval_map) ;
+  auto start_rngs = makeStartRNGs(interval_map) ;
   // make a map of chrom to interval tree for each set of included intervals 
-  chrom_tree_t interval_trees = makeIntervalTrees(incl, interval_map) ;
+  auto interval_trees = makeIntervalTrees(incl, interval_map) ;
   
   // storage for output 
   int nr = df.nrows() ; 
   CharacterVector chroms_out(nr) ;
   IntegerVector   starts_out(nr) ; 
   IntegerVector   ends_out(nr) ; 
-  
-  CharacterVector chrom_names = unique(df_chroms) ;
-  
+ 
+  CharacterVector incl_chroms = incl["chrom"] ;
+  CharacterVector chrom_names = unique(incl_chroms) ;
+   
   for (int i = 0; i<nr; ++i) {
    
     // select a chromosome 
@@ -205,14 +207,14 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
     }
    
     // get tree from map
-    std::string chrom = as<std::string>(chroms_out[i]) ;
-    intervalTree chrom_tree = interval_trees[chrom] ;
+    auto chrom = as<std::string>(chroms_out[i]) ;
+    auto chrom_tree = interval_trees[chrom] ;
     
     bool inbounds = false ;
     int niter = 0 ;
     
     // get the interval rng
-    PDIST interval_rng = interval_rngs[chrom] ;   
+    auto interval_rng = interval_rngs[chrom] ;   
     
     while (!inbounds) {
      
@@ -228,7 +230,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
       UDIST start_rng = start_rngs[chrom][rand_ivl_idx] ;
       int rand_start = start_rng(generator) ;
       
-      int rand_end = rand_start + df_sizes[i] ;
+      auto rand_end = rand_start + df_sizes[i] ;
      
       intervalVector overlaps = chrom_tree.findOverlapping(rand_start, rand_end) ;
       
@@ -263,42 +265,31 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
 /***R
 library(dplyr)
 library(valr)
+library(testthat)
+library(microbenchmark)
 
 genome <- tibble::tribble(
    ~chrom,  ~size,
    "chr1", 50000000,
    "chr2", 60000000,
    "chr3", 80000000
-) 
-
-# incl <- genome
+)
 
 incl <- tibble::tribble(
    ~chrom, ~start, ~end,
-   "chr1", 1, 50000000,
+   "chr1", 1, 5000000,
+   "chr1", 5000000, 50000000,
    "chr2", 1, 60000000,
    "chr3", 1, 80000000
-   # "chr1", 1,    1000,
-   # "chr2", 1,    1000,
-   # "chr2", 5000, 10000,
-   # "chr3", 500,  10000
 )
 
-x <- bed_random(genome, n = 1e6) %>% bed_sort()
-
-# x <- tibble::tribble(
-#    ~chrom, ~start, ~end,
-#    "chr1", 100,    300,
-#    "chr1", 200,    400,
-#    "chr2", 1,      100,
-#    "chr2", 100,    500,
-#    "chr2", 200,    400
-# ) 
+x <- bed_random(genome, n = 100) %>% bed_sort()
 
 shuffle_impl(x, incl) %>%
   group_by(chrom) %>%
   summarize(count = n())
 
-# library(microbenchmark)
-# microbenchmark(shuffle_impl(x, incl))
+library(microbenchmark)
+# microbenchmark(shuffle_impl(x, incl), n = 10, unit = 's')
+
 */

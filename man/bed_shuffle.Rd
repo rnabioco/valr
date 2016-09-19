@@ -16,7 +16,7 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
 
 \item{excl}{tbl of excluded intervals}
 
-\item{max_tries}{maximum tries to identify a bounded region}
+\item{max_tries}{maximum tries to identify a bounded interval}
 
 \item{within}{shuffle within chromosomes}
 

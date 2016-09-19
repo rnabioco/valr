@@ -2,12 +2,12 @@ context("bed_shuffle")
 
 genome <- tibble::tribble(
   ~chrom, ~size,
-  "chr1", 1e6,
-  "chr2", 1e7,
-  "chr3", 1e8
+  "chr1", 1000000,
+  "chr2", 10000000,
+  "chr3", 100000000
 )
 
-x <- bed_random(genome) %>% bed_sort
+x <- bed_random(genome, n = 100) %>% bed_sort
 
 test_that('within = TRUE maintains chroms', {
   res <- bed_shuffle(x, genome, within = TRUE)
@@ -22,7 +22,7 @@ test_that('within = FALSE shuffles chroms', {
 test_that('`incl` includes intervals',{
   incl <- tibble::tribble(
     ~chrom, ~start, ~end,
-    "chr1", 1e4,    1e6
+    "chr1", 10000,  1000000
   )
   res <- bed_shuffle(x, genome, incl = incl)
   expect_true(all(res$chrom == 'chr1'))
@@ -33,9 +33,9 @@ test_that('`incl` includes intervals',{
 test_that('`excl` excludes intervals',{
   excl <- tibble::tribble(
     ~chrom, ~start, ~end,
-    "chr1", 1e4,    1e6,
-    "chr2", 1,      1e7,
-    "chr3", 1,      1e8
+    "chr1", 10000,  1000000,
+    "chr2", 1,      10000000,
+    "chr3", 1,      100000000
   )
   res <- bed_shuffle(x, genome, excl = excl)
   expect_true(all(res$chrom == 'chr1'))
@@ -48,9 +48,9 @@ test_that('completely excluded intervals throw an error',{
   # all intervals completely excluded 
   excl <- tibble::tribble(
     ~chrom, ~start, ~end,
-    "chr1", 1,      1e6,
-    "chr2", 1,      1e7,
-    "chr3", 1,      1e8
+    "chr1", 1,      1000000,
+    "chr2", 1,      10000000,
+    "chr3", 1,      100000000
   )
   expect_error(bed_shuffle(x, genome, excl = excl))
 })

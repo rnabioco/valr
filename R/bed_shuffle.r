@@ -4,7 +4,7 @@
 #' @param genome chrom sizes
 #' @param incl tbl of included intervals
 #' @param excl tbl of excluded intervals
-#' @param max_tries maximum tries to identify a bounded region
+#' @param max_tries maximum tries to identify a bounded interval
 #' @param within shuffle within chromosomes
 #' @param seed seed for reproducible intervals
 #' 
@@ -47,8 +47,8 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
     incl <- bed_subtract(incl, excl)  
   }
 
-  if (nrow(incl) == 0)
-    stop('all intervals are completely excluded', call. = FALSE)
+  if (nrow(incl) == 0 || is.null(incl))
+    stop('no intervals to sample from', call. = FALSE)
 
   res <- shuffle_impl(x, incl, within, max_tries, seed)
   res <- as_data_frame(res)
