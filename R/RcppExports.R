@@ -29,6 +29,10 @@ reldist_impl <- function(x, y) {
     .Call('valr_reldist_impl', PACKAGE = 'valr', x, y)
 }
 
+shuffle_impl <- function(df, incl, within = FALSE, max_tries = 1000L, seed = 0L) {
+    .Call('valr_shuffle_impl', PACKAGE = 'valr', df, incl, within, max_tries, seed)
+}
+
 subtract_impl <- function(gdf_x, gdf_y) {
     .Call('valr_subtract_impl', PACKAGE = 'valr', gdf_x, gdf_y)
 }
