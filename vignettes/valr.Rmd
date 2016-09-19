@@ -213,7 +213,7 @@ bed_merge(x, maxs = max(signal))
 
 `bed_flank` creates new intervals that flank -- but do not contain -- the input intervals.
 
-```{r flank, eval = TRUE}
+```{r flank}
 bed_flank(x, genome, both  = 100)
 ```
 
@@ -221,7 +221,7 @@ bed_flank(x, genome, both  = 100)
 
 `bed_slop` pads input intervals based on a specification
 
-```{r slop, eval = FALSE}
+```{r slop}
 bed_slop(x, genome, both = 100)
 ```
 
