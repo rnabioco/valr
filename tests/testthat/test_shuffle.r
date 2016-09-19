@@ -72,3 +72,31 @@ test_that('`seed` generates reproducible intervals',{
    res2 <- bed_shuffle(x, genome, seed = seed)
    expect_identical(res1, res2) 
 })
+
+test_that('`x` intervals not containing all `genome` chroms does not crash', {
+  
+  genome <- tibble::tribble(
+    ~chrom,  ~size,
+    "chr1", 50000000,
+    "chr2", 60000000,
+    "chr3", 80000000
+  ) 
+  
+  
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,    1000,
+    "chr2", 1,    1000,
+    "chr2", 5000, 10000,
+    "chr3", 500,  10000
+  )
+  
+  x_crashes <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr2", 5000, 10000,
+    "chr3", 500,  10000
+  )
+  # crashes 
+  expect_silent(bed_shuffle(x_crashes, genome))
+  
+})
