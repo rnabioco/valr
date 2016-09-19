@@ -45,7 +45,7 @@ bed_closest <- function(x, y, overlap = TRUE,
   if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
     stop("`strand` specified on unstranded data_frame", call. = FALSE)
   
-  # dplyr::check_suffix
+  # check_suffix
   if (!is.character(suffix) || length(suffix) != 2)
     stop("`suffix` must be a character vector of length 2.", call. = FALSE)
  
@@ -54,8 +54,8 @@ bed_closest <- function(x, y, overlap = TRUE,
   if ( ! is_sorted(y) )
     y <- bed_sort(y)
   
-  x <- dplyr::group_by(x, chrom, add = TRUE)
-  y <- dplyr::group_by(y, chrom, add = TRUE)
+  x <- group_by(x, chrom, add = TRUE)
+  y <- group_by(y, chrom, add = TRUE)
  
   suffix <- list(x = suffix[1], y = suffix[2])
   
@@ -67,9 +67,9 @@ bed_closest <- function(x, y, overlap = TRUE,
   distance_type <- match.arg(distance_type, c("genome", "strand", "abs"))
   
   if (strand) {
-    res <- dplyr::filter(res, strand.x == strand.y) 
+    res <- filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
-    res <- dplyr::filter(res, strand.x != strand.y) 
+    res <- filter(res, strand.x != strand.y) 
   }
   
   # modify distance output based on user input 
@@ -87,8 +87,8 @@ bed_closest <- function(x, y, overlap = TRUE,
   res$.overlap <- ifelse(res$.overlap < 0, 0, res$.overlap )
   
   if (!overlap){
-    res <- dplyr::filter(res, .overlap < 1)
-    res <- dplyr::select(res, -.overlap)
+    res <- filter(res, .overlap < 1)
+    res <- select(res, -.overlap)
   }
     
   res

@@ -24,7 +24,7 @@
 read_genome <- function(filename) {
   colnames <- c('chrom', 'size')
   genome <- suppressMessages(readr::read_tsv(filename, col_names = colnames))
-  genome <- dplyr::arrange(genome, desc(size))
+  genome <- arrange(genome, desc(size))
   genome
 }
 
@@ -53,15 +53,15 @@ read_genome <- function(filename) {
 #' 
 #' @export
 bound_intervals <- function(x, genome, trim = FALSE) {
-  res <- dplyr::left_join(x, genome, by = "chrom") 
+  res <- left_join(x, genome, by = "chrom") 
   if (trim) {
-    res <- dplyr::mutate(res,
+    res <- mutate(res,
                          start = ifelse(start < 1, 1, start),
                          end = ifelse(end > size, size, end))
-    res <- dplyr::select(res, -size)
+    res <- select(res, -size)
   } else {
-    res <- dplyr::filter(res, start >= 1 & end <= size)
-    res <- dplyr::select(res, -size)
+    res <- filter(res, start >= 1 & end <= size)
+    res <- select(res, -size)
   }
    
   res

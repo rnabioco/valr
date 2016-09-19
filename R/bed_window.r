@@ -33,17 +33,17 @@
 #' @export
 bed_window <- function(x, y, genome, ...) {
 
-  x <- dplyr::mutate(x, .start = start, .end = end)
+  x <- mutate(x, .start = start, .end = end)
   
   slop_x <- bed_slop(x, genome, ...)
   
   res <- bed_intersect(slop_x, y, ...)
   
-  res <- dplyr::mutate(res, start.x = .start.x, end.x = .end.x)
+  res <- mutate(res, start.x = .start.x, end.x = .end.x)
   
-  res <- dplyr::ungroup(res)
+  res <- ungroup(res)
   
-  res <- dplyr::select(res, -.start.x, -.end.x)
+  res <- select(res, -.start.x, -.end.x)
   
   res
 }

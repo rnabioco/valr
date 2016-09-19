@@ -51,8 +51,8 @@
 #' @export
 bed_map <- function(x, y, ...) {
 
-  groups_x <- dplyr::groups(x)
-  groups_y <- dplyr::groups(y)
+  groups_x <- groups(x)
+  groups_y <- groups(y)
   
   if('chrom' %in% c(groups_x, groups_y))
     stop('`chrom` cannot be used as grouping variable', call. = FALSE)
@@ -65,12 +65,12 @@ bed_map <- function(x, y, ...) {
   res <- bed_intersect(x, y)
  
   groups_default <- c('chrom', 'start.x', 'end.x')
-  res <- dplyr::group_by_(res, .dots = c(groups_default, groups_x, groups_y))
+  res <- group_by_(res, .dots = c(groups_default, groups_x, groups_y))
   
-  res <- dplyr::summarize_(res, .dots = lazyeval::lazy_dots(...))
+  res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
  
   # reassign original `x` groups 
-  res <- dplyr::group_by_(res, .dots = c(groups_x))
+  res <- group_by_(res, .dots = c(groups_x))
  
   res 
 }

@@ -12,7 +12,7 @@
 #' x <- tibble::tribble(
 #' ~chrom,   ~start,    ~end,
 #' "chr1",    75,       125
-#'   )
+#' )
 #' 
 #' y <- tibble::tribble(
 #'   ~chrom,   ~start,    ~end,
@@ -21,7 +21,6 @@
 #'   )
 #' 
 #' bed_reldist(x, y)
-#' 
 #' 
 #' @export
 
@@ -32,17 +31,16 @@ bed_reldist <- function(x, y, detail = FALSE) {
   if ( ! is_sorted(y) )
     y <- bed_sort(y)
  
-  x <- dplyr::group_by(x, chrom, add = TRUE)
-  y <- dplyr::group_by(y, chrom, add = TRUE)
+  x <- group_by(x, chrom, add = TRUE)
+  y <- group_by(y, chrom, add = TRUE)
   
   res <- reldist_impl(x, y)
   
   if (!detail){
     res$reldist <- floor(res$reldist * 100) / 100
     total_ivls <- nrow(res)
-    res <- dplyr::group_by(res, reldist)
-    res <- dplyr::summarize(res, 
-                     counts = n(),
+    res <- group_by(res, reldist)
+    res <- summarize(res, counts = n(),
                      total = total_ivls,
                      freq = counts / total)
   } 

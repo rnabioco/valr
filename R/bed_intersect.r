@@ -36,7 +36,7 @@ bed_intersect <- function(x, y, invert = FALSE,
                           strand = FALSE, strand_opp = FALSE,
                           suffix = c('.x', '.y'), ...) {
   
-  # dplyr::check_suffix
+  # check_suffix
   if (!is.character(suffix) || length(suffix) != 2)
     stop("`suffix` must be a character vector of length 2.", call. = FALSE)
  
@@ -48,8 +48,8 @@ bed_intersect <- function(x, y, invert = FALSE,
   if ( ! is_sorted(y) )
     y <- bed_sort(y)
  
-  x <- dplyr::group_by(x, chrom, add = TRUE)
-  y <- dplyr::group_by(y, chrom, add = TRUE)
+  x <- group_by(x, chrom, add = TRUE)
+  y <- group_by(y, chrom, add = TRUE)
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
@@ -58,14 +58,14 @@ bed_intersect <- function(x, y, invert = FALSE,
   # XXX: probably better to group matched / mismatched strands and intersect
   # among those
   if (strand) {
-     res <- dplyr::filter(res, strand.x == strand.y) 
+     res <- filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
-     res <- dplyr::filter(res, strand.x != strand.y) 
+     res <- filter(res, strand.x != strand.y) 
   }
  
   if (invert) {
     colspec <- c('chrom' = 'chrom', 'start' = 'start.x', 'end' = 'end.x') 
-    res <- dplyr::anti_join(x, res, by = colspec)
+    res <- anti_join(x, res, by = colspec)
   }
   
   res

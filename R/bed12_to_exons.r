@@ -22,22 +22,22 @@ bed12_to_exons <- function(x) {
   
   res <- tidyr::unnest(x, .exon_size = stringr::str_split(stringr::str_replace(exon_sizes, ',$', ''), ','),
                           .exon_start = stringr::str_split(stringr::str_replace(exon_starts, ',$', ''), ',')) 
-  res <- dplyr::mutate(res,
-                       .exon_size = as.double(.exon_size),
-                       .exon_start = as.double(.exon_start))
-  res <- dplyr::group_by(res, name)
-  res <- dplyr::mutate(res,
-                       .exon_num = ifelse(strand == '+',
+  res <- mutate(res,
+                .exon_size = as.double(.exon_size),
+                .exon_start = as.double(.exon_start))
+  res <- group_by(res, name)
+  res <- mutate(res,
+                .exon_num = ifelse(strand == '+',
                                           row_number(),
                                           rev(row_number())))
-  res <- dplyr::mutate(res,
-                       .start = start + .exon_start,
-                       .end = .start + .exon_size,
-                       .score = .exon_num)
-  res <- dplyr::select(res, chrom, .start, .end, name, .exon_num, strand)
-  res <- dplyr::rename(res, start = .start, end = .end, score = .exon_num)
+  res <- mutate(res,
+                .start = start + .exon_start,
+                .end = .start + .exon_size,
+                .score = .exon_num)
+  res <- select(res, chrom, .start, .end, name, .exon_num, strand)
+  res <- rename(res, start = .start, end = .end, score = .exon_num)
   
-  res <- dplyr::ungroup(res)
+  res <- ungroup(res)
   res <- bed_sort(res)
   
   res

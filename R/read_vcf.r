@@ -17,7 +17,7 @@ read_vcf <- function(vcf) {
    res <- suppressMessages(readr::read_tsv(vcf, comment = '##'))
    colnames(res) <- stringr::str_replace(colnames(res), '^#', '')
    
-   res <- dplyr::mutate(res,
+   res <- mutate(res,
                         chrom = str_c('chr', CHROM),
                         start = POS,
                         end = start + stringr::str_length(REF))

@@ -37,15 +37,15 @@
 #' @export
 bed_subtract <- function(x, y, any = FALSE) {
 
-  x <- dplyr::group_by(x, chrom, add = TRUE)
-  y <- dplyr::group_by(y, chrom, add = TRUE)
+  x <- group_by(x, chrom, add = TRUE)
+  y <- group_by(y, chrom, add = TRUE)
 
   if (any) {
     # if `any` then only return x intervals without overlaps 
     res <- bed_intersect(x, y)
     # collect x intervals with no overlaps 
     colspec <- c('chrom', 'start' = 'start.x', 'end' = 'end.x')
-    anti <- dplyr::anti_join(x, res, by = colspec)
+    anti <- anti_join(x, res, by = colspec)
    
     return(anti)
   }

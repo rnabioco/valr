@@ -38,23 +38,23 @@ bed_absdist <- function(x, y, genome) {
   if ( ! is_sorted(y) )
     y <- bed_sort(y)
   
-  x <- dplyr::group_by(x, chrom, add = TRUE)
-  y <- dplyr::group_by(y, chrom, add = TRUE)
+  x <- group_by(x, chrom, add = TRUE)
+  y <- group_by(y, chrom, add = TRUE)
   
   res <- absdist_impl(x, y)
   
   # calculate reference sizes
   y_chroms <- unique(y$chrom)
-  genome <- dplyr::filter(genome, genome$chrom %in% y_chroms)
-  genome <- dplyr::mutate(genome, 
-                          ref_gap = dplyr::group_size(y),
-                          ref_gap = ref_gap / size)
-  genome <- dplyr::select(genome, -size)
+  genome <- filter(genome, genome$chrom %in% y_chroms)
+  genome <- mutate(genome, 
+                   ref_gap = group_size(y),
+                   ref_gap = ref_gap / size)
+  genome <- select(genome, -size)
   
   #calculate scaled reference sizes
-  res <- dplyr::full_join(res, genome, by = c("chrom"))
-  res <- dplyr::mutate(res, scaled_absdist =  absdist * ref_gap)
-  res <- dplyr::select(res, -ref_gap)
+  res <- full_join(res, genome, by = c("chrom"))
+  res <- mutate(res, scaled_absdist =  absdist * ref_gap)
+  res <- select(res, -ref_gap)
   res
   
 }

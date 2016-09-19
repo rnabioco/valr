@@ -57,7 +57,7 @@ bed_makewindows <- function(x, genome, win_size = 0,
            reverse, .collate = 'rows',
            .labels = FALSE)
   
-  res <- dplyr::select(res, -.row)
+  res <- select(res, -.row)
     
   res 
 }
@@ -78,14 +78,14 @@ split_interval <- function(interval, genome, win_size, step_size,
   } 
    
   res <- transform(interval, .start = seq(from = start, to = end,
-                           by = win_size - step_size))
+                   by = win_size - step_size))
   
-  res <- dplyr::mutate(res, .end = ifelse(.start + win_size < end,
+  res <- mutate(res, .end = ifelse(.start + win_size < end,
                                    .start + win_size, end),
                      .win_num = row_number())
-  res <- dplyr::filter(res, .start != .end & .end <= chrom_size)
-  res <- dplyr::mutate(res, start = .start, end = .end)
-  res <- dplyr::select(res, -.start, -.end)
+  res <- filter(res, .start != .end & .end <= chrom_size)
+  res <- mutate(res, start = .start, end = .end)
+  res <- select(res, -.start, -.end)
  
   # add win_id 
   if (reverse) {

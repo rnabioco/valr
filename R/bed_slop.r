@@ -37,30 +37,30 @@ bed_slop <- function(x, genome, both = 0, left = 0,
     stop('ambiguous side spec for bed_slop', call. = FALSE)
 
   if (fraction)
-    x <- dplyr::mutate(x, .size = end - start)
+    x <- mutate(x, .size = end - start)
   
   if (both != 0) {
     if (fraction) {
-      res <- dplyr::mutate(x,
-                           start = start - round( both * .size ),
-                           end = end + round( both * .size ))
+      res <- mutate(x,
+                    start = start - round( both * .size ),
+                    end = end + round( both * .size ))
     } else {
-      res <- dplyr::mutate(x,
-                           start = start - both,
-                           end = end + both)
+      res <- mutate(x,
+                    start = start - both,
+                    end = end + both)
     }
   } else {
     # calc left and right based on strand
     if (strand) {
       if (fraction) {
-        res <- dplyr::mutate(x, start = ifelse(strand == '+',
+        res <- mutate(x, start = ifelse(strand == '+',
                                 start - round( left * .size ),
                                 start - round( right * .size )),
                              end = ifelse(strand == '+',
                                 end + round( right * .size ),
                                 end + round( left * .size )))
       } else {
-        res <- dplyr::mutate(x, start = ifelse(strand == '+',
+        res <- mutate(x, start = ifelse(strand == '+',
                                 start - left,
                                 start - right),
                              end = ifelse(strand == '+',
@@ -69,18 +69,18 @@ bed_slop <- function(x, genome, both = 0, left = 0,
       }
     } else {
       if ( fraction ) {
-        res <- dplyr::mutate(x,
-                             start = start - round( left * .size ),
-                             end = end + round( right * .size ))
+        res <- mutate(x,
+                      start = start - round( left * .size ),
+                      end = end + round( right * .size ))
       } else {
-        res <- dplyr::mutate(x,
-                             start = start - left,
-                             end = end + right)
+        res <- mutate(x,
+                      start = start - left,
+                      end = end + right)
       }
     }    
   }
    
-  if ( fraction ) res <- dplyr::select(res, -.size) 
+  if ( fraction ) res <- select(res, -.size) 
   
   res <- bound_intervals(res, genome, trim)
   res <- bed_sort(res)
