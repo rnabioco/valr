@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 
-`valr` enables analysis of genome-scale data sets **within R**, enabling fast, explorative analysis of genome-scale data. Key parts are implemented in `Rcpp` for speed. Moreover, `valr` makes use of new R libraries like `dplyr` and the `magrittr` pipe operator (`%>%`) for an expressive syntax that makes genome analysis fun.
+`valr` enables analysis of genome-scale data sets **within R**, providing tools for fast, explorative analysis of genome-scale data. `valr` was developed from a desire for an environment to teach the powerful concepts of genome interval arithmetic without the cumbersome back-and-forth between command-line and exploratory analysis tools.
+
+Key parts of `valr` are implemented in `Rcpp` for speed. Moreover, `valr` integrates with `dplyr` and the `magrittr` pipe operator (`%>%`) for an expressive syntax that makes genome analysis fun.
 
 See the [`valr` demo](http://jayhesselberth.github.io/valr-demo) for documentation and examples.
 
@@ -15,11 +17,11 @@ See the [`valr` demo](http://jayhesselberth.github.io/valr-demo) for documentati
 devtools::install_github('jayhesselberth/valr')
 ```
  
-Note that `valr` requires a C++11 compiler (gcc>=6.0 or clang++)
+__Note__ that `valr` requires a full-featured C++11 compiler (`gcc>=6.0` or `clang++`)
 
 ## API
 
-Function names are similar to their their [BEDtools][bedtools] counterparts, with some additions.
+Function names are similar to their their [BEDtools][1] counterparts, with some additions.
 
 ### Reading data
 
@@ -73,7 +75,7 @@ Function names are similar to their their [BEDtools][bedtools] counterparts, wit
 
 * The Python library [pybedtools][4] wraps BEDtools.
 
-* The R packages [GenomicRanges][6], [bedr][7] and [IRanges][8] provide similar capability.
+* The R packages [GenomicRanges][6], [bedr][7] and [IRanges][8] provide similar capability with a different philosophy.
 
 [1]: http://bedtools.readthedocs.org/en/latest/
 [2]: https://github.com/hadley/dplyr
