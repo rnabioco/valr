@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jay Hesselberth jay.hesselberth@gmail.com" />
 
-<meta name="date" content="2016-09-19" />
+<meta name="date" content="2016-09-20" />
 
 <title>valr: Genome interval arithmetic in R</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore"><code>valr</code>: Genome interval arithmetic in R</h1>
 <h4 class="author"><em>Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></em></h4>
-<h4 class="date"><em>2016-09-19</em></h4>
+<h4 class="date"><em>2016-09-20</em></h4>
 
 
 
@@ -766,16 +766,16 @@ y
 <span class="co">#&gt; # A tibble: 1,000,000 × 3</span>
 <span class="co">#&gt;     chrom     start       end</span>
 <span class="co">#&gt;    &lt;fctr&gt;     &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1    chr4  27007370  27008370</span>
+<span class="co">#&gt; 1    chrM      6538      7538</span>
 <span class="co">#&gt; 2    chr1  97416007  97417007</span>
-<span class="co">#&gt; 3    chr5  31266770  31267770</span>
-<span class="co">#&gt; 4   chr20   3654879   3655879</span>
-<span class="co">#&gt; 5    chrX 140364019 140365019</span>
-<span class="co">#&gt; 6   chr17  30818889  30819889</span>
-<span class="co">#&gt; 7   chr17  71697197  71698197</span>
-<span class="co">#&gt; 8    chrY  16614711  16615711</span>
-<span class="co">#&gt; 9    chrM      3013      4013</span>
-<span class="co">#&gt; 10  chr16  10815285  10816285</span>
+<span class="co">#&gt; 3    chrY  41927989  41928989</span>
+<span class="co">#&gt; 4    chr9 137872607 137873607</span>
+<span class="co">#&gt; 5   chr22   6146291   6147291</span>
+<span class="co">#&gt; 6    chr8  30818889  30819889</span>
+<span class="co">#&gt; 7    chr8  39097453  39098453</span>
+<span class="co">#&gt; 8   chr19  15232723  15233723</span>
+<span class="co">#&gt; 9   chr19   8929700   8930700</span>
+<span class="co">#&gt; 10  chr16  61536304  61537304</span>
 <span class="co">#&gt; # ... with 999,990 more rows</span>
 
 <span class="kw">any</span>(x$start ==<span class="st"> </span>y$start)
@@ -906,21 +906,21 @@ y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
 )
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;                       expr       min        lq      mean    median</span>
-<span class="co">#&gt;         bed_random(genome) 0.1243568 0.1243568 0.1243568 0.1243568</span>
-<span class="co">#&gt;          bed_closest(x, y) 4.9244752 4.9244752 4.9244752 4.9244752</span>
-<span class="co">#&gt;        bed_intersect(x, y) 1.8654812 1.8654812 1.8654812 1.8654812</span>
-<span class="co">#&gt;               bed_merge(x) 2.4667331 2.4667331 2.4667331 2.4667331</span>
-<span class="co">#&gt;         bed_subtract(x, y) 2.0766536 2.0766536 2.0766536 2.0766536</span>
-<span class="co">#&gt;  bed_complement(x, genome) 2.6005906 2.6005906 2.6005906 2.6005906</span>
-<span class="co">#&gt;     bed_shuffle(x, genome) 0.9676201 0.9676201 0.9676201 0.9676201</span>
+<span class="co">#&gt;         bed_random(genome) 0.1189546 0.1189546 0.1189546 0.1189546</span>
+<span class="co">#&gt;          bed_closest(x, y) 4.6880676 4.6880676 4.6880676 4.6880676</span>
+<span class="co">#&gt;        bed_intersect(x, y) 1.6913046 1.6913046 1.6913046 1.6913046</span>
+<span class="co">#&gt;               bed_merge(x) 2.4608746 2.4608746 2.4608746 2.4608746</span>
+<span class="co">#&gt;         bed_subtract(x, y) 1.8233967 1.8233967 1.8233967 1.8233967</span>
+<span class="co">#&gt;  bed_complement(x, genome) 2.4124555 2.4124555 2.4124555 2.4124555</span>
+<span class="co">#&gt;     bed_shuffle(x, genome) 0.9814328 0.9814328 0.9814328 0.9814328</span>
 <span class="co">#&gt;         uq       max neval</span>
-<span class="co">#&gt;  0.1243568 0.1243568     1</span>
-<span class="co">#&gt;  4.9244752 4.9244752     1</span>
-<span class="co">#&gt;  1.8654812 1.8654812     1</span>
-<span class="co">#&gt;  2.4667331 2.4667331     1</span>
-<span class="co">#&gt;  2.0766536 2.0766536     1</span>
-<span class="co">#&gt;  2.6005906 2.6005906     1</span>
-<span class="co">#&gt;  0.9676201 0.9676201     1</span></code></pre></div>
+<span class="co">#&gt;  0.1189546 0.1189546     1</span>
+<span class="co">#&gt;  4.6880676 4.6880676     1</span>
+<span class="co">#&gt;  1.6913046 1.6913046     1</span>
+<span class="co">#&gt;  2.4608746 2.4608746     1</span>
+<span class="co">#&gt;  1.8233967 1.8233967     1</span>
+<span class="co">#&gt;  2.4124555 2.4124555     1</span>
+<span class="co">#&gt;  0.9814328 0.9814328     1</span></code></pre></div>
 </div>
 
 
