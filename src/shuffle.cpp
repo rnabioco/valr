@@ -43,6 +43,7 @@ PDIST makeChromRNG(DataFrame incl) {
 
   IntegerVector incl_sizes = incl_ends - incl_starts ; 
   
+  // keys sorted in lexographic order
   std::map<std::string, float> chrom_mass ;
   
   int nr = incl.nrows() ;
@@ -193,7 +194,8 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
   IntegerVector   ends_out(nr) ; 
  
   CharacterVector incl_chroms = incl["chrom"] ;
-  CharacterVector chrom_names = unique(incl_chroms) ;
+  // sort in lexographic order
+  CharacterVector chrom_names = unique(incl_chroms).sort() ;
    
   for (int i = 0; i<nr; ++i) {
    

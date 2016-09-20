@@ -108,9 +108,8 @@ test_that('chroms intervals are weighted by mass', {
     "chr2", 1e5,
     "chr3", 1e6
     )
-  seed <- 101014
-  res <- bed_shuffle(x, genome = weighted, seed = seed) %>%
+  res <- bed_shuffle(x, genome = weighted) %>%
     group_by(chrom) %>%
     summarize(count = n())  
-  expect_false(is.unsorted(res$count))
+  expect_identical(res$count, sort(res$count))
 })
