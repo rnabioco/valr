@@ -2,9 +2,9 @@ context("bed_shuffle")
 
 genome <- tibble::tribble(
   ~chrom, ~size,
-  "chr1", 1000000,
-  "chr2", 10000000,
-  "chr3", 100000000
+  "chr1", 1e6,
+  "chr2", 1e7,
+  "chr3", 1e8
 )
 
 x <- bed_random(genome, n = 100) %>% bed_sort
@@ -55,8 +55,35 @@ test_that('completely excluded intervals throw an error',{
   expect_error(bed_shuffle(x, genome, excl = excl))
 })
 
-test_that('exceeding `max_tries` yields an error',{
-  # intervals partialy excluded 
+test_that('`incl` and `excl` are handled', {
+  excl <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,      500000,
+    "chr2", 1,      10000000
+  )
+  incl <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,  1000000
+  )
+  res <- bed_shuffle(x, genome, incl, excl)
+  expect_true(all(res$chrom == 'chr1'))
+  expect_true(all(res$start > 500000))
+})
+
+test_that('empty intervals derived from `incl` and `excl` is handled', {
+  excl <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,  1000000
+  )
+  incl <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,  1000000
+  )
+  expect_error(bed_shuffle(x, genome, incl, excl))
+})
+
+test_that('exceeding `max_tries` yields an error', {
+  # 100 bp interval is left but x intervals are 1kb
   excl <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100,    1e6,
@@ -71,4 +98,19 @@ test_that('`seed` generates reproducible intervals',{
    res1 <- bed_shuffle(x, genome, seed = seed)
    res2 <- bed_shuffle(x, genome, seed = seed)
    expect_identical(res1, res2) 
+})
+
+test_that('chroms intervals are weighted by mass', {
+  x <- bed_random(genome)
+  weighted <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 1e4,
+    "chr2", 1e5,
+    "chr3", 1e6
+    )
+  seed <- 101014
+  res <- bed_shuffle(x, genome = weighted, seed = seed) %>%
+    group_by(chrom) %>%
+    summarize(count = n())  
+  expect_false(is.unsorted(res$count))
 })
