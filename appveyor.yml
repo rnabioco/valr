@@ -12,6 +12,8 @@ install:
 
 # Adapt as necessary starting from here
 
+image: Visual Studio 2015 CTP 6
+
 build_script:
   - travis-tool.sh install_deps
 
