@@ -145,9 +145,9 @@ public:
 
             for (typename intervalVector::const_iterator i = ivals.begin(); i != ivals.end(); ++i) {
                 const interval& interval = *i;
-                if (interval.stop < center) {
+                if (interval.stop < centerp) {
                     lefts.push_back(interval);
-                } else if (interval.start > center) {
+                } else if (interval.start > centerp) {
                     rights.push_back(interval);
                 } else {
                     intervals.push_back(interval);
