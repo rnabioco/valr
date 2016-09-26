@@ -408,10 +408,9 @@ bed_intersect(x, y) %>%
 `valr` provides several methods to assess statistical properties of interval sets including:
 
   - `bed_fisher()`: measure overlap significance of two sets of intervals.
-  - `bed_absdist()`: XXX
+  - `bed_absdist()`: quantify absolute distance between query intervals and closest reference intervals
   - `bed_reldist()`: quantify relative distances between query intervals and closest reference intervals
   - `bed_jaccard()`: quantify extent of overlap between two sets of intervals
-  - `bed_projection()`: XXX
 
 Several of these methods were described in the [Genometricorr][17] software package.
 
@@ -428,10 +427,19 @@ bed_fisher(x, y, genome)
 
 ## Absolute distance
 
-`bed_absdist()` - XXX
+`bed_absdist()` computes the absolute distance between the midpoint of query intervals and the closest midpoints of a set of reference intervals. Absolute distances are scaled by the inter-reference gap for the chromosome as follows. For `Q` total query points and `R` reference points on a chromosome, scale the distance for each query point `i` to the closest reference point by the inter-reference gap for each chromosome. 
 
-```{r absdist, eval = FALSE}
+$$
+d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\ chromsome}
+$$
 
+By default both absolute and scaled distances are reported as `absdist` and `scaled_absdist` respectively. 
+
+```{r absdist, eval = TRUE}
+x <- bed_random(genome)
+y <- bed_random(genome)
+
+bed_absdist(x, y, genome)
 ```
 
 ## Relative distance
@@ -463,13 +471,6 @@ x <- bed_random(genome)
 y <- bed_random(genome)
 
 bed_jaccard(x, y)
-```
-
-## Projection
-
-`bed_projection()` TBD
-
-```{r projection, eval = FALSE}
 ```
 
 # Benchmarks
