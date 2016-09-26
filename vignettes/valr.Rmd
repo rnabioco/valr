@@ -411,7 +411,6 @@ bed_intersect(x, y) %>%
   - `bed_absdist()`: quantify absolute distance between query intervals and closest reference intervals
   - `bed_reldist()`: quantify relative distances between query intervals and closest reference intervals
   - `bed_jaccard()`: quantify extent of overlap between two sets of intervals
-  - `bed_projection()`: XXX
 
 Several of these methods were described in the [Genometricorr][17] software package.
 
@@ -472,13 +471,6 @@ x <- bed_random(genome)
 y <- bed_random(genome)
 
 bed_jaccard(x, y)
-```
-
-## Projection
-
-`bed_projection()` TBD
-
-```{r projection, eval = FALSE}
 ```
 
 # Benchmarks
