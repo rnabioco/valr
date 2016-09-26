@@ -13,7 +13,7 @@
 #' @family read functions
 #' 
 #' @examples
-#' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
+#' genome <- valr_example('hg19.chrom.sizes.gz')
 #' read_genome(genome)
 #' \dontrun{
 #' # can also read from a URL

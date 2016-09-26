@@ -8,8 +8,8 @@
 #'   Interval lengths are the size of the 'REF' field.
 #'   
 #' @examples
-#' v <- system.file('extdata', 'test.vcf.gz', package = 'valr')
-#' read_vcf(v)
+#' vcf_file <- valr_example('test.vcf.gz')
+#' read_vcf(vcf_file)
 #' 
 #' @export
 read_vcf <- function(vcf) {
@@ -18,9 +18,9 @@ read_vcf <- function(vcf) {
    colnames(res) <- stringr::str_replace(colnames(res), '^#', '')
    
    res <- mutate(res,
-                        chrom = str_c('chr', CHROM),
-                        start = POS,
-                        end = start + stringr::str_length(REF))
+                 chrom = stringr::str_c('chr', CHROM),
+                 start = POS,
+                 end = start + stringr::str_length(REF))
    
    res
 }

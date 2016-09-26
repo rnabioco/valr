@@ -7,7 +7,7 @@
 #' @param x tbl in BED12 format
 #'   
 #' @examples
-#' bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'valr')
+#' bed12_path <- valr_example('mm9.bed12.gz')
 #' x <- read_bed12(bed12_path)
 #' y <- bed12_to_exons(x) 
 #' 

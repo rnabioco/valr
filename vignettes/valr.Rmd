@@ -115,21 +115,21 @@ The methods include:
 ## BED files 
 
 ```{r read_bed}
-read_bed(system.file('extdata', '3fields.bed.gz', package = 'valr'))
-read_bed(n_fields = 6, system.file('extdata', '6fields.bed.gz', package = 'valr'))
-read_bed12(system.file('extdata', '12fields.bed.gz', package = 'valr'))
+read_bed(valr_example('3fields.bed.gz'))
+read_bed(n_fields = 6, valr_example('6fields.bed.gz'))
+read_bed12(valr_example('12fields.bed.gz'))
 ```
 
 ## Genome files
 
 ```{r read_genome}
-genome <- read_genome(system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr'))
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 ```
 
 ## bedGraph files
 
 ```{r read_bedgraph}
-read_bedgraph(system.file('extdata', 'test.bg.gz', package = 'valr'))
+read_bedgraph(valr_example('test.bg.gz'))
 ```
 
 ## VCF files
@@ -137,7 +137,7 @@ read_bedgraph(system.file('extdata', 'test.bg.gz', package = 'valr'))
 `read_vcf()` reads VCF files and assigns `chrom`, `start` and `end` columns to be used to downstream interval comparisons. Note the interval size is calculated as the length of the `REF` field in the original file.
 
 ```{r read_vcf}
-read_vcf(system.file('extdata', 'test.vcf.gz', package = 'valr'))
+read_vcf(valr_example('test.vcf.gz'))
 ```
   
 # Interval manipulations
@@ -292,8 +292,8 @@ bed_intersect(x, y) %>% group_by(chrom, start.x, end.x) %>% summarize(count = n(
 `bed_map` maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs. 
 
 ```{r map}
-bedfile <- system.file('extdata', 'genes.hg19.chr22.bed.gz', package = 'valr')
-bgfile  <- system.file('extdata', 'hela.h3k4.chip.bg.gz', package = 'valr')
+bedfile <- valr_example('genes.hg19.chr22.bed.gz')
+bgfile  <- valr_example('hela.h3k4.chip.bg.gz')
 
 x <- read_bed(bedfile, n_fields = 6)
 y <- read_bedgraph(bgfile)
