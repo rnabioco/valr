@@ -818,10 +818,9 @@ y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
 <p><code>valr</code> provides several methods to assess statistical properties of interval sets including:</p>
 <ul>
 <li><code>bed_fisher()</code>: measure overlap significance of two sets of intervals.</li>
-<li><code>bed_absdist()</code>: XXX</li>
+<li><code>bed_absdist()</code>: quantify absolute distance between query intervals and closest reference intervals</li>
 <li><code>bed_reldist()</code>: quantify relative distances between query intervals and closest reference intervals</li>
 <li><code>bed_jaccard()</code>: quantify extent of overlap between two sets of intervals</li>
-<li><code>bed_projection()</code>: XXX</li>
 </ul>
 <p>Several of these methods were described in the <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">Genometricorr</a> software package.</p>
 <div id="fishers-test" class="section level2">
@@ -838,7 +837,29 @@ y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
 </div>
 <div id="absolute-distance" class="section level2">
 <h2>Absolute distance</h2>
-<p><code>bed_absdist()</code> - XXX</p>
+<p><code>bed_absdist()</code> computes the absolute distance between the midpoint of query intervals and the closest midpoints of a set of reference intervals. Absolute distances are scaled by the inter-reference gap for the chromosome as follows. For <code>Q</code> total query points and <code>R</code> reference points on a chromosome, scale the distance for each query point <code>i</code> to the closest reference point by the inter-reference gap for each chromosome.</p>
+<p><span class="math display">\[
+d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\ chromsome}
+\]</span></p>
+<p>By default both absolute and scaled distances are reported as <code>absdist</code> and <code>scaled_absdist</code> respectively.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+
+<span class="kw">bed_absdist</span>(x, y, genome)
+<span class="co">#&gt; # A tibble: 1,000,000 × 5</span>
+<span class="co">#&gt;    chrom start   end absdist scaled_absdist</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;          &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   chr1  2144  3144     294     0.09495380</span>
+<span class="co">#&gt; 2   chr1  2522  3522      63     0.02034724</span>
+<span class="co">#&gt; 3   chr1  4998  5998    1042     0.33653694</span>
+<span class="co">#&gt; 4   chr1 10600 11600    1021     0.32975453</span>
+<span class="co">#&gt; 5   chr1 13710 14710      37     0.01194997</span>
+<span class="co">#&gt; 6   chr1 16189 17189    2094     0.67630361</span>
+<span class="co">#&gt; 7   chr1 16312 17312    1971     0.63657804</span>
+<span class="co">#&gt; 8   chr1 16618 17618    1665     0.53774857</span>
+<span class="co">#&gt; 9   chr1 18527 19527     244     0.07880520</span>
+<span class="co">#&gt; 10  chr1 18914 19914      58     0.01873238</span>
+<span class="co">#&gt; # ... with 999,990 more rows</span></code></pre></div>
 </div>
 <div id="relative-distance" class="section level2">
 <h2>Relative distance</h2>
@@ -850,16 +871,16 @@ y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
 <span class="co">#&gt; # A tibble: 51 × 4</span>
 <span class="co">#&gt;    reldist counts  total       freq</span>
 <span class="co">#&gt;      &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     0.00  19944 999957 0.01994486</span>
-<span class="co">#&gt; 2     0.01  19804 999957 0.01980485</span>
-<span class="co">#&gt; 3     0.02  19995 999957 0.01999586</span>
-<span class="co">#&gt; 4     0.03  20137 999957 0.02013787</span>
-<span class="co">#&gt; 5     0.04  20019 999957 0.02001986</span>
-<span class="co">#&gt; 6     0.05  20299 999957 0.02029987</span>
-<span class="co">#&gt; 7     0.06  19942 999957 0.01994286</span>
-<span class="co">#&gt; 8     0.07  20049 999957 0.02004986</span>
-<span class="co">#&gt; 9     0.08  20046 999957 0.02004686</span>
-<span class="co">#&gt; 10    0.09  19846 999957 0.01984685</span>
+<span class="co">#&gt; 1     0.00  19892 999942 0.01989315</span>
+<span class="co">#&gt; 2     0.01  20068 999942 0.02006916</span>
+<span class="co">#&gt; 3     0.02  20415 999942 0.02041618</span>
+<span class="co">#&gt; 4     0.03  20169 999942 0.02017017</span>
+<span class="co">#&gt; 5     0.04  20447 999942 0.02044819</span>
+<span class="co">#&gt; 6     0.05  19772 999942 0.01977315</span>
+<span class="co">#&gt; 7     0.06  20063 999942 0.02006416</span>
+<span class="co">#&gt; 8     0.07  19999 999942 0.02000016</span>
+<span class="co">#&gt; 9     0.08  20285 999942 0.02028618</span>
+<span class="co">#&gt; 10    0.09  20107 999942 0.02010817</span>
 <span class="co">#&gt; # ... with 41 more rows</span></code></pre></div>
 </div>
 <div id="jaccard-similarity" class="section level2">
@@ -879,11 +900,7 @@ y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
 <span class="co">#&gt; # A tibble: 1 × 4</span>
 <span class="co">#&gt;       len_i      len_u   jaccard      n</span>
 <span class="co">#&gt;       &lt;int&gt;      &lt;int&gt;     &lt;dbl&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1 323290199 2000000000 0.1928123 646718</span></code></pre></div>
-</div>
-<div id="projection" class="section level2">
-<h2>Projection</h2>
-<p><code>bed_projection()</code> TBD</p>
+<span class="co">#&gt; 1 322509055 2000000000 0.1922568 645856</span></code></pre></div>
 </div>
 </div>
 <div id="benchmarks" class="section level1">
@@ -906,21 +923,21 @@ y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
 )
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;                       expr       min        lq      mean    median</span>
-<span class="co">#&gt;         bed_random(genome) 0.1383955 0.1383955 0.1383955 0.1383955</span>
-<span class="co">#&gt;          bed_closest(x, y) 5.4837889 5.4837889 5.4837889 5.4837889</span>
-<span class="co">#&gt;        bed_intersect(x, y) 2.5205806 2.5205806 2.5205806 2.5205806</span>
-<span class="co">#&gt;               bed_merge(x) 2.8270171 2.8270171 2.8270171 2.8270171</span>
-<span class="co">#&gt;         bed_subtract(x, y) 2.0644898 2.0644898 2.0644898 2.0644898</span>
-<span class="co">#&gt;  bed_complement(x, genome) 2.9800388 2.9800388 2.9800388 2.9800388</span>
-<span class="co">#&gt;     bed_shuffle(x, genome) 0.9995674 0.9995674 0.9995674 0.9995674</span>
+<span class="co">#&gt;         bed_random(genome) 0.1160170 0.1160170 0.1160170 0.1160170</span>
+<span class="co">#&gt;          bed_closest(x, y) 5.0052618 5.0052618 5.0052618 5.0052618</span>
+<span class="co">#&gt;        bed_intersect(x, y) 1.9798960 1.9798960 1.9798960 1.9798960</span>
+<span class="co">#&gt;               bed_merge(x) 2.3188517 2.3188517 2.3188517 2.3188517</span>
+<span class="co">#&gt;         bed_subtract(x, y) 1.9067835 1.9067835 1.9067835 1.9067835</span>
+<span class="co">#&gt;  bed_complement(x, genome) 2.4912577 2.4912577 2.4912577 2.4912577</span>
+<span class="co">#&gt;     bed_shuffle(x, genome) 0.9963819 0.9963819 0.9963819 0.9963819</span>
 <span class="co">#&gt;         uq       max neval</span>
-<span class="co">#&gt;  0.1383955 0.1383955     1</span>
-<span class="co">#&gt;  5.4837889 5.4837889     1</span>
-<span class="co">#&gt;  2.5205806 2.5205806     1</span>
-<span class="co">#&gt;  2.8270171 2.8270171     1</span>
-<span class="co">#&gt;  2.0644898 2.0644898     1</span>
-<span class="co">#&gt;  2.9800388 2.9800388     1</span>
-<span class="co">#&gt;  0.9995674 0.9995674     1</span></code></pre></div>
+<span class="co">#&gt;  0.1160170 0.1160170     1</span>
+<span class="co">#&gt;  5.0052618 5.0052618     1</span>
+<span class="co">#&gt;  1.9798960 1.9798960     1</span>
+<span class="co">#&gt;  2.3188517 2.3188517     1</span>
+<span class="co">#&gt;  1.9067835 1.9067835     1</span>
+<span class="co">#&gt;  2.4912577 2.4912577     1</span>
+<span class="co">#&gt;  0.9963819 0.9963819     1</span></code></pre></div>
 </div>
 
 
