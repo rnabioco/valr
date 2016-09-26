@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jay Hesselberth jay.hesselberth@gmail.com" />
 
-<meta name="date" content="2016-09-20" />
+<meta name="date" content="2016-09-26" />
 
 <title>valr: Genome interval arithmetic in R</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore"><code>valr</code>: Genome interval arithmetic in R</h1>
 <h4 class="author"><em>Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></em></h4>
-<h4 class="date"><em>2016-09-20</em></h4>
+<h4 class="date"><em>2016-09-26</em></h4>
 
 
 
@@ -137,7 +137,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <div id="bed-files" class="section level2">
 <h2>BED files</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_bed</span>(<span class="kw">system.file</span>(<span class="st">'extdata'</span>, <span class="st">'3fields.bed.gz'</span>, <span class="dt">package =</span> <span class="st">'valr'</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_bed</span>(<span class="kw">valr_example</span>(<span class="st">'3fields.bed.gz'</span>))
 <span class="co">#&gt; # A tibble: 10 × 3</span>
 <span class="co">#&gt;    chrom  start    end</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;</span>
@@ -151,7 +151,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; 8   chr1 321145 321207</span>
 <span class="co">#&gt; 9   chr1 322036 326938</span>
 <span class="co">#&gt; 10  chr1 327545 328439</span>
-<span class="kw">read_bed</span>(<span class="dt">n_fields =</span> <span class="dv">6</span>, <span class="kw">system.file</span>(<span class="st">'extdata'</span>, <span class="st">'6fields.bed.gz'</span>, <span class="dt">package =</span> <span class="st">'valr'</span>))
+<span class="kw">read_bed</span>(<span class="dt">n_fields =</span> <span class="dv">6</span>, <span class="kw">valr_example</span>(<span class="st">'6fields.bed.gz'</span>))
 <span class="co">#&gt; # A tibble: 10 × 6</span>
 <span class="co">#&gt;    chrom  start    end         name score strand</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
@@ -165,7 +165,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; 8   chr1 321145 321207     DQ599768     1      +</span>
 <span class="co">#&gt; 9   chr1 322036 326938 LOC100133331     3      +</span>
 <span class="co">#&gt; 10  chr1 327545 328439    LOC388312     1      +</span>
-<span class="kw">read_bed12</span>(<span class="kw">system.file</span>(<span class="st">'extdata'</span>, <span class="st">'12fields.bed.gz'</span>, <span class="dt">package =</span> <span class="st">'valr'</span>))
+<span class="kw">read_bed12</span>(<span class="kw">valr_example</span>(<span class="st">'12fields.bed.gz'</span>))
 <span class="co">#&gt; # A tibble: 3 × 12</span>
 <span class="co">#&gt;   chrom   start     end      name score strand cds_start cds_end item_rgb</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;   &lt;int&gt;    &lt;chr&gt;</span>
@@ -177,11 +177,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="genome-files" class="section level2">
 <h2>Genome files</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genome &lt;-<span class="st"> </span><span class="kw">read_genome</span>(<span class="kw">system.file</span>(<span class="st">'extdata'</span>, <span class="st">'hg19.chrom.sizes.gz'</span>, <span class="dt">package =</span> <span class="st">'valr'</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genome &lt;-<span class="st"> </span><span class="kw">read_genome</span>(<span class="kw">valr_example</span>(<span class="st">'hg19.chrom.sizes.gz'</span>))</code></pre></div>
 </div>
 <div id="bedgraph-files" class="section level2">
 <h2>bedGraph files</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_bedgraph</span>(<span class="kw">system.file</span>(<span class="st">'extdata'</span>, <span class="st">'test.bg.gz'</span>, <span class="dt">package =</span> <span class="st">'valr'</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_bedgraph</span>(<span class="kw">valr_example</span>(<span class="st">'test.bg.gz'</span>))
 <span class="co">#&gt; # A tibble: 4 × 4</span>
 <span class="co">#&gt;   chrom    start      end value</span>
 <span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;dbl&gt;</span>
@@ -193,7 +193,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="vcf-files" class="section level2">
 <h2>VCF files</h2>
 <p><code>read_vcf()</code> reads VCF files and assigns <code>chrom</code>, <code>start</code> and <code>end</code> columns to be used to downstream interval comparisons. Note the interval size is calculated as the length of the <code>REF</code> field in the original file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_vcf</span>(<span class="kw">system.file</span>(<span class="st">'extdata'</span>, <span class="st">'test.vcf.gz'</span>, <span class="dt">package =</span> <span class="st">'valr'</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_vcf</span>(<span class="kw">valr_example</span>(<span class="st">'test.vcf.gz'</span>))
 <span class="co">#&gt; # A tibble: 115 × 201</span>
 <span class="co">#&gt;    CHROM   POS    ID                                          REF</span>
 <span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                        &lt;chr&gt;</span>
@@ -565,8 +565,8 @@ y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
 <div id="map" class="section level3">
 <h3>Map</h3>
 <p><code>bed_map</code> maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bedfile &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">'extdata'</span>, <span class="st">'genes.hg19.chr22.bed.gz'</span>, <span class="dt">package =</span> <span class="st">'valr'</span>)
-bgfile  &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">'extdata'</span>, <span class="st">'hela.h3k4.chip.bg.gz'</span>, <span class="dt">package =</span> <span class="st">'valr'</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bedfile &lt;-<span class="st"> </span><span class="kw">valr_example</span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>)
+bgfile  &lt;-<span class="st"> </span><span class="kw">valr_example</span>(<span class="st">'hela.h3k4.chip.bg.gz'</span>)
 
 x &lt;-<span class="st"> </span><span class="kw">read_bed</span>(bedfile, <span class="dt">n_fields =</span> <span class="dv">6</span>)
 y &lt;-<span class="st"> </span><span class="kw">read_bedgraph</span>(bgfile)
@@ -766,16 +766,16 @@ y
 <span class="co">#&gt; # A tibble: 1,000,000 × 3</span>
 <span class="co">#&gt;     chrom     start       end</span>
 <span class="co">#&gt;    &lt;fctr&gt;     &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1    chrM      6538      7538</span>
-<span class="co">#&gt; 2    chr1  97416007  97417007</span>
-<span class="co">#&gt; 3    chrY  41927989  41928989</span>
-<span class="co">#&gt; 4    chr9 137872607 137873607</span>
-<span class="co">#&gt; 5   chr22   6146291   6147291</span>
-<span class="co">#&gt; 6    chr8  30818889  30819889</span>
-<span class="co">#&gt; 7    chr8  39097453  39098453</span>
-<span class="co">#&gt; 8   chr19  15232723  15233723</span>
-<span class="co">#&gt; 9   chr19   8929700   8930700</span>
-<span class="co">#&gt; 10  chr16  61536304  61537304</span>
+<span class="co">#&gt; 1    chr7  27007370  27008370</span>
+<span class="co">#&gt; 2   chr18  36834633  36835633</span>
+<span class="co">#&gt; 3   chr12 130821811 130822811</span>
+<span class="co">#&gt; 4   chr15  27838961  27839961</span>
+<span class="co">#&gt; 5    chr3 158356773 158357773</span>
+<span class="co">#&gt; 6   chr10  79220150  79221150</span>
+<span class="co">#&gt; 7    chr2 231507805 231508805</span>
+<span class="co">#&gt; 8    chr5  14554594  14555594</span>
+<span class="co">#&gt; 9   chr11   8929700   8930700</span>
+<span class="co">#&gt; 10   chr2 195754032 195755032</span>
 <span class="co">#&gt; # ... with 999,990 more rows</span>
 
 <span class="kw">any</span>(x$start ==<span class="st"> </span>y$start)
@@ -906,21 +906,21 @@ y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
 )
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;                       expr       min        lq      mean    median</span>
-<span class="co">#&gt;         bed_random(genome) 0.1189546 0.1189546 0.1189546 0.1189546</span>
-<span class="co">#&gt;          bed_closest(x, y) 4.6880676 4.6880676 4.6880676 4.6880676</span>
-<span class="co">#&gt;        bed_intersect(x, y) 1.6913046 1.6913046 1.6913046 1.6913046</span>
-<span class="co">#&gt;               bed_merge(x) 2.4608746 2.4608746 2.4608746 2.4608746</span>
-<span class="co">#&gt;         bed_subtract(x, y) 1.8233967 1.8233967 1.8233967 1.8233967</span>
-<span class="co">#&gt;  bed_complement(x, genome) 2.4124555 2.4124555 2.4124555 2.4124555</span>
-<span class="co">#&gt;     bed_shuffle(x, genome) 0.9814328 0.9814328 0.9814328 0.9814328</span>
+<span class="co">#&gt;         bed_random(genome) 0.1383955 0.1383955 0.1383955 0.1383955</span>
+<span class="co">#&gt;          bed_closest(x, y) 5.4837889 5.4837889 5.4837889 5.4837889</span>
+<span class="co">#&gt;        bed_intersect(x, y) 2.5205806 2.5205806 2.5205806 2.5205806</span>
+<span class="co">#&gt;               bed_merge(x) 2.8270171 2.8270171 2.8270171 2.8270171</span>
+<span class="co">#&gt;         bed_subtract(x, y) 2.0644898 2.0644898 2.0644898 2.0644898</span>
+<span class="co">#&gt;  bed_complement(x, genome) 2.9800388 2.9800388 2.9800388 2.9800388</span>
+<span class="co">#&gt;     bed_shuffle(x, genome) 0.9995674 0.9995674 0.9995674 0.9995674</span>
 <span class="co">#&gt;         uq       max neval</span>
-<span class="co">#&gt;  0.1189546 0.1189546     1</span>
-<span class="co">#&gt;  4.6880676 4.6880676     1</span>
-<span class="co">#&gt;  1.6913046 1.6913046     1</span>
-<span class="co">#&gt;  2.4608746 2.4608746     1</span>
-<span class="co">#&gt;  1.8233967 1.8233967     1</span>
-<span class="co">#&gt;  2.4124555 2.4124555     1</span>
-<span class="co">#&gt;  0.9814328 0.9814328     1</span></code></pre></div>
+<span class="co">#&gt;  0.1383955 0.1383955     1</span>
+<span class="co">#&gt;  5.4837889 5.4837889     1</span>
+<span class="co">#&gt;  2.5205806 2.5205806     1</span>
+<span class="co">#&gt;  2.8270171 2.8270171     1</span>
+<span class="co">#&gt;  2.0644898 2.0644898     1</span>
+<span class="co">#&gt;  2.9800388 2.9800388     1</span>
+<span class="co">#&gt;  0.9995674 0.9995674     1</span></code></pre></div>
 </div>
 
 

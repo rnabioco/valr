@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
 <title>read_bed. valr 0.1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
 <link href="css/highlight.css" rel="stylesheet">
 <link href="css/staticdocs.css" rel="stylesheet">
-
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-
+ 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -23,36 +25,42 @@
     }
   });
 </script>
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
   </head>
 
   <body>
-    <div class="navbar">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="index.html">valr 0.1</a>
-      <div class="nav">
-        <ul class="nav">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="reference.html">Reference</a></li>
-        </ul>
-      </div>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">valr 0.1</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
 
     <div class="container">
-      <header>
-        
-      </header>
-      
-      <h1>Read BED and related files.</h1>
+        <header>
+            
+        </header>
+        <h1>Read BED and related files.</h1>
 
 <div class="row">
-  <div class="span8">
+  <div class="col-xs-12 col-sm-12 col-md-9">
     <h2>Usage</h2>
     <pre><span class="functioncall"><a href='read_bed.html'>read_bed</a></span><span class="keyword">(</span><span class="symbol">filename</span><span class="keyword">,</span> <span class="argument">n_fields</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">3</span><span class="keyword">,</span> <span class="argument">col_types</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="symbol">bed12_coltypes</span><span class="keyword">,</span> <span class="argument">sort</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span>
   <span class="symbol">...</span><span class="keyword">)</span>
@@ -81,42 +89,42 @@
     
     <div class="Value">
       <h2>Value</h2>
-
+      
       <p><dl>
 <code>data_frame</code>
 </dl></p>
-
+  
     </div>
 
     <div class="Description">
       <h2>Description</h2>
-
+      
       <p>read functions for BED and related formats. Filenames can be
   local file or URLs.</p>
-
+  
     </div>
 
     <div class="Details">
       <h2>Details</h2>
-
+      
       <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a></p>
-
+  
       <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a></p>
-
+  
       <p><a href = 'https://genome.ucsc.edu/goldenPath/help/bedgraph.html'>https://genome.ucsc.edu/goldenPath/help/bedgraph.html</a></p>
-
+  
       <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format12'>https://genome.ucsc.edu/FAQ/FAQformat.html#format12</a></p>
-
+  
       <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format13'>https://genome.ucsc.edu/FAQ/FAQformat.html#format13</a></p>
-
+  
     </div>
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class="comment"># read_bed assumes 3 field BED format. </span>
-<span class="symbol">bed3_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'3fields.bed.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
+<span class="symbol">bed3_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='valr_example.html'>valr_example</a></span><span class="keyword">(</span><span class="string">'3fields.bed.gz'</span><span class="keyword">)</span>
 <span class="symbol">bed3_tbl</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='read_bed.html'>read_bed</a></span><span class="keyword">(</span><span class="symbol">bed3_path</span><span class="keyword">)</span>
 
-<span class="symbol">bed6_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'6fields.bed.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
+<span class="symbol">bed6_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='valr_example.html'>valr_example</a></span><span class="keyword">(</span><span class="string">'6fields.bed.gz'</span><span class="keyword">)</span>
 <span class="symbol">bed6_tbl</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='read_bed.html'>read_bed</a></span><span class="keyword">(</span><span class="symbol">bed6_path</span><span class="keyword">,</span> <span class="argument">n_fields</span> <span class="argument">=</span> <span class="number">6</span><span class="keyword">)</span>
 
 <span class="comment"># Result is sorted by chrom and start unless `sort = FALSE`</span>
@@ -127,13 +135,13 @@
 <div class='output'>[1] FALSE
 </div>
 <div class='input'>
-<span class="symbol">bed12_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'mm9.bed12.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
+<span class="symbol">bed12_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='valr_example.html'>valr_example</a></span><span class="keyword">(</span><span class="string">'mm9.bed12.gz'</span><span class="keyword">)</span>
 <span class="symbol">bed12_tbl</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='read_bed.html'>read_bed12</a></span><span class="keyword">(</span><span class="symbol">bed12_path</span><span class="keyword">)</span>
 
-<span class="symbol">bedgraph_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'test.bg.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
+<span class="symbol">bedgraph_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='valr_example.html'>valr_example</a></span><span class="keyword">(</span><span class="string">'test.bg.gz'</span><span class="keyword">)</span>
 <span class="symbol">bedgraph_tbl</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='read_bed.html'>read_bedgraph</a></span><span class="keyword">(</span><span class="symbol">bedgraph_path</span><span class="keyword">)</span>
 
-<span class="symbol">narrowpeak_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'sample.narrowPeak.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
+<span class="symbol">narrowpeak_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='valr_example.html'>valr_example</a></span><span class="keyword">(</span><span class="string">'sample.narrowPeak.gz'</span><span class="keyword">)</span>
 <span class="functioncall"><a href='read_bed.html'>read_narrowpeak</a></span><span class="keyword">(</span><span class="symbol">narrowpeak_path</span><span class="keyword">)</span></div>
 <div class='output'># A tibble: 570 × 10
    chrom    start      end  name score strand signal   pvalue qvalue  peak
@@ -151,7 +159,7 @@
 # ... with 560 more rows
 </div>
 <div class='input'>
-<span class="symbol">broadpeak_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/devtools/topics/system.file'>system.file</a></span><span class="keyword">(</span><span class="string">'extdata'</span><span class="keyword">,</span> <span class="string">'sample.broadPeak.gz'</span><span class="keyword">,</span> <span class="argument">package</span> <span class="argument">=</span> <span class="string">'valr'</span><span class="keyword">)</span>
+<span class="symbol">broadpeak_path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='valr_example.html'>valr_example</a></span><span class="keyword">(</span><span class="string">'sample.broadPeak.gz'</span><span class="keyword">)</span>
 <span class="functioncall"><a href='read_bed.html'>read_broadpeak</a></span><span class="keyword">(</span><span class="symbol">broadpeak_path</span><span class="keyword">)</span></div>
 <div class='output'># A tibble: 1,181 × 9
    chrom    start      end  name score strand    signal pvalue qvalue
@@ -170,24 +178,24 @@
 </div>
 <div class='input'></div></pre>
   </div>
-  <div class="span4 sidebar">
+  <div class="col-xs-12 col-sm-6 col-md-3">
     <!-- <ul>
       <li>read_bed</li><li>read_bed12</li><li>read_bedgraph</li><li>read_broadpeak</li><li>read_narrowpeak</li>
     </ul>
     <ul>
       
     </ul> -->
-
-
-
-
-  </div>
-</div>
       
-      <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
-      </footer>
-    </div>
+
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
   </body>
 </html>
