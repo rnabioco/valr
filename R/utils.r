@@ -35,6 +35,8 @@ bed_glyph <- function(x, y = NULL,
     y <- group_by(y, .id)  
     y <- mutate(y, bin = row_number(.id),
                 title = y_name)
+    x <- ungroup(x)
+    y <- ungroup(y)
     res <- eval(.fun(x, y, ...)) 
     res <- mutate(res, bin = 1, 
                   title = "Result")
@@ -53,6 +55,7 @@ bed_glyph <- function(x, y = NULL,
     x <- group_by(x, .id) 
     x <- mutate(x, bin = row_number(.id),
                 title = x_name)
+    x <- ungroup(x)
     res <- eval(.fun(x, ...)) 
     
     
