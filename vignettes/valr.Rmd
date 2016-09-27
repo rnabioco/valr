@@ -31,13 +31,18 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "README-",
+  fig.height = 3,
+  fig.align = "center",
+  fig.width = 4
 )
 ```
 
 ```{r init, echo = FALSE, message = FALSE}
 library(valr)
 library(dplyr)
+library(ggplot2)
+library(tibble)
 ```
 
 # Overview 
@@ -178,6 +183,21 @@ is_sorted(y)
 
 `bed_cluster` identifies clustered intervals based on a distance specification and assigns them a unique `.id`.
 
+```{r cluster_glyph, echo = FALSE}
+a <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      10,
+  'chr1',      15,     20,
+  'chr1',      25,     35,
+  'chr1',      100,    120
+)
+
+bed_glyph(a, .fun = bed_cluster, max_dist = 20, 
+          title_ops = "(x, max_dist = 20)") +
+  ggplot2::geom_label(aes((end - start) / 2 + start, bin + 0.5, label = .id)) + 
+  xlab("") + ylab("")
+```
+
 ```{r cluster}
 x <- bed_random(genome)
 y <- bed_cluster(x, max_dist = 1000)
@@ -188,6 +208,19 @@ y
 
 `bed_complement` identifies intervals in a genome that are not covered by an input.
 
+```{r complement_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      10,
+  'chr1',      75,    100    
+)
+g_genome <- tribble(
+    ~chrom, ~size, 
+  'chr1',      200
+)
+bed_glyph(a, .fun = bed_complement, genome = g_genome, title_ops = "(x)")
+```
+
 ```{r complement}
 x <- bed_random(genome)
 
@@ -197,6 +230,17 @@ bed_complement(x, genome)
 ### Merge 
 
 `bed_merge` identifies overlapping intervals and reports new merged ones. `is_merged` asks whether a tbl is already merged. Values from merged intervals can be reported using name / value pairs.
+
+```{r merge_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      50,
+  'chr1',      10,     75,
+  'chr1',      100,    120
+)
+
+bed_glyph(a, .fun = bed_merge, title_ops = "(x)")
+```
 
 ```{r merge}
 n <- 1e6
@@ -213,6 +257,22 @@ bed_merge(x, maxs = max(signal))
 
 `bed_flank` creates new intervals that flank -- but do not contain -- the input intervals.
 
+
+```{r flank_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      25,      50,
+  'chr1',      100,     125
+)
+
+g_genome = tribble(
+  ~chrom, ~size,
+  'chr1',      125
+)
+
+bed_glyph(a, .fun = bed_flank, genome = g_genome, both = 20, title_ops = "(x, both = 20)")
+```
+
 ```{r flank}
 bed_flank(x, genome, both  = 100)
 ```
@@ -221,6 +281,22 @@ bed_flank(x, genome, both  = 100)
 
 `bed_slop` pads input intervals based on a specification
 
+```{r slop_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      110,      120,
+  'chr1',      225,     235
+)
+
+g_genome = tribble(
+  ~chrom, ~size,
+  'chr1',      400
+)
+
+bed_glyph(a, .fun = bed_slop, genome = g_genome, both = 20, 
+          title_ops = "(x, both = 20)")
+```
+
 ```{r slop}
 bed_slop(x, genome, both = 100)
 ```
@@ -228,6 +304,22 @@ bed_slop(x, genome, both = 100)
 ### Shift
 
 `bed_shift` adjusts coordinates toward `start` or `end` by a defined `size`. Intervals created out of bounds are removed, or trimmed.
+
+```{r shift_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      25,      50,
+  'chr1',      100,     125
+)
+
+g_genome = tribble(
+  ~chrom, ~size,
+  'chr1',      125
+)
+
+bed_glyph(a, .fun = bed_shift, genome = g_genome, size = -20, 
+          title_ops = "(x, size = -20)")
+```
 
 ```{r shift}
 bed_shift(x, genome, size = 100)
@@ -260,6 +352,21 @@ These methods compare two sets of intervals:
 
 `bed_intersect` is implemented using an [interval tree][16] in `Rcpp`. Column names in the result have `.x` and `.y` suffixes, and an `.overlap` column contains the size of the intersection (values of `0` indicate book-ended, or touching intervals). See the [benchmarks](#benchmarks) section for timing. Though `bed_intersect` is pretty fast already, we intend to further improve upon this by parallization with [`RcppParallel`][15].
 
+```{r intersect_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      25,      50,
+  'chr1',      100,     125
+)
+
+b <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      30,     75
+)
+
+bed_glyph(a, b, .fun = bed_intersect, start_col = "start.x", end_col = "end.x")
+```
+
 ```{r intersect}
 # intersect two sets of 1e6 intervals from hg19
 x <- bed_random(genome)
@@ -291,6 +398,25 @@ bed_intersect(x, y) %>% group_by(chrom, start.x, end.x) %>% summarize(count = n(
 
 `bed_map` maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs. 
 
+```{r map_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      100
+)
+
+b <- tribble(
+  ~chrom, ~start, ~end, ~value,
+  'chr1',      1,     20,    10,
+  'chr1',      30,    50,    20,
+  'chr1',      90,    120,   30
+)
+
+bed_glyph(a, b, .fun = bed_map, value = sum(value.y), start_col = "start.x", end_col = "end.x", 
+          title_ops = "(x, y, value = sum(value.y))") +
+  geom_label(aes((end - start) / 2 + start, bin + 0.5, label = value)) + 
+  xlab("") + ylab("")
+```
+
 ```{r map}
 bedfile <- valr_example('genes.hg19.chr22.bed.gz')
 bgfile  <- valr_example('hela.h3k4.chip.bg.gz')
@@ -305,6 +431,20 @@ bed_map(x, y, means = mean(value.y), sds = sd(value.y))
 
 `bed_substract()` removes `x` intervals that intersect with `y`.
 
+```{r subtract_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      100
+)
+
+b <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      50,     75
+)
+
+bed_glyph(a, b, .fun = bed_subtract)
+```
+
 ```{r subtract}
 x <- bed_random(genome)
 y <- bed_random(genome)
@@ -315,6 +455,28 @@ bed_subtract(x, y)
 ### Window
 
 `bed_window()` identifies `y` intervals that intersect an expanded window of `x` intervals.
+
+```{r window_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      25,      50,
+  'chr1',      100,     125
+)
+
+b <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      60,     75
+)
+
+g_genome = tribble(
+  ~chrom, ~size,
+  'chr1',      125
+)
+
+
+bed_glyph(a, b, start_col = "start.x", end_col = "end.x", .fun = bed_window, genome = g_genome, both = 15, 
+          title_ops = "(x, y, both = 15)")
+```
 
 ```{r window, warning = FALSE}
 x <- bed_random(genome, n = 100)
@@ -330,6 +492,21 @@ bed_window(x, y, genome, both = 1e6)
 ### Closest
 
 `bed_closest()` identifies `y` intervals that are closest to `x`.
+
+```{r closest_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      100,     125
+)
+
+b <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      25,      50,
+  'chr1',     140,     175
+)
+
+bed_glyph(a, b, start_col = "start.y", end_col = "end.y", .fun = bed_closest)
+```
 
 ```{r closest}
 x <- bed_random(genome, n = 100)
@@ -378,6 +555,23 @@ group_by(x, chrom) %>% sample_n(1)
 ### Shuffle
 
 `bed_shuffle` shuffles input intervals. Interval sizes are equal in the input and output.
+
+```{r shuffle_glyph, echo = FALSE, }
+seed <- 092316
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      0,       20,
+  'chr1',      40,      50
+)
+
+g_genome <- tribble(
+  ~chrom, ~size,
+  'chr1',     150
+)
+
+bed_glyph(a, .fun = bed_shuffle, genome = g_genome, seed = seed, 
+          title_ops = "(x)")
+```
 
 ```{r shuffle}
 y <- bed_shuffle(x, genome)
