@@ -398,6 +398,25 @@ bed_intersect(x, y) %>% group_by(chrom, start.x, end.x) %>% summarize(count = n(
 
 `bed_map` maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs. 
 
+```{r map_glyph, echo = FALSE}
+a <- tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      100
+)
+
+b <- tribble(
+  ~chrom, ~start, ~end, ~value,
+  'chr1',      1,     20,    10,
+  'chr1',      30,    50,    20,
+  'chr1',      90,    120,   30
+)
+
+bed_glyph(a, b, .fun = bed_map, value = sum(value.y), start_col = "start.x", end_col = "end.x", 
+          title_ops = "(x, y, value = sum(value.y))") +
+  geom_label(aes((end - start) / 2 + start, bin + 0.5, label = value)) + 
+  xlab("") + ylab("")
+```
+
 ```{r map}
 bedfile <- valr_example('genes.hg19.chr22.bed.gz')
 bgfile  <- valr_example('hela.h3k4.chip.bg.gz')
