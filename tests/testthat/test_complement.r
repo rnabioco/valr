@@ -149,7 +149,54 @@ test_that("overlapping intervals", {
   expect_true(all(res == expect))
 })
 
+test_that("starting intervals are complemented (#78)", {
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 100
+  ) 
+  bed <- tibble::tribble(
+    ~chrom,   ~start,    ~end,
+    "chr1",        1,      20
+  )
+  res <- bed_complement(bed, genome)
+  expect_equal(nrow(res), 1)
+  expect_equal(res$start, 20)
+  expect_equal(res$end, 100)
+})
 
+test_that("non-overlapping genome chroms are in output (#78)", {
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 100,
+    "chr2", 100
+  ) 
+  bed <- tibble::tribble(
+    ~chrom,   ~start,    ~end,
+    "chr1",       10,     100
+  )
+  expected <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    'chr1', 1,      10,
+    'chr2', 1,      100
+  )
+  res <- bed_complement(bed, genome)
+  expect_true(all(res == expected))
+})
 
-
+test_that("`x` intervals not in genome are ignored (#78)", {
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 500
+  ) 
+  bed <- tibble::tribble(
+    ~chrom,   ~start,    ~end,
+    "chr2",       10,     100   
+  )
+  expected <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    'chr1', 1,      500
+  )
+  res <- bed_complement(bed, genome)
+  expect_true(all(res == expected))
+})
 
