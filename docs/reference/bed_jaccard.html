@@ -3,33 +3,24 @@
   <head>
   <meta charset="utf-8">
 <title>bed_jaccard. valr</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 
-<!-- Latest compiled and minified CSS -->
+<!-- Bootstrap -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- staticdocs -->
+<link href="../staticdocs.css" rel="stylesheet">
 
-<!-- from staticdocs -->
-<link href="../css/highlight.css" rel="stylesheet">
-<link href="../css/staticdocs.css" rel="stylesheet">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
+<!-- mathjax -->
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
@@ -78,13 +69,13 @@
         </header>
 
         <div class="page-header">
-  <h1>Jaccard statistic</h1>
+  <h1>Calculate jaccard statistics on two sets of intervals.</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Calculate the Jaccard statistic on two sets of intervals.</p>
+    <p>Calculate jaccard statistics on two sets of intervals.</p>
     
 
     <pre><span class="functioncall"><a href='bed_jaccard.html'>bed_jaccard</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">y</span><span class="keyword">)</span></pre>
@@ -100,29 +91,17 @@
     <div class="Value">
       <h2>Value</h2>
 
-      <p><code>data_frame</code> with the following columns: <ul>
-<li><code>len_i</code> length of the intersection </li>
-<li><code>len_u</code>
-  length of the union </li>
-<li><code>jaccard</code> jaccard statistic 
-  </li>
-<li><code>n_int</code> number of intersecting intervals between x and y </li>
+      <p><code>data_frame</code> with the following columns:
+ <ul>
+<li><code>len_i</code> length of the intersection
+   </li>
+<li><code>len_u</code> length of the union
+   </li>
+<li><code>jaccard</code> jaccard statistic
+   </li>
+<li><code>n_int</code> number of intersecting intervals between x and y
+ </li>
 </ul></p>
-    </div>
-
-    <div class="Details">
-      <h2>Details</h2>
-
-      <p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of
-intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measured
-as:</p>
-      <p><pre class = 'eq'>
- J(x,y) = \frac{\mid x \bigcap y \mid}
-               {\mid x \bigcup y \mid} 
-        = 
-          \frac{\mid x \bigcap y \mid}
-               {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} 
-</pre></p>
     </div>
 
     <div class="See also">

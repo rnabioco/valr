@@ -2,34 +2,25 @@
 <html>
   <head>
   <meta charset="utf-8">
-<title>`valr`: Genome interval arithmetic in R. valr</title>
+<title><code>valr</code>: Genome interval arithmetic in R. valr</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 
-<!-- Latest compiled and minified CSS -->
+<!-- Bootstrap -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- staticdocs -->
+<link href="../staticdocs.css" rel="stylesheet">
 
-<!-- from staticdocs -->
-<link href="../css/highlight.css" rel="stylesheet">
-<link href="../css/staticdocs.css" rel="stylesheet">
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
+<!-- mathjax -->
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
@@ -77,892 +68,966 @@
         
         </header>
 
-        <div class="page-header">
-  <h1>`valr`: Genome interval arithmetic in R</h1>
-</div>
-
+        
 <div class="row">
   <div class="col-md-9">
-  <div id="overview" class="section level1">
-<h1>Overview</h1>
-<p><code>valr</code> provides tools to read and manipulate genome intervals and signals, similar to the standalone <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a>.</p>
-<p>We provide several introductions to <code>valr</code>:</p>
-<ul>
-<li>This comprehensive <code>vignette</code> covering the core methods.</li>
-<li>A tutorial that demonstrates how to use <code>valr</code> in “real-world” applications.</li>
-<li>A <code>shiny</code> application that demonstrates interactive analysis of genome-scale data sets.</li>
-</ul>
-<div id="installation" class="section level2">
-<h2>Installation</h2>
-<p><code>valr</code> can be installed from github, and will be eventually deposited in CRAN.</p>
-<pre class="r"><code>devtools::install_github(&#39;jayhesselberth/valr&#39;)</code></pre>
-</div>
-<div id="comparison-to-other-tools" class="section level2">
-<h2>Comparison to other tools</h2>
-<p><strong>Why another tool set for interval manipulations?</strong> We already have <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a>, <a href="http://bedops.readthedocs.org/en/latest/index.html">bedops</a>, <a href="https://pythonhosted.org/pybedtools/">pybedtools</a>, <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a>, <a href="https://cran.r-project.org/web/packages/bedr/index.html">bedr</a> and <a href="https://bioconductor.org/packages/release/bioc/html/IRanges.html">IRanges</a>.</p>
-<p>We were motivated to develop a toolset that:</p>
-<ul>
-<li>Combines analysis and visualization in RStudio.</li>
-<li>Can be used to generate reports with Rmarkdown.</li>
-<li>Is highly extensible. New tools are quickly implemented on the R side.</li>
-<li>Leverages the “modern R” syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code>%&gt;%</code>).</li>
-<li>Maximizes speed by implementing compute-intensive algorithms in <code>Rcpp</code>.</li>
-<li>Facilitates interactive visulaizations with <a href="http://shiny.rstudio.com/"><code>shiny</code></a>.</li>
-</ul>
-<p>We anticipate <code>valr</code> will mainly be used for analysis of pre-processed data in BED, bedGraph and VCF formats. Most users will have processed their aligned reads from BAM format to bedGraph, so we do not foresee supporting BAM directly. We would entertain requests for GTF / GFF support if there is interest, as <code>tidyr</code> makes it easy to convert these to BED12.</p>
-<p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> (including <a href="https://github.com/jayhesselberth/valr/tree/master/src">intersect, merge, subtract, closest</a>) to enable fluid interactive analysis. See the <a href="#benchmarks">benchmarks</a> section for details.</p>
-</div>
-<div id="non-standard-evaluation" class="section level2">
-<h2>Non-standard evaluation</h2>
-<p>Several of the methods in <code>valr</code> use <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/nse.html">NSE</a> for an expressive syntax. Columns are referred to by name and can be used in multiple name/value expressions for summaries.</p>
-<pre class="r"><code>bed_map(x, y, mean = mean(value), var = var(value))
-bed_merge(x, concat = concat(value), max = max(value))</code></pre>
-</div>
-<div id="getting-started" class="section level2">
-<h2>Getting started</h2>
-<p>Here is an example using <code>valr</code> that creates</p>
-<pre class="r"><code>library(valr)</code></pre>
-</div>
-</div>
-<div id="reading-data" class="section level1 tabset">
-<h1>Reading data</h1>
-<p><code>valr</code> has several methods to read interval data. These methods:</p>
-<ul>
-<li>Take local files or URLs as input.</li>
-<li>Return a <code>data.frame</code> in <code>tibble::tbl_df</code> format.</li>
-<li>Assign consistent <code>chrom</code>, <code>start</code> and <code>end</code> column names.</li>
-<li>Use <a href="https://github.com/hadley/readr"><code>readr</code></a> for speed.</li>
-<li>Coerce column types.</li>
-</ul>
-<p>The methods include:</p>
-<ul>
-<li><code>read_bed()</code>: read a BED3+ file</li>
-<li><code>read_bed12()</code>: read a BED12 file</li>
-<li><code>read_bedgraph()</code>: read a bedGraph file</li>
-<li><code>read_genome()</code>: read a UCSC “chrom size” file</li>
-<li><code>read_vcf()</code>: read the Variant Call Format</li>
-<li><code>read_narrowpeak()</code>: read narrowPeak files</li>
-<li><code>read_broadpeak()</code>: read broadPeak files</li>
-</ul>
-<div id="bed-files" class="section level2">
-<h2>BED files</h2>
-<pre class="r"><code>read_bed(valr_example(&#39;3fields.bed.gz&#39;))
-#&gt; # A tibble: 10 × 3
-#&gt;    chrom  start    end
-#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-#&gt; 1   chr1  11873  14409
-#&gt; 2   chr1  14361  19759
-#&gt; 3   chr1  14406  29370
-#&gt; 4   chr1  34610  36081
-#&gt; 5   chr1  69090  70008
-#&gt; 6   chr1 134772 140566
-#&gt; 7   chr1 321083 321115
-#&gt; 8   chr1 321145 321207
-#&gt; 9   chr1 322036 326938
-#&gt; 10  chr1 327545 328439
-read_bed(n_fields = 6, valr_example(&#39;6fields.bed.gz&#39;))
-#&gt; # A tibble: 10 × 6
-#&gt;    chrom  start    end         name score strand
-#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1   chr1  11873  14409      DDX11L1     3      +
-#&gt; 2   chr1  14361  19759       WASH7P    10      -
-#&gt; 3   chr1  14406  29370       WASH7P     7      -
-#&gt; 4   chr1  34610  36081      FAM138F     3      -
-#&gt; 5   chr1  69090  70008        OR4F5     1      +
-#&gt; 6   chr1 134772 140566    LOC729737     3      -
-#&gt; 7   chr1 321083 321115     DQ597235     1      +
-#&gt; 8   chr1 321145 321207     DQ599768     1      +
-#&gt; 9   chr1 322036 326938 LOC100133331     3      +
-#&gt; 10  chr1 327545 328439    LOC388312     1      +
-read_bed12(valr_example(&#39;12fields.bed.gz&#39;))
-#&gt; # A tibble: 3 × 12
-#&gt;   chrom   start     end      name score strand cds_start cds_end item_rgb
-#&gt;   &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;   &lt;int&gt;    &lt;chr&gt;
-#&gt; 1  chr1 4797973 4836816  testgene     1      +   4797973 4836816        .
-#&gt; 2 chr10 4848118 4880877 diffchrom     1      +   4848118 4880877        .
-#&gt; 3 chr20 5073253 5152630 negstrand     1      -   5073253 5152630        .
-#&gt; # ... with 3 more variables: exon_count &lt;int&gt;, exon_sizes &lt;chr&gt;,
-#&gt; #   exon_starts &lt;chr&gt;</code></pre>
-</div>
-<div id="genome-files" class="section level2">
-<h2>Genome files</h2>
-<pre class="r"><code>genome &lt;- read_genome(valr_example(&#39;hg19.chrom.sizes.gz&#39;))</code></pre>
-</div>
-<div id="bedgraph-files" class="section level2">
-<h2>bedGraph files</h2>
-<pre class="r"><code>read_bedgraph(valr_example(&#39;test.bg.gz&#39;))
-#&gt; # A tibble: 4 × 4
-#&gt;   chrom    start      end value
-#&gt;   &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;dbl&gt;
-#&gt; 1 chr19 49302000 49302300 -1.00
-#&gt; 2 chr19 49302300 49302600 -0.75
-#&gt; 3 chr19 49302600 49302900 -0.50
-#&gt; 4 chr19 49302900 49303200 -0.25</code></pre>
-</div>
-<div id="vcf-files" class="section level2">
-<h2>VCF files</h2>
-<p><code>read_vcf()</code> reads VCF files and assigns <code>chrom</code>, <code>start</code> and <code>end</code> columns to be used to downstream interval comparisons. Note the interval size is calculated as the length of the <code>REF</code> field in the original file.</p>
-<pre class="r"><code>read_vcf(valr_example(&#39;test.vcf.gz&#39;))
-#&gt; # A tibble: 115 × 201
-#&gt;    CHROM   POS    ID                                          REF
-#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                        &lt;chr&gt;
-#&gt; 1      1 10172     .                                       CCCTAA
-#&gt; 2      1 10390     . CCCCTAACCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAA
-#&gt; 3      1 10397     .                                CCCCTAACCCTAA
-#&gt; 4      1 10403     .       ACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAC
-#&gt; 5      1 10409     .             ACCCTAACCCTAACCCTAACCCTAACCCTAAC
-#&gt; 6      1 10415     .                   ACCCTAACCCTAACCCTAACCCTAAC
-#&gt; 7      1 10421     .                         ACCCTAACCCTAACCCTAAC
-#&gt; 8      1 10428     .                                       CCCTAA
-#&gt; 9      1 10440     .                                            C
-#&gt; 10     1 10478     .                                            C
-#&gt; # ... with 105 more rows, and 197 more variables: ALT &lt;chr&gt;, QUAL &lt;dbl&gt;,
-#&gt; #   FILTER &lt;chr&gt;, INFO &lt;chr&gt;, FORMAT &lt;chr&gt;, `101976-101976` &lt;chr&gt;,
-#&gt; #   `100920-100920` &lt;chr&gt;, `100231-100231` &lt;chr&gt;, `100232-100232` &lt;chr&gt;,
-#&gt; #   `100919-100919` &lt;chr&gt;, `101977-101977` &lt;chr&gt;, `100630-100630` &lt;chr&gt;,
-#&gt; #   `100640-100640` &lt;chr&gt;, `100631-100631` &lt;chr&gt;, `101583-101583` &lt;chr&gt;,
-#&gt; #   `101584-101584` &lt;chr&gt;, `101732-101732` &lt;chr&gt;, `101016-101016` &lt;chr&gt;,
-#&gt; #   `101708-101708` &lt;chr&gt;, `101730-101730` &lt;chr&gt;, `101582-101582` &lt;chr&gt;,
-#&gt; #   `101731-101731` &lt;chr&gt;, `101809-101809` &lt;chr&gt;, `101653-101653` &lt;chr&gt;,
-#&gt; #   `101652-101652` &lt;chr&gt;, `101806-101806` &lt;chr&gt;, `101807-101807` &lt;chr&gt;,
-#&gt; #   `101808-101808` &lt;chr&gt;, `101810-101810` &lt;chr&gt;, `101811-101811` &lt;chr&gt;,
-#&gt; #   `101812-101812` &lt;chr&gt;, `101813-101813` &lt;chr&gt;, `101814-101814` &lt;chr&gt;,
-#&gt; #   `101957-101957` &lt;chr&gt;, `101958-101958` &lt;chr&gt;, `100986-100986` &lt;chr&gt;,
-#&gt; #   `100987-100987` &lt;chr&gt;, `101897-101897` &lt;chr&gt;, `102071-102071` &lt;chr&gt;,
-#&gt; #   `102106-102106` &lt;chr&gt;, `101040-101040` &lt;chr&gt;, `101167-101167` &lt;chr&gt;,
-#&gt; #   `101041-101041` &lt;chr&gt;, `101042-101042` &lt;chr&gt;, `101168-101168` &lt;chr&gt;,
-#&gt; #   `101898-101898` &lt;chr&gt;, `102070-102070` &lt;chr&gt;, `102111-102111` &lt;chr&gt;,
-#&gt; #   `100988-100988` &lt;chr&gt;, `101896-101896` &lt;chr&gt;, `102110-102110` &lt;chr&gt;,
-#&gt; #   `102620-102620` &lt;chr&gt;, `102621-102621` &lt;chr&gt;, `102947-102947` &lt;chr&gt;,
-#&gt; #   `102948-102948` &lt;chr&gt;, `103089-103089` &lt;chr&gt;, `102693-102693` &lt;chr&gt;,
-#&gt; #   `102694-102694` &lt;chr&gt;, `102949-102949` &lt;chr&gt;, `102622-102622` &lt;chr&gt;,
-#&gt; #   `102623-102623` &lt;chr&gt;, `102624-102624` &lt;chr&gt;, `102722-102722` &lt;chr&gt;,
-#&gt; #   `102712-102712` &lt;chr&gt;, `103339-103339` &lt;chr&gt;, `103124-103124` &lt;chr&gt;,
-#&gt; #   `103161-103161` &lt;chr&gt;, `103125-103125` &lt;chr&gt;, `103171-103171` &lt;chr&gt;,
-#&gt; #   `103338-103338` &lt;chr&gt;, `103372-103372` &lt;chr&gt;, `103193-103193` &lt;chr&gt;,
-#&gt; #   `100195-100195` &lt;chr&gt;, `100194-100194` &lt;chr&gt;, `101667-101667` &lt;chr&gt;,
-#&gt; #   `101137-101137` &lt;chr&gt;, `101291-101291` &lt;chr&gt;, `101292-101292` &lt;chr&gt;,
-#&gt; #   `101666-101666` &lt;chr&gt;, `32222-32222` &lt;chr&gt;, `32049-32049` &lt;chr&gt;,
-#&gt; #   `32050-32050` &lt;chr&gt;, `32411-32411` &lt;chr&gt;, `32221-32221` &lt;chr&gt;,
-#&gt; #   `100147-100147` &lt;chr&gt;, `100149-100149` &lt;chr&gt;, `100243-100243` &lt;chr&gt;,
-#&gt; #   `100290-100290` &lt;chr&gt;, `100753-100753` &lt;chr&gt;, `100754-100754` &lt;chr&gt;,
-#&gt; #   `101377-101377` &lt;chr&gt;, `101426-101426` &lt;chr&gt;, `101435-101435` &lt;chr&gt;,
-#&gt; #   `101523-101523` &lt;chr&gt;, `101877-101877` &lt;chr&gt;, `100043-100043` &lt;chr&gt;,
-#&gt; #   `100044-100044` &lt;chr&gt;, `100148-100148` &lt;chr&gt;, `100292-100292` &lt;chr&gt;,
-#&gt; #   `101381-101381` &lt;chr&gt;, ...</code></pre>
-</div>
-</div>
-<div id="interval-manipulations" class="section level1">
-<h1>Interval manipulations</h1>
-<p><code>valr</code> implements several methods for manipulating sets of intervals. Some methods operate on a single set of intervals, while others compare two sets of intervals.</p>
-<p>Many methods the same name as the corresponding <code>BEDtool</code>, and some commonly used <code>BEDtools</code> are implemented as <code>dplyr</code> pipes (e.g., see the <a href="#groupby"><code>group_by</code></a> section).</p>
-<p>All methods accept one or more sets of <code>x</code> and <code>y</code> intervals, which must either be created using the <a href="#reading%20data"><code>read</code> methods</a>, or have <code>chrom</code>, <code>start</code> and <code>end</code> columns.</p>
-<div id="single-set-operations" class="section level2 tabset">
-<h2>Single set operations</h2>
-<p>These methods operate on a single set of intervals:</p>
-<ul>
-<li><code>bed_sort()</code>: order intervals</li>
-<li><code>bed_cluster()</code>: Cluster (but don’t merge) overlapping/nearby intervals.</li>
-<li><code>bed_complement()</code>: extract intervals <em>not</em> represented by an interval file.</li>
-<li><code>bed_merge()</code>: combine overlapping and nearby intervals into a single interval.</li>
-<li><code>bed_flank()</code>: Generate new flanking intervals</li>
-<li><code>bed_slop()</code>: Expand the size of input intervals</li>
-<li><code>bed_shift()</code>: Shift the coordinates of an input set, bounded by a genome</li>
-</ul>
-<div id="sort" class="section level3">
-<h3>Sort</h3>
-<p><code>bed_sort</code> orders intervals based on a specification. <code>is_sorted</code> asks whether a tbl is already sorted.</p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-is_sorted(x)
-#&gt; [1] FALSE
+    <div class="page-header toc-ignore">
+      <h1><code>valr</code>: Genome interval arithmetic in R</h1>
+                        <h4 class="author"><em>Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></em></h4>
+            
+            <h4 class="date"><em>2016-09-28</em></h4>
+          </div>
 
-y &lt;- bed_sort(x)
-y
-#&gt; # A tibble: 1,000,000 × 3
-#&gt;    chrom start   end
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   chr1  2679  3679
-#&gt; 2   chr1  8089  9089
-#&gt; 3   chr1 15343 16343
-#&gt; 4   chr1 15488 16488
-#&gt; 5   chr1 16445 17445
-#&gt; 6   chr1 20050 21050
-#&gt; 7   chr1 27278 28278
-#&gt; 8   chr1 27335 28335
-#&gt; 9   chr1 28448 29448
-#&gt; 10  chr1 33302 34302
-#&gt; # ... with 999,990 more rows
-
-is_sorted(y)
-#&gt; [1] TRUE</code></pre>
-</div>
-<div id="cluster" class="section level3">
-<h3>Cluster</h3>
-<p><code>bed_cluster</code> identifies clustered intervals based on a distance specification and assigns them a unique <code>.id</code>.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-cluster_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-y &lt;- bed_cluster(x, max_dist = 1000)
-y
-#&gt; # A tibble: 1,000,000 × 4
-#&gt;    chrom     start       end   .id
-#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt; &lt;int&gt;
-#&gt; 1  chr18  49965814  49966814 16067
-#&gt; 2  chr19  39513438  39514438 12675
-#&gt; 3   chr4 118156969 118157969 38093
-#&gt; 4   chr2  43164805  43165805 13944
-#&gt; 5   chr9  68309338  68310338 21869
-#&gt; 6   chr3 121558721 121559721 39189
-#&gt; 7  chr15   5411102   5412102  1706
-#&gt; 8   chr3 127144472 127145472 41076
-#&gt; 9   chr6  58881176  58882176 19193
-#&gt; 10  chr4  29353598  29354598  9427
-#&gt; # ... with 999,990 more rows</code></pre>
-</div>
-<div id="complement" class="section level3">
-<h3>Complement</h3>
-<p><code>bed_complement</code> identifies intervals in a genome that are not covered by an input.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-complement_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-
-bed_complement(x, genome)
-#&gt; # A tibble: 723,531 × 3
-#&gt;     chrom start   end
-#&gt;    &lt;fctr&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1    chr1     1  2947
-#&gt; 2    chr1  3947  7065
-#&gt; 3    chr1  8065  8330
-#&gt; 4    chr1  9330  9604
-#&gt; 5    chr1 10604 11456
-#&gt; 6    chr1 12456 13167
-#&gt; 7    chr1 14229 14543
-#&gt; 8    chr1 16266 20375
-#&gt; 9    chr1 21375 22472
-#&gt; 10   chr1 23472 23571
-#&gt; # ... with 723,521 more rows</code></pre>
-</div>
-<div id="merge" class="section level3">
-<h3>Merge</h3>
-<p><code>bed_merge</code> identifies overlapping intervals and reports new merged ones. <code>is_merged</code> asks whether a tbl is already merged. Values from merged intervals can be reported using name / value pairs.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-merge_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>n &lt;- 1e6
-x &lt;- bed_random(genome, n = n)
-is_merged(x)
-#&gt; [1] FALSE
-
-# add some signal
-x &lt;- x %&gt;% mutate(signal = runif(n))
-
-bed_merge(x, maxs = max(signal))
-#&gt; # A tibble: 723,330 × 4
-#&gt;    chrom start   end      maxs
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;
-#&gt; 1   chr1  4760  5760 0.2692453
-#&gt; 2   chr1  7992  8992 0.4469939
-#&gt; 3   chr1 13501 14501 0.7081722
-#&gt; 4   chr1 20925 22369 0.8533091
-#&gt; 5   chr1 24051 25051 0.5024737
-#&gt; 6   chr1 27837 29797 0.6277696
-#&gt; 7   chr1 38058 39058 0.9619488
-#&gt; 8   chr1 41336 43251 0.9994036
-#&gt; 9   chr1 47192 48192 0.8030667
-#&gt; 10  chr1 48234 49622 0.9447729
-#&gt; # ... with 723,320 more rows</code></pre>
-</div>
-<div id="flank" class="section level3">
-<h3>Flank</h3>
-<p><code>bed_flank</code> creates new intervals that flank – but do not contain – the input intervals.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-flank_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>bed_flank(x, genome, both  = 100)
-#&gt; # A tibble: 1,999,997 × 4
-#&gt;    chrom start   end     signal
-#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
-#&gt; 1   chr1  4660  4760 0.26924534
-#&gt; 2   chr1  5760  5860 0.26924534
-#&gt; 3   chr1  7892  7992 0.44699388
-#&gt; 4   chr1  8992  9092 0.44699388
-#&gt; 5   chr1 13401 13501 0.70817215
-#&gt; 6   chr1 14501 14601 0.70817215
-#&gt; 7   chr1 20825 20925 0.05918226
-#&gt; 8   chr1 21269 21369 0.85330911
-#&gt; 9   chr1 21925 22025 0.05918226
-#&gt; 10  chr1 22369 22469 0.85330911
-#&gt; # ... with 1,999,987 more rows</code></pre>
-</div>
-<div id="slop" class="section level3">
-<h3>Slop</h3>
-<p><code>bed_slop</code> pads input intervals based on a specification</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-slop_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>bed_slop(x, genome, both = 100)
-#&gt; # A tibble: 999,997 × 4
-#&gt;    chrom start   end     signal
-#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
-#&gt; 1   chr1  4660  5860 0.26924534
-#&gt; 2   chr1  7892  9092 0.44699388
-#&gt; 3   chr1 13401 14601 0.70817215
-#&gt; 4   chr1 20825 22025 0.05918226
-#&gt; 5   chr1 21269 22469 0.85330911
-#&gt; 6   chr1 23951 25151 0.50247375
-#&gt; 7   chr1 27737 28937 0.62776956
-#&gt; 8   chr1 28697 29897 0.10201472
-#&gt; 9   chr1 37958 39158 0.96194879
-#&gt; 10  chr1 41236 42436 0.02344024
-#&gt; # ... with 999,987 more rows</code></pre>
-</div>
-<div id="shift" class="section level3">
-<h3>Shift</h3>
-<p><code>bed_shift</code> adjusts coordinates toward <code>start</code> or <code>end</code> by a defined <code>size</code>. Intervals created out of bounds are removed, or trimmed.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-shift_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>bed_shift(x, genome, size = 100)
-#&gt; # A tibble: 999,999 × 4
-#&gt;    chrom     start       end     signal
-#&gt;    &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-#&gt; 1   chr5 152110987 152111987 0.49777739
-#&gt; 2  chr16  71282969  71283969 0.28976724
-#&gt; 3   chrX  73157544  73158544 0.73288199
-#&gt; 4   chr2  69448448  69449448 0.77252151
-#&gt; 5   chr9  75356787  75357787 0.87460066
-#&gt; 6   chr5  52017165  52018165 0.17494063
-#&gt; 7   chr4 122812959 122813959 0.03424133
-#&gt; 8   chr6 146283625 146284625 0.32038573
-#&gt; 9   chr6 138988479 138989479 0.40232824
-#&gt; 10  chr7 142307412 142308412 0.19566983
-#&gt; # ... with 999,989 more rows</code></pre>
-</div>
-<div id="interval-spacing" class="section level3">
-<h3>Interval spacing</h3>
-<p>Interval spacing is easily computed using <code>dplyr</code>. Overlapping intervals must first be merged. Spacing for the first interval of each chromosome is undefined.</p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-x &lt;- bed_merge(x)
-
-x %&gt;%
-  group_by(chrom) %&gt;%
-  mutate(.spacing = start - lag(end))
-#&gt; Source: local data frame [723,608 x 4]
-#&gt; Groups: chrom [25]
-#&gt; 
-#&gt;    chrom start   end .spacing
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;
-#&gt; 1   chr1    82  1532       NA
-#&gt; 2   chr1  2900  3900     1368
-#&gt; 3   chr1  5190  6190     1290
-#&gt; 4   chr1 11286 12286     5096
-#&gt; 5   chr1 26937 27937    14651
-#&gt; 6   chr1 38301 40049    10364
-#&gt; 7   chr1 40058 41058        9
-#&gt; 8   chr1 41079 42079       21
-#&gt; 9   chr1 48598 50363     6519
-#&gt; 10  chr1 53252 54950     2889
-#&gt; # ... with 723,598 more rows</code></pre>
-</div>
-</div>
-<div id="multiple-set-operations" class="section level2 tabset">
-<h2>Multiple set operations</h2>
-<p>These methods compare two sets of intervals:</p>
-<ul>
-<li><code>bed_intersect()</code>: find overlapping intervals</li>
-<li><code>bed_map()</code>: apply a function to selected columns for overlapping intervals</li>
-<li><code>bed_subtract()</code>: Remove intervals based on overlaps between two files</li>
-<li><code>bed_window()</code>: Find overlapping intervals within a window</li>
-<li><code>bed_closest()</code>: find the closest intervals independent of overlaps</li>
-</ul>
-<div id="intersection" class="section level3">
-<h3>Intersection</h3>
-<p><code>bed_intersect</code> is implemented using an <a href="https://github.com/ekg/intervaltree/">interval tree</a> in <code>Rcpp</code>. Column names in the result have <code>.x</code> and <code>.y</code> suffixes, and an <code>.overlap</code> column contains the size of the intersection (values of <code>0</code> indicate book-ended, or touching intervals). See the <a href="#benchmarks">benchmarks</a> section for timing. Though <code>bed_intersect</code> is pretty fast already, we intend to further improve upon this by parallization with <a href="https://rcppcore.github.io/RcppParallel/"><code>RcppParallel</code></a>.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-intersect_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code># intersect two sets of 1e6 intervals from hg19
-x &lt;- bed_random(genome)
-y &lt;- bed_random(genome)
-
-bed_intersect(x, y)
-#&gt; # A tibble: 646,891 × 6
-#&gt;    chrom start.x end.x start.y end.y .overlap
-#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;
-#&gt; 1   chr1    9651 10651    8783  9783      132
-#&gt; 2   chr1    9651 10651    9135 10135      484
-#&gt; 3   chr1   11227 12227   10714 11714      487
-#&gt; 4   chr1   11534 12534   10714 11714      180
-#&gt; 5   chr1   25225 26225   25436 26436      789
-#&gt; 6   chr1   65186 66186   65242 66242      944
-#&gt; 7   chr1   77788 78788   78626 79626      162
-#&gt; 8   chr1   82050 83050   81075 82075       25
-#&gt; 9   chr1   82050 83050   82540 83540      510
-#&gt; 10  chr1   82050 83050   82797 83797      253
-#&gt; # ... with 646,881 more rows
-
-# A records with no overlaps (i.e., `-v`)
-bed_intersect(x, y, invert = TRUE)
-#&gt; Source: local data frame [524,524 x 3]
-#&gt; Groups: chrom [25]
-#&gt; 
-#&gt;    chrom    start      end
-#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-#&gt; 1   chrY 59372336 59373336
-#&gt; 2   chrY 59360692 59361692
-#&gt; 3   chrY 59353958 59354958
-#&gt; 4   chrY 59349246 59350246
-#&gt; 5   chrY 59343516 59344516
-#&gt; 6   chrY 59321428 59322428
-#&gt; 7   chrY 59301707 59302707
-#&gt; 8   chrY 59293210 59294210
-#&gt; 9   chrY 59289511 59290511
-#&gt; 10  chrY 59287860 59288860
-#&gt; # ... with 524,514 more rows</code></pre>
-<p>One can achieve behaviour similar to BEDtools by combining <code>bed_intersect</code> with <code>dplyr</code> tools.</p>
-<pre class="r"><code># `x` records with overlaps (i.e., `-wa`)
-bed_intersect(x, y) %&gt;% select(chrom, start = start.x, end = end.x)
-#&gt; # A tibble: 646,891 × 3
-#&gt;    chrom start   end
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   chr1  9651 10651
-#&gt; 2   chr1  9651 10651
-#&gt; 3   chr1 11227 12227
-#&gt; 4   chr1 11534 12534
-#&gt; 5   chr1 25225 26225
-#&gt; 6   chr1 65186 66186
-#&gt; 7   chr1 77788 78788
-#&gt; 8   chr1 82050 83050
-#&gt; 9   chr1 82050 83050
-#&gt; 10  chr1 82050 83050
-#&gt; # ... with 646,881 more rows
-
-# `y` records with overlaps (i.e., `-wb`)
-bed_intersect(x, y) %&gt;% select(chrom, start = start.y, end = end.y)
-#&gt; # A tibble: 646,891 × 3
-#&gt;    chrom start   end
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   chr1  8783  9783
-#&gt; 2   chr1  9135 10135
-#&gt; 3   chr1 10714 11714
-#&gt; 4   chr1 10714 11714
-#&gt; 5   chr1 25436 26436
-#&gt; 6   chr1 65242 66242
-#&gt; 7   chr1 78626 79626
-#&gt; 8   chr1 81075 82075
-#&gt; 9   chr1 82540 83540
-#&gt; 10  chr1 82797 83797
-#&gt; # ... with 646,881 more rows
-
-# Unique records in `x` (i.e., `-u`)
-bed_intersect(x, y) %&gt;% select(chrom, start = start.x, end = end.x) %&gt;% unique()
-#&gt; # A tibble: 475,397 × 3
-#&gt;    chrom start   end
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   chr1  9651 10651
-#&gt; 2   chr1 11227 12227
-#&gt; 3   chr1 11534 12534
-#&gt; 4   chr1 25225 26225
-#&gt; 5   chr1 65186 66186
-#&gt; 6   chr1 77788 78788
-#&gt; 7   chr1 82050 83050
-#&gt; 8   chr1 82127 83127
-#&gt; 9   chr1 88370 89370
-#&gt; 10  chr1 93351 94351
-#&gt; # ... with 475,387 more rows
-
-# Count `y` intervals that intersect each `x` interval
-bed_intersect(x, y) %&gt;% group_by(chrom, start.x, end.x) %&gt;% summarize(count = n())
-#&gt; Source: local data frame [475,397 x 4]
-#&gt; Groups: chrom, start.x [?]
-#&gt; 
-#&gt;    chrom start.x end.x count
-#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1   chr1    9651 10651     2
-#&gt; 2   chr1   11227 12227     1
-#&gt; 3   chr1   11534 12534     1
-#&gt; 4   chr1   25225 26225     1
-#&gt; 5   chr1   65186 66186     1
-#&gt; 6   chr1   77788 78788     1
-#&gt; 7   chr1   82050 83050     3
-#&gt; 8   chr1   82127 83127     2
-#&gt; 9   chr1   88370 89370     1
-#&gt; 10  chr1   93351 94351     2
-#&gt; # ... with 475,387 more rows</code></pre>
-</div>
-<div id="map" class="section level3">
-<h3>Map</h3>
-<p><code>bed_map</code> maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs.</p>
-<pre><code>#&gt; Warning: Removed 1 rows containing missing values (geom_label).</code></pre>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-map_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>bedfile &lt;- valr_example(&#39;genes.hg19.chr22.bed.gz&#39;)
-bgfile  &lt;- valr_example(&#39;hela.h3k4.chip.bg.gz&#39;)
-
-x &lt;- read_bed(bedfile, n_fields = 6)
-y &lt;- read_bedgraph(bgfile)
-
-bed_map(x, y, means = mean(value.y), sds = sd(value.y))
-#&gt; # A tibble: 591 × 5
-#&gt;    chrom  start.x    end.x    means       sds
-#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-#&gt; 1  chr22 16150259 16193004 7.914286 7.5707309
-#&gt; 2  chr22 16162065 16172265 1.000000        NA
-#&gt; 3  chr22 16256331 16287937 1.000000 0.0000000
-#&gt; 4  chr22 17071647 17073700 1.000000 0.0000000
-#&gt; 5  chr22 17082800 17129720 1.117647 0.3270350
-#&gt; 6  chr22 17134598 17156430 1.294118 0.5878675
-#&gt; 7  chr22 17227758 17229328 1.000000        NA
-#&gt; 8  chr22 17264305 17302584 1.250000 0.5084039
-#&gt; 9  chr22 17308363 17310225 1.333333 0.5773503
-#&gt; 10 chr22 17385314 17385395 1.000000        NA
-#&gt; # ... with 581 more rows</code></pre>
-</div>
-<div id="subtract" class="section level3">
-<h3>Subtract</h3>
-<p><code>bed_substract()</code> removes <code>x</code> intervals that intersect with <code>y</code>.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-subtract_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-y &lt;- bed_random(genome)
-
-bed_subtract(x, y)
-#&gt; # A tibble: 723,770 × 3
-#&gt;     chrom start   end
-#&gt;    &lt;fctr&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1    chr1   649  2277
-#&gt; 2    chr1  6733  6911
-#&gt; 3    chr1 13112 13802
-#&gt; 4    chr1 15015 16015
-#&gt; 5    chr1 17319 18319
-#&gt; 6    chr1 19403 19520
-#&gt; 7    chr1 23292 24084
-#&gt; 8    chr1 30952 31337
-#&gt; 9    chr1 36478 36575
-#&gt; 10   chr1 38798 39798
-#&gt; # ... with 723,760 more rows</code></pre>
-</div>
-<div id="window" class="section level3">
-<h3>Window</h3>
-<p><code>bed_window()</code> identifies <code>y</code> intervals that intersect an expanded window of <code>x</code> intervals.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-window_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>x &lt;- bed_random(genome, n = 100)
-y &lt;- bed_random(genome, n = 100)
-
-# a few intersections
-bed_intersect(x, y)
-#&gt; # A tibble: 0 × 6
-#&gt; # ... with 6 variables: chrom &lt;chr&gt;, start.x &lt;int&gt;, end.x &lt;int&gt;,
-#&gt; #   start.y &lt;int&gt;, end.y &lt;int&gt;, .overlap &lt;int&gt;
-
-# can be expanded by casting a wider net
-bed_window(x, y, genome, both = 1e6)
-#&gt; # A tibble: 5 × 6
-#&gt;   chrom   start.x     end.x   start.y     end.y .overlap
-#&gt;   &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;    &lt;int&gt;
-#&gt; 1  chr1 238564090 238565090 238184687 238185687     1000
-#&gt; 2 chr11 125861105 125862105 126687218 126688218     1000
-#&gt; 3 chr11 126060255 126061255 126687218 126688218     1000
-#&gt; 4 chr14 104319540 104320540 105105833 105106833     1000
-#&gt; 5  chr5 156027097 156028097 156867878 156868878     1000</code></pre>
-</div>
-<div id="closest" class="section level3">
-<h3>Closest</h3>
-<p><code>bed_closest()</code> identifies <code>y</code> intervals that are closest to <code>x</code>.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-closest_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>x &lt;- bed_random(genome, n = 100)
-y &lt;- bed_random(genome, n = 100)
-
-bed_closest(x, y)
-#&gt; # A tibble: 100 × 7
-#&gt;    chrom   start.x     end.x   start.y     end.y .overlap .distance
-#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;    &lt;int&gt;     &lt;int&gt;
-#&gt; 1   chr1  24475359  24476359  21977789  21978789        0  -2496570
-#&gt; 2   chr1  84958397  84959397  70368954  70369954        0 -14588443
-#&gt; 3   chr1  90561878  90562878  70368954  70369954        0 -20191924
-#&gt; 4   chr1 149230830 149231830 140176126 140177126        0  -9053704
-#&gt; 5   chr1 193230588 193231588 169372011 169373011        0 -23857577
-#&gt; 6   chr1 208083506 208084506 219939414 219940414        0  11854908
-#&gt; 7   chr1 213265325 213266325 219939414 219940414        0   6673089
-#&gt; 8  chr10   2424084   2425084  83069014  83070014        0  80643930
-#&gt; 9  chr10  45658835  45659835  83069014  83070014        0  37409179
-#&gt; 10 chr10  55645210  55646210  83069014  83070014        0  27422804
-#&gt; # ... with 90 more rows</code></pre>
-</div>
-</div>
-<div id="randomzing-intervals" class="section level2 tabset">
-<h2>Randomzing intervals</h2>
-<p><code>valr</code> provides methods for creating new random intervals or permutations of existing intervals:</p>
-<ul>
-<li><code>bed_random</code> generates random intervals from an input <code>genome</code>.</li>
-<li><code>bed_shuffle</code> shuffles coordinates given a set of input intervals.</li>
-<li>Random sampling of input intervals is done with <code>dplyr</code>.</li>
-</ul>
-<div id="random" class="section level3">
-<h3>Random</h3>
-<p><code>bed_random</code> generates random intervals from an input genome. The numbers of intervals from each <code>chrom</code> are proporitional to each chrom <code>size</code>.</p>
-<pre class="r"><code>x &lt;- bed_random(genome, n = 1e6, length = 1e3)
-x
-#&gt; # A tibble: 1,000,000 × 3
-#&gt;    chrom     start       end
-#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;
-#&gt; 1   chr6   6170375   6171375
-#&gt; 2  chr10  54164368  54165368
-#&gt; 3   chr1  94459593  94460593
-#&gt; 4  chr18  51008215  51009215
-#&gt; 5  chr12  68610889  68611889
-#&gt; 6   chr5  47492784  47493784
-#&gt; 7   chr9  52580689  52581689
-#&gt; 8   chr4 135985440 135986440
-#&gt; 9   chr8 122604043 122605043
-#&gt; 10  chr9  43990705  43991705
-#&gt; # ... with 999,990 more rows
-
-# numbers of sampled intervals are proportional to chrom size
-group_by(x, chrom) %&gt;% summarize(n = n()) %&gt;% arrange(desc(n))
-#&gt; # A tibble: 25 × 2
-#&gt;    chrom     n
-#&gt;    &lt;chr&gt; &lt;int&gt;
-#&gt; 1   chr1 80878
-#&gt; 2   chr2 78292
-#&gt; 3   chr3 64412
-#&gt; 4   chr4 61793
-#&gt; 5   chr5 58318
-#&gt; 6   chr6 54785
-#&gt; 7   chr7 51521
-#&gt; 8   chrX 50559
-#&gt; 9   chr8 47523
-#&gt; 10  chr9 45468
-#&gt; # ... with 15 more rows</code></pre>
-</div>
-<div id="sample" class="section level3">
-<h3>Sample</h3>
-<p>Sampling can be done using <code>dplyr</code>:</p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-
-# sample by number
-sample_n(x, 1e3, replace = FALSE)
-#&gt; # A tibble: 1,000 × 3
-#&gt;    chrom     start       end
-#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;
-#&gt; 1  chr20  25728237  25729237
-#&gt; 2   chr6  58631070  58632070
-#&gt; 3   chr2 107287561 107288561
-#&gt; 4   chr2 224102717 224103717
-#&gt; 5   chr3  83817215  83818215
-#&gt; 6   chr5  15046194  15047194
-#&gt; 7  chr10 135250099 135251099
-#&gt; 8  chr10  56744277  56745277
-#&gt; 9  chr10 107427061 107428061
-#&gt; 10  chrX  19568360  19569360
-#&gt; # ... with 990 more rows
-
-# or fraction
-sample_frac(x, 0.1, replace = FALSE)
-#&gt; # A tibble: 100,000 × 3
-#&gt;    chrom     start       end
-#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;
-#&gt; 1   chr9  86446702  86447702
-#&gt; 2   chr3   5866962   5867962
-#&gt; 3  chr15  28494191  28495191
-#&gt; 4  chr12  11224327  11225327
-#&gt; 5   chr9  46822533  46823533
-#&gt; 6   chr7  97321979  97322979
-#&gt; 7   chr2 213441386 213442386
-#&gt; 8   chr4   9403978   9404978
-#&gt; 9  chr17  76567129  76568129
-#&gt; 10  chr8  80425381  80426381
-#&gt; # ... with 99,990 more rows
-
-# or sample intervals within groups
-group_by(x, chrom) %&gt;% sample_n(1)
-#&gt; Source: local data frame [25 x 3]
-#&gt; Groups: chrom [25]
-#&gt; 
-#&gt;    chrom     start       end
-#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;
-#&gt; 1   chr1  46965618  46966618
-#&gt; 2  chr10 123452374 123453374
-#&gt; 3  chr11 119561897 119562897
-#&gt; 4  chr12  30895141  30896141
-#&gt; 5  chr13  39678536  39679536
-#&gt; 6  chr14 103055496 103056496
-#&gt; 7  chr15  90674809  90675809
-#&gt; 8  chr16  49068848  49069848
-#&gt; 9  chr17  45828075  45829075
-#&gt; 10 chr18  73308672  73309672
-#&gt; # ... with 15 more rows</code></pre>
-</div>
-<div id="shuffle" class="section level3">
-<h3>Shuffle</h3>
-<p><code>bed_shuffle</code> shuffles input intervals. Interval sizes are equal in the input and output.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-shuffle_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>y &lt;- bed_shuffle(x, genome)
-y
-#&gt; # A tibble: 1,000,000 × 3
-#&gt;     chrom     start       end
-#&gt;    &lt;fctr&gt;     &lt;int&gt;     &lt;int&gt;
-#&gt; 1    chr7  27007370  27008370
-#&gt; 2   chr18  36834633  36835633
-#&gt; 3   chr12 130821811 130822811
-#&gt; 4   chr15  27838961  27839961
-#&gt; 5    chr3 158356773 158357773
-#&gt; 6   chr10  79220150  79221150
-#&gt; 7    chr2 231507805 231508805
-#&gt; 8    chr5  14554594  14555594
-#&gt; 9   chr11   8929700   8930700
-#&gt; 10   chr2 195754032 195755032
-#&gt; # ... with 999,990 more rows
-
-any(x$start == y$start)
-#&gt; [1] FALSE
-
-all(x$end - x$start == y$end - y$start)
-#&gt; [1] TRUE</code></pre>
-</div>
-</div>
-<div id="other-topics" class="section level2">
-<h2>Other topics</h2>
-<div id="grouping-related-intervals" class="section level3">
-<h3>Grouping related intervals</h3>
-<p>The <code>group_by</code> operation from <code>dplyr</code> serves a similar purpose to BEDtools <code>groupby</code>, and can be combined with <code>dplyr::summarize</code> to calculate summary statistics from groups.</p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-y &lt;- bed_random(genome)
-
-bed_intersect(x, y) %&gt;%
-  group_by(chrom) %&gt;%
-  summarize(overlap.total = sum(.overlap))
-#&gt; # A tibble: 25 × 2
-#&gt;    chrom overlap.total
-#&gt;    &lt;chr&gt;         &lt;int&gt;
-#&gt; 1   chr1      26102375
-#&gt; 2  chr10      14045456
-#&gt; 3  chr11      14029560
-#&gt; 4  chr12      13930231
-#&gt; 5  chr13      12171146
-#&gt; 6  chr14      11008071
-#&gt; 7  chr15      10777843
-#&gt; 8  chr16       9449445
-#&gt; 9  chr17       8548733
-#&gt; 10 chr18       8090106
-#&gt; # ... with 15 more rows</code></pre>
-</div>
-</div>
-</div>
-<div id="interval-statistics" class="section level1 tabset">
-<h1>Interval Statistics</h1>
-<p><code>valr</code> provides several methods to assess statistical properties of interval sets including:</p>
-<ul>
-<li><code>bed_fisher()</code>: measure overlap significance of two sets of intervals.</li>
-<li><code>bed_absdist()</code>: quantify absolute distance between query intervals and closest reference intervals</li>
-<li><code>bed_reldist()</code>: quantify relative distances between query intervals and closest reference intervals</li>
-<li><code>bed_jaccard()</code>: quantify extent of overlap between two sets of intervals</li>
-</ul>
-<p>Several of these methods were described in the <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">Genometricorr</a> software package.</p>
-<div id="fishers-test" class="section level2">
-<h2>Fisher’s test</h2>
-<p>The Fisher’s test assesses whether two sets of intervals are drawn from the same background genome.</p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-y &lt;- bed_random(genome)
-
-bed_fisher(x, y, genome)
-#&gt;   estimate p.value conf.low conf.high                             method
-#&gt; 1 2.346882       0 2.332876  2.360909 Fisher&#39;s Exact Test for Count Data
-#&gt;   alternative
-#&gt; 1   two.sided</code></pre>
-</div>
-<div id="absolute-distance" class="section level2">
-<h2>Absolute distance</h2>
-<p><code>bed_absdist()</code> computes the absolute distance between the midpoint of query intervals and the closest midpoints of a set of reference intervals. Absolute distances are scaled by the inter-reference gap for the chromosome as follows. For <code>Q</code> total query points and <code>R</code> reference points on a chromosome, scale the distance for each query point <code>i</code> to the closest reference point by the inter-reference gap for each chromosome.</p>
-<p><span class="math display">\[
-d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\ chromsome}
-\]</span></p>
-<p>By default both absolute and scaled distances are reported as <code>absdist</code> and <code>scaled_absdist</code> respectively.</p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-y &lt;- bed_random(genome)
-
-bed_absdist(x, y, genome)
-#&gt; # A tibble: 1,000,000 × 5
-#&gt;    chrom start   end absdist scaled_absdist
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;          &lt;dbl&gt;
-#&gt; 1   chr1  2144  3144     294     0.09495380
-#&gt; 2   chr1  2522  3522      63     0.02034724
-#&gt; 3   chr1  4998  5998    1042     0.33653694
-#&gt; 4   chr1 10600 11600    1021     0.32975453
-#&gt; 5   chr1 13710 14710      37     0.01194997
-#&gt; 6   chr1 16189 17189    2094     0.67630361
-#&gt; 7   chr1 16312 17312    1971     0.63657804
-#&gt; 8   chr1 16618 17618    1665     0.53774857
-#&gt; 9   chr1 18527 19527     244     0.07880520
-#&gt; 10  chr1 18914 19914      58     0.01873238
-#&gt; # ... with 999,990 more rows</code></pre>
-</div>
-<div id="relative-distance" class="section level2">
-<h2>Relative distance</h2>
-<p><code>bed_reldist()</code> computes the relative distance between a query interval and the two closest reference intervals. The relative distance can range between <code>[0,0.5]</code>. If the overall distribution of distances is biased toward zero, then the query and reference intervals tend to be closer in space (<a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">17</a>). By default a summary with the frequency of each relative distance is reported.</p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-y &lt;- bed_random(genome)
-
-bed_reldist(x, y)
-#&gt; # A tibble: 51 × 4
-#&gt;    reldist counts  total       freq
-#&gt;      &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;      &lt;dbl&gt;
-#&gt; 1     0.00  19892 999942 0.01989315
-#&gt; 2     0.01  20068 999942 0.02006916
-#&gt; 3     0.02  20415 999942 0.02041618
-#&gt; 4     0.03  20169 999942 0.02017017
-#&gt; 5     0.04  20447 999942 0.02044819
-#&gt; 6     0.05  19772 999942 0.01977315
-#&gt; 7     0.06  20063 999942 0.02006416
-#&gt; 8     0.07  19999 999942 0.02000016
-#&gt; 9     0.08  20285 999942 0.02028618
-#&gt; 10    0.09  20107 999942 0.02010817
-#&gt; # ... with 41 more rows</code></pre>
-</div>
-<div id="jaccard-similarity" class="section level2">
-<h2>Jaccard similarity</h2>
-<p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:</p>
-<p><span class="math display">\[
-J(x,y) = \frac{\mid x \bigcap y \mid}
-              {\mid x \bigcup y \mid} 
-       = 
-         \frac{\mid x \bigcap y \mid}
-              {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid}
-\]</span></p>
-<pre class="r"><code>x &lt;- bed_random(genome)
-y &lt;- bed_random(genome)
-
-bed_jaccard(x, y)
-#&gt; # A tibble: 1 × 4
-#&gt;       len_i      len_u   jaccard      n
-#&gt;       &lt;int&gt;      &lt;int&gt;     &lt;dbl&gt;  &lt;int&gt;
-#&gt; 1 322509055 2000000000 0.1922568 645856</code></pre>
-</div>
-</div>
-<div id="benchmarks" class="section level1">
-<h1>Benchmarks</h1>
-<pre class="r"><code># two sets of 1e6 random 1 kb intervals from hg19
-x &lt;- bed_random(genome)
-y &lt;- bed_random(genome)
-
-library(microbenchmark)
-microbenchmark(
-  bed_random(genome),
-  bed_closest(x, y),
-  bed_intersect(x, y),
-  bed_merge(x),
-  bed_subtract(x, y),
-  bed_complement(x, genome),
-  bed_shuffle(x, genome),
-  times = 1,
-  unit = &#39;s&#39;
-)
-#&gt; Unit: seconds
-#&gt;                       expr       min        lq      mean    median
-#&gt;         bed_random(genome) 0.1101173 0.1101173 0.1101173 0.1101173
-#&gt;          bed_closest(x, y) 4.8719364 4.8719364 4.8719364 4.8719364
-#&gt;        bed_intersect(x, y) 1.6946947 1.6946947 1.6946947 1.6946947
-#&gt;               bed_merge(x) 2.2964556 2.2964556 2.2964556 2.2964556
-#&gt;         bed_subtract(x, y) 1.9097754 1.9097754 1.9097754 1.9097754
-#&gt;  bed_complement(x, genome) 2.5088313 2.5088313 2.5088313 2.5088313
-#&gt;     bed_shuffle(x, genome) 1.0000393 1.0000393 1.0000393 1.0000393
-#&gt;         uq       max neval
-#&gt;  0.1101173 0.1101173     1
-#&gt;  4.8719364 4.8719364     1
-#&gt;  1.6946947 1.6946947     1
-#&gt;  2.2964556 2.2964556     1
-#&gt;  1.9097754 1.9097754     1
-#&gt;  2.5088313 2.5088313     1
-#&gt;  1.0000393 1.0000393     1</code></pre>
-</div>
+    
+    
+    <div id="overview" class="section level1">
+    <h1>Overview</h1>
+    <p><code>valr</code> provides tools to read and manipulate genome intervals and signals, similar to the standalone <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a>.</p>
+    <p>We provide several introductions to <code>valr</code>:</p>
+    <ul>
+    <li>This comprehensive <code>vignette</code> covering the core methods.</li>
+    <li>A tutorial that demonstrates how to use <code>valr</code> in “real-world” applications.</li>
+    <li>A <code>shiny</code> application that demonstrates interactive analysis of genome-scale data sets.</li>
+    </ul>
+    <div id="installation" class="section level2">
+    <h2>Installation</h2>
+    <p><code>valr</code> can be installed from github, and will be eventually deposited in CRAN.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&#39;jayhesselberth/valr&#39;</span>)</code></pre></div>
+    </div>
+    <div id="comparison-to-other-tools" class="section level2">
+    <h2>Comparison to other tools</h2>
+    <p><strong>Why another tool set for interval manipulations?</strong> We already have <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a>, <a href="http://bedops.readthedocs.org/en/latest/index.html">bedops</a>, <a href="https://pythonhosted.org/pybedtools/">pybedtools</a>, <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a>, <a href="https://cran.r-project.org/web/packages/bedr/index.html">bedr</a> and <a href="https://bioconductor.org/packages/release/bioc/html/IRanges.html">IRanges</a>.</p>
+    <p>We were motivated to develop a toolset that:</p>
+    <ul>
+    <li>Combines analysis and visualization in RStudio.</li>
+    <li>Can be used to generate reports with Rmarkdown.</li>
+    <li>Is highly extensible. New tools are quickly implemented on the R side.</li>
+    <li>Leverages the “modern R” syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code>%&gt;%</code>).</li>
+    <li>Maximizes speed by implementing compute-intensive algorithms in <code>Rcpp</code>.</li>
+    <li>Facilitates interactive visulaizations with <a href="http://shiny.rstudio.com/"><code>shiny</code></a>.</li>
+    </ul>
+    <p>We anticipate <code>valr</code> will mainly be used for analysis of pre-processed data in BED, bedGraph and VCF formats. Most users will have processed their aligned reads from BAM format to bedGraph, so we do not foresee supporting BAM directly. We would entertain requests for GTF / GFF support if there is interest, as <code>tidyr</code> makes it easy to convert these to BED12.</p>
+    <p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> (including <a href="https://github.com/jayhesselberth/valr/tree/master/src">intersect, merge, subtract, closest</a>) to enable fluid interactive analysis. See the <a href="#benchmarks">benchmarks</a> section for details.</p>
+    </div>
+    <div id="non-standard-evaluation" class="section level2">
+    <h2>Non-standard evaluation</h2>
+    <p>Several of the methods in <code>valr</code> use <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/nse.html">NSE</a> for an expressive syntax. Columns are referred to by name and can be used in multiple name/value expressions for summaries.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bed_map</span>(x, y, <span class="dt">mean =</span> <span class="kw">mean</span>(value), <span class="dt">var =</span> <span class="kw">var</span>(value))
+    <span class="kw">bed_merge</span>(x, <span class="dt">concat =</span> <span class="kw">concat</span>(value), <span class="dt">max =</span> <span class="kw">max</span>(value))</code></pre></div>
+    </div>
+    <div id="getting-started" class="section level2">
+    <h2>Getting started</h2>
+    <p>Here is an example using <code>valr</code> that creates</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)</code></pre></div>
+    </div>
+    </div>
+    <div id="reading-data" class="section level1 tabset">
+    <h1>Reading data</h1>
+    <p><code>valr</code> has several methods to read interval data. These methods:</p>
+    <ul>
+    <li>Take local files or URLs as input.</li>
+    <li>Return a <code>data.frame</code> in <code>tibble::tbl_df</code> format.</li>
+    <li>Assign consistent <code>chrom</code>, <code>start</code> and <code>end</code> column names.</li>
+    <li>Use <a href="https://github.com/hadley/readr"><code>readr</code></a> for speed.</li>
+    <li>Coerce column types.</li>
+    </ul>
+    <p>The methods include:</p>
+    <ul>
+    <li><code>read_bed()</code>: read a BED3+ file</li>
+    <li><code>read_bed12()</code>: read a BED12 file</li>
+    <li><code>read_bedgraph()</code>: read a bedGraph file</li>
+    <li><code>read_genome()</code>: read a UCSC “chrom size” file</li>
+    <li><code>read_vcf()</code>: read the Variant Call Format</li>
+    <li><code>read_narrowpeak()</code>: read narrowPeak files</li>
+    <li><code>read_broadpeak()</code>: read broadPeak files</li>
+    </ul>
+    <div id="bed-files" class="section level2">
+    <h2>BED files</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_bed</span>(<span class="kw">valr_example</span>(<span class="st">&#39;3fields.bed.gz&#39;</span>))
+    <span class="co">#&gt; # A tibble: 10 × 3</span>
+    <span class="co">#&gt;    chrom  start    end</span>
+    <span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1  11873  14409</span>
+    <span class="co">#&gt; 2   chr1  14361  19759</span>
+    <span class="co">#&gt; 3   chr1  14406  29370</span>
+    <span class="co">#&gt; 4   chr1  34610  36081</span>
+    <span class="co">#&gt; 5   chr1  69090  70008</span>
+    <span class="co">#&gt; 6   chr1 134772 140566</span>
+    <span class="co">#&gt; 7   chr1 321083 321115</span>
+    <span class="co">#&gt; 8   chr1 321145 321207</span>
+    <span class="co">#&gt; 9   chr1 322036 326938</span>
+    <span class="co">#&gt; 10  chr1 327545 328439</span>
+    <span class="kw">read_bed</span>(<span class="dt">n_fields =</span> <span class="dv">6</span>, <span class="kw">valr_example</span>(<span class="st">&#39;6fields.bed.gz&#39;</span>))
+    <span class="co">#&gt; # A tibble: 10 × 6</span>
+    <span class="co">#&gt;    chrom  start    end         name score strand</span>
+    <span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+    <span class="co">#&gt; 1   chr1  11873  14409      DDX11L1     3      +</span>
+    <span class="co">#&gt; 2   chr1  14361  19759       WASH7P    10      -</span>
+    <span class="co">#&gt; 3   chr1  14406  29370       WASH7P     7      -</span>
+    <span class="co">#&gt; 4   chr1  34610  36081      FAM138F     3      -</span>
+    <span class="co">#&gt; 5   chr1  69090  70008        OR4F5     1      +</span>
+    <span class="co">#&gt; 6   chr1 134772 140566    LOC729737     3      -</span>
+    <span class="co">#&gt; 7   chr1 321083 321115     DQ597235     1      +</span>
+    <span class="co">#&gt; 8   chr1 321145 321207     DQ599768     1      +</span>
+    <span class="co">#&gt; 9   chr1 322036 326938 LOC100133331     3      +</span>
+    <span class="co">#&gt; 10  chr1 327545 328439    LOC388312     1      +</span>
+    <span class="kw">read_bed12</span>(<span class="kw">valr_example</span>(<span class="st">&#39;12fields.bed.gz&#39;</span>))
+    <span class="co">#&gt; # A tibble: 3 × 12</span>
+    <span class="co">#&gt;   chrom   start     end      name score strand cds_start cds_end item_rgb</span>
+    <span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;   &lt;int&gt;    &lt;chr&gt;</span>
+    <span class="co">#&gt; 1  chr1 4797973 4836816  testgene     1      +   4797973 4836816        .</span>
+    <span class="co">#&gt; 2 chr10 4848118 4880877 diffchrom     1      +   4848118 4880877        .</span>
+    <span class="co">#&gt; 3 chr20 5073253 5152630 negstrand     1      -   5073253 5152630        .</span>
+    <span class="co">#&gt; # ... with 3 more variables: exon_count &lt;int&gt;, exon_sizes &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   exon_starts &lt;chr&gt;</span></code></pre></div>
+    </div>
+    <div id="genome-files" class="section level2">
+    <h2>Genome files</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genome &lt;-<span class="st"> </span><span class="kw">read_genome</span>(<span class="kw">valr_example</span>(<span class="st">&#39;hg19.chrom.sizes.gz&#39;</span>))</code></pre></div>
+    </div>
+    <div id="bedgraph-files" class="section level2">
+    <h2>bedGraph files</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_bedgraph</span>(<span class="kw">valr_example</span>(<span class="st">&#39;test.bg.gz&#39;</span>))
+    <span class="co">#&gt; # A tibble: 4 × 4</span>
+    <span class="co">#&gt;   chrom    start      end value</span>
+    <span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;dbl&gt;</span>
+    <span class="co">#&gt; 1 chr19 49302000 49302300 -1.00</span>
+    <span class="co">#&gt; 2 chr19 49302300 49302600 -0.75</span>
+    <span class="co">#&gt; 3 chr19 49302600 49302900 -0.50</span>
+    <span class="co">#&gt; 4 chr19 49302900 49303200 -0.25</span></code></pre></div>
+    </div>
+    <div id="vcf-files" class="section level2">
+    <h2>VCF files</h2>
+    <p><code>read_vcf()</code> reads VCF files and assigns <code>chrom</code>, <code>start</code> and <code>end</code> columns to be used to downstream interval comparisons. Note the interval size is calculated as the length of the <code>REF</code> field in the original file.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_vcf</span>(<span class="kw">valr_example</span>(<span class="st">&#39;test.vcf.gz&#39;</span>))
+    <span class="co">#&gt; # A tibble: 115 × 201</span>
+    <span class="co">#&gt;    CHROM   POS    ID                                          REF</span>
+    <span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                        &lt;chr&gt;</span>
+    <span class="co">#&gt; 1      1 10172     .                                       CCCTAA</span>
+    <span class="co">#&gt; 2      1 10390     . CCCCTAACCCCTAACCCTAACCCTAACCCTAACCCTAACCCTAA</span>
+    <span class="co">#&gt; 3      1 10397     .                                CCCCTAACCCTAA</span>
+    <span class="co">#&gt; 4      1 10403     .       ACCCTAACCCTAACCCTAACCCTAACCCTAACCCTAAC</span>
+    <span class="co">#&gt; 5      1 10409     .             ACCCTAACCCTAACCCTAACCCTAACCCTAAC</span>
+    <span class="co">#&gt; 6      1 10415     .                   ACCCTAACCCTAACCCTAACCCTAAC</span>
+    <span class="co">#&gt; 7      1 10421     .                         ACCCTAACCCTAACCCTAAC</span>
+    <span class="co">#&gt; 8      1 10428     .                                       CCCTAA</span>
+    <span class="co">#&gt; 9      1 10440     .                                            C</span>
+    <span class="co">#&gt; 10     1 10478     .                                            C</span>
+    <span class="co">#&gt; # ... with 105 more rows, and 197 more variables: ALT &lt;chr&gt;, QUAL &lt;dbl&gt;,</span>
+    <span class="co">#&gt; #   FILTER &lt;chr&gt;, INFO &lt;chr&gt;, FORMAT &lt;chr&gt;, `101976-101976` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100920-100920` &lt;chr&gt;, `100231-100231` &lt;chr&gt;, `100232-100232` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100919-100919` &lt;chr&gt;, `101977-101977` &lt;chr&gt;, `100630-100630` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100640-100640` &lt;chr&gt;, `100631-100631` &lt;chr&gt;, `101583-101583` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101584-101584` &lt;chr&gt;, `101732-101732` &lt;chr&gt;, `101016-101016` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101708-101708` &lt;chr&gt;, `101730-101730` &lt;chr&gt;, `101582-101582` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101731-101731` &lt;chr&gt;, `101809-101809` &lt;chr&gt;, `101653-101653` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101652-101652` &lt;chr&gt;, `101806-101806` &lt;chr&gt;, `101807-101807` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101808-101808` &lt;chr&gt;, `101810-101810` &lt;chr&gt;, `101811-101811` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101812-101812` &lt;chr&gt;, `101813-101813` &lt;chr&gt;, `101814-101814` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101957-101957` &lt;chr&gt;, `101958-101958` &lt;chr&gt;, `100986-100986` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100987-100987` &lt;chr&gt;, `101897-101897` &lt;chr&gt;, `102071-102071` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `102106-102106` &lt;chr&gt;, `101040-101040` &lt;chr&gt;, `101167-101167` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101041-101041` &lt;chr&gt;, `101042-101042` &lt;chr&gt;, `101168-101168` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101898-101898` &lt;chr&gt;, `102070-102070` &lt;chr&gt;, `102111-102111` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100988-100988` &lt;chr&gt;, `101896-101896` &lt;chr&gt;, `102110-102110` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `102620-102620` &lt;chr&gt;, `102621-102621` &lt;chr&gt;, `102947-102947` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `102948-102948` &lt;chr&gt;, `103089-103089` &lt;chr&gt;, `102693-102693` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `102694-102694` &lt;chr&gt;, `102949-102949` &lt;chr&gt;, `102622-102622` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `102623-102623` &lt;chr&gt;, `102624-102624` &lt;chr&gt;, `102722-102722` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `102712-102712` &lt;chr&gt;, `103339-103339` &lt;chr&gt;, `103124-103124` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `103161-103161` &lt;chr&gt;, `103125-103125` &lt;chr&gt;, `103171-103171` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `103338-103338` &lt;chr&gt;, `103372-103372` &lt;chr&gt;, `103193-103193` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100195-100195` &lt;chr&gt;, `100194-100194` &lt;chr&gt;, `101667-101667` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101137-101137` &lt;chr&gt;, `101291-101291` &lt;chr&gt;, `101292-101292` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101666-101666` &lt;chr&gt;, `32222-32222` &lt;chr&gt;, `32049-32049` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `32050-32050` &lt;chr&gt;, `32411-32411` &lt;chr&gt;, `32221-32221` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100147-100147` &lt;chr&gt;, `100149-100149` &lt;chr&gt;, `100243-100243` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100290-100290` &lt;chr&gt;, `100753-100753` &lt;chr&gt;, `100754-100754` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101377-101377` &lt;chr&gt;, `101426-101426` &lt;chr&gt;, `101435-101435` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101523-101523` &lt;chr&gt;, `101877-101877` &lt;chr&gt;, `100043-100043` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `100044-100044` &lt;chr&gt;, `100148-100148` &lt;chr&gt;, `100292-100292` &lt;chr&gt;,</span>
+    <span class="co">#&gt; #   `101381-101381` &lt;chr&gt;, ...</span></code></pre></div>
+    </div>
+    </div>
+    <div id="interval-manipulations" class="section level1">
+    <h1>Interval manipulations</h1>
+    <p><code>valr</code> implements several methods for manipulating sets of intervals. Some methods operate on a single set of intervals, while others compare two sets of intervals.</p>
+    <p>Many methods the same name as the corresponding <code>BEDtool</code>, and some commonly used <code>BEDtools</code> are implemented as <code>dplyr</code> pipes (e.g., see the <a href="#groupby"><code>group_by</code></a> section).</p>
+    <p>All methods accept one or more sets of <code>x</code> and <code>y</code> intervals, which must either be created using the <a href="#reading%20data"><code>read</code> methods</a>, or have <code>chrom</code>, <code>start</code> and <code>end</code> columns.</p>
+    <div id="single-set-operations" class="section level2 tabset">
+    <h2>Single set operations</h2>
+    <p>These methods operate on a single set of intervals:</p>
+    <ul>
+    <li><code>bed_sort()</code>: order intervals</li>
+    <li><code>bed_cluster()</code>: Cluster (but don’t merge) overlapping/nearby intervals.</li>
+    <li><code>bed_complement()</code>: extract intervals <em>not</em> represented by an interval file.</li>
+    <li><code>bed_merge()</code>: combine overlapping and nearby intervals into a single interval.</li>
+    <li><code>bed_flank()</code>: Generate new flanking intervals</li>
+    <li><code>bed_slop()</code>: Expand the size of input intervals</li>
+    <li><code>bed_shift()</code>: Shift the coordinates of an input set, bounded by a genome</li>
+    </ul>
+    <div id="sort" class="section level3">
+    <h3>Sort</h3>
+    <p><code>bed_sort</code> orders intervals based on a specification. <code>is_sorted</code> asks whether a tbl is already sorted.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    <span class="kw">is_sorted</span>(x)
+    <span class="co">#&gt; [1] FALSE</span>
+    
+    y &lt;-<span class="st"> </span><span class="kw">bed_sort</span>(x)
+    y
+    <span class="co">#&gt; # A tibble: 1,000,000 × 3</span>
+    <span class="co">#&gt;    chrom start   end</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1  4526  5526</span>
+    <span class="co">#&gt; 2   chr1 10439 11439</span>
+    <span class="co">#&gt; 3   chr1 14335 15335</span>
+    <span class="co">#&gt; 4   chr1 14447 15447</span>
+    <span class="co">#&gt; 5   chr1 26633 27633</span>
+    <span class="co">#&gt; 6   chr1 31981 32981</span>
+    <span class="co">#&gt; 7   chr1 33197 34197</span>
+    <span class="co">#&gt; 8   chr1 35443 36443</span>
+    <span class="co">#&gt; 9   chr1 41017 42017</span>
+    <span class="co">#&gt; 10  chr1 43000 44000</span>
+    <span class="co">#&gt; # ... with 999,990 more rows</span>
+    
+    <span class="kw">is_sorted</span>(y)
+    <span class="co">#&gt; [1] TRUE</span></code></pre></div>
+    </div>
+    <div id="cluster" class="section level3">
+    <h3>Cluster</h3>
+    <p><code>bed_cluster</code> identifies clustered intervals based on a distance specification and assigns them a unique <code>.id</code>.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-cluster_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_cluster</span>(x, <span class="dt">max_dist =</span> <span class="dv">1000</span>)
+    y
+    <span class="co">#&gt; # A tibble: 1,000,000 × 4</span>
+    <span class="co">#&gt;    chrom     start       end   .id</span>
+    <span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1 205555834 205556834 66544</span>
+    <span class="co">#&gt; 2   chr6 131261547 131262547 42427</span>
+    <span class="co">#&gt; 3   chr3 150681303 150682303 48562</span>
+    <span class="co">#&gt; 4  chr14  29298366  29299366  9559</span>
+    <span class="co">#&gt; 5   chr2  79902599  79903599 25849</span>
+    <span class="co">#&gt; 6  chr16  65717069  65718069 21117</span>
+    <span class="co">#&gt; 7   chr5  46032477  46033477 14801</span>
+    <span class="co">#&gt; 8   chr5 116337155 116338155 37499</span>
+    <span class="co">#&gt; 9   chr7  32238332  32239332 10456</span>
+    <span class="co">#&gt; 10 chr14  13521264  13522264  4445</span>
+    <span class="co">#&gt; # ... with 999,990 more rows</span></code></pre></div>
+    </div>
+    <div id="complement" class="section level3">
+    <h3>Complement</h3>
+    <p><code>bed_complement</code> identifies intervals in a genome that are not covered by an input.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-complement_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">bed_complement</span>(x, genome)
+    <span class="co">#&gt; # A tibble: 724,345 × 3</span>
+    <span class="co">#&gt;     chrom start   end</span>
+    <span class="co">#&gt;    &lt;fctr&gt; &lt;int&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1    chr1     1   669</span>
+    <span class="co">#&gt; 2    chr1  1669  5689</span>
+    <span class="co">#&gt; 3    chr1  6767 18036</span>
+    <span class="co">#&gt; 4    chr1 19036 20344</span>
+    <span class="co">#&gt; 5    chr1 21439 21968</span>
+    <span class="co">#&gt; 6    chr1 22968 23522</span>
+    <span class="co">#&gt; 7    chr1 24522 25428</span>
+    <span class="co">#&gt; 8    chr1 26428 26457</span>
+    <span class="co">#&gt; 9    chr1 27457 30724</span>
+    <span class="co">#&gt; 10   chr1 31724 31856</span>
+    <span class="co">#&gt; # ... with 724,335 more rows</span></code></pre></div>
+    </div>
+    <div id="merge" class="section level3">
+    <h3>Merge</h3>
+    <p><code>bed_merge</code> identifies overlapping intervals and reports new merged ones. <code>is_merged</code> asks whether a tbl is already merged. Values from merged intervals can be reported using name / value pairs.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-merge_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="fl">1e6</span>
+    x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome, <span class="dt">n =</span> n)
+    <span class="kw">is_merged</span>(x)
+    <span class="co">#&gt; [1] FALSE</span>
+    
+    <span class="co"># add some signal</span>
+    x &lt;-<span class="st"> </span>x %&gt;%<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">signal =</span> <span class="kw">runif</span>(n))
+    
+    <span class="kw">bed_merge</span>(x, <span class="dt">maxs =</span> <span class="kw">max</span>(signal))
+    <span class="co">#&gt; # A tibble: 723,895 × 4</span>
+    <span class="co">#&gt;    chrom start   end       maxs</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;      &lt;dbl&gt;</span>
+    <span class="co">#&gt; 1   chr1  2048  3048 0.10880415</span>
+    <span class="co">#&gt; 2   chr1  3176  4176 0.95639328</span>
+    <span class="co">#&gt; 3   chr1  5039  6039 0.17148226</span>
+    <span class="co">#&gt; 4   chr1  7033  8735 0.96812481</span>
+    <span class="co">#&gt; 5   chr1  9609 10840 0.60255073</span>
+    <span class="co">#&gt; 6   chr1 12671 13671 0.65516508</span>
+    <span class="co">#&gt; 7   chr1 18272 19272 0.70814090</span>
+    <span class="co">#&gt; 8   chr1 21678 22678 0.09731957</span>
+    <span class="co">#&gt; 9   chr1 27669 29004 0.50468273</span>
+    <span class="co">#&gt; 10  chr1 29512 30512 0.16712683</span>
+    <span class="co">#&gt; # ... with 723,885 more rows</span></code></pre></div>
+    </div>
+    <div id="flank" class="section level3">
+    <h3>Flank</h3>
+    <p><code>bed_flank</code> creates new intervals that flank – but do not contain – the input intervals.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-flank_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bed_flank</span>(x, genome, <span class="dt">both  =</span> <span class="dv">100</span>)
+    <span class="co">#&gt; # A tibble: 2,000,000 × 4</span>
+    <span class="co">#&gt;    chrom start   end    signal</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span>
+    <span class="co">#&gt; 1   chr1  1948  2048 0.1088041</span>
+    <span class="co">#&gt; 2   chr1  3048  3148 0.1088041</span>
+    <span class="co">#&gt; 3   chr1  3076  3176 0.9563933</span>
+    <span class="co">#&gt; 4   chr1  4176  4276 0.9563933</span>
+    <span class="co">#&gt; 5   chr1  4939  5039 0.1714823</span>
+    <span class="co">#&gt; 6   chr1  6039  6139 0.1714823</span>
+    <span class="co">#&gt; 7   chr1  6933  7033 0.2080860</span>
+    <span class="co">#&gt; 8   chr1  7298  7398 0.4901614</span>
+    <span class="co">#&gt; 9   chr1  7635  7735 0.9681248</span>
+    <span class="co">#&gt; 10  chr1  8033  8133 0.2080860</span>
+    <span class="co">#&gt; # ... with 1,999,990 more rows</span></code></pre></div>
+    </div>
+    <div id="slop" class="section level3">
+    <h3>Slop</h3>
+    <p><code>bed_slop</code> pads input intervals based on a specification</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-slop_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bed_slop</span>(x, genome, <span class="dt">both =</span> <span class="dv">100</span>)
+    <span class="co">#&gt; # A tibble: 1,000,000 × 4</span>
+    <span class="co">#&gt;    chrom start   end    signal</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span>
+    <span class="co">#&gt; 1   chr1  1948  3148 0.1088041</span>
+    <span class="co">#&gt; 2   chr1  3076  4276 0.9563933</span>
+    <span class="co">#&gt; 3   chr1  4939  6139 0.1714823</span>
+    <span class="co">#&gt; 4   chr1  6933  8133 0.2080860</span>
+    <span class="co">#&gt; 5   chr1  7298  8498 0.4901614</span>
+    <span class="co">#&gt; 6   chr1  7635  8835 0.9681248</span>
+    <span class="co">#&gt; 7   chr1  9509 10709 0.6025507</span>
+    <span class="co">#&gt; 8   chr1  9740 10940 0.2086200</span>
+    <span class="co">#&gt; 9   chr1 12571 13771 0.6551651</span>
+    <span class="co">#&gt; 10  chr1 18172 19372 0.7081409</span>
+    <span class="co">#&gt; # ... with 999,990 more rows</span></code></pre></div>
+    </div>
+    <div id="shift" class="section level3">
+    <h3>Shift</h3>
+    <p><code>bed_shift</code> adjusts coordinates toward <code>start</code> or <code>end</code> by a defined <code>size</code>. Intervals created out of bounds are removed, or trimmed.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-shift_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bed_shift</span>(x, genome, <span class="dt">size =</span> <span class="dv">100</span>)
+    <span class="co">#&gt; # A tibble: 1,000,000 × 4</span>
+    <span class="co">#&gt;    chrom     start       end     signal</span>
+    <span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span>
+    <span class="co">#&gt; 1   chrX  48699348  48700348 0.19566983</span>
+    <span class="co">#&gt; 2   chr3  56619881  56620881 0.40353812</span>
+    <span class="co">#&gt; 3   chr2 194508586 194509586 0.06366146</span>
+    <span class="co">#&gt; 4  chr13  73068551  73069551 0.38870131</span>
+    <span class="co">#&gt; 5   chr7    631735    632735 0.97554784</span>
+    <span class="co">#&gt; 6   chr3  90986776  90987776 0.28989230</span>
+    <span class="co">#&gt; 7  chr13  60016127  60017127 0.67838043</span>
+    <span class="co">#&gt; 8  chr11  71268409  71269409 0.73531960</span>
+    <span class="co">#&gt; 9   chr2 130577759 130578759 0.19595673</span>
+    <span class="co">#&gt; 10  chr5 176905537 176906537 0.98053967</span>
+    <span class="co">#&gt; # ... with 999,990 more rows</span></code></pre></div>
+    </div>
+    <div id="interval-spacing" class="section level3">
+    <h3>Interval spacing</h3>
+    <p>Interval spacing is easily computed using <code>dplyr</code>. Overlapping intervals must first be merged. Spacing for the first interval of each chromosome is undefined.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    x &lt;-<span class="st"> </span><span class="kw">bed_merge</span>(x)
+    
+    x %&gt;%
+    <span class="st">  </span><span class="kw">group_by</span>(chrom) %&gt;%
+    <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">.spacing =</span> start -<span class="st"> </span><span class="kw">lag</span>(end))
+    <span class="co">#&gt; Source: local data frame [723,904 x 4]</span>
+    <span class="co">#&gt; Groups: chrom [25]</span>
+    <span class="co">#&gt; </span>
+    <span class="co">#&gt;    chrom start   end .spacing</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1  3268  5196       NA</span>
+    <span class="co">#&gt; 2   chr1 16456 17456    11260</span>
+    <span class="co">#&gt; 3   chr1 18177 19177      721</span>
+    <span class="co">#&gt; 4   chr1 24070 25070     4893</span>
+    <span class="co">#&gt; 5   chr1 36380 37380    11310</span>
+    <span class="co">#&gt; 6   chr1 40165 41165     2785</span>
+    <span class="co">#&gt; 7   chr1 41179 42179       14</span>
+    <span class="co">#&gt; 8   chr1 47970 48970     5791</span>
+    <span class="co">#&gt; 9   chr1 50717 51717     1747</span>
+    <span class="co">#&gt; 10  chr1 58751 59751     7034</span>
+    <span class="co">#&gt; # ... with 723,894 more rows</span></code></pre></div>
+    </div>
+    </div>
+    <div id="multiple-set-operations" class="section level2 tabset">
+    <h2>Multiple set operations</h2>
+    <p>These methods compare two sets of intervals:</p>
+    <ul>
+    <li><code>bed_intersect()</code>: find overlapping intervals</li>
+    <li><code>bed_map()</code>: apply a function to selected columns for overlapping intervals</li>
+    <li><code>bed_subtract()</code>: Remove intervals based on overlaps between two files</li>
+    <li><code>bed_window()</code>: Find overlapping intervals within a window</li>
+    <li><code>bed_closest()</code>: find the closest intervals independent of overlaps</li>
+    </ul>
+    <div id="intersection" class="section level3">
+    <h3>Intersection</h3>
+    <p><code>bed_intersect</code> is implemented using an <a href="https://github.com/ekg/intervaltree/">interval tree</a> in <code>Rcpp</code>. Column names in the result have <code>.x</code> and <code>.y</code> suffixes, and an <code>.overlap</code> column contains the size of the intersection (values of <code>0</code> indicate book-ended, or touching intervals). See the <a href="#benchmarks">benchmarks</a> section for timing. Though <code>bed_intersect</code> is pretty fast already, we intend to further improve upon this by parallization with <a href="https://rcppcore.github.io/RcppParallel/"><code>RcppParallel</code></a>.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-intersect_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># intersect two sets of 1e6 intervals from hg19</span>
+    x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">bed_intersect</span>(x, y)
+    <span class="co">#&gt; # A tibble: 648,561 × 6</span>
+    <span class="co">#&gt;    chrom start.x end.x start.y end.y .overlap</span>
+    <span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1   11460 12460   11758 12758      702</span>
+    <span class="co">#&gt; 2   chr1   17547 18547   18060 19060      487</span>
+    <span class="co">#&gt; 3   chr1   22796 23796   23318 24318      478</span>
+    <span class="co">#&gt; 4   chr1   30423 31423   30721 31721      702</span>
+    <span class="co">#&gt; 5   chr1   30423 31423   31309 32309      114</span>
+    <span class="co">#&gt; 6   chr1   30423 31423   31385 32385       38</span>
+    <span class="co">#&gt; 7   chr1   48677 49677   47965 48965      288</span>
+    <span class="co">#&gt; 8   chr1   51175 52175   51879 52879      296</span>
+    <span class="co">#&gt; 9   chr1   71990 72990   72110 73110      880</span>
+    <span class="co">#&gt; 10  chr1   72813 73813   72110 73110      297</span>
+    <span class="co">#&gt; # ... with 648,551 more rows</span>
+    
+    <span class="co"># A records with no overlaps (i.e., `-v`)</span>
+    <span class="kw">bed_intersect</span>(x, y, <span class="dt">invert =</span> <span class="ot">TRUE</span>)
+    <span class="co">#&gt; Source: local data frame [523,128 x 3]</span>
+    <span class="co">#&gt; Groups: chrom [25]</span>
+    <span class="co">#&gt; </span>
+    <span class="co">#&gt;    chrom    start      end</span>
+    <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chrY 59369156 59370156</span>
+    <span class="co">#&gt; 2   chrY 59363312 59364312</span>
+    <span class="co">#&gt; 3   chrY 59326412 59327412</span>
+    <span class="co">#&gt; 4   chrY 59311233 59312233</span>
+    <span class="co">#&gt; 5   chrY 59309995 59310995</span>
+    <span class="co">#&gt; 6   chrY 59307483 59308483</span>
+    <span class="co">#&gt; 7   chrY 59291953 59292953</span>
+    <span class="co">#&gt; 8   chrY 59282043 59283043</span>
+    <span class="co">#&gt; 9   chrY 59277298 59278298</span>
+    <span class="co">#&gt; 10  chrY 59269224 59270224</span>
+    <span class="co">#&gt; # ... with 523,118 more rows</span></code></pre></div>
+    <p>One can achieve behaviour similar to BEDtools by combining <code>bed_intersect</code> with <code>dplyr</code> tools.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># `x` records with overlaps (i.e., `-wa`)</span>
+    <span class="kw">bed_intersect</span>(x, y) %&gt;%<span class="st"> </span><span class="kw">select</span>(chrom, <span class="dt">start =</span> start.x, <span class="dt">end =</span> end.x)
+    <span class="co">#&gt; # A tibble: 648,561 × 3</span>
+    <span class="co">#&gt;    chrom start   end</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1 11460 12460</span>
+    <span class="co">#&gt; 2   chr1 17547 18547</span>
+    <span class="co">#&gt; 3   chr1 22796 23796</span>
+    <span class="co">#&gt; 4   chr1 30423 31423</span>
+    <span class="co">#&gt; 5   chr1 30423 31423</span>
+    <span class="co">#&gt; 6   chr1 30423 31423</span>
+    <span class="co">#&gt; 7   chr1 48677 49677</span>
+    <span class="co">#&gt; 8   chr1 51175 52175</span>
+    <span class="co">#&gt; 9   chr1 71990 72990</span>
+    <span class="co">#&gt; 10  chr1 72813 73813</span>
+    <span class="co">#&gt; # ... with 648,551 more rows</span>
+    
+    <span class="co"># `y` records with overlaps (i.e., `-wb`)</span>
+    <span class="kw">bed_intersect</span>(x, y) %&gt;%<span class="st"> </span><span class="kw">select</span>(chrom, <span class="dt">start =</span> start.y, <span class="dt">end =</span> end.y)
+    <span class="co">#&gt; # A tibble: 648,561 × 3</span>
+    <span class="co">#&gt;    chrom start   end</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1 11758 12758</span>
+    <span class="co">#&gt; 2   chr1 18060 19060</span>
+    <span class="co">#&gt; 3   chr1 23318 24318</span>
+    <span class="co">#&gt; 4   chr1 30721 31721</span>
+    <span class="co">#&gt; 5   chr1 31309 32309</span>
+    <span class="co">#&gt; 6   chr1 31385 32385</span>
+    <span class="co">#&gt; 7   chr1 47965 48965</span>
+    <span class="co">#&gt; 8   chr1 51879 52879</span>
+    <span class="co">#&gt; 9   chr1 72110 73110</span>
+    <span class="co">#&gt; 10  chr1 72110 73110</span>
+    <span class="co">#&gt; # ... with 648,551 more rows</span>
+    
+    <span class="co"># Unique records in `x` (i.e., `-u`)</span>
+    <span class="kw">bed_intersect</span>(x, y) %&gt;%<span class="st"> </span><span class="kw">select</span>(chrom, <span class="dt">start =</span> start.x, <span class="dt">end =</span> end.x) %&gt;%<span class="st"> </span><span class="kw">unique</span>()
+    <span class="co">#&gt; # A tibble: 476,807 × 3</span>
+    <span class="co">#&gt;    chrom start   end</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1 11460 12460</span>
+    <span class="co">#&gt; 2   chr1 17547 18547</span>
+    <span class="co">#&gt; 3   chr1 22796 23796</span>
+    <span class="co">#&gt; 4   chr1 30423 31423</span>
+    <span class="co">#&gt; 5   chr1 48677 49677</span>
+    <span class="co">#&gt; 6   chr1 51175 52175</span>
+    <span class="co">#&gt; 7   chr1 71990 72990</span>
+    <span class="co">#&gt; 8   chr1 72813 73813</span>
+    <span class="co">#&gt; 9   chr1 73893 74893</span>
+    <span class="co">#&gt; 10  chr1 74704 75704</span>
+    <span class="co">#&gt; # ... with 476,797 more rows</span>
+    
+    <span class="co"># Count `y` intervals that intersect each `x` interval</span>
+    <span class="kw">bed_intersect</span>(x, y) %&gt;%<span class="st"> </span><span class="kw">group_by</span>(chrom, start.x, end.x) %&gt;%<span class="st"> </span><span class="kw">summarize</span>(<span class="dt">count =</span> <span class="kw">n</span>())
+    <span class="co">#&gt; Source: local data frame [476,807 x 4]</span>
+    <span class="co">#&gt; Groups: chrom, start.x [?]</span>
+    <span class="co">#&gt; </span>
+    <span class="co">#&gt;    chrom start.x end.x count</span>
+    <span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1   11460 12460     1</span>
+    <span class="co">#&gt; 2   chr1   17547 18547     1</span>
+    <span class="co">#&gt; 3   chr1   22796 23796     1</span>
+    <span class="co">#&gt; 4   chr1   30423 31423     3</span>
+    <span class="co">#&gt; 5   chr1   48677 49677     1</span>
+    <span class="co">#&gt; 6   chr1   51175 52175     1</span>
+    <span class="co">#&gt; 7   chr1   71990 72990     1</span>
+    <span class="co">#&gt; 8   chr1   72813 73813     1</span>
+    <span class="co">#&gt; 9   chr1   73893 74893     1</span>
+    <span class="co">#&gt; 10  chr1   74704 75704     1</span>
+    <span class="co">#&gt; # ... with 476,797 more rows</span></code></pre></div>
+    </div>
+    <div id="map" class="section level3">
+    <h3>Map</h3>
+    <p><code>bed_map</code> maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs.</p>
+    <pre><code>#&gt; Warning: Removed 1 rows containing missing values (geom_label).</code></pre>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-map_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bedfile &lt;-<span class="st"> </span><span class="kw">valr_example</span>(<span class="st">&#39;genes.hg19.chr22.bed.gz&#39;</span>)
+    bgfile  &lt;-<span class="st"> </span><span class="kw">valr_example</span>(<span class="st">&#39;hela.h3k4.chip.bg.gz&#39;</span>)
+    
+    x &lt;-<span class="st"> </span><span class="kw">read_bed</span>(bedfile, <span class="dt">n_fields =</span> <span class="dv">6</span>)
+    y &lt;-<span class="st"> </span><span class="kw">read_bedgraph</span>(bgfile)
+    
+    <span class="kw">bed_map</span>(x, y, <span class="dt">means =</span> <span class="kw">mean</span>(value.y), <span class="dt">sds =</span> <span class="kw">sd</span>(value.y))
+    <span class="co">#&gt; # A tibble: 591 × 5</span>
+    <span class="co">#&gt;    chrom  start.x    end.x    means       sds</span>
+    <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span>
+    <span class="co">#&gt; 1  chr22 16150259 16193004 7.914286 7.5707309</span>
+    <span class="co">#&gt; 2  chr22 16162065 16172265 1.000000        NA</span>
+    <span class="co">#&gt; 3  chr22 16256331 16287937 1.000000 0.0000000</span>
+    <span class="co">#&gt; 4  chr22 17071647 17073700 1.000000 0.0000000</span>
+    <span class="co">#&gt; 5  chr22 17082800 17129720 1.117647 0.3270350</span>
+    <span class="co">#&gt; 6  chr22 17134598 17156430 1.294118 0.5878675</span>
+    <span class="co">#&gt; 7  chr22 17227758 17229328 1.000000        NA</span>
+    <span class="co">#&gt; 8  chr22 17264305 17302584 1.250000 0.5084039</span>
+    <span class="co">#&gt; 9  chr22 17308363 17310225 1.333333 0.5773503</span>
+    <span class="co">#&gt; 10 chr22 17385314 17385395 1.000000        NA</span>
+    <span class="co">#&gt; # ... with 581 more rows</span></code></pre></div>
+    </div>
+    <div id="subtract" class="section level3">
+    <h3>Subtract</h3>
+    <p><code>bed_substract()</code> removes <code>x</code> intervals that intersect with <code>y</code>.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-subtract_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">bed_subtract</span>(x, y)
+    <span class="co">#&gt; # A tibble: 723,420 × 3</span>
+    <span class="co">#&gt;     chrom start   end</span>
+    <span class="co">#&gt;    &lt;fctr&gt; &lt;int&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1    chr1  1363  2363</span>
+    <span class="co">#&gt; 2    chr1  9496  9945</span>
+    <span class="co">#&gt; 3    chr1 12768 13175</span>
+    <span class="co">#&gt; 4    chr1 15036 16651</span>
+    <span class="co">#&gt; 5    chr1 24126 25126</span>
+    <span class="co">#&gt; 6    chr1 26631 26872</span>
+    <span class="co">#&gt; 7    chr1 29848 30848</span>
+    <span class="co">#&gt; 8    chr1 32908 32923</span>
+    <span class="co">#&gt; 9    chr1 34422 35906</span>
+    <span class="co">#&gt; 10   chr1 36408 36506</span>
+    <span class="co">#&gt; # ... with 723,410 more rows</span></code></pre></div>
+    </div>
+    <div id="window" class="section level3">
+    <h3>Window</h3>
+    <p><code>bed_window()</code> identifies <code>y</code> intervals that intersect an expanded window of <code>x</code> intervals.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-window_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome, <span class="dt">n =</span> <span class="dv">100</span>)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome, <span class="dt">n =</span> <span class="dv">100</span>)
+    
+    <span class="co"># a few intersections</span>
+    <span class="kw">bed_intersect</span>(x, y)
+    <span class="co">#&gt; # A tibble: 0 × 6</span>
+    <span class="co">#&gt; # ... with 6 variables: chrom &lt;chr&gt;, start.x &lt;int&gt;, end.x &lt;int&gt;,</span>
+    <span class="co">#&gt; #   start.y &lt;int&gt;, end.y &lt;int&gt;, .overlap &lt;int&gt;</span>
+    
+    <span class="co"># can be expanded by casting a wider net</span>
+    <span class="kw">bed_window</span>(x, y, genome, <span class="dt">both =</span> <span class="fl">1e6</span>)
+    <span class="co">#&gt; # A tibble: 8 × 6</span>
+    <span class="co">#&gt;   chrom   start.x     end.x   start.y     end.y .overlap</span>
+    <span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;    &lt;int&gt;</span>
+    <span class="co">#&gt; 1 chr18  28070773  28071773  27226743  27227743     1000</span>
+    <span class="co">#&gt; 2  chr3 120758658 120759658 121264175 121265175     1000</span>
+    <span class="co">#&gt; 3  chr4 167919252 167920252 167723691 167724691     1000</span>
+    <span class="co">#&gt; 4  chr6  51461584  51462584  52174834  52175834     1000</span>
+    <span class="co">#&gt; 5  chr8   2093237   2094237   1422004   1423004     1000</span>
+    <span class="co">#&gt; 6  chr9 135055393 135056393 135533624 135534624     1000</span>
+    <span class="co">#&gt; 7  chr9 135055393 135056393 135982066 135983066     1000</span>
+    <span class="co">#&gt; 8  chrX  61521694  61522694  61850346  61851346     1000</span></code></pre></div>
+    </div>
+    <div id="closest" class="section level3">
+    <h3>Closest</h3>
+    <p><code>bed_closest()</code> identifies <code>y</code> intervals that are closest to <code>x</code>.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-closest_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome, <span class="dt">n =</span> <span class="dv">100</span>)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome, <span class="dt">n =</span> <span class="dv">100</span>)
+    
+    <span class="kw">bed_closest</span>(x, y)
+    <span class="co">#&gt; # A tibble: 95 × 7</span>
+    <span class="co">#&gt;    chrom   start.x     end.x   start.y     end.y .overlap .distance</span>
+    <span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;    &lt;int&gt;     &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1  17745294  17746294  12360975  12361975        0  -5383319</span>
+    <span class="co">#&gt; 2   chr1  94363120  94364120  80830511  80831511        0 -13531609</span>
+    <span class="co">#&gt; 3   chr1  95475244  95476244  80830511  80831511        0 -14643733</span>
+    <span class="co">#&gt; 4   chr1 117729656 117730656 115101202 115102202        0  -2627454</span>
+    <span class="co">#&gt; 5   chr1 152384336 152385336 161077686 161078686        0   8692350</span>
+    <span class="co">#&gt; 6   chr1 152889378 152890378 161077686 161078686        0   8187308</span>
+    <span class="co">#&gt; 7   chr1 175866654 175867654 182101079 182102079        0   6233425</span>
+    <span class="co">#&gt; 8   chr1 182276952 182277952 182101079 182102079        0   -174873</span>
+    <span class="co">#&gt; 9   chr1 195646973 195647973 182101079 182102079        0 -13544894</span>
+    <span class="co">#&gt; 10 chr10  21825181  21826181  21765646  21766646        0    -58535</span>
+    <span class="co">#&gt; # ... with 85 more rows</span></code></pre></div>
+    </div>
+    </div>
+    <div id="randomzing-intervals" class="section level2 tabset">
+    <h2>Randomzing intervals</h2>
+    <p><code>valr</code> provides methods for creating new random intervals or permutations of existing intervals:</p>
+    <ul>
+    <li><code>bed_random</code> generates random intervals from an input <code>genome</code>.</li>
+    <li><code>bed_shuffle</code> shuffles coordinates given a set of input intervals.</li>
+    <li>Random sampling of input intervals is done with <code>dplyr</code>.</li>
+    </ul>
+    <div id="random" class="section level3">
+    <h3>Random</h3>
+    <p><code>bed_random</code> generates random intervals from an input genome. The numbers of intervals from each <code>chrom</code> are proporitional to each chrom <code>size</code>.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome, <span class="dt">n =</span> <span class="fl">1e6</span>, <span class="dt">length =</span> <span class="fl">1e3</span>)
+    x
+    <span class="co">#&gt; # A tibble: 1,000,000 × 3</span>
+    <span class="co">#&gt;    chrom     start       end</span>
+    <span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr6  92924882  92925882</span>
+    <span class="co">#&gt; 2  chr12  56035510  56036510</span>
+    <span class="co">#&gt; 3   chr5 170346514 170347514</span>
+    <span class="co">#&gt; 4   chr1  69548313  69549313</span>
+    <span class="co">#&gt; 5   chr7  90520585  90521585</span>
+    <span class="co">#&gt; 6   chr2  58087984  58088984</span>
+    <span class="co">#&gt; 7   chr4  83760500  83761500</span>
+    <span class="co">#&gt; 8  chr10  37131622  37132622</span>
+    <span class="co">#&gt; 9   chr7  62958218  62959218</span>
+    <span class="co">#&gt; 10  chr6  77049666  77050666</span>
+    <span class="co">#&gt; # ... with 999,990 more rows</span>
+    
+    <span class="co"># numbers of sampled intervals are proportional to chrom size</span>
+    <span class="kw">group_by</span>(x, chrom) %&gt;%<span class="st"> </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">n</span>()) %&gt;%<span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n))
+    <span class="co">#&gt; # A tibble: 25 × 2</span>
+    <span class="co">#&gt;    chrom     n</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1 80587</span>
+    <span class="co">#&gt; 2   chr2 78428</span>
+    <span class="co">#&gt; 3   chr3 63828</span>
+    <span class="co">#&gt; 4   chr4 61870</span>
+    <span class="co">#&gt; 5   chr5 58776</span>
+    <span class="co">#&gt; 6   chr6 54959</span>
+    <span class="co">#&gt; 7   chr7 51431</span>
+    <span class="co">#&gt; 8   chrX 50034</span>
+    <span class="co">#&gt; 9   chr8 47079</span>
+    <span class="co">#&gt; 10  chr9 45607</span>
+    <span class="co">#&gt; # ... with 15 more rows</span></code></pre></div>
+    </div>
+    <div id="sample" class="section level3">
+    <h3>Sample</h3>
+    <p>Sampling can be done using <code>dplyr</code>:</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="co"># sample by number</span>
+    <span class="kw">sample_n</span>(x, <span class="fl">1e3</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)
+    <span class="co">#&gt; # A tibble: 1,000 × 3</span>
+    <span class="co">#&gt;    chrom     start       end</span>
+    <span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr2  79541215  79542215</span>
+    <span class="co">#&gt; 2   chr3   3475854   3476854</span>
+    <span class="co">#&gt; 3   chr9  45455353  45456353</span>
+    <span class="co">#&gt; 4   chr1  62171194  62172194</span>
+    <span class="co">#&gt; 5  chr16   1243510   1244510</span>
+    <span class="co">#&gt; 6  chr16  65702486  65703486</span>
+    <span class="co">#&gt; 7  chr13 109953228 109954228</span>
+    <span class="co">#&gt; 8   chrX  42250845  42251845</span>
+    <span class="co">#&gt; 9  chr16  41419993  41420993</span>
+    <span class="co">#&gt; 10 chr10  15882937  15883937</span>
+    <span class="co">#&gt; # ... with 990 more rows</span>
+    
+    <span class="co"># or fraction</span>
+    <span class="kw">sample_frac</span>(x, <span class="fl">0.1</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)
+    <span class="co">#&gt; # A tibble: 100,000 × 3</span>
+    <span class="co">#&gt;    chrom     start       end</span>
+    <span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1  93866544  93867544</span>
+    <span class="co">#&gt; 2   chr1  13288136  13289136</span>
+    <span class="co">#&gt; 3   chr1 167755073 167756073</span>
+    <span class="co">#&gt; 4  chr13  18337359  18338359</span>
+    <span class="co">#&gt; 5  chr12  23213127  23214127</span>
+    <span class="co">#&gt; 6  chr17  12636761  12637761</span>
+    <span class="co">#&gt; 7  chr19  51581025  51582025</span>
+    <span class="co">#&gt; 8   chr7  93129244  93130244</span>
+    <span class="co">#&gt; 9  chr10 133129480 133130480</span>
+    <span class="co">#&gt; 10  chr5 111918103 111919103</span>
+    <span class="co">#&gt; # ... with 99,990 more rows</span>
+    
+    <span class="co"># or sample intervals within groups</span>
+    <span class="kw">group_by</span>(x, chrom) %&gt;%<span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">1</span>)
+    <span class="co">#&gt; Source: local data frame [25 x 3]</span>
+    <span class="co">#&gt; Groups: chrom [25]</span>
+    <span class="co">#&gt; </span>
+    <span class="co">#&gt;    chrom     start       end</span>
+    <span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1  62853945  62854945</span>
+    <span class="co">#&gt; 2  chr10 118976514 118977514</span>
+    <span class="co">#&gt; 3  chr11  67365031  67366031</span>
+    <span class="co">#&gt; 4  chr12 101417966 101418966</span>
+    <span class="co">#&gt; 5  chr13  36669080  36670080</span>
+    <span class="co">#&gt; 6  chr14 105731219 105732219</span>
+    <span class="co">#&gt; 7  chr15 100635973 100636973</span>
+    <span class="co">#&gt; 8  chr16  87456790  87457790</span>
+    <span class="co">#&gt; 9  chr17   9054503   9055503</span>
+    <span class="co">#&gt; 10 chr18  23149836  23150836</span>
+    <span class="co">#&gt; # ... with 15 more rows</span></code></pre></div>
+    </div>
+    <div id="shuffle" class="section level3">
+    <h3>Shuffle</h3>
+    <p><code>bed_shuffle</code> shuffles input intervals. Interval sizes are equal in the input and output.</p>
+    <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-shuffle_glyph-1.png" width="384" style="display: block; margin: auto;" /></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">bed_shuffle</span>(x, genome)
+    y
+    <span class="co">#&gt; # A tibble: 1,000,000 × 3</span>
+    <span class="co">#&gt;     chrom     start       end</span>
+    <span class="co">#&gt;    &lt;fctr&gt;     &lt;int&gt;     &lt;int&gt;</span>
+    <span class="co">#&gt; 1    chr7 107636367 107637367</span>
+    <span class="co">#&gt; 2    chr2  35953690  35954690</span>
+    <span class="co">#&gt; 3   chr17   5947202   5948202</span>
+    <span class="co">#&gt; 4   chr20  51462611  51463611</span>
+    <span class="co">#&gt; 5    chr7 107491080 107492080</span>
+    <span class="co">#&gt; 6    chr5 178910911 178911911</span>
+    <span class="co">#&gt; 7    chr5  16137417  16138417</span>
+    <span class="co">#&gt; 8   chr16   2816327   2817327</span>
+    <span class="co">#&gt; 9    chr5 138761399 138762399</span>
+    <span class="co">#&gt; 10   chr1 179537433 179538433</span>
+    <span class="co">#&gt; # ... with 999,990 more rows</span>
+    
+    <span class="kw">any</span>(x$start ==<span class="st"> </span>y$start)
+    <span class="co">#&gt; [1] FALSE</span>
+    
+    <span class="kw">all</span>(x$end -<span class="st"> </span>x$start ==<span class="st"> </span>y$end -<span class="st"> </span>y$start)
+    <span class="co">#&gt; [1] TRUE</span></code></pre></div>
+    </div>
+    </div>
+    <div id="other-topics" class="section level2">
+    <h2>Other topics</h2>
+    <div id="grouping-related-intervals" class="section level3">
+    <h3>Grouping related intervals</h3>
+    <p>The <code>group_by</code> operation from <code>dplyr</code> serves a similar purpose to BEDtools <code>groupby</code>, and can be combined with <code>dplyr::summarize</code> to calculate summary statistics from groups.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">bed_intersect</span>(x, y) %&gt;%
+    <span class="st">  </span><span class="kw">group_by</span>(chrom) %&gt;%
+    <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">overlap.total =</span> <span class="kw">sum</span>(.overlap))
+    <span class="co">#&gt; # A tibble: 25 × 2</span>
+    <span class="co">#&gt;    chrom overlap.total</span>
+    <span class="co">#&gt;    &lt;chr&gt;         &lt;int&gt;</span>
+    <span class="co">#&gt; 1   chr1      25821318</span>
+    <span class="co">#&gt; 2  chr10      13914190</span>
+    <span class="co">#&gt; 3  chr11      14072578</span>
+    <span class="co">#&gt; 4  chr12      14012158</span>
+    <span class="co">#&gt; 5  chr13      12081783</span>
+    <span class="co">#&gt; 6  chr14      11099416</span>
+    <span class="co">#&gt; 7  chr15      10719914</span>
+    <span class="co">#&gt; 8  chr16       9371955</span>
+    <span class="co">#&gt; 9  chr17       8582456</span>
+    <span class="co">#&gt; 10 chr18       8075689</span>
+    <span class="co">#&gt; # ... with 15 more rows</span></code></pre></div>
+    </div>
+    </div>
+    </div>
+    <div id="interval-statistics" class="section level1 tabset">
+    <h1>Interval Statistics</h1>
+    <p><code>valr</code> provides several methods to assess statistical properties of interval sets including:</p>
+    <ul>
+    <li><code>bed_fisher()</code>: measure overlap significance of two sets of intervals.</li>
+    <li><code>bed_absdist()</code>: quantify absolute distance between query intervals and closest reference intervals</li>
+    <li><code>bed_reldist()</code>: quantify relative distances between query intervals and closest reference intervals</li>
+    <li><code>bed_jaccard()</code>: quantify extent of overlap between two sets of intervals</li>
+    </ul>
+    <p>Several of these methods were described in the <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">Genometricorr</a> software package.</p>
+    <div id="fishers-test" class="section level2">
+    <h2>Fisher’s test</h2>
+    <p>The Fisher’s test assesses whether two sets of intervals are drawn from the same background genome.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">bed_fisher</span>(x, y, genome)
+    <span class="co">#&gt;   estimate p.value conf.low conf.high                             method</span>
+    <span class="co">#&gt; 1  2.35445       0 2.340357  2.368598 Fisher&#39;s Exact Test for Count Data</span>
+    <span class="co">#&gt;   alternative</span>
+    <span class="co">#&gt; 1   two.sided</span></code></pre></div>
+    </div>
+    <div id="absolute-distance" class="section level2">
+    <h2>Absolute distance</h2>
+    <p><code>bed_absdist()</code> computes the absolute distance between the midpoint of query intervals and the closest midpoints of a set of reference intervals. Absolute distances are scaled by the inter-reference gap for the chromosome as follows. For <code>Q</code> total query points and <code>R</code> reference points on a chromosome, scale the distance for each query point <code>i</code> to the closest reference point by the inter-reference gap for each chromosome.</p>
+    <p><span class="math display">\[
+    d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\ chromsome}
+    \]</span></p>
+    <p>By default both absolute and scaled distances are reported as <code>absdist</code> and <code>scaled_absdist</code> respectively.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">bed_absdist</span>(x, y, genome)
+    <span class="co">#&gt; # A tibble: 1,000,000 × 5</span>
+    <span class="co">#&gt;    chrom start   end absdist scaled_absdist</span>
+    <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;          &lt;dbl&gt;</span>
+    <span class="co">#&gt; 1   chr1  2684  3684     446      0.1443999</span>
+    <span class="co">#&gt; 2   chr1  3969  4969    1568      0.5076659</span>
+    <span class="co">#&gt; 3   chr1  4529  5529    1008      0.3263566</span>
+    <span class="co">#&gt; 4   chr1 10399 11399    1955      0.6329635</span>
+    <span class="co">#&gt; 5   chr1 13269 14269     915      0.2962463</span>
+    <span class="co">#&gt; 6   chr1 17673 18673    1075      0.3480490</span>
+    <span class="co">#&gt; 7   chr1 19304 20304     512      0.1657684</span>
+    <span class="co">#&gt; 8   chr1 20772 21772    1980      0.6410577</span>
+    <span class="co">#&gt; 9   chr1 21697 22697    2110      0.6831473</span>
+    <span class="co">#&gt; 10  chr1 25639 26639    1832      0.5931402</span>
+    <span class="co">#&gt; # ... with 999,990 more rows</span></code></pre></div>
+    </div>
+    <div id="relative-distance" class="section level2">
+    <h2>Relative distance</h2>
+    <p><code>bed_reldist()</code> computes the relative distance between a query interval and the two closest reference intervals. The relative distance can range between <code>[0,0.5]</code>. If the overall distribution of distances is biased toward zero, then the query and reference intervals tend to be closer in space (<a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">17</a>). By default a summary with the frequency of each relative distance is reported.</p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">bed_reldist</span>(x, y)
+    <span class="co">#&gt; # A tibble: 51 × 4</span>
+    <span class="co">#&gt;    reldist counts  total       freq</span>
+    <span class="co">#&gt;      &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;      &lt;dbl&gt;</span>
+    <span class="co">#&gt; 1     0.00  19795 999951 0.01979597</span>
+    <span class="co">#&gt; 2     0.01  19936 999951 0.01993698</span>
+    <span class="co">#&gt; 3     0.02  19919 999951 0.01991998</span>
+    <span class="co">#&gt; 4     0.03  19919 999951 0.01991998</span>
+    <span class="co">#&gt; 5     0.04  19990 999951 0.01999098</span>
+    <span class="co">#&gt; 6     0.05  20541 999951 0.02054201</span>
+    <span class="co">#&gt; 7     0.06  20078 999951 0.02007898</span>
+    <span class="co">#&gt; 8     0.07  20074 999951 0.02007498</span>
+    <span class="co">#&gt; 9     0.08  19953 999951 0.01995398</span>
+    <span class="co">#&gt; 10    0.09  20036 999951 0.02003698</span>
+    <span class="co">#&gt; # ... with 41 more rows</span></code></pre></div>
+    </div>
+    <div id="jaccard-similarity" class="section level2">
+    <h2>Jaccard similarity</h2>
+    <p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:</p>
+    <p><span class="math display">\[
+    J(x,y) = \frac{\mid x \bigcap y \mid}
+                  {\mid x \bigcup y \mid} 
+           = 
+             \frac{\mid x \bigcap y \mid}
+                  {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid}
+    \]</span></p>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">bed_jaccard</span>(x, y)
+    <span class="co">#&gt; # A tibble: 1 × 4</span>
+    <span class="co">#&gt;       len_i      len_u  jaccard      n</span>
+    <span class="co">#&gt;       &lt;int&gt;      &lt;int&gt;    &lt;dbl&gt;  &lt;int&gt;</span>
+    <span class="co">#&gt; 1 322941207 2000000000 0.192564 646591</span></code></pre></div>
+    </div>
+    </div>
+    <div id="benchmarks" class="section level1">
+    <h1>Benchmarks</h1>
+    <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># two sets of 1e6 random 1 kb intervals from hg19</span>
+    x &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    y &lt;-<span class="st"> </span><span class="kw">bed_random</span>(genome)
+    
+    <span class="kw">library</span>(microbenchmark)
+    <span class="kw">microbenchmark</span>(
+      <span class="kw">bed_random</span>(genome),
+      <span class="kw">bed_closest</span>(x, y),
+      <span class="kw">bed_intersect</span>(x, y),
+      <span class="kw">bed_merge</span>(x),
+      <span class="kw">bed_subtract</span>(x, y),
+      <span class="kw">bed_complement</span>(x, genome),
+      <span class="kw">bed_shuffle</span>(x, genome),
+      <span class="dt">times =</span> <span class="dv">1</span>,
+      <span class="dt">unit =</span> <span class="st">&#39;s&#39;</span>
+    )
+    <span class="co">#&gt; Unit: seconds</span>
+    <span class="co">#&gt;                       expr       min        lq      mean    median</span>
+    <span class="co">#&gt;         bed_random(genome) 0.1100061 0.1100061 0.1100061 0.1100061</span>
+    <span class="co">#&gt;          bed_closest(x, y) 4.4963489 4.4963489 4.4963489 4.4963489</span>
+    <span class="co">#&gt;        bed_intersect(x, y) 1.6481665 1.6481665 1.6481665 1.6481665</span>
+    <span class="co">#&gt;               bed_merge(x) 2.2235210 2.2235210 2.2235210 2.2235210</span>
+    <span class="co">#&gt;         bed_subtract(x, y) 1.8055060 1.8055060 1.8055060 1.8055060</span>
+    <span class="co">#&gt;  bed_complement(x, genome) 2.4381359 2.4381359 2.4381359 2.4381359</span>
+    <span class="co">#&gt;     bed_shuffle(x, genome) 0.9798499 0.9798499 0.9798499 0.9798499</span>
+    <span class="co">#&gt;         uq       max neval</span>
+    <span class="co">#&gt;  0.1100061 0.1100061     1</span>
+    <span class="co">#&gt;  4.4963489 4.4963489     1</span>
+    <span class="co">#&gt;  1.6481665 1.6481665     1</span>
+    <span class="co">#&gt;  2.2235210 2.2235210     1</span>
+    <span class="co">#&gt;  1.8055060 1.8055060     1</span>
+    <span class="co">#&gt;  2.4381359 2.4381359     1</span>
+    <span class="co">#&gt;  0.9798499 0.9798499     1</span></code></pre></div>
+    </div>
   </div>
+
+  <div class="col-md-3 hidden-xs toc">
+
+        <div id="nav">
+      <h2>Contents</h2>
+      <ul>
+      <li><a href="#overview">Overview</a><ul>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#comparison-to-other-tools">Comparison to other tools</a></li>
+      <li><a href="#non-standard-evaluation">Non-standard evaluation</a></li>
+      <li><a href="#getting-started">Getting started</a></li>
+      </ul></li>
+      <li><a href="#reading-data">Reading data</a><ul>
+      <li><a href="#bed-files">BED files</a></li>
+      <li><a href="#genome-files">Genome files</a></li>
+      <li><a href="#bedgraph-files">bedGraph files</a></li>
+      <li><a href="#vcf-files">VCF files</a></li>
+      </ul></li>
+      <li><a href="#interval-manipulations">Interval manipulations</a><ul>
+      <li><a href="#single-set-operations">Single set operations</a><ul>
+      <li><a href="#sort">Sort</a></li>
+      <li><a href="#cluster">Cluster</a></li>
+      <li><a href="#complement">Complement</a></li>
+      <li><a href="#merge">Merge</a></li>
+      <li><a href="#flank">Flank</a></li>
+      <li><a href="#slop">Slop</a></li>
+      <li><a href="#shift">Shift</a></li>
+      <li><a href="#interval-spacing">Interval spacing</a></li>
+      </ul></li>
+      <li><a href="#multiple-set-operations">Multiple set operations</a><ul>
+      <li><a href="#intersection">Intersection</a></li>
+      <li><a href="#map">Map</a></li>
+      <li><a href="#subtract">Subtract</a></li>
+      <li><a href="#window">Window</a></li>
+      <li><a href="#closest">Closest</a></li>
+      </ul></li>
+      <li><a href="#randomzing-intervals">Randomzing intervals</a><ul>
+      <li><a href="#random">Random</a></li>
+      <li><a href="#sample">Sample</a></li>
+      <li><a href="#shuffle">Shuffle</a></li>
+      </ul></li>
+      <li><a href="#other-topics">Other topics</a><ul>
+      <li><a href="#grouping-related-intervals">Grouping related intervals</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#interval-statistics">Interval Statistics</a><ul>
+      <li><a href="#fishers-test">Fisher’s test</a></li>
+      <li><a href="#absolute-distance">Absolute distance</a></li>
+      <li><a href="#relative-distance">Relative distance</a></li>
+      <li><a href="#jaccard-similarity">Jaccard similarity</a></li>
+      </ul></li>
+      <li><a href="#benchmarks">Benchmarks</a></li>
+      </ul>
+    </div>
+      </div>
+
 </div>
+
+
+<script>
+$('#nav').affix({
+  offset: {
+    top: $('#nav').offset().top - 80
+  }
+});
+</script>
 
         <footer>
         <p>Built by <a href="http://hadley.github.io/staticdocs/">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
