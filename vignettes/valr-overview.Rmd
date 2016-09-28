@@ -1,0 +1,134 @@
+---
+title: '`valr` overview'
+author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette:
+    vignette: >
+      %\VignetteIndexEntry{valr-overview}
+      %\VignetteEngine{knitr::rmarkdown}
+      %\VignetteEncoding{UTF-8}
+---
+
+```{r knitr_opts, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-",
+  fig.height = 3,
+  fig.align = "center",
+  fig.width = 4
+)
+```
+
+```{r init, echo = FALSE, message = FALSE}
+library(valr)
+library(dplyr)
+library(ggplot2)
+library(tibble)
+```
+
+# Overview 
+
+`valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][5]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][3]. 
+
+## Installation
+
+`valr` can be installed from github, and will be eventually deposited in CRAN.
+
+```r
+devtools::install_github('jayhesselberth/valr')
+```
+
+## Comparison to other tools
+
+**Why another tool set for interval manipulations?** We already have [BEDtools][1], [bedops][8], [pybedtools][7], [GenomicRanges][9], [bedr][11] and [IRanges][12]. 
+
+We were motivated to develop a toolset that:
+
+  - Combines analysis and visualization in RStudio.
+  - Can be used to generate reports with Rmarkdown.
+  - Is highly extensible. New tools are quickly implemented on the R side.
+  - Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`%>%`).
+  - Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
+  - Facilitates interactive visulaizations with [`shiny`][10].
+
+We anticipate `valr` will mainly be used for analysis of pre-processed data in BED, bedGraph and VCF formats. Most users will have processed their aligned reads from BAM format to bedGraph, so we do not foresee supporting BAM directly. We would entertain requests for GTF / GFF support if there is interest, as `tidyr` makes it easy to convert these to BED12.
+
+Certain algorithms in `valr` were implemented in `Rcpp` (including [intersect, merge, subtract, closest][14]) to enable fluid interactive analysis. See the [benchmarks](#benchmarks) section for details.
+
+## Why `valr`?
+
+### Familiar tools, all within R
+
+### Reproducible reports 
+
+`valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing.
+
+`pybedtools` can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach][https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/].
+
+### Non-standard evaluation
+
+Columns in `BEDtools` are referred to by position:
+
+```bash
+# calculate the mean of column 6 for intervals in `b` that overlap with `a`
+bedtools map -a a.bed -b b.bed -c 6 -o mean
+```
+
+Ever inspect a multi-column BED file and count columns on your fingers? Several methods in `valr` use [non-standard evalution][4]. Columns are referred to by name and can be used in multiple name/value expressions for summaries.
+
+```{r NSE, eval = FALSE}
+# calculate the mean and variance for the `value` column
+bed_map(x, y, mean = mean(value), var = var(value))
+
+# report concatenated and max values for merged intervals
+bed_merge(x, concat = concat(value), max = max(value))
+```
+
+## Getting started
+
+This demonstration combines several `valr` functions to analyze the distribution of histone marks surrounding transcription start sites.
+
+```{r demo-tss, warning = FALSE, message = FALSE, fig.align='center', fig.cap='Human H3K4me3 signal near transcription starts sites'}
+library(valr)
+library(dplyr)
+library(ggplot2)
+
+bedfile <- valr_example('genes.hg19.chr22.bed.gz')
+bgfile  <- valr_example('hela.h3k4.chip.bg.gz')
+genomefile <- valr_example('hg19.chrom.sizes.gz')
+
+genes <- read_bed(bedfile, n_fields = 6)
+genome <- read_genome(genomefile)
+
+# generate 1 bp TSS intervals, `+` strand only
+tss <- genes %>%
+  filter(strand == '+') %>%
+  mutate(end = start + 1)
+
+region_size <- 1000
+win_size <- 50
+
+# add slop to the TSS, break into windows and add a group
+x <- tss %>%
+  bed_slop(genome, both = region_size) %>%
+  bed_makewindows(genome, win_size) %>%
+  group_by(win_id)
+
+y <- read_bedgraph(bgfile)
+
+# map signals to TSS regions and calculate summary statistics.
+res <- bed_map(x, y, win_sum = sum(value.y)) %>%
+  summarize(win_mean = mean(win_sum), win_sd = sd(win_sum))
+
+x_labels <- seq(-region_size, region_size, by = win_size * 5)
+x_breaks <- seq(1, 41, by = 5)
+sd_limits <- aes(ymax = win_mean + win_sd, ymin = win_mean - win_sd)
+
+ggplot(res, aes(x = win_id.x, y = win_mean)) +
+  geom_point() + geom_pointrange(sd_limits) + 
+  scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
+  xlab('Position (bp from TSS)') + ylab('Signal') +
+  theme_bw()
+```
