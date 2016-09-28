@@ -132,7 +132,7 @@ test_that("check that same strand is reported (strand = TRUE", {
 }
 )
 
-test_that("check that different strand is reported (strand = TRUE", {
+test_that("check that different strand is reported (strand_opp = TRUE", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1",	80,	100,	"q1",	1,	"+"
