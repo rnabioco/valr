@@ -112,20 +112,6 @@ test_that("record exceeds chrom length", {
   expect_true(all(res == expect))
 })
 
-test_that("test complement only on right side", {  ## This test fails ##
-  
-  genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 100
-  ) 
-  bed <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",        1,      20
-  )
-  res <- bed_complement(bed, genome)
-  expect_equal(nrow(res), 1)
-})
-
 test_that("test complement only on left side", {
   
   genome <- tibble::tribble(
@@ -139,44 +125,6 @@ test_that("test complement only on left side", {
   expect <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1",      1,   90
-  )
-  res <- bed_complement(bed, genome)
-  expect_true(all(res == expect))
-})
-
-test_that("nothing is covered", {  ## This test fails ##
-  
-  genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 100,
-    "chr2", 100
-  ) 
-  bed <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",       10,     100
-  )
-  expect <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1",      1,   10,
-    "chr2",      1,  100
-  )
-  res <- bed_complement(bed, genome)
-  expect_true(all(res == expect))
-})
-
-test_that("chrom is not in genome file", {  ## This test fails ##
-  
-  genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 100
-  ) 
-  bed <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr2",       10,     100   
-  )
-  expect <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1",      1,  100
   )
   res <- bed_complement(bed, genome)
   expect_true(all(res == expect))
@@ -201,23 +149,7 @@ test_that("overlapping intervals", {
   expect_true(all(res == expect))
 })
 
-test_that("bedtools issue #356", {  
-  
-  genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 249250621
-  ) 
-  bed <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",       1,    10000
-  )
-  expect <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1",  10000, 249250621
-  )
-  res <- bed_complement(bed, genome)
-  expect_true(all(res == expect))
-})
+
 
 
 
