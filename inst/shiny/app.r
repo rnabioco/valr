@@ -1,8 +1,4 @@
 library(shinydashboard)
-library(shiny)
-library(valr)
-library(dplyr)
-library(ggplot2)
 
 # options for saving
 savingOptions <- list(
