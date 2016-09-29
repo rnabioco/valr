@@ -54,7 +54,7 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
   res <- shuffle_impl(x, incl, within, max_tries, seed)
   res <- as_data_frame(res)
   
-  # by default pass all original x column dat to res
+  # by default pass all original x column data to
   # result (except chrom, start, end) which are shuffled
   # see issue # 81 in github
   
