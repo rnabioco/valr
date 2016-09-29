@@ -44,8 +44,8 @@ bed_complement <- function(x, genome) {
   
   res <- complement_impl(res, genome)
 
-  res <- bed_sort(res)
   res <- bind_rows(res, chroms_no_overlaps)
+  res <- bed_sort(res)
  
   res 
 }
