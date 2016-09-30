@@ -1,9 +1,8 @@
 #include "valr.h"
 
 void coverage_group(intervalVector vx, intervalVector vy,
-                     std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_counts, std::vector<int>& ivls_bases_covered,
-                     std::vector<int>& x_ivl_lengths, std::vector<float>& fractions_covered) {
+                     std::vector<int>& x_ivl_lengths, std::vector<double>& fractions_covered) {
   
   intervalTree tree_y(vy) ;
   intervalVector overlaps ;
@@ -17,6 +16,17 @@ void coverage_group(intervalVector vx, intervalVector vy,
     // compute number of overlaps
     std::size_t overlap_count = overlaps.size();
     overlap_counts.push_back(overlap_count);
+    
+    // handle no overlaps and continue
+    if (overlap_count == 0){
+      int x_ivl_length = it->stop - it->start ; 
+      x_ivl_lengths.push_back(x_ivl_length) ;
+      
+      ivls_bases_covered.push_back(0) ;
+      fractions_covered.push_back(0) ; 
+      continue;
+    }
+
     
     // variables to compute number of bases
     int ivl_bases_covered = 0; 
@@ -89,12 +99,10 @@ void coverage_group(intervalVector vx, intervalVector vy,
       
     }
     
-    //finally compute fraction of x bases with non-zero coverage
-    float fraction_covered = (float) ivl_bases_covered / x_ivl_length ;
+    double fraction_covered = (double) ivl_bases_covered / x_ivl_length ;
     ivls_bases_covered.push_back(ivl_bases_covered) ;
     fractions_covered.push_back(fraction_covered) ; 
-    //Rcout << "ivl_bases = " << ivl_bases_covered << std::endl;
-//   Rcout << "ivl_bases_fraction = " << fraction_covered << std::endl;
+    
     mergedOverlaps.clear();
   }
 }
@@ -105,24 +113,38 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y,
                          const std::string& suffix_x = ".x",
                          const std::string& suffix_y = ".y") {
   
-  // indices for subsetting 
-  std::vector<int> indices_x ;
-  std::vector<int> indices_y ;
   // overlapping interval stats
   std::vector<int> overlap_counts ;
   std::vector<int> ivls_bases_covered ;
   std::vector<int> x_ivl_lengths ;
-  std::vector<float> fractions_covered ;
+  std::vector<double> fractions_covered ;
   
   auto data_x = x.data() ;
-  //auto data_y = y.data() ;
   
-  // set up interval trees for each chromosome and apply intersect_group
-  PairedGroupApply(x, y, coverage_group, std::ref(indices_x), std::ref(indices_y), 
+  PairedGroupApply(x, y, coverage_group,
                    std::ref(overlap_counts), std::ref(ivls_bases_covered),
                    std::ref(x_ivl_lengths), std::ref(fractions_covered));
 
-  
+  // handle condition with empty y df
+  // just assign zeros, except for interval length
+  if (y.data().nrows() == 0){
+    auto ng_x = x.ngroups() ;
+
+    GroupedDataFrame::group_iterator git_x = x.group_begin() ;
+    for( int nx=0; nx<ng_x; nx++, ++git_x){
+      SlicingIndex gi_x = *git_x ;
+      intervalVector vx = makeIntervalVector(data_x, gi_x) ;
+      intervalVector::const_iterator it ;
+      for(it = vx.begin(); it != vx.end(); ++it) {
+        overlap_counts.push_back(0);
+        int x_ivl_length = it->stop - it->start ; 
+        x_ivl_lengths.push_back(x_ivl_length) ;
+        ivls_bases_covered.push_back(0) ;
+        fractions_covered.push_back(0) ; 
+      }
+    }
+  }
+    
 //  DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x));
   
   auto ncol_x = data_x.size() ;
