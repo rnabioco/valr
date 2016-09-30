@@ -109,9 +109,7 @@ void coverage_group(intervalVector vx, intervalVector vy,
 
 
 //[[Rcpp::export]]
-DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y,
-                         const std::string& suffix_x = ".x",
-                         const std::string& suffix_y = ".y") {
+DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   
   // overlapping interval stats
   std::vector<int> overlap_counts ;

@@ -13,8 +13,8 @@ complement_impl <- function(gdf, genome) {
     .Call('valr_complement_impl', PACKAGE = 'valr', gdf, genome)
 }
 
-coverage_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
-    .Call('valr_coverage_impl', PACKAGE = 'valr', x, y, suffix_x, suffix_y)
+coverage_impl <- function(x, y) {
+    .Call('valr_coverage_impl', PACKAGE = 'valr', x, y)
 }
 
 intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
