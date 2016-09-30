@@ -100,16 +100,16 @@ test_that('`seed` generates reproducible intervals',{
    expect_identical(res1, res2) 
 })
 
-test_that('chroms intervals are weighted by mass', {
-  x <- bed_random(genome)
-  weighted <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 1e4,
-    "chr2", 1e5,
-    "chr3", 1e6
+test_that('all supplied x interval columns are passed to the result', {
+  
+    x <- tibble::tribble(
+      ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+      "chr1", 80, 100,    "q1",   1,  "+"
     )
-  res <- bed_shuffle(x, genome = weighted) %>%
-    group_by(chrom) %>%
-    summarize(count = n())  
-  expect_identical(res$count, sort(res$count))
+    
+  res <- bed_shuffle(x, genome)
+  expect_true(all(c("strand", "score", "name", "start") %in% colnames(res)))
 })
+
+
+
