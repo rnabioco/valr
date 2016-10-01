@@ -28,10 +28,12 @@ bed_glyph <- function(x, y = NULL,
 
   if (!is.null(y)){
     x <- bed_cluster(x)
+    x <- mutate(x, .id = as.character(.id))
     x <- group_by(x, .id) 
     x <- mutate(x, bin = row_number(.id),
                 title = x_name)
     y <- bed_cluster(y) 
+    y <- mutate(y, .id = as.character(.id))
     y <- group_by(y, .id)  
     y <- mutate(y, bin = row_number(.id),
                 title = y_name)
@@ -52,6 +54,7 @@ bed_glyph <- function(x, y = NULL,
                                                    "Result")))
   } else if (is.null(y)){
     x <- bed_cluster(x)
+    x <- mutate(x, .id = as.character(.id))
     x <- group_by(x, .id) 
     x <- mutate(x, bin = row_number(.id),
                 title = x_name)
@@ -68,7 +71,9 @@ bed_glyph <- function(x, y = NULL,
                      end = end_col)
     }
     
-    
+    res <- mutate(res, .id = ifelse(".id" %in% colnames(res), 
+                                          as.character(.id), 
+                                    "1"))
     comb <- bind_rows(x, res) 
     comb <- mutate(comb, title = factor(title,
                                         levels = c(x_name,
