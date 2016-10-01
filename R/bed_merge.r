@@ -57,7 +57,7 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   res <- rename(res, start = .start, end = .end)
   res <- ungroup(res)
   res <- select(res, -.merge_id)
-  
+  res <- format_bed(res, x)
   attr(res, 'merged') <- TRUE
 
   res  
