@@ -4,7 +4,7 @@
 \alias{bed_subtract}
 \title{Subtract intervals.}
 \usage{
-bed_subtract(x, y, any = FALSE)
+bed_subtract(x, y, any = FALSE, strand = FALSE, strand_opp = FALSE)
 }
 \arguments{
 \item{x}{tbl of intervals}
