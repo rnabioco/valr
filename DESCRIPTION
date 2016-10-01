@@ -32,6 +32,7 @@ Suggests:
     microbenchmark,
     covr,
     ggplot2,
+    shiny,
     shinydashboard
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
