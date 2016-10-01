@@ -63,7 +63,7 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 ### Interval statistics
 
-* Quality overlaps between two sets of intervals with `bed_fisher()`.
+* Quantify overlaps between two sets of intervals with `bed_fisher()`.
 
 * Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
 
