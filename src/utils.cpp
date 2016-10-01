@@ -36,21 +36,4 @@ intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) {
   return intervals ;
 }
 
-icl_interval_set_t makeIclIntervalSet(DataFrame df, SlicingIndex indices) {
-
-  icl_interval_set_t iset ;
-  
-  IntegerVector starts = df["start"] ;
-  IntegerVector ends   = df["end"] ;
-  
-  int size = indices.size() ;
-  
-  for( int i=0; i<size; ++i) {
-    int j = indices[i] ;
-    icl_interval_t intvl = icl_interval_t::closed(starts[j], ends[j]) ;
-    iset.add(intvl) ;
-  }
-
-  return iset ;
-}
 
