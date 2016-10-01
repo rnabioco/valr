@@ -1,4 +1,5 @@
-#' @export
+#' \code{valr} shiny app launcher
+#' @export 
 launch_shiny <- function() {
   #http://deanattali.com/2015/04/21/r-package-shiny-app/
   appDir <- system.file("shiny", package = "valr")
