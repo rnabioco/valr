@@ -12,6 +12,10 @@ bed_subtract(x, y, any = FALSE, strand = FALSE, strand_opp = FALSE)
 \item{y}{tbl of intervals}
 
 \item{any}{remove any \code{x} intervals that overlap \code{y}}
+
+\item{strand}{subtract intervals on same strand}
+
+\item{strand_opp}{subtract intervals on opposite strand}
 }
 \description{
 Subtract \code{y} intervals from \code{x} intervals.
