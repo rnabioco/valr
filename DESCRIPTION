@@ -35,3 +35,5 @@ Suggests:
     shinydashboard
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
+URL: http://github.com/jayhesselberth/valr/
+BugReports: https://github.com/jayhesselberth/valr/issues
