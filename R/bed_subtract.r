@@ -5,6 +5,8 @@
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param any remove any \code{x} intervals that overlap \code{y}
+#' @param strand subtract intervals on same strand
+#' @param strand_opp subtract intervals on opposite strand
 #' 
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 #' 
