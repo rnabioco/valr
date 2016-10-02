@@ -1,5 +1,70 @@
 #include "valr.h"
 
+void subtract_group(intervalVector vx, intervalVector vy,
+                     std::vector<int>& indices_out, 
+                     std::vector<int>& starts_out, std::vector<int>& ends_out) {
+  
+  intervalTree tree_y(vy) ;
+  intervalVector overlaps ; 
+  IntervalStartSorter<int, int> intervalStartSorter ;
+  
+  intervalVector::const_iterator it ; 
+  for(it = vx.begin(); it != vx.end(); ++it) {
+
+    auto x_start = it->start;
+    auto x_stop = it->stop;
+    
+    tree_y.findOverlapping(it->start, it->stop, overlaps) ;
+      
+    // compute number of overlaps
+    std::size_t overlap_count = overlaps.size();
+    
+    // handle no overlaps and continue
+    if (overlap_count == 0){
+      indices_out.push_back(it->value) ;
+      starts_out.push_back(it->start) ; 
+      ends_out.push_back(it->stop) ; 
+      continue;
+    }
+    // sort overlaps by start not sure if necessary
+    std::sort(overlaps.begin(), overlaps.end(), intervalStartSorter) ;
+    
+    // keep track of the number of new intervals to generate
+    int new_ivl_count = 0; 
+
+    //iterate through overlaps with current x  interval
+    // modifying start and stop as necessary
+    intervalVector::const_iterator oit ; 
+    for(oit = overlaps.begin(); oit != overlaps.end(); ++oit) {
+      
+      auto y_start = oit->start;
+      auto y_stop = oit->stop;
+      
+      if (y_start <= x_start) {
+        //advance x_start to end of y
+        x_start = std::min(y_stop, x_stop) ;
+        continue ;
+      } else if (y_start > x_start) {
+        // report new interval
+        indices_out.push_back(it->value) ;
+        starts_out.push_back(x_start) ; 
+        ends_out.push_back(y_start) ;
+        // advance to end of y ivl
+        x_start = y_stop;
+        new_ivl_count++ ;
+        continue ;
+      } 
+    }
+    
+    if (x_start < x_stop){
+      indices_out.push_back(it->value) ;
+      starts_out.push_back(x_start) ; 
+      ends_out.push_back(x_stop) ;
+    }
+    
+    overlaps.clear() ;
+  }
+}
 //[[Rcpp::export]]
 DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
 
@@ -17,7 +82,8 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   CharacterVector chroms_y = df_y["chrom"] ;
   
   GroupedDataFrame::group_iterator git_x = gdf_x.group_begin() ;
-  
+  // indices_to_report
+  std::vector<int> indices_out ;
   for(int nx=0; nx<ng_x; nx++, ++git_x) {
     
     SlicingIndex indices_x = *git_x ; 
@@ -33,43 +99,60 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
       
       if( chrom_x == chrom_y ) {
         chrom_x_seen = true ;
-  	    icl_interval_set_t interval_set_x = makeIclIntervalSet(df_x, indices_x) ; 
-  	    icl_interval_set_t interval_set_y = makeIclIntervalSet(df_y, indices_y) ;
+        
+        intervalVector vx = makeIntervalVector(df_x, indices_x) ;
+        intervalVector vy = makeIntervalVector(df_y, indices_y) ;
   	  
-  	    // subtract the sets, `-` is overloaded in boost::icl
-  	    icl_interval_set_t interval_sub =  interval_set_x - interval_set_y ;
-  	    
-  	    if (interval_sub.empty()) continue ;
-  	    
-        icl_interval_set_t::iterator it ;
-        for( it = interval_sub.begin(); it != interval_sub.end(); ++it) {
-          
-          chrom_out.push_back(chrom_x) ;
-          starts_out.push_back(it->lower()) ;
-          ends_out.push_back(it->upper()) ;
-        }
+  	    subtract_group(vx, vy,
+                      indices_out, 
+                      starts_out, ends_out) ; 
         
       }
     }
+  
     // return x intervals if x chromosome not found in y
     if (chrom_x_seen) {
       continue;
       }
     else {
-      DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
-      std::vector<std::string> x_chr = subset_x["chrom"] ;
-      std::vector<int> x_str = subset_x["start"] ;
-      std::vector<int> x_end = subset_x["end"] ;
-      
-      chrom_out.insert(chrom_out.end(), x_chr.begin(), x_chr.end());
-      starts_out.insert(starts_out.end(), x_str.begin(), x_str.end());
-      ends_out.insert(ends_out.end(), x_end.begin(), x_end.end());
+      intervalVector vx = makeIntervalVector(df_x, indices_x) ;
+      intervalVector::const_iterator it ;
+      for(it = vx.begin(); it != vx.end(); ++it) {
+        indices_out.push_back(it->value) ;
+        starts_out.push_back(it->start) ; 
+        ends_out.push_back(it->stop) ;
       }
+    }
 	}
   
-  return DataFrame::create( Named("chrom") = chrom_out,
-                            Named("start") = starts_out,
-                            Named("end") = ends_out) ;
+  // extract out x data, new intervals will be generated as copies of the parent interval
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_out, "data.frame");
+  
+  auto ncol_x = subset_x.size() ;
+  
+  CharacterVector names(ncol_x) ;
+  CharacterVector names_x = subset_x.attr("names") ;
+  
+  // report same number of columns 
+  List out(ncol_x) ;
+  
+  // build new dataframe with colnames and existing data
+  for( int i=0; i<ncol_x; i++) {
+    auto name_x = as<std::string>(names_x[i]) ;
+    names[i] = name_x ;
+    out[i] = subset_x[i] ;
+  }
+  out.attr("names") = names ; 
+  out.attr("class") = classes_not_grouped() ;
+  auto nrows = subset_x.nrows() ; 
+  set_rownames(out, nrows) ;
+  
+  // assign new starts and ends
+  out["start"] = starts_out ;
+  out["end"] = ends_out ;
+  
+  return out ; 
+  
 }
 
 /***R
