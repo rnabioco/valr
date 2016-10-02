@@ -29,7 +29,7 @@ Compute the absolute distance between query and reference intervals
 
 \deqn{
   d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)
-             \frac{R}{Length\ of\ chromsome}
+             \frac{R}{\textit{Length of chromsome}}
 }
 }
 \examples{
