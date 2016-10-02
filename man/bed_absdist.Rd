@@ -27,7 +27,10 @@ Compute the absolute distance between query and reference intervals
   on a chromosome, scale the distance for each query point \code{i} to the closest
   reference point by the inter-reference gap for each chromosome.
 
-\deqn{ d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\ chromsome} }
+\deqn{
+  d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)
+             \frac{R}{Length\ of\ chromsome}
+}
 }
 \examples{
 x <- tibble::frame_data(

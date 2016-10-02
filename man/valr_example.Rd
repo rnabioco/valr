@@ -6,6 +6,9 @@
 \usage{
 valr_example(path)
 }
+\arguments{
+\item{path}{path to file}
+}
 \description{
 provides working directory for valr example files
 }

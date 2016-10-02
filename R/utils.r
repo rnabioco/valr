@@ -1,4 +1,5 @@
 #' provides working directory for valr example files
+#' @param path path to file
 #' @export
 valr_example <- function(path) {
   # https://twitter.com/JennyBryan/status/780150538654527488
