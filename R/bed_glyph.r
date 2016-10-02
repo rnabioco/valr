@@ -31,19 +31,23 @@
 #'
 #' bed_glyph2(bed_intersect(x, y))
 #' bed_glyph2(bed_merge(z))
+#' bed_glyph2(bed_cluster(x))
 #' 
 #' @export
-bed_glyph2 <- function(expr, res_name = 'result', label = NULL) {
+bed_glyph <- function(expr, res_name = 'result', label = NULL) {
 
+  excl_params <- c('genome')
+  
   expr <- substitute(expr) 
   params <- all.vars(expr) 
+  params <- params[! params %in% excl_params]
   nparams <- length(params)
   
   env <- environment()
  
   res <- eval(expr, envir = env)
 
-  if (nparams>1 && !'genome' %in% params) {
+  if (nparams>1) {
     res <- select(res, chrom, ends_with(params[1]))
     names_one <- names(get(params[1], env))
     names(res) <- names_one
@@ -57,33 +61,38 @@ bed_glyph2 <- function(expr, res_name = 'result', label = NULL) {
     res <- bind_rows(res, rows)
   } 
 
+  # assign `y` values based on clustering
+  res <- bed_cluster(res)
+  res <- group_by(res, .facet, .id)
+  res <- mutate(res, .y = row_number(.id))
+  res <- ungroup(res)
+  
   # make res_name col last
   fct_names <- c(params, res_name)
   res <- mutate(res, .facet = factor(.facet, levels = fct_names))
   
   title <- deparse(substitute(expr))
-  glyph_plot(res, title, label = label) + theme_glyph()
+  glyph_plot(res, title, label) + theme_glyph()
 }
 
 #' ggplot2 object for glyph
 #' @noRd
-glyph_plot <- function(.data, .title, label, colors = c("#fc8d59", "#ffffbf", "#91bfdb")) {
+glyph_plot <- function(res, title = '', label = NULL, colors = c("#fc8d59", "#ffffbf", "#91bfdb")) {
   
-  bin <- 1
-  
-  plt <- ggplot(.data) + 
-    geom_rect(aes(xmin = start, xmax = end,
-                  ymin = bin, ymax = bin + 0.9, fill = .facet),
-                  color = "black", alpha = 0.75) + 
+  plt <- ggplot(res) + 
+    geom_rect(aes_string(xmin = 'start', xmax = 'end',
+                         ymin = '.y', ymax = '.y + 0.9',
+                         fill = '.facet'),
+              color = "black", alpha = 0.75) + 
     facet_grid(.facet ~ ., switch = "y",
                scales = "free_y", space = "free_y") +
-    ggtitle(.title) +
+    ggtitle(title) +
     scale_fill_manual(values = colors)
   
   if (!is.null(label)) {
-    plt <- plt + geom_label(x = aes((end - start) / 2 + start,
-                            y = bin + 0.5,
-                            label = label)) +
+    plt <- plt + geom_label(aes_string(x = '(end - start) / 2 + start',
+                                       y = '.y + 0.5',
+                                       label = 'label')) +
       xlab(NULL) + ylab(NULL)
   }
   
