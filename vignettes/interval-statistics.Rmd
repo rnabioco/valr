@@ -52,13 +52,6 @@ bed_fisher(x, y, genome)
 
 `bed_absdist()` computes the absolute distance between the midpoint of query intervals and the closest midpoints of a set of reference intervals. Absolute distances are scaled by the inter-reference gap for the chromosome as follows. For `Q` total query points and `R` reference points on a chromosome, scale the distance for each query point `i` to the closest reference point by the inter-reference gap for each chromosome. 
 
-$$
-d_i(x,y) =
-min_{\substack{k}}(|q_i - r_k|)
-\frac{R}
-{Length\ of\ chromsome}
-$$
-
 By default both absolute and scaled distances are reported as `absdist` and `scaled_absdist` respectively. 
 
 ```{r absdist, eval = TRUE}
