@@ -67,8 +67,22 @@ bed_closest <- function(x, y, overlap = TRUE,
   distance_type <- match.arg(distance_type, c("genome", "strand", "abs"))
   
   if (strand) {
+    x_pos <- filter(x, strand == "+") 
+    y_pos <- filter(y, strand == "+") 
+    x_neg <- filter(x, strand == "-") 
+    y_neg <- filter(y, strand == "-") 
+    res_pos <- closest_impl(x_pos, y_pos, suffix$x, suffix$y)
+    res_neg <- closest_impl(x_neg, y_neg, suffix$x, suffix$y)
+    res <- bind_rows(res_pos, res_neg)
     res <- filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
+    x_pos <- filter(x, strand == "+") 
+    y_pos <- filter(y, strand == "+") 
+    x_neg <- filter(x, strand == "-") 
+    y_neg <- filter(y, strand == "-") 
+    res_pos <- closest_impl(x_pos, y_neg, suffix$x, suffix$y)
+    res_neg <- closest_impl(x_neg, y_pos, suffix$x, suffix$y)
+    res <- bind_rows(res_pos, res_neg)
     res <- filter(res, strand.x != strand.y) 
   }
   

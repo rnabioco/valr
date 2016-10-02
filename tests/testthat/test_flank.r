@@ -76,8 +76,7 @@ test_that("strand arg with left works", {
   expect_true(minus_in$start < minus_out$start)
 })
 
-
-test_that("strand arg with right works", {
+test_that("strand arg with right works", {  
   dist <- 100
   out <- bed_flank(x, genome, right = dist, strand = TRUE)
   expect_true(nrow(out) == 2)
@@ -104,6 +103,35 @@ test_that("strand arg with left and right works", {
   expect_true(out$end[4] - x$end[2] == 100)
 })
 
+test_that("strand arg with both and fraction works", {
+  dist <- 0.2
+  out <- bed_flank(x, genome, both = dist, strand = TRUE, fraction = TRUE)
+  out_nostrand <- bed_flank(x, genome, both = dist, fraction = TRUE)
+  expect_true(nrow(out) == 4)
+  expect_true(all(out == out_nostrand))
+})
+
+test_that("strand arg with left and fraction works", {
+  dist <- 0.2
+  out <- bed_flank(x, genome, left = dist, strand = TRUE, fraction = TRUE)
+  expect_true(nrow(out) == 2)
+  # test left side plus strand
+  expect_true(x$start[1] - out$start[1] == 100)
+  # test left side minus strand
+  expect_true(out$end[2] - x$end[2] == 100)
+})
+
+test_that("strand arg with right and fraction works", { 
+  dist <- 0.2
+  out <- bed_flank(x, genome, right = dist, strand = TRUE, fraction = TRUE)
+  out <- dplyr::arrange(out, desc(start))
+  expect_true(nrow(out) == 2)
+  # test right side plus strand
+  expect_true(out$end[1] - x$end[1] == 100)
+  # test right side minus strand
+  expect_true(x$start[2] - out$start[2] == 100)
+})
+
 test_that("strand arg with left and right and fraction works", {
   dist_l <- 0.2
   dist_r <- 0.1
@@ -113,9 +141,9 @@ test_that("strand arg with left and right and fraction works", {
   expect_true(x$start[1] - out$start[1] == 100)
   # test right side plus strand
   expect_true(out$end[3] - x$end[1] == 50)
-  # test left side minus strand
-  expect_true(x$start[2] - out$start[2] == 50)
   # test right side minus strand
+  expect_true(x$start[2] - out$start[2] == 50)
+  # test left side minus strand
   expect_true(out$end[4] - x$end[2] == 100)
 })
 
