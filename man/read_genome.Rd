@@ -54,4 +54,8 @@ bound_intervals(x, genome)
 bound_intervals(x, genome, trim = TRUE)
 
 }
+\seealso{
+Other read-funcs: \code{\link{read_bed}},
+  \code{\link{read_vcf}}
+}
 

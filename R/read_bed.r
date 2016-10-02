@@ -11,7 +11,7 @@
 #'   
 #' @return \code{data_frame}
 #'   
-#' @family read data
+#' @family read-funcs
 #'   
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #'   
@@ -50,8 +50,6 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 #' 
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #' 
-#' @family read data
-#' 
 #' @examples
 #' bed12_path <- valr_example('mm9.bed12.gz')
 #' bed12_tbl <- read_bed12(bed12_path)
@@ -65,8 +63,6 @@ read_bed12 <- function(filename, ...) {
 #' @rdname read_bed
 #' 
 #' @details \url{https://genome.ucsc.edu/goldenPath/help/bedgraph.html}
-#' 
-#' @family read data
 #' 
 #' @examples
 #' bedgraph_path <- valr_example('test.bg.gz')
@@ -84,8 +80,6 @@ read_bedgraph <- function(filename, ...) {
 
 #' @rdname read_bed
 #' 
-#' @family read data
-#' 
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format12}
 #' 
 #' @examples
@@ -102,8 +96,6 @@ read_narrowpeak <- function(filename, ...) {
 #' @rdname read_bed
 #' 
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format13}
-#' 
-#' @family read data
 #' 
 #' @examples
 #' broadpeak_path <- valr_example('sample.broadPeak.gz')

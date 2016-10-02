@@ -3,7 +3,8 @@
 #' @param ... params for bed_slop and bed_intersect
 #' @inheritParams bed_slop
 #' @inheritParams bed_intersect
-#' 
+#'
+#' @family multi-set-ops 
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,

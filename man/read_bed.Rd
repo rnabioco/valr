@@ -75,4 +75,8 @@ broadpeak_path <- valr_example('sample.broadPeak.gz')
 read_broadpeak(broadpeak_path)
 
 }
+\seealso{
+Other read-funcs: \code{\link{read_genome}},
+  \code{\link{read_vcf}}
+}
 

@@ -29,6 +29,7 @@
 #'
 #' bed_intersect(x, y)
 #'  
+#' @family multi-set-ops
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 #'  
 #' @export

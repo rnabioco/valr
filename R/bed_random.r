@@ -5,6 +5,7 @@
 #' @param n number of intervals to generate
 #' @param seed seed RNG for reproducible intervals
 #' 
+#' @family single-set-ops
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 #'
 #' @examples

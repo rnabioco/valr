@@ -36,5 +36,8 @@ bed_reldist(x, y)
 }
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}
+
+Other interval-stats: \code{\link{bed_absdist}},
+  \code{\link{bed_fisher}}, \code{\link{bed_jaccard}}
 }
 

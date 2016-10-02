@@ -52,6 +52,7 @@ bed_absdist(x, y, genome)
 \seealso{
 \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 
-Other interval-stats: \code{\link{bed_fisher}}
+Other interval-stats: \code{\link{bed_fisher}},
+  \code{\link{bed_jaccard}}, \code{\link{bed_reldist}}
 }
 

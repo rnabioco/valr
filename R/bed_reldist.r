@@ -3,7 +3,9 @@
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param detail report relative distances for each interval. Default = FALSE
-#' 
+#'
+#' @family interval-stats
+#'  
 #' @return \code{data_frame}
 #' 
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}

@@ -6,7 +6,8 @@
 #' @param ... name-value pairs that specify merging operations
 #'
 #' @return \code{data_frame}
-#'  
+#' 
+#' @family single-set-ops
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #' 
 #' @examples 

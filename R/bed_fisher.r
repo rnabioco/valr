@@ -4,6 +4,7 @@
 #' @param y tbl of intervals
 #' @param genome tbl of chrom sizes
 #' 
+#' @family interval-stats
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 #' 
 #' @return \code{data_frame}

@@ -13,6 +13,7 @@
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #'   
+#' @family interval-stats
 #' @return \code{data_frame} with the following columns: \itemize{ 
 #'   \item{\code{len_i}}{ length of the intersection} \item{\code{len_u}}{
 #'   length of the union} \item{\code{jaccard}}{ jaccard statistic} 

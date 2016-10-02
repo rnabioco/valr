@@ -23,4 +23,7 @@ y <- bed12_to_exons(x)
 subset(y, score == 1)
 
 }
+\seealso{
+Other utils: \code{\link{bed_makewindows}}
+}
 

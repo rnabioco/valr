@@ -6,6 +6,7 @@
 #' @param y tbl of intervals
 #' @param any remove any \code{x} intervals that overlap \code{y}
 #' 
+#' @family multi-set-ops 
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 #' 
 #' @examples
