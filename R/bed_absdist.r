@@ -7,17 +7,13 @@
 #'   on a chromosome, scale the distance for each query point \code{i} to the closest
 #'   reference point by the inter-reference gap for each chromosome.
 #'
-#' \deqn{
-#'   d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)
-#'              \frac{R}{\textit{Length of chromsome}}
-#' }
-#'   
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param genome genome tbl
 #' 
 #' @return \code{data_frame}
-#' 
+#'
+#' @family interval-stats
 #' @seealso \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #' 
 #' @examples
