@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>bed_window. valr</title>
+<title>format_bed. valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -74,16 +74,18 @@
       </header>
 
       <div class="page-header">
-  <h1>Identify intersecting intervals within a specified distance</h1>
+  <h1>reformat bed tbl to match another tbl</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Identify intersecting intervals within a specified distance</p>
+    <p><code>format_bed</code> returns a tbl whose columns are ordered by another tbl.
+Columns not found in y tbl are dropped. Missing y columns are added and populated
+with a dummy entry &quot;.&quot;</p>
     
 
-    <pre><span class='fu'>bed_window</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>format_bed</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -91,53 +93,8 @@
       <dd>tbl of intervals</dd>
       <dt>y</dt>
       <dd>tbl of intervals</dd>
-      <dt>genome</dt>
-      <dd>tbl of chrom sizes</dd>
-      <dt>...</dt>
-      <dd>params for bed_slop and bed_intersect</dd>
     </dl>
-    
-    <div class="See also">
-      <h2>See also</h2>
-
-      <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/window.html'>http://bedtools.readthedocs.org/en/latest/content/tools/window.html</a></p>
-      <p>Other multi-set-ops: <code>bed_closest</code>,
-  <code>bed_coverage</code>, <code>bed_intersect</code>,
-  <code>bed_subtract</code></p>
-    </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>10</span>,    <span class='fl'>100</span>,
-  <span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,
-  <span class='st'>"chr2"</span>, <span class='fl'>300</span>,    <span class='fl'>500</span>,
-  <span class='st'>"chr2"</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>
-)
-
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,
-  <span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,
-  <span class='st'>"chr2"</span>, <span class='fl'>350</span>,    <span class='fl'>430</span>
-)
-
-<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,
-  <span class='st'>"chr2"</span>, <span class='fl'>1000</span>
-)
-
-<span class='fu'>bed_window</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 6
-#&gt;   chrom start.x end.x start.y end.y .overlap
-#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
-#&gt; 1  chr2     200   400     230   430      200
-#&gt; 2  chr2     200   400     350   430       80
-#&gt; 3  chr2     300   500     230   430      200
-#&gt; 4  chr2     300   500     350   430       80
-#&gt; </div><div class='input'>
-</div></pre>
-  </div>
+          </div>
   <div class="col-md-3">
   </div>
 </div>

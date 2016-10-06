@@ -59,14 +59,14 @@ The functions in `valr` have similar names to their `BEDtools` counterparts, and
 ```{r syntax_demo, eval = FALSE}
 library(valr)
 
-snps <- read_vcf(valr_example(''))
-genes <- read_bed(valr_example(''))
+snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6)
+genes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
 
 # distance from intergenic snps to nearest gene
 intergenic <- bed_subtract(snps, genes)
 nearby <- bed_closest(intergenic, genes)
 
-filter(nearby, .dist < 5000)
+dplyr::filter(nearby, .distance < 5000)
 ```
 
 ### Visual documentation
@@ -201,15 +201,31 @@ ggplot(res, aes(x = win_id.x, y = win_mean)) +
 
 Estimates of significance for interval overlaps can be obtained by combining `bed_shuffle()`, `bed_random()` and the `sample_` functions from `dplyr` with interval statistics in `valr`.
 
-Here we calculate a distribution of Jaccard statistics by shuffling `y` intervals compared to `x`. 
+Note that the interval statistics have somewhat different use cases:
 
-```{r jaccard_shuffle}
+- `bed_jaccard()` is used to assess the degree of overlap for *already overlapping* intervals.
+- `bed_reldist()` and `bed_absdist()` assess whether two sets of intervals tend to be clustered, independent of overlaps.
+
+Here we calculate a distribution of relative distances by shuffling `y` intervals compared to `x`. Specifically we will examine spatial distribution of exons compared to repetitive Alu elements in the human genome.
+
+```{r reldist_shuffle, eval = FALSE}
 library(purrr)
-```
+library(stringr)
+library(tidyr)
 
-We can use the same shuffled data to examine the relative distances between sets of intervals.
+exons <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
+# alus <- read_bed(valr_example('hg19.alus.chr22.bed.gz')) 
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
-```{r reldist_shuffle}
+n <- 100
+shuffled <- replicate(n, bed_shuffle(exons, genome), FALSE) %>%
+  transpose() %>%
+  as_data_frame() %>% 
+  mutate(rep = 1:n) %>%
+  group_by(rep) %>%
+  nest()
+
+# shuffled %>% mutate(jaccard = map(data, lift(bed_jaccard)))
 ```
 
 ## Benchmarks
