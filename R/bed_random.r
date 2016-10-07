@@ -25,7 +25,21 @@
 #' 
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6, seed = 0) {
-  out <- random_impl(genome, length, n, seed)
+  
+  if (any(length > genome$size)){
+    
+    warn_message <- paste(genome[length > genome$size, ]$chrom, 
+                          "smaller than requested interval lengths, dropping chromosome\n")
+    warning(warn_message)
+    genome <- genome[length < genome$size, ]
+  }
+  
+  if (nrow(genome) > 0){
+    out <- random_impl(genome, length, n, seed)
+  } else {
+    stop("No valid chromosomes found in supplied genome")
+  }
+  
   out <- tibble::as_tibble(out)
   out  
 }
