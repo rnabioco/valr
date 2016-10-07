@@ -37,28 +37,41 @@
 #' @export
 bed_glyph <- function(expr, label = NULL, res_name = 'result') {
 
-  excl_params <- c('genome')
+  expr <- substitute(expr)
   
-  expr <- substitute(expr) 
-  params <- all.vars(expr) 
-  params <- params[! params %in% excl_params]
-  nparams <- length(params)
+  args_all <- formals(match.fun(expr[[1]]))
   
-  env <- environment()
+  # get required args i.e. those without defaults 
+  args_req <- names(args_all[sapply(args_all, is.name)])
+  
+  # remove ellipsis and excl_args
+  args_excl <- c('genome')
+  args_req <- args_req[args_req != '...']
+  args_req <- args_req[!args_req %in% args_excl]
+  
+  nargs <- length(args_req)
  
+  # evaluate the expression in the environment context
+  env <- environment()
   res <- eval(expr, envir = env)
 
-  if (nparams>1) {
-    res <- select(res, chrom, ends_with(params[1]))
-    names_one <- names(get(params[1], env))
-    names(res) <- names_one
+  # need to deal with a few different cases:
+  # 1. if there is a suffix argument, get the 
+  if (nargs>1) {
+    if ('suffix' %in% names(args_all)) {
+      # get the suffix for the `x` param
+      suffix_x <- as.character(args_all$suffix)[2]
+      res <- select(res, chrom, ends_with(suffix_x))
+    }
+    names_x <- names(get(args_req[1], env))
+    names(res) <- names_x
   }
   
   res <- mutate(res, .facet = res_name)
   
-  for (i in 1:nparams) {
-    env_i <- get(params[i], env)
-    rows <- mutate(env_i, .facet = params[i])
+  for (i in 1:nargs) {
+    env_i <- get(args_req[i], env)
+    rows <- mutate(env_i, .facet = args_req[i])
     res <- bind_rows(res, rows)
   } 
 
@@ -69,9 +82,11 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
   res <- ungroup(res)
   
   # make res_name col last
-  fct_names <- c(params, res_name)
+  fct_names <- c(args_req, res_name)
   res <- mutate(res, .facet = factor(.facet, levels = fct_names))
- 
+
+  # plotting ------------------------------------------------------- 
+
   # plot title 
   title <- deparse(substitute(expr))
  
@@ -90,7 +105,6 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
   
   if (!is.null(label)) {
     label <- as.name(label)
-    print(res)
     aes_label <- aes_(x = quote((end - start) / 2 + start),
                       y = quote(.y + 0.5),
                       label = substitute(label))
