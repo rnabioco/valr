@@ -25,6 +25,10 @@
 #' 
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6, seed = 0) {
+  
+  if(!all(genome$size > length))
+    stop('`length` must be greater than all chrom sizes', call. = FALSE)
+  
   out <- random_impl(genome, length, n, seed)
   out <- tibble::as_tibble(out)
   out  

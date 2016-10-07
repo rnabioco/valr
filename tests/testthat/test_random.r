@@ -24,3 +24,11 @@ test_that("all ends are less or equal to than chrom size", {
     left_join(genome, by = 'chrom')
   expect_true(all(res$end <= res$size))
 })
+
+test_that("chrom sizes less than length throws an error", {
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    'chr1',      125
+  )
+  expect_error(bed_random(genome))
+})
