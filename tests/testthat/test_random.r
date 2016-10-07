@@ -25,7 +25,7 @@ test_that("all ends are less or equal to than chrom size", {
   expect_true(all(res$end <= res$size))
 })
 
-test_that("if length longer than chrom, chrom is dropped", {
+test_that("if length longer than chrom, chrom is dropped (issue #95)", {
   len <- 10000
   suppressWarnings(res <- bed_random(genome, length = len, n = 100))
   expect_false("chr1" %in% res$chrom)
