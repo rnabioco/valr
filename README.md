@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
+[![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
 
 `valr` provides tools for fast, exploratory analysis of large biological data sets **within R/RStudio**. `valr` was developed from a desire to teach the powerful concepts of genome interval arithmetic, but without the cumbersome back-and-forth between command-line and exploratory analysis tools. 
 
