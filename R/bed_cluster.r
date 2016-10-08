@@ -34,8 +34,8 @@ bed_cluster <- function(x, max_dist = 0, strand = FALSE) {
   res <- merge_impl(res, max_dist)
     
   res <- group_by(res, chrom)
-  res <- mutate(res, .id = dense_rank(.merge_id))
-  res <- select(res, -.merge_id, -.overlap)
+  res <- mutate(res, .id = dense_rank(.id_merge))
+  res <- select(res, -.id_merge, -.overlap_merge)
   res <- ungroup(res)
   
   res

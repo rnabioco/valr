@@ -75,32 +75,32 @@ We provide glyphs that illustrate the results of specific operations in `valr`, 
 
 This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
-```{r intersect_glyph, echo = FALSE}
-a <- tibble::tribble(
+```{r intersect_glyph}
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1',      25,      50,
-  'chr1',      100,     125
+  'chr1', 25,     50,
+  'chr1', 100,    125
 )
 
-b <- tibble::tribble(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1',      30,     75
+  'chr1', 30,     75
 )
 
-bed_glyph(a, b, .fun = bed_intersect, start_col = "start.x", end_col = "end.x")
+bed_glyph(bed_intersect(x, y))
 ```
 
 And this glyph illustrates `bed_merge()`:
 
-```{r merge_glyph, echo = FALSE}
-c <- tibble::tribble(
+```{r merge_glyph}
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      1,      50,
   'chr1',      10,     75,
   'chr1',      100,    120
 )
 
-bed_glyph(c, .fun = bed_merge, title_ops = "(x)")
+bed_glyph(bed_merge(x))
 ```
 
 ### Reproducible reports 
