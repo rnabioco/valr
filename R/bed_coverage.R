@@ -7,6 +7,7 @@
 #' @param ... extra arguments (not used)
 #'
 #' @note Book-ended intervals are counted as overlapping by default
+#' @family multi-set-ops
 #'  
 #' @examples 
 #' x <- tibble::tribble(

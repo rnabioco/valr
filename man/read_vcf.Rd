@@ -24,4 +24,8 @@ vcf_file <- valr_example('test.vcf.gz')
 read_vcf(vcf_file)
 
 }
+\seealso{
+Other read-funcs: \code{\link{read_bed}},
+  \code{\link{read_genome}}
+}
 

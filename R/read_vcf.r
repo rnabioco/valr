@@ -2,6 +2,7 @@
 #' 
 #' @param vcf vcf filename
 #'   
+#' @family read-funcs
 #' @return \code{data_frame}
 #'   
 #' @note return value has \code{chrom}, \code{start} and \code{end} columns.

@@ -14,7 +14,7 @@
 #' 
 #' 
 #' @return \code{data_frame}
-#' 
+#' @family multi-set-ops
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 #' 
 #' @examples
@@ -59,7 +59,9 @@ bed_closest <- function(x, y, overlap = TRUE,
  
   suffix <- list(x = suffix[1], y = suffix[2])
   
-  res <- closest_impl(x, y, suffix$x, suffix$y)
+  if (!strand && !strand_opp){
+    res <- closest_impl(x, y, suffix$x, suffix$y)
+  }
 
   strand.x = paste(strand, suffix[1], sep = '')
   strand.y = paste(strand, suffix[2], sep = '')

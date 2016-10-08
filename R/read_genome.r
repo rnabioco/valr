@@ -10,7 +10,7 @@
 #' @return \code{data_frame} with colnames \code{chrom} and \code{size}, sorted
 #'   by \code{size}
 #'   
-#' @family read functions
+#' @family read-funcs
 #' 
 #' @examples
 #' genome <- valr_example('hg19.chrom.sizes.gz')

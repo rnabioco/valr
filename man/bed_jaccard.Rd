@@ -46,5 +46,8 @@ bed_jaccard(x, y)
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html}
+
+Other interval-stats: \code{\link{bed_absdist}},
+  \code{\link{bed_fisher}}, \code{\link{bed_reldist}}
 }
 

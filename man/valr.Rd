@@ -7,8 +7,8 @@
 \title{valr: genome interval arithmetic in R}
 \description{
 valr provides tools to read and manipulate intervals and signals on a genome
-reference. valr was developed to enable facile interactive analysis of
-genome-scale data, leveraging the power of dplyr and piping.
+reference. valr was developed to facilitate interactive analysis of
+genome-scale data sets, leveraging the power of dplyr and piping.
 }
 \details{
 To learn more about valr, start with the vignette: 
@@ -16,6 +16,8 @@ To learn more about valr, start with the vignette:
 }
 \author{
 Jay Hesselberth <jay.hesselberth@gmail.com>
+
+Kent Riemondy <kent.riemondy@gmail.com>
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/index.html}

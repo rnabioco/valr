@@ -41,5 +41,10 @@ bed_merge(x, .value = sum(value))
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
+
+Other single-set-ops: \code{\link{bed_cluster}},
+  \code{\link{bed_complement}}, \code{\link{bed_flank}},
+  \code{\link{bed_random}}, \code{\link{bed_shift}},
+  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
 }
 

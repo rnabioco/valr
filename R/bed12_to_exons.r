@@ -5,6 +5,7 @@
 #' larger start and end coordinates).
 #' 
 #' @param x tbl in BED12 format
+#' @family utils
 #'   
 #' @examples
 #' bed12_path <- valr_example('mm9.bed12.gz')

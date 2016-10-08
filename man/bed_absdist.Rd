@@ -26,8 +26,6 @@ Compute the absolute distance between query and reference intervals
   chromosome as follows. For \code{Q} total query points and \code{R} reference points
   on a chromosome, scale the distance for each query point \code{i} to the closest
   reference point by the inter-reference gap for each chromosome.
-
-\deqn{ d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\ chromsome} }
 }
 \examples{
 x <- tibble::frame_data(
@@ -53,5 +51,8 @@ bed_absdist(x, y, genome)
 }
 \seealso{
 \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
+
+Other interval-stats: \code{\link{bed_fisher}},
+  \code{\link{bed_jaccard}}, \code{\link{bed_reldist}}
 }
 

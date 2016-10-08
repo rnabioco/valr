@@ -53,5 +53,10 @@ bed_slop(x, genome, both = 0.5, fraction = TRUE)
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/slop.html}
+
+Other single-set-ops: \code{\link{bed_cluster}},
+  \code{\link{bed_complement}}, \code{\link{bed_flank}},
+  \code{\link{bed_merge}}, \code{\link{bed_random}},
+  \code{\link{bed_shift}}, \code{\link{bed_shuffle}}
 }
 

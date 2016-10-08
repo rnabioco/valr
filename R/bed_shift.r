@@ -9,7 +9,8 @@
 #' @param trim adjust coordinates for out-of-bounds intervals
 #' 
 #' @return \code{data_frame}
-#' 
+#'
+#' @family single-set-ops 
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
 #' 
 #' @examples
