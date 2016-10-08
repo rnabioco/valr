@@ -206,12 +206,12 @@ y
 `bed_complement` identifies intervals in a genome that are not covered by an input.
 
 ```{r complement_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      1,      10,
   'chr1',      75,    100    
 )
-genome <- tribble(
+genome <- tibble::tribble(
   ~chrom, ~size, 
   'chr1',      200
 )
@@ -230,7 +230,7 @@ bed_complement(x, genome)
 `bed_merge` identifies overlapping intervals and reports new merged ones. `is_merged` asks whether a tbl is already merged. Values from merged intervals can be reported using name / value pairs.
 
 ```{r merge_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      1,      50,
   'chr1',      10,     75,
@@ -257,13 +257,13 @@ bed_merge(x, maxs = max(signal))
 
 
 ```{r flank_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      25,      50,
   'chr1',      100,     125
 )
 
-genome = tribble(
+genome <- tibble::tribble(
   ~chrom, ~size,
   'chr1',      125
 )
@@ -280,13 +280,13 @@ bed_flank(x, genome, both  = 100)
 `bed_slop` pads input intervals based on a specification
 
 ```{r slop_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      110,      120,
   'chr1',      225,     235
 )
 
-genome = tribble(
+genome <- tibble::tribble(
   ~chrom, ~size,
   'chr1',      400
 )
@@ -303,13 +303,13 @@ bed_slop(x, genome, both = 100)
 `bed_shift` adjusts coordinates toward `start` or `end` by a defined `size`. Intervals created out of bounds are removed, or trimmed.
 
 ```{r shift_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      25,      50,
   'chr1',      100,     125
 )
 
-genome = tribble(
+genome = tibble::tribble(
   ~chrom, ~size,
   'chr1',      125
 )
@@ -349,13 +349,13 @@ These methods compare two sets of intervals:
 `bed_intersect` is implemented using an [interval tree][16] in `Rcpp`. Column names in the result have `.x` and `.y` suffixes, and an `.overlap` column contains the size of the intersection (values of `0` indicate book-ended, or touching intervals). See the [benchmarks](#benchmarks) section for timing. Though `bed_intersect` is pretty fast already, we intend to further improve upon this by parallization with [`RcppParallel`][15].
 
 ```{r intersect_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      25,      50,
   'chr1',      100,     125
 )
 
-y <- tribble(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      30,     75
 )
@@ -394,13 +394,13 @@ bed_intersect(x, y) %>% group_by(chrom, start.x, end.x) %>% summarize(count = n(
 
 `bed_map` maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs. 
 
-```{r map_glyph, echo = FALSE}
-x <- tribble(
+```{r map_glyph, echo = FALSE, warning = FALSE}
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      1,      100
 )
 
-y <- tribble(
+y <- tibble::tribble(
   ~chrom, ~start, ~end, ~value,
   'chr1',      1,     20,    10,
   'chr1',      30,    50,    20,
@@ -425,12 +425,12 @@ bed_map(x, y, means = mean(value.y), sds = sd(value.y))
 `bed_substract()` removes `x` intervals that intersect with `y`.
 
 ```{r subtract_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      1,      100
 )
 
-y <- tribble(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      50,     75
 )
@@ -450,18 +450,18 @@ bed_subtract(x, y)
 `bed_window()` identifies `y` intervals that intersect an expanded window of `x` intervals.
 
 ```{r window_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      25,      50,
   'chr1',      100,     125
 )
 
-y <- tribble(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      60,     75
 )
 
-genome = tribble(
+genome = tibble::tribble(
   ~chrom, ~size,
   'chr1',      125
 )
@@ -485,12 +485,12 @@ bed_window(x, y, genome, both = 1e6)
 `bed_closest()` identifies `y` intervals that are closest to `x`.
 
 ```{r closest_glyph, echo = FALSE}
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      100,     125
 )
 
-y <- tribble(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      25,      50,
   'chr1',     140,     175
@@ -549,13 +549,13 @@ group_by(x, chrom) %>% sample_n(1)
 
 ```{r shuffle_glyph, echo = FALSE, }
 seed <- 092316
-x <- tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      0,       20,
   'chr1',      40,      50
 )
 
-genome <- tribble(
+genome <- tibble::tribble(
   ~chrom, ~size,
   'chr1',     150
 )
@@ -660,6 +660,7 @@ bed_jaccard(x, y)
 # Benchmarks
 
 ```{r benchmarks}
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 # two sets of 1e6 random 1 kb intervals from hg19
 x <- bed_random(genome)
 y <- bed_random(genome)

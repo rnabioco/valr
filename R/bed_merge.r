@@ -48,7 +48,7 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   dots <- list(.start = ~min(start), .end = ~max(end))
   dots <- c(dots, lazyeval::lazy_dots(...))
  
-  res <- group_by(res, chrom, .merge_id)
+  res <- group_by(res, chrom, .id_merge)
     
   if (strand)
     res <- group_by(res, strand, add = TRUE)
@@ -56,7 +56,7 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   res <- summarize_(res, .dots = dots)
   res <- rename(res, start = .start, end = .end)
   res <- ungroup(res)
-  res <- select(res, -.merge_id)
+  res <- select(res, -.id_merge)
   
   attr(res, 'merged') <- TRUE
 

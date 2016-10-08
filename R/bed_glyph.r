@@ -55,26 +55,47 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
   env <- environment()
   res <- eval(expr, envir = env)
 
-  # need to deal with a few different cases:
-  # 1. if there is a suffix argument, get the 
-  if (nargs>1) {
-    if ('suffix' %in% names(args_all)) {
-      # get the suffix for the `x` param
-      suffix_x <- as.character(args_all$suffix)[2]
-      res <- select(res, chrom, ends_with(suffix_x))
-    }
-    names_x <- names(get(args_req[1], env))
-    names(res) <- names_x
-  }
+  # need to figure out what columns will be in the result.
   
+  # get default columns
+  cols_default <- c('chrom')
+  if ('start' %in% names(res)) cols_default <- c(cols_default, 'start')
+  if ('end' %in% names(res)) cols_default <- c(cols_default, 'end')
+  
+  out_cols <- select_(res, .dots = cols_default)
+ 
+  # get `x` that are now suffixed in the result. While is is possible for 
+  # functions that take a suffix argument (bed_intersect), it is not possible for funcs
+  # like bed_map that do not take a suffix and call intersect internally. However because `.x`
+  # is the intersect default, it should usually work.
+  suffix_default <- '.x'
+  out_cols <- bind_cols(out_cols, select(res, ends_with(suffix_default)))
+ 
+  # get any named columns from the expr
+  expr_names <- names(expr)
+  expr_names <- expr_names[expr_names != '']
+  expr_names <- intersect(expr_names, names(res))
+  
+  if (!purrr::is_empty(expr_names)) out_cols <- bind_cols(out_cols, select(res, starts_with(expr_names)))
+ 
+  # get dot cols from result e.g. `.overlap`
+  out_cols <- bind_cols(out_cols, select(res, starts_with('.')))
+ 
+  # strip suffixes from names, assumes suffixes are dot-character, `.x`
+  names_strip <- stringr::str_replace(names(out_cols), '\\.[:alnum:]$', '') 
+  names(out_cols) <- names_strip
+
+  res <- out_cols
   res <- mutate(res, .facet = res_name)
-  
+ 
+  # this fetches the `x` and `y` rows from the environment 
   for (i in 1:nargs) {
     env_i <- get(args_req[i], env)
     rows <- mutate(env_i, .facet = args_req[i])
     res <- bind_rows(res, rows)
   } 
 
+  print(res)
   # assign `.y` values based on clustering
   res <- bed_cluster(res)
   res <- group_by(res, .facet, .id)

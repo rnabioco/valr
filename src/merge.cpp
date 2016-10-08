@@ -63,12 +63,12 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
  
   // add ids 
   out[nc] = ids;
-  std::string id_name = ".merge_id" ;
+  std::string id_name = ".id_merge" ;
   names[nc] = id_name ;
   
   // add overlaps
   out[nc+1] = overlaps ;
-  std::string overlaps_name = ".overlap" ;
+  std::string overlaps_name = ".overlap_merge" ;
   names[nc+1] = overlaps_name;
  
   out.attr("class") = df.attr("class") ;
