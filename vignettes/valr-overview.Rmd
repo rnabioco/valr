@@ -93,14 +93,14 @@ bed_glyph(bed_intersect(x, y))
 And this glyph illustrates `bed_merge()`:
 
 ```{r merge_glyph}
-z <- tibble::tribble(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      1,      50,
   'chr1',      10,     75,
   'chr1',      100,    120
 )
 
-bed_glyph(bed_merge(z))
+bed_glyph(bed_merge(x))
 ```
 
 ### Reproducible reports 
