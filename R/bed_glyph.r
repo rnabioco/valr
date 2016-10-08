@@ -95,7 +95,6 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
     res <- bind_rows(res, rows)
   } 
 
-  print(res)
   # assign `.y` values based on clustering
   res <- bed_cluster(res)
   res <- group_by(res, .facet, .id)

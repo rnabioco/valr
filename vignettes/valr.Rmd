@@ -128,7 +128,7 @@ read_bed12(valr_example('12fields.bed.gz'))
 ## Genome files
 
 ```{r read_genome}
-genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+genome_human <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 ```
 
 ## bedGraph files
@@ -170,7 +170,7 @@ These methods operate on a single set of intervals:
 `bed_sort` orders intervals based on a specification. `is_sorted` asks whether a tbl is already sorted.
 
 ```{r sort}
-x <- bed_random(genome)
+x <- bed_random(genome_human)
 is_sorted(x)
 
 y <- bed_sort(x)
@@ -196,7 +196,7 @@ bed_glyph(bed_cluster(x), label = '.id')
 ```
 
 ```{r cluster}
-x <- bed_random(genome)
+x <- bed_random(genome_human)
 y <- bed_cluster(x, max_dist = 1000)
 y
 ```
@@ -220,9 +220,9 @@ bed_glyph(bed_complement(x, genome))
 ```
 
 ```{r complement}
-x <- bed_random(genome)
+x <- bed_random(genome_human)
 
-bed_complement(x, genome)
+bed_complement(x, genome_human)
 ```
 
 ### Merge 
@@ -242,7 +242,7 @@ bed_glyph(bed_merge(x))
 
 ```{r merge}
 n <- 1e6
-x <- bed_random(genome, n = n)
+x <- bed_random(genome_human, n = n)
 is_merged(x)
 
 # add some signal
@@ -272,7 +272,7 @@ bed_glyph(bed_flank(x, genome, both = 20))
 ```
 
 ```{r flank}
-bed_flank(x, genome, both  = 100)
+bed_flank(x, genome_human, both  = 100)
 ```
 
 ### Slop
@@ -295,7 +295,7 @@ bed_glyph(bed_slop(x, genome, both = 20, trim = TRUE))
 ```
 
 ```{r slop}
-bed_slop(x, genome, both = 100)
+bed_slop(x, genome_human, both = 100)
 ```
 
 ### Shift
@@ -318,7 +318,7 @@ bed_glyph(bed_shift(x, genome, size = -20))
 ```
 
 ```{r shift}
-bed_shift(x, genome, size = 100)
+bed_shift(x, genome_human, size = 100)
 ```
 
 ### Interval spacing
@@ -326,7 +326,7 @@ bed_shift(x, genome, size = 100)
 Interval spacing is easily computed using `dplyr`. Overlapping intervals must first be merged. Spacing for the first interval of each chromosome is undefined.
 
 ```{r spacing}
-x <- bed_random(genome)
+x <- bed_random(genome_human)
 x <- bed_merge(x)
 
 x %>%
@@ -365,8 +365,8 @@ bed_glyph(bed_intersect(x, y))
 
 ```{r intersect}
 # intersect two sets of 1e6 intervals from hg19
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome_human)
+y <- bed_random(genome_human)
 
 bed_intersect(x, y)
 
@@ -439,8 +439,8 @@ bed_glyph(bed_subtract(x, y))
 ```
 
 ```{r subtract}
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome_human)
+y <- bed_random(genome_human)
 
 bed_subtract(x, y)
 ```
@@ -470,8 +470,8 @@ bed_glyph(bed_window(x, y, genome, both = 15))
 ```
 
 ```{r window, warning = FALSE}
-x <- bed_random(genome, n = 100)
-y <- bed_random(genome, n = 100)
+x <- bed_random(genome_human, n = 100)
+y <- bed_random(genome_human, n = 100)
 
 # a few intersections
 bed_intersect(x, y)
@@ -500,8 +500,8 @@ bed_glyph(bed_closest(x, y))
 ```
 
 ```{r closest}
-x <- bed_random(genome, n = 100)
-y <- bed_random(genome, n = 100)
+x <- bed_random(genome_human, n = 100)
+y <- bed_random(genome_human, n = 100)
 
 bed_closest(x, y)
 ```
@@ -519,7 +519,7 @@ bed_closest(x, y)
 `bed_random` generates random intervals from an input genome. The numbers of intervals from each `chrom` are proporitional to each chrom `size`.
 
 ```{r random}
-x <- bed_random(genome, n = 1e6, length = 1e3)
+x <- bed_random(genome_human, n = 1e6, length = 1e3)
 x
 
 # numbers of sampled intervals are proportional to chrom size
@@ -531,7 +531,7 @@ group_by(x, chrom) %>% summarize(n = n()) %>% arrange(desc(n))
 Sampling can be done using `dplyr`:
 
 ```{r sample}
-x <- bed_random(genome)
+x <- bed_random(genome_human)
 
 # sample by number
 sample_n(x, 1e3, replace = FALSE)
@@ -564,7 +564,7 @@ bed_glyph(bed_shuffle(x, genome, seed = seed))
 ```
 
 ```{r shuffle}
-y <- bed_shuffle(x, genome)
+y <- bed_shuffle(x, genome_human)
 y
 
 any(x$start == y$start)
@@ -579,8 +579,8 @@ all(x$end - x$start == y$end - y$start)
 The `group_by` operation from `dplyr` serves a similar purpose to BEDtools `groupby`, and can be combined with `dplyr::summarize` to calculate summary statistics from groups.
 
 ```{r group_by}
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome_human)
+y <- bed_random(genome_human)
 
 bed_intersect(x, y) %>%
   group_by(chrom) %>%
@@ -603,10 +603,10 @@ Several of these methods were described in the [Genometricorr][17] software pack
 The Fisher's test assesses whether two sets of intervals are drawn from the same background genome.
 
 ```{r fisher}
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome_human)
+y <- bed_random(genome_human)
 
-bed_fisher(x, y, genome)
+bed_fisher(x, y, genome_human)
 ```
 
 ## Absolute distance
@@ -620,10 +620,10 @@ $$
 By default both absolute and scaled distances are reported as `absdist` and `scaled_absdist` respectively. 
 
 ```{r absdist, eval = TRUE}
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome_human)
+y <- bed_random(genome_human)
 
-bed_absdist(x, y, genome)
+bed_absdist(x, y, genome_human)
 ```
 
 ## Relative distance
@@ -631,8 +631,8 @@ bed_absdist(x, y, genome)
 `bed_reldist()` computes the relative distance between a query interval and the two closest reference intervals. The relative distance can range between `[0,0.5]`. If the overall distribution of distances is biased toward zero, then the query and reference intervals tend to be closer in space ([17]). By default a summary with the frequency of each relative distance is reported.  
 
 ```{r reldist, eval = TRUE}
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome_human)
+y <- bed_random(genome_human)
 
 bed_reldist(x, y)
 ```
@@ -651,8 +651,8 @@ $$
 
 
 ```{r jaccard}
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome_human)
+y <- bed_random(genome_human)
 
 bed_jaccard(x, y)
 ```
@@ -660,20 +660,19 @@ bed_jaccard(x, y)
 # Benchmarks
 
 ```{r benchmarks}
-genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 # two sets of 1e6 random 1 kb intervals from hg19
-x <- bed_random(genome)
-y <- bed_random(genome)
+x <- bed_random(genome_human)
+y <- bed_random(genome_human)
 
 library(microbenchmark)
 microbenchmark(
-  bed_random(genome),
+  bed_random(genome_human),
   bed_closest(x, y),
   bed_intersect(x, y),
   bed_merge(x),
   bed_subtract(x, y),
-  bed_complement(x, genome),
-  bed_shuffle(x, genome),
+  bed_complement(x, genome_human),
+  bed_shuffle(x, genome_human),
   times = 1,
   unit = 's'
 )
