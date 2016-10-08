@@ -31,21 +31,17 @@ y <- tibble::tribble(
   'chr1', 30,     75,  50
 )
 
-z <- tibble::tribble(
-  ~chrom, ~start, ~end, ~label,
-  'chr1', 30,     75,   '',
-  'chr1', 50,     90,   '',
-  'chr1', 91,     120,  'book-ended'
+bed_glyph(bed_intersect(x, y))
+
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1', 30,     75,
+  'chr1', 50,     90,
+  'chr1', 91,     120
 )
 
-genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 200
-) 
-
-bed_glyph(bed_intersect(x, y))
-bed_glyph(bed_merge(z))
-bed_glyph(bed_cluster(x))
+bed_glyph(bed_merge(x), label = '.id')
+bed_glyph(bed_cluster(x), label = '.id')
 
 }
 
