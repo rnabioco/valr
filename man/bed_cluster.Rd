@@ -32,6 +32,17 @@ x <- tibble::tribble(
 
 bed_cluster(x)
 
+# glyph
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      10,
+  'chr1',      15,     20,
+  'chr1',      25,     35,
+  'chr1',      100,    120
+)
+
+bed_glyph(bed_cluster(x), label = '.id')
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}

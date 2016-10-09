@@ -11,6 +11,15 @@
 #' 
 #' @examples 
 #' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',  1,      50,
+#'   'chr1',  10,     75,
+#'   'chr1',  100,    120
+#' )
+#' 
+#' bed_glyph(bed_merge(x), label = '.id')
+#
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~value, ~strand,
 #'  "chr1", 1,      50,   1,      '+',
 #'  "chr1", 100,    200,  2,      '+',

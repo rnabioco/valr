@@ -115,6 +115,13 @@
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>'chr1'</span>,  <span class='fl'>1</span>,      <span class='fl'>50</span>,
+  <span class='st'>'chr1'</span>,  <span class='fl'>10</span>,     <span class='fl'>75</span>,
+  <span class='st'>'chr1'</span>,  <span class='fl'>100</span>,    <span class='fl'>120</span>
+)
+
+<span class='fu'>bed_glyph</span>(<span class='fu'>bed_merge</span>(<span class='no'>x</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.id'</span>)</div><img src='unknown-2.png' alt='' width='540' height='400' /><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>1</span>,      <span class='fl'>50</span>,   <span class='fl'>1</span>,      <span class='st'>'+'</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,  <span class='fl'>2</span>,      <span class='st'>'+'</span>,

@@ -33,10 +33,19 @@ bed_flank(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 Create flanking intervals from input intervals.
 }
 \examples{
-genome <- tibble::tribble(
- ~chrom, ~size,
- "chr1", 5000
+
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      25,      50,
+  'chr1',      100,     125
 )
+
+genome <- tibble::tribble(
+  ~chrom, ~size,
+  'chr1',      125
+)
+
+bed_glyph(bed_flank(x, genome, both = 20))
 
 x <- tibble::tribble(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
@@ -44,11 +53,17 @@ x <- tibble::tribble(
  "chr1", 1000,   1500, '.',   '.',    '-'
 )
 
+genome <- tibble::tribble(
+ ~chrom, ~size,
+ "chr1", 5000
+)
+
 bed_flank(x, genome, left = 100)
 bed_flank(x, genome, right = 100)
 bed_flank(x, genome, both = 100)
 
 bed_flank(x, genome, both = 0.5, fraction = TRUE)
+
 
 }
 \seealso{

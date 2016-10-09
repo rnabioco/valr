@@ -21,6 +21,21 @@
 #' @note Column names have \code{.x} and \code{.y} suffixes.
 #'   
 #' @examples
+#' 
+#' x <- tibble::tribble(
+#' ~chrom, ~start, ~end,
+#' 'chr1',      1,      100
+#' )
+#' 
+#' y <- tibble::tribble(
+#'   ~chrom, ~start, ~end, ~value,
+#'   'chr1',      1,     20,    10,
+#'   'chr1',      30,    50,    20,
+#'   'chr1',      90,    120,   30
+#' )
+#' 
+#' bed_glyph(bed_map(x, y, value = sum(value.y)), label = 'value')
+#' 
 #' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100, 250,

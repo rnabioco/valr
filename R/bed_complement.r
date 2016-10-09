@@ -6,6 +6,19 @@
 #' @return \code{data_frame}
 #' 
 #' @examples 
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',      1,      10,
+#'   'chr1',      75,    100    
+#' )
+#' 
+#' genome <- tibble::tribble(
+#'   ~chrom, ~size, 
+#'   'chr1', 200
+#' )
+#' 
+#' bed_glyph(bed_complement(x, genome))
+#' 
 #' genome <- tibble::tribble(
 #'    ~chrom,  ~size,
 #'    "chr1", 500,
@@ -24,7 +37,7 @@
 #' 
 #' # intervals not covered by x
 #' bed_complement(x, genome)
-#' 
+
 #' @export
 bed_complement <- function(x, genome) {
 

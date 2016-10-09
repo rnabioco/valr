@@ -74,46 +74,56 @@
       </header>
 
       <div class="page-header">
-  <h1>convienence function for generating example bed glyphs</h1>
+  <h1>Sample glyph for valr functions</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>convienence function for generating example bed glyphs</p>
+    <p>Sample glyph for valr functions</p>
     
 
-    <pre><span class='fu'>bed_glyph</span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>.fun</span>, <span class='no'>...</span>, <span class='kw'>x_name</span> <span class='kw'>=</span> <span class='st'>"X"</span>, <span class='kw'>y_name</span> <span class='kw'>=</span> <span class='st'>"Y"</span>,
-  <span class='kw'>start_col</span> <span class='kw'>=</span> <span class='st'>"start"</span>, <span class='kw'>end_col</span> <span class='kw'>=</span> <span class='st'>"end"</span>, <span class='kw'>title_ops</span> <span class='kw'>=</span> <span class='st'>"(x, y)"</span>)</pre>
+    <pre><span class='fu'>bed_glyph</span>(<span class='no'>expr</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>res_name</span> <span class='kw'>=</span> <span class='st'>"result"</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>tbl of intervals passed to .fun</dd>
-      <dt>y</dt>
-      <dd>optional tbl of intervals to pass to .fun  (default = FALSE)</dd>
-      <dt>.fun</dt>
-      <dd>valr function to execute on (x and/or y intervals)</dd>
-      <dt>...</dt>
-      <dd>other arguments to pass to .fun (x ivls and y ivls passed by default if supplied)</dd>
-      <dt>x_name</dt>
-      <dd>name of plotted x intervals (default is &quot;X&quot;)</dd>
-      <dt>y_name</dt>
-      <dd>name of plotted y intervals (default is &quot;Y&quot;)</dd>
-      <dt>start_col</dt>
-      <dd>name of column containing start positions to use for plotting results (default = &quot;start&quot;)</dd>
-      <dt>end_col</dt>
-      <dd>name of columm containing end positions to use for plotting results (default = &quot;end&quot;)</dd>
-      <dt>title_ops</dt>
-      <dd>options to pass to title display in ggplot object (default = &quot;(x, y&quot;))</dd>
+      <dt>expr</dt>
+      <dd>expression to evaluate</dd>
+      <dt>label</dt>
+      <dd>col name for label output</dd>
+      <dt>res_name</dt>
+      <dd>name of result in output</dd>
     </dl>
     
     <div class="Value">
       <h2>Value</h2>
 
-      <p><code>ggplot2_obj</code></p>
+      <p><code>ggplot</code></p>
     </div>
-      </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+ ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>25</span>,     <span class='fl'>50</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>125</span>
+)
+
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>75</span>,  <span class='fl'>50</span>
+)
+
+<span class='fu'>bed_glyph</span>(<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><img src='unknown-2.png' alt='' width='540' height='400' /><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>75</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>50</span>,     <span class='fl'>90</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>91</span>,     <span class='fl'>120</span>
+)
+
+<span class='fu'>bed_glyph</span>(<span class='fu'>bed_merge</span>(<span class='no'>x</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.id'</span>)</div><img src='unknown-4.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>bed_glyph</span>(<span class='fu'>bed_cluster</span>(<span class='no'>x</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.id'</span>)</div><img src='unknown-6.png' alt='' width='540' height='400' /><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3">
   </div>
 </div>

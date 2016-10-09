@@ -34,6 +34,19 @@ Identify closest intervals.
 }
 \examples{
 x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      100,     125
+)
+
+y <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      25,      50,
+  'chr1',     140,     175
+)
+ 
+bed_glyph(bed_closest(x, y))
+
+x <- tibble::tribble(
 ~chrom, ~start, ~end,
 "chr1", 500,    600,
 "chr2", 5000,   6000

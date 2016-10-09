@@ -11,6 +11,20 @@
 #' @note Book-ended intervals have \code{.overlap} values of 0 in the output.
 #'  
 #' @examples 
+#' 
+#' x <- tibble::tribble(
+#' ~chrom, ~start, ~end,
+#' 'chr1', 25,      50,
+#' 'chr1', 100,     125
+#' )
+#' 
+#' y <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1', 30,     75
+#' )
+#' 
+#' bed_glyph(bed_intersect(x, y))
+#' 
 #' x <- tibble::tribble(
 #' ~chrom, ~start, ~end,
 #' "chr1", 100,    500,

@@ -24,6 +24,20 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 Out-of-bounds intervals are removed by default.
 }
 \examples{
+
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+ 'chr1',      25,      50,
+ 'chr1',      100,     125
+)
+
+genome = tibble::tribble(
+  ~chrom, ~size,
+  'chr1',      125
+)
+
+bed_glyph(bed_shift(x, genome, size = -20))
+
 x <- tibble::tribble(
    ~chrom, ~start, ~end, ~strand,
    "chr1", 100, 150, "+",

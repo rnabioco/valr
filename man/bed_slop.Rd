@@ -33,6 +33,19 @@ bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 Increase the size of input intervals.
 }
 \examples{
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      110,      120,
+  'chr1',      225,     235
+  )
+  
+genome <- tibble::tribble(
+  ~chrom, ~size,
+  'chr1',      400
+)
+
+bed_glyph(bed_slop(x, genome, both = 20, trim = TRUE))
+
 genome <- tibble::tribble(
  ~chrom, ~size,
  "chr1", 5000

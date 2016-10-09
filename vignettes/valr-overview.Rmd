@@ -21,12 +21,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r init, echo = FALSE, message = FALSE}
-library(valr)
-library(dplyr)
-library(ggplot2)
-```
-
 `valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][5]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][3]. 
 
 ## Installation
@@ -56,8 +50,9 @@ We were motivated to develop a toolset that:
 
 The functions in `valr` have similar names to their `BEDtools` counterparts, and so will be familiar to users coming from the `BEDtools` suite. Similar to [`pybedtools`](https://daler.github.io/pybedtools/#why-pybedtools), `valr` has a terse syntax:
 
-```{r syntax_demo, eval = FALSE}
+```{r syntax_demo, message = FALSE}
 library(valr)
+library(dplyr)
 
 snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6)
 genes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
@@ -66,7 +61,7 @@ genes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
 intergenic <- bed_subtract(snps, genes)
 nearby <- bed_closest(intergenic, genes)
 
-dplyr::filter(nearby, .distance < 5000)
+filter(nearby, .distance < 5000)
 ```
 
 ### Visual documentation
@@ -137,9 +132,6 @@ This demonstration illustrates how to use `valr` tools to perform a "meta-analys
 First we load libraries and relevant data.
 
 ```{r demo-tss, warning = FALSE, message = FALSE}
-library(valr)
-library(dplyr)
-library(ggplot2)
 
 # `valr_example()` identifies the path of example files
 bedfile <- valr_example('genes.hg19.chr22.bed.gz')
@@ -184,6 +176,8 @@ res <- bed_map(x, y, win_sum = sum(value.y)) %>%
 Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.
 
 ```{r plot, warning = FALSE, message = FALSE, fig.align='center', fig.width=6}
+library(ggplot2)
+
 x_labels <- seq(-region_size, region_size, by = win_size * 5)
 x_breaks <- seq(1, 41, by = 5)
 

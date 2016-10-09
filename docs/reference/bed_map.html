@@ -138,7 +138,22 @@ suffixes.</p>
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+<span class='st'>'chr1'</span>,      <span class='fl'>1</span>,      <span class='fl'>100</span>
+)
+
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
+  <span class='st'>'chr1'</span>,      <span class='fl'>1</span>,     <span class='fl'>20</span>,    <span class='fl'>10</span>,
+  <span class='st'>'chr1'</span>,      <span class='fl'>30</span>,    <span class='fl'>50</span>,    <span class='fl'>20</span>,
+  <span class='st'>'chr1'</span>,      <span class='fl'>90</span>,    <span class='fl'>120</span>,   <span class='fl'>30</span>
+)
+
+<span class='fu'>bed_glyph</span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value.y</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'value'</span>)</div><div class='output'><strong class='text-warning'>Warning message:
+Removed 1 rows containing missing values (geom_label).</strong></div><img src='unknown-3.png' alt='' width='540' height='400' /><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>100</span>, <span class='fl'>250</span>,
  <span class='st'>"chr2"</span>, <span class='fl'>250</span>, <span class='fl'>500</span>)

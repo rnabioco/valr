@@ -40,7 +40,7 @@
       <h1>Interval statistics in <code>valr</code></h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-10-06</h4>
+            <h4 class="date">2016-10-08</h4>
           </div>
 
     
@@ -70,6 +70,9 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <div id="bed_absdist" class="section level2">
 <h2>Absolute distance</h2>
 <p><code><a href="../reference/bed_absdist.html">bed_absdist()</a></code> computes the absolute distance between the midpoint of query intervals and the closest midpoints of a set of reference intervals. Absolute distances are scaled by the inter-reference gap for the chromosome as follows. For <code>Q</code> total query points and <code>R</code> reference points on a chromosome, scale the distance for each query point <code>i</code> to the closest reference point by the inter-reference gap for each chromosome.</p>
+<p><span class="math display">\[
+d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\ chromsome}
+\]</span></p>
 <p>By default both absolute and scaled distances are reported as <code>absdist</code> and <code>scaled_absdist</code> respectively.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
 y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)

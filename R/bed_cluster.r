@@ -23,6 +23,17 @@
 #' 
 #' bed_cluster(x)
 #' 
+#' # glyph
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',      1,      10,
+#'   'chr1',      15,     20,
+#'   'chr1',      25,     35,
+#'   'chr1',      100,    120
+#' )
+#' 
+#' bed_glyph(bed_cluster(x), label = '.id')
+#'
 #' @export
 bed_cluster <- function(x, max_dist = 0, strand = FALSE) {
 

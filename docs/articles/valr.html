@@ -40,7 +40,7 @@
       <h1><code>valr</code>: Genome interval arithmetic in R</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-10-06</h4>
+            <h4 class="date">2016-10-08</h4>
           </div>
 
     
@@ -140,7 +140,7 @@
 </div>
 <div id="genome-files" class="section level2">
 <h2>Genome files</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genome_human &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))</code></pre></div>
 </div>
 <div id="bedgraph-files" class="section level2">
 <h2>bedGraph files</h2>
@@ -224,7 +224,7 @@
 </ul><div id="sort" class="section level3">
 <h3>Sort</h3>
 <p><code>bed_sort</code> orders intervals based on a specification. <code>is_sorted</code> asks whether a tbl is already sorted.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 <span class="kw"><a href="../reference/is_sorted.html">is_sorted</a></span>(x)
 <span class="co">#&gt; [1] FALSE</span>
 
@@ -252,7 +252,7 @@ y
 <h3>Cluster</h3>
 <p><code>bed_cluster</code> identifies clustered intervals based on a distance specification and assigns them a unique <code>.id</code>.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-cluster_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_cluster.html">bed_cluster</a></span>(x, <span class="dt">max_dist =</span> <span class="dv">1000</span>)
 y
 <span class="co">#&gt; # A tibble: 1,000,000 &times; 4</span>
@@ -274,9 +274,9 @@ y
 <h3>Complement</h3>
 <p><code>bed_complement</code> identifies intervals in a genome that are not covered by an input.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-complement_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
-<span class="kw"><a href="../reference/bed_complement.html">bed_complement</a></span>(x, genome)
+<span class="kw"><a href="../reference/bed_complement.html">bed_complement</a></span>(x, genome_human)
 <span class="co">#&gt; # A tibble: 723,572 &times; 3</span>
 <span class="co">#&gt;    chrom start   end</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;int&gt;</span>
@@ -297,7 +297,7 @@ y
 <p><code>bed_merge</code> identifies overlapping intervals and reports new merged ones. <code>is_merged</code> asks whether a tbl is already merged. Values from merged intervals can be reported using name / value pairs.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-merge_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="fl">1e6</span>
-x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome, <span class="dt">n =</span> n)
+x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human, <span class="dt">n =</span> n)
 <span class="kw"><a href="../reference/is_merged.html">is_merged</a></span>(x)
 <span class="co">#&gt; [1] FALSE</span>
 
@@ -324,66 +324,39 @@ x &lt;-<span class="st"> </span>x %&gt;%<span class="st"> </span><span class="kw
 <h3>Flank</h3>
 <p><code>bed_flank</code> creates new intervals that flank &ndash; but do not contain &ndash; the input intervals.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-flank_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/bed_flank.html">bed_flank</a></span>(x, genome, <span class="dt">both  =</span> <span class="dv">100</span>)
-<span class="co">#&gt; # A tibble: 1,999,996 &times; 4</span>
-<span class="co">#&gt;    chrom start   end     signal</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   chr1  2121  2221 0.46701900</span>
-<span class="co">#&gt; 2   chr1  3221  3321 0.46701900</span>
-<span class="co">#&gt; 3   chr1  6884  6984 0.79231035</span>
-<span class="co">#&gt; 4   chr1  7984  8084 0.79231035</span>
-<span class="co">#&gt; 5   chr1  8460  8560 0.88473376</span>
-<span class="co">#&gt; 6   chr1  9560  9660 0.88473376</span>
-<span class="co">#&gt; 7   chr1 12810 12910 0.51600610</span>
-<span class="co">#&gt; 8   chr1 13910 14010 0.51600610</span>
-<span class="co">#&gt; 9   chr1 14936 15036 0.05076466</span>
-<span class="co">#&gt; 10  chr1 15189 15289 0.88008675</span>
-<span class="co">#&gt; # ... with 1,999,986 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/bed_flank.html">bed_flank</a></span>(x, genome_human, <span class="dt">both  =</span> <span class="dv">100</span>)
+<span class="co">#&gt; # A tibble: 2 &times; 3</span>
+<span class="co">#&gt;   chrom start   end</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  chr1    50   150</span>
+<span class="co">#&gt; 2  chr1   125   225</span></code></pre></div>
 </div>
 <div id="slop" class="section level3">
 <h3>Slop</h3>
 <p><code>bed_slop</code> pads input intervals based on a specification</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-slop_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/bed_slop.html">bed_slop</a></span>(x, genome, <span class="dt">both =</span> <span class="dv">100</span>)
-<span class="co">#&gt; # A tibble: 999,996 &times; 4</span>
-<span class="co">#&gt;    chrom start   end     signal</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   chr1  2121  3321 0.46701900</span>
-<span class="co">#&gt; 2   chr1  6884  8084 0.79231035</span>
-<span class="co">#&gt; 3   chr1  8460  9660 0.88473376</span>
-<span class="co">#&gt; 4   chr1 12810 14010 0.51600610</span>
-<span class="co">#&gt; 5   chr1 14936 16136 0.05076466</span>
-<span class="co">#&gt; 6   chr1 15189 16389 0.88008675</span>
-<span class="co">#&gt; 7   chr1 17334 18534 0.80611153</span>
-<span class="co">#&gt; 8   chr1 20413 21613 0.80076799</span>
-<span class="co">#&gt; 9   chr1 26309 27509 0.59569095</span>
-<span class="co">#&gt; 10  chr1 29497 30697 0.41687696</span>
-<span class="co">#&gt; # ... with 999,986 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/bed_slop.html">bed_slop</a></span>(x, genome_human, <span class="dt">both =</span> <span class="dv">100</span>)
+<span class="co">#&gt; # A tibble: 2 &times; 3</span>
+<span class="co">#&gt;   chrom start   end</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  chr1    10   220</span>
+<span class="co">#&gt; 2  chr1   125   335</span></code></pre></div>
 </div>
 <div id="shift" class="section level3">
 <h3>Shift</h3>
 <p><code>bed_shift</code> adjusts coordinates toward <code>start</code> or <code>end</code> by a defined <code>size</code>. Intervals created out of bounds are removed, or trimmed.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-shift_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/bed_shift.html">bed_shift</a></span>(x, genome, <span class="dt">size =</span> <span class="dv">100</span>)
-<span class="co">#&gt; # A tibble: 999,997 &times; 4</span>
-<span class="co">#&gt;    chrom     start       end     signal</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  chr15  87408101  87409101 0.05144628</span>
-<span class="co">#&gt; 2   chr9 103561061 103562061 0.53021246</span>
-<span class="co">#&gt; 3  chr12  21196612  21197612 0.69582388</span>
-<span class="co">#&gt; 4  chr10   6691269   6692269 0.68855600</span>
-<span class="co">#&gt; 5   chr1 223743616 223744616 0.03123033</span>
-<span class="co">#&gt; 6   chr5  60622374  60623374 0.22556253</span>
-<span class="co">#&gt; 7  chr14  37979358  37980358 0.30083081</span>
-<span class="co">#&gt; 8   chr4  10661344  10662344 0.63646561</span>
-<span class="co">#&gt; 9  chr14  99488478  99489478 0.47902455</span>
-<span class="co">#&gt; 10  chr5 116825975 116826975 0.43217126</span>
-<span class="co">#&gt; # ... with 999,987 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/bed_shift.html">bed_shift</a></span>(x, genome_human, <span class="dt">size =</span> <span class="dv">100</span>)
+<span class="co">#&gt; # A tibble: 2 &times; 3</span>
+<span class="co">#&gt;   chrom start   end</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  chr1   125   150</span>
+<span class="co">#&gt; 2  chr1   200   225</span></code></pre></div>
 </div>
 <div id="interval-spacing" class="section level3">
 <h3>Interval spacing</h3>
 <p>Interval spacing is easily computed using <code>dplyr</code>. Overlapping intervals must first be merged. Spacing for the first interval of each chromosome is undefined.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_merge.html">bed_merge</a></span>(x)
 
 x %&gt;%
@@ -420,8 +393,8 @@ x %&gt;%
 <p><code>bed_intersect</code> is implemented using an <a href="https://github.com/ekg/intervaltree/">interval tree</a> in <code>Rcpp</code>. Column names in the result have <code>.x</code> and <code>.y</code> suffixes, and an <code>.overlap</code> column contains the size of the intersection (values of <code>0</code> indicate book-ended, or touching intervals). See the <a href="#benchmarks">benchmarks</a> section for timing. Though <code>bed_intersect</code> is pretty fast already, we intend to further improve upon this by parallization with <a href="https://rcppcore.github.io/RcppParallel/"><code>RcppParallel</code></a>.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># intersect two sets of 1e6 intervals from hg19</span>
-x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
 <span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)
 <span class="co">#&gt; # A tibble: 645,713 &times; 6</span>
@@ -531,7 +504,6 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <div id="map" class="section level3">
 <h3>Map</h3>
 <p><code>bed_map</code> maps signals onto intervals. Summary statistics for mapped signals can be specific using NSE with name / value pairs.</p>
-<pre><code>#&gt; Warning: Removed 1 rows containing missing values (geom_label).</code></pre>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-map_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bedfile &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>)
 bgfile  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hela.h3k4.chip.bg.gz'</span>)
@@ -559,8 +531,8 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.
 <h3>Subtract</h3>
 <p><code>bed_substract()</code> removes <code>x</code> intervals that intersect with <code>y</code>.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-subtract_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
 <span class="kw"><a href="../reference/bed_subtract.html">bed_subtract</a></span>(x, y)
 <span class="co">#&gt; # A tibble: 957,458 &times; 3</span>
@@ -582,8 +554,8 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <h3>Window</h3>
 <p><code><a href="../reference/bed_window.html">bed_window()</a></code> identifies <code>y</code> intervals that intersect an expanded window of <code>x</code> intervals.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-window_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome, <span class="dt">n =</span> <span class="dv">100</span>)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome, <span class="dt">n =</span> <span class="dv">100</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human, <span class="dt">n =</span> <span class="dv">100</span>)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human, <span class="dt">n =</span> <span class="dv">100</span>)
 
 <span class="co"># a few intersections</span>
 <span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)
@@ -593,24 +565,16 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 
 <span class="co"># can be expanded by casting a wider net</span>
 <span class="kw"><a href="../reference/bed_window.html">bed_window</a></span>(x, y, genome, <span class="dt">both =</span> <span class="fl">1e6</span>)
-<span class="co">#&gt; # A tibble: 8 &times; 6</span>
-<span class="co">#&gt;   chrom   start.x     end.x   start.y     end.y .overlap</span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1 chr11  97933842  97934842  97990303  97991303     1000</span>
-<span class="co">#&gt; 2 chr14   1121188   1122188   1201773   1202773     1000</span>
-<span class="co">#&gt; 3 chr20   1944714   1945714   2100562   2101562     1000</span>
-<span class="co">#&gt; 4  chr3 140343554 140344554 141185639 141186639     1000</span>
-<span class="co">#&gt; 5  chr8 131062830 131063830 130554623 130555623     1000</span>
-<span class="co">#&gt; 6  chr8 131407546 131408546 130554623 130555623     1000</span>
-<span class="co">#&gt; 7  chr9 124085286 124086286 123189712 123190712     1000</span>
-<span class="co">#&gt; 8  chrY  38530353  38531353  38980646  38981646     1000</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 0 &times; 6</span>
+<span class="co">#&gt; # ... with 6 variables: chrom &lt;chr&gt;, start.x &lt;int&gt;, end.x &lt;int&gt;,</span>
+<span class="co">#&gt; #   start.y &lt;int&gt;, end.y &lt;int&gt;, .overlap &lt;int&gt;</span></code></pre></div>
 </div>
 <div id="closest" class="section level3">
 <h3>Closest</h3>
 <p><code><a href="../reference/bed_closest.html">bed_closest()</a></code> identifies <code>y</code> intervals that are closest to <code>x</code>.</p>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-closest_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome, <span class="dt">n =</span> <span class="dv">100</span>)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome, <span class="dt">n =</span> <span class="dv">100</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human, <span class="dt">n =</span> <span class="dv">100</span>)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human, <span class="dt">n =</span> <span class="dv">100</span>)
 
 <span class="kw"><a href="../reference/bed_closest.html">bed_closest</a></span>(x, y)
 <span class="co">#&gt; # A tibble: 98 &times; 7</span>
@@ -638,7 +602,7 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 </ul><div id="random" class="section level3">
 <h3>Random</h3>
 <p><code>bed_random</code> generates random intervals from an input genome. The numbers of intervals from each <code>chrom</code> are proporitional to each chrom <code>size</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome, <span class="dt">n =</span> <span class="fl">1e6</span>, <span class="dt">length =</span> <span class="fl">1e3</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human, <span class="dt">n =</span> <span class="fl">1e6</span>, <span class="dt">length =</span> <span class="fl">1e3</span>)
 x
 <span class="co">#&gt; # A tibble: 1,000,000 &times; 3</span>
 <span class="co">#&gt;    chrom     start       end</span>
@@ -675,7 +639,7 @@ x
 <div id="sample" class="section level3">
 <h3>Sample</h3>
 <p>Sampling can be done using <code>dplyr</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
 <span class="co"># sample by number</span>
 <span class="kw">sample_n</span>(x, <span class="fl">1e3</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)
@@ -733,23 +697,16 @@ x
 <div id="shuffle" class="section level3">
 <h3>Shuffle</h3>
 <p><code>bed_shuffle</code> shuffles input intervals. Interval sizes are equal in the input and output.</p>
+<pre><code>#&gt; Warning in bind_rows_(x, .id): binding factor and character vector,
+#&gt; coercing into character vector</code></pre>
 <p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-shuffle_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(x, genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(x, genome_human)
 y
-<span class="co">#&gt; # A tibble: 1,000,000 &times; 3</span>
-<span class="co">#&gt;     chrom     start       end</span>
-<span class="co">#&gt;    &lt;fctr&gt;     &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1    chr2  72642139  72643139</span>
-<span class="co">#&gt; 2    chr7  53941540  53942540</span>
-<span class="co">#&gt; 3   chr13  45394779  45395779</span>
-<span class="co">#&gt; 4    chr3 138395211 138396211</span>
-<span class="co">#&gt; 5   chr22  40525709  40526709</span>
-<span class="co">#&gt; 6    chr1  76522422  76523422</span>
-<span class="co">#&gt; 7    chr3  64687882  64688882</span>
-<span class="co">#&gt; 8   chr18  39001479  39002479</span>
-<span class="co">#&gt; 9   chr14   5545535   5546535</span>
-<span class="co">#&gt; 10   chr2  26889693  26890693</span>
-<span class="co">#&gt; # ... with 999,990 more rows</span>
+<span class="co">#&gt; # A tibble: 2 &times; 3</span>
+<span class="co">#&gt;    chrom    start      end</span>
+<span class="co">#&gt;   &lt;fctr&gt;    &lt;int&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1   chr2 72642139 72642159</span>
+<span class="co">#&gt; 2   chr7 53941540 53941550</span>
 
 <span class="kw">any</span>(x$start ==<span class="st"> </span>y$start)
 <span class="co">#&gt; [1] FALSE</span>
@@ -763,8 +720,8 @@ y
 <div id="grouping-related-intervals" class="section level3">
 <h3>Grouping related intervals</h3>
 <p>The <code>group_by</code> operation from <code>dplyr</code> serves a similar purpose to BEDtools <code>groupby</code>, and can be combined with <code>dplyr::summarize</code> to calculate summary statistics from groups.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
 <span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y) %&gt;%
 <span class="st">  </span><span class="kw">group_by</span>(chrom) %&gt;%
@@ -797,10 +754,10 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <div id="fishers-test" class="section level2">
 <h2>Fisher&rsquo;s test</h2>
 <p>The Fisher&rsquo;s test assesses whether two sets of intervals are drawn from the same background genome.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
-<span class="kw"><a href="../reference/bed_fisher.html">bed_fisher</a></span>(x, y, genome)
+<span class="kw"><a href="../reference/bed_fisher.html">bed_fisher</a></span>(x, y, genome_human)
 <span class="co">#&gt;   estimate p.value conf.low conf.high                             method</span>
 <span class="co">#&gt; 1 2.374292       0 2.359993  2.388549 Fisher's Exact Test for Count Data</span>
 <span class="co">#&gt;   alternative</span>
@@ -813,10 +770,10 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\ chromsome}
 \]</span></p>
 <p>By default both absolute and scaled distances are reported as <code>absdist</code> and <code>scaled_absdist</code> respectively.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
-<span class="kw"><a href="../reference/bed_absdist.html">bed_absdist</a></span>(x, y, genome)
+<span class="kw"><a href="../reference/bed_absdist.html">bed_absdist</a></span>(x, y, genome_human)
 <span class="co">#&gt; # A tibble: 1,000,000 &times; 5</span>
 <span class="co">#&gt;    chrom start   end absdist scaled_absdist</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;          &lt;dbl&gt;</span>
@@ -835,8 +792,8 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <div id="relative-distance" class="section level2">
 <h2>Relative distance</h2>
 <p><code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> computes the relative distance between a query interval and the two closest reference intervals. The relative distance can range between <code>[0,0.5]</code>. If the overall distribution of distances is biased toward zero, then the query and reference intervals tend to be closer in space (<a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">17</a>). By default a summary with the frequency of each relative distance is reported.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
 <span class="kw"><a href="../reference/bed_reldist.html">bed_reldist</a></span>(x, y)
 <span class="co">#&gt; # A tibble: 51 &times; 4</span>
@@ -864,8 +821,8 @@ J(x,y) = \frac{\mid x \bigcap y \mid}
          \frac{\mid x \bigcap y \mid}
               {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid}
 \]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
 <span class="kw"><a href="../reference/bed_jaccard.html">bed_jaccard</a></span>(x, y)
 <span class="co">#&gt; # A tibble: 1 &times; 4</span>
@@ -877,38 +834,38 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <div id="benchmarks" class="section level1">
 <h1>Benchmarks</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># two sets of 1e6 random 1 kb intervals from hg19</span>
-x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
-y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome)
+x &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human)
 
 <span class="kw">library</span>(microbenchmark)
 <span class="kw">microbenchmark</span>(
-  <span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome),
+  <span class="kw"><a href="../reference/bed_random.html">bed_random</a></span>(genome_human),
   <span class="kw"><a href="../reference/bed_closest.html">bed_closest</a></span>(x, y),
   <span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y),
   <span class="kw"><a href="../reference/bed_merge.html">bed_merge</a></span>(x),
   <span class="kw"><a href="../reference/bed_subtract.html">bed_subtract</a></span>(x, y),
-  <span class="kw"><a href="../reference/bed_complement.html">bed_complement</a></span>(x, genome),
-  <span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(x, genome),
+  <span class="kw"><a href="../reference/bed_complement.html">bed_complement</a></span>(x, genome_human),
+  <span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(x, genome_human),
   <span class="dt">times =</span> <span class="dv">1</span>,
   <span class="dt">unit =</span> <span class="st">'s'</span>
 )
 <span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;                       expr       min        lq      mean    median</span>
-<span class="co">#&gt;         bed_random(genome) 0.1141215 0.1141215 0.1141215 0.1141215</span>
-<span class="co">#&gt;          bed_closest(x, y) 5.2436600 5.2436600 5.2436600 5.2436600</span>
-<span class="co">#&gt;        bed_intersect(x, y) 1.7225241 1.7225241 1.7225241 1.7225241</span>
-<span class="co">#&gt;               bed_merge(x) 2.3111981 2.3111981 2.3111981 2.3111981</span>
-<span class="co">#&gt;         bed_subtract(x, y) 3.3114701 3.3114701 3.3114701 3.3114701</span>
-<span class="co">#&gt;  bed_complement(x, genome) 2.5114372 2.5114372 2.5114372 2.5114372</span>
-<span class="co">#&gt;     bed_shuffle(x, genome) 1.0801473 1.0801473 1.0801473 1.0801473</span>
+<span class="co">#&gt;                             expr       min        lq      mean    median</span>
+<span class="co">#&gt;         bed_random(genome_human) 0.1203978 0.1203978 0.1203978 0.1203978</span>
+<span class="co">#&gt;                bed_closest(x, y) 5.0689528 5.0689528 5.0689528 5.0689528</span>
+<span class="co">#&gt;              bed_intersect(x, y) 1.8857645 1.8857645 1.8857645 1.8857645</span>
+<span class="co">#&gt;                     bed_merge(x) 3.3586847 3.3586847 3.3586847 3.3586847</span>
+<span class="co">#&gt;               bed_subtract(x, y) 3.6818359 3.6818359 3.6818359 3.6818359</span>
+<span class="co">#&gt;  bed_complement(x, genome_human) 2.8106365 2.8106365 2.8106365 2.8106365</span>
+<span class="co">#&gt;     bed_shuffle(x, genome_human) 1.0010074 1.0010074 1.0010074 1.0010074</span>
 <span class="co">#&gt;         uq       max neval</span>
-<span class="co">#&gt;  0.1141215 0.1141215     1</span>
-<span class="co">#&gt;  5.2436600 5.2436600     1</span>
-<span class="co">#&gt;  1.7225241 1.7225241     1</span>
-<span class="co">#&gt;  2.3111981 2.3111981     1</span>
-<span class="co">#&gt;  3.3114701 3.3114701     1</span>
-<span class="co">#&gt;  2.5114372 2.5114372     1</span>
-<span class="co">#&gt;  1.0801473 1.0801473     1</span></code></pre></div>
+<span class="co">#&gt;  0.1203978 0.1203978     1</span>
+<span class="co">#&gt;  5.0689528 5.0689528     1</span>
+<span class="co">#&gt;  1.8857645 1.8857645     1</span>
+<span class="co">#&gt;  3.3586847 3.3586847     1</span>
+<span class="co">#&gt;  3.6818359 3.6818359     1</span>
+<span class="co">#&gt;  2.8106365 2.8106365     1</span>
+<span class="co">#&gt;  1.0010074 1.0010074     1</span></code></pre></div>
 </div>
   </div>
 

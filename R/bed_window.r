@@ -6,6 +6,25 @@
 #'
 #' @family multi-set-ops 
 #' @examples
+#'
+#' x <- tibble::tribble(
+#'  ~chrom, ~start, ~end,
+#'  'chr1',      25,      50,
+#'  'chr1',      100,     125
+#' )
+#'  
+#' y <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',      60,     75
+#' )
+#'  
+#' genome = tibble::tribble(
+#'   ~chrom, ~size,
+#'   'chr1',      125
+#' )
+#'  
+#' bed_glyph(bed_window(x, y, genome, both = 15)) 
+#' 
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 10,    100,

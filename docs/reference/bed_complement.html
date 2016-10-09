@@ -109,7 +109,19 @@
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>'chr1'</span>,      <span class='fl'>1</span>,      <span class='fl'>10</span>,
+  <span class='st'>'chr1'</span>,      <span class='fl'>75</span>,    <span class='fl'>100</span>
+)
+
+<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>200</span>
+)
+
+<span class='fu'>bed_glyph</span>(<span class='fu'>bed_complement</span>(<span class='no'>x</span>, <span class='no'>genome</span>))</div><img src='unknown-2.png' alt='' width='540' height='400' /><div class='input'>
+<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
    ~<span class='no'>chrom</span>,  ~<span class='no'>size</span>,
    <span class='st'>"chr1"</span>, <span class='fl'>500</span>,
    <span class='st'>"chr2"</span>, <span class='fl'>600</span>,
@@ -135,8 +147,7 @@
 #&gt; 4  chr2   400   600
 #&gt; 5  chr3     1   500
 #&gt; 6  chr3   600   800
-#&gt; </div><div class='input'>
-</div></pre>
+#&gt; </div></pre>
   </div>
   <div class="col-md-3">
   </div>
