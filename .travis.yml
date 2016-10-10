@@ -6,11 +6,33 @@ cache: packages
 
 # based on: https://github.com/wesm/feather/issues/154
 matrix:
-  r:
-    - oldrel
-    - release
-    - devel
   include:
+    - os: linux
+      compiler: gcc-4.8
+      addons:
+        apt:
+          sources: 
+          - 'ubuntu-toolchain-r-test'
+          packages: 
+          - 'g++-4.8'
+      before_install: |
+        mkdir ~/.R
+        cat <<EOF > ~/.R/Makevars
+        CXX1X=g++-4.8
+        CXX1XSTD=-std=c++11
+    - os: linux
+      compiler: gcc-5
+      addons:
+       apt:
+        sources: 
+        - 'ubuntu-toolchain-r-test'
+        packages: 
+        - 'g++-5'
+      before_install: |
+       mkdir ~/.R
+       cat <<EOF > ~/.R/Makevars
+       CXX1X=g++-5
+       CXX1XSTD=-std=c++11
     - os: linux
       compiler: gcc-6
       addons:
@@ -24,7 +46,6 @@ matrix:
         cat <<EOF > ~/.R/Makevars
         CXX1X=g++-6
         CXX1XSTD=-std=c++11
-     
     - os: linux
       compiler: clang-3.7
       addons:

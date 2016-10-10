@@ -20,8 +20,6 @@ See the [`valr` documentation](http://jayhesselberth.github.io/valr) for a compl
 devtools::install_github('jayhesselberth/valr')
 ```
  
-__Note__ that `valr` requires a full-featured C++11 compiler (`gcc>=6.0` or `clang++`)
-
 ## API
 
 Function names are similar to their their [BEDtools][1] counterparts, with some additions.
