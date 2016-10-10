@@ -1,6 +1,6 @@
 Package: valr
 Type: Package
-Title: Genome interval arithmetic in R
+Title: Genome Interval Arithmetic in R
 Version: 0.1
 Authors@R: as.person(c(
     "Jay Hesselberth <jay.hesselberth@gmail.com> [aut, cre]",
