@@ -407,7 +407,7 @@ y <- tibble::tribble(
   'chr1',      90,    120,   30
 )
 
-bed_glyph(bed_map(x, y, value = sum(value.y)), label = 'value')
+bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
 ```
 
 ```{r map}
@@ -417,7 +417,7 @@ bgfile  <- valr_example('hela.h3k4.chip.bg.gz')
 x <- read_bed(bedfile, n_fields = 6)
 y <- read_bedgraph(bgfile)
 
-bed_map(x, y, means = mean(value.y), sds = sd(value.y))
+bed_map(x, y, means = mean(value), sds = sd(value))
 ```
 
 ### Subtract
