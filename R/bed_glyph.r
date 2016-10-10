@@ -49,7 +49,7 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
  
   # evaluate the expression in the environment context
   env <- parent.frame()
-  res <- eval(expr, env = env)
+  res <- eval(expr, envir = env)
 
   # need to figure out what columns will be in the result.
   
@@ -124,7 +124,7 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
     aes_label <- aes_(x = quote((end - start) / 2 + start),
                       y = quote(.y + 0.5),
                       label = substitute(label))
-    glyph <- glyph + geom_label(aes_label)
+    glyph <- glyph + geom_label(aes_label, na.rm = TRUE)
   }
 
   glyph + theme_glyph()
