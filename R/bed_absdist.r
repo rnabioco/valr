@@ -1,11 +1,19 @@
-#' Compute the absolute distance between query intervals and reference intervals
+#' Compute the absolute distance between query and reference intervals
 #' 
+#' @details \code{bed_absdist()} computes the absolute distance between the midpoint
+#'   of query intervals and the closest midpoints of a set of reference
+#'   intervals. Absolute distances are scaled by the inter-reference gap for the
+#'   chromosome as follows. For \code{Q} total query points and \code{R} reference points
+#'   on a chromosome, scale the distance for each query point \code{i} to the closest
+#'   reference point by the inter-reference gap for each chromosome.
+#'
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param genome genome tbl
 #' 
 #' @return \code{data_frame}
-#' 
+#'
+#' @family interval-stats
 #' @seealso \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #' 
 #' @examples
@@ -38,23 +46,23 @@ bed_absdist <- function(x, y, genome) {
   if ( ! is_sorted(y) )
     y <- bed_sort(y)
   
-  x <- dplyr::group_by(x, chrom, add = TRUE)
-  y <- dplyr::group_by(y, chrom, add = TRUE)
+  x <- group_by(x, chrom, add = TRUE)
+  y <- group_by(y, chrom, add = TRUE)
   
   res <- absdist_impl(x, y)
   
   # calculate reference sizes
   y_chroms <- unique(y$chrom)
-  genome <- dplyr::filter(genome, genome$chrom %in% y_chroms)
-  genome <- dplyr::mutate(genome, 
-                          ref_gap = dplyr::group_size(y),
-                          ref_gap = ref_gap / size)
-  genome <- dplyr::select(genome, -size)
+  genome <- filter(genome, genome$chrom %in% y_chroms)
+  genome <- mutate(genome, 
+                   ref_gap = group_size(y),
+                   ref_gap = ref_gap / size)
+  genome <- select(genome, -size)
   
   #calculate scaled reference sizes
-  res <- dplyr::full_join(res, genome, by = c("chrom"))
-  res <- dplyr::mutate(res, scaled_absdist =  absdist * ref_gap)
-  res <- dplyr::select(res, -ref_gap)
+  res <- full_join(res, genome, by = c("chrom"))
+  res <- mutate(res, scaled_absdist =  absdist * ref_gap)
+  res <- select(res, -ref_gap)
   res
   
 }

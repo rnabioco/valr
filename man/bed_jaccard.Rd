@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_jaccard.r
 \name{bed_jaccard}
 \alias{bed_jaccard}
-\title{Calculate jaccard statistics on two sets of intervals.}
+\title{Jaccard statistic.}
 \usage{
 bed_jaccard(x, y)
 }
@@ -12,16 +12,22 @@ bed_jaccard(x, y)
 \item{y}{tbl of intervals}
 }
 \value{
-\code{data_frame} with the following columns:
- \itemize{
-   \item{\code{len_i}}{ length of the intersection}
-   \item{\code{len_u}}{ length of the union}
-   \item{\code{jaccard}}{ jaccard statistic}
-   \item{\code{n_int}}{ number of intersecting intervals between x and y}
- }
+\code{data_frame} with the following columns: \itemize{ 
+  \item{\code{len_i}}{ length of the intersection} \item{\code{len_u}}{
+  length of the union} \item{\code{jaccard}}{ jaccard statistic} 
+  \item{\code{n_int}}{ number of intersecting intervals between x and y} }
 }
 \description{
 Calculate jaccard statistics on two sets of intervals.
+}
+\details{
+\code{bed_jaccard()} quantifies the extent of overlap between to sets of
+intervals. The Jaccard statistic takes values of \code{[0,1]} and is measured as:
+
+\deqn{ J(x,y) = \frac{\mid x \bigcap y \mid}
+                     {\mid x \bigcup y \mid} = 
+                \frac{\mid x \bigcap y \mid}
+                     {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} }
 }
 \examples{
 x <- tibble::tribble(
@@ -40,5 +46,8 @@ bed_jaccard(x, y)
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html}
+
+Other interval-stats: \code{\link{bed_absdist}},
+  \code{\link{bed_fisher}}, \code{\link{bed_reldist}}
 }
 

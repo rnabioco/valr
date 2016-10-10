@@ -18,6 +18,19 @@ bed_complement(x, genome)
 Identify intervals in a genome not covered by a query.
 }
 \examples{
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      10,
+  'chr1',      75,    100    
+)
+
+genome <- tibble::tribble(
+  ~chrom, ~size, 
+  'chr1', 200
+)
+
+bed_glyph(bed_complement(x, genome))
+
 genome <- tibble::tribble(
    ~chrom,  ~size,
    "chr1", 500,
@@ -36,6 +49,11 @@ x <- tibble::tribble(
 
 # intervals not covered by x
 bed_complement(x, genome)
-
+}
+\seealso{
+Other single-set-ops: \code{\link{bed_cluster}},
+  \code{\link{bed_flank}}, \code{\link{bed_merge}},
+  \code{\link{bed_random}}, \code{\link{bed_shift}},
+  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
 }
 

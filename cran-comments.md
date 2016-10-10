@@ -1,23 +1,28 @@
 ## Test environments
-* local OS X install, R 3.2.4
-* ubuntu 12.04 (on travis-ci), R 3.2.4
-* win-builder (devel and release)
+
+* local OS X install, R 3.3.1
+* OS X (on travis-ci), R 3.3.1
+* ubuntu 14.04 (on travis-ci), R 3.3.1
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+* on OS X 
 
+  0 errors | 0 warnings | 0 notes
+  
+* on ubuntu
+
+  Status: 1 NOTE
+  
+  installed size is 10.7Mb
+  sub-directories of 1Mb or more:
+    libs   9.7Mb
+
+  This package uses Rcpp which creates a large shared library on linux.
+  This note is not present on OS X.
+  
 * This is a new release.
 
 ## Reverse dependencies
 
 This is a new release, so there are no reverse dependencies.
-
----
-
-* I have run R CMD check on the NUMBER downstream dependencies.
-  (Summary at ...). 
-  
-* FAILURE SUMMARY
-
-* All revdep maintainers were notified of the release on RELEASE DATE.

@@ -48,8 +48,16 @@ template <class T, typename K = int>
 class IntervalStartSorter {
 public:
     bool operator() (const Interval<T,K>& a, const Interval<T,K>& b) {
-        return a.start < b.start;
+          return a.start < b.start;
     }
+};
+
+template <class T, typename K = int>
+class IntervalSorterDesc {
+public:
+  bool operator() (const Interval<T,K>& a, const Interval<T,K>& b) {
+    return a.start > b.start;
+  }
 };
 
 template <class T, typename K = int>

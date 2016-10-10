@@ -50,10 +50,10 @@ read functions for BED and related formats. Filenames can be
 }
 \examples{
 # read_bed assumes 3 field BED format. 
-bed3_path <- system.file('extdata', '3fields.bed.gz', package = 'valr')
+bed3_path <- valr_example('3fields.bed.gz')
 bed3_tbl <- read_bed(bed3_path)
 
-bed6_path <- system.file('extdata', '6fields.bed.gz', package = 'valr')
+bed6_path <- valr_example('6fields.bed.gz')
 bed6_tbl <- read_bed(bed6_path, n_fields = 6)
 
 # Result is sorted by chrom and start unless `sort = FALSE`
@@ -62,17 +62,21 @@ unsorted_bed_tbl <- read_bed(bed3_path, sort = FALSE)
 # use `is_sorted` 
 is_sorted(unsorted_bed_tbl)
 
-bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'valr')
+bed12_path <- valr_example('mm9.bed12.gz')
 bed12_tbl <- read_bed12(bed12_path)
 
-bedgraph_path <- system.file('extdata', 'test.bg.gz', package = 'valr')
+bedgraph_path <- valr_example('test.bg.gz')
 bedgraph_tbl <- read_bedgraph(bedgraph_path)
 
-narrowpeak_path <- system.file('extdata', 'sample.narrowPeak.gz', package = 'valr')
+narrowpeak_path <- valr_example('sample.narrowPeak.gz')
 read_narrowpeak(narrowpeak_path)
 
-broadpeak_path <- system.file('extdata', 'sample.broadPeak.gz', package = 'valr')
+broadpeak_path <- valr_example('sample.broadPeak.gz')
 read_broadpeak(broadpeak_path)
 
+}
+\seealso{
+Other read-funcs: \code{\link{read_genome}},
+  \code{\link{read_vcf}}
 }
 

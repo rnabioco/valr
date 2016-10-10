@@ -1,0 +1,273 @@
+---
+title: '`valr` overview'
+author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette:
+    vignette: >
+      %\VignetteIndexEntry{valr-overview}
+      %\VignetteEngine{knitr::rmarkdown}
+      %\VignetteEncoding{UTF-8}
+---
+
+```{r knitr_opts, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-",
+  fig.height = 3,
+  fig.align = "center",
+  fig.width = 4
+)
+```
+
+`valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][5]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][3]. 
+
+## Installation
+
+`valr` can be installed from github, and will be eventually deposited in CRAN.
+
+```r
+devtools::install_github('jayhesselberth/valr')
+```
+
+## Why `valr`?
+
+**Why another tool set for interval manipulations?** We already have [BEDtools][1], [bedops][8], [pybedtools][7], [GenomicRanges][9], [bedr][11] and [IRanges][12]. 
+
+We were motivated to develop a toolset that:
+
+- Combines analysis and visualization in RStudio.
+- Can be used to generate reports with Rmarkdown.
+- Is highly extensible. New tools are quickly implemented on the R side.
+- Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`%>%`).
+- Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
+- Facilitates interactive visulaizations with [`shiny`][10].
+
+`valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
+
+### Familiar tools, all within R
+
+The functions in `valr` have similar names to their `BEDtools` counterparts, and so will be familiar to users coming from the `BEDtools` suite. Similar to [`pybedtools`](https://daler.github.io/pybedtools/#why-pybedtools), `valr` has a terse syntax:
+
+```{r syntax_demo, message = FALSE}
+library(valr)
+library(dplyr)
+
+snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6)
+genes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
+
+# distance from intergenic snps to nearest gene
+intergenic <- bed_subtract(snps, genes)
+nearby <- bed_closest(intergenic, genes)
+
+filter(nearby, .distance < 5000)
+```
+
+### Visual documentation
+
+We provide glyphs that illustrate the results of specific operations in `valr`, similar to those found in the `BEDtools` documentation.
+
+This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
+
+```{r intersect_glyph}
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1', 25,     50,
+  'chr1', 100,    125
+)
+
+y <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1', 30,     75
+)
+
+bed_glyph(bed_intersect(x, y))
+```
+
+And this glyph illustrates `bed_merge()`:
+
+```{r merge_glyph}
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      50,
+  'chr1',      10,     75,
+  'chr1',      100,    120
+)
+
+bed_glyph(bed_merge(x))
+```
+
+### Reproducible reports 
+
+`valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast (see the [benchmarks](#benchmarks)), we think it will be a go-to tool for exploratory genome analysis in R.
+
+Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`][19]), but it is cumbersome to move from these command-line tools to doing exploratory statistics and plotting. `pybedtools` can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach][18], including clunky version control. Because RMarkdown files are just text files, they are readily kept under version control. Moreover, new features in RStudio (notebook viewing) enable similar functionality to `ipython`.
+
+### Column specification
+
+Columns in `BEDtools` are referred to by position:
+
+```bash
+# calculate the mean of column 6 for intervals in `b` that overlap with `a`
+bedtools map -a a.bed -b b.bed -c 6 -o mean
+```
+
+In `valr`, columns are referred to by name and can be used in multiple name/value expressions for summaries.
+
+```{r NSE, eval = FALSE}
+# calculate the mean and variance for the `value` column
+bed_map(a, b, mean = mean(value), var = var(value))
+
+# report concatenated and max values for merged intervals
+bed_merge(a, concat = concat(value), max = max(value))
+```
+
+## Getting started
+
+### Meta-analysis
+
+This demonstration illustrates how to use `valr` tools to perform a "meta-analysis" of signals relative to genomic features. Here we to analyze the distribution of histone marks surrounding transcription start sites.
+
+First we load libraries and relevant data.
+
+```{r demo-tss, warning = FALSE, message = FALSE}
+
+# `valr_example()` identifies the path of example files
+bedfile <- valr_example('genes.hg19.chr22.bed.gz')
+genomefile <- valr_example('hg19.chrom.sizes.gz')
+bgfile  <- valr_example('hela.h3k4.chip.bg.gz')
+
+genes <- read_bed(bedfile, n_fields = 6)
+genome <- read_genome(genomefile)
+y <- read_bedgraph(bgfile)
+```
+
+Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on `+` strand genes, but `-` genes are easily accomodated by filtering them and using `bed_makewindows()` with `reverse`d window numbers.
+
+```{r tss}
+# generate 1 bp TSS intervals, `+` strand only
+tss <- genes %>%
+  filter(strand == '+') %>%
+  mutate(end = start + 1)
+
+# 1000 bp up and downstream
+region_size <- 1000
+# 50 bp windows
+win_size <- 50
+
+# add slop to the TSS, break into windows and add a group
+x <- tss %>%
+  bed_slop(genome, both = region_size) %>%
+  bed_makewindows(genome, win_size) %>%
+  group_by(win_id)
+
+x
+```
+
+Note that the data are now grouped by `win_id`. This grouping is used below with `bed_map()` to caluclate summary statistics identified by mapping `y` signals onto the intervals in `x`.
+
+```{r map}
+# map signals to TSS regions and calculate summary statistics.
+res <- bed_map(x, y, win_sum = sum(value.y)) %>%
+  summarize(win_mean = mean(win_sum), win_sd = sd(win_sum))
+```
+
+Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.
+
+```{r plot, warning = FALSE, message = FALSE, fig.align='center', fig.width=6}
+library(ggplot2)
+
+x_labels <- seq(-region_size, region_size, by = win_size * 5)
+x_breaks <- seq(1, 41, by = 5)
+
+sd_limits <- aes(ymax = win_mean + win_sd, ymin = win_mean - win_sd)
+
+ggplot(res, aes(x = win_id.x, y = win_mean)) +
+  geom_point() + geom_pointrange(sd_limits) + 
+  scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
+  xlab('Position (bp from TSS)') + ylab('Signal') + 
+  ggtitle('Human H3K4me3 signal near transcription starts sites') +
+  theme_bw()
+```
+
+### Interval statistics
+
+Estimates of significance for interval overlaps can be obtained by combining `bed_shuffle()`, `bed_random()` and the `sample_` functions from `dplyr` with interval statistics in `valr`.
+
+Note that the interval statistics have somewhat different use cases:
+
+- `bed_jaccard()` is used to assess the degree of overlap for *already overlapping* intervals.
+- `bed_reldist()` and `bed_absdist()` assess whether two sets of intervals tend to be clustered, independent of overlaps.
+
+Here we calculate a distribution of relative distances by shuffling `y` intervals compared to `x`. Specifically we will examine spatial distribution of exons compared to repetitive Alu elements in the human genome.
+
+```{r reldist_shuffle, eval = FALSE}
+library(purrr)
+library(stringr)
+library(tidyr)
+
+exons <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
+# alus <- read_bed(valr_example('hg19.alus.chr22.bed.gz')) 
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+
+n <- 100
+shuffled <- replicate(n, bed_shuffle(exons, genome), FALSE) %>%
+  transpose() %>%
+  as_data_frame() %>% 
+  mutate(rep = 1:n) %>%
+  group_by(rep) %>%
+  nest()
+
+# shuffled %>% mutate(jaccard = map(data, lift(bed_jaccard)))
+```
+
+## Benchmarks
+
+Certain algorithms in `valr` were implemented in `Rcpp` to enable fluid interactive analysis. 
+
+This graph illustrates the timing of functions in `valr` for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.
+
+```{r plot_benchmark, echo = FALSE, fig.width=6}
+library(microbenchmark)
+
+x <- bed_random(genome, n=1e5)
+y <- bed_random(genome, n=1e5)
+
+ts <- microbenchmark(
+  bed_random(genome), bed_closest(x, y),
+  bed_intersect(x, y), bed_merge(x),
+  bed_subtract(x, y), bed_complement(x, genome),
+  bed_shuffle(x, genome),
+  times = 1,
+  unit = 's')
+
+# from unexported microbenchmark::convert_to_unit
+ts$ntime <- ts$time / 1e9 
+
+ggplot(ts, aes(y=reorder(expr, ntime), x=ntime)) +
+  geom_point(color='red', size=4) +
+  xlab('execution time (seconds)') + ylab('') +
+  theme_bw()
+```
+
+
+[1]: http://bedtools.readthedocs.org/en/latest/
+[2]: https://github.com/arq5x/chrom_sweep
+[3]: https://github.com/hadley/dplyr
+[4]: https://cran.r-project.org/web/packages/dplyr/vignettes/nse.html
+[5]: http://www.rcpp.org/
+[6]: https://github.com/hadley/readr
+[7]: https://pythonhosted.org/pybedtools/
+[8]: http://bedops.readthedocs.org/en/latest/index.html
+[9]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
+[10]: http://shiny.rstudio.com/
+[11]: https://cran.r-project.org/web/packages/bedr/index.html
+[12]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
+[13]: http://bedtools.readthedocs.io/en/latest/#performance
+[14]: https://github.com/jayhesselberth/valr/tree/master/src
+[15]: https://rcppcore.github.io/RcppParallel/
+[16]: https://github.com/ekg/intervaltree/
+[17]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
+[18]: https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/
+[19]: https://bitbucket.org/snakemake/snakemake/wiki/Home

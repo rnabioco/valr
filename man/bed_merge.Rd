@@ -23,6 +23,14 @@ Merge overlapping intervals.
 }
 \examples{
 x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',  1,      50,
+  'chr1',  10,     75,
+  'chr1',  100,    120
+)
+
+bed_glyph(bed_merge(x), label = '.id')
+x <- tibble::tribble(
  ~chrom, ~start, ~end, ~value, ~strand,
  "chr1", 1,      50,   1,      '+',
  "chr1", 100,    200,  2,      '+',
@@ -41,5 +49,10 @@ bed_merge(x, .value = sum(value))
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
+
+Other single-set-ops: \code{\link{bed_cluster}},
+  \code{\link{bed_complement}}, \code{\link{bed_flank}},
+  \code{\link{bed_random}}, \code{\link{bed_shift}},
+  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
 }
 

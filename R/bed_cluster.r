@@ -9,7 +9,7 @@
 #' @param strand cluster features on same strand
 #'   
 #' @return \code{data_frame}
-#'  
+#' @family single-set-ops
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html} 
 #'
 #' @examples
@@ -23,6 +23,17 @@
 #' 
 #' bed_cluster(x)
 #' 
+#' # glyph
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',      1,      10,
+#'   'chr1',      15,     20,
+#'   'chr1',      25,     35,
+#'   'chr1',      100,    120
+#' )
+#' 
+#' bed_glyph(bed_cluster(x), label = '.id')
+#'
 #' @export
 bed_cluster <- function(x, max_dist = 0, strand = FALSE) {
 
@@ -34,8 +45,8 @@ bed_cluster <- function(x, max_dist = 0, strand = FALSE) {
   res <- merge_impl(res, max_dist)
     
   res <- group_by(res, chrom)
-  res <- mutate(res, .id = dense_rank(.merge_id))
-  res <- select(res, -.merge_id, -.overlap)
+  res <- mutate(res, .id = dense_rank(.id_merge))
+  res <- select(res, -.id_merge, -.overlap_merge)
   res <- ungroup(res)
   
   res

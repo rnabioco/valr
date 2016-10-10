@@ -1,7 +1,5 @@
 #include "valr.h"
 
-typedef std::unordered_map<std::string, int> map_t ;
-
 //[[Rcpp::export]]
 DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
 
@@ -25,45 +23,47 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
     int ni = indices.size() ;
    
     std::string chrom ; 
+    int start, end ;
     int last_start, last_end = 1 ;
     
     for( int j=0; j<ni; ++j) {
-     
-      int start = starts[indices[j]] ;       
-      int end = ends[indices[j]] ;
+    
+      start = starts[indices[j]] ;       
+      end = ends[indices[j]] ;
+      
+      chrom = as<std::string>(chroms[indices[j]]) ; 
       
       if (j == 0) {
-        if (start == 1) {
+       if (start == 1) {
           last_end = end ;
           continue ;
         } else {
+          chroms_out.push_back(chrom) ;
           starts_out.push_back(1) ;
           ends_out.push_back(start) ;
         }
       } else {
+        chroms_out.push_back(chrom) ;
         starts_out.push_back(last_end) ;
         ends_out.push_back(start) ;
       }
       
-      chrom = as<std::string>(chroms[indices[j]]) ; 
-      chroms_out.push_back(chrom) ;
-      
       last_end = end; last_start = start ;
     }
  
-    int chrom_size = chrom_sizes[chrom] ;
+    auto chrom_size = chrom_sizes[chrom] ;
     
-    if(last_end < chrom_size) {
+    if (last_end < chrom_size) {
       chroms_out.push_back(chrom) ;
       starts_out.push_back(last_end) ;
       ends_out.push_back(chrom_size) ;
     }
-    
   }
 
   return DataFrame::create( Named("chrom") = chroms_out,
                             Named("start") = starts_out,
-                            Named("end") = ends_out) ;
+                            Named("end") = ends_out,
+                            Named("stringsAsFactors") = false) ;
 }
 
 /***R
@@ -87,5 +87,18 @@ x <- tibble::tribble(
 
 # intervals not covered by x
 x <- bed_merge(x) %>% group_by(chrom)
+
 complement_impl(x, genome)
+
+genome <- tibble::tribble(
+  ~chrom, ~size,
+  "chr1", 100
+) 
+bed <- tibble::tribble(
+  ~chrom,   ~start,    ~end,
+  "chr1",        1,      20
+) %>% group_by(chrom)
+
+complement_impl(bed, genome)
+  
 */

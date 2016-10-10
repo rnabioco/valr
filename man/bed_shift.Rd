@@ -24,6 +24,20 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 Out-of-bounds intervals are removed by default.
 }
 \examples{
+
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+ 'chr1',      25,      50,
+ 'chr1',      100,     125
+)
+
+genome = tibble::tribble(
+  ~chrom, ~size,
+  'chr1',      125
+)
+
+bed_glyph(bed_shift(x, genome, size = -20))
+
 x <- tibble::tribble(
    ~chrom, ~start, ~end, ~strand,
    "chr1", 100, 150, "+",
@@ -51,5 +65,10 @@ bed_shift(stranded, genome, 100)
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
+
+Other single-set-ops: \code{\link{bed_cluster}},
+  \code{\link{bed_complement}}, \code{\link{bed_flank}},
+  \code{\link{bed_merge}}, \code{\link{bed_random}},
+  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
 }
 

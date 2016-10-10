@@ -9,10 +9,25 @@
 #' @param trim adjust coordinates for out-of-bounds intervals
 #' 
 #' @return \code{data_frame}
-#' 
+#'
+#' @family single-set-ops 
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
 #' 
 #' @examples
+#' 
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'  'chr1',      25,      50,
+#'  'chr1',      100,     125
+#' )
+#' 
+#' genome = tibble::tribble(
+#'   ~chrom, ~size,
+#'   'chr1',      125
+#' )
+#' 
+#' bed_glyph(bed_shift(x, genome, size = -20))
+#'
 #' x <- tibble::tribble(
 #'    ~chrom, ~start, ~end, ~strand,
 #'    "chr1", 100, 150, "+",
@@ -44,41 +59,38 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   
   # shift invervals
   if (!stranded && !fraction) {
-    res <- dplyr::mutate(x,
-                  start = start + size,
+    res <- mutate(x, start = start + size,
                   end = end + size)
   }
   
   # shift by percent of interval size
   if (!stranded && fraction){
-    res <- dplyr::mutate(x, .size = end - start)
-    res <- dplyr::mutate(res, start = start + round(.size * fraction),
-             end = end + round(.size * fraction))
-    res <- dplyr::select(res, -.size)
+    res <- mutate(x, .size = end - start)
+    res <- mutate(res, start = start + round(.size * fraction),
+                       end = end + round(.size * fraction))
+    res <- select(res, -.size)
   }
   
   # shift by strand
   if (stranded && !fraction){
-    res <- dplyr::mutate(x,
-                         start = ifelse(strand == '+',
-                            start + size,
-                            start - size),
-                         end = ifelse(strand == '+',
-                            end + size,
-                            end - size))
+    res <- mutate(x, start = ifelse(strand == '+',
+                       start + size,
+                       start - size),
+                     end = ifelse(strand == '+',
+                       end + size,
+                       end - size))
   }
   
   # shift by strand and percent
   if (stranded && fraction){
-    res <- dplyr::mutate(x, .size = end - start)
-    res <- dplyr::mutate(res,
-                         start = ifelse(strand == "+",
-                            start + round(.size * fraction),
-                            start - round(.size * fraction)),
-                         end = ifelse(strand == "+",
-                            end + round(.size * fraction),
-                            end - round(.size * fraction)))
-    res <- dplyr::select(res, -.size)
+    res <- mutate(x, .size = end - start)
+    res <- mutate(res, start = ifelse(strand == "+",
+                         start + round(.size * fraction),
+                         start - round(.size * fraction)),
+                       end = ifelse(strand == "+",
+                         end + round(.size * fraction),
+                         end - round(.size * fraction)))
+    res <- select(res, -.size)
   }
   
   res <- bound_intervals(res, genome, trim)

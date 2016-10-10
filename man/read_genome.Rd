@@ -33,8 +33,9 @@ outside the defined size.
 Select intervals bounded by a genome.
 }
 \examples{
-genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
+genome <- valr_example('hg19.chrom.sizes.gz')
 read_genome(genome)
+
 \dontrun{
 # can also read from a URL
 read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
@@ -47,10 +48,14 @@ x <- tibble::tribble(
  "chr1", 500,    1000
 )
 
-genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
 bound_intervals(x, genome)
 bound_intervals(x, genome, trim = TRUE)
 
+}
+\seealso{
+Other read-funcs: \code{\link{read_bed}},
+  \code{\link{read_vcf}}
 }
 

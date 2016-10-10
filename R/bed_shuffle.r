@@ -9,7 +9,7 @@
 #' @param seed seed for reproducible intervals
 #' 
 #' @return \code{data_frame}
-#' 
+#' @family single-set-ops
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 #' 
 #' @examples 
@@ -49,9 +49,14 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
 
   if (nrow(incl) == 0 || is.null(incl))
     stop('no intervals to sample from', call. = FALSE)
-
+  
+  #shuffle_impl will drop all columns except chrom, start, and end
   res <- shuffle_impl(x, incl, within, max_tries, seed)
   res <- as_data_frame(res)
- 
-  res 
+  
+  # by default pass all original x column data to
+  # result (except chrom, start, end) which are shuffled
+  # see issue # 81 in github
+  
+  res <- bind_cols(res, x[, !colnames(x) %in% colnames(res)])
 }  

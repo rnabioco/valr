@@ -29,6 +29,20 @@ Identify intersecting intervals.
 Book-ended intervals have \code{.overlap} values of 0 in the output.
 }
 \examples{
+
+x <- tibble::tribble(
+~chrom, ~start, ~end,
+'chr1', 25,      50,
+'chr1', 100,     125
+)
+
+y <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1', 30,     75
+)
+
+bed_glyph(bed_intersect(x, y))
+
 x <- tibble::tribble(
 ~chrom, ~start, ~end,
 "chr1", 100,    500,
@@ -50,5 +64,9 @@ bed_intersect(x, y)
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
+
+Other multi-set-ops: \code{\link{bed_closest}},
+  \code{\link{bed_coverage}}, \code{\link{bed_subtract}},
+  \code{\link{bed_window}}
 }
 

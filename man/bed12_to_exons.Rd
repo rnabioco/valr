@@ -15,12 +15,15 @@ number, with respect to strand (i.e., exon 1 for `-` strand genes will have
 larger start and end coordinates).
 }
 \examples{
-bed12_path <- system.file('extdata', 'mm9.bed12.gz', package = 'valr')
+bed12_path <- valr_example('mm9.bed12.gz')
 x <- read_bed12(bed12_path)
 y <- bed12_to_exons(x) 
 
 # first exons
 subset(y, score == 1)
 
+}
+\seealso{
+Other utils: \code{\link{bed_makewindows}}
 }
 

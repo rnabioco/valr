@@ -21,6 +21,21 @@
 #' @note Column names have \code{.x} and \code{.y} suffixes.
 #'   
 #' @examples
+#' 
+#' x <- tibble::tribble(
+#' ~chrom, ~start, ~end,
+#' 'chr1',      1,      100
+#' )
+#' 
+#' y <- tibble::tribble(
+#'   ~chrom, ~start, ~end, ~value,
+#'   'chr1',      1,     20,    10,
+#'   'chr1',      30,    50,    20,
+#'   'chr1',      90,    120,   30
+#' )
+#' 
+#' bed_glyph(bed_map(x, y, value = sum(value.y)), label = 'value')
+#' 
 #' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100, 250,
@@ -51,8 +66,8 @@
 #' @export
 bed_map <- function(x, y, ...) {
 
-  groups_x <- dplyr::groups(x)
-  groups_y <- dplyr::groups(y)
+  groups_x <- groups(x)
+  groups_y <- groups(y)
   
   if('chrom' %in% c(groups_x, groups_y))
     stop('`chrom` cannot be used as grouping variable', call. = FALSE)
@@ -65,12 +80,12 @@ bed_map <- function(x, y, ...) {
   res <- bed_intersect(x, y)
  
   groups_default <- c('chrom', 'start.x', 'end.x')
-  res <- dplyr::group_by_(res, .dots = c(groups_default, groups_x, groups_y))
+  res <- group_by_(res, .dots = c(groups_default, groups_x, groups_y))
   
-  res <- dplyr::summarize_(res, .dots = lazyeval::lazy_dots(...))
+  res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
  
   # reassign original `x` groups 
-  res <- dplyr::group_by_(res, .dots = c(groups_x))
+  res <- group_by_(res, .dots = c(groups_x))
  
   res 
 }

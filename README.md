@@ -3,11 +3,14 @@
 [![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr)
+[![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip)
+[![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
 
+`valr` provides tools for fast, exploratory analysis of large biological data sets **within R/RStudio**. `valr` was developed from a desire to teach the powerful concepts of genome interval arithmetic, but without the cumbersome back-and-forth between command-line and exploratory analysis tools. 
 
-`valr` enables analysis of genome-scale data sets **within R**, enabling fast, explorative analysis of genome-scale data. Key parts are implemented in `Rcpp` for speed. Moreover, `valr` makes use of new R libraries like `dplyr` and the `magrittr` pipe operator (`%>%`) for an expressive syntax that makes genome analysis fun.
+Key parts of `valr` are implemented in [`Rcpp`][3] for speed. Moreover, `valr` integrates with [`dplyr`][2] and the `magrittr` pipe operator (`%>%`) for an expressive syntax and can be used in reproducible reports written in [`RMarkdown`][10].
 
-See the [`valr` demo](http://jayhesselberth.github.io/valr-demo) for documentation and examples.
+See the [`valr` documentation](http://jayhesselberth.github.io/valr) for a complete API reference and examples.
 
 ## Installation
 
@@ -17,11 +20,11 @@ See the [`valr` demo](http://jayhesselberth.github.io/valr-demo) for documentati
 devtools::install_github('jayhesselberth/valr')
 ```
  
-Note that `valr` requires a C++11 compiler (gcc>=6.0 or clang++)
+__Note__ that `valr` requires a full-featured C++11 compiler (`gcc>=6.0` or `clang++`)
 
 ## API
 
-Function names are similar to their their [BEDtools][bedtools] counterparts, with some additions.
+Function names are similar to their their [BEDtools][1] counterparts, with some additions.
 
 ### Reading data
 
@@ -37,9 +40,9 @@ Function names are similar to their their [BEDtools][bedtools] counterparts, wit
 
 * Interval coordinates are adjusted with `bed_slop()` and `bed_shift()`, and new flanking intervals are created with `bed_flank()`.
 
-* Nearby intervals are combined with `bed_merge()` and combined (but not merged) with `bed_cluster()`.  
+* Nearby intervals are combined with `bed_merge()` and identified (but not merged) with `bed_cluster()`.  
 
-* The intervals in a genome that are not covered by a query are identified with `bed_complement()`.
+* Intervals not covered by a query are created with `bed_complement()`.
 
 ### Comparing multiple interval sets
 
@@ -59,11 +62,11 @@ Function names are similar to their their [BEDtools][bedtools] counterparts, wit
 
 * Shuffle the coordinates of input intervals with `bed_shuffle()`.
 
-* Random sampling of input intervals is done with the `sample` function family in `dplyr`.
+* Random sampling of input intervals is done with the `sample_` function family in `dplyr`.
 
 ### Interval statistics
 
-* Measure overlap significance of two sets of intervals with `bed_fisher()`.
+* Quantify overlaps between two sets of intervals with `bed_fisher()`.
 
 * Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
 
@@ -75,7 +78,7 @@ Function names are similar to their their [BEDtools][bedtools] counterparts, wit
 
 * The Python library [pybedtools][4] wraps BEDtools.
 
-* The R packages [GenomicRanges][6], [bedr][7] and [IRanges][8] provide similar capability.
+* The R packages [GenomicRanges][6], [bedr][7], [IRanges][8] and [GenometriCorr][9] provide similar capability with a different philosophy.
 
 [1]: http://bedtools.readthedocs.org/en/latest/
 [2]: https://github.com/hadley/dplyr
@@ -86,3 +89,4 @@ Function names are similar to their their [BEDtools][bedtools] counterparts, wit
 [7]: https://cran.r-project.org/web/packages/bedr/index.html
 [8]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
 [9]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
+[10]: http://rmarkdown.rstudio.com/

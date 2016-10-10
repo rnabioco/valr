@@ -34,6 +34,19 @@ Identify closest intervals.
 }
 \examples{
 x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      100,     125
+)
+
+y <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      25,      50,
+  'chr1',     140,     175
+)
+ 
+bed_glyph(bed_closest(x, y))
+
+x <- tibble::tribble(
 ~chrom, ~start, ~end,
 "chr1", 500,    600,
 "chr2", 5000,   6000
@@ -54,5 +67,9 @@ bed_closest(x, y, overlap = FALSE)
 }
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
+
+Other multi-set-ops: \code{\link{bed_coverage}},
+  \code{\link{bed_intersect}}, \code{\link{bed_subtract}},
+  \code{\link{bed_window}}
 }
 

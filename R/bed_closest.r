@@ -14,10 +14,23 @@
 #' 
 #' 
 #' @return \code{data_frame}
-#' 
+#' @family multi-set-ops
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 #' 
 #' @examples
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',      100,     125
+#' )
+#' 
+#' y <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',      25,      50,
+#'   'chr1',     140,     175
+#' )
+#'  
+#' bed_glyph(bed_closest(x, y))
+#' 
 #' x <- tibble::tribble(
 #' ~chrom, ~start, ~end,
 #' "chr1", 500,    600,
@@ -45,7 +58,7 @@ bed_closest <- function(x, y, overlap = TRUE,
   if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
     stop("`strand` specified on unstranded data_frame", call. = FALSE)
   
-  # dplyr::check_suffix
+  # check_suffix
   if (!is.character(suffix) || length(suffix) != 2)
     stop("`suffix` must be a character vector of length 2.", call. = FALSE)
  
@@ -54,12 +67,14 @@ bed_closest <- function(x, y, overlap = TRUE,
   if ( ! is_sorted(y) )
     y <- bed_sort(y)
   
-  x <- dplyr::group_by(x, chrom, add = TRUE)
-  y <- dplyr::group_by(y, chrom, add = TRUE)
+  x <- group_by(x, chrom, add = TRUE)
+  y <- group_by(y, chrom, add = TRUE)
  
   suffix <- list(x = suffix[1], y = suffix[2])
   
-  res <- closest_impl(x, y, suffix$x, suffix$y)
+  if (!strand && !strand_opp){
+    res <- closest_impl(x, y, suffix$x, suffix$y)
+  }
 
   strand.x = paste(strand, suffix[1], sep = '')
   strand.y = paste(strand, suffix[2], sep = '')
@@ -67,9 +82,23 @@ bed_closest <- function(x, y, overlap = TRUE,
   distance_type <- match.arg(distance_type, c("genome", "strand", "abs"))
   
   if (strand) {
-    res <- dplyr::filter(res, strand.x == strand.y) 
+    x_pos <- filter(x, strand == "+") 
+    y_pos <- filter(y, strand == "+") 
+    x_neg <- filter(x, strand == "-") 
+    y_neg <- filter(y, strand == "-") 
+    res_pos <- closest_impl(x_pos, y_pos, suffix$x, suffix$y)
+    res_neg <- closest_impl(x_neg, y_neg, suffix$x, suffix$y)
+    res <- bind_rows(res_pos, res_neg)
+    res <- filter(res, strand.x == strand.y) 
   } else if (strand_opp) {
-    res <- dplyr::filter(res, strand.x != strand.y) 
+    x_pos <- filter(x, strand == "+") 
+    y_pos <- filter(y, strand == "+") 
+    x_neg <- filter(x, strand == "-") 
+    y_neg <- filter(y, strand == "-") 
+    res_pos <- closest_impl(x_pos, y_neg, suffix$x, suffix$y)
+    res_neg <- closest_impl(x_neg, y_pos, suffix$x, suffix$y)
+    res <- bind_rows(res_pos, res_neg)
+    res <- filter(res, strand.x != strand.y) 
   }
   
   # modify distance output based on user input 
@@ -87,8 +116,8 @@ bed_closest <- function(x, y, overlap = TRUE,
   res$.overlap <- ifelse(res$.overlap < 0, 0, res$.overlap )
   
   if (!overlap){
-    res <- dplyr::filter(res, .overlap < 1)
-    res <- dplyr::select(res, -.overlap)
+    res <- filter(res, .overlap < 1)
+    res <- select(res, -.overlap)
   }
     
   res

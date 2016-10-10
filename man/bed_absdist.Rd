@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_absdist.r
 \name{bed_absdist}
 \alias{bed_absdist}
-\title{Compute the absolute distance between query intervals and reference intervals}
+\title{Compute the absolute distance between query and reference intervals}
 \usage{
 bed_absdist(x, y, genome)
 }
@@ -17,7 +17,15 @@ bed_absdist(x, y, genome)
 \code{data_frame}
 }
 \description{
-Compute the absolute distance between query intervals and reference intervals
+Compute the absolute distance between query and reference intervals
+}
+\details{
+\code{bed_absdist()} computes the absolute distance between the midpoint
+  of query intervals and the closest midpoints of a set of reference
+  intervals. Absolute distances are scaled by the inter-reference gap for the
+  chromosome as follows. For \code{Q} total query points and \code{R} reference points
+  on a chromosome, scale the distance for each query point \code{i} to the closest
+  reference point by the inter-reference gap for each chromosome.
 }
 \examples{
 x <- tibble::frame_data(
@@ -43,5 +51,8 @@ bed_absdist(x, y, genome)
 }
 \seealso{
 \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
+
+Other interval-stats: \code{\link{bed_fisher}},
+  \code{\link{bed_jaccard}}, \code{\link{bed_reldist}}
 }
 

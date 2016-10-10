@@ -10,11 +10,12 @@
 #' @return \code{data_frame} with colnames \code{chrom} and \code{size}, sorted
 #'   by \code{size}
 #'   
-#' @family read functions
+#' @family read-funcs
 #' 
 #' @examples
-#' genome <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
+#' genome <- valr_example('hg19.chrom.sizes.gz')
 #' read_genome(genome)
+#' 
 #' \dontrun{
 #' # can also read from a URL
 #' read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
@@ -24,7 +25,7 @@
 read_genome <- function(filename) {
   colnames <- c('chrom', 'size')
   genome <- suppressMessages(readr::read_tsv(filename, col_names = colnames))
-  genome <- dplyr::arrange(genome, desc(size))
+  genome <- arrange(genome, desc(size))
   genome
 }
 
@@ -46,22 +47,22 @@ read_genome <- function(filename) {
 #'  "chr1", 500,    1000
 #' )
 #' 
-#' genome <- read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 #' 
 #' bound_intervals(x, genome)
 #' bound_intervals(x, genome, trim = TRUE)
 #' 
 #' @export
 bound_intervals <- function(x, genome, trim = FALSE) {
-  res <- dplyr::left_join(x, genome, by = "chrom") 
+  res <- left_join(x, genome, by = "chrom") 
   if (trim) {
-    res <- dplyr::mutate(res,
-                         start = ifelse(start < 1, 1, start),
-                         end = ifelse(end > size, size, end))
-    res <- dplyr::select(res, -size)
+    res <- mutate(res,
+                  start = ifelse(start < 1, 1, start),
+                  end = ifelse(end > size, size, end))
+    res <- select(res, -size)
   } else {
-    res <- dplyr::filter(res, start >= 1 & end <= size)
-    res <- dplyr::select(res, -size)
+    res <- filter(res, start >= 1 & end <= size)
+    res <- select(res, -size)
   }
    
   res

@@ -6,10 +6,19 @@
 #' @param ... name-value pairs that specify merging operations
 #'
 #' @return \code{data_frame}
-#'  
+#' @family single-set-ops
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #' 
 #' @examples 
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',  1,      50,
+#'   'chr1',  10,     75,
+#'   'chr1',  100,    120
+#' )
+#' 
+#' bed_glyph(bed_merge(x), label = '.id')
+#
 #' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~value, ~strand,
 #'  "chr1", 1,      50,   1,      '+',
@@ -48,7 +57,7 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   dots <- list(.start = ~min(start), .end = ~max(end))
   dots <- c(dots, lazyeval::lazy_dots(...))
  
-  res <- group_by(res, chrom, .merge_id)
+  res <- group_by(res, chrom, .id_merge)
     
   if (strand)
     res <- group_by(res, strand, add = TRUE)
@@ -56,7 +65,8 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   res <- summarize_(res, .dots = dots)
   res <- rename(res, start = .start, end = .end)
   res <- ungroup(res)
-  res <- select(res, -.merge_id)
+  res <- select(res, -.id_merge)
+  res <- format_bed(res, x)
   
   attr(res, 'merged') <- TRUE
 
