@@ -3,6 +3,7 @@
 * local OS X install, R 3.3.1
 * OS X (on travis-ci), R 3.3.1
 * ubuntu 14.04 (on travis-ci), R 3.3.1
+* Windows Server 2012 R2 x64 (on appveyor), R 3.3.1
 
 ## R CMD check results
 
