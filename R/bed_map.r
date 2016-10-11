@@ -58,11 +58,11 @@
 #' bed_map(x, y, vals.unique = values_unique(value))
 #' 
 #' @export
-bed_map <- function(x, y, invert = FALSE,
+bed_map <- function(x, y, ..., invert = FALSE,
                     strand = FALSE, strand_opp = FALSE,
                     suffix = c('.x', '.y'),
-                    min_overlap = 1, ...) {
-
+                    min_overlap = 1) {
+  
   groups_x <- groups(x)
   groups_y <- groups(y)
   
