@@ -77,14 +77,14 @@
   <div class="col-md-9">
     
 <h1 id="valr">valr</h1>
-<p><a href="https://travis-ci.org/jayhesselberth/valr"><img src="https://travis-ci.org/jayhesselberth/valr.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/jayhesselberth/valr?branch=master"><img src="https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg" alt="Coverage Status"></a> <a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/0.1.0/wip.svg" alt="Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a> <a href="http://www.r-pkg.org/pkg/valr"><img src="http://www.r-pkg.org/badges/version/valr"></a></p>
+<p><a href="https://travis-ci.org/jayhesselberth/valr"><img src="https://travis-ci.org/jayhesselberth/valr.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/jayhesselberth/valr?branch=master"><img src="https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg" alt="Coverage Status"></a> <a href="https://ci.appveyor.com/project/jayhesselberth/valr"><img src="https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/0.1.0/wip.svg" alt="Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a> <a href="http://www.r-pkg.org/pkg/valr"><img src="http://www.r-pkg.org/badges/version/valr"></a></p>
 <p><code>valr</code> provides tools for fast, exploratory analysis of large biological data sets <strong>within R/RStudio</strong>. <code>valr</code> was developed from a desire to teach the powerful concepts of genome interval arithmetic, but without the cumbersome back-and-forth between command-line and exploratory analysis tools.</p>
 <p>Key parts of <code>valr</code> are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a> for speed. Moreover, <code>valr</code> integrates with <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a> and the <code>magrittr</code> pipe operator (<code>%&gt;%</code>) for an expressive syntax and can be used in reproducible reports written in <a href="http://rmarkdown.rstudio.com/"><code>RMarkdown</code></a>.</p>
 <p>See the <a href="http://jayhesselberth.github.io/valr"><code>valr</code> documentation</a> for a complete API reference and examples.</p>
 <h2 id="installation">Installation</h2>
 <p><code>valr</code> can be installed from github:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">'jayhesselberth/valr'</span>)</code></pre></div>
-<p><strong>Note</strong> that <code>valr</code> requires a full-featured C++11 compiler (<code>gcc&gt;=6.0</code> or <code>clang++</code>)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
+devtools::<span class="kw">install_github</span>(<span class="st">'jayhesselberth/valr'</span>)</code></pre></div>
 <h2 id="api">API</h2>
 <p>Function names are similar to their their <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a> counterparts, with some additions.</p>
 <h3 id="reading-data">Reading data</h3>

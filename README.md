@@ -17,6 +17,7 @@ See the [`valr` documentation](http://jayhesselberth.github.io/valr) for a compl
 `valr` can be installed from github:
 
 ```R
+# install.packages("devtools")
 devtools::install_github('jayhesselberth/valr')
 ```
  

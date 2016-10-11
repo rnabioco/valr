@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
 `valr` can be installed from github, and will be eventually deposited in CRAN.
 
 ```r
+# install.packages("devtools")
 devtools::install_github('jayhesselberth/valr')
 ```
 
