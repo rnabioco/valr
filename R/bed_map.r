@@ -89,8 +89,8 @@ bed_map <- function(x, y, invert = FALSE,
   
   res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
   res <- ungroup(res)
-  
-  names_no_x <- stringr::str_replace(names(res), suffix$x, '')
+  ## remove x suffix, but don't pattern match with '.' regex
+  names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), '')
   names(res) <- names_no_x
   
   # find rows of `x` that did not intersect
