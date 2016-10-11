@@ -209,7 +209,7 @@ library(stringr)
 library(tidyr)
 
 exons <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
-# alus <- read_bed(valr_example('hg19.alus.chr22.bed.gz')) 
+# repeats <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz')) 
 genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
 n <- 100
