@@ -9,7 +9,8 @@
 \alias{values_unique}
 \title{Map signals over intervals.}
 \usage{
-bed_map(x, y, ...)
+bed_map(x, y, ..., invert = FALSE, strand = FALSE, strand_opp = FALSE,
+  suffix = c(".x", ".y"), min_overlap = 1)
 
 concat(.data, sep = ",")
 
@@ -24,10 +25,20 @@ last(.data)
 \arguments{
 \item{x}{tbl of intervals}
 
-\item{y}{tbl of signals}
+\item{y}{tbl of intervals}
 
 \item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
 \code{\link{count}()}, \code{\link{concat}()}.}
+
+\item{invert}{report `x` intervals not in `y`}
+
+\item{strand}{intersect intervals on same strand}
+
+\item{strand_opp}{intersect intervals on opposite strands}
+
+\item{suffix}{colname suffixes in output}
+
+\item{min_overlap}{minimum overlap for intervals.}
 
 \item{.data}{data}
 
@@ -39,21 +50,14 @@ last(.data)
 \description{
 Multiple mapping functions can be specified.
 }
-\details{
-Variables from the `x` and `y` tables should be used with `.x` and `.y`
-suffixes.
-
-Existing grouping variables are maintained in the output, but have `.x` or 
-`.y` suffixes`.
-}
 \note{
-Column names have \code{.x} and \code{.y} suffixes.
+Book-ended intervals are not reported by default, but can be included
+  by setting \code{min_overlap} to \code{0}.
 }
 \examples{
-
 x <- tibble::tribble(
-~chrom, ~start, ~end,
-'chr1',      1,      100
+  ~chrom, ~start, ~end,
+  'chr1',      1,      100
 )
 
 y <- tibble::tribble(
@@ -63,7 +67,7 @@ y <- tibble::tribble(
   'chr1',      90,    120,   30
 )
 
-bed_glyph(bed_map(x, y, value = sum(value.y)), label = 'value')
+bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
 
 x <- tibble::tribble(
  ~chrom, ~start, ~end,
@@ -76,21 +80,21 @@ y <- tibble::tribble(
  "chr1", 150, 250, 20,
  "chr2", 250, 500, 500)
 
-# mean, median, sd etc
-bed_map(x, y, sum = sum(value.y))
-bed_map(x, y, min = min(value.y), max = max(value.y))
+# also mean, median, sd etc
+bed_map(x, y, sum = sum(value))
+bed_map(x, y, min = min(value), max = max(value))
 
-bed_map(x, y, concat(value.y))
-bed_map(x, y, first(value.y))
-bed_map(x, y, last(value.y))
+bed_map(x, y, concat(value))
+bed_map(x, y, first(value))
+bed_map(x, y, last(value))
 
-bed_map(x, y, absmax = abs(max(value.y)))
-bed_map(x, y, absmin = abs(min(value.y)))
-bed_map(x, y, count = length(value.y))
-bed_map(x, y, count_distinct = length(unique(value.y)))
+bed_map(x, y, absmax = abs(max(value)))
+bed_map(x, y, absmin = abs(min(value)))
+bed_map(x, y, count = length(value))
+bed_map(x, y, count_distinct = length(unique(value)))
 
-bed_map(x, y, vals = values(value.y))
-bed_map(x, y, vals.unique = values_unique(value.y))
+bed_map(x, y, vals = values(value))
+bed_map(x, y, vals.unique = values_unique(value))
 
 }
 \seealso{

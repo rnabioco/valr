@@ -32,7 +32,7 @@ test_that("x/y groupings are respected", {
     "chr2", 250, 500, 500, 3
   ) %>% group_by(id)
   
-  res <- bed_map(x, y, vals = sum(value.y))
+  res <- bed_map(x, y, vals = sum(value))
   expect_equal(res$vals, c(10,20,500,500))
 })
 
@@ -50,7 +50,7 @@ test_that("values_unique works correctly", {
     "chr1", 150, 250, 20
   )
   
-  res <- bed_map(x, y, vals = values_unique(value.y))
+  res <- bed_map(x, y, vals = values_unique(value))
   expect_equal(res$vals, c("10,20"))
 })
 
@@ -59,7 +59,7 @@ x <- tibble::tribble(
   "chr1", 100, 200, 1,
   "chr1", 250, 500, 2,
   "chr2", 250, 500, 3
-) %>% group_by(id)
+)
 
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~value,
@@ -70,25 +70,48 @@ y <- tibble::tribble(
 )
 
 test_that("concat works correctly", {
-  res <- bed_map(x, y, vals = concat(value.y))
-  expect_equal(res$vals, c("10,30,20,40", "30,20"))
+  res <- bed_map(x, y, vals = concat(value))
+  expected <- c('10,30,20,40', NA, NA)
+  expect_equal(res$vals, expected)
 })
 
 test_that("values works correctly", {
-  res <- bed_map(x, y, vals = values(value.y))
-  expect_equal(res$vals, c("10,30,20,40", "30,20"))
+  res <- bed_map(x, y, vals = values(value))
+  expected <- c('10,30,20,40', NA, NA)
+  expect_equal(res$vals, expected)
 })
 
 test_that("first works correctly", {
-  res <- bed_map(x, y, first = first(value.y))
-  expect_true(all(res$first == c(10, 30)))
+  res <- bed_map(x, y, first = first(value))
+  expected <- c(10, NA, NA)
+  expect_equal(res$first, expected)
 })
 
 test_that("last works correctly", {
-  res <- bed_map(x, y, last = last(value.y))
-  expect_true(all(res$last == c(40, 20))) 
+  res <- bed_map(x, y, last = last(value))
+  expected <- c(40, NA, NA)
+  expect_equal(res$last, expected)
 })
 
+test_that("book-ended intervals are not reported", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 100, 200
+  )
+  
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~value,
+    "chr1", 100, 150, 10,
+    "chr1", 200, 250, 20
+  )
+
+  expected <- tibble::tribble(
+    ~chrom, ~start, ~end, ~value, 
+    'chr1',  100,    200,   10
+  ) 
+  res <- bed_map(x, y, value = sum(value))
+  expect_equal(res, expected)
+})
 
 
 

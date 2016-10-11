@@ -117,7 +117,7 @@ bedtools map -a a.bed -b b.bed -c 6 -o mean
 In `valr`, columns are referred to by name and can be used in multiple name/value expressions for summaries.
 
 ```{r NSE, eval = FALSE}
-# calculate the mean and variance for the `value` column
+# calculate the mean and variance for a `value` column
 bed_map(a, b, mean = mean(value), var = var(value))
 
 # report concatenated and max values for merged intervals
@@ -133,7 +133,6 @@ This demonstration illustrates how to use `valr` tools to perform a "meta-analys
 First we load libraries and relevant data.
 
 ```{r demo-tss, warning = FALSE, message = FALSE}
-
 # `valr_example()` identifies the path of example files
 bedfile <- valr_example('genes.hg19.chr22.bed.gz')
 genomefile <- valr_example('hg19.chrom.sizes.gz')
@@ -166,12 +165,14 @@ x <- tss %>%
 x
 ```
 
-Note that the data are now grouped by `win_id`. This grouping is used below with `bed_map()` to caluclate summary statistics identified by mapping `y` signals onto the intervals in `x`.
+Note that the data are now grouped by `win_id`. This grouping is used below with `bed_map()` to caluclate summary statistics identified by mapping `y` signals onto the intervals in `x`. Note that `x` intervals with no `y` overlaps have values of `NA`, so `na.rm = TRUE` must be used during computation.
 
 ```{r map}
 # map signals to TSS regions and calculate summary statistics.
-res <- bed_map(x, y, win_sum = sum(value.y)) %>%
-  summarize(win_mean = mean(win_sum), win_sd = sd(win_sum))
+res <- bed_map(x, y, win_sum = sum(value, na.rm = TRUE)) %>%
+  group_by(win_id) %>%
+  summarize(win_mean = mean(win_sum, na.rm = TRUE),
+            win_sd = sd(win_sum, na.rm = TRUE))
 ```
 
 Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.
@@ -184,7 +185,7 @@ x_breaks <- seq(1, 41, by = 5)
 
 sd_limits <- aes(ymax = win_mean + win_sd, ymin = win_mean - win_sd)
 
-ggplot(res, aes(x = win_id.x, y = win_mean)) +
+ggplot(res, aes(x = win_id, y = win_mean)) +
   geom_point() + geom_pointrange(sd_limits) + 
   scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
   xlab('Position (bp from TSS)') + ylab('Signal') + 
