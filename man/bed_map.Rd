@@ -9,8 +9,8 @@
 \alias{values_unique}
 \title{Map signals over intervals.}
 \usage{
-bed_map(x, y, invert = FALSE, strand = FALSE, strand_opp = FALSE,
-  suffix = c(".x", ".y"), min_overlap = 1, ...)
+bed_map(x, y, ..., invert = FALSE, strand = FALSE, strand_opp = FALSE,
+  suffix = c(".x", ".y"), min_overlap = 1)
 
 concat(.data, sep = ",")
 
@@ -27,6 +27,9 @@ last(.data)
 
 \item{y}{tbl of intervals}
 
+\item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
+\code{\link{count}()}, \code{\link{concat}()}.}
+
 \item{invert}{report `x` intervals not in `y`}
 
 \item{strand}{intersect intervals on same strand}
@@ -36,9 +39,6 @@ last(.data)
 \item{suffix}{colname suffixes in output}
 
 \item{min_overlap}{minimum overlap for intervals.}
-
-\item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
-\code{\link{count}()}, \code{\link{concat}()}.}
 
 \item{.data}{data}
 
