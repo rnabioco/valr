@@ -31,7 +31,7 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-",
+  fig.path = "img/functions-",
   fig.height = 3,
   fig.align = "center",
   fig.width = 4

@@ -63,7 +63,7 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 
 <span class="kw"><a href="../reference/bed_fisher.html">bed_fisher</a></span>(x, y, genome)
 <span class="co">#&gt;   estimate p.value conf.low conf.high                             method</span>
-<span class="co">#&gt; 1 2.374936       0 2.360621  2.389375 Fisher's Exact Test for Count Data</span>
+<span class="co">#&gt; 1 2.372795       0 2.358439  2.387154 Fisher's Exact Test for Count Data</span>
 <span class="co">#&gt;   alternative</span>
 <span class="co">#&gt; 1   two.sided</span></code></pre></div>
 </div>
@@ -81,16 +81,16 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <span class="co">#&gt; # A tibble: 1,000,000 &times; 5</span>
 <span class="co">#&gt;    chrom start   end absdist scaled_absdist</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;          &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   chr1   345  1345     311      0.1006951</span>
-<span class="co">#&gt; 2   chr1  5777  6777    2344      0.7589369</span>
-<span class="co">#&gt; 3   chr1 11570 12570    1857      0.6012567</span>
-<span class="co">#&gt; 4   chr1 24280 25280    5012      1.6227780</span>
-<span class="co">#&gt; 5   chr1 24861 25861    4431      1.4346627</span>
-<span class="co">#&gt; 6   chr1 28723 29723     569      0.1842300</span>
-<span class="co">#&gt; 7   chr1 31037 32037     451      0.1460241</span>
-<span class="co">#&gt; 8   chr1 32354 33354    1768      0.5724404</span>
-<span class="co">#&gt; 9   chr1 33188 34188    2602      0.8424717</span>
-<span class="co">#&gt; 10  chr1 34950 35950    4364      1.4129695</span>
+<span class="co">#&gt; 1   chr1 10077 11077    2734     0.88601123</span>
+<span class="co">#&gt; 2   chr1 17046 18046     114     0.03694414</span>
+<span class="co">#&gt; 3   chr1 19914 20914    2689     0.87142802</span>
+<span class="co">#&gt; 4   chr1 20560 21560    3335     1.08077815</span>
+<span class="co">#&gt; 5   chr1 21432 22432    4207     1.36336842</span>
+<span class="co">#&gt; 6   chr1 22578 23578    5353     1.73475425</span>
+<span class="co">#&gt; 7   chr1 25684 26684    3926     1.27230435</span>
+<span class="co">#&gt; 8   chr1 33263 34263      72     0.02333314</span>
+<span class="co">#&gt; 9   chr1 34475 35475     337     0.10921206</span>
+<span class="co">#&gt; 10  chr1 35085 36085     273     0.08847149</span>
 <span class="co">#&gt; # ... with 999,990 more rows</span></code></pre></div>
 </div>
 <div id="bed_reldist" class="section level2">
@@ -103,16 +103,16 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <span class="co">#&gt; # A tibble: 51 &times; 4</span>
 <span class="co">#&gt;    reldist counts  total       freq</span>
 <span class="co">#&gt;      &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     0.00  19810 999953 0.01981093</span>
-<span class="co">#&gt; 2     0.01  20076 999953 0.02007694</span>
-<span class="co">#&gt; 3     0.02  19701 999953 0.01970193</span>
-<span class="co">#&gt; 4     0.03  19987 999953 0.01998794</span>
-<span class="co">#&gt; 5     0.04  20115 999953 0.02011595</span>
-<span class="co">#&gt; 6     0.05  20188 999953 0.02018895</span>
-<span class="co">#&gt; 7     0.06  20099 999953 0.02009994</span>
-<span class="co">#&gt; 8     0.07  20014 999953 0.02001494</span>
-<span class="co">#&gt; 9     0.08  19813 999953 0.01981393</span>
-<span class="co">#&gt; 10    0.09  19926 999953 0.01992694</span>
+<span class="co">#&gt; 1     0.00  19568 999951 0.01956896</span>
+<span class="co">#&gt; 2     0.01  19944 999951 0.01994498</span>
+<span class="co">#&gt; 3     0.02  19789 999951 0.01978997</span>
+<span class="co">#&gt; 4     0.03  20104 999951 0.02010499</span>
+<span class="co">#&gt; 5     0.04  19795 999951 0.01979597</span>
+<span class="co">#&gt; 6     0.05  20179 999951 0.02017999</span>
+<span class="co">#&gt; 7     0.06  19962 999951 0.01996298</span>
+<span class="co">#&gt; 8     0.07  19958 999951 0.01995898</span>
+<span class="co">#&gt; 9     0.08  20105 999951 0.02010599</span>
+<span class="co">#&gt; 10    0.09  19946 999951 0.01994698</span>
 <span class="co">#&gt; # ... with 41 more rows</span></code></pre></div>
 </div>
 <div id="bed_jaccard" class="section level2">
@@ -132,7 +132,7 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 <span class="co">#&gt; # A tibble: 1 &times; 4</span>
 <span class="co">#&gt;       len_i      len_u   jaccard      n</span>
 <span class="co">#&gt;       &lt;int&gt;      &lt;int&gt;     &lt;dbl&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1 323010173 2000000000 0.1926131 647126</span></code></pre></div>
+<span class="co">#&gt; 1 323523668 2000000000 0.1929784 646734</span></code></pre></div>
 </div>
 </div>
   </div>

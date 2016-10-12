@@ -109,7 +109,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 )
 
 <span class="kw"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y))</code></pre></div>
-<p><img src="README-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="img/overview-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
   ~chrom, ~start, ~end,
@@ -119,7 +119,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 )
 
 <span class="kw"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="../reference/bed_merge.html">bed_merge</a></span>(x))</code></pre></div>
-<p><img src="README-merge_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="img/overview-merge_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div id="reproducible-reports" class="section level3">
 <h3>Reproducible reports</h3>
@@ -207,7 +207,7 @@ sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class=
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">'Position (bp from TSS)'</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">'Signal'</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">'Human H3K4me3 signal near transcription starts sites'</span>) +
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="README-plot-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="img/overview-plot-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="interval-statistics" class="section level3">
 <h3>Interval statistics</h3>
@@ -239,7 +239,7 @@ shuffled &lt;-<span class="st"> </span><span class="kw">replicate</span>(n, <spa
 <h2>Benchmarks</h2>
 <p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis.</p>
 <p>This graph illustrates the timing of functions in <code>valr</code> for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.</p>
-<p><img src="README-plot_benchmark-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="img/overview-plot_benchmark-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
   </div>
 
