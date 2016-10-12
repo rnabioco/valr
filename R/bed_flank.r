@@ -26,7 +26,7 @@
 #' 
 #' genome <- tibble::tribble(
 #'   ~chrom, ~size,
-#'   'chr1',      125
+#'   'chr1', 130
 #' )
 #' 
 #' bed_glyph(bed_flank(x, genome, both = 20))

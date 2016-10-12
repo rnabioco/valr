@@ -65,7 +65,7 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
   # like bed_map that do not take a suffix and call intersect internally. However because `.x`
   # is the intersect default, it should usually work.
   suffix_default <- '.x'
-  out_cols <- bind_cols(out_cols, select(res, ends_with(suffix_default)))
+  out_cols <- bind_cols(out_cols, select(res, ends_with(stringr::fixed(suffix_default))))
  
   # get any named columns from the expr
   expr_names <- names(expr)
@@ -75,7 +75,7 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
   if (!purrr::is_empty(expr_names)) out_cols <- bind_cols(out_cols, select(res, starts_with(expr_names)))
  
   # get dot cols from result e.g. `.overlap`
-  out_cols <- bind_cols(out_cols, select(res, starts_with('.')))
+  out_cols <- bind_cols(out_cols, select(res, starts_with(stringr::fixed('.'))))
  
   # strip suffixes from names, assumes suffixes are dot-character, `.x`
   names_strip <- stringr::str_replace(names(out_cols), '\\.[:alnum:]$', '') 
@@ -83,11 +83,15 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
 
   res <- out_cols
   res <- mutate(res, .facet = res_name)
- 
+
+  # these are the equivalent of the `x` and `y` formals, except are the names
+  # of the args in the quoted call. 
+  expr_vars <- all.vars(expr)
+  
   # this fetches the `x` and `y` rows from the environment 
   for (i in 1:nargs) {
     env_i <- get(args_req[i], env)
-    rows <- mutate(env_i, .facet = args_req[i])
+    rows <- mutate(env_i, .facet = expr_vars[i])
     res <- bind_rows(res, rows)
   } 
 
@@ -98,7 +102,7 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
   res <- ungroup(res)
   
   # make res_name col last
-  fct_names <- c(args_req, res_name)
+  fct_names <- c(expr_vars, res_name)
   res <- mutate(res, .facet = factor(.facet, levels = fct_names))
 
   # plotting ------------------------------------------------------- 
