@@ -40,7 +40,7 @@
       <h1><code>valr</code> overview</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-10-11</h4>
+            <h4 class="date">2016-10-12</h4>
           </div>
 
     
@@ -77,20 +77,20 @@ intergenic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/
 nearby &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)
 
 <span class="kw">filter</span>(nearby, .distance &lt;<span class="st"> </span><span class="dv">5000</span>)
-<span class="co">#&gt; # A tibble: 406,470 &times; 13</span>
+<span class="co">#&gt; # A tibble: 20,309 &times; 13</span>
 <span class="co">#&gt;    chrom  start.x    end.x      name.x score.x strand.x  start.y    end.y</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;       &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1  chr22 16145264 16145265 rs565364174       0        + 16150259 16193004</span>
-<span class="co">#&gt; 2  chr22 16145334 16145335 rs539130133       0        + 16150259 16193004</span>
-<span class="co">#&gt; 3  chr22 16145648 16145649    rs915679       0        + 16150259 16193004</span>
-<span class="co">#&gt; 4  chr22 16145722 16145723 rs568209521       0        + 16150259 16193004</span>
-<span class="co">#&gt; 5  chr22 16146016 16146017 rs547321799       0        + 16150259 16193004</span>
-<span class="co">#&gt; 6  chr22 16146770 16146771   rs2878180       0        + 16150259 16193004</span>
-<span class="co">#&gt; 7  chr22 16147276 16147277 rs370591997       0        + 16150259 16193004</span>
-<span class="co">#&gt; 8  chr22 16147635 16147636 rs558517239       0        + 16150259 16193004</span>
-<span class="co">#&gt; 9  chr22 16147742 16147743 rs547210644       0        + 16150259 16193004</span>
-<span class="co">#&gt; 10 chr22 16147807 16147808 rs559175190       0        + 16150259 16193004</span>
-<span class="co">#&gt; # ... with 406,460 more rows, and 5 more variables: name.y &lt;chr&gt;,</span>
+<span class="co">#&gt; 1  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 2  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 3  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 4  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 5  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 6  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; 7  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; 8  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; 9  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; 10 chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; # ... with 20,299 more rows, and 5 more variables: name.y &lt;chr&gt;,</span>
 <span class="co">#&gt; #   score.y &lt;chr&gt;, strand.y &lt;chr&gt;, .overlap &lt;int&gt;, .distance &lt;int&gt;</span></code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
@@ -109,7 +109,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 )
 
 <span class="kw"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y))</code></pre></div>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="README-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
   ~chrom, ~start, ~end,
@@ -119,7 +119,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 )
 
 <span class="kw"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="../reference/bed_merge.html">bed_merge</a></span>(x))</code></pre></div>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-merge_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="README-merge_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div id="reproducible-reports" class="section level3">
 <h3>Reproducible reports</h3>
@@ -132,7 +132,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># calculate the mean of column 6 for intervals in `b` that overlap with `a`</span>
 <span class="kw">bedtools</span> map -a a.bed -b b.bed -c 6 -o mean</code></pre></div>
 <p>In <code>valr</code>, columns are referred to by name and can be used in multiple name/value expressions for summaries.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the mean and variance for the `value` column</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the mean and variance for a `value` column</span>
 <span class="kw"><a href="../reference/bed_map.html">bed_map</a></span>(a, b, <span class="dt">mean =</span> <span class="kw">mean</span>(value), <span class="dt">var =</span> <span class="kw">var</span>(value))
 
 <span class="co"># report concatenated and max values for merged intervals</span>
@@ -145,8 +145,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 <h3>Meta-analysis</h3>
 <p>This demonstration illustrates how to use <code>valr</code> tools to perform a &ldquo;meta-analysis&rdquo; of signals relative to genomic features. Here we to analyze the distribution of histone marks surrounding transcription start sites.</p>
 <p>First we load libraries and relevant data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># `valr_example()` identifies the path of example files</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># `valr_example()` identifies the path of example files</span>
 bedfile &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>)
 genomefile &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>)
 bgfile  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hela.h3k4.chip.bg.gz'</span>)
@@ -188,10 +187,12 @@ x
 <span class="co">#&gt; 9  chr22 16161465 16161515 LINC00516     3      +      9</span>
 <span class="co">#&gt; 10 chr22 16161515 16161565 LINC00516     3      +     10</span>
 <span class="co">#&gt; # ... with 13,520 more rows</span></code></pre></div>
-<p>Note that the data are now grouped by <code>win_id</code>. This grouping is used below with <code><a href="../reference/bed_map.html">bed_map()</a></code> to caluclate summary statistics identified by mapping <code>y</code> signals onto the intervals in <code>x</code>.</p>
+<p>Note that the data are now grouped by <code>win_id</code>. This grouping is used below with <code><a href="../reference/bed_map.html">bed_map()</a></code> to caluclate summary statistics identified by mapping <code>y</code> signals onto the intervals in <code>x</code>. Note that <code>x</code> intervals with no <code>y</code> overlaps have values of <code>NA</code>, so <code>na.rm = TRUE</code> must be used during computation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># map signals to TSS regions and calculate summary statistics.</span>
-res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_map.html">bed_map</a></span>(x, y, <span class="dt">win_sum =</span> <span class="kw">sum</span>(value.y)) %&gt;%
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">win_mean =</span> <span class="kw">mean</span>(win_sum), <span class="dt">win_sd =</span> <span class="kw">sd</span>(win_sum))</code></pre></div>
+res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_map.html">bed_map</a></span>(x, y, <span class="dt">win_sum =</span> <span class="kw">sum</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(win_id) %&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">win_mean =</span> <span class="kw">mean</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">win_sd =</span> <span class="kw">sd</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
 <p>Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 
@@ -200,13 +201,13 @@ x_breaks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="
 
 sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class="dt">ymax =</span> win_mean +<span class="st"> </span>win_sd, <span class="dt">ymin =</span> win_mean -<span class="st"> </span>win_sd)
 
-<span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x =</span> win_id.x, <span class="dt">y =</span> win_mean)) +
+<span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x =</span> win_id, <span class="dt">y =</span> win_mean)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_pointrange</span>(sd_limits) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> x_labels, <span class="dt">breaks =</span> x_breaks) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">'Position (bp from TSS)'</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">'Signal'</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">'Human H3K4me3 signal near transcription starts sites'</span>) +
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-plot-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="README-plot-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="interval-statistics" class="section level3">
 <h3>Interval statistics</h3>
@@ -220,7 +221,7 @@ sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class=
 <span class="kw">library</span>(tidyr)
 
 exons &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)
-<span class="co"># alus &lt;- read_bed(valr_example('hg19.alus.chr22.bed.gz')) </span>
+<span class="co"># repeats &lt;- read_bed(valr_example('hg19.rmsk.chr22.bed.gz')) </span>
 genome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
 
 n &lt;-<span class="st"> </span><span class="dv">100</span>
@@ -238,7 +239,7 @@ shuffled &lt;-<span class="st"> </span><span class="kw">replicate</span>(n, <spa
 <h2>Benchmarks</h2>
 <p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis.</p>
 <p>This graph illustrates the timing of functions in <code>valr</code> for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.</p>
-<p><img src="/Users/jayhesselberth/devel/valr/vignettes/README-plot_benchmark-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="README-plot_benchmark-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
   </div>
 
