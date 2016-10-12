@@ -7,8 +7,14 @@
 
 ## R CMD check results
 
+* on windows
+
+  Status: OK
+  0 errors | 0 warnings | 0 notes
+  
 * on OS X 
 
+  Status: OK
   0 errors | 0 warnings | 0 notes
   
 * on ubuntu
@@ -19,8 +25,8 @@
   sub-directories of 1Mb or more:
     libs   9.7Mb
 
-  This package uses Rcpp which creates a large shared library on linux.
-  This note is not present on OS X.
+  This package uses Rcpp, which creates a large shared library on linux.
+  This note is not present on OS X or windows.
   
 * This is a new release.
 
