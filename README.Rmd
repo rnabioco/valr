@@ -1,25 +1,23 @@
 ---
-title: '`valr` overview'
-author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
-date: '`r Sys.Date()`'
-output:
-  rmarkdown::html_vignette:
-    vignette: >
-      %\VignetteIndexEntry{valr-overview}
-      %\VignetteEngine{knitr::rmarkdown}
-      %\VignetteEncoding{UTF-8}
+output: github_document
 ---
 
-```{r knitr_opts, echo = FALSE}
+```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "img/overview-",
-  fig.height = 3,
-  fig.align = "center",
-  fig.width = 4
+  fig.path = "README-"
 )
 ```
+
+# valr
+
+[![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr)
+[![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr)
+[![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip)
+[![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
+
 
 `valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][5]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][3]. 
 
@@ -34,7 +32,7 @@ devtools::install_github('jayhesselberth/valr')
 
 ## Why `valr`?
 
-**Why another tool set for interval manipulations?** We already have [BEDtools][1], [bedops][8], [pybedtools][7], [GenomicRanges][9], [bedr][11] and [IRanges][12]. 
+**Why another tool set for interval manipulations?** We already have [BEDtools][1], [bedops][5], [pybedtools][4], [GenomicRanges][6], [bedr][7] and [IRanges][8]. 
 
 We were motivated to develop a toolset that:
 
@@ -103,7 +101,7 @@ bed_glyph(bed_merge(x))
 
 `valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast (see the [benchmarks](#benchmarks)), we think it will be a go-to tool for exploratory genome analysis in R.
 
-Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`][19]), but it is cumbersome to move from these command-line tools to doing exploratory statistics and plotting. `pybedtools` can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach][18], including clunky version control. Because RMarkdown files are just text files, they are readily kept under version control. Moreover, new features in RStudio (notebook viewing) enable similar functionality to `ipython`.
+Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`][12]), but it is cumbersome to move from these command-line tools to doing exploratory statistics and plotting. `pybedtools` can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach][11], including clunky version control. Because RMarkdown files are just text files, they are readily kept under version control. Moreover, new features in RStudio (notebook viewing) enable similar functionality to `ipython`.
 
 ### Column specification
 
@@ -252,24 +250,74 @@ ggplot(ts, aes(y=reorder(expr, ntime), x=ntime)) +
   xlab('execution time (seconds)') + ylab('') +
   theme_bw()
 ```
+ 
+## API
 
+Function names are similar to their their [BEDtools][1] counterparts, with some additions.
+
+### Reading data
+
+* BED and related files are read with `read_bed()`, `read_bed12()`, `read_bedgraph()`, `read_narrowpeak()` and `read_broadpeak()`.
+  
+* Genome files containing chromosome name and size information are loaded with `read_genome()`.
+  
+* VCF files are loaded with `read_vcf()`.
+
+### Transforming single interval sets
+
+* Intervals are ordered with `bed_sort()`.
+
+* Interval coordinates are adjusted with `bed_slop()` and `bed_shift()`, and new flanking intervals are created with `bed_flank()`.
+
+* Nearby intervals are combined with `bed_merge()` and identified (but not merged) with `bed_cluster()`.  
+
+* Intervals not covered by a query are created with `bed_complement()`.
+
+### Comparing multiple interval sets
+
+* Find overlaps between two sets of intervals with `bed_intersect()`.
+
+* Apply functions to selected columns for overlapping intervals with `bed_map()`.
+
+* Remove intervals based on overlaps between two files with `bed_subtract()`.
+
+* Find overlapping intervals within a window with `bed_window()`.
+
+* Find the closest intervals independent of overlaps with `bed_closest()`.
+
+### Randomizing intervals
+
+* Generate random intervals from an input genome with `bed_random()`.
+
+* Shuffle the coordinates of input intervals with `bed_shuffle()`.
+
+* Random sampling of input intervals is done with the `sample_` function family in `dplyr`.
+
+### Interval statistics
+
+* Quantify overlaps between two sets of intervals with `bed_fisher()`.
+
+* Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
+
+* Quantify extent of overlap between two sets of intervals with `bed_jaccard()`.
+
+## Related work
+
+* Command-line tools [BEDtools][1] and [bedops][5].
+
+* The Python library [pybedtools][4] wraps BEDtools.
+
+* The R packages [GenomicRanges][6], [bedr][7], [IRanges][8] and [GenometriCorr][9] provide similar capability with a different philosophy.
 
 [1]: http://bedtools.readthedocs.org/en/latest/
-[2]: https://github.com/arq5x/chrom_sweep
-[3]: https://github.com/hadley/dplyr
-[4]: https://cran.r-project.org/web/packages/dplyr/vignettes/nse.html
-[5]: http://www.rcpp.org/
-[6]: https://github.com/hadley/readr
-[7]: https://pythonhosted.org/pybedtools/
-[8]: http://bedops.readthedocs.org/en/latest/index.html
-[9]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
-[10]: http://shiny.rstudio.com/
-[11]: https://cran.r-project.org/web/packages/bedr/index.html
-[12]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
-[13]: http://bedtools.readthedocs.io/en/latest/#performance
-[14]: https://github.com/jayhesselberth/valr/tree/master/src
-[15]: https://rcppcore.github.io/RcppParallel/
-[16]: https://github.com/ekg/intervaltree/
-[17]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
-[18]: https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/
-[19]: https://bitbucket.org/snakemake/snakemake/wiki/Home
+[2]: https://github.com/hadley/dplyr
+[3]: http://www.rcpp.org/
+[4]: https://pythonhosted.org/pybedtools/
+[5]: http://bedops.readthedocs.org/en/latest/index.html
+[6]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
+[7]: https://cran.r-project.org/web/packages/bedr/index.html
+[8]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
+[9]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
+[10]: http://rmarkdown.rstudio.com/
+[11]: https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/
+[12]: https://bitbucket.org/snakemake/snakemake/wiki/Home
