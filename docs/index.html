@@ -53,16 +53,25 @@
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="articles/valr-overview.html">Overview</a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="articles/valr-functions.html">Functions</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
-    <span class="fa fa-github"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -78,13 +87,188 @@
     
 <h1 id="valr">valr</h1>
 <p><a href="https://travis-ci.org/jayhesselberth/valr"><img src="https://travis-ci.org/jayhesselberth/valr.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/github/jayhesselberth/valr?branch=master"><img src="https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg" alt="Coverage Status"></a> <a href="https://ci.appveyor.com/project/jayhesselberth/valr"><img src="https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/0.1.0/wip.svg" alt="Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a> <a href="http://www.r-pkg.org/pkg/valr"><img src="http://www.r-pkg.org/badges/version/valr"></a></p>
-<p><code>valr</code> provides tools for fast, exploratory analysis of large biological data sets <strong>within R/RStudio</strong>. <code>valr</code> was developed from a desire to teach the powerful concepts of genome interval arithmetic, but without the cumbersome back-and-forth between command-line and exploratory analysis tools.</p>
-<p>Key parts of <code>valr</code> are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a> for speed. Moreover, <code>valr</code> integrates with <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a> and the <code>magrittr</code> pipe operator (<code>%&gt;%</code>) for an expressive syntax and can be used in reproducible reports written in <a href="http://rmarkdown.rstudio.com/"><code>RMarkdown</code></a>.</p>
-<p>See the <a href="http://jayhesselberth.github.io/valr"><code>valr</code> documentation</a> for a complete API reference and examples.</p>
+<p><code>valr</code> provides tools to read and manipulate genome intervals and signals, similar to the standalone <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://bedops.readthedocs.org/en/latest/index.html"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="http://www.rcpp.org/"><code>dplyr</code></a>.</p>
 <h2 id="installation">Installation</h2>
-<p><code>valr</code> can be installed from github:</p>
+<p><code>valr</code> can be installed from github, and will be eventually deposited in CRAN.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 devtools::<span class="kw">install_github</span>(<span class="st">'jayhesselberth/valr'</span>)</code></pre></div>
+<h2 id="why-valr">Why <code>valr</code>?</h2>
+<p><strong>Why another tool set for interval manipulations?</strong> We already have <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a>, <a href="http://bedops.readthedocs.org/en/latest/index.html">bedops</a>, <a href="https://pythonhosted.org/pybedtools/">pybedtools</a>, <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a>, <a href="https://cran.r-project.org/web/packages/bedr/index.html">bedr</a> and <a href="https://bioconductor.org/packages/release/bioc/html/IRanges.html">IRanges</a>.</p>
+<p>We were motivated to develop a toolset that:</p>
+<ul>
+<li>Combines analysis and visualization in RStudio.</li>
+<li>Can be used to generate reports with Rmarkdown.</li>
+<li>Is highly extensible. New tools are quickly implemented on the R side.</li>
+<li>Leverages the &ldquo;modern R&rdquo; syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code>%&gt;%</code>).</li>
+<li>Maximizes speed by implementing compute-intensive algorithms in <code>Rcpp</code>.</li>
+<li>Facilitates interactive visulaizations with <a href="http://rmarkdown.rstudio.com/"><code>shiny</code></a>.</li>
+</ul>
+<p><code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
+<h3 id="familiar-tools-all-within-r">Familiar tools, all within R</h3>
+<p>The functions in <code>valr</code> have similar names to their <code>BEDtools</code> counterparts, and so will be familiar to users coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools"><code>pybedtools</code></a>, <code>valr</code> has a terse syntax:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
+<span class="kw">library</span>(dplyr)
+
+snps &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)
+genes &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)
+
+<span class="co"># distance from intergenic snps to nearest gene</span>
+intergenic &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_subtract.html">bed_subtract</a></span>(snps, genes)
+nearby &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)
+
+<span class="kw">filter</span>(nearby, .distance &lt;<span class="st"> </span><span class="dv">5000</span>)
+<span class="co">#&gt; # A tibble: 20,309 &times; 13</span>
+<span class="co">#&gt;    chrom  start.x    end.x      name.x score.x strand.x  start.y    end.y</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;       &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 2  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 3  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 4  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 5  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004</span>
+<span class="co">#&gt; 6  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; 7  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; 8  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; 9  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; 10 chr22 16212571 16212572 rs569921884       0        + 16150259 16193004</span>
+<span class="co">#&gt; # ... with 20,299 more rows, and 5 more variables: name.y &lt;chr&gt;,</span>
+<span class="co">#&gt; #   score.y &lt;chr&gt;, strand.y &lt;chr&gt;, .overlap &lt;int&gt;, .distance &lt;int&gt;</span></code></pre></div>
+<h3 id="visual-documentation">Visual documentation</h3>
+<p>We provide glyphs that illustrate the results of specific operations in <code>valr</code>, similar to those found in the <code>BEDtools</code> documentation.</p>
+<p>This glyph shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
+  ~chrom, ~start, ~end,
+  <span class="st">'chr1'</span>, <span class="dv">25</span>,     <span class="dv">50</span>,
+  <span class="st">'chr1'</span>, <span class="dv">100</span>,    <span class="dv">125</span>
+)
+
+y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
+  ~chrom, ~start, ~end,
+  <span class="st">'chr1'</span>, <span class="dv">30</span>,     <span class="dv">75</span>
+)
+
+<span class="kw"><a href="reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="reference/bed_intersect.html">bed_intersect</a></span>(x, y))</code></pre></div>
+<p><img src="img/README-intersect_glyph-1.png"></p>
+<p>And this glyph illustrates <code><a href="reference/bed_merge.html">bed_merge()</a></code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
+  ~chrom, ~start, ~end,
+  <span class="st">'chr1'</span>,      <span class="dv">1</span>,      <span class="dv">50</span>,
+  <span class="st">'chr1'</span>,      <span class="dv">10</span>,     <span class="dv">75</span>,
+  <span class="st">'chr1'</span>,      <span class="dv">100</span>,    <span class="dv">120</span>
+)
+
+<span class="kw"><a href="reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="reference/bed_merge.html">bed_merge</a></span>(x))</code></pre></div>
+<p><img src="img/README-merge_glyph-1.png"></p>
+<h3 id="reproducible-reports">Reproducible reports</h3>
+<p><code>valr</code> can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because <code>valr</code> is reasonably fast (see the <a href="#benchmarks">benchmarks</a>), we think it will be a go-to tool for exploratory genome analysis in R.</p>
+<p>Command-line tools like <code>BEDtools</code> and <code>bedops</code> can be used in reproducible workflows (e.g., with <a href="https://bitbucket.org/snakemake/snakemake/wiki/Home"><code>snakemake</code></a>), but it is cumbersome to move from these command-line tools to doing exploratory statistics and plotting. <code>pybedtools</code> can be used within <code>ipython notebooks</code> to accomplish a similar goal, but others have pointed out <a href="https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/">issues with this approach</a>, including clunky version control. Because RMarkdown files are just text files, they are readily kept under version control. Moreover, new features in RStudio (notebook viewing) enable similar functionality to <code>ipython</code>.</p>
+<h3 id="column-specification">Column specification</h3>
+<p>Columns in <code>BEDtools</code> are referred to by position:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># calculate the mean of column 6 for intervals in `b` that overlap with `a`</span>
+<span class="kw">bedtools</span> map -a a.bed -b b.bed -c 6 -o mean</code></pre></div>
+<p>In <code>valr</code>, columns are referred to by name and can be used in multiple name/value expressions for summaries.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the mean and variance for a `value` column</span>
+<span class="kw"><a href="reference/bed_map.html">bed_map</a></span>(a, b, <span class="dt">mean =</span> <span class="kw">mean</span>(value), <span class="dt">var =</span> <span class="kw">var</span>(value))
+
+<span class="co"># report concatenated and max values for merged intervals</span>
+<span class="kw"><a href="reference/bed_merge.html">bed_merge</a></span>(a, <span class="dt">concat =</span> <span class="kw"><a href="reference/bed_map.html">concat</a></span>(value), <span class="dt">max =</span> <span class="kw">max</span>(value))</code></pre></div>
+<h2 id="getting-started">Getting started</h2>
+<h3 id="meta-analysis">Meta-analysis</h3>
+<p>This demonstration illustrates how to use <code>valr</code> tools to perform a &ldquo;meta-analysis&rdquo; of signals relative to genomic features. Here we to analyze the distribution of histone marks surrounding transcription start sites.</p>
+<p>First we load libraries and relevant data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># `valr_example()` identifies the path of example files</span>
+bedfile &lt;-<span class="st"> </span><span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>)
+genomefile &lt;-<span class="st"> </span><span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>)
+bgfile  &lt;-<span class="st"> </span><span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hela.h3k4.chip.bg.gz'</span>)
+
+genes &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(bedfile, <span class="dt">n_fields =</span> <span class="dv">6</span>)
+genome &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_genome.html">read_genome</a></span>(genomefile)
+y &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bedgraph</a></span>(bgfile)</code></pre></div>
+<p>Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on <code>+</code> strand genes, but <code>-</code> genes are easily accomodated by filtering them and using <code><a href="reference/bed_makewindows.html">bed_makewindows()</a></code> with <code>reverse</code>d window numbers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate 1 bp TSS intervals, `+` strand only</span>
+tss &lt;-<span class="st"> </span>genes %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(strand ==<span class="st"> '+'</span>) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">end =</span> start +<span class="st"> </span><span class="dv">1</span>)
+
+<span class="co"># 1000 bp up and downstream</span>
+region_size &lt;-<span class="st"> </span><span class="dv">1000</span>
+<span class="co"># 50 bp windows</span>
+win_size &lt;-<span class="st"> </span><span class="dv">50</span>
+
+<span class="co"># add slop to the TSS, break into windows and add a group</span>
+x &lt;-<span class="st"> </span>tss %&gt;%
+<span class="st">  </span><span class="kw"><a href="reference/bed_slop.html">bed_slop</a></span>(genome, <span class="dt">both =</span> region_size) %&gt;%
+<span class="st">  </span><span class="kw"><a href="reference/bed_makewindows.html">bed_makewindows</a></span>(genome, win_size) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(win_id)
+
+x
+<span class="co">#&gt; Source: local data frame [13,530 x 7]</span>
+<span class="co">#&gt; Groups: win_id [41]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    chrom    start      end      name score strand win_id</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  chr22 16161065 16161115 LINC00516     3      +      1</span>
+<span class="co">#&gt; 2  chr22 16161115 16161165 LINC00516     3      +      2</span>
+<span class="co">#&gt; 3  chr22 16161165 16161215 LINC00516     3      +      3</span>
+<span class="co">#&gt; 4  chr22 16161215 16161265 LINC00516     3      +      4</span>
+<span class="co">#&gt; 5  chr22 16161265 16161315 LINC00516     3      +      5</span>
+<span class="co">#&gt; 6  chr22 16161315 16161365 LINC00516     3      +      6</span>
+<span class="co">#&gt; 7  chr22 16161365 16161415 LINC00516     3      +      7</span>
+<span class="co">#&gt; 8  chr22 16161415 16161465 LINC00516     3      +      8</span>
+<span class="co">#&gt; 9  chr22 16161465 16161515 LINC00516     3      +      9</span>
+<span class="co">#&gt; 10 chr22 16161515 16161565 LINC00516     3      +     10</span>
+<span class="co">#&gt; # ... with 13,520 more rows</span></code></pre></div>
+<p>Note that the data are now grouped by <code>win_id</code>. This grouping is used below with <code><a href="reference/bed_map.html">bed_map()</a></code> to caluclate summary statistics identified by mapping <code>y</code> signals onto the intervals in <code>x</code>. Note that <code>x</code> intervals with no <code>y</code> overlaps have values of <code>NA</code>, so <code>na.rm = TRUE</code> must be used during computation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># map signals to TSS regions and calculate summary statistics.</span>
+res &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_map.html">bed_map</a></span>(x, y, <span class="dt">win_sum =</span> <span class="kw">sum</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(win_id) %&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">win_mean =</span> <span class="kw">mean</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+            <span class="dt">win_sd =</span> <span class="kw">sd</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<p>Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+
+x_labels &lt;-<span class="st"> </span><span class="kw">seq</span>(-region_size, region_size, <span class="dt">by =</span> win_size *<span class="st"> </span><span class="dv">5</span>)
+x_breaks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">41</span>, <span class="dt">by =</span> <span class="dv">5</span>)
+
+sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class="dt">ymax =</span> win_mean +<span class="st"> </span>win_sd, <span class="dt">ymin =</span> win_mean -<span class="st"> </span>win_sd)
+
+<span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x =</span> win_id, <span class="dt">y =</span> win_mean)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_pointrange</span>(sd_limits) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> x_labels, <span class="dt">breaks =</span> x_breaks) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">'Position (bp from TSS)'</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">'Signal'</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">'Human H3K4me3 signal near transcription starts sites'</span>) +
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="img/README-plot-1.png" style="display: block; margin: auto;"></p>
+<h3 id="interval-statistics">Interval statistics</h3>
+<p>Estimates of significance for interval overlaps can be obtained by combining <code><a href="reference/bed_shuffle.html">bed_shuffle()</a></code>, <code><a href="reference/bed_random.html">bed_random()</a></code> and the <code>sample_</code> functions from <code>dplyr</code> with interval statistics in <code>valr</code>.</p>
+<p>Note that the interval statistics have somewhat different use cases:</p>
+<ul>
+<li>
+<code><a href="reference/bed_jaccard.html">bed_jaccard()</a></code> is used to assess the degree of overlap for <em>already overlapping</em> intervals.</li>
+<li>
+<code><a href="reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="reference/bed_absdist.html">bed_absdist()</a></code> assess whether two sets of intervals tend to be clustered, independent of overlaps.</li>
+</ul>
+<p>Here we calculate a distribution of relative distances by shuffling <code>y</code> intervals compared to <code>x</code>. Specifically we will examine spatial distribution of exons compared to repetitive Alu elements in the human genome.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(purrr)
+<span class="kw">library</span>(stringr)
+<span class="kw">library</span>(tidyr)
+
+exons &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)
+<span class="co"># repeats &lt;- read_bed(valr_example('hg19.rmsk.chr22.bed.gz')) </span>
+genome &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
+
+n &lt;-<span class="st"> </span><span class="dv">100</span>
+shuffled &lt;-<span class="st"> </span><span class="kw">replicate</span>(n, <span class="kw"><a href="reference/bed_shuffle.html">bed_shuffle</a></span>(exons, genome), <span class="ot">FALSE</span>) %&gt;%
+<span class="st">  </span><span class="kw">transpose</span>() %&gt;%
+<span class="st">  </span><span class="kw">as_data_frame</span>() %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rep =</span> <span class="dv">1</span>:n) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(rep) %&gt;%
+<span class="st">  </span><span class="kw">nest</span>()
+
+<span class="co"># shuffled %&gt;% mutate(jaccard = map(data, lift(bed_jaccard)))</span></code></pre></div>
+<h2 id="benchmarks">Benchmarks</h2>
+<p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis.</p>
+<p>This graph illustrates the timing of functions in <code>valr</code> for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.</p>
+<p><img src="img/README-plot_benchmark-1.png"></p>
 <h2 id="api">API</h2>
 <p>Function names are similar to their their <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a> counterparts, with some additions.</p>
 <h3 id="reading-data">Reading data</h3>
@@ -114,7 +298,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">'jayhesselbert
 <li><p>Shuffle the coordinates of input intervals with <code><a href="reference/bed_shuffle.html">bed_shuffle()</a></code>.</p></li>
 <li><p>Random sampling of input intervals is done with the <code>sample_</code> function family in <code>dplyr</code>.</p></li>
 </ul>
-<h3 id="interval-statistics">Interval statistics</h3>
+<h3 id="interval-statistics-1">Interval statistics</h3>
 <ul>
 <li><p>Quantify overlaps between two sets of intervals with <code><a href="reference/bed_fisher.html">bed_fisher()</a></code>.</p></li>
 <li><p>Quantify relative and absolute distances between sets of intervals with <code><a href="reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="reference/bed_absdist.html">bed_absdist()</a></code>.</p></li>

@@ -86,7 +86,7 @@ y <- tibble::tribble(
 bed_glyph(bed_intersect(x, y))
 ```
 
-![](README-intersect_glyph-1.png)
+![](img/README-intersect_glyph-1.png)
 
 And this glyph illustrates `bed_merge()`:
 
@@ -101,7 +101,7 @@ x <- tibble::tribble(
 bed_glyph(bed_merge(x))
 ```
 
-![](README-merge_glyph-1.png)
+![](img/README-merge_glyph-1.png)
 
 ### Reproducible reports
 
@@ -214,7 +214,7 @@ ggplot(res, aes(x = win_id, y = win_mean)) +
   theme_bw()
 ```
 
-<img src="README-plot-1.png" style="display: block; margin: auto;" />
+<img src="img/README-plot-1.png" style="display: block; margin: auto;" />
 
 ### Interval statistics
 
@@ -254,7 +254,7 @@ Certain algorithms in `valr` were implemented in `Rcpp` to enable fluid interact
 
 This graph illustrates the timing of functions in `valr` for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.
 
-![](README-plot_benchmark-1.png)
+![](img/README-plot_benchmark-1.png)
 
 API
 ---
