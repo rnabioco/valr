@@ -5,20 +5,18 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
                      std::vector<int>& overlap_sizes, std::vector<int>& distance_sizes) {
   
   intervalTree tree_y(vy) ;
-  intervalVector closest ; 
   
-  std::pair<int, intervalVector> min_dist_l, min_dist_r ;
+  std::pair<int, intervalVector> min_dist;
   // initiatialize maximum left and right distances to minimize for closest
   int max_end = std::max(vx.back().stop, vy.back().stop) ;
-  // initialize interval type as placeholder for pair generation
-  intervalVector closest_ivls ;
   
   intervalVector::const_iterator vx_it ;
   for(vx_it = vx.begin(); vx_it != vx.end(); ++vx_it ) {
-
-    min_dist_l = std::make_pair(max_end, closest_ivls) ;
-    min_dist_r = std::make_pair(max_end, closest_ivls) ;
-    tree_y.findClosest(vx_it->start, vx_it->stop, closest, min_dist_l, min_dist_r) ;
+    intervalVector closest ;
+    intervalVector closest_ivls ; 
+    
+    min_dist = std::make_pair(max_end, closest_ivls) ;
+    tree_y.findClosest(vx_it->start, vx_it->stop, closest, min_dist) ;
     
     intervalVector::const_iterator ov_it ;
     for(ov_it = closest.begin(); ov_it != closest.end(); ++ov_it ) {
