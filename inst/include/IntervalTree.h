@@ -231,11 +231,7 @@ public:
   }
   
   void findClosest(K start, K stop, intervalVector&  closest, 
-                   std::pair<int, intervalVector>& min_dist_l, 
-                   std::pair<int, intervalVector>& min_dist_r) const {
-    
-    int min_node_dist_l = min_dist_l.first ;
-    int min_node_dist_r = min_dist_r.first ;
+                   std::pair<int, intervalVector>& min_dist) const {
     
     if (!intervals.empty() && ! (stop < intervals.front().start)) {
       for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
@@ -246,73 +242,61 @@ public:
           // finddistance on left
           int ivl_dist_l = interval.start - stop ;
           // if smaller than best min dist found update pair with dist and intervals
-          if (ivl_dist_l < min_node_dist_l) {
-            min_node_dist_l = ivl_dist_l;
-            min_dist_l.first = min_node_dist_l ; 
-            min_dist_l.second.clear() ; 
-            min_dist_l.second.push_back(interval) ;
-          } else if (ivl_dist_l == min_node_dist_l) {
+          if (ivl_dist_l < min_dist.first) {
+            min_dist.first = ivl_dist_l ; 
+            min_dist.second.clear() ; 
+            min_dist.second.push_back(interval) ;
+          } else if (ivl_dist_l == min_dist.first) {
            // if same dist append intervals
-           min_dist_l.second.push_back(interval) ;
+           min_dist.second.push_back(interval) ;
           }
         } else if (start > interval.stop) {
           // find distance on right
           int ivl_dist_r = start - interval.stop ;
           // if smaller than best min dist found update pair with dist and intervals
-          if (ivl_dist_r < min_node_dist_r) {
-            min_node_dist_r = ivl_dist_r;
-            min_dist_r.first = min_node_dist_r ; 
-            min_dist_r.second.clear() ; 
-            min_dist_r.second.push_back(interval) ;
-          } else if (ivl_dist_r == min_node_dist_r) {
+          if (ivl_dist_r < min_dist.first) {
+            min_dist.first = ivl_dist_r ; 
+            min_dist.second.clear() ; 
+            min_dist.second.push_back(interval) ;
+          } else if (ivl_dist_r == min_dist.first) {
             // if same dist append interval
-            min_dist_r.second.push_back(interval) ;
+            min_dist.second.push_back(interval) ;
           }
         }
       }
-        
-        
-    }
-  
-    
-    if (left && start <= center) {
-     left->findClosest(start, stop,  closest, min_dist_l, min_dist_r);
-    }
-    
-    if (right && stop >= center) {
-      right->findClosest(start, stop,  closest, min_dist_l, min_dist_r);
-    }  
-    
-    // handle edge case where remaining intervals 
-    // are stop < intervals.front().start
-    if (!intervals.empty()  && (stop < intervals.front().start)) {
+    }  else if (!intervals.empty()  && (stop < intervals.front().start)) {
       for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
         const interval& interval = *i;
-        if (stop < interval.start) {
+        if (interval.start > intervals.front().start){
+          continue ;
+        } else {
           // finddistance on left
           int ivl_dist_l = interval.start - stop ;
           // if smaller than best min dist found update pair with dist and intervals
-          if (ivl_dist_l < min_node_dist_l) {
-            min_node_dist_l = ivl_dist_l;
-            min_dist_l.first = min_node_dist_l ; 
-            min_dist_l.second.clear() ; 
-            min_dist_l.second.push_back(interval) ;
-          } else if (ivl_dist_l == min_node_dist_l) {
+          if (ivl_dist_l < min_dist.first) {
+            min_dist.first = ivl_dist_l;
+            min_dist.second.clear() ; 
+            min_dist.second.push_back(interval) ;
+          } else if (ivl_dist_l == min_dist.first) {
             // if same dist append intervals
-            min_dist_l.second.push_back(interval) ;
+            min_dist.second.push_back(interval) ;
           }
         } 
       }
     }
-    // Finally report all of the non-overlapping closest intervals
-
-    if (min_dist_l.first < min_dist_r.first ){
-      closest.insert(closest.end(), min_dist_l.second.begin(), min_dist_l.second.end())  ;
-    } else if (min_dist_l.first == min_dist_r.first) {
-      min_dist_l.second.insert(min_dist_l.second.end(), min_dist_r.second.begin(), min_dist_r.second.end()) ;
-      closest.insert(closest.end(), min_dist_l.second.begin(), min_dist_l.second.end())  ;
-    } else {
-      closest.insert(closest.end(), min_dist_r.second.begin(), min_dist_r.second.end())  ;
+  
+    
+    if (left && start <= center) {
+     left->findClosest(start, stop,  closest, min_dist);
+    }
+    
+    if (right && stop >= center) {
+      right->findClosest(start, stop,  closest, min_dist);
+    }  
+    
+    // Finally report all of the non-overlapping closest intervals, only if at a left_node 
+    if (!(right && left)) {
+      closest.insert(closest.end(), min_dist.second.begin(), min_dist.second.end())  ;
     }
   }
     ~IntervalTree(void) = default;

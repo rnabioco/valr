@@ -570,8 +570,8 @@ b2 <- tibble::tribble(
 test_that("Make sure non-overlapping ties are reported ", {
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.distance,
-    "chr1",      10,   20, "a1",       1,        "-",      21,    22,  "b2",      1,        "-",        0,       1,
-    "chr1",      10,   20, "a1",       1,        "-",      8,    9,  "b1",      1,        "+",        0,       -1
+    "chr1",      10,   20, "a1",       1,        "-",      8,    9,  "b1",      1,        "+",        0,       -1,
+    "chr1",      10,   20, "a1",       1,        "-",      21,    22,  "b2",      1,        "-",        0,       1
   ) 
   res <- bed_closest(a2, b2)
   expect_true(all(pred == res))
@@ -599,7 +599,35 @@ test_that("Make sure non-overlapping ties are reported with strand_opp = T ", {
 }
 )
 
+test_that("Make sure that closest intervals are captured when intervals span multiple interval tree nodes issue #105", {
+  # when the y tbl has >= 64 intervals two nodes of the interval tree will be generated
+  snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6, n_max = 10)
+  genes_one_node <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6, n_max = 63)
+  genes_two_nodes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6, n_max = 64)
+  
+  res_expt_one_node <- bed_closest(snps, genes_one_node)
+  res_expt_two_nodes <- bed_closest(snps, genes_two_nodes)
+  # adding one extra interval should not result in doubling the reported intervals
+  expect_false(nrow(res_expt_two_nodes) >= 2 * nrow(res_expt_one_node))           
+})
 
+test_that("test that a max of two duplicated x ivls are returned, assuming non-overlapping, and non-duplicate y ivls #105", {
+  # ed
+  snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6, n_max = 10)
+  genes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6, n_max = 64)
+  # make sure there are no repeated y ivls (otherwise more than 2 x ivls should be reported)
+  genes <- group_by(genes, chrom, start, end)
+  genes <- mutate(genes, ivl_count = n())
+  genes <- filter(genes, ivl_count == 1)
+  genes <- select(genes, -ivl_count)
+  genes <- group_by(genes, chrom)
+  
+  res <- bed_closest(snps, genes, overlap = FALSE)
+  res <- group_by(res, chrom, start.x, end.x) 
+  res <- summarize(res, n = n())
+  # there should not be more than 2 possible closest ivls. 
+  expect_true(all(res$n <= 2))
+})
 
 
 
