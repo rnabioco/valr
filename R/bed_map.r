@@ -46,8 +46,10 @@
 #' bed_map(x, y, min = min(value), max = max(value))
 #' 
 #' bed_map(x, y, concat(value))
-#' bed_map(x, y, first(value))
-#' bed_map(x, y, last(value))
+#' 
+#' # can also use `nth` family from dplyr
+#' bed_map(x, y, dplyr::first(value))
+#' bed_map(x, y, dplyr::last(value))
 #' 
 #' bed_map(x, y, absmax = abs(max(value)))
 #' bed_map(x, y, absmin = abs(min(value)))
@@ -126,16 +128,4 @@ values_unique <- function(.data, sep = ',') {
 #' @rdname bed_map
 values <- function(.data, sep = ',') {
   concat(rle(.data)$values, sep = sep)
-}
-
-#' @export
-#' @rdname bed_map
-first <- function(.data) {
-  head(.data, n = 1)
-}
-
-#' @export
-#' @rdname bed_map
-last <- function(.data) {
-  tail(.data, n = 1)
 }

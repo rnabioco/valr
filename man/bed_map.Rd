@@ -3,8 +3,6 @@
 \name{bed_map}
 \alias{bed_map}
 \alias{concat}
-\alias{first}
-\alias{last}
 \alias{values}
 \alias{values_unique}
 \title{Map signals over intervals.}
@@ -17,10 +15,6 @@ concat(.data, sep = ",")
 values_unique(.data, sep = ",")
 
 values(.data, sep = ",")
-
-first(.data)
-
-last(.data)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -85,8 +79,10 @@ bed_map(x, y, sum = sum(value))
 bed_map(x, y, min = min(value), max = max(value))
 
 bed_map(x, y, concat(value))
-bed_map(x, y, first(value))
-bed_map(x, y, last(value))
+
+# can also use `nth` family from dplyr
+bed_map(x, y, dplyr::first(value))
+bed_map(x, y, dplyr::last(value))
 
 bed_map(x, y, absmax = abs(max(value)))
 bed_map(x, y, absmin = abs(min(value)))
