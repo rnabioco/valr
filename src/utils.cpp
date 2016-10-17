@@ -46,19 +46,15 @@ bool compareDataFrameRows(DataFrame df_x, DataFrame df_y, int idx_x, int idx_y){
   DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(y_idx, "data.frame");
   
   int ncols = df_x.size() ; 
-  LogicalVector compare_values ;
+  bool cols_equal = false;
   for (int i = 0; i<ncols; i++){
     CharacterVector col_x = subset_x[i] ;
     CharacterVector col_y = subset_y[i] ;
-    bool equal_col = is_true(all(col_x == col_y)) ;
-    if (equal_col){
-      compare_values.push_back(equal_col) ;
-    } else {
-      compare_values.push_back(equal_col) ;
+    cols_equal = is_true(all(col_x == col_y)) ;
+    if (!cols_equal){
       break;
     }
   }
-  bool out = is_true(all(compare_values)) ;
-  return out ; 
+  return cols_equal ; 
 }
 
