@@ -73,10 +73,6 @@ bed_sort <- function(x, by_size = FALSE,
     } 
   } 
  
-  # remove groups in result 
-  res <- ungroup(res) 
-  res <- tibble::as_tibble(res)
- 
   # add `sorted` attribute 
   attr(res, "sorted") <- TRUE
   
