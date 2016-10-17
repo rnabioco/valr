@@ -32,8 +32,14 @@ test_that("x/y groupings are respected", {
     "chr2", 250, 500, 500, 3
   ) %>% group_by(id)
   
+  pred <- tibble::tribble(
+    ~chrom, ~start, ~end, ~id, ~vals,
+    "chr1", 100, 250, 1,  10,
+    "chr2", 250, 500, 3,  500,
+    "chr2", 250, 500, 2, NA
+  )
   res <- bed_map(x, y, vals = sum(value))
-  expect_equal(res$vals, c(10,20,500,500))
+  expect_true(all(res == pred, na.rm = TRUE))
 })
 
 test_that("values_unique works correctly", {
