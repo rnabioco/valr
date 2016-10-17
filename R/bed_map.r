@@ -68,6 +68,9 @@ bed_map <- function(x, y, ..., invert = FALSE,
   groups_x <- groups(x)
   groups_y <- groups(y)
   
+  # set y groups equal to x
+  y <- set_groups(y, x)
+  
   if('chrom' %in% c(groups_x, groups_y))
     stop('`chrom` cannot be used as grouping variable', call. = FALSE)
 
@@ -87,7 +90,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   res <- filter(res, .overlap >= min_overlap)
 
   groups_default <- c('chrom', 'start.x', 'end.x')
-  res <- group_by_(res, .dots = c(groups_default, groups_x_suffix, groups_y))
+  res <- group_by_(res, .dots = c(groups_default, groups_x_suffix))
   
   res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
   res <- ungroup(res)
@@ -96,8 +99,14 @@ bed_map <- function(x, y, ..., invert = FALSE,
   names(res) <- names_no_x
   
   # find rows of `x` that did not intersect
-  colspec <- c('chrom', 'start', 'end')
-  x_not <- anti_join(x, res, by = colspec)
+  if (is.null(groups_x)){
+    x_group_vec <- NULL
+  } else {
+    x_group_vec <- purrr::map_chr(groups_x, as.character)
+  }
+
+  colspec <- c('chrom', 'start', 'end', x_group_vec)
+  x_not <- anti_join(x, res, by = c(colspec))
   
   res <- bind_rows(res, x_not)
   res <- bed_sort(res)
