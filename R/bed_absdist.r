@@ -44,18 +44,27 @@ bed_absdist <- function(x, y, genome) {
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
   
+  # make sure that y tbl has same grouping as x tbl
+  y <- set_groups(y, x)
+  
   res <- absdist_impl(x, y)
   
   # calculate reference sizes
   y_chroms <- unique(y$chrom)
+  y_groups <- purrr::map_chr(groups(y), as.character)
+  
   genome <- filter(genome, genome$chrom %in% y_chroms)
+  genome <- inner_join(genome, attributes(y)$labels, by = c("chrom"))
+  
+  ref_points <- summarize(y, ref_points = n())
+  genome <- inner_join(genome, ref_points, by = c("chrom", y_groups))
+  
   genome <- mutate(genome, 
-                   ref_gap = group_size(y),
-                   ref_gap = ref_gap / size)
-  genome <- select(genome, -size)
+                   ref_gap = ref_points / size)
+  genome <- select(genome, -size, -ref_points)
   
   #calculate scaled reference sizes
-  res <- full_join(res, genome, by = c("chrom"))
+  res <- full_join(res, genome, by = c("chrom", y_groups))
   res <- mutate(res, scaled_absdist =  absdist * ref_gap)
   res <- select(res, -ref_gap)
   res
