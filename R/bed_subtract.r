@@ -52,12 +52,13 @@
 #' @export
 bed_subtract <- function(x, y, any = FALSE,
                          strand = FALSE, strand_opp = FALSE) {
-
+  
+  groups_y <- groups(y)
+  
   x <- group_by(x, chrom, add = TRUE)
   y <- bed_merge(y, strand = (strand_opp || strand))
-  y <- group_by(y, chrom, add = TRUE)
+  y <- group_by_(y, .dots = c("chrom", groups_y), add = TRUE)
     
-
   if (any) {
     # if `any` then only return x intervals without overlaps 
     res <- bed_intersect(x, y, strand, strand_opp)
