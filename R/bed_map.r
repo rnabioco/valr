@@ -68,9 +68,6 @@ bed_map <- function(x, y, ..., invert = FALSE,
   groups_x <- groups(x)
   groups_y <- groups(y)
   
-  # set y groups equal to x
-  y <- set_groups(y, x)
-  
   if('chrom' %in% c(groups_x, groups_y))
     stop('`chrom` cannot be used as grouping variable', call. = FALSE)
 
