@@ -32,8 +32,14 @@ test_that("x/y groupings are respected", {
     "chr2", 250, 500, 500, 3
   ) %>% group_by(id)
   
+  pred <- tibble::tribble(
+    ~chrom, ~start, ~end, ~id, ~vals,
+    "chr1", 100, 250, 1,  10,
+    "chr2", 250, 500, 3,  500,
+    "chr2", 250, 500, 2, NA
+  )
   res <- bed_map(x, y, vals = sum(value))
-  expect_equal(res$vals, c(10,20,500,500))
+  expect_true(all(res == pred, na.rm = TRUE))
 })
 
 test_that("values_unique works correctly", {
@@ -113,5 +119,43 @@ test_that("book-ended intervals are not reported", {
   expect_equal(res, expected)
 })
 
-
+test_that("ensure that mapping is calculated with respect to input tbls issue#108",{
+  
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group,
+    'chr1', 100,    200,  'B',
+    'chr1', 200,    400,  'A',
+    'chr1', 500,    600,  'C',
+    'chr2', 125,    175,  'C',
+    'chr2', 150,    200,  'A',
+    'chr3', 100,    300,  'A'
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~value,
+    'chr1', 100,    199,  'A',  10,
+    'chr1', 200,    400,  'B', 20, 
+    'chr1', 500,    600,  'A', 30, 
+    'chr2', 125,    175,  'C', 40,
+    'chr2', 350,    500,  'A', 50,
+    'chr3', 500,    600,  'A', 100
+  )
+  
+  pred <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~total,
+    'chr1', 100,    200,  'B', NA,
+    'chr1', 200,    400,  'A', NA,
+    'chr1', 500,    600,  'C', NA,
+    'chr2', 125,    175,  'C', 40, 
+    'chr2', 150,    200,  'A', NA,
+    'chr3', 100,    300,  'A', NA
+  )
+  
+  x <- bed_sort(x)
+  x <- group_by(x, group)
+  y <- bed_sort(y) 
+  y <- group_by(y, group)
+  
+  res <- bed_map(x, y, total = sum(value))
+  expect_true(all(pred == res, na.rm = T))
+})
 
