@@ -33,9 +33,8 @@ format_bed <- function(x, y) {
 
 #' Compare tbl_dfs and set y groups based on x tbl
 #' 
-#' \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-#'Columns not found in y tbl are dropped. Missing y columns are added and populated
-#' with a dummy entry "."
+#' \code{set_groups} return the x tbl grouped by the y tbls groups. 
+#' Groups in X that are not found in the Y tbl are dropped from the grouping. 
 #' @param x tbl of intervals
 #' @param y tbl of intervals 
 #' @export
