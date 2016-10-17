@@ -9,8 +9,8 @@ valr_example <- function(path) {
 #' reformat bed tbl to match another tbl
 #' 
 #' \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-#'Columns not found in y tbl are dropped. Missing y columns are added and populated
-#' with a dummy entry "."
+#'Columns not found in Y tbl are dropped from X. Y columns not found in X 
+#' added to X and populated with a dummy entry "."
 #' @param x tbl of intervals
 #' @param y tbl of intervals 
 #' @export
@@ -27,6 +27,26 @@ format_bed <- function(x, y) {
     }
   }
   x <- select(x, one_of(names_y))
-
+  x
 }
 
+
+#' Compare tbl_dfs and set y groups based on x tbl
+#' 
+#' \code{format_bed} returns a tbl whose columns are ordered by another tbl.
+#'Columns not found in y tbl are dropped. Missing y columns are added and populated
+#' with a dummy entry "."
+#' @param x tbl of intervals
+#' @param y tbl of intervals 
+#' @export
+set_groups <- function(x, y) {
+  groups_x <- groups(x)
+  groups_y <- groups(y)
+  
+  groups_same = all(groups_x %in% groups_y) & length(groups_x) == length(groups_y) 
+  # if x groups found that are not in y, drop them. 
+  if (!groups_same){
+    x <- group_by_(x, .dots = groups_y)
+  }
+  x
+}
