@@ -181,3 +181,19 @@ test_that("intersections from y bed_tbl with more chroms are captured", {
   res <- bed_intersect(x, y)
   expect_true("chr3" %in% res$chrom)
 })
+
+test_that("input x groups are used for comparing intervals issue #108",{
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group,
+    'chr1', 100,    200,  'A',
+    'chr1', 200,    400,  'A',
+    'chr1', 300,    500,  'A',
+    'chr1', 125,    175,  'B',
+    'chr1', 150,    200,  'B'
+  )
+  x <- bed_sort(x)
+  x <- group_by(x, group)
+  res <- bed_intersect(x, x)
+  expect_true(all(res$group.x == res$group.y))
+  
+})
