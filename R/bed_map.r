@@ -68,16 +68,15 @@ bed_map <- function(x, y, ..., invert = FALSE,
   groups_x <- groups(x)
   groups_y <- groups(y)
   
-  if('chrom' %in% c(groups_x, groups_y))
-    stop('`chrom` cannot be used as grouping variable', call. = FALSE)
+  #if('chrom' %in% c(groups_x, groups_y))
+  #  stop('`chrom` cannot be used as grouping variable', call. = FALSE)
 
   # used only to get the `x` suffix; `y` suffix is ignored` 
   suffix <- list(x = suffix[1], y = suffix[2])
  
-  # `x` groups are suffixed if present. 
-  groups_x_suffix <- NULL 
-  if(!is.null(groups_x))
-    groups_x_suffix <- stringr::str_c(groups_x, suffix$x)
+  # `x` names are suffixed to use for grouping later 
+  x_names <- colnames(x)[!colnames(x) %in% "chrom"]
+  x_names_suffix <- stringr::str_c(x_names, suffix$x)
  
   # note that `y` columns have no suffix so can be referred to by the original names
   res <- bed_intersect(x, y,
@@ -85,10 +84,9 @@ bed_map <- function(x, y, ..., invert = FALSE,
                        strand_opp = strand_opp, suffix = c(suffix$x, ''))
   
   res <- filter(res, .overlap >= min_overlap)
-
-  groups_default <- c('chrom', 'start.x', 'end.x')
-  res <- group_by_(res, .dots = c(groups_default, groups_x_suffix))
   
+  ##  map supplied functions to each set of intervals
+  res <- group_by_(res, .dots = c("chrom", x_names_suffix))
   res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
   res <- ungroup(res)
   ## remove x suffix, but don't pattern match with '.' regex
@@ -96,21 +94,14 @@ bed_map <- function(x, y, ..., invert = FALSE,
   names(res) <- names_no_x
   
   # find rows of `x` that did not intersect
-  if (is.null(groups_x)){
-    x_group_vec <- NULL
-  } else {
-    x_group_vec <- purrr::map_chr(groups_x, as.character)
-  }
-
-  colspec <- c('chrom', 'start', 'end', x_group_vec)
-  x_not <- anti_join(x, res, by = c(colspec))
+  x_not <- anti_join(x, res, by = c("chrom", x_names))
   
   res <- bind_rows(res, x_not)
   res <- bed_sort(res)
  
   # reassign original `x` groups. `y` groups are gone at this point
   res <- group_by_(res, .dots = c(groups_x))
- 
+  
   res 
 }
 
