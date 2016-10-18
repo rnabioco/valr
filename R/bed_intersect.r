@@ -24,6 +24,7 @@
 #' )
 #' 
 #' bed_glyph(bed_intersect(x, y))
+#' bed_glyph(bed_intersect(x, y, invert = TRUE))
 #' 
 #' x <- tibble::tribble(
 #' ~chrom, ~start, ~end,
