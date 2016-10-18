@@ -40,16 +40,14 @@ reference:
     - bed_glyph
 
 navbar:
-  type: default
+  title: 'valr'
+  type: inverse
   left:
-  - text: Home
-    href: index.html
   - text: Reference
     href: reference/index.html
-  - text: Articles
-    menu: 
-      - text: Functions
-        href: articles/valr-functions.html
+  - text: Examples
+    href: articles/valr-examples.html
+    
   right:
   - icon: fa-github fa-lg
     href: https://github.com/jayhesselberth/valr

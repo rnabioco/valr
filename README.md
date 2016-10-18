@@ -2,7 +2,9 @@
 valr
 ====
 
-[![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr) [![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
+<img src="logo.png" align="right" />
+
+[![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master) [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
 
 `valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`](http://bedtools.readthedocs.org/en/latest/) suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`](http://bedops.readthedocs.org/en/latest/index.html)/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`](http://www.rcpp.org/).
 
@@ -19,9 +21,7 @@ devtools::install_github('jayhesselberth/valr')
 Why `valr`?
 -----------
 
-**Why another tool set for interval manipulations?** We already have [BEDtools](http://bedtools.readthedocs.org/en/latest/), [bedops](http://bedops.readthedocs.org/en/latest/index.html), [pybedtools](https://pythonhosted.org/pybedtools/), [GenomicRanges](https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html), [bedr](https://cran.r-project.org/web/packages/bedr/index.html) and [IRanges](https://bioconductor.org/packages/release/bioc/html/IRanges.html).
-
-We were motivated to develop a toolset that:
+**Why another tool set for interval manipulations?** There are several [other software packages](#related_work) available for genome interval analysis. However, based on our experiences teaching genome analysis, we were motivated to develop a toolset that:
 
 -   Combines analysis and visualization in RStudio.
 -   Can be used to generate reports with Rmarkdown.
@@ -43,33 +43,33 @@ library(dplyr)
 snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6)
 genes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
 
-# distance from intergenic snps to nearest gene
+# find snps in intergenic regions
 intergenic <- bed_subtract(snps, genes)
+# distance from intergenic snps to nearest gene
 nearby <- bed_closest(intergenic, genes)
 
-filter(nearby, .distance < 5000)
-#> # A tibble: 20,309 × 13
-#>    chrom  start.x    end.x      name.x score.x strand.x  start.y    end.y
-#>    <chr>    <int>    <int>       <chr>   <chr>    <chr>    <int>    <int>
-#> 1  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004
-#> 2  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004
-#> 3  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004
-#> 4  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004
-#> 5  chr22 16205954 16205955 rs528625692       0        + 16150259 16193004
-#> 6  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004
-#> 7  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004
-#> 8  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004
-#> 9  chr22 16212571 16212572 rs569921884       0        + 16150259 16193004
-#> 10 chr22 16212571 16212572 rs569921884       0        + 16150259 16193004
-#> # ... with 20,299 more rows, and 5 more variables: name.y <chr>,
-#> #   score.y <chr>, strand.y <chr>, .overlap <int>, .distance <int>
+nearby %>%
+  select(starts_with('name'), .overlap, .distance) %>%
+  filter(abs(.distance) < 1000)
+#> # A tibble: 285 × 4
+#>         name.x            name.y .overlap .distance
+#>          <chr>             <chr>    <int>     <int>
+#> 1    rs2261631             P704P        0      -267
+#> 2  rs570770556             POTEH        0      -912
+#> 3  rs538163832             POTEH        0      -952
+#> 4    rs9606135            TPTEP1        0      -421
+#> 5   rs11912392 ANKRD62P1-PARP4P3        0       104
+#> 6    rs8136454          BC038197        0       355
+#> 7    rs5992556              XKR3        0      -455
+#> 8  rs114101676              GAB4        0       473
+#> 9   rs62236167             CECR7        0       261
+#> 10   rs5747023             CECR1        0      -386
+#> # ... with 275 more rows
 ```
 
 ### Visual documentation
 
-We provide glyphs that illustrate the results of specific operations in `valr`, similar to those found in the `BEDtools` documentation.
-
-This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
+The `bed_glyph()` tool illustrates the results of operations in `valr`, similar to those found in the `BEDtools` documentation. This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
 ``` r
 x <- tibble::tribble(
@@ -105,9 +105,9 @@ bed_glyph(bed_merge(x))
 
 ### Reproducible reports
 
-`valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast (see the [benchmarks](#benchmarks)), we think it will be a go-to tool for exploratory genome analysis in R.
+`valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast (see the [benchmarks](#benchmarks)), we now use it in lieu of other tools for exploratory analysis of genomic data sets in R.
 
-Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`](https://bitbucket.org/snakemake/snakemake/wiki/Home)), but it is cumbersome to move from these command-line tools to doing exploratory statistics and plotting. `pybedtools` can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach](https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/), including clunky version control. Because RMarkdown files are just text files, they are readily kept under version control. Moreover, new features in RStudio (notebook viewing) enable similar functionality to `ipython`.
+Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`](https://bitbucket.org/snakemake/snakemake/wiki/Home)), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. `pybedtools` can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach](https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/), including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g. notebook viewing) enable similar functionality to `ipython`.
 
 ### Column specification
 
@@ -122,10 +122,10 @@ In `valr`, columns are referred to by name and can be used in multiple name/valu
 
 ``` r
 # calculate the mean and variance for a `value` column
-bed_map(a, b, mean = mean(value), var = var(value))
+bed_map(a, b, .mean = mean(value), .var = var(value))
 
 # report concatenated and max values for merged intervals
-bed_merge(a, concat = concat(value), max = max(value))
+bed_merge(a, .concat = concat(value), .max = max(value))
 ```
 
 Getting started
@@ -165,33 +165,33 @@ win_size <- 50
 x <- tss %>%
   bed_slop(genome, both = region_size) %>%
   bed_makewindows(genome, win_size) %>%
-  group_by(win_id)
+  group_by(.win_id)
 
 x
 #> Source: local data frame [13,530 x 7]
-#> Groups: win_id [41]
+#> Groups: .win_id [41]
 #> 
-#>    chrom    start      end      name score strand win_id
-#>    <chr>    <dbl>    <dbl>     <chr> <chr>  <chr>  <dbl>
-#> 1  chr22 16161065 16161115 LINC00516     3      +      1
-#> 2  chr22 16161115 16161165 LINC00516     3      +      2
-#> 3  chr22 16161165 16161215 LINC00516     3      +      3
-#> 4  chr22 16161215 16161265 LINC00516     3      +      4
-#> 5  chr22 16161265 16161315 LINC00516     3      +      5
-#> 6  chr22 16161315 16161365 LINC00516     3      +      6
-#> 7  chr22 16161365 16161415 LINC00516     3      +      7
-#> 8  chr22 16161415 16161465 LINC00516     3      +      8
-#> 9  chr22 16161465 16161515 LINC00516     3      +      9
-#> 10 chr22 16161515 16161565 LINC00516     3      +     10
+#>    chrom    start      end      name score strand .win_id
+#>    <chr>    <dbl>    <dbl>     <chr> <chr>  <chr>   <dbl>
+#> 1  chr22 16161065 16161115 LINC00516     3      +       1
+#> 2  chr22 16161115 16161165 LINC00516     3      +       2
+#> 3  chr22 16161165 16161215 LINC00516     3      +       3
+#> 4  chr22 16161215 16161265 LINC00516     3      +       4
+#> 5  chr22 16161265 16161315 LINC00516     3      +       5
+#> 6  chr22 16161315 16161365 LINC00516     3      +       6
+#> 7  chr22 16161365 16161415 LINC00516     3      +       7
+#> 8  chr22 16161415 16161465 LINC00516     3      +       8
+#> 9  chr22 16161465 16161515 LINC00516     3      +       9
+#> 10 chr22 16161515 16161565 LINC00516     3      +      10
 #> # ... with 13,520 more rows
 ```
 
-Note that the data are now grouped by `win_id`. This grouping is used below with `bed_map()` to caluclate summary statistics identified by mapping `y` signals onto the intervals in `x`. Note that `x` intervals with no `y` overlaps have values of `NA`, so `na.rm = TRUE` must be used during computation.
+Now we use the `.win_id` group with `bed_map()` to caluclate a sum by mapping `y` signals onto the intervals in `x`. These data are regrouped by `.win_id` and a summary with `mean` and `sd` values is calculated.
 
 ``` r
 # map signals to TSS regions and calculate summary statistics.
 res <- bed_map(x, y, win_sum = sum(value, na.rm = TRUE)) %>%
-  group_by(win_id) %>%
+  group_by(.win_id) %>%
   summarize(win_mean = mean(win_sum, na.rm = TRUE),
             win_sd = sd(win_sum, na.rm = TRUE))
 ```
@@ -206,12 +206,12 @@ x_breaks <- seq(1, 41, by = 5)
 
 sd_limits <- aes(ymax = win_mean + win_sd, ymin = win_mean - win_sd)
 
-ggplot(res, aes(x = win_id, y = win_mean)) +
+ggplot(res, aes(x = .win_id, y = win_mean)) +
   geom_point() + geom_pointrange(sd_limits) + 
   scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
   xlab('Position (bp from TSS)') + ylab('Signal') + 
-  ggtitle('Human H3K4me3 signal near transcription starts sites') +
-  theme_bw()
+  ggtitle('Human H3K4me3 signal near transcription start sites') +
+  theme_classic()
 ```
 
 <img src="img/README-plot-1.png" style="display: block; margin: auto;" />
@@ -220,41 +220,50 @@ ggplot(res, aes(x = win_id, y = win_mean)) +
 
 Estimates of significance for interval overlaps can be obtained by combining `bed_shuffle()`, `bed_random()` and the `sample_` functions from `dplyr` with interval statistics in `valr`.
 
-Note that the interval statistics have somewhat different use cases:
-
--   `bed_jaccard()` is used to assess the degree of overlap for *already overlapping* intervals.
--   `bed_reldist()` and `bed_absdist()` assess whether two sets of intervals tend to be clustered, independent of overlaps.
-
-Here we calculate a distribution of relative distances by shuffling `y` intervals compared to `x`. Specifically we will examine spatial distribution of exons compared to repetitive Alu elements in the human genome.
+Here we examine the overlap of repeat classes in the human genome (on `chr22` only, for simplicity) using `bed_jaccard()`.
 
 ``` r
 library(purrr)
-library(stringr)
 library(tidyr)
 
-exons <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
-# repeats <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz')) 
+repeats <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
 genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
-n <- 100
-shuffled <- replicate(n, bed_shuffle(exons, genome), FALSE) %>%
-  transpose() %>%
-  as_data_frame() %>% 
-  mutate(rep = 1:n) %>%
-  group_by(rep) %>%
-  nest()
+shuffle_intervals <- function(n, .data, genome) {
+  replicate(n, bed_shuffle(.data, genome), simplify = FALSE) %>%
+    bind_rows(.id = 'rep') %>%
+    group_by(rep) %>% nest()
+}
 
-# shuffled %>% mutate(jaccard = map(data, lift(bed_jaccard)))
+shuffled <- shuffle_intervals(n = 100, repeats, genome) %>%
+  mutate(jaccard = data %>%
+           map(bed_jaccard, repeats) %>%
+           map_dbl("jaccard"))
+#> Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character
+  
+shuffled
+#> # A tibble: 100 × 3
+#>      rep                  data      jaccard
+#>    <chr>                <list>        <dbl>
+#> 1      1 <tibble [10,000 × 6]> 0.0003148559
+#> 2      2 <tibble [10,000 × 6]> 0.0002584770
+#> 3      3 <tibble [10,000 × 6]> 0.0003336503
+#> 4      4 <tibble [10,000 × 6]> 0.0001643197
+#> 5      5 <tibble [10,000 × 6]> 0.0003557501
+#> 6      6 <tibble [10,000 × 6]> 0.0003821886
+#> 7      7 <tibble [10,000 × 6]> 0.0007001789
+#> 8      8 <tibble [10,000 × 6]> 0.0001748496
+#> 9      9 <tibble [10,000 × 6]> 0.0003778509
+#> 10    10 <tibble [10,000 × 6]> 0.0004978731
+#> # ... with 90 more rows
 ```
 
 Benchmarks
 ----------
 
-Certain algorithms in `valr` were implemented in `Rcpp` to enable fluid interactive analysis.
+Certain algorithms in `valr` were implemented in `Rcpp` to enable fluid interactive analysis. This graph illustrates the timing of functions in `valr` for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.
 
-This graph illustrates the timing of functions in `valr` for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.
-
-![](img/README-plot_benchmark-1.png)
+![](img/README-benchmarks-1.png)
 
 API
 ---
