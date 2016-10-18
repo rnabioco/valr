@@ -1,5 +1,6 @@
 ^README\.Rmd$
 ^img$
+^logo\.png$
 ^README-.*\.png$
 ^data-raw$
 ^.*\.Rproj$
