@@ -38,6 +38,12 @@ reference:
     - bed_makewindows
     - bed12_to_exons
     - bed_glyph
+    - valr_example
+    - format_bed
+    - is_sorted
+    - is_merged
+    - launch_shiny
+    
 
 navbar:
   title: 'valr'

@@ -56,76 +56,9 @@ genes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_
 
 exons &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed12_to_exons.html">bed12_to_exons</a></span>(genes)
 exons
-<span class="co">#&gt; # A tibble: 11,329 &times; 6</span>
-<span class="co">#&gt;    chrom    start      end      name score strand</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1  chr22 16150528 16151821 NR_122113     8      -</span>
-<span class="co">#&gt; 2  chr22 16157078 16157342 NR_133911     1      +</span>
-<span class="co">#&gt; 3  chr22 16162065 16162388 NR_073459     1      +</span>
-<span class="co">#&gt; 4  chr22 16162065 16162388 NR_073460     1      +</span>
-<span class="co">#&gt; 5  chr22 16162396 16162487 NR_122113     7      -</span>
-<span class="co">#&gt; 6  chr22 16164481 16164569 NR_133911     2      +</span>
-<span class="co">#&gt; 7  chr22 16164481 16164569 NR_073459     2      +</span>
-<span class="co">#&gt; 8  chr22 16164481 16164569 NR_073460     2      +</span>
-<span class="co">#&gt; 9  chr22 16171951 16172265 NR_133911     3      +</span>
-<span class="co">#&gt; 10 chr22 16171951 16172265 NR_073459     3      +</span>
-<span class="co">#&gt; # ... with 11,319 more rows</span>
 
 introns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_subtract.html">bed_subtract</a></span>(genes, exons)
-introns
-<span class="co">#&gt; # A tibble: 11,383 &times; 12</span>
-<span class="co">#&gt;    chrom    start      end      name score strand cds_start  cds_end</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1  chr22 16151821 16157078 NR_122113     0      -  16193009 16193009</span>
-<span class="co">#&gt; 2  chr22 16157342 16162065 NR_122113     0      -  16193009 16193009</span>
-<span class="co">#&gt; 3  chr22 16157342 16162065 NR_133911     0      +  16172265 16172265</span>
-<span class="co">#&gt; 4  chr22 16162388 16162396 NR_122113     0      -  16193009 16193009</span>
-<span class="co">#&gt; 5  chr22 16162388 16162396 NR_133911     0      +  16172265 16172265</span>
-<span class="co">#&gt; 6  chr22 16162388 16162396 NR_073459     0      +  16172265 16172265</span>
-<span class="co">#&gt; 7  chr22 16162388 16162396 NR_073460     0      +  16172265 16172265</span>
-<span class="co">#&gt; 8  chr22 16162487 16164481 NR_122113     0      -  16193009 16193009</span>
-<span class="co">#&gt; 9  chr22 16162487 16164481 NR_133911     0      +  16172265 16172265</span>
-<span class="co">#&gt; 10 chr22 16162487 16164481 NR_073459     0      +  16172265 16172265</span>
-<span class="co">#&gt; # ... with 11,373 more rows, and 4 more variables: item_rgb &lt;chr&gt;,</span>
-<span class="co">#&gt; #   exon_count &lt;int&gt;, exon_sizes &lt;chr&gt;, exon_starts &lt;chr&gt;</span></code></pre></div>
-</div>
-<div id="shuffle" class="section level2">
-<h2>shuffle</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(purrr)
-<span class="kw">library</span>(tidyr)
-
-exons &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)
-repeats &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.rmsk.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>) 
-snps &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)
-genome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
-
-n &lt;-<span class="st"> </span><span class="dv">100</span>
-
-shuffled &lt;-<span class="st"> </span><span class="kw">replicate</span>(n, <span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(exons, genome), <span class="ot">FALSE</span>) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="dt">.id =</span> <span class="st">"rep"</span>) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(rep) %&gt;%
-<span class="st">  </span><span class="kw">nest</span>()  %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">jaccard =</span> data %&gt;%<span class="st"> </span><span class="kw">map</span>(bed_jaccard, exons) %&gt;%<span class="st"> </span><span class="kw">map_dbl</span>(<span class="st">"jaccard"</span>),
-         <span class="dt">fisher =</span> data %&gt;%<span class="st"> </span><span class="kw">map</span>(bed_fisher, exons, genome) %&gt;%<span class="st"> </span><span class="kw">map_dbl</span>(<span class="st">"p.value"</span>),
-         <span class="dt">rel_dist =</span> data %&gt;%<span class="st"> </span><span class="kw">map</span>(bed_reldist, exons, <span class="dt">detail =</span> <span class="ot">TRUE</span>)
-         )
-shuffled
-<span class="co">#&gt; # A tibble: 100 &times; 5</span>
-<span class="co">#&gt;      rep               data      jaccard       fisher          rel_dist</span>
-<span class="co">#&gt;    &lt;chr&gt;             &lt;list&gt;        &lt;dbl&gt;        &lt;dbl&gt;            &lt;list&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [732 &times; 6]&gt; 0.0000000000 0.0001082321  &lt;tibble [2 &times; 7]&gt;</span>
-<span class="co">#&gt; 2      2 &lt;tibble [732 &times; 6]&gt; 0.0038549575 0.0958268386 &lt;tibble [13 &times; 7]&gt;</span>
-<span class="co">#&gt; 3      3 &lt;tibble [732 &times; 6]&gt; 0.0023373497 0.6183107710  &lt;tibble [8 &times; 7]&gt;</span>
-<span class="co">#&gt; 4      4 &lt;tibble [732 &times; 6]&gt; 0.0006344275 0.7432567268  &lt;tibble [8 &times; 7]&gt;</span>
-<span class="co">#&gt; 5      5 &lt;tibble [732 &times; 6]&gt; 0.0041388114 0.5111214412 &lt;tibble [11 &times; 7]&gt;</span>
-<span class="co">#&gt; 6      6 &lt;tibble [732 &times; 6]&gt; 0.0012268115 0.7432542171  &lt;tibble [4 &times; 7]&gt;</span>
-<span class="co">#&gt; 7      7 &lt;tibble [732 &times; 6]&gt; 0.0057756659 0.0956472462 &lt;tibble [10 &times; 7]&gt;</span>
-<span class="co">#&gt; 8      8 &lt;tibble [732 &times; 6]&gt; 0.0023939115 0.1846070187  &lt;tibble [3 &times; 7]&gt;</span>
-<span class="co">#&gt; 9      9 &lt;tibble [732 &times; 6]&gt; 0.0005914611 0.1845055632  &lt;tibble [7 &times; 7]&gt;</span>
-<span class="co">#&gt; 10    10 &lt;tibble [732 &times; 6]&gt; 0.0002904076 0.0076256561  &lt;tibble [1 &times; 7]&gt;</span>
-<span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
+introns</code></pre></div>
 </div>
 <div id="histone-density-and-transcription-start-sites" class="section level2">
 <h2>Histone density and transcription start sites</h2>
@@ -205,7 +138,6 @@ sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class=
         <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked"><li><a href="#demonstrations">Demonstrations</a><ul class="nav nav-pills nav-stacked"><li><a href="#demo-intron">Creating intron intervals</a></li>
-      <li><a href="#shuffle">shuffle</a></li>
       <li><a href="#histone-density-and-transcription-start-sites">Histone density and transcription start sites</a></li>
       </ul></li>
       </ul></div>
