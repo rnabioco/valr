@@ -72,16 +72,15 @@ region_size <- 1000
 # 50 bp windows
 win_size <- 50
 
-# add slop to the TSS, break into windows and add a group
+# add slop to the TSS, break into windows
 x <- tss %>%
   bed_slop(genome, both = region_size) %>%
-  bed_makewindows(genome, win_size) %>%
-  group_by(win_id)
+  bed_makewindows(genome, win_size)
 
 x
 ```
 
-Note that the data are now grouped by `win_id`. This grouping is used below with `bed_map()` to caluclate summary statistics identified by mapping `y` signals onto the intervals in `x`. Note that `x` intervals with no `y` overlaps have values of `NA`, so `na.rm = TRUE` must be used during computation.
+Next, we use `bed_map()` to map `y` signals onto the intersecting intervals in `x` and calculate summary statistics grouped by `win_id`. Note that `x` intervals with no `y` overlaps have values of `NA`, so `na.rm = TRUE` must be used during computation.
 
 ```{r map}
 # map signals to TSS regions and calculate summary statistics.
