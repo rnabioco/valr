@@ -26,7 +26,7 @@ split_interval(interval, genome, win_size, step_size, num_win, reverse)
 \item{interval}{row of data frame}
 }
 \value{
-\code{data_frame} with \code{win_id} column that contains a numeric 
+\code{data_frame} with \code{.win_id} column that contains a numeric 
   identifier for the window.
 }
 \description{
@@ -37,23 +37,22 @@ Divide intervals into new sub-intervals ("windows").
 \item \code{split_interval}: Helper to divide interval into labeled sub-intervals.
 }}
 \note{
-The \code{name} and \code{win_id} columns can be used to create new 
+The \code{name} and \code{.win_id} columns can be used to create new 
   interval names (see 'namenum' example below) or in subsequent 
   \code{group_by} operations (see vignette).
 }
 \examples{
 genome <- tibble::tribble(
  ~chrom, ~size,
- "chr1", 5000,
- "chr2", 400
+ "chr1", 200
 )
 
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 100,    200,  'A',   '.',    '+',
-  "chr2", 300,    350,  'B',   '.',    '-'
-) 
+  "chr1", 100,    200,  'A',   '.',    '+'
+)
 
+bed_glyph(bed_makewindows(x, genome, num_win = 10), label = '.win_id') 
 
 # Fixed number of windows 
 bed_makewindows(x, genome, num_win = 10)
@@ -69,7 +68,7 @@ bed_makewindows(x, genome, win_size = 10, reverse = TRUE)
 
 # bedtools 'namenum'
 wins <- bed_makewindows(x, genome, win_size = 10)
-dplyr::mutate(wins, namenum = stringr::str_c(name, '_', win_id))
+dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
 
 }
 \seealso{

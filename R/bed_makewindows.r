@@ -7,27 +7,26 @@
 #' @param num_win divide intervals to fixed number of windows
 #' @param reverse reverse window numbers
 #'   
-#' @note The \code{name} and \code{win_id} columns can be used to create new 
+#' @note The \code{name} and \code{.win_id} columns can be used to create new 
 #'   interval names (see 'namenum' example below) or in subsequent 
 #'   \code{group_by} operations (see vignette).
 #' 
 #' @family utils  
-#' @return \code{data_frame} with \code{win_id} column that contains a numeric 
+#' @return \code{data_frame} with \code{.win_id} column that contains a numeric 
 #'   identifier for the window.
 #'   
 #' @examples 
 #' genome <- tibble::tribble(
 #'  ~chrom, ~size,
-#'  "chr1", 5000,
-#'  "chr2", 400
+#'  "chr1", 200
 #' )
 #' 
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-#'   "chr1", 100,    200,  'A',   '.',    '+',
-#'   "chr2", 300,    350,  'B',   '.',    '-'
-#' ) 
+#'   "chr1", 100,    200,  'A',   '.',    '+'
+#' )
 #' 
+#' bed_glyph(bed_makewindows(x, genome, num_win = 10), label = '.win_id') 
 #' 
 #' # Fixed number of windows 
 #' bed_makewindows(x, genome, num_win = 10)
@@ -43,7 +42,7 @@
 #' 
 #' # bedtools 'namenum'
 #' wins <- bed_makewindows(x, genome, win_size = 10)
-#' dplyr::mutate(wins, namenum = stringr::str_c(name, '_', win_id))
+#' dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
 #' 
 #' @export
 bed_makewindows <- function(x, genome, win_size = 0,
@@ -88,11 +87,11 @@ split_interval <- function(interval, genome, win_size, step_size,
   res <- mutate(res, start = .start, end = .end)
   res <- select(res, -.start, -.end)
  
-  # add win_id 
+  # add .win_id column
   if (reverse) {
-    res <- mutate(res, win_id = rank(-.win_num))
+    res <- mutate(res, .win_id = rank(-.win_num))
   } else {
-    res <- mutate(res, win_id = rank(.win_num))
+    res <- mutate(res, .win_id = rank(.win_num))
   }
   
   res <- select(res, -.win_num)
