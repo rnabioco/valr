@@ -27,7 +27,7 @@ typedef std::vector< interval_t >    intervalVector ;
 typedef IntervalTree<int>            intervalTree ;
 
 extern intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) ;
-
+extern bool compareDataFrameRows(DataFrame x, DataFrame y, int idx_x, int idx_y ) ;
 // template function to generate matched chromosome
 // interval vectors and apply a function to each interval vector
 
@@ -42,23 +42,24 @@ void PairedGroupApply( const GroupedDataFrame& x,
   auto ng_x = x.ngroups() ;
   auto ng_y = y.ngroups() ;
 
-  CharacterVector chrom_x = data_x["chrom"];
-  CharacterVector chrom_y = data_y["chrom"];
-  
+  // get labels info for grouping
+  DataFrame labels_x(data_x.attr("labels")); 
+  DataFrame labels_y(data_y.attr("labels")); 
     
   GroupedDataFrame::group_iterator git_x = x.group_begin() ;
   for( int nx=0; nx<ng_x; nx++, ++git_x){
   
     SlicingIndex gi_x = *git_x ;
-    int group_x = gi_x[0];
   
     GroupedDataFrame::group_iterator git_y = y.group_begin() ;
     for( int ny=0; ny<ng_y; ny++, ++git_y) {
     
       SlicingIndex gi_y = *git_y ;
-      int group_y = gi_y[0];
-    
-      if( chrom_x[group_x] == chrom_y[group_y] ) {
+      
+      // make sure that x and y groups are the same
+      bool same_groups = compareDataFrameRows(labels_x, labels_y, nx, ny); 
+      
+      if(same_groups){
       
         intervalVector vx = makeIntervalVector(data_x, gi_x) ;
         intervalVector vy = makeIntervalVector(data_y, gi_y) ;

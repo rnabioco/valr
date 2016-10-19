@@ -78,8 +78,9 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   DataFrame df_x = gdf_x.data() ;
   DataFrame df_y = gdf_y.data() ; 
   
-  CharacterVector chroms_x = df_x["chrom"] ;
-  CharacterVector chroms_y = df_y["chrom"] ;
+  // get labels info for grouping
+  DataFrame labels_x(df_x.attr("labels")); 
+  DataFrame labels_y(df_y.attr("labels")); 
   
   GroupedDataFrame::group_iterator git_x = gdf_x.group_begin() ;
   // indices_to_report
@@ -87,18 +88,19 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   for(int nx=0; nx<ng_x; nx++, ++git_x) {
     
     SlicingIndex indices_x = *git_x ; 
-    std::string chrom_x = as<std::string>(chroms_x[indices_x[0]]);
+
     // keep track of if x chrom is present in y
-    bool chrom_x_seen(false);
+    bool group_seen(false);
     
     GroupedDataFrame::group_iterator git_y = gdf_y.group_begin() ;
     for(int ny=0; ny<ng_y; ny++, ++git_y) {
   
       SlicingIndex indices_y = *git_y ; 
-      std::string chrom_y = as<std::string>(chroms_y[indices_y[0]]);
       
-      if( chrom_x == chrom_y ) {
-        chrom_x_seen = true ;
+      bool same_groups = compareDataFrameRows(labels_x, labels_y, nx, ny); 
+      
+      if(same_groups){
+        group_seen = true ;
         
         intervalVector vx = makeIntervalVector(df_x, indices_x) ;
         intervalVector vy = makeIntervalVector(df_y, indices_y) ;
@@ -111,7 +113,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     }
   
     // return x intervals if x chromosome not found in y
-    if (chrom_x_seen) {
+    if (group_seen) {
       continue;
       }
     else {

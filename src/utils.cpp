@@ -36,4 +36,25 @@ intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) {
   return intervals ;
 }
 
+// compare two dataframe rows and report equality
+bool compareDataFrameRows(DataFrame df_x, DataFrame df_y, int idx_x, int idx_y){
+ 
+  IntegerVector x_idx = IntegerVector::create(idx_x) ; 
+  IntegerVector y_idx = IntegerVector::create(idx_y) ; 
+ 
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(x_idx, "data.frame");
+  DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(y_idx, "data.frame");
+  
+  int ncols = df_x.size() ; 
+  bool cols_equal = false;
+  for (int i = 0; i<ncols; i++){
+    CharacterVector col_x = subset_x[i] ;
+    CharacterVector col_y = subset_y[i] ;
+    cols_equal = is_true(all(col_x == col_y)) ;
+    if (!cols_equal){
+      break;
+    }
+  }
+  return cols_equal ; 
+}
 

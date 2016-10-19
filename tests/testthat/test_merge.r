@@ -68,3 +68,21 @@ test_that("max_dist is a positive value", {
   
   expect_error(bed_merge(bed_df, max_dist = -1))
 })
+
+test_that("input groups are maintained in the output tbl issue #108",{
+  
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group,
+    'chr1', 100,    200,  'A',
+    'chr1', 200,    400,  'A',
+    'chr1', 300,    500,  'A',
+    'chr1', 125,    175,  'C',
+    'chr1', 150,    200,  'B'
+  ) 
+  
+  x <- bed_sort(x)
+  x <- group_by(x, group)
+  res <- bed_merge(x)
+  expect_true(all(x$group %in% res$group))
+  })
+

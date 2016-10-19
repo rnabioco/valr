@@ -59,11 +59,6 @@ bed_intersect <- function(x, y, invert = FALSE,
   if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
     stop("`strand` specified on unstranded data_frame", call. = FALSE)
   
-  if ( ! is_sorted(x) )
-    x <- bed_sort(x)
-  if ( ! is_sorted(y) )
-    y <- bed_sort(y)
- 
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 
