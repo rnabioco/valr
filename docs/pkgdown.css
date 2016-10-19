@@ -33,11 +33,20 @@ body {
 
 /* Table of contents --------------------------*/
 
-#tocnav h2 {
-  margin-top: 0;
+#sidebar {
+  margin-top: 40px;
+}
+#sidebar.affix {
+  margin-top: 5px;
+}
+
+#sidebar h2 {
   font-size: 1.5em;
 }
 
+#sidebar h2:first-child {
+  margin-top: 0;
+}
 
 /* Syntax highlighting ---------------------------------------------------- */
 
