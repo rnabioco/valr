@@ -1,18 +1,32 @@
 ## Test environments
 
+* Windows Server 2012 R2 x64 (on appveyor), R 3.3.1
+* win-builder (devel and release)
 * local OS X install, R 3.3.1
 * OS X (on travis-ci), R 3.3.1
 * ubuntu 14.04 (on travis-ci), R 3.3.1
-* win-builder (devel and release)
-* Windows Server 2012 R2 x64 (on appveyor), R 3.3.1
 
 ## R CMD check results
 
-* on win-builder and appveyor
+* on appveyor
 
   Status: OK
   0 errors | 0 warnings | 0 notes
+ 
+* on win-builder
+
+  Status: 1 WARNING, 1 NOTE
   
+  The NOTE indicates this is a New submission.
+  
+  The WARNING is as follows:
+  
+  Found the following significant warnings:
+  d:\RCompile\CRANpkg\lib\3.4/dplyr/include/tools/all_na.h:15:40:
+    warning: ISO C99 requires rest arguments to be used
+    
+  This WARNING is in the dplyr dependency, and is not present in the appveyor / windows build.
+ 
 * on OS X 
 
   Status: OK
