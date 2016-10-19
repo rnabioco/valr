@@ -68,9 +68,6 @@ bed_map <- function(x, y, ..., invert = FALSE,
   groups_x <- groups(x)
   groups_y <- groups(y)
   
-  #if('chrom' %in% c(groups_x, groups_y))
-  #  stop('`chrom` cannot be used as grouping variable', call. = FALSE)
-
   # used only to get the `x` suffix; `y` suffix is ignored` 
   suffix <- list(x = suffix[1], y = suffix[2])
  
