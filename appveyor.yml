@@ -37,6 +37,8 @@ environment:
   - R_VERSION: release
     R_ARCH: x64
     GCC_PATH: mingw_64
+  - R_VERSION: release
+    GCC_PATH: mingw_32
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
