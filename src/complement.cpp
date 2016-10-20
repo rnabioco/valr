@@ -24,7 +24,7 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
    
     std::string chrom ; 
     int start, end ;
-    int last_start, last_end = 1 ;
+    int last_end = 1 ;
     
     for( int j=0; j<ni; ++j) {
     
@@ -48,7 +48,7 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
         ends_out.push_back(start) ;
       }
       
-      last_end = end; last_start = start ;
+      last_end = end;
     }
  
     auto chrom_size = chrom_sizes[chrom] ;
