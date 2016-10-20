@@ -164,13 +164,10 @@ win_size <- 50
 # add slop to the TSS, break into windows and add a group
 x <- tss %>%
   bed_slop(genome, both = region_size) %>%
-  bed_makewindows(genome, win_size) %>%
-  group_by(.win_id)
+  bed_makewindows(genome, win_size)
 
 x
-#> Source: local data frame [13,530 x 7]
-#> Groups: .win_id [41]
-#> 
+#> # A tibble: 13,530 × 7
 #>    chrom    start      end      name score strand .win_id
 #>    <chr>    <dbl>    <dbl>     <chr> <chr>  <chr>   <dbl>
 #> 1  chr22 16161065 16161115 LINC00516     3      +       1
@@ -245,16 +242,16 @@ shuffled
 #> # A tibble: 100 × 3
 #>      rep                  data      jaccard
 #>    <chr>                <list>        <dbl>
-#> 1      1 <tibble [10,000 × 6]> 0.0003148559
-#> 2      2 <tibble [10,000 × 6]> 0.0002584770
-#> 3      3 <tibble [10,000 × 6]> 0.0003336503
-#> 4      4 <tibble [10,000 × 6]> 0.0001643197
-#> 5      5 <tibble [10,000 × 6]> 0.0003557501
-#> 6      6 <tibble [10,000 × 6]> 0.0003821886
-#> 7      7 <tibble [10,000 × 6]> 0.0007001789
-#> 8      8 <tibble [10,000 × 6]> 0.0001748496
-#> 9      9 <tibble [10,000 × 6]> 0.0003778509
-#> 10    10 <tibble [10,000 × 6]> 0.0004978731
+#> 1      1 <tibble [10,000 × 6]> 0.0004898157
+#> 2      2 <tibble [10,000 × 6]> 0.0004848573
+#> 3      3 <tibble [10,000 × 6]> 0.0005782484
+#> 4      4 <tibble [10,000 × 6]> 0.0002035498
+#> 5      5 <tibble [10,000 × 6]> 0.0004063562
+#> 6      6 <tibble [10,000 × 6]> 0.0003757854
+#> 7      7 <tibble [10,000 × 6]> 0.0002640526
+#> 8      8 <tibble [10,000 × 6]> 0.0004001592
+#> 9      9 <tibble [10,000 × 6]> 0.0002334906
+#> 10    10 <tibble [10,000 × 6]> 0.0004652309
 #> # ... with 90 more rows
 ```
 
