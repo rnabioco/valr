@@ -1,0 +1,321 @@
+---
+title: 'valr overview'
+author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+    vignette: >
+      %\VignetteIndexEntry{valr}
+      %\VignetteEngine{knitr::rmarkdown}
+      %\VignetteEncoding{UTF-8}
+---
+
+```{r knitr_opts, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "img/overview-",
+  fig.height = 3,
+  fig.align = "center",
+  fig.width = 4
+)
+```
+
+```{r init, echo = FALSE, message = FALSE}
+library(valr)
+library(dplyr)
+library(ggplot2)
+library(tibble)
+```
+## Why `valr`?
+
+**Why another tool set for interval manipulations?** There are several [other software packages](#related_work) available for genome interval analysis. However, based on our experiences teaching genome analysis, we were motivated to develop a toolset that:
+
+* Combines analysis and visualization in RStudio.
+* Can be used to generate reports with Rmarkdown.
+* Is highly extensible. New tools are quickly implemented on the R side.
+* Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`%>%`).
+* Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
+* Facilitates interactive visulaizations with [`shiny`][13].
+
+`valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
+
+### Familiar tools, all within R
+
+The functions in `valr` have similar names to their `BEDtools` counterparts, and so will be familiar to users coming from the `BEDtools` suite. Similar to [`pybedtools`](https://daler.github.io/pybedtools/#why-pybedtools), `valr` has a terse syntax:
+
+```{r syntax_demo, message = FALSE}
+library(valr)
+library(dplyr)
+
+snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6)
+genes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
+
+# find snps in intergenic regions
+intergenic <- bed_subtract(snps, genes)
+# distance from intergenic snps to nearest gene
+nearby <- bed_closest(intergenic, genes)
+
+nearby %>%
+  select(starts_with('name'), .overlap, .distance) %>%
+  filter(abs(.distance) < 1000)
+```
+
+### Visual documentation
+
+The `bed_glyph()` tool illustrates the results of operations in `valr`, similar to those found in the `BEDtools` documentation. This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
+
+```{r intersect_glyph}
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1', 25,     50,
+  'chr1', 100,    125
+)
+
+y <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1', 30,     75
+)
+
+bed_glyph(bed_intersect(x, y))
+```
+
+And this glyph illustrates `bed_merge()`:
+
+```{r merge_glyph}
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',      1,      50,
+  'chr1',      10,     75,
+  'chr1',      100,    120
+)
+
+bed_glyph(bed_merge(x))
+```
+
+### Reproducible reports 
+
+`valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast (see the [benchmarks](#benchmarks)), we now use it in lieu of other tools for exploratory analysis of genomic data sets in R.
+
+Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`][12]), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. [`pybedtools`][4] can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach][11], including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g. notebook viewing) enable similar functionality to `ipython`.
+
+### Grouping data
+
+The `group_by` function in dplyr is a powerful way to performs fuctions on subsets of a data_frame. Several functions in `valr` leverage grouping to enable a variety of analysis modes. These are discussed in the [grouping vignette][].
+
+### Column specification
+
+Columns in `BEDtools` are referred to by position:
+
+```bash
+# calculate the mean of column 6 for intervals in `b` that overlap with `a`
+bedtools map -a a.bed -b b.bed -c 6 -o mean
+```
+
+In `valr`, columns are referred to by name and can be used in multiple name/value expressions for summaries.
+
+```{r NSE, eval = FALSE}
+# calculate the mean and variance for a `value` column
+bed_map(a, b, .mean = mean(value), .var = var(value))
+
+# report concatenated and max values for merged intervals
+bed_merge(a, .concat = concat(value), .max = max(value))
+```
+
+## Getting started
+
+### Meta-analysis
+
+This demonstration illustrates how to use `valr` tools to perform a "meta-analysis" of signals relative to genomic features. Here we to analyze the distribution of histone marks surrounding transcription start sites.
+
+First we load libraries and relevant data.
+
+```{r demo-tss, warning = FALSE, message = FALSE}
+# `valr_example()` identifies the path of example files
+bedfile <- valr_example('genes.hg19.chr22.bed.gz')
+genomefile <- valr_example('hg19.chrom.sizes.gz')
+bgfile  <- valr_example('hela.h3k4.chip.bg.gz')
+
+genes <- read_bed(bedfile, n_fields = 6)
+genome <- read_genome(genomefile)
+y <- read_bedgraph(bgfile)
+```
+
+Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on `+` strand genes, but `-` genes are easily accomodated by filtering them and using `bed_makewindows()` with `reverse`d window numbers.
+
+```{r tss}
+# generate 1 bp TSS intervals, `+` strand only
+tss <- genes %>%
+  filter(strand == '+') %>%
+  mutate(end = start + 1)
+
+# 1000 bp up and downstream
+region_size <- 1000
+# 50 bp windows
+win_size <- 50
+
+# add slop to the TSS, break into windows and add a group
+x <- tss %>%
+  bed_slop(genome, both = region_size) %>%
+  bed_makewindows(genome, win_size)
+
+x
+```
+
+Now we use the `.win_id` group with `bed_map()` to caluclate a sum by mapping `y` signals onto the intervals in `x`. These data are regrouped by `.win_id` and a summary with `mean` and `sd` values is calculated.
+
+```{r map}
+# map signals to TSS regions and calculate summary statistics.
+res <- bed_map(x, y, win_sum = sum(value, na.rm = TRUE)) %>%
+  group_by(.win_id) %>%
+  summarize(win_mean = mean(win_sum, na.rm = TRUE),
+            win_sd = sd(win_sum, na.rm = TRUE))
+```
+
+Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.
+
+```{r plot, warning = FALSE, message = FALSE, fig.align='center', fig.width=6}
+library(ggplot2)
+
+x_labels <- seq(-region_size, region_size, by = win_size * 5)
+x_breaks <- seq(1, 41, by = 5)
+
+sd_limits <- aes(ymax = win_mean + win_sd, ymin = win_mean - win_sd)
+
+ggplot(res, aes(x = .win_id, y = win_mean)) +
+  geom_point() + geom_pointrange(sd_limits) + 
+  scale_x_continuous(labels = x_labels, breaks = x_breaks) + 
+  xlab('Position (bp from TSS)') + ylab('Signal') + 
+  ggtitle('Human H3K4me3 signal near transcription start sites') +
+  theme_classic()
+```
+
+### Interval statistics
+
+Estimates of significance for interval overlaps can be obtained by combining `bed_shuffle()`, `bed_random()` and the `sample_` functions from `dplyr` with interval statistics in `valr`.
+
+Here we examine the overlap of repeat classes in the human genome (on `chr22` only, for simplicity) using `bed_jaccard()`.
+
+```{r reldist_shuffle, message = FALSE}
+library(purrr)
+library(tidyr)
+
+repeats <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+
+shuffle_intervals <- function(n, .data, genome) {
+  replicate(n, bed_shuffle(.data, genome), simplify = FALSE) %>%
+    bind_rows(.id = 'rep') %>%
+    group_by(rep) %>% nest()
+}
+
+shuffled <- shuffle_intervals(n = 100, repeats, genome) %>%
+  mutate(jaccard = data %>%
+           map(bed_jaccard, repeats) %>%
+           map_dbl("jaccard"))
+  
+shuffled
+```
+
+## Benchmarks
+
+Certain algorithms in `valr` were implemented in `Rcpp` to enable fluid interactive analysis.  This graph illustrates the timing of functions in `valr` for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.
+
+```{r benchmarks, echo = FALSE, fig.width=6}
+library(microbenchmark)
+
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+
+x <- bed_random(genome, n=1e5)
+y <- bed_random(genome, n=1e5)
+
+ts <- microbenchmark(
+  bed_random(genome), bed_closest(x, y),
+  bed_intersect(x, y), bed_merge(x),
+  bed_subtract(x, y), bed_complement(x, genome),
+  bed_shuffle(x, genome),
+  times = 1,
+  unit = 's')
+
+# from unexported microbenchmark::convert_to_unit
+ts$ntime <- ts$time / 1e9 
+
+ggplot(ts, aes(y=reorder(expr, ntime), x=ntime)) +
+  geom_point(color='red', size=4) +
+  xlab('execution time (seconds)') + ylab('') +
+  theme_bw()
+```
+ 
+## API
+
+Function names are similar to their their [BEDtools][1] counterparts, with some additions.
+
+### Reading data
+
+* BED and related files are read with `read_bed()`, `read_bed12()`, `read_bedgraph()`, `read_narrowpeak()` and `read_broadpeak()`.
+  
+* Genome files containing chromosome name and size information are loaded with `read_genome()`.
+  
+* VCF files are loaded with `read_vcf()`.
+
+### Transforming single interval sets
+
+* Intervals are ordered with `bed_sort()`.
+
+* Interval coordinates are adjusted with `bed_slop()` and `bed_shift()`, and new flanking intervals are created with `bed_flank()`.
+
+* Nearby intervals are combined with `bed_merge()` and identified (but not merged) with `bed_cluster()`.  
+
+* Intervals not covered by a query are created with `bed_complement()`.
+
+### Comparing multiple interval sets
+
+* Find overlaps between two sets of intervals with `bed_intersect()`.
+
+* Apply functions to selected columns for overlapping intervals with `bed_map()`.
+
+* Remove intervals based on overlaps between two files with `bed_subtract()`.
+
+* Find overlapping intervals within a window with `bed_window()`.
+
+* Find the closest intervals independent of overlaps with `bed_closest()`.
+
+### Randomizing intervals
+
+* Generate random intervals from an input genome with `bed_random()`.
+
+* Shuffle the coordinates of input intervals with `bed_shuffle()`.
+
+* Random sampling of input intervals is done with the `sample_` function family in `dplyr`.
+
+### Interval statistics
+
+* Quantify overlaps between two sets of intervals with `bed_fisher()`.
+
+* Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
+
+* Quantify extent of overlap between two sets of intervals with `bed_jaccard()`.
+
+## Related work {#related_work}
+
+* Command-line tools [BEDtools][1] and [bedops][5].
+
+* The Python library [pybedtools][4] wraps BEDtools.
+
+* The R packages [GenomicRanges][6], [bedr][7], [IRanges][8] and [GenometriCorr][9] provide similar capability with a different philosophy.
+
+[1]: http://bedtools.readthedocs.org/en/latest/
+[2]: https://github.com/hadley/dplyr
+[3]: http://www.rcpp.org/
+[4]: https://pythonhosted.org/pybedtools/
+[5]: http://bedops.readthedocs.org/en/latest/index.html
+[6]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
+[7]: https://cran.r-project.org/web/packages/bedr/index.html
+[8]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
+[9]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
+[10]: http://rmarkdown.rstudio.com/
+[11]: https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/
+[12]: https://bitbucket.org/snakemake/snakemake/wiki/Home
+[13]: http://shiny.rstudio.com/
