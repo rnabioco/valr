@@ -39,9 +39,6 @@ reference:
     - bed12_to_exons
     - bed_glyph
     - valr_example
-    - format_bed
-    - is_sorted
-    - is_merged
     - launch_shiny
     
 
@@ -49,10 +46,12 @@ navbar:
   title: 'valr'
   type: inverse
   left:
+  - text: Overview
+    href: articles/valr.html
   - text: Reference
     href: reference/index.html
-  - text: Examples
-    href: articles/valr-examples.html
+  - text: News
+    href: news/index.html
     
   right:
   - icon: fa-github fa-lg

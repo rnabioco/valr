@@ -16,10 +16,13 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
+  <a href="articles/valr.html">Overview</a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="articles/valr-examples.html">Examples</a>
+  <a href="news/index.html">News</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -38,26 +41,21 @@
     
     
 <div id="valr" class="section level1">
-<h1>valr</h1>
-<p><img src="logo.png" align="right"></p>
+<h1>valr <img src="logo.png" align="right"></h1>
 <p><a href="https://travis-ci.org/jayhesselberth/valr"><img src="https://travis-ci.org/jayhesselberth/valr.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/jayhesselberth/valr"><img src="https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/jayhesselberth/valr?branch=master"><img src="https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg" alt="Coverage Status"></a> <a href="http://www.r-pkg.org/pkg/valr"><img src="http://www.r-pkg.org/badges/version/valr"></a></p>
-<p><code>valr</code> provides tools to read and manipulate genome intervals and signals, similar to the standalone <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a>.</p>
+<p><strong><code>valr</code> provides tools to read and manipulate genome intervals and signals</strong>, similar to the <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables BEDtools-like analysis in the R/RStudio environment, and leverages modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a>.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p><code>valr</code> can be installed from github, and will be eventually deposited in CRAN.</p>
+<p>The latest version of <code>valr</code> is available from CRAN:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'valr'</span>)</code></pre></div>
+<p>and the latest development version can be installed from github:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 devtools::<span class="kw">install_github</span>(<span class="st">'jayhesselberth/valr'</span>)</code></pre></div>
 </div>
 <div id="why-valr" class="section level2">
 <h2>Why <code>valr</code>?</h2>
-<p><strong>Why another tool set for interval manipulations?</strong> There are several <a href="#related_work">other software packages</a> available for genome interval analysis. However, based on our experiences teaching genome analysis, we were motivated to develop a toolset that:</p>
-<ul><li>Combines analysis and visualization in RStudio.</li>
-<li>Can be used to generate reports with Rmarkdown.</li>
-<li>Is highly extensible. New tools are quickly implemented on the R side.</li>
-<li>Leverages the &ldquo;modern R&rdquo; syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code>%&gt;%</code>).</li>
-<li>Maximizes speed by implementing compute-intensive algorithms in <code>Rcpp</code>.</li>
-<li>Facilitates interactive visulaizations with <a href="http://shiny.rstudio.com/"><code>shiny</code></a>.</li>
-</ul><p><code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
+<p><strong>Why another tool set for interval manipulations?</strong> Based on our experience teaching genome analysis, we were motivated to develop interval arithmetic software that faciliates genome analysis in a single environment (RStudio), eliminating the need to master the command-line and exploratory analysis tools.</p>
+<p><code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
 <div id="familiar-tools-all-within-r" class="section level3">
 <h3>Familiar tools, all within R</h3>
 <p>The functions in <code>valr</code> have similar names to their <code>BEDtools</code> counterparts, and so will be familiar to users coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools"><code>pybedtools</code></a>, <code>valr</code> has a terse syntax:</p>
@@ -69,182 +67,24 @@ genes &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed
 
 <span class="co"># find snps in intergenic regions</span>
 intergenic &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_subtract.html">bed_subtract</a></span>(snps, genes)
-<span class="co"># distance from intergenic snps to nearest gene</span>
+<span class="co"># find distance from intergenic snps to nearest gene</span>
 nearby &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)
 
 nearby %&gt;%
 <span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .distance) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.distance) &lt;<span class="st"> </span><span class="dv">1000</span>)
-<span class="co">#&gt; # A tibble: 285 &times; 4</span>
-<span class="co">#&gt;         name.x            name.y .overlap .distance</span>
-<span class="co">#&gt;          &lt;chr&gt;             &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1    rs2261631             P704P        0      -267</span>
-<span class="co">#&gt; 2  rs570770556             POTEH        0      -912</span>
-<span class="co">#&gt; 3  rs538163832             POTEH        0      -952</span>
-<span class="co">#&gt; 4    rs9606135            TPTEP1        0      -421</span>
-<span class="co">#&gt; 5   rs11912392 ANKRD62P1-PARP4P3        0       104</span>
-<span class="co">#&gt; 6    rs8136454          BC038197        0       355</span>
-<span class="co">#&gt; 7    rs5992556              XKR3        0      -455</span>
-<span class="co">#&gt; 8  rs114101676              GAB4        0       473</span>
-<span class="co">#&gt; 9   rs62236167             CECR7        0       261</span>
-<span class="co">#&gt; 10   rs5747023             CECR1        0      -386</span>
-<span class="co">#&gt; # ... with 275 more rows</span></code></pre></div>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.distance) &lt;<span class="st"> </span><span class="dv">5000</span>)</code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3>Visual documentation</h3>
-<p>The <code><a href="reference/bed_glyph.html">bed_glyph()</a></code> tool illustrates the results of operations in <code>valr</code>, similar to those found in the <code>BEDtools</code> documentation. This glyph shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
-  ~chrom, ~start, ~end,
-  <span class="st">'chr1'</span>, <span class="dv">25</span>,     <span class="dv">50</span>,
-  <span class="st">'chr1'</span>, <span class="dv">100</span>,    <span class="dv">125</span>
-)
-
-y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
-  ~chrom, ~start, ~end,
-  <span class="st">'chr1'</span>, <span class="dv">30</span>,     <span class="dv">75</span>
-)
-
-<span class="kw"><a href="reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="reference/bed_intersect.html">bed_intersect</a></span>(x, y))</code></pre></div>
+<p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. This glyph shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
 <p><img src="img/README-intersect_glyph-1.png" width="672"></p>
 <p>And this glyph illustrates <code><a href="reference/bed_merge.html">bed_merge()</a></code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
-  ~chrom, ~start, ~end,
-  <span class="st">'chr1'</span>,      <span class="dv">1</span>,      <span class="dv">50</span>,
-  <span class="st">'chr1'</span>,      <span class="dv">10</span>,     <span class="dv">75</span>,
-  <span class="st">'chr1'</span>,      <span class="dv">100</span>,    <span class="dv">120</span>
-)
-
-<span class="kw"><a href="reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="reference/bed_merge.html">bed_merge</a></span>(x))</code></pre></div>
 <p><img src="img/README-merge_glyph-1.png" width="672"></p>
 </div>
 <div id="reproducible-reports" class="section level3">
 <h3>Reproducible reports</h3>
-<p><code>valr</code> can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because <code>valr</code> is reasonably fast (see the <a href="#benchmarks">benchmarks</a>), we now use it in lieu of other tools for exploratory analysis of genomic data sets in R.</p>
-<p>Command-line tools like <code>BEDtools</code> and <code>bedops</code> can be used in reproducible workflows (e.g., with <a href="https://bitbucket.org/snakemake/snakemake/wiki/Home"><code>snakemake</code></a>), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. <a href="https://pythonhosted.org/pybedtools/"><code>pybedtools</code></a> can be used within <code>ipython notebooks</code> to accomplish a similar goal, but others have pointed out <a href="https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/">issues with this approach</a>, including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g.&nbsp;notebook viewing) enable similar functionality to <code>ipython</code>.</p>
+<p><code>valr</code> can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because <code>valr</code> is reasonably fast, it can be for exploratory analysis with <code>RMarkdown</code>, and for interactive analysis using <code>shiny</code>.</p>
 </div>
-<div id="column-specification" class="section level3">
-<h3>Column specification</h3>
-<p>Columns in <code>BEDtools</code> are referred to by position:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># calculate the mean of column 6 for intervals in `b` that overlap with `a`</span>
-<span class="kw">bedtools</span> map -a a.bed -b b.bed -c 6 -o mean</code></pre></div>
-<p>In <code>valr</code>, columns are referred to by name and can be used in multiple name/value expressions for summaries.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the mean and variance for a `value` column</span>
-<span class="kw"><a href="reference/bed_map.html">bed_map</a></span>(a, b, <span class="dt">.mean =</span> <span class="kw">mean</span>(value), <span class="dt">.var =</span> <span class="kw">var</span>(value))
-
-<span class="co"># report concatenated and max values for merged intervals</span>
-<span class="kw"><a href="reference/bed_merge.html">bed_merge</a></span>(a, <span class="dt">.concat =</span> <span class="kw"><a href="reference/bed_map.html">concat</a></span>(value), <span class="dt">.max =</span> <span class="kw">max</span>(value))</code></pre></div>
-</div>
-</div>
-<div id="getting-started" class="section level2">
-<h2>Getting started</h2>
-<div id="meta-analysis" class="section level3">
-<h3>Meta-analysis</h3>
-<p>This demonstration illustrates how to use <code>valr</code> tools to perform a &ldquo;meta-analysis&rdquo; of signals relative to genomic features. Here we to analyze the distribution of histone marks surrounding transcription start sites.</p>
-<p>First we load libraries and relevant data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># `valr_example()` identifies the path of example files</span>
-bedfile &lt;-<span class="st"> </span><span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>)
-genomefile &lt;-<span class="st"> </span><span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>)
-bgfile  &lt;-<span class="st"> </span><span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hela.h3k4.chip.bg.gz'</span>)
-
-genes &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(bedfile, <span class="dt">n_fields =</span> <span class="dv">6</span>)
-genome &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_genome.html">read_genome</a></span>(genomefile)
-y &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bedgraph</a></span>(bgfile)</code></pre></div>
-<p>Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on <code>+</code> strand genes, but <code>-</code> genes are easily accomodated by filtering them and using <code><a href="reference/bed_makewindows.html">bed_makewindows()</a></code> with <code>reverse</code>d window numbers.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate 1 bp TSS intervals, `+` strand only</span>
-tss &lt;-<span class="st"> </span>genes %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(strand ==<span class="st"> '+'</span>) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">end =</span> start +<span class="st"> </span><span class="dv">1</span>)
-
-<span class="co"># 1000 bp up and downstream</span>
-region_size &lt;-<span class="st"> </span><span class="dv">1000</span>
-<span class="co"># 50 bp windows</span>
-win_size &lt;-<span class="st"> </span><span class="dv">50</span>
-
-<span class="co"># add slop to the TSS, break into windows and add a group</span>
-x &lt;-<span class="st"> </span>tss %&gt;%
-<span class="st">  </span><span class="kw"><a href="reference/bed_slop.html">bed_slop</a></span>(genome, <span class="dt">both =</span> region_size) %&gt;%
-<span class="st">  </span><span class="kw"><a href="reference/bed_makewindows.html">bed_makewindows</a></span>(genome, win_size)
-
-x
-<span class="co">#&gt; # A tibble: 13,530 &times; 7</span>
-<span class="co">#&gt;    chrom    start      end      name score strand .win_id</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  chr22 16161065 16161115 LINC00516     3      +       1</span>
-<span class="co">#&gt; 2  chr22 16161115 16161165 LINC00516     3      +       2</span>
-<span class="co">#&gt; 3  chr22 16161165 16161215 LINC00516     3      +       3</span>
-<span class="co">#&gt; 4  chr22 16161215 16161265 LINC00516     3      +       4</span>
-<span class="co">#&gt; 5  chr22 16161265 16161315 LINC00516     3      +       5</span>
-<span class="co">#&gt; 6  chr22 16161315 16161365 LINC00516     3      +       6</span>
-<span class="co">#&gt; 7  chr22 16161365 16161415 LINC00516     3      +       7</span>
-<span class="co">#&gt; 8  chr22 16161415 16161465 LINC00516     3      +       8</span>
-<span class="co">#&gt; 9  chr22 16161465 16161515 LINC00516     3      +       9</span>
-<span class="co">#&gt; 10 chr22 16161515 16161565 LINC00516     3      +      10</span>
-<span class="co">#&gt; # ... with 13,520 more rows</span></code></pre></div>
-<p>Now we use the <code>.win_id</code> group with <code><a href="reference/bed_map.html">bed_map()</a></code> to caluclate a sum by mapping <code>y</code> signals onto the intervals in <code>x</code>. These data are regrouped by <code>.win_id</code> and a summary with <code>mean</code> and <code>sd</code> values is calculated.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># map signals to TSS regions and calculate summary statistics.</span>
-res &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_map.html">bed_map</a></span>(x, y, <span class="dt">win_sum =</span> <span class="kw">sum</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(.win_id) %&gt;%
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">win_mean =</span> <span class="kw">mean</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">win_sd =</span> <span class="kw">sd</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<p>Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-
-x_labels &lt;-<span class="st"> </span><span class="kw">seq</span>(-region_size, region_size, <span class="dt">by =</span> win_size *<span class="st"> </span><span class="dv">5</span>)
-x_breaks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">41</span>, <span class="dt">by =</span> <span class="dv">5</span>)
-
-sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class="dt">ymax =</span> win_mean +<span class="st"> </span>win_sd, <span class="dt">ymin =</span> win_mean -<span class="st"> </span>win_sd)
-
-<span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x =</span> .win_id, <span class="dt">y =</span> win_mean)) +
-<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_pointrange</span>(sd_limits) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> x_labels, <span class="dt">breaks =</span> x_breaks) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">'Position (bp from TSS)'</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">'Signal'</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">'Human H3K4me3 signal near transcription start sites'</span>) +
-<span class="st">  </span><span class="kw">theme_classic</span>()</code></pre></div>
-<p><img src="img/README-plot-1.png" width="576" style="display: block; margin: auto;"></p>
-</div>
-<div id="interval-statistics" class="section level3">
-<h3>Interval statistics</h3>
-<p>Estimates of significance for interval overlaps can be obtained by combining <code><a href="reference/bed_shuffle.html">bed_shuffle()</a></code>, <code><a href="reference/bed_random.html">bed_random()</a></code> and the <code>sample_</code> functions from <code>dplyr</code> with interval statistics in <code>valr</code>.</p>
-<p>Here we examine the overlap of repeat classes in the human genome (on <code>chr22</code> only, for simplicity) using <code><a href="reference/bed_jaccard.html">bed_jaccard()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(purrr)
-<span class="kw">library</span>(tidyr)
-
-repeats &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.rmsk.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>) 
-genome &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
-
-shuffle_intervals &lt;-<span class="st"> </span>function(n, .data, genome) {
-  <span class="kw">replicate</span>(n, <span class="kw"><a href="reference/bed_shuffle.html">bed_shuffle</a></span>(.data, genome), <span class="dt">simplify =</span> <span class="ot">FALSE</span>) %&gt;%
-<span class="st">    </span><span class="kw">bind_rows</span>(<span class="dt">.id =</span> <span class="st">'rep'</span>) %&gt;%
-<span class="st">    </span><span class="kw">group_by</span>(rep) %&gt;%<span class="st"> </span><span class="kw">nest</span>()
-}
-
-shuffled &lt;-<span class="st"> </span><span class="kw">shuffle_intervals</span>(<span class="dt">n =</span> <span class="dv">100</span>, repeats, genome) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">jaccard =</span> data %&gt;%
-<span class="st">           </span><span class="kw">map</span>(bed_jaccard, repeats) %&gt;%
-<span class="st">           </span><span class="kw">map_dbl</span>(<span class="st">"jaccard"</span>))
-<span class="co">#&gt; Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</span>
-  
-shuffled
-<span class="co">#&gt; # A tibble: 100 &times; 3</span>
-<span class="co">#&gt;      rep                  data      jaccard</span>
-<span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0005945729</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0003619465</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0005472538</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0003830148</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0004288723</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0003497604</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0003772313</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0003662840</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0003458361</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0001804243</span>
-<span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
-</div>
-</div>
-<div id="benchmarks" class="section level2">
-<h2>Benchmarks</h2>
-<p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis. This graph illustrates the timing of functions in <code>valr</code> for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.</p>
-<p><img src="img/README-benchmarks-1.png" width="576"></p>
 </div>
 <div id="api" class="section level2">
 <h2>API</h2>
@@ -276,7 +116,7 @@ shuffled
 <li><p>Shuffle the coordinates of input intervals with <code><a href="reference/bed_shuffle.html">bed_shuffle()</a></code>.</p></li>
 <li><p>Random sampling of input intervals is done with the <code>sample_</code> function family in <code>dplyr</code>.</p></li>
 </ul></div>
-<div id="interval-statistics-1" class="section level3">
+<div id="interval-statistics" class="section level3">
 <h3>Interval statistics</h3>
 <ul><li><p>Quantify overlaps between two sets of intervals with <code><a href="reference/bed_fisher.html">bed_fisher()</a></code>.</p></li>
 <li><p>Quantify relative and absolute distances between sets of intervals with <code><a href="reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="reference/bed_absdist.html">bed_absdist()</a></code>.</p></li>
