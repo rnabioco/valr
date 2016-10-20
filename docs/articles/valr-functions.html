@@ -37,7 +37,7 @@
       <h1>valr functions</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-10-18</h4>
+            <h4 class="date">2016-10-19</h4>
           </div>
 
     
@@ -779,45 +779,47 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_rando
 )
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;                             expr       min        lq      mean    median</span>
-<span class="co">#&gt;         bed_random(genome_human) 0.1256367 0.1256367 0.1256367 0.1256367</span>
-<span class="co">#&gt;                bed_closest(x, y) 3.1850545 3.1850545 3.1850545 3.1850545</span>
-<span class="co">#&gt;              bed_intersect(x, y) 1.9662515 1.9662515 1.9662515 1.9662515</span>
-<span class="co">#&gt;                     bed_merge(x) 2.8546245 2.8546245 2.8546245 2.8546245</span>
-<span class="co">#&gt;               bed_subtract(x, y) 3.4701757 3.4701757 3.4701757 3.4701757</span>
-<span class="co">#&gt;  bed_complement(x, genome_human) 3.1265744 3.1265744 3.1265744 3.1265744</span>
-<span class="co">#&gt;     bed_shuffle(x, genome_human) 1.1749555 1.1749555 1.1749555 1.1749555</span>
+<span class="co">#&gt;         bed_random(genome_human) 0.1224673 0.1224673 0.1224673 0.1224673</span>
+<span class="co">#&gt;                bed_closest(x, y) 3.5497519 3.5497519 3.5497519 3.5497519</span>
+<span class="co">#&gt;              bed_intersect(x, y) 1.8220724 1.8220724 1.8220724 1.8220724</span>
+<span class="co">#&gt;                     bed_merge(x) 2.7606458 2.7606458 2.7606458 2.7606458</span>
+<span class="co">#&gt;               bed_subtract(x, y) 3.5369585 3.5369585 3.5369585 3.5369585</span>
+<span class="co">#&gt;  bed_complement(x, genome_human) 2.8014580 2.8014580 2.8014580 2.8014580</span>
+<span class="co">#&gt;     bed_shuffle(x, genome_human) 1.1606361 1.1606361 1.1606361 1.1606361</span>
 <span class="co">#&gt;         uq       max neval</span>
-<span class="co">#&gt;  0.1256367 0.1256367     1</span>
-<span class="co">#&gt;  3.1850545 3.1850545     1</span>
-<span class="co">#&gt;  1.9662515 1.9662515     1</span>
-<span class="co">#&gt;  2.8546245 2.8546245     1</span>
-<span class="co">#&gt;  3.4701757 3.4701757     1</span>
-<span class="co">#&gt;  3.1265744 3.1265744     1</span>
-<span class="co">#&gt;  1.1749555 1.1749555     1</span></code></pre></div>
+<span class="co">#&gt;  0.1224673 0.1224673     1</span>
+<span class="co">#&gt;  3.5497519 3.5497519     1</span>
+<span class="co">#&gt;  1.8220724 1.8220724     1</span>
+<span class="co">#&gt;  2.7606458 2.7606458     1</span>
+<span class="co">#&gt;  3.5369585 3.5369585     1</span>
+<span class="co">#&gt;  2.8014580 2.8014580     1</span>
+<span class="co">#&gt;  1.1606361 1.1606361     1</span></code></pre></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs">
-        <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked"><li><a href="#reading-data">Reading data</a><ul class="nav nav-pills nav-stacked"><li><a href="#bed-files">BED files</a></li>
-      <li><a href="#genome-files">Genome files</a></li>
-      <li><a href="#bedgraph-files">bedGraph files</a></li>
-      <li><a href="#vcf-files">VCF files</a></li>
-      </ul></li>
-      <li><a href="#interval-manipulations">Interval manipulations</a><ul class="nav nav-pills nav-stacked"><li><a href="#single-set-operations">Single set operations</a></li>
-      <li><a href="#multiple-set-operations">Multiple set operations</a></li>
-      <li><a href="#randomzing-intervals">Randomzing intervals</a></li>
-      <li><a href="#other-topics">Other topics</a></li>
-      </ul></li>
-      <li><a href="#interval-statistics">Interval Statistics</a><ul class="nav nav-pills nav-stacked"><li><a href="#fishers-test">Fisher&rsquo;s test</a></li>
-      <li><a href="#absolute-distance">Absolute distance</a></li>
-      <li><a href="#relative-distance">Relative distance</a></li>
-      <li><a href="#jaccard-similarity">Jaccard similarity</a></li>
-      </ul></li>
-      <li><a href="#benchmarks">Benchmarks</a></li>
-      </ul></div>
-      </div>
+    <div id="sidebar">
+            <div id="tocnav">
+        <h2>Contents</h2>
+        <ul class="nav nav-pills nav-stacked"><li><a href="#reading-data">Reading data</a><ul class="nav nav-pills nav-stacked"><li><a href="#bed-files">BED files</a></li>
+        <li><a href="#genome-files">Genome files</a></li>
+        <li><a href="#bedgraph-files">bedGraph files</a></li>
+        <li><a href="#vcf-files">VCF files</a></li>
+        </ul></li>
+        <li><a href="#interval-manipulations">Interval manipulations</a><ul class="nav nav-pills nav-stacked"><li><a href="#single-set-operations">Single set operations</a></li>
+        <li><a href="#multiple-set-operations">Multiple set operations</a></li>
+        <li><a href="#randomzing-intervals">Randomzing intervals</a></li>
+        <li><a href="#other-topics">Other topics</a></li>
+        </ul></li>
+        <li><a href="#interval-statistics">Interval Statistics</a><ul class="nav nav-pills nav-stacked"><li><a href="#fishers-test">Fisher&rsquo;s test</a></li>
+        <li><a href="#absolute-distance">Absolute distance</a></li>
+        <li><a href="#relative-distance">Relative distance</a></li>
+        <li><a href="#jaccard-similarity">Jaccard similarity</a></li>
+        </ul></li>
+        <li><a href="#benchmarks">Benchmarks</a></li>
+        </ul></div>
+          </div>
+  </div>
 
 </div>
 

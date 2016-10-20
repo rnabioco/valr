@@ -13,7 +13,7 @@ format_bed(x, y)
 }
 \description{
 \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-Columns not found in y tbl are dropped. Missing y columns are added and populated
-with a dummy entry "."
+Columns not found in Y tbl are dropped from X. Y columns not found in X 
+added to X and populated with a dummy entry "."
 }
 

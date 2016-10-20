@@ -37,7 +37,9 @@
 #' 
 #' @export
 bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
-
+  
+  x_groups <- groups(x)
+  
   if (max_dist < 0)
     stop('max_dist must be positive', call. = FALSE)
   
@@ -47,7 +49,7 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
     res <- x
   }
  
-  res <- group_by(res, chrom)
+  res <- group_by(res, chrom, add = TRUE)
   
   if (strand)
     res <- group_by(res, strand, add = TRUE)
@@ -56,8 +58,8 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   
   dots <- list(.start = ~min(start), .end = ~max(end))
   dots <- c(dots, lazyeval::lazy_dots(...))
- 
-  res <- group_by(res, chrom, .id_merge)
+  
+  res <- group_by_(res, .dots = c("chrom", ".id_merge", x_groups), add = TRUE)
     
   if (strand)
     res <- group_by(res, strand, add = TRUE)
@@ -65,6 +67,8 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   res <- summarize_(res, .dots = dots)
   res <- rename(res, start = .start, end = .end)
   res <- ungroup(res)
+  # restore original grouping
+  res <- group_by_(res, .dots = x_groups)
   res <- select(res, -.id_merge)
   res <- format_bed(res, x)
   

@@ -78,11 +78,10 @@ region_size <- 1000
 # 50 bp windows
 win_size <- 50
 
-# add slop to the TSS, break into windows and add a group
+# add slop to the TSS, break into windows
 x <- tss %>%
   bed_slop(genome, both = region_size) %>%
-  bed_makewindows(genome, win_size) %>%
-  group_by(.win_id)
+  bed_makewindows(genome, win_size)
 
 x
 ```

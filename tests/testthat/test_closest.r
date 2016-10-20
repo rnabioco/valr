@@ -630,7 +630,28 @@ test_that("test that a max of two duplicated x ivls are returned, assuming non-o
 })
 
 
-
+test_that("ensure that subtraction is done with respect to input tbls issue#108",{
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group,
+    'chr1', 100,    200,  'A',
+    'chr1', 200,    400,  'A',
+    'chr1', 300,    500,  'A',
+    'chr1', 125,    175,  'C',
+    'chr1', 150,    200,  'B'
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group,
+    'chr1', 100,    200,  'A',
+    'chr1', 200,    400,  'B',
+    'chr1', 300,    500,  'A',
+    'chr1', 125,    175,  'C',
+    'chr2', 150,    200,  'A'
+  )
+  x_grouped <- bed_sort(x) %>% group_by(group, chrom)
+  y_grouped <- bed_sort(y) %>% group_by(group, chrom)
+  res <- bed_closest(x_grouped, y_grouped)
+  expect_true(all(res$group.x == res$group.y))
+})
 
 
 
