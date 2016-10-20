@@ -9,7 +9,7 @@ valr_example <- function(path) {
 #' reformat bed tbl to match another tbl
 #' 
 #' \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-#'Columns not found in Y tbl are dropped from X. Y columns not found in X 
+#' Columns not found in Y tbl are dropped from X. Y columns not found in X 
 #' added to X and populated with a dummy entry "."
 #' @param x tbl of intervals
 #' @param y tbl of intervals 
