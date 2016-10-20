@@ -1,3 +1,13 @@
+## Resubmission
+ 
+This is a resubmission. In this version I have:
+
+* Updated to the CRAN MIT LICENSE template.
+
+* Updated the Authors@R section using `person()` calls
+
+* Fixed non-canonical CRAN URLs
+
 ## Test environments
 
 * Windows Server 2012 R2 x64 (on appveyor), R 3.3.1

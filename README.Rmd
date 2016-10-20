@@ -161,7 +161,7 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 [4]: https://pythonhosted.org/pybedtools/
 [5]: http://bedops.readthedocs.org/en/latest/index.html
 [6]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
-[7]: https://cran.r-project.org/web/packages/bedr/index.html
+[7]: https://CRAN.R-project.org/package=bedr 
 [8]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
 [9]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
 [10]: http://rmarkdown.rstudio.com/

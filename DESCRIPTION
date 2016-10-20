@@ -2,11 +2,12 @@ Package: valr
 Type: Package
 Title: Genome Interval Arithmetic in R
 Version: 0.1
-Authors@R: as.person(c(
-    "Jay Hesselberth <jay.hesselberth@gmail.com> [aut, cre]",
-    "Kent Riemondy <kent.riemondy@ucdenver.edu> [aut]",
-    "Ryan Sheridan <ryan.sheridan@ucdenver.edu> [ctb]"
-  ))
+Authors@R: c(person('Jay', 'Hesselberth', role = c('aut', 'cre'), 
+                    email = 'jay.hesselberth@gmail.com'),
+             person('Kent', 'Riemondy', role = c('aut'),
+                    email = 'kent.riemondy@ucdenver.edu'),
+             person('Ryan', 'Sheridan', role = c('ctb'),
+                    email = 'ryan.sheridan@ucdenver.edu'))
 Description: Read and manipulate genome intervals and signals. valr 
              provides functionality similar to BEDtools and bedops within R,
              enabling interactive analysis and visualization of genome-scale data. 

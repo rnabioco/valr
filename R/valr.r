@@ -19,7 +19,7 @@
 #' @seealso
 #'   \url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
 #'   
-#' @seealso \url{https://cran.r-project.org/web/packages/bedr/index.html}
+#' @seealso \url{https://CRAN.R-project.org/package=bedr}
 #'   
 #' @useDynLib valr
 #' @importFrom tibble tribble as_tibble

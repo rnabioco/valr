@@ -28,6 +28,6 @@ Kent Riemondy <kent.riemondy@gmail.com>
 
 \url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
 
-\url{https://cran.r-project.org/web/packages/bedr/index.html}
+\url{https://CRAN.R-project.org/package=bedr}
 }
 
