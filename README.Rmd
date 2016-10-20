@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
 
-`valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][5]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][3]. 
+`valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`][1] suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][3]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][2]. 
 
 ## Installation
 
@@ -39,7 +39,7 @@ devtools::install_github('jayhesselberth/valr')
 * Is highly extensible. New tools are quickly implemented on the R side.
 * Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`%>%`).
 * Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
-* Facilitates interactive visulaizations with [`shiny`][10].
+* Facilitates interactive visulaizations with [`shiny`][13].
 
 `valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
@@ -100,7 +100,7 @@ bed_glyph(bed_merge(x))
 
 `valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast (see the [benchmarks](#benchmarks)), we now use it in lieu of other tools for exploratory analysis of genomic data sets in R.
 
-Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`][12]), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. `pybedtools` can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach][11], including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g. notebook viewing) enable similar functionality to `ipython`.
+Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`][12]), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. [`pybedtools`][4] can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach][11], including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g. notebook viewing) enable similar functionality to `ipython`.
 
 ### Column specification
 
@@ -315,3 +315,4 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 [10]: http://rmarkdown.rstudio.com/
 [11]: https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/
 [12]: https://bitbucket.org/snakemake/snakemake/wiki/Home
+[13]: http://shiny.rstudio.com/

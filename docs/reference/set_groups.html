@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>reformat bed tbl to match another tbl — format_bed • valr</title>
+<title>Compare tbl_dfs and set y groups based on x tbl — set_groups • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,18 +71,17 @@
       </header>
 
       <div class="page-header">
-  <h1>reformat bed tbl to match another tbl</h1>
+  <h1>Compare tbl_dfs and set y groups based on x tbl</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p><code>format_bed</code> returns a tbl whose columns are ordered by another tbl.
-Columns not found in Y tbl are dropped from X. Y columns not found in X 
-added to X and populated with a dummy entry &quot;.&quot;</p>
+    <p><code>set_groups</code> return the x tbl grouped by the y tbls groups. 
+Groups in X that are not found in the Y tbl are dropped from the grouping.</p>
     
 
-    <pre><span class='fu'>format_bed</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
+    <pre><span class='fu'>set_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">

@@ -41,7 +41,7 @@
 <h1>valr</h1>
 <p><img src="logo.png" align="right"></p>
 <p><a href="https://travis-ci.org/jayhesselberth/valr"><img src="https://travis-ci.org/jayhesselberth/valr.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/jayhesselberth/valr"><img src="https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/jayhesselberth/valr?branch=master"><img src="https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg" alt="Coverage Status"></a> <a href="http://www.r-pkg.org/pkg/valr"><img src="http://www.r-pkg.org/badges/version/valr"></a></p>
-<p><code>valr</code> provides tools to read and manipulate genome intervals and signals, similar to the standalone <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://bedops.readthedocs.org/en/latest/index.html"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="http://www.rcpp.org/"><code>dplyr</code></a>.</p>
+<p><code>valr</code> provides tools to read and manipulate genome intervals and signals, similar to the standalone <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a>.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
 <p><code>valr</code> can be installed from github, and will be eventually deposited in CRAN.</p>
@@ -56,7 +56,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">'jayhesselbert
 <li>Is highly extensible. New tools are quickly implemented on the R side.</li>
 <li>Leverages the &ldquo;modern R&rdquo; syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code>%&gt;%</code>).</li>
 <li>Maximizes speed by implementing compute-intensive algorithms in <code>Rcpp</code>.</li>
-<li>Facilitates interactive visulaizations with <a href="http://rmarkdown.rstudio.com/"><code>shiny</code></a>.</li>
+<li>Facilitates interactive visulaizations with <a href="http://shiny.rstudio.com/"><code>shiny</code></a>.</li>
 </ul><p><code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
 <div id="familiar-tools-all-within-r" class="section level3">
 <h3>Familiar tools, all within R</h3>
@@ -120,7 +120,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 <div id="reproducible-reports" class="section level3">
 <h3>Reproducible reports</h3>
 <p><code>valr</code> can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because <code>valr</code> is reasonably fast (see the <a href="#benchmarks">benchmarks</a>), we now use it in lieu of other tools for exploratory analysis of genomic data sets in R.</p>
-<p>Command-line tools like <code>BEDtools</code> and <code>bedops</code> can be used in reproducible workflows (e.g., with <a href="https://bitbucket.org/snakemake/snakemake/wiki/Home"><code>snakemake</code></a>), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. <code>pybedtools</code> can be used within <code>ipython notebooks</code> to accomplish a similar goal, but others have pointed out <a href="https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/">issues with this approach</a>, including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g.&nbsp;notebook viewing) enable similar functionality to <code>ipython</code>.</p>
+<p>Command-line tools like <code>BEDtools</code> and <code>bedops</code> can be used in reproducible workflows (e.g., with <a href="https://bitbucket.org/snakemake/snakemake/wiki/Home"><code>snakemake</code></a>), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. <a href="https://pythonhosted.org/pybedtools/"><code>pybedtools</code></a> can be used within <code>ipython notebooks</code> to accomplish a similar goal, but others have pointed out <a href="https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/">issues with this approach</a>, including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g.&nbsp;notebook viewing) enable similar functionality to <code>ipython</code>.</p>
 </div>
 <div id="column-specification" class="section level3">
 <h3>Column specification</h3>
@@ -163,13 +163,10 @@ win_size &lt;-<span class="st"> </span><span class="dv">50</span>
 <span class="co"># add slop to the TSS, break into windows and add a group</span>
 x &lt;-<span class="st"> </span>tss %&gt;%
 <span class="st">  </span><span class="kw"><a href="reference/bed_slop.html">bed_slop</a></span>(genome, <span class="dt">both =</span> region_size) %&gt;%
-<span class="st">  </span><span class="kw"><a href="reference/bed_makewindows.html">bed_makewindows</a></span>(genome, win_size) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(.win_id)
+<span class="st">  </span><span class="kw"><a href="reference/bed_makewindows.html">bed_makewindows</a></span>(genome, win_size)
 
 x
-<span class="co">#&gt; Source: local data frame [13,530 x 7]</span>
-<span class="co">#&gt; Groups: .win_id [41]</span>
-<span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 13,530 &times; 7</span>
 <span class="co">#&gt;    chrom    start      end      name score strand .win_id</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt; 1  chr22 16161065 16161115 LINC00516     3      +       1</span>
@@ -231,16 +228,16 @@ shuffled
 <span class="co">#&gt; # A tibble: 100 &times; 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0001901286</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0004369288</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0004292855</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0003823951</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0004532488</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0004065627</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0004175108</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0005129554</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0003673168</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0004144123</span>
+<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0005945729</span>
+<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0003619465</span>
+<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0005472538</span>
+<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0003830148</span>
+<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0004288723</span>
+<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0003497604</span>
+<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0003772313</span>
+<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0003662840</span>
+<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0003458361</span>
+<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0001804243</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
 </div>

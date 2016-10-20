@@ -6,7 +6,7 @@ valr
 
 [![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master) [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
 
-`valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`](http://bedtools.readthedocs.org/en/latest/) suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`](http://bedops.readthedocs.org/en/latest/index.html)/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`](http://www.rcpp.org/).
+`valr` provides tools to read and manipulate genome intervals and signals, similar to the standalone [`BEDtools`](http://bedtools.readthedocs.org/en/latest/) suite. `valr` enables BEDtools-like analysis in the R/RStudio environment, and uses modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`](http://www.rcpp.org/)/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`](https://github.com/hadley/dplyr).
 
 Installation
 ------------
@@ -28,7 +28,7 @@ Why `valr`?
 -   Is highly extensible. New tools are quickly implemented on the R side.
 -   Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`%>%`).
 -   Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
--   Facilitates interactive visulaizations with [`shiny`](http://rmarkdown.rstudio.com/).
+-   Facilitates interactive visulaizations with [`shiny`](http://shiny.rstudio.com/).
 
 `valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
@@ -107,7 +107,7 @@ bed_glyph(bed_merge(x))
 
 `valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast (see the [benchmarks](#benchmarks)), we now use it in lieu of other tools for exploratory analysis of genomic data sets in R.
 
-Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`](https://bitbucket.org/snakemake/snakemake/wiki/Home)), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. `pybedtools` can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach](https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/), including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g. notebook viewing) enable similar functionality to `ipython`.
+Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`](https://bitbucket.org/snakemake/snakemake/wiki/Home)), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. [`pybedtools`](https://pythonhosted.org/pybedtools/) can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach](https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/), including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g. notebook viewing) enable similar functionality to `ipython`.
 
 ### Column specification
 
@@ -242,16 +242,16 @@ shuffled
 #> # A tibble: 100 × 3
 #>      rep                  data      jaccard
 #>    <chr>                <list>        <dbl>
-#> 1      1 <tibble [10,000 × 6]> 0.0004898157
-#> 2      2 <tibble [10,000 × 6]> 0.0004848573
-#> 3      3 <tibble [10,000 × 6]> 0.0005782484
-#> 4      4 <tibble [10,000 × 6]> 0.0002035498
-#> 5      5 <tibble [10,000 × 6]> 0.0004063562
-#> 6      6 <tibble [10,000 × 6]> 0.0003757854
-#> 7      7 <tibble [10,000 × 6]> 0.0002640526
-#> 8      8 <tibble [10,000 × 6]> 0.0004001592
-#> 9      9 <tibble [10,000 × 6]> 0.0002334906
-#> 10    10 <tibble [10,000 × 6]> 0.0004652309
+#> 1      1 <tibble [10,000 × 6]> 0.0003949952
+#> 2      2 <tibble [10,000 × 6]> 0.0004798990
+#> 3      3 <tibble [10,000 × 6]> 0.0002514559
+#> 4      4 <tibble [10,000 × 6]> 0.0004906421
+#> 5      5 <tibble [10,000 × 6]> 0.0002235789
+#> 6      6 <tibble [10,000 × 6]> 0.0005548990
+#> 7      7 <tibble [10,000 × 6]> 0.0001298411
+#> 8      8 <tibble [10,000 × 6]> 0.0003640120
+#> 9      9 <tibble [10,000 × 6]> 0.0004152386
+#> 10    10 <tibble [10,000 × 6]> 0.0004588266
 #> # ... with 90 more rows
 ```
 

@@ -86,16 +86,13 @@ region_size &lt;-<span class="st"> </span><span class="dv">1000</span>
 <span class="co"># 50 bp windows</span>
 win_size &lt;-<span class="st"> </span><span class="dv">50</span>
 
-<span class="co"># add slop to the TSS, break into windows and add a group</span>
+<span class="co"># add slop to the TSS, break into windows</span>
 x &lt;-<span class="st"> </span>tss %&gt;%
 <span class="st">  </span><span class="kw"><a href="../reference/bed_slop.html">bed_slop</a></span>(genome, <span class="dt">both =</span> region_size) %&gt;%
-<span class="st">  </span><span class="kw"><a href="../reference/bed_makewindows.html">bed_makewindows</a></span>(genome, win_size) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(.win_id)
+<span class="st">  </span><span class="kw"><a href="../reference/bed_makewindows.html">bed_makewindows</a></span>(genome, win_size)
 
 x
-<span class="co">#&gt; Source: local data frame [13,530 x 7]</span>
-<span class="co">#&gt; Groups: .win_id [41]</span>
-<span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 13,530 &times; 7</span>
 <span class="co">#&gt;    chrom    start      end      name score strand .win_id</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt; 1  chr22 16161065 16161115 LINC00516     3      +       1</span>
