@@ -14,7 +14,7 @@ void coverage_group(intervalVector vx, intervalVector vy,
     tree_y.findOverlapping(it->start, it->stop, overlaps) ;
     
     // compute number of overlaps
-    std::size_t overlap_count = overlaps.size();
+    int overlap_count = overlaps.size();
     overlap_counts.push_back(overlap_count);
     
     // handle no overlaps and continue
@@ -161,7 +161,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     names[i] = name_x ;
     out[i] = data_x[i] ;
   }
-  std::size_t n = new_cols.size() ;
+  int n = new_cols.size() ;
   
   // new names
   for (int i = 0; i< n ; i++){
