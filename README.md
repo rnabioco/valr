@@ -9,13 +9,7 @@ valr <img src="logo.png" align="right" />
 Installation
 ------------
 
-The latest version of `valr` is available from CRAN:
-
-``` r
-install.packages('valr')
-```
-
-and the latest development version can be installed from github:
+The latest development version can be installed from github:
 
 ``` r
 # install.packages("devtools")
