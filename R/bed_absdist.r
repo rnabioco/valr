@@ -53,11 +53,12 @@ bed_absdist <- function(x, y, genome) {
 
   res <- absdist_impl(x, y)
   
-  # calculate reference sizes
+  # convert groups_xy to character vector
   if (!is.null(groups_xy)){
     groups_xy <- purrr::map_chr(groups_xy, as.character)
   }
-
+  
+  # calculate reference sizes
   genome <- filter(genome, genome$chrom %in% res$chrom)
   genome <- inner_join(genome, attributes(y)$labels, by = c("chrom"))
   
