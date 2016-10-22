@@ -17,12 +17,12 @@ Columns not found in \code{y} tbl are dropped from \code{x}. \code{y} columns
  not found in \code{x} are added to \code{x} and populated with a dummy entry \code{"."}
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~end,  ~chrom,   ~start, ~value,
   75,  "chr1",    125,    10
  )
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
   ~chrom,   ~start,    ~end,  ~scores,
   "chr1",    50,       100,  1.2,
   "chr1",    100,       150,  2.4

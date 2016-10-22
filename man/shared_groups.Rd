@@ -20,13 +20,13 @@ shared_groups(x, y)
 no shared groups.
 }
 \examples{
-x <- tibble::frame_data(
+x <- tibble::tribble(
  ~chrom, ~start, ~end, ~value,
   "chr1", 150,    400,  100,
-  "chr2", 230,    430,  200,
+  "chr2", 230,    430,  200
   )
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
   ~chrom,   ~start,    ~end,  ~value,
   "chr1",    50,       100,  1,
   "chr1",    100,       150,  2
