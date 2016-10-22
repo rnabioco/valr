@@ -37,7 +37,7 @@ test_that("self absdist is 0", {
 })
 
 
-test_that("x ivls without matching y-ivls chroms are dropped", {
+test_that("x ivls without matching y-ivls chroms are reported with absdist = NA", {
   x <- tibble::frame_data(
     ~chrom, ~start, ~end,
     "chr1", 5,    15,
@@ -55,7 +55,9 @@ test_that("x ivls without matching y-ivls chroms are dropped", {
     "chr2", 2000, 3000
   ) 
   res <- bed_absdist(x, y, genome)
-  expect_false("chr3" %in% res$chrom)   
+  expect_true("chr3" %in% res$chrom)  
+  expect_true(any(is.na(res$absdist)))
+  expect_true(any(is.na(res$scaled_absdist)))
 })
 
 
