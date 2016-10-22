@@ -13,7 +13,22 @@ format_bed(x, y)
 }
 \description{
 \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-Columns not found in Y tbl are dropped from X. Y columns not found in X 
-added to X and populated with a dummy entry "."
+Columns not found in \code{y} tbl are dropped from \code{x}. \code{y} columns
+ not found in \code{x} are added to \code{x} and populated with a dummy entry \code{"."}
+}
+\examples{
+x <- tibble::frame_data(
+  ~end,  ~chrom,   ~start, ~value,
+  75,  "chr1",    125,    10
+ )
+
+y <- tibble::frame_data(
+  ~chrom,   ~start,    ~end,  ~scores,
+  "chr1",    50,       100,  1.2,
+  "chr1",    100,       150,  2.4
+  )
+  
+
+format_bed(x, y)
 }
 
