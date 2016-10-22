@@ -34,7 +34,9 @@ format_bed <- function(x, y) {
 #' Compare two tbl_dfs and find the minimum shared groups 
 #' 
 #' \code{shared_groups} returns the minimum shared groups between
-#' \code{x} and \code{y} tbls. 
+#' \code{x} and \code{y} tbls. Return value is \code{NULL} if there are
+#' no shared groups. 
+#' 
 #' @param x tbl 
 #' @param y tbl 
 #' @return \code{list}
@@ -45,6 +47,9 @@ shared_groups <- function(x, y) {
   groups_y <- groups(y)
   
   groups_xy <- intersect(groups_x, groups_y)
+  if (length(groups_xy) == 0){
+    groups_xy <- NULL
+  }
   groups_xy
 }
 
