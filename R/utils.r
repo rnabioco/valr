@@ -31,21 +31,20 @@ format_bed <- function(x, y) {
 }
 
 
-#' Compare tbl_dfs and set y groups based on x tbl
+#' Compare two tbl_dfs and find the minimum shared groups 
 #' 
-#' \code{set_groups} return the x tbl grouped by the y tbls groups. 
-#' Groups in X that are not found in the Y tbl are dropped from the grouping. 
-#' @param x tbl of intervals
-#' @param y tbl of intervals 
+#' \code{shared_groups} return the x tbl grouped by the supplied groups
+#' If .groups is null, then returns an ungrouped x. 
+#' @param x tbl 
+#' @param y tbl 
+#' @return \code{list}
 #' @export
-set_groups <- function(x, y) {
+
+shared_groups <- function(x, y) {
   groups_x <- groups(x)
   groups_y <- groups(y)
   
-  groups_same = all(groups_x %in% groups_y) & length(groups_x) == length(groups_y) 
-  # if x groups found that are not in y, drop them. 
-  if (!groups_same){
-    x <- group_by_(x, .dots = groups_y)
-  }
-  x
+  groups_xy <- intersect(groups_x, groups_y)
+  groups_xy
 }
+
