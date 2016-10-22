@@ -27,3 +27,20 @@ test_that("only shared groups are return, shared_groups()", {
   res <- shared_groups(x, y)
   expect_true(length(res) == 1 && res == "chrom") 
 })
+
+
+x <- tibble::frame_data(
+  ~end,  ~chrom,   ~start, ~value,
+  75,  "chr1",    125,    10
+)
+
+y <- tibble::frame_data(
+  ~chrom,   ~start,    ~end,  ~scores,
+  "chr1",    50,       100,  1.2,
+  "chr1",    100,       150,  2.4
+)
+
+test_that("columns are reordered and dropped if not in y tbl, format_bed()", {
+  res <- format_bed(x, y)
+  expect_true(all(colnames(y) == colnames(res)))
+})
