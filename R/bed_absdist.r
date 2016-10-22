@@ -46,40 +46,40 @@
 bed_absdist <- function(x, y, genome) {
   
   # find minimum shared groups
-  xy_groups <- shared_groups(y, x)
+  groups_xy <- shared_groups(y, x)
   
-  x <- group_by_(x, .dots = c("chrom", xy_groups))
-  y <- group_by_(y, .dots = c("chrom", xy_groups))
+  x <- group_by_(x, .dots = c("chrom", groups_xy))
+  y <- group_by_(y, .dots = c("chrom", groups_xy))
 
   res <- absdist_impl(x, y)
   
   # calculate reference sizes
-  if (!is.null(xy_groups)){
-    xy_groups <- purrr::map_chr(xy_groups, as.character)
+  if (!is.null(groups_xy)){
+    groups_xy <- purrr::map_chr(groups_xy, as.character)
   }
 
   genome <- filter(genome, genome$chrom %in% res$chrom)
   genome <- inner_join(genome, attributes(y)$labels, by = c("chrom"))
   
   ref_points <- summarize(y, ref_points = n())
-  genome <- inner_join(genome, ref_points, by = c("chrom", xy_groups))
+  genome <- inner_join(genome, ref_points, by = c("chrom", groups_xy))
   
   genome <- mutate(genome, 
                    ref_gap = ref_points / size)
   genome <- select(genome, -size, -ref_points)
   
   #calculate scaled reference sizes
-  res <- full_join(res, genome, by = c("chrom", xy_groups))
+  res <- full_join(res, genome, by = c("chrom", groups_xy))
   res <- mutate(res, scaled_absdist =  absdist * ref_gap)
   res <- select(res, -ref_gap)
   
   #report back original x intervals not found 
-  missing_x <- anti_join(x, res, by = c("chrom", xy_groups))
-  missing_x <- ungroup(missing_x)
-  missing_x <- mutate(missing_x, 
+  x_missing <- anti_join(x, res, by = c("chrom", groups_xy))
+  x_missing <- ungroup(x_missing)
+  x_missing <- mutate(x_missing, 
                 absdist = NA,
                 scaled_absdist = NA)
-  res <- bind_rows(res, missing_x)
+  res <- bind_rows(res, x_missing)
   res
   
 }
