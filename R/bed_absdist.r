@@ -5,7 +5,11 @@
 #'   intervals. Absolute distances are scaled by the inter-reference gap for the
 #'   chromosome as follows. For \code{Q} total query points and \code{R} reference points
 #'   on a chromosome, scale the distance for each query point \code{i} to the closest
-#'   reference point by the inter-reference gap for each chromosome.
+#'   reference point by the inter-reference gap for each chromosome. If the chromosome for
+#'    a supplied  \code{x} interval has no matching  \code{y} chromosome, the \code{absdist} will
+#'    be reported as an \code{NA}.
+#'
+#'  
 #'
 #' @param x tbl of intervals
 #' @param y tbl of intervals
@@ -41,32 +45,42 @@
 
 bed_absdist <- function(x, y, genome) {
   
-  x <- group_by(x, chrom, add = TRUE)
-  y <- group_by(y, chrom, add = TRUE)
+  # find minimum shared groups
+  groups_xy <- shared_groups(y, x)
   
-  # make sure that y tbl has same grouping as x tbl
-  y <- set_groups(y, x)
-  
+  x <- group_by_(x, .dots = c("chrom", groups_xy))
+  y <- group_by_(y, .dots = c("chrom", groups_xy))
+
   res <- absdist_impl(x, y)
   
-  # calculate reference sizes
-  y_chroms <- unique(y$chrom)
-  y_groups <- purrr::map_chr(groups(y), as.character)
+  # convert groups_xy to character vector
+  if (!is.null(groups_xy)){
+    groups_xy <- purrr::map_chr(groups_xy, as.character)
+  }
   
-  genome <- filter(genome, genome$chrom %in% y_chroms)
+  # calculate reference sizes
+  genome <- filter(genome, genome$chrom %in% res$chrom)
   genome <- inner_join(genome, attributes(y)$labels, by = c("chrom"))
   
   ref_points <- summarize(y, ref_points = n())
-  genome <- inner_join(genome, ref_points, by = c("chrom", y_groups))
+  genome <- inner_join(genome, ref_points, by = c("chrom", groups_xy))
   
   genome <- mutate(genome, 
                    ref_gap = ref_points / size)
   genome <- select(genome, -size, -ref_points)
   
   #calculate scaled reference sizes
-  res <- full_join(res, genome, by = c("chrom", y_groups))
+  res <- full_join(res, genome, by = c("chrom", groups_xy))
   res <- mutate(res, scaled_absdist =  absdist * ref_gap)
   res <- select(res, -ref_gap)
+  
+  #report back original x intervals not found 
+  x_missing <- anti_join(x, res, by = c("chrom", groups_xy))
+  x_missing <- ungroup(x_missing)
+  x_missing <- mutate(x_missing, 
+                absdist = NA,
+                scaled_absdist = NA)
+  res <- bind_rows(res, x_missing)
   res
   
 }
