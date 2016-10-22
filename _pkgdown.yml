@@ -38,6 +38,8 @@ reference:
     - bed_makewindows
     - bed12_to_exons
     - bed_glyph
+    - format_bed
+    - shared_groups
     - valr_example
     - launch_shiny
     

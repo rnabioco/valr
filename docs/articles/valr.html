@@ -40,7 +40,7 @@
       <h1>valr overview</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-10-20</h4>
+            <h4 class="date">2016-10-22</h4>
           </div>
 
     
@@ -102,7 +102,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 )
 
 <span class="kw"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y))</code></pre></div>
-<p><img src="img/overview-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="http://i.imgur.com/uz5ZS79.png" width="384" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
   ~chrom, ~start, ~end,
@@ -112,7 +112,7 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 )
 
 <span class="kw"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="../reference/bed_merge.html">bed_merge</a></span>(x))</code></pre></div>
-<p><img src="img/overview-merge_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="http://i.imgur.com/OQazAxK.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div id="reproducible-reports" class="section level3">
 <h3>Reproducible reports</h3>
@@ -201,7 +201,7 @@ sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class=
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">'Position (bp from TSS)'</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">'Signal'</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">'Human H3K4me3 signal near transcription start sites'</span>) +
 <span class="st">  </span><span class="kw">theme_classic</span>()</code></pre></div>
-<p><img src="img/overview-plot-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="http://i.imgur.com/EjwMJot.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="interval-statistics" class="section level3">
 <h3>Interval statistics</h3>
@@ -229,23 +229,23 @@ shuffled
 <span class="co">#&gt; # A tibble: 100 &times; 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0002768562</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0002303932</span>
+<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0004571739</span>
+<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0002768562</span>
+<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
+<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
+<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
+<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
+<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
+<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
+<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
+<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
 </div>
 <div id="benchmarks" class="section level2">
 <h2>Benchmarks</h2>
 <p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis. This graph illustrates the timing of functions in <code>valr</code> for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.</p>
-<p><img src="img/overview-benchmarks-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="http://i.imgur.com/6VJGaO8.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="api" class="section level2">
 <h2>API</h2>

@@ -109,7 +109,9 @@
   intervals. Absolute distances are scaled by the inter-reference gap for the
   chromosome as follows. For <code>Q</code> total query points and <code>R</code> reference points
   on a chromosome, scale the distance for each query point <code>i</code> to the closest
-  reference point by the inter-reference gap for each chromosome.</p>
+  reference point by the inter-reference gap for each chromosome. If the chromosome for
+   a supplied  <code>x</code> interval has no matching  <code>y</code> chromosome, the <code>absdist</code> will
+   be reported as an <code>NA</code>.</p>
     </div>
 
     <div class="See also">

@@ -16,6 +16,7 @@ shared_groups(x, y)
 }
 \description{
 \code{shared_groups} returns the minimum shared groups between
-\code{x} and \code{y} tbls.
+\code{x} and \code{y} tbls. Return value is \code{NULL} if there are
+no shared groups.
 }
 
