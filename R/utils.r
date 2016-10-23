@@ -9,10 +9,26 @@ valr_example <- function(path) {
 #' reformat bed tbl to match another tbl
 #' 
 #' \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-#' Columns not found in Y tbl are dropped from X. Y columns not found in X 
-#' added to X and populated with a dummy entry "."
+#' Columns not found in \code{y} tbl are dropped from \code{x}. \code{y} columns
+#'  not found in \code{x} are added to \code{x} and populated with a dummy entry \code{"."}
+#'  
 #' @param x tbl of intervals
-#' @param y tbl of intervals 
+#' @param y tbl of intervals
+#'  
+#' @examples
+#' x <- tibble::tribble(
+#'   ~end,  ~chrom,   ~start, ~value,
+#'   75,  "chr1",    125,    10
+#'  )
+#' 
+#' y <- tibble::tribble(
+#'   ~chrom,   ~start,    ~end,  ~scores,
+#'   "chr1",    50,       100,  1.2,
+#'   "chr1",    100,       150,  2.4
+#'   )
+#'   
+#' 
+#' format_bed(x, y)
 #' @export
 format_bed <- function(x, y) {
   names_x <- names(x)
@@ -40,6 +56,29 @@ format_bed <- function(x, y) {
 #' @param x tbl 
 #' @param y tbl 
 #' @return \code{list}
+#' 
+#' @examples
+#'x <- tibble::tribble(
+#'  ~chrom, ~start, ~end, ~value,
+#'   "chr1", 150,    400,  100,
+#'   "chr2", 230,    430,  200
+#'   )
+#' 
+#' y <- tibble::tribble(
+#'   ~chrom,   ~start,    ~end,  ~value,
+#'   "chr1",    50,       100,  1,
+#'   "chr1",    100,       150,  2
+#'   )
+#'   
+#' x <- dplyr::group_by(x, chrom, value)
+#' y <- dplyr::group_by(y, chrom, value)
+#'shared_groups(x, y)
+#'  
+#' y <- dplyr::group_by(y, chrom)
+#' shared_groups(x, y)
+#' 
+#' y <-dplyr::ungroup(y)
+#' shared_groups(x, y)
 #' @export
 
 shared_groups <- function(x, y) {

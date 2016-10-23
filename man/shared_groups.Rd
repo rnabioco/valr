@@ -19,4 +19,27 @@ shared_groups(x, y)
 \code{x} and \code{y} tbls. Return value is \code{NULL} if there are
 no shared groups.
 }
+\examples{
+x <- tibble::tribble(
+ ~chrom, ~start, ~end, ~value,
+  "chr1", 150,    400,  100,
+  "chr2", 230,    430,  200
+  )
+
+y <- tibble::tribble(
+  ~chrom,   ~start,    ~end,  ~value,
+  "chr1",    50,       100,  1,
+  "chr1",    100,       150,  2
+  )
+  
+x <- dplyr::group_by(x, chrom, value)
+y <- dplyr::group_by(y, chrom, value)
+shared_groups(x, y)
+ 
+y <- dplyr::group_by(y, chrom)
+shared_groups(x, y)
+
+y <-dplyr::ungroup(y)
+shared_groups(x, y)
+}
 
