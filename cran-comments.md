@@ -1,12 +1,14 @@
 ## Resubmission
  
-This is a resubmission. In this version I have:
+This is a resubmission. In this second version I have:
 
 * Updated to the CRAN MIT LICENSE template.
 
 * Updated the Authors@R section using `person()` calls
 
 * Fixed non-canonical CRAN URLs
+
+* Eliminated compilation WARNINGS on CRAN win-builder.
 
 ## Test environments
 
@@ -25,17 +27,9 @@ This is a resubmission. In this version I have:
  
 * on win-builder
 
-  Status: 1 WARNING, 1 NOTE
+  Status: 1 NOTE
   
   The NOTE indicates this is a New submission.
-  
-  The WARNING is as follows:
-  
-  Found the following significant warnings:
-  d:\RCompile\CRANpkg\lib\3.4/dplyr/include/tools/all_na.h:15:40:
-    warning: ISO C99 requires rest arguments to be used
-    
-  This WARNING is in the dplyr dependency, and is not present in the appveyor / windows build.
  
 * on OS X 
 
@@ -51,7 +45,7 @@ This is a resubmission. In this version I have:
     libs   9.7Mb
 
   This package uses Rcpp, which creates a large shared library on linux.
-  This note is not present on OS X or windows.
+  This note is not present on OS X or windows (appveyor or win-builder).
   
 * This is a new release.
 
