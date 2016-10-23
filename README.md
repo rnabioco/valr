@@ -48,11 +48,11 @@ nearby %>%
 
 `valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
-![](http://i.imgur.com/B6hJTNC.png)
+![](img/README-intersect_glyph-1.png)
 
 And this glyph illustrates `bed_merge()`:
 
-![](http://i.imgur.com/Dnp25LM.png)
+![](img/README-merge_glyph-1.png)
 
 ### Reproducible reports
 

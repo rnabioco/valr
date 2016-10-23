@@ -81,8 +81,8 @@
   <div class="col-md-9">
     
     <p><code>format_bed</code> returns a tbl whose columns are ordered by another tbl.
-Columns not found in Y tbl are dropped from X. Y columns not found in X 
-added to X and populated with a dummy entry &quot;.&quot;</p>
+Columns not found in <code>y</code> tbl are dropped from <code>x</code>. <code>y</code> columns
+ not found in <code>x</code> are added to <code>x</code> and populated with a dummy entry <code>&quot;.&quot;</code></p>
     
 
     <pre><span class='fu'>format_bed</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
@@ -94,7 +94,26 @@ added to X and populated with a dummy entry &quot;.&quot;</p>
       <dt>y</dt>
       <dd>tbl of intervals</dd>
     </dl>
-          </div>
+        
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>end</span>,  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>, ~<span class='no'>value</span>,
+  <span class='fl'>75</span>,  <span class='st'>"chr1"</span>,    <span class='fl'>125</span>,    <span class='fl'>10</span>
+ )
+
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>,  ~<span class='no'>scores</span>,
+  <span class='st'>"chr1"</span>,    <span class='fl'>50</span>,       <span class='fl'>100</span>,  <span class='fl'>1.2</span>,
+  <span class='st'>"chr1"</span>,    <span class='fl'>100</span>,       <span class='fl'>150</span>,  <span class='fl'>2.4</span>
+  )
+
+
+<span class='fu'>format_bed</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 4
+#&gt;   chrom start   end scores
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;
+#&gt; 1  chr1   125    75      .
+#&gt; </div></pre>
+  </div>
   <div class="col-md-3">
   </div>
 </div>

@@ -100,7 +100,38 @@ no shared groups.</p>
 
       <p><code>list</code></p>
     </div>
-      </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+ ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>
+  )
+
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>,  ~<span class='no'>value</span>,
+  <span class='st'>"chr1"</span>,    <span class='fl'>50</span>,       <span class='fl'>100</span>,  <span class='fl'>1</span>,
+  <span class='st'>"chr1"</span>,    <span class='fl'>100</span>,       <span class='fl'>150</span>,  <span class='fl'>2</span>
+  )
+
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>x</span>, <span class='no'>chrom</span>, <span class='no'>value</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>y</span>, <span class='no'>chrom</span>, <span class='no'>value</span>)
+<span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; chrom
+#&gt; 
+#&gt; [[2]]
+#&gt; value
+#&gt; 
+#&gt; </div><div class='input'>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>y</span>, <span class='no'>chrom</span>)
+<span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; chrom
+#&gt; 
+#&gt; </div><div class='input'>
+<span class='no'>y</span> <span class='kw'>&lt;-</span><span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>ungroup</span>(<span class='no'>y</span>)
+<span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; NULL
+#&gt; </div></pre>
+  </div>
   <div class="col-md-3">
   </div>
 </div>
