@@ -46,7 +46,7 @@ nearby %>%
 
 ### Visual documentation
 
-`valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
+`valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. This glyph (generated using `bed_glyph()`) shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
 ![](img/README-intersect_glyph-1.png)
 
