@@ -9,6 +9,7 @@
 #'   
 #' @return \code{data_frame}
 #'   
+#' @family multi-set-ops
 #' @seealso 
 #' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #' 

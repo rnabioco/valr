@@ -95,5 +95,9 @@ bed_map(x, y, vals.unique = values_unique(value))
 }
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
+
+Other multi-set-ops: \code{\link{bed_closest}},
+  \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
+  \code{\link{bed_subtract}}, \code{\link{bed_window}}
 }
 

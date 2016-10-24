@@ -64,6 +64,6 @@ bed_subtract(x, y, any = TRUE)
 
 Other multi-set-ops: \code{\link{bed_closest}},
   \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
-  \code{\link{bed_window}}
+  \code{\link{bed_map}}, \code{\link{bed_window}}
 }
 

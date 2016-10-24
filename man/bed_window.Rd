@@ -67,6 +67,6 @@ bed_window(x, y, genome, both = 100)
 
 Other multi-set-ops: \code{\link{bed_closest}},
   \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
-  \code{\link{bed_subtract}}
+  \code{\link{bed_map}}, \code{\link{bed_subtract}}
 }
 

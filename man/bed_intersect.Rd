@@ -67,7 +67,7 @@ bed_intersect(x, y)
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 
 Other multi-set-ops: \code{\link{bed_closest}},
-  \code{\link{bed_coverage}}, \code{\link{bed_subtract}},
-  \code{\link{bed_window}}
+  \code{\link{bed_coverage}}, \code{\link{bed_map}},
+  \code{\link{bed_subtract}}, \code{\link{bed_window}}
 }
 
