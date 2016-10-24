@@ -19,7 +19,7 @@ Imports:
     lazyeval,
     purrr,
     readr,
-    Rcpp (>= 0.12.6),
+    Rcpp (== 0.12.6),
     stringr,
     tibble,
     tidyr,
@@ -27,7 +27,10 @@ Imports:
     shiny,
     ggplot2,
 SystemRequirements: C++11
-LinkingTo: Rcpp (>= 0.12.6), BH, dplyr (>= 0.5.0)
+LinkingTo:
+    Rcpp (== 0.12.6),
+    BH,
+    dplyr (>= 0.5.0)
 Remotes: RcppCore/Rcpp@0.12.6
 Suggests:
     knitr,
