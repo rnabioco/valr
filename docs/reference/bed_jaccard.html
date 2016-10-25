@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -70,35 +70,36 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Jaccard statistic.</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Jaccard statistic.</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Calculate jaccard statistics on two sets of intervals.</p>
     
 
     <pre><span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>tbl of intervals</dd>
       <dt>y</dt>
       <dd>tbl of intervals</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p><code>data_frame</code> with the following columns: <ul>
+    <p><code>data_frame</code> with the following columns: <ul>
 <li><code>len_i</code> length of the intersection </li>
 <li><code>len_u</code>
   length of the union </li>
@@ -106,29 +107,27 @@
   </li>
 <li><code>n_int</code> number of intersecting intervals between x and y </li>
 </ul></p>
-    </div>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class="section">
-      <h2>Details</h2>
-
-      <p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of
+    <p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of
 intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:</p>
-      <p>$$ J(x,y) = \frac{\mid x \bigcap y \mid}
+    <p>$$ J(x,y) = \frac{\mid x \bigcap y \mid}
                      {\mid x \bigcup y \mid} = 
                 \frac{\mid x \bigcap y \mid}
                      {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} $$</p>
-    </div>
-
-    <div class="section">
-      <h2>See also</h2>
-
-      <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html'>http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html</a></p>
-      <p>Other interval-stats: <code><a href='bed_absdist.html'>bed_absdist</a></code>,
-  <code><a href='bed_fisher.html'>bed_fisher</a></code>, <code><a href='bed_reldist.html'>bed_reldist</a></code></p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html'>http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html</a></p>
+    <p>Other interval-stats: <code><a href='bed_absdist.html'>bed_absdist</a></code>,
+  <code><a href='bed_fisher.html'>bed_fisher</a></code>, <code><a href='bed_reldist.html'>bed_reldist</a></code></p>
+    
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>"chr1"</span>, <span class='fl'>10</span>,     <span class='fl'>20</span>,
@@ -146,14 +145,33 @@ intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measu
 #&gt; 1     5    25    0.25     1
 #&gt; </div><div class='input'> 
 </div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Jay Hesselberth, Kent Riemondy.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

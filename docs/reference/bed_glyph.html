@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -70,23 +70,26 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Sample glyph for valr functions</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Sample glyph for valr functions</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Sample glyph for valr functions</p>
     
 
     <pre><span class='fu'>bed_glyph</span>(<span class='no'>expr</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>res_name</span> <span class='kw'>=</span> <span class='st'>"result"</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>expr</dt>
       <dd>expression to evaluate</dd>
@@ -95,16 +98,16 @@
       <dt>res_name</dt>
       <dd>name of result in output</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p><code>ggplot</code></p>
-    </div>
+    <p><code>ggplot</code></p>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>25</span>,     <span class='fl'>50</span>,
@@ -126,14 +129,29 @@
 
 <span class='fu'>bed_glyph</span>(<span class='fu'><a href='bed_merge.html'>bed_merge</a></span>(<span class='no'>x</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.id'</span>)</div><img src='bed_glyph-4.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>bed_glyph</span>(<span class='fu'><a href='bed_cluster.html'>bed_cluster</a></span>(<span class='no'>x</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.id'</span>)</div><img src='bed_glyph-6.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Jay Hesselberth, Kent Riemondy.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

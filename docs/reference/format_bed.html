@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -70,15 +70,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>reformat bed tbl to match another tbl</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>reformat bed tbl to match another tbl</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p><code>format_bed</code> returns a tbl whose columns are ordered by another tbl.
 Columns not found in <code>y</code> tbl are dropped from <code>x</code>. <code>y</code> columns
@@ -87,18 +88,22 @@ Columns not found in <code>y</code> tbl are dropped from <code>x</code>. <code>y
 
     <pre><span class='fu'>format_bed</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>tbl of intervals</dd>
       <dt>y</dt>
       <dd>tbl of intervals</dd>
     </dl>
-    </div>
-        
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+    
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>end</span>,  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>, ~<span class='no'>value</span>,
   <span class='fl'>75</span>,  <span class='st'>"chr1"</span>,    <span class='fl'>125</span>,    <span class='fl'>10</span>
@@ -116,14 +121,27 @@ Columns not found in <code>y</code> tbl are dropped from <code>x</code>. <code>y
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;
 #&gt; 1  chr1   125    75      .
 #&gt; </div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Jay Hesselberth, Kent Riemondy.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

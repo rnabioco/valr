@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -70,23 +70,26 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Adjust intervals by a fixed size.</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Adjust intervals by a fixed size.</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Out-of-bounds intervals are removed by default.</p>
     
 
     <pre><span class='fu'>bed_shift</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>fraction</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>tbl of intervals</dd>
@@ -99,26 +102,24 @@
       <dt>trim</dt>
       <dd>adjust coordinates for out-of-bounds intervals</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p><code>data_frame</code></p>
-    </div>
+    <p><code>data_frame</code></p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class="section">
-      <h2>See also</h2>
-
-      <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/shift.html'>http://bedtools.readthedocs.org/en/latest/content/tools/shift.html</a></p>
-      <p>Other single-set-ops: <code><a href='bed_cluster.html'>bed_cluster</a></code>,
+    <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/shift.html'>http://bedtools.readthedocs.org/en/latest/content/tools/shift.html</a></p>
+    <p>Other single-set-ops: <code><a href='bed_cluster.html'>bed_cluster</a></code>,
   <code><a href='bed_complement.html'>bed_complement</a></code>, <code><a href='bed_flank.html'>bed_flank</a></code>,
   <code><a href='bed_merge.html'>bed_merge</a></code>, <code><a href='bed_random.html'>bed_random</a></code>,
   <code><a href='bed_shuffle.html'>bed_shuffle</a></code>, <code><a href='bed_slop.html'>bed_slop</a></code></p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
@@ -183,14 +184,31 @@
 #&gt; 6  chr3   500   550      -
 #&gt; </div><div class='input'>
 </div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Jay Hesselberth, Kent Riemondy.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

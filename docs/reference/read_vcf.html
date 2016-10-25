@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -70,51 +70,50 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Read a VCF file.</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Read a VCF file.</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Read a VCF file.</p>
     
 
     <pre><span class='fu'>read_vcf</span>(<span class='no'>vcf</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>vcf</dt>
       <dd>vcf filename</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p><code>data_frame</code></p>
-    </div>
+    <p><code>data_frame</code></p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <div class="section">
-      <h2>Note</h2>
-
-      <p>return value has <code>chrom</code>, <code>start</code> and <code>end</code> columns.
+    <p>return value has <code>chrom</code>, <code>start</code> and <code>end</code> columns.
   Interval lengths are the size of the &#39;REF&#39; field.</p>
-    </div>
-
-    <div class="section">
-      <h2>See also</h2>
-
-      <p>Other read-funcs: <code><a href='read_bed.html'>read_bed</a></code>,
-  <code><a href='read_genome.html'>read_genome</a></code></p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>Other read-funcs: <code><a href='read_bed.html'>read_bed</a></code>,
+  <code><a href='read_genome.html'>read_genome</a></code></p>
+    
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='no'>vcf_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.vcf.gz'</span>)
 <span class='fu'>read_vcf</span>(<span class='no'>vcf_file</span>)</div><div class='output co'>#&gt; # A tibble: 11 × 18
 #&gt;    CHROM   POS      ID   REF   ALT  QUAL FILTER                         INFO
@@ -134,14 +133,33 @@
 #&gt; #   X4 &lt;chr&gt;, X5 &lt;chr&gt;, X6 &lt;chr&gt;, chrom &lt;chr&gt;, start &lt;int&gt;, end &lt;int&gt;
 #&gt; </div><div class='input'>
 </div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Jay Hesselberth, Kent Riemondy.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

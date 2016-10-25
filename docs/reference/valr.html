@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -70,15 +70,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>valr: genome interval arithmetic in R</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>valr: genome interval arithmetic in R</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>valr provides tools to read and manipulate intervals and signals on a genome
 reference. valr was developed to facilitate interactive analysis of
@@ -86,25 +87,30 @@ genome-scale data sets, leveraging the power of dplyr and piping.</p>
     
 
         
-    <div class="section">
-      <h2>Details</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-      <p>To learn more about valr, start with the vignette: 
+    <p>To learn more about valr, start with the vignette: 
 <code>browseVignettes(package = &quot;valr&quot;)</code></p>
-    </div>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class="section">
-      <h2>See also</h2>
+    <p><a href = 'http://bedtools.readthedocs.org/en/latest/index.html'>http://bedtools.readthedocs.org/en/latest/index.html</a></p>
+    <p><a href = 'https://pythonhosted.org/pybedtools/'>https://pythonhosted.org/pybedtools/</a></p>
+    <p><a href = 'http://bedops.readthedocs.org/en/latest/index.html'>http://bedops.readthedocs.org/en/latest/index.html</a></p>
+    <p><a href = 'https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html'>https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html</a></p>
+    <p><a href = 'https://CRAN.R-project.org/package=bedr'>https://CRAN.R-project.org/package=bedr</a></p>
+    
 
-      <p><a href = 'http://bedtools.readthedocs.org/en/latest/index.html'>http://bedtools.readthedocs.org/en/latest/index.html</a></p>
-      <p><a href = 'https://pythonhosted.org/pybedtools/'>https://pythonhosted.org/pybedtools/</a></p>
-      <p><a href = 'http://bedops.readthedocs.org/en/latest/index.html'>http://bedops.readthedocs.org/en/latest/index.html</a></p>
-      <p><a href = 'https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html'>https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html</a></p>
-      <p><a href = 'https://CRAN.R-project.org/package=bedr'>https://CRAN.R-project.org/package=bedr</a></p>
-    </div>
-        </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
     <h2>Author</h2>
     
 Jay Hesselberth &lt;jay.hesselberth@gmail.com&gt;
@@ -115,7 +121,14 @@ Kent Riemondy &lt;kent.riemondy@gmail.com&gt;
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Jay Hesselberth, Kent Riemondy.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

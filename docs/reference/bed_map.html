@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -70,15 +70,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Map signals over intervals.</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Map signals over intervals.</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Multiple mapping functions can be specified.</p>
     
@@ -92,8 +93,10 @@
 
 <span class='fu'>values</span>(<span class='no'>.data</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>","</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>tbl of intervals</dd>
@@ -117,32 +120,28 @@
       <dt>sep</dt>
       <dd>separator character</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p><code>data_frame</code></p>
-    </div>
+    <p><code>data_frame</code></p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <div class="section">
-      <h2>Note</h2>
-
-      <p>Book-ended intervals are not reported by default, but can be included
+    <p>Book-ended intervals are not reported by default, but can be included
   by setting <code>min_overlap</code> to <code>0</code>.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class="section">
-      <h2>See also</h2>
-
-      <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/map.html'>http://bedtools.readthedocs.io/en/latest/content/tools/map.html</a></p>
-      <p>Other multi-set-ops: <code><a href='bed_closest.html'>bed_closest</a></code>,
+    <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/map.html'>http://bedtools.readthedocs.io/en/latest/content/tools/map.html</a></p>
+    <p>Other multi-set-ops: <code><a href='bed_closest.html'>bed_closest</a></code>,
   <code><a href='bed_coverage.html'>bed_coverage</a></code>, <code><a href='bed_intersect.html'>bed_intersect</a></code>,
   <code><a href='bed_subtract.html'>bed_subtract</a></code>, <code><a href='bed_window.html'>bed_window</a></code></p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>,      <span class='fl'>1</span>,      <span class='fl'>100</span>
@@ -230,14 +229,33 @@
 #&gt; 2  chr2   250   500         500
 #&gt; </div><div class='input'>
 </div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Jay Hesselberth, Kent Riemondy.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

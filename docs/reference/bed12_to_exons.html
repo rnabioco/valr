@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -59,6 +58,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jayhesselberth/valr">
@@ -70,15 +70,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Convert BED12 to individual exons in BED6.</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Convert BED12 to individual exons in BED6.</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>After conversion to BED6 format, the <code>score</code> column contains the exon 
 number, with respect to strand (i.e., exon 1 for `-` strand genes will have 
@@ -87,22 +88,24 @@ larger start and end coordinates).</p>
 
     <pre><span class='fu'>bed12_to_exons</span>(<span class='no'>x</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments">
+      <a class="anchor" href="#arguments"></a>
+      Arguments
+    </h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>tbl in BED12 format</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>See also</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-      <p>Other utils: <code><a href='bed_makewindows.html'>bed_makewindows</a></code></p>
-    </div>
+    <p>Other utils: <code><a href='bed_makewindows.html'>bed_makewindows</a></code></p>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples">
+      <a class="anchor" href="#examples"></a>
+      Examples
+    </h2>
     <pre class="examples"><div class='input'><span class='no'>bed12_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.bed12.gz'</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_bed.html'>read_bed12</a></span>(<span class='no'>bed12_path</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>bed12_to_exons</span>(<span class='no'>x</span>)
@@ -116,14 +119,29 @@ larger start and end coordinates).</p>
 #&gt; 3 chr20 5152185 5152630 negstrand     1      -
 #&gt; </div><div class='input'>
 </div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Jay Hesselberth, Kent Riemondy.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 
