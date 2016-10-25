@@ -88,6 +88,7 @@
 
 <span class='fu'>split_interval</span>(<span class='no'>interval</span>, <span class='no'>genome</span>, <span class='no'>win_size</span>, <span class='no'>step_size</span>, <span class='no'>num_win</span>, <span class='no'>reverse</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
@@ -105,15 +106,16 @@
       <dt>interval</dt>
       <dd>row of data frame</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p><code>data_frame</code> with <code>.win_id</code> column that contains a numeric 
   identifier for the window.</p>
     </div>
 
-    <div class="Functions">
+    <div class="section">
       <h2>Functions</h2>
 
       <p><ul>
@@ -122,7 +124,7 @@
 </ul></p>
     </div>
 
-    <div class="Note">
+    <div class="section">
       <h2>Note</h2>
 
       <p>The <code>name</code> and <code>.win_id</code> columns can be used to create new 
@@ -130,12 +132,13 @@
   <code>group_by</code> operations (see vignette).</p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p>Other utils: <code><a href='bed12_to_exons.html'>bed12_to_exons</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
@@ -235,6 +238,7 @@
 #&gt; 10  chr1   190   200     A     .      +      10    A_10
 #&gt; </div><div class='input'>
 </div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

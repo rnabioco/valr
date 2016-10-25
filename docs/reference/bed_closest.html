@@ -86,6 +86,7 @@
     <pre><span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>strand</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>strand_opp</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='kw'>distance_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"genome"</span>, <span class='st'>"strand"</span>, <span class='st'>"abs"</span>))</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
@@ -107,14 +108,15 @@ genome (default) = use negative distances to report upstream intervals,
           strand = define upstream based on strand,
              abs = report absolute value of distance)</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p><code>data_frame</code></p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/closest.html'>http://bedtools.readthedocs.io/en/latest/content/tools/closest.html</a></p>
@@ -123,6 +125,7 @@ genome (default) = use negative distances to report upstream intervals,
   <code><a href='bed_subtract.html'>bed_subtract</a></code>, <code><a href='bed_window.html'>bed_window</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
@@ -166,6 +169,7 @@ genome (default) = use negative distances to report upstream intervals,
 #&gt; </div><div class='input'>
 
 </div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

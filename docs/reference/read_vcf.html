@@ -85,32 +85,35 @@
 
     <pre><span class='fu'>read_vcf</span>(<span class='no'>vcf</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>vcf</dt>
       <dd>vcf filename</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p><code>data_frame</code></p>
     </div>
 
-    <div class="Note">
+    <div class="section">
       <h2>Note</h2>
 
       <p>return value has <code>chrom</code>, <code>start</code> and <code>end</code> columns.
   Interval lengths are the size of the &#39;REF&#39; field.</p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p>Other read-funcs: <code><a href='read_bed.html'>read_bed</a></code>,
   <code><a href='read_genome.html'>read_genome</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>vcf_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.vcf.gz'</span>)
 <span class='fu'>read_vcf</span>(<span class='no'>vcf_file</span>)</div><div class='output co'>#&gt; # A tibble: 11 × 18
@@ -131,6 +134,7 @@
 #&gt; #   X4 &lt;chr&gt;, X5 &lt;chr&gt;, X6 &lt;chr&gt;, chrom &lt;chr&gt;, start &lt;int&gt;, end &lt;int&gt;
 #&gt; </div><div class='input'>
 </div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

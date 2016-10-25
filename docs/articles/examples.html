@@ -40,17 +40,18 @@
       <h1>valr examples</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-10-24</h4>
+            <h4 class="date">2016-10-25</h4>
           </div>
 
     
     
+<div class="contents">
 <div id="demonstrations" class="section level1">
 <h1>Demonstrations</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
 <span class="kw">library</span>(dplyr)</code></pre></div>
 <div id="demo-intron" class="section level2">
-<h2>Creating intron intervals</h2>
+<h2 class="hasAnchor"><html><body><a href="#demonstrations" class="anchor"></a></body></html>Creating intron intervals</h2>
 <p>Intron intervals can be identified by calculating:</p>
 <ol style="list-style-type: decimal"><li>Intervals that are covered by any gene annotation</li>
 <li>Then, intervals that are not covered by exons.</li>
@@ -64,7 +65,7 @@ introns &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed
 introns</code></pre></div>
 </div>
 <div id="histone-density-and-transcription-start-sites" class="section level2">
-<h2>Histone density and transcription start sites</h2>
+<h2 class="hasAnchor"><html><body><a href="#demo-intron" class="anchor"></a></body></html>Histone density and transcription start sites</h2>
 <p>This demonstration illustrates how to use <code>valr</code> tools to perform a &ldquo;meta-analysis&rdquo; of signals relative to genomic features. Here we to analyze the distribution of histone marks surrounding transcription start sites.</p>
 <p>First we load libraries and relevant data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
@@ -130,6 +131,7 @@ sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class=
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">'Human H3K4me3 signal near transcription starts sites'</span>) +
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p><img src="img/valr-examples-plot-1.png" width="576" style="display: block; margin: auto;"></p>
+</div>
 </div>
 </div>
   </div>

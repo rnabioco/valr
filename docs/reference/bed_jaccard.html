@@ -85,6 +85,7 @@
 
     <pre><span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
@@ -92,8 +93,9 @@
       <dt>y</dt>
       <dd>tbl of intervals</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p><code>data_frame</code> with the following columns: <ul>
@@ -106,7 +108,7 @@
 </ul></p>
     </div>
 
-    <div class="Details">
+    <div class="section">
       <h2>Details</h2>
 
       <p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of
@@ -117,7 +119,7 @@ intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measu
                      {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} $$</p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html'>http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html</a></p>
@@ -125,6 +127,7 @@ intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measu
   <code><a href='bed_fisher.html'>bed_fisher</a></code>, <code><a href='bed_reldist.html'>bed_reldist</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
@@ -143,6 +146,7 @@ intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measu
 #&gt; 1     5    25    0.25     1
 #&gt; </div><div class='input'> 
 </div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

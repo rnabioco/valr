@@ -87,6 +87,7 @@ no shared groups.</p>
 
     <pre><span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
@@ -94,13 +95,15 @@ no shared groups.</p>
       <dt>y</dt>
       <dd>tbl</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p><code>list</code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
@@ -131,6 +134,7 @@ no shared groups.</p>
 <span class='no'>y</span> <span class='kw'>&lt;-</span><span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>ungroup</span>(<span class='no'>y</span>)
 <span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; NULL
 #&gt; </div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

@@ -86,6 +86,7 @@ within a chrom, not by chrom.</p>
 
     <pre><span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
@@ -97,19 +98,21 @@ within a chrom, not by chrom.</p>
       <dt>reverse</dt>
       <dd>reverse sort order</dd>
     </dl>
+    </div>
     
-    <div class="Details">
+    <div class="section">
       <h2>Details</h2>
 
       <p>Sorting strips groups from the input.</p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/sort.html'>http://bedtools.readthedocs.org/en/latest/content/tools/sort.html</a></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
    ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
@@ -173,6 +176,7 @@ within a chrom, not by chrom.</p>
 #&gt; 5  chr8  1000  5000
 #&gt; </div><div class='input'>
 </div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

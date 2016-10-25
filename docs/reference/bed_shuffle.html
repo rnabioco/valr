@@ -86,6 +86,7 @@
     <pre><span class='fu'>bed_shuffle</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>incl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>excl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_tries</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
   <span class='kw'>within</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
@@ -103,14 +104,15 @@
       <dt>seed</dt>
       <dd>seed for reproducible intervals</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p><code>data_frame</code></p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html'>http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html</a></p>
@@ -120,6 +122,7 @@
   <code><a href='bed_shift.html'>bed_shift</a></code>, <code><a href='bed_slop.html'>bed_slop</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
@@ -130,6 +133,7 @@
 
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>)
 <span class='fu'>bed_shuffle</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>
