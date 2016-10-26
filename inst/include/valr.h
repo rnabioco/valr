@@ -21,9 +21,9 @@ typedef boost::random::piecewise_constant_distribution<> PDIST ;
 typedef std::map<std::string, int> genome_map_t ;
 extern genome_map_t makeChromSizes(DataFrame genome) ;
 
-typedef Interval<int>                interval_t ;
+typedef Interval<int, int>           interval_t ;
 typedef std::vector< interval_t >    intervalVector ;
-typedef IntervalTree<int>            intervalTree ;
+typedef IntervalTree<int, int>       intervalTree ;
 
 extern intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) ;
 extern bool compareDataFrameRows(DataFrame x, DataFrame y, int idx_x, int idx_y ) ;

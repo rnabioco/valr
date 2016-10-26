@@ -55,17 +55,17 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   std::vector<int> overlap_sizes ;
   std::vector<int> distance_sizes ;
   
-  DataFrame data_x = x.data() ;
-  DataFrame data_y = y.data() ;
+  DataFrame df_x = x.data() ;
+  DataFrame df_y = y.data() ;
   
   int ng_x = x.ngroups() ;
   int ng_y = y.ngroups() ;
   
   // get labels info for grouping
-  DataFrame labels_x(data_x.attr("labels")); 
-  DataFrame labels_y(data_y.attr("labels")); 
+
+  DataFrame labels_x(df_x.attr("labels")); 
+  DataFrame labels_y(df_y.attr("labels")); 
   
-  // set up interval vectors for each group and apply closest_group
   GroupedDataFrame::group_iterator git_x = x.group_begin() ;
   for( int nx=0; nx<ng_x; nx++, ++git_x){
     
@@ -81,17 +81,16 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
       
       if(same_groups){
         
-        intervalVector vx = makeIntervalVector(data_x, gi_x) ;
-        intervalVector vy = makeIntervalVector(data_y, gi_y) ;
+        intervalVector vx = makeIntervalVector(df_x, gi_x) ;
+        intervalVector vy = makeIntervalVector(df_y, gi_y) ;
         
-        closest_grouped(vx, vy, indices_x, indices_y,
-                        overlap_sizes, distance_sizes); 
+        closest_grouped(vx, vy, indices_x, indices_y, overlap_sizes, distance_sizes) ;
       }
     } 
   }
   
-  DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(data_y, names(data_y)).subset(indices_y, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
+  DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(indices_y, "data.frame");
   
   int ncol_x = subset_x.size() ;
   int ncol_y = subset_y.size() ;
