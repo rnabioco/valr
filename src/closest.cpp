@@ -61,9 +61,35 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   std::vector<int> overlap_sizes ;
   std::vector<int> distance_sizes ;
   
-  // set up interval trees for each chromosome and apply closest_grouped
-  PairedGroupApply(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y), 
-            std::ref(overlap_sizes), std::ref(distance_sizes)); 
+  int ng_x = x.ngroups() ;
+  int ng_y = y.ngroups() ;
+  
+  // get labels info for grouping
+  DataFrame labels_x(df_x.attr("labels")); 
+  DataFrame labels_y(df_y.attr("labels")); 
+  
+  GroupedDataFrame::group_iterator git_x = x.group_begin() ;
+  for( int nx=0; nx<ng_x; nx++, ++git_x){
+    
+    SlicingIndex gi_x = *git_x ;
+    
+    GroupedDataFrame::group_iterator git_y = y.group_begin() ;
+    for( int ny=0; ny<ng_y; ny++, ++git_y) {
+      
+      SlicingIndex gi_y = *git_y ;
+      
+      // make sure that x and y groups are the same
+      bool same_groups = compareDataFrameRows(labels_x, labels_y, nx, ny); 
+      
+      if(same_groups){
+        
+        intervalVector vx = makeIntervalVector(df_x, gi_x) ;
+        intervalVector vy = makeIntervalVector(df_y, gi_y) ;
+        
+        closest_grouped(vx, vy, indices_x, indices_y, overlap_sizes, distance_sizes) ;
+      }
+    } 
+  }
   
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(indices_y, "data.frame");

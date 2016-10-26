@@ -9,6 +9,8 @@
 #include <iostream>
 #include <memory>
 
+#include <boost/shared_ptr.hpp>
+
 template <class T, typename K>
 class Interval {
 public:
@@ -52,7 +54,7 @@ public:
     }
 };
 
-template <class T, typename K = int>
+template <class T, typename K>
 class IntervalSorterDesc {
 public:
   bool operator() (const Interval<T,K>& a, const Interval<T,K>& b) {
@@ -60,7 +62,7 @@ public:
   }
 };
 
-template <class T, typename K = int>
+template <class T, typename K>
 class IntervalTree {
 
 public:
@@ -69,27 +71,27 @@ public:
     typedef IntervalTree<T,K> intervalTree;
 
     intervalVector intervals;
-    std::unique_ptr<intervalTree> left;
-    std::unique_ptr<intervalTree> right;
+    boost::shared_ptr<intervalTree> left;
+    boost::shared_ptr<intervalTree> right;
     K center;
 
     IntervalTree<T,K>(void)
-        : left(nullptr)
-        , right(nullptr)
+        : left(NULL)
+        , right(NULL)
         , center(0) 
     { }
 
 private:
-    std::unique_ptr<intervalTree> copyTree(const intervalTree& orig){
-        return std::unique_ptr<intervalTree>(new intervalTree(orig));
+    boost::shared_ptr<intervalTree> copyTree(const intervalTree& orig){
+        return boost::shared_ptr<intervalTree>(new intervalTree(orig));
     }
   
 public:
 
     IntervalTree<T,K>(const intervalTree& other)
     :   intervals(other.intervals),
-        left(other.left ? copyTree(*other.left) : nullptr),
-        right(other.right ? copyTree(*other.right) : nullptr),
+        left(other.left ? copyTree(*other.left) : NULL),
+        right(other.right ? copyTree(*other.right) : NULL),
         center(other.center)
     {
     }
@@ -99,8 +101,8 @@ public:
     IntervalTree<T,K>& operator=(const intervalTree& other) {
         center = other.center ;
         intervals = other.intervals;
-        left = other.left ? copyTree(*other.left) : nullptr;
-        right = other.right ? copyTree(*other.right) : nullptr;
+        left = other.left ? copyTree(*other.left) : NULL;
+        right = other.right ? copyTree(*other.right) : NULL;
         return *this;
     }
 
@@ -113,8 +115,8 @@ public:
             K rightextent = 0,
             std::size_t maxbucket = 512
             )
-        : left(nullptr)
-        , right(nullptr)
+        : left(NULL)
+        , right(NULL)
     {
 
         --depth;
@@ -163,10 +165,10 @@ public:
             }
 
             if (!lefts.empty()) {
-                left = std::unique_ptr<intervalTree>(new intervalTree(lefts, depth, minbucket, leftp, centerp));
+                left = boost::shared_ptr<intervalTree>(new intervalTree(lefts, depth, minbucket, leftp, centerp));
             }
             if (!rights.empty()) {
-                right = std::unique_ptr<intervalTree>(new intervalTree(rights, depth, minbucket, centerp, rightp));
+                right = boost::shared_ptr<intervalTree>(new intervalTree(rights, depth, minbucket, centerp, rightp));
             }
         }
     }
