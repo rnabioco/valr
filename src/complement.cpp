@@ -51,7 +51,7 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
       last_end = end;
     }
  
-    auto chrom_size = chrom_sizes[chrom] ;
+    int chrom_size = chrom_sizes[chrom] ;
     
     if (last_end < chrom_size) {
       chroms_out.push_back(chrom) ;

@@ -11,13 +11,13 @@ void subtract_group(intervalVector vx, intervalVector vy,
   intervalVector::const_iterator it ; 
   for(it = vx.begin(); it != vx.end(); ++it) {
 
-    auto x_start = it->start;
-    auto x_stop = it->stop;
+    int x_start = it->start;
+    int x_stop = it->stop;
     
     tree_y.findOverlapping(it->start, it->stop, overlaps) ;
       
     // compute number of overlaps
-    std::size_t overlap_count = overlaps.size();
+    int overlap_count = overlaps.size();
     
     // handle no overlaps and continue
     if (overlap_count == 0){
@@ -37,8 +37,8 @@ void subtract_group(intervalVector vx, intervalVector vy,
     intervalVector::const_iterator oit ; 
     for(oit = overlaps.begin(); oit != overlaps.end(); ++oit) {
       
-      auto y_start = oit->start;
-      auto y_stop = oit->stop;
+      int y_start = oit->start;
+      int y_stop = oit->stop;
       
       if (y_start <= x_start) {
         //advance x_start to end of y
@@ -72,8 +72,8 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   std::vector<int> starts_out ;
   std::vector<int> ends_out ;
  
-  auto ng_x = gdf_x.ngroups() ;
-  auto ng_y = gdf_y.ngroups() ;
+  int ng_x = gdf_x.ngroups() ;
+  int ng_y = gdf_y.ngroups() ;
   
   DataFrame df_x = gdf_x.data() ;
   DataFrame df_y = gdf_y.data() ; 
@@ -115,10 +115,10 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     // return x intervals if x chromosome not found in y
     if (group_seen) {
       continue;
-      }
-    else {
+    } else {
       intervalVector vx = makeIntervalVector(df_x, indices_x) ;
       intervalVector::const_iterator it ;
+      
       for(it = vx.begin(); it != vx.end(); ++it) {
         indices_out.push_back(it->value) ;
         starts_out.push_back(it->start) ; 
@@ -130,7 +130,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   // extract out x data, new intervals will be generated as copies of the parent interval
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_out, "data.frame");
   
-  auto ncol_x = subset_x.size() ;
+  int ncol_x = subset_x.size() ;
   
   CharacterVector names(ncol_x) ;
   CharacterVector names_x = subset_x.attr("names") ;
@@ -140,13 +140,13 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   
   // build new dataframe with colnames and existing data
   for( int i=0; i<ncol_x; i++) {
-    auto name_x = as<std::string>(names_x[i]) ;
+    std::string name_x = as<std::string>(names_x[i]) ;
     names[i] = name_x ;
     out[i] = subset_x[i] ;
   }
   out.attr("names") = names ; 
   out.attr("class") = classes_not_grouped() ;
-  auto nrows = subset_x.nrows() ; 
+  int nrows = subset_x.nrows() ; 
   set_rownames(out, nrows) ;
   
   // assign new starts and ends

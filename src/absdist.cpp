@@ -67,7 +67,7 @@ DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y) {
   
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
   
-  auto ncol_x = subset_x.size() ;
+  int ncol_x = subset_x.size() ;
   
   CharacterVector names(ncol_x + 1) ;
   CharacterVector names_x = subset_x.attr("names") ;
@@ -84,7 +84,7 @@ DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y) {
   
   out.attr("names") = names ; 
   out.attr("class") = classes_not_grouped() ;
-  auto nrows = subset_x.nrows() ; 
+  int nrows = subset_x.nrows() ; 
   set_rownames(out, nrows) ;
   
   return out ; 

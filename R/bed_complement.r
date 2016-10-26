@@ -63,3 +63,8 @@ bed_complement <- function(x, genome) {
  
   res 
 }
+
+bed_compliment <- function(...) {
+  message("Those are nice looking intervals!")
+  bed_complement(...)
+} 

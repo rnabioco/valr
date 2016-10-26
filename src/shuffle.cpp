@@ -1,22 +1,9 @@
-/*****************************************************
-
- shuffle.cpp
- 
- (c) 2016 
-     Jay Hesselberth
-     University of Colorado School of Medicine
-     <jay.hesselberth@gmail.com
-
- MIT License
- 
-*****************************************************/
-
 #include "valr.h"
 
-typedef std::unordered_map<std::string, intervalTree> chrom_tree_t ;
-typedef std::unordered_map<std::string, intervalVector> interval_map_t ;
-typedef std::unordered_map<std::string, PDIST > interval_rng_t ;
-typedef std::unordered_map<std::string, std::vector< UDIST > > start_rng_t ;
+typedef std::map<std::string, intervalTree> chrom_tree_t ;
+typedef std::map<std::string, intervalVector> interval_map_t ;
+typedef std::map<std::string, PDIST > interval_rng_t ;
+typedef std::map<std::string, std::vector< UDIST > > start_rng_t ;
 
 chrom_tree_t makeIntervalTrees(DataFrame incl, interval_map_t interval_map) {
   

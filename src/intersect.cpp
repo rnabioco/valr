@@ -38,8 +38,8 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   // overlap sizes
   std::vector<int> overlap_sizes ;
   
-  auto data_x = x.data() ;
-  auto data_y = y.data() ;
+  DataFrame data_x = x.data() ;
+  DataFrame data_y = y.data() ;
 
   // set up interval trees for each chromosome and apply intersect_group
   PairedGroupApply(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes)); 
@@ -47,8 +47,8 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(data_y, names(data_y)).subset(indices_y, "data.frame");
   
-  auto ncol_x = subset_x.size() ;
-  auto ncol_y = subset_y.size() ;
+  int ncol_x = subset_x.size() ;
+  int ncol_y = subset_y.size() ;
   
   CharacterVector names(ncol_x + ncol_y) ;
   CharacterVector names_x = subset_x.attr("names") ;
@@ -59,7 +59,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   
   // x names, data
   for( int i=0; i<ncol_x; i++) {
-    auto name_x = as<std::string>(names_x[i]) ;
+    std::string name_x = as<std::string>(names_x[i]) ;
     if (name_x != "chrom") {
         name_x += suffix_x ;
     } 
@@ -69,7 +69,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   
   // y names, data
   for( int i=0; i<ncol_y; i++) {
-    auto name_y = as<std::string>(names_y[i]) ;
+    std::string name_y = as<std::string>(names_y[i]) ;
     
     if (name_y == "chrom") continue ;
     
@@ -85,7 +85,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   
   out.attr("names") = names ; 
   out.attr("class") = classes_not_grouped() ;
-  auto nrows = subset_x.nrows() ; 
+  int nrows = subset_x.nrows() ; 
   set_rownames(out, nrows) ;
   
   return out ; 

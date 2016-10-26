@@ -12,7 +12,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
     seed = round(R::runif(0, RAND_MAX)) ;
 
   // seed the generator
-  auto generator = ENG(seed) ;
+  ENG generator = ENG(seed) ;
 
   // calculate weights for chrom distribution
   float mass = sum(sizes) ;
@@ -26,7 +26,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
  
   for (int i=0; i<nchrom; ++i) {
     
-    auto size = sizes[i] ;
+    int size = sizes[i] ;
     // sub length to avoid off-chrom coordinates
     UDIST size_dist(1, size - length) ;
     size_rngs.push_back(size_dist) ;
@@ -37,12 +37,12 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
   
   for (int i=0; i<n; ++i) {
      
-     auto chrom_idx = chrom_dist(generator) ;
+     int chrom_idx = chrom_dist(generator) ;
      rand_chroms[i] = chroms[chrom_idx] ;
      
      UDIST size_dist = size_rngs[chrom_idx] ;
      
-     auto rand_start = size_dist(generator) ;
+     int rand_start = size_dist(generator) ;
      rand_starts[i] = rand_start ;
   }
   

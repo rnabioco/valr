@@ -30,8 +30,8 @@ void coverage_group(intervalVector vx, intervalVector vy,
     
     // variables to compute number of bases
     int ivl_bases_covered = 0; 
-    auto x_ivl_start = it->start; 
-    auto x_ivl_stop = it->stop; 
+    int x_ivl_start = it->start; 
+    int x_ivl_stop = it->stop; 
 
     // total x interval length
     int x_ivl_length = x_ivl_stop - x_ivl_start ; 
@@ -83,8 +83,8 @@ void coverage_group(intervalVector vx, intervalVector vy,
     // iterate through merged overlaps and compute number of covered bases
     for(oit = mergedOverlaps.begin(); oit != mergedOverlaps.end(); ++oit) {
       
-      auto y_ivl_start = oit->start; 
-      auto y_ivl_stop = oit->stop;
+      int y_ivl_start = oit->start; 
+      int y_ivl_stop = oit->stop;
       
       if (y_ivl_start <  x_ivl_start){
         y_ivl_start = x_ivl_start ;
@@ -117,7 +117,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   std::vector<int> x_ivl_lengths ;
   std::vector<double> fractions_covered ;
   
-  auto data_x = x.data() ;
+  DataFrame data_x = x.data() ;
   
   PairedGroupApply(x, y, coverage_group,
                    std::ref(overlap_counts), std::ref(ivls_bases_covered),
@@ -126,7 +126,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   // handle condition with empty y df
   // just assign zeros, except for interval length
   if (y.data().nrows() == 0){
-    auto ng_x = x.ngroups() ;
+    int ng_x = x.ngroups() ;
 
     GroupedDataFrame::group_iterator git_x = x.group_begin() ;
     for( int nx=0; nx<ng_x; nx++, ++git_x){
@@ -145,7 +145,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     
 //  DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x));
   
-  auto ncol_x = data_x.size() ;
+  int ncol_x = data_x.size() ;
   
   CharacterVector names(ncol_x + 4) ;
   CharacterVector names_x = data_x.attr("names") ;
@@ -157,7 +157,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   
   // x names, data
   for( int i=0; i<ncol_x; i++) {
-    auto name_x = as<std::string>(names_x[i]) ;
+    std::string name_x = as<std::string>(names_x[i]) ;
     names[i] = name_x ;
     out[i] = data_x[i] ;
   }
@@ -176,7 +176,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   
   out.attr("names") = names ; 
   out.attr("class") = classes_not_grouped() ;
-  auto nrows = data_x.nrows() ; 
+  int nrows = data_x.nrows() ; 
   set_rownames(out, nrows) ;
   
   return out ; 

@@ -3,12 +3,12 @@
 //[[Rcpp::export]]
 DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   
-  auto ng = gdf.ngroups() ;
+  int ng = gdf.ngroups() ;
   
   DataFrame df = gdf.data() ;
   
-  auto nr = df.nrows() ;
-  auto nc = df.size() ;
+  int nr = df.nrows() ;
+  int nc = df.size() ;
   
   IntegerVector ids(nr) ;      // store ids
   IntegerVector overlaps(nr) ; // store overlap values
@@ -30,7 +30,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
     intervalVector::const_iterator it ;
     for( it = intervals.begin(); it != intervals.end(); ++it) {
       
-      auto idx = it->value ;
+      int idx = it->value ;
      
       // must be `int` type, not `auto`
       int overlap = intervalOverlap(*it, last_interval) ;
