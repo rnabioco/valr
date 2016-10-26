@@ -9,7 +9,7 @@
 #include <iostream>
 #include <memory>
 
-template <class T, typename K = int>
+template <class T, typename K>
 class Interval {
 public:
     K start;
@@ -39,12 +39,12 @@ template <class T, typename K>
 }
 
 
-template <class T, typename K = int>
+template <class T, typename K>
 K intervalOverlap (const Interval<T,K>& a, const Interval<T,K>& b) {
     return std::min(a.stop, b.stop) - std::max(a.start, b.start) ;
 }
 
-template <class T, typename K = int>
+template <class T, typename K>
 class IntervalStartSorter {
 public:
     bool operator() (const Interval<T,K>& a, const Interval<T,K>& b) {
@@ -299,8 +299,17 @@ public:
       closest.insert(closest.end(), min_dist.second.begin(), min_dist.second.end())  ;
     }
   }
-    ~IntervalTree(void) = default;
-
+  
+  ~IntervalTree(void) {
+    // traverse the left and right
+    // delete them all the way down
+    if (left) {
+      delete left;
+    }
+    if (right) {
+      delete right;
+    }
+  }
 };
 
 #endif
