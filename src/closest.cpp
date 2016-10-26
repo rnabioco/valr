@@ -45,26 +45,24 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
   } 
 }   
 
-// XXX the following is verbatim from intersect.cpp except for fxn call  
-// XXX and an additional column (distance) is added to output df. should be reused
- 
 //[[Rcpp::export]]
 DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
                        const std::string& suffix_x, const std::string& suffix_y) {
 
-  DataFrame df_x = x.data() ;
-  DataFrame df_y = y.data() ;
-  
   // for subsetting / return df
   std::vector<int> indices_x ;
   std::vector<int> indices_y ;
   std::vector<int> overlap_sizes ;
   std::vector<int> distance_sizes ;
   
+  DataFrame df_x = x.data() ;
+  DataFrame df_y = y.data() ;
+  
   int ng_x = x.ngroups() ;
   int ng_y = y.ngroups() ;
   
   // get labels info for grouping
+
   DataFrame labels_x(df_x.attr("labels")); 
   DataFrame labels_y(df_y.attr("labels")); 
   

@@ -40,9 +40,37 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   
   DataFrame data_x = x.data() ;
   DataFrame data_y = y.data() ;
-
-  // set up interval trees for each chromosome and apply intersect_group
-  PairedGroupApply(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes)); 
+  
+  int ng_x = x.ngroups() ;
+  int ng_y = y.ngroups() ;
+  
+  // get labels info for grouping
+  DataFrame labels_x(data_x.attr("labels")); 
+  DataFrame labels_y(data_y.attr("labels")); 
+  
+  // set up interval vectors for each group and apply intersect_group
+  GroupedDataFrame::group_iterator git_x = x.group_begin() ;
+  for( int nx=0; nx<ng_x; nx++, ++git_x){
+    
+    SlicingIndex gi_x = *git_x ;
+    
+    GroupedDataFrame::group_iterator git_y = y.group_begin() ;
+    for( int ny=0; ny<ng_y; ny++, ++git_y) {
+      
+      SlicingIndex gi_y = *git_y ;
+      
+      // make sure that x and y groups are the same
+      bool same_groups = compareDataFrameRows(labels_x, labels_y, nx, ny); 
+      
+      if(same_groups){
+        
+        intervalVector vx = makeIntervalVector(data_x, gi_x) ;
+        intervalVector vy = makeIntervalVector(data_y, gi_y) ;
+        
+        intersect_group(vx, vy, indices_x, indices_y, overlap_sizes); 
+      }
+    } 
+  }
   
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(data_y, names(data_y)).subset(indices_y, "data.frame");

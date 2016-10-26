@@ -64,7 +64,7 @@ DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y) {
   
   DataFrame data_x = x.data() ;
   DataFrame data_y = y.data() ;
- 
+
   int ng_x = x.ngroups() ;
   int ng_y = y.ngroups() ;
    

@@ -118,11 +118,39 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   std::vector<double> fractions_covered ;
   
   DataFrame data_x = x.data() ;
-  
-  PairedGroupApply(x, y, coverage_group,
-                   std::ref(overlap_counts), std::ref(ivls_bases_covered),
-                   std::ref(x_ivl_lengths), std::ref(fractions_covered));
+  DataFrame data_y = y.data() ;
 
+  int ng_x = x.ngroups() ;
+  int ng_y = y.ngroups() ;
+  
+  // get labels info for grouping
+  DataFrame labels_x(data_x.attr("labels")); 
+  DataFrame labels_y(data_y.attr("labels")); 
+  
+  // set up interval vectors for each group and apply intersect_group
+  GroupedDataFrame::group_iterator git_x = x.group_begin() ;
+  for( int nx=0; nx<ng_x; nx++, ++git_x){
+    
+    SlicingIndex gi_x = *git_x ;
+    
+    GroupedDataFrame::group_iterator git_y = y.group_begin() ;
+    for( int ny=0; ny<ng_y; ny++, ++git_y) {
+      
+      SlicingIndex gi_y = *git_y ;
+      
+      // make sure that x and y groups are the same
+      bool same_groups = compareDataFrameRows(labels_x, labels_y, nx, ny); 
+      
+      if(same_groups){
+        
+        intervalVector vx = makeIntervalVector(data_x, gi_x) ;
+        intervalVector vy = makeIntervalVector(data_y, gi_y) ;
+        
+        coverage_group(vx, vy, overlap_counts, ivls_bases_covered,
+                       x_ivl_lengths, fractions_covered); 
+      }
+    } 
+  }
   // handle condition with empty y df
   // just assign zeros, except for interval length
   if (y.data().nrows() == 0){
