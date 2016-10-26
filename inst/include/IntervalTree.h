@@ -9,7 +9,8 @@
 #include <iostream>
 #include <memory>
 
-#include <boost/shared_ptr.hpp>
+#include <boost/move/unique_ptr.hpp>
+using boost::movelib::unique_ptr ;
 
 template <class T, typename K>
 class Interval {
@@ -71,8 +72,8 @@ public:
     typedef IntervalTree<T,K> intervalTree;
 
     intervalVector intervals;
-    boost::shared_ptr<intervalTree> left;
-    boost::shared_ptr<intervalTree> right;
+    unique_ptr<intervalTree> left;
+    unique_ptr<intervalTree> right;
     K center;
 
     IntervalTree<T,K>(void)
@@ -82,8 +83,8 @@ public:
     { }
 
 private:
-    boost::shared_ptr<intervalTree> copyTree(const intervalTree& orig){
-        return boost::shared_ptr<intervalTree>(new intervalTree(orig));
+    unique_ptr<intervalTree> copyTree(const intervalTree& orig){
+        return unique_ptr<intervalTree>(new intervalTree(orig));
     }
   
 public:
@@ -101,6 +102,7 @@ public:
     IntervalTree<T,K>& operator=(const intervalTree& other) {
         center = other.center ;
         intervals = other.intervals;
+        
         left = other.left ? copyTree(*other.left) : NULL;
         right = other.right ? copyTree(*other.right) : NULL;
         return *this;
@@ -165,10 +167,10 @@ public:
             }
 
             if (!lefts.empty()) {
-                left = boost::shared_ptr<intervalTree>(new intervalTree(lefts, depth, minbucket, leftp, centerp));
+                left = unique_ptr<intervalTree>(new intervalTree(lefts, depth, minbucket, leftp, centerp));
             }
             if (!rights.empty()) {
-                right = boost::shared_ptr<intervalTree>(new intervalTree(rights, depth, minbucket, centerp, rightp));
+                right = unique_ptr<intervalTree>(new intervalTree(rights, depth, minbucket, centerp, rightp));
             }
         }
     }
@@ -306,10 +308,10 @@ public:
     // traverse the left and right
     // delete them all the way down
     if (left) {
-      delete left;
+      left = NULL;
     }
     if (right) {
-      delete right;
+      right = NULL;
     }
   }
 };

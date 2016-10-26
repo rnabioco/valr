@@ -58,7 +58,7 @@ PDIST makeChromRNG(DataFrame incl) {
   }
  
   std::transform(weights.begin(), weights.end(), weights.begin(),
-                 [total_mass](float mass) {return mass / total_mass; }) ;
+                   std::bind2nd( std::divides<float>(), total_mass ) ) ;
     
   CharacterVector chrom_names = unique(incl_chroms) ; 
   int nchrom = chrom_names.size() ;
@@ -114,7 +114,7 @@ interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
     }
    
     std::transform(weights.begin(), weights.end(), weights.begin(),
-                   [total_mass](float mass) {return mass / total_mass; }) ;
+                   std::bind2nd( std::divides<float>(), total_mass ) ) ;
     
     int n_ivls = intervals.size() ;
    
@@ -141,7 +141,7 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
     std::string chrom = it->first ;
     intervalVector intervals = it->second ;
    
-    if(!start_rngs.count(chrom)) start_rngs[chrom] = { }; 
+    if(!start_rngs.count(chrom)) start_rngs[chrom] ; 
     
     for(intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
       UDIST rng(i->start, i->stop) ;
