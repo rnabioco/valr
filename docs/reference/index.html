@@ -10,7 +10,6 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -75,217 +75,161 @@
       </header>
 
       <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="page-header">
-      <h1>Function reference <small>version&nbsp;0.1</small></h1>
+      <h1>Function reference</h1>
+      <h4>version&nbsp;0.1</h4>
+    </div>
+
+    <div class="contents">
+      <h2 id="section-read-data" class="hasAnchor"><a href="#section-read-data" class="anchor"></a>Read data</h2>
+      <p class="section-desc"></p>
+
+      <p><a href="read_bed.html">Read BED and related files.</a></p>
+      <ul>
+        <li><code><a href="read_bed.html">read_bed</a></code></li><li><code><a href="read_bed.html">read_bed12</a></code></li><li><code><a href="read_bed.html">read_bedgraph</a></code></li><li><code><a href="read_bed.html">read_broadpeak</a></code></li><li><code><a href="read_bed.html">read_narrowpeak</a></code></li>
+      </ul>
+      <p><a href="read_genome.html">read genome files (i.e., UCSC &quot;chromSize&quot; files)</a></p>
+      <ul>
+        <li><code><a href="read_genome.html">bound_intervals</a></code></li><li><code><a href="read_genome.html">read_genome</a></code></li>
+      </ul>
+      <p><a href="read_vcf.html">Read a VCF file.</a></p>
+      <ul>
+        <li><code><a href="read_vcf.html">read_vcf</a></code></li>
+      </ul>
+          <h2 id="section-single-set-operations" class="hasAnchor"><a href="#section-single-set-operations" class="anchor"></a>Single set operations</h2>
+      <p class="section-desc"></p>
+
+      <p><a href="bed_cluster.html">Cluster neighboring intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_cluster.html">bed_cluster</a></code></li>
+      </ul>
+      <p><a href="bed_complement.html">Identify intervals in a genome not covered by a query.</a></p>
+      <ul>
+        <li><code><a href="bed_complement.html">bed_complement</a></code></li>
+      </ul>
+      <p><a href="bed_flank.html">Create flanking intervals from input intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_flank.html">bed_flank</a></code></li>
+      </ul>
+      <p><a href="bed_merge.html">Merge overlapping intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_merge.html">bed_merge</a></code></li>
+      </ul>
+      <p><a href="bed_shift.html">Adjust intervals by a fixed size.</a></p>
+      <ul>
+        <li><code><a href="bed_shift.html">bed_shift</a></code></li>
+      </ul>
+      <p><a href="bed_slop.html">Increase the size of input intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_slop.html">bed_slop</a></code></li>
+      </ul>
+      <p><a href="bed_sort.html">Sort a tbl of intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_sort.html">bed_sort</a></code></li>
+      </ul>
+          <h2 id="section-multiple-set-operations" class="hasAnchor"><a href="#section-multiple-set-operations" class="anchor"></a>Multiple set operations</h2>
+      <p class="section-desc"></p>
+
+      <p><a href="bed_closest.html">Identify closest intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_closest.html">bed_closest</a></code></li>
+      </ul>
+      <p><a href="bed_coverage.html">Compute coverage of y intervals over x intervals</a></p>
+      <ul>
+        <li><code><a href="bed_coverage.html">bed_coverage</a></code></li>
+      </ul>
+      <p><a href="bed_intersect.html">Identify intersecting intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_intersect.html">bed_intersect</a></code></li>
+      </ul>
+      <p><a href="bed_map.html">Map signals over intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_map.html">bed_map</a></code></li><li><code><a href="bed_map.html">concat</a></code></li><li><code><a href="bed_map.html">values</a></code></li><li><code><a href="bed_map.html">values_unique</a></code></li>
+      </ul>
+      <p><a href="bed_subtract.html">Subtract intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_subtract.html">bed_subtract</a></code></li>
+      </ul>
+      <p><a href="bed_window.html">Identify intersecting intervals within a specified distance</a></p>
+      <ul>
+        <li><code><a href="bed_window.html">bed_window</a></code></li>
+      </ul>
+          <h2 id="section-randomizing-intervals" class="hasAnchor"><a href="#section-randomizing-intervals" class="anchor"></a>Randomizing intervals</h2>
+      <p class="section-desc"></p>
+
+      <p><a href="bed_random.html">Generate randomly placed intervals on a genome.</a></p>
+      <ul>
+        <li><code><a href="bed_random.html">bed_random</a></code></li>
+      </ul>
+      <p><a href="bed_shuffle.html">shuffle input intervals</a></p>
+      <ul>
+        <li><code><a href="bed_shuffle.html">bed_shuffle</a></code></li>
+      </ul>
+          <h2 id="section-interval-statistics" class="hasAnchor"><a href="#section-interval-statistics" class="anchor"></a>Interval statistics</h2>
+      <p class="section-desc"></p>
+
+      <p><a href="bed_absdist.html">Compute the absolute distance between query and reference intervals</a></p>
+      <ul>
+        <li><code><a href="bed_absdist.html">bed_absdist</a></code></li>
+      </ul>
+      <p><a href="bed_fisher.html">Fisher's test on number of shared and unique intervals.</a></p>
+      <ul>
+        <li><code><a href="bed_fisher.html">bed_fisher</a></code></li><li><code><a href="bed_fisher.html">interval_union</a></code></li>
+      </ul>
+      <p><a href="bed_jaccard.html">Jaccard statistic.</a></p>
+      <ul>
+        <li><code><a href="bed_jaccard.html">bed_jaccard</a></code></li>
+      </ul>
+      <p><a href="bed_reldist.html">Compute the relative distance between query intervals and reference intervals</a></p>
+      <ul>
+        <li><code><a href="bed_reldist.html">bed_reldist</a></code></li>
+      </ul>
+          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
+      <p class="section-desc"></p>
+
+      <p><a href="bed_glyph.html">Sample glyph for valr functions</a></p>
+      <ul>
+        <li><code><a href="bed_glyph.html">bed_glyph</a></code></li>
+      </ul>
+      <p><a href="bed_makewindows.html">Divide intervals into new sub-intervals (&quot;windows&quot;).</a></p>
+      <ul>
+        <li><code><a href="bed_makewindows.html">bed_makewindows</a></code></li><li><code><a href="bed_makewindows.html">split_interval</a></code></li>
+      </ul>
+      <p><a href="bed12_to_exons.html">Convert BED12 to individual exons in BED6.</a></p>
+      <ul>
+        <li><code><a href="bed12_to_exons.html">bed12_to_exons</a></code></li>
+      </ul>
+      <p><a href="format_bed.html">reformat bed tbl to match another tbl</a></p>
+      <ul>
+        <li><code><a href="format_bed.html">format_bed</a></code></li>
+      </ul>
+      <p><a href="launch_shiny.html">launch valr shiny demo</a></p>
+      <ul>
+        <li><code><a href="launch_shiny.html">launch_shiny</a></code></li>
+      </ul>
+      <p><a href="shared_groups.html">Compare two tbl_dfs and find the minimum shared groups</a></p>
+      <ul>
+        <li><code><a href="shared_groups.html">shared_groups</a></code></li>
+      </ul>
+      <p><a href="valr_example.html">provides working directory for valr example files</a></p>
+      <ul>
+        <li><code><a href="valr_example.html">valr_example</a></code></li>
+      </ul>
+    
     </div>
   </div>
-  <div class="col-md-12 side-by-side">
 
-    <div class="section ">
-      <h2>Read data</h2>
-      <p class="section-desc"></p>
-
-      <div class="topic">
-        <p><a href="read_bed.html">Read BED and related files.</a></p>
-        <ul>
-          <li><code><a href="read_bed.html">read_bed</a></code></li><li><code><a href="read_bed.html">read_bed12</a></code></li><li><code><a href="read_bed.html">read_bedgraph</a></code></li><li><code><a href="read_bed.html">read_broadpeak</a></code></li><li><code><a href="read_bed.html">read_narrowpeak</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="read_genome.html">read genome files (i.e., UCSC &quot;chromSize&quot; files)</a></p>
-        <ul>
-          <li><code><a href="read_genome.html">bound_intervals</a></code></li><li><code><a href="read_genome.html">read_genome</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="read_vcf.html">Read a VCF file.</a></p>
-        <ul>
-          <li><code><a href="read_vcf.html">read_vcf</a></code></li>
-        </ul>
-      </div>
-    </div>
-    <div class="section ">
-      <h2>Single set operations</h2>
-      <p class="section-desc"></p>
-
-      <div class="topic">
-        <p><a href="bed_cluster.html">Cluster neighboring intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_cluster.html">bed_cluster</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_complement.html">Identify intervals in a genome not covered by a query.</a></p>
-        <ul>
-          <li><code><a href="bed_complement.html">bed_complement</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_flank.html">Create flanking intervals from input intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_flank.html">bed_flank</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_merge.html">Merge overlapping intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_merge.html">bed_merge</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_shift.html">Adjust intervals by a fixed size.</a></p>
-        <ul>
-          <li><code><a href="bed_shift.html">bed_shift</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_slop.html">Increase the size of input intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_slop.html">bed_slop</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_sort.html">Sort a tbl of intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_sort.html">bed_sort</a></code></li>
-        </ul>
-      </div>
-    </div>
-    <div class="section ">
-      <h2>Multiple set operations</h2>
-      <p class="section-desc"></p>
-
-      <div class="topic">
-        <p><a href="bed_closest.html">Identify closest intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_closest.html">bed_closest</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_coverage.html">Compute coverage of y intervals over x intervals</a></p>
-        <ul>
-          <li><code><a href="bed_coverage.html">bed_coverage</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_intersect.html">Identify intersecting intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_intersect.html">bed_intersect</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_map.html">Map signals over intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_map.html">bed_map</a></code></li><li><code><a href="bed_map.html">concat</a></code></li><li><code><a href="bed_map.html">values</a></code></li><li><code><a href="bed_map.html">values_unique</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_subtract.html">Subtract intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_subtract.html">bed_subtract</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_window.html">Identify intersecting intervals within a specified distance</a></p>
-        <ul>
-          <li><code><a href="bed_window.html">bed_window</a></code></li>
-        </ul>
-      </div>
-    </div>
-    <div class="section ">
-      <h2>Randomizing intervals</h2>
-      <p class="section-desc"></p>
-
-      <div class="topic">
-        <p><a href="bed_random.html">Generate randomly placed intervals on a genome.</a></p>
-        <ul>
-          <li><code><a href="bed_random.html">bed_random</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_shuffle.html">shuffle input intervals</a></p>
-        <ul>
-          <li><code><a href="bed_shuffle.html">bed_shuffle</a></code></li>
-        </ul>
-      </div>
-    </div>
-    <div class="section ">
-      <h2>Interval statistics</h2>
-      <p class="section-desc"></p>
-
-      <div class="topic">
-        <p><a href="bed_absdist.html">Compute the absolute distance between query and reference intervals</a></p>
-        <ul>
-          <li><code><a href="bed_absdist.html">bed_absdist</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_fisher.html">Fisher's test on number of shared and unique intervals.</a></p>
-        <ul>
-          <li><code><a href="bed_fisher.html">bed_fisher</a></code></li><li><code><a href="bed_fisher.html">interval_union</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_jaccard.html">Jaccard statistic.</a></p>
-        <ul>
-          <li><code><a href="bed_jaccard.html">bed_jaccard</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_reldist.html">Compute the relative distance between query intervals and reference intervals</a></p>
-        <ul>
-          <li><code><a href="bed_reldist.html">bed_reldist</a></code></li>
-        </ul>
-      </div>
-    </div>
-    <div class="section ">
-      <h2>Utilities</h2>
-      <p class="section-desc"></p>
-
-      <div class="topic">
-        <p><a href="bed_glyph.html">Sample glyph for valr functions</a></p>
-        <ul>
-          <li><code><a href="bed_glyph.html">bed_glyph</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed_makewindows.html">Divide intervals into new sub-intervals (&quot;windows&quot;).</a></p>
-        <ul>
-          <li><code><a href="bed_makewindows.html">bed_makewindows</a></code></li><li><code><a href="bed_makewindows.html">split_interval</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="bed12_to_exons.html">Convert BED12 to individual exons in BED6.</a></p>
-        <ul>
-          <li><code><a href="bed12_to_exons.html">bed12_to_exons</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="format_bed.html">reformat bed tbl to match another tbl</a></p>
-        <ul>
-          <li><code><a href="format_bed.html">format_bed</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="launch_shiny.html">launch valr shiny demo</a></p>
-        <ul>
-          <li><code><a href="launch_shiny.html">launch_shiny</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="shared_groups.html">Compare two tbl_dfs and find the minimum shared groups</a></p>
-        <ul>
-          <li><code><a href="shared_groups.html">shared_groups</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="valr_example.html">provides working directory for valr example files</a></p>
-        <ul>
-          <li><code><a href="valr_example.html">valr_example</a></code></li>
-        </ul>
-      </div>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#section-read-data">Read data</a></li>
+      <li><a href="#section-single-set-operations">Single set operations</a></li>
+      <li><a href="#section-multiple-set-operations">Multiple set operations</a></li>
+      <li><a href="#section-randomizing-intervals">Randomizing intervals</a></li>
+      <li><a href="#section-interval-statistics">Interval statistics</a></li>
+      <li><a href="#section-utilities">Utilities</a></li>
+    </ul>
   </div>
 </div>
 
