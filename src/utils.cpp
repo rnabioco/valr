@@ -11,7 +11,7 @@ genome_map_t makeChromSizes(DataFrame genome) {
   for( int i=0; i<nchrom; ++i) {
     std::string chrom = as<std::string>(chroms[i]) ;
     int size = sizes[i] ;
-    chrom_sizes.insert({chrom, size}) ;
+    chrom_sizes.insert( std::pair<std::string, int>(chrom, size) ) ;
   }
  
   return chrom_sizes ; 
