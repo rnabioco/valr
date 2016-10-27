@@ -90,11 +90,17 @@ private:
 public:
 
     IntervalTree<T,K>(const intervalTree& other)
-    :   intervals(other.intervals),
-        left(other.left ? copyTree(*other.left) : NULL),
-        right(other.right ? copyTree(*other.right) : NULL),
-        center(other.center)
+      : left(NULL)
+      , right(NULL)
     {
+      center = other.center;
+      intervals = other.intervals;
+      if (other.left) {
+        left = copyTree(*other.left);
+      }
+      if (other.right) {
+        right = copyTree(*other.right);
+      }
     }
 
 public:
@@ -103,8 +109,16 @@ public:
         center = other.center ;
         intervals = other.intervals;
         
-        left = other.left ? copyTree(*other.left) : NULL;
-        right = other.right ? copyTree(*other.right) : NULL;
+        if (other.left) {
+          left = copyTree(*other.left);
+        } else {
+          left = NULL;
+        }
+        if (other.right) {
+          right = copyTree(*other.right);
+        } else {
+          right = NULL;
+        }
         return *this;
     }
 
