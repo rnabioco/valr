@@ -1,4 +1,4 @@
-#' Sample glyph for valr functions
+#' Create example glyphs for valr functions
 #' 
 #' @param expr expression to evaluate
 #' @param res_name name of result in output
@@ -27,7 +27,7 @@
 #'   'chr1', 91,     120
 #' )
 #' 
-#' bed_glyph(bed_merge(x), label = '.id')
+#' bed_glyph(bed_merge(x))
 #' bed_glyph(bed_cluster(x), label = '.id')
 #' 
 #' @export
@@ -96,10 +96,12 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
   } 
 
   # assign `.y` values based on clustering
-  res <- bed_cluster(res)
-  res <- group_by(res, .facet, .id)
-  res <- mutate(res, .y = row_number(.id))
-  res <- ungroup(res)
+  ys <- bed_cluster(res)
+  ys <- group_by(ys, .facet, .id)
+  ys <- mutate(ys, .y = row_number(.id))
+  ys <- ungroup(ys)
+  
+  res <- mutate(res, .y = ys$.y)
   
   # make res_name col last
   fct_names <- c(expr_vars, res_name)

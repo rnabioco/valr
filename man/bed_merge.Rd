@@ -29,7 +29,8 @@ x <- tibble::tribble(
   'chr1',  100,    120
 )
 
-bed_glyph(bed_merge(x), label = '.id')
+bed_glyph(bed_merge(x))
+
 x <- tibble::tribble(
  ~chrom, ~start, ~end, ~value, ~strand,
  "chr1", 1,      50,   1,      '+',
