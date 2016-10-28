@@ -23,13 +23,14 @@
 #' 
 #' bed_cluster(x)
 #' 
-#' # glyph
+#' # glyph illustrating clustering of overlapping and book-ended intervals
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',      1,      10,
-#'   'chr1',      15,     20,
-#'   'chr1',      25,     35,
-#'   'chr1',      100,    120
+#'   'chr1', 1,      10,
+#'   'chr1', 5,      20,
+#'   'chr1', 30,     40,
+#'   'chr1', 40,     50,
+#'   'chr1', 80,     90
 #' )
 #' 
 #' bed_glyph(bed_cluster(x), label = '.id')
