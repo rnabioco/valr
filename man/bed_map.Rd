@@ -24,11 +24,7 @@ values(.data, sep = ",")
 \item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
 \code{\link{count}()}, \code{\link{concat}()}.}
 
-\item{invert}{report `x` intervals not in `y`}
-
-\item{strand}{intersect intervals on same strand}
-
-\item{strand_opp}{intersect intervals on opposite strands}
+\item{invert}{report \code{x} intervals not in \code{y}}
 
 \item{suffix}{colname suffixes in output}
 

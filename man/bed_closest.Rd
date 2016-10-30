@@ -14,10 +14,6 @@ bed_closest(x, y, overlap = TRUE, strand = FALSE, strand_opp = FALSE,
 
 \item{overlap}{include overlapping intervals and report overlap}
 
-\item{strand}{intersect intervals on same strand}
-
-\item{strand_opp}{intersect intervals on opposite strands}
-
 \item{suffix}{colname suffixes in output}
 
 \item{distance_type}{reporting method for distance to 

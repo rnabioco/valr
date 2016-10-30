@@ -42,7 +42,6 @@ reference:
     - valr_example
     - launch_shiny
     
-
 navbar:
   title: 'valr'
   type: inverse
