@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_jaccard.r
 \name{bed_jaccard}
 \alias{bed_jaccard}
-\title{Jaccard statistic.}
+\title{Calculate jaccard statistics on two sets of intervals.}
 \usage{
 bed_jaccard(x, y)
 }

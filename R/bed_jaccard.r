@@ -1,5 +1,3 @@
-#' Jaccard statistic.
-#' 
 #' Calculate jaccard statistics on two sets of intervals.
 #' 
 #' @details \code{bed_jaccard()} quantifies the extent of overlap between to sets of
