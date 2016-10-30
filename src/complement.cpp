@@ -22,16 +22,16 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
     SlicingIndex indices = *git ;
     int ni = indices.size() ;
    
-    std::string chrom ; 
     int start, end ;
     int last_end = 1 ;
+   
+    // get chrom from first index 
+    auto chrom = as<std::string>(chroms[indices[0]]) ; 
     
     for( int j=0; j<ni; ++j) {
     
       start = starts[indices[j]] ;       
       end = ends[indices[j]] ;
-      
-      chrom = as<std::string>(chroms[indices[j]]) ; 
       
       if (j == 0) {
        if (start == 1) {
