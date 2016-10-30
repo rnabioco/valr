@@ -43,22 +43,22 @@
 #'  "chr2", 250, 500, 500)
 #' 
 #' # also mean, median, sd etc
-#' bed_map(x, y, sum = sum(value))
-#' bed_map(x, y, min = min(value), max = max(value))
+#' bed_map(x, y, .sum = sum(value))
+#' bed_map(x, y, .min = min(value), .max = max(value))
 #' 
-#' bed_map(x, y, concat(value))
+#' bed_map(x, y, .concat = concat(value))
 #' 
 #' # can also use `nth` family from dplyr
-#' bed_map(x, y, dplyr::first(value))
-#' bed_map(x, y, dplyr::last(value))
+#' bed_map(x, y, .first = dplyr::first(value))
+#' bed_map(x, y, .last = dplyr::last(value))
 #' 
-#' bed_map(x, y, absmax = abs(max(value)))
-#' bed_map(x, y, absmin = abs(min(value)))
-#' bed_map(x, y, count = length(value))
-#' bed_map(x, y, count_distinct = length(unique(value)))
+#' bed_map(x, y, .absmax = abs(max(value)))
+#' bed_map(x, y, .absmin = abs(min(value)))
+#' bed_map(x, y, .count = length(value))
+#' bed_map(x, y, .count_distinct = length(unique(value)))
 #' 
-#' bed_map(x, y, vals = values(value))
-#' bed_map(x, y, vals.unique = values_unique(value))
+#' bed_map(x, y, .vals = values(value))
+#' bed_map(x, y, .vals.unique = values_unique(value))
 #' 
 #' @export
 bed_map <- function(x, y, ..., invert = FALSE,

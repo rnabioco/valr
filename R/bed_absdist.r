@@ -1,25 +1,28 @@
 #' Compute the absolute distance between query and reference intervals
 #' 
-#' @details \code{bed_absdist()} computes the absolute distance between the midpoint
-#'   of query intervals and the closest midpoints of a set of reference
-#'   intervals. Absolute distances are scaled by the inter-reference gap for the
-#'   chromosome as follows. For \code{Q} total query points and \code{R} reference points
-#'   on a chromosome, scale the distance for each query point \code{i} to the closest
-#'   reference point by the inter-reference gap for each chromosome. If the chromosome for
-#'    a supplied  \code{x} interval has no matching  \code{y} chromosome, the \code{absdist} will
-#'    be reported as an \code{NA}.
-#'
-#'  
-#'
+#' @details \code{bed_absdist()} computes the absolute distance between the
+#'   midpoint of query intervals and the closest midpoints of a set of reference
+#'   intervals.
+#'   
+#'   Absolute distances are scaled by the inter-reference gap for the
+#'   chromosome as follows. For \code{Q} total query points and \code{R}
+#'   reference points on a chromosome, scale the distance for each query point
+#'   \code{i} to the closest reference point by the inter-reference gap for each
+#'   chromosome. If the chromosome for a supplied  \code{x} interval has no
+#'   matching  \code{y} chromosome, the \code{absdist} will be reported as an
+#'   \code{NA}.
+#'   
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param genome genome tbl
-#' 
+#'   
 #' @return \code{data_frame}
-#'
+#'   
 #' @family interval-stats
-#' @seealso \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
-#' 
+#' @seealso
+#'   \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
+#'   
+#'   
 #' @examples
 #' x <- tibble::frame_data(
 #' ~chrom,   ~start,    ~end,
@@ -42,7 +45,6 @@
 #' 
 #' 
 #' @export
-
 bed_absdist <- function(x, y, genome) {
   
   # find minimum shared groups
@@ -62,27 +64,22 @@ bed_absdist <- function(x, y, genome) {
   genome <- filter(genome, genome$chrom %in% res$chrom)
   genome <- inner_join(genome, attributes(y)$labels, by = c("chrom"))
   
-  ref_points <- summarize(y, ref_points = n())
+  ref_points <- summarize(y, .ref_points = n())
   genome <- inner_join(genome, ref_points, by = c("chrom", groups_xy))
   
-  genome <- mutate(genome, 
-                   ref_gap = ref_points / size)
-  genome <- select(genome, -size, -ref_points)
+  genome <- mutate(genome, .ref_gap = .ref_points / size)
+  genome <- select(genome, -size, -.ref_points)
   
   #calculate scaled reference sizes
   res <- full_join(res, genome, by = c("chrom", groups_xy))
-  res <- mutate(res, scaled_absdist =  absdist * ref_gap)
-  res <- select(res, -ref_gap)
+  res <- mutate(res, .absdist_scaled = .absdist * .ref_gap)
+  res <- select(res, -.ref_gap)
   
   #report back original x intervals not found 
   x_missing <- anti_join(x, res, by = c("chrom", groups_xy))
   x_missing <- ungroup(x_missing)
-  x_missing <- mutate(x_missing, 
-                absdist = NA,
-                scaled_absdist = NA)
+  x_missing <- mutate(x_missing, .absdist = NA, .absdist_scaled = NA)
   res <- bind_rows(res, x_missing)
   res
   
 }
-
-

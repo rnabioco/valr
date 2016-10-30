@@ -20,14 +20,17 @@ bed_absdist(x, y, genome)
 Compute the absolute distance between query and reference intervals
 }
 \details{
-\code{bed_absdist()} computes the absolute distance between the midpoint
-  of query intervals and the closest midpoints of a set of reference
-  intervals. Absolute distances are scaled by the inter-reference gap for the
-  chromosome as follows. For \code{Q} total query points and \code{R} reference points
-  on a chromosome, scale the distance for each query point \code{i} to the closest
-  reference point by the inter-reference gap for each chromosome. If the chromosome for
-   a supplied  \code{x} interval has no matching  \code{y} chromosome, the \code{absdist} will
-   be reported as an \code{NA}.
+\code{bed_absdist()} computes the absolute distance between the
+  midpoint of query intervals and the closest midpoints of a set of reference
+  intervals.
+  
+  Absolute distances are scaled by the inter-reference gap for the
+  chromosome as follows. For \code{Q} total query points and \code{R}
+  reference points on a chromosome, scale the distance for each query point
+  \code{i} to the closest reference point by the inter-reference gap for each
+  chromosome. If the chromosome for a supplied  \code{x} interval has no
+  matching  \code{y} chromosome, the \code{absdist} will be reported as an
+  \code{NA}.
 }
 \examples{
 x <- tibble::frame_data(
