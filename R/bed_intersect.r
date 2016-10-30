@@ -49,16 +49,10 @@
 #'  
 #' @export
 bed_intersect <- function(x, y, invert = FALSE,
-                          strand = FALSE, strand_opp = FALSE,
                           suffix = c('.x', '.y'), ...) {
-  
-  # check_suffix
-  if (!is.character(suffix) || length(suffix) != 2)
-    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
  
-  if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
-    stop("`strand` specified on unstranded data_frame", call. = FALSE)
-  
+  check_suffix(suffix) 
+ 
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 

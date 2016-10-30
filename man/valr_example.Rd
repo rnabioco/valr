@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.r
 \name{valr_example}
 \alias{valr_example}
-\title{provides working directory for valr example files}
+\title{Provide working directory for valr example files.}
 \usage{
 valr_example(path)
 }
@@ -10,6 +10,10 @@ valr_example(path)
 \item{path}{path to file}
 }
 \description{
-provides working directory for valr example files
+Provide working directory for valr example files.
+}
+\examples{
+valr_example('hg19.chrom.sizes.gz')
+
 }
 

@@ -80,8 +80,7 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
 #' Ask whether a tbl is already merged.
 #' 
 #' @param x tbl of intervals
-#' 
-#' @export
+#' @noRd
 is_merged <- function(x) {
   
   merged_attr <- attr(x, "merged")

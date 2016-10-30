@@ -58,9 +58,7 @@ bed_closest <- function(x, y, overlap = TRUE,
   if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
     stop("`strand` specified on unstranded data_frame", call. = FALSE)
   
-  # check_suffix
-  if (!is.character(suffix) || length(suffix) != 2)
-    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
+  check_suffix(suffix) 
  
   if ( ! is_sorted(x) )
     x <- bed_sort(x)
