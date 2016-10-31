@@ -98,20 +98,24 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code> with <code>.absdist</code> and <code>.absdist_scaled</code> columns.</p>
+    <p><code>data_frame</code> with <code>.absdist</code> and <code>.absdist_scaled</code>
+  columns.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>bed_absdist()</code> computes the absolute distance between the
+    <p><code>bed_absdist()</code> computes the absolute distance between the 
   midpoint of query intervals and the closest midpoints of a set of reference
   intervals.</p>
-    <p>Absolute distances are scaled by the inter-reference gap for the
-  chromosome as follows. For <code>Q</code> total query points and <code>R</code>
-  reference points on a chromosome, scale the distance for each query point
-  <code>i</code> to the closest reference point by the inter-reference gap for each
-  chromosome. If the chromosome for a supplied  <code>x</code> interval has no
-  matching  <code>y</code> chromosome, the <code>absdist</code> will be reported as an
-  <code>NA</code>.</p>
+    <p>Absolute distances are scaled by the inter-reference gap for the chromosome
+  as follows. For <code>Q</code> total query points and <code>R</code> reference points
+  on a chromosome, scale the distance for each query point <code>i</code> to the
+  closest reference point by the inter-reference gap for each chromosome. If
+  the chromosome for a supplied  <code>x</code> interval has no matching  <code>y</code>
+  chromosome, the <code>absdist</code> will be reported as an <code>NA</code>.</p>
+    <p>$$ d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\
+  chromsome}$$</p>
+    <p>By default both absolute and scaled distances are reported as <code>.absdist</code> and
+  <code>.absdist_scaled</code> respectively.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

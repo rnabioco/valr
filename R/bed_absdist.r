@@ -1,28 +1,34 @@
 #' Compute absolute distances between intervals.
 #' 
-#' @details \code{bed_absdist()} computes the absolute distance between the
+#' @details \code{bed_absdist()} computes the absolute distance between the 
 #'   midpoint of query intervals and the closest midpoints of a set of reference
 #'   intervals.
 #'   
-#'   Absolute distances are scaled by the inter-reference gap for the
-#'   chromosome as follows. For \code{Q} total query points and \code{R}
-#'   reference points on a chromosome, scale the distance for each query point
-#'   \code{i} to the closest reference point by the inter-reference gap for each
-#'   chromosome. If the chromosome for a supplied  \code{x} interval has no
-#'   matching  \code{y} chromosome, the \code{absdist} will be reported as an
-#'   \code{NA}.
+#'   Absolute distances are scaled by the inter-reference gap for the chromosome
+#'   as follows. For \code{Q} total query points and \code{R} reference points
+#'   on a chromosome, scale the distance for each query point \code{i} to the
+#'   closest reference point by the inter-reference gap for each chromosome. If
+#'   the chromosome for a supplied  \code{x} interval has no matching  \code{y}
+#'   chromosome, the \code{absdist} will be reported as an \code{NA}.
+#'   
+#'   \deqn{ d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\
+#'   chromsome}}
+#'   
+#'   By default both absolute and scaled distances are reported as \code{.absdist} and
+#'   \code{.absdist_scaled} respectively.
 #'   
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param genome genome tbl
 #'   
-#' @return \code{data_frame} with \code{.absdist} and \code{.absdist_scaled} columns.
+#' @return \code{data_frame} with \code{.absdist} and \code{.absdist_scaled}
+#'   columns.
 #'   
 #' @family interval-stats
-#' @seealso
-#'   \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
-#'   
-#'   
+#' @seealso 
+#' \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
+#' 
+#' 
 #' @examples
 #' x <- tibble::frame_data(
 #' ~chrom,   ~start,    ~end,
