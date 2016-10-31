@@ -2,12 +2,9 @@
 % Please edit documentation in R/bed_fisher.r
 \name{bed_fisher}
 \alias{bed_fisher}
-\alias{interval_union}
 \title{Fisher's test on number of shared and unique intervals.}
 \usage{
 bed_fisher(x, y, genome)
-
-interval_union(x)
 }
 \arguments{
 \item{x}{tbl of intervals}

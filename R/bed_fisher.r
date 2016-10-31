@@ -76,8 +76,7 @@ bed_fisher <- function(x, y, genome) {
   
 }
 
-#' @rdname bed_fisher
-#' @export
+#' @noRd
 interval_union <- function(x) {
   res <- bed_merge(x)
   res <- mutate(res, .size = end - start)
