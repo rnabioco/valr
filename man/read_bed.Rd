@@ -59,9 +59,6 @@ bed6_tbl <- read_bed(bed6_path, n_fields = 6)
 # Result is sorted by chrom and start unless `sort = FALSE`
 unsorted_bed_tbl <- read_bed(bed3_path, sort = FALSE)
 
-# use `is_sorted` 
-is_sorted(unsorted_bed_tbl)
-
 bed12_path <- valr_example('mm9.bed12.gz')
 bed12_tbl <- read_bed12(bed12_path)
 

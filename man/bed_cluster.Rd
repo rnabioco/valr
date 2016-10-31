@@ -4,14 +4,12 @@
 \alias{bed_cluster}
 \title{Cluster neighboring intervals.}
 \usage{
-bed_cluster(x, max_dist = 0, strand = FALSE)
+bed_cluster(x, max_dist = 0)
 }
 \arguments{
 \item{x}{tbl of intervals}
 
 \item{max_dist}{maximum distance between clustered intervals.}
-
-\item{strand}{cluster features on same strand}
 }
 \value{
 \code{data_frame}

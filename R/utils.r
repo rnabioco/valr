@@ -1,5 +1,10 @@
-#' provides working directory for valr example files
+#' Provide working directory for valr example files.
+#' 
 #' @param path path to file
+#' 
+#' @examples 
+#' valr_example('hg19.chrom.sizes.gz')
+#' 
 #' @export
 valr_example <- function(path) {
   # https://twitter.com/JennyBryan/status/780150538654527488
@@ -29,7 +34,7 @@ valr_example <- function(path) {
 #'   
 #' 
 #' format_bed(x, y)
-#' @export
+#' @noRd
 format_bed <- function(x, y) {
   names_x <- names(x)
   names_y <- names(y)
@@ -47,41 +52,41 @@ format_bed <- function(x, y) {
 }
 
 
-#' Compare two tbl_dfs and find the minimum shared groups 
-#' 
-#' \code{shared_groups} returns the minimum shared groups between
-#' \code{x} and \code{y} tbls. Return value is \code{NULL} if there are
-#' no shared groups. 
-#' 
-#' @param x tbl 
-#' @param y tbl 
-#' @return \code{list}
-#' 
+#' Identify groups shared between to tbls
+#'
+#' Identify minimum shared groups between \code{x} and \code{y} tbls. Returns
+#' \code{NULL} if there are no shared groups.
+#'
+#' @param x tbl of intervals
+#' @param y tbl of intervals
+#'  
+#' @return \code{list} of groups or \code{NULL}
+#'  
 #' @examples
-#'x <- tibble::tribble(
-#'  ~chrom, ~start, ~end, ~value,
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end, ~value,
 #'   "chr1", 150,    400,  100,
 #'   "chr2", 230,    430,  200
-#'   )
+#' )
 #' 
 #' y <- tibble::tribble(
-#'   ~chrom,   ~start,    ~end,  ~value,
-#'   "chr1",    50,       100,  1,
-#'   "chr1",    100,       150,  2
-#'   )
+#'   ~chrom, ~start, ~end, ~value,
+#'   "chr1", 50,     100,  1,
+#'   "chr1", 100,    150,  2
+#' )
 #'   
 #' x <- dplyr::group_by(x, chrom, value)
 #' y <- dplyr::group_by(y, chrom, value)
-#'shared_groups(x, y)
+#' shared_groups(x, y)
 #'  
 #' y <- dplyr::group_by(y, chrom)
 #' shared_groups(x, y)
 #' 
-#' y <-dplyr::ungroup(y)
+#' y <- dplyr::ungroup(y)
 #' shared_groups(x, y)
-#' @export
-
+#' @noRd
 shared_groups <- function(x, y) {
+  
   groups_x <- groups(x)
   groups_y <- groups(y)
   
@@ -92,3 +97,8 @@ shared_groups <- function(x, y) {
   groups_xy
 }
 
+# dplyr::check_suffix
+check_suffix <- function(suffix) {
+  if (!is.character(suffix) || length(suffix) != 2)
+    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
+}

@@ -2,7 +2,6 @@
 #'
 #' @param x tbl of intervals 
 #' @param max_dist maximum distance between intervals to merge
-#' @param strand merge intervals on the same strand
 #' @param ... name-value pairs that specify merging operations
 #'
 #' @return \code{data_frame}
@@ -32,11 +31,14 @@
 #' 
 #' bed_merge(x)
 #' bed_merge(x, max_dist = 100)
-#' bed_merge(x, strand = TRUE)
+#' 
+#' # merge intervals on same strand
+#' bed_merge(dplyr::group_by(x, strand))
+#' 
 #' bed_merge(x, .value = sum(value))
 #' 
 #' @export
-bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
+bed_merge <- function(x, max_dist = 0, ...) {
   
   x_groups <- groups(x)
   
@@ -51,9 +53,6 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
  
   res <- group_by(res, chrom, add = TRUE)
   
-  if (strand)
-    res <- group_by(res, strand, add = TRUE)
-
   res <- merge_impl(res, max_dist)
   
   dots <- list(.start = ~min(start), .end = ~max(end))
@@ -61,9 +60,6 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
   
   res <- group_by_(res, .dots = c("chrom", ".id_merge", x_groups), add = TRUE)
     
-  if (strand)
-    res <- group_by(res, strand, add = TRUE)
-   
   res <- summarize_(res, .dots = dots)
   res <- rename(res, start = .start, end = .end)
   res <- ungroup(res)
@@ -80,8 +76,7 @@ bed_merge <- function(x, max_dist = 0, strand = FALSE, ...) {
 #' Ask whether a tbl is already merged.
 #' 
 #' @param x tbl of intervals
-#' 
-#' @export
+#' @noRd
 is_merged <- function(x) {
   
   merged_attr <- attr(x, "merged")
@@ -92,4 +87,3 @@ is_merged <- function(x) {
     return (TRUE)
   }
 }
-

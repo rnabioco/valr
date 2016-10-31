@@ -107,20 +107,6 @@ test_that("suffixes disambiguate x/y columns (#28)", {
   test_that("start.y" %in% colnames(res), TRUE)
 })
 
-test_that("`strand` arg throws an error for unstranded df", {
-  x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score,
-    "chr1", 1000,   1500, '.',   '.'
-  )
-  
-  y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score,
-    "chr1", 1000,   1200, '.',   '.'
-  )
-  
-  expect_error(bed_intersect(x, y, strand = TRUE))
-})
-
 test_that("incorrect `suffix` args throw errors", {
    x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score,
@@ -133,23 +119,6 @@ test_that("incorrect `suffix` args throw errors", {
   )
   
   expect_error(bed_intersect(x, y, suffix = 'TESTING')) 
-})
-
-test_that("`strand_opp` results are processed correctly", {
-  x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1500, '.',   '.',     '-',
-    "chr1", 1000,   1500, '.',   '.',     '+'
-  )
-  
-  y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1200, '.',   '.',     '-'
-  )
-  
-  res <- bed_intersect(x, y, strand_opp = TRUE)
-  
-  expect_false(res$strand.x == res$strand.y)
 })
 
 test_that("intersections from x bed_tbl with more chroms than y are captured", {
@@ -196,4 +165,23 @@ test_that("input x groups are used for comparing intervals issue #108",{
   res <- bed_intersect(x, x)
   expect_true(all(res$group.x == res$group.y))
   
+})
+
+test_that("tbls grouped by strand are processed", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 1000,   1500, '.',   '.',     '+'
+  )
+  
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 1000,   1200, '.',   '.',     '-'
+  )
+ 
+  res <- bed_intersect(group_by(x, strand), group_by(y, strand))
+  expect_equal(nrow(res), 0)
+ 
+  # flip strands 
+  res <- bed_intersect(group_by(x, strand), group_by(flip_strands(y), strand))
+  expect_equal(nrow(res), 1)
 })

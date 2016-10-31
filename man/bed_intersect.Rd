@@ -4,19 +4,14 @@
 \alias{bed_intersect}
 \title{Identify intersecting intervals.}
 \usage{
-bed_intersect(x, y, invert = FALSE, strand = FALSE, strand_opp = FALSE,
-  suffix = c(".x", ".y"), ...)
+bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
 }
 \arguments{
 \item{x}{tbl of intervals}
 
 \item{y}{tbl of intervals}
 
-\item{invert}{report `x` intervals not in `y`}
-
-\item{strand}{intersect intervals on same strand}
-
-\item{strand_opp}{intersect intervals on opposite strands}
+\item{invert}{report \code{x} intervals not in \code{y}}
 
 \item{suffix}{colname suffixes in output}
 
@@ -29,7 +24,6 @@ Identify intersecting intervals.
 Book-ended intervals have \code{.overlap} values of 0 in the output.
 }
 \examples{
-
 x <- tibble::tribble(
 ~chrom, ~start, ~end,
 'chr1', 25,      50,

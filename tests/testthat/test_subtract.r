@@ -108,31 +108,15 @@ a <- tibble::tribble(
   "chr1",	50,	70,	"a2",	2,	"-"
 )
   
-b <-  tibble::tribble(
+b <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
   "chr1",	18,	25,	"b1",	1,	"-",
   "chr1",	80,	90,	"b2",	2, "+"
 )
 
-test_that("strand = TRUE arg works", {
-  pred <- tibble::tribble(
-    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1",	10,	20,	"a1",	1,	"+",
-    "chr1",	50,	70,	"a2",	2, "-"
-  )
-  res <- bed_subtract(a, b, strand = TRUE) 
-  expect_true(all(pred == res))
-  })
-
-test_that("strand_opp = TRUE arg works", {
-  pred <- tibble::tribble(
-    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1",	10,	18,	"a1",	1,	"+",
-    "chr1",	50,	70,	"a2",	2, "-"
-  )
-  res <- bed_subtract(a, b, strand_opp = T) 
-  expect_true(all(pred == res))
+test_that("tbls grouped by strand are processed", {
+  res <- bed_subtract(group_by(a, strand), group_by(b, strand))
+  expect_equal(nrow(res), 2)
+  expect_true(all(res == a))
 })
-
-
 

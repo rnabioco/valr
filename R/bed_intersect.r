@@ -2,16 +2,13 @@
 #' 
 #' @param x tbl of intervals 
 #' @param y tbl of intervals 
-#' @param invert report `x` intervals not in `y`
-#' @param strand intersect intervals on same strand
-#' @param strand_opp intersect intervals on opposite strands
+#' @param invert report \code{x} intervals not in \code{y}
 #' @param suffix colname suffixes in output
 #' @param ... extra arguments (not used)
 #'
 #' @note Book-ended intervals have \code{.overlap} values of 0 in the output.
 #'  
 #' @examples 
-#' 
 #' x <- tibble::tribble(
 #' ~chrom, ~start, ~end,
 #' 'chr1', 25,      50,
@@ -48,17 +45,10 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 #'  
 #' @export
-bed_intersect <- function(x, y, invert = FALSE,
-                          strand = FALSE, strand_opp = FALSE,
-                          suffix = c('.x', '.y'), ...) {
-  
-  # check_suffix
-  if (!is.character(suffix) || length(suffix) != 2)
-    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
+bed_intersect <- function(x, y, invert = FALSE, suffix = c('.x', '.y'), ...) {
  
-  if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
-    stop("`strand` specified on unstranded data_frame", call. = FALSE)
-  
+  check_suffix(suffix) 
+ 
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 
@@ -66,14 +56,6 @@ bed_intersect <- function(x, y, invert = FALSE,
 
   res <- intersect_impl(x, y, suffix$x, suffix$y)
   
-  # XXX: probably better to group matched / mismatched strands and intersect
-  # among those
-  if (strand) {
-     res <- filter(res, strand.x == strand.y) 
-  } else if (strand_opp) {
-     res <- filter(res, strand.x != strand.y) 
-  }
- 
   if (invert) {
     colspec <- c('chrom' = 'chrom', 'start' = 'start.x', 'end' = 'end.x') 
     res <- anti_join(x, res, by = colspec)

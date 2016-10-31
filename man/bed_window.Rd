@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_window.r
 \name{bed_window}
 \alias{bed_window}
-\title{Identify intersecting intervals within a specified distance}
+\title{Identify intervals within a specified distance.}
 \usage{
 bed_window(x, y, genome, ...)
 }
@@ -16,7 +16,7 @@ bed_window(x, y, genome, ...)
 \item{...}{params for bed_slop and bed_intersect}
 }
 \description{
-Identify intersecting intervals within a specified distance
+Identify intervals within a specified distance.
 }
 \examples{
 

@@ -4,33 +4,36 @@
 \alias{bed_closest}
 \title{Identify closest intervals.}
 \usage{
-bed_closest(x, y, overlap = TRUE, strand = FALSE, strand_opp = FALSE,
-  suffix = c(".x", ".y"), distance_type = c("genome", "strand", "abs"))
+bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"),
+  dist = c("genome", "strand", "abs"))
 }
 \arguments{
 \item{x}{tbl of intervals}
 
 \item{y}{tbl of intervals}
 
-\item{overlap}{include overlapping intervals and report overlap}
-
-\item{strand}{intersect intervals on same strand}
-
-\item{strand_opp}{intersect intervals on opposite strands}
+\item{overlap}{report overlapping intervals}
 
 \item{suffix}{colname suffixes in output}
 
-\item{distance_type}{reporting method for distance to 
-nearest interval (
-genome (default) = use negative distances to report upstream intervals,
-          strand = define upstream based on strand,
-             abs = report absolute value of distance)}
+\item{dist}{format for distance to nearest interval}
 }
 \value{
-\code{data_frame}
+\code{data_frame} with columns:
+  \itemize{
+    \item{\code{.dist}}{ distance to closest interval}
+    \item{\code{.overlap}}{ overlap with closest interval}
+  }
 }
 \description{
 Identify closest intervals.
+}
+\details{
+\code{dist} can take one of these values:
+  \itemize{
+    \item{\code{genome}}{ negative distances signify upstream intervals (default)}
+    \item{\code{strand}}{ upstream defined based on strand}
+    \item{\code{abs}}{ absolute value of distance}}
 }
 \examples{
 x <- tibble::tribble(
@@ -62,7 +65,6 @@ y <- tibble::tribble(
 
 bed_closest(x, y)
 bed_closest(x, y, overlap = FALSE)
-
 
 }
 \seealso{

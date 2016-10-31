@@ -20,7 +20,7 @@ y <- tibble::frame_data(
 
 test_that("absdist calculation is correct", {
   res <- bed_absdist(x, y, genome)
-  expect_true(res$scaled_absdist == 0.005)   
+  expect_true(res$.absdist_scaled == 0.005)   
 })
 
 test_that("self absdist is 0", {
@@ -33,7 +33,7 @@ test_that("self absdist is 0", {
   )
   
   res <- bed_absdist(x, x, genome)
-  expect_true(sum(res$absdist) == 0)   
+  expect_true(sum(res$.absdist) == 0)   
 })
 
 
@@ -56,8 +56,8 @@ test_that("x ivls without matching y-ivls chroms are reported with absdist = NA"
   ) 
   res <- bed_absdist(x, y, genome)
   expect_true("chr3" %in% res$chrom)  
-  expect_true(any(is.na(res$absdist)))
-  expect_true(any(is.na(res$scaled_absdist)))
+  expect_true(any(is.na(res$.absdist)))
+  expect_true(any(is.na(res$.absdist_scaled)))
 })
 
 

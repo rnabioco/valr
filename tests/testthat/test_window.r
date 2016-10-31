@@ -35,19 +35,3 @@ test_that("right arg works", {
   out <- bed_window(x, y, genome, right = 110)
   expect_equal(nrow(out), 5)
 })
-
-test_that("strand arg works", {
-  out <- bed_window(x, y, genome, right = 110, strand = TRUE)
-  expect_equal(nrow(out), 2)
-})
-
-test_that("strand_opp arg works", {
-  dist <- 100
-  out <- bed_window(x, y, genome, right = 110, 
-                    strand_opp = TRUE, strand = TRUE)
-
-  expect_equal(nrow(out), 2)
-
-})
-
-# test fraction

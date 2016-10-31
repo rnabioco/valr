@@ -23,7 +23,7 @@ test_that("basic cluster works", {
 })
 
 test_that("stranded cluster works", {
-  res <- bed_cluster(x, strand = TRUE)
+  res <- bed_cluster(group_by(x, strand))
   # test number of groups in output
   expect_equal(length(unique(res$.id)), 7)
 })

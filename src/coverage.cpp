@@ -149,7 +149,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   
   CharacterVector names(ncol_x + 4) ;
   CharacterVector names_x = data_x.attr("names") ;
-  CharacterVector new_cols = CharacterVector::create(".intersections", ".basecoverage", ".x_length", ".fraction");
+  CharacterVector new_cols = CharacterVector::create(".ints", ".cov", ".len", ".frac");
   
   // add in overlaps, bases covered, ivl length, and fraction
   List out(ncol_x + 4) ;

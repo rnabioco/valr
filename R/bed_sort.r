@@ -82,8 +82,7 @@ bed_sort <- function(x, by_size = FALSE,
 #' Ask whether tbl is sorted.
 #' 
 #' @param x tbl of intervals
-#' 
-#' @export
+#' @noRd
 is_sorted <- function(x) {
   
   sorted_attr <- attr(x, "sorted")
