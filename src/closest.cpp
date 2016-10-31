@@ -112,7 +112,7 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
 
   //distances
   out[ncol_x + ncol_y] = distance_sizes ;
-  names[ncol_x + ncol_y] = ".distance";
+  names[ncol_x + ncol_y] = ".dist";
   
   out.attr("names") = names ; 
   out.attr("class") = classes_not_grouped() ;

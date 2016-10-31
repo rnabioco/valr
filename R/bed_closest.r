@@ -2,18 +2,22 @@
 #' 
 #' @param x tbl of intervals
 #' @param y tbl of intervals
-#' @param overlap include overlapping intervals and report overlap
-#' @param strand intersect intervals on same strand
-#' @param strand_opp intersect intervals on opposite strands
+#' @param overlap report overlapping intervals 
 #' @param suffix colname suffixes in output
-#' @param distance_type reporting method for distance to 
-#' nearest interval (
-#' genome (default) = use negative distances to report upstream intervals,
-#'           strand = define upstream based on strand,
-#'              abs = report absolute value of distance)
+#' @param dist format for distance to nearest interval
+#'              
+#' @details \code{dist} can take one of these values:
+#'   \itemize{
+#'     \item{\code{genome}}{ negative distances signify upstream intervals (default)}
+#'     \item{\code{strand}}{ upstream defined based on strand}
+#'     \item{\code{abs}}{ absolute value of distance}}
 #' 
-#' 
-#' @return \code{data_frame}
+#' @return \code{data_frame} with columns:
+#'   \itemize{
+#'     \item{\code{.dist}}{ distance to closest interval}
+#'     \item{\code{.overlap}}{ overlap with closest interval}
+#'   }
+#'   
 #' @family multi-set-ops
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 #' 
@@ -48,19 +52,12 @@
 #' bed_closest(x, y)
 #' bed_closest(x, y, overlap = FALSE)
 #' 
-#' 
 #' @export
-
 bed_closest <- function(x, y, overlap = TRUE,
-                        strand = FALSE, strand_opp = FALSE, suffix = c('.x', '.y'),
-                        distance_type = c("genome", "strand", "abs")) {
+                        suffix = c('.x', '.y'),
+                        dist = c("genome", "strand", "abs")) {
   
-  if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))
-    stop("`strand` specified on unstranded data_frame", call. = FALSE)
-  
-  # check_suffix
-  if (!is.character(suffix) || length(suffix) != 2)
-    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
+  check_suffix(suffix) 
  
   if ( ! is_sorted(x) )
     x <- bed_sort(x)
@@ -72,43 +69,16 @@ bed_closest <- function(x, y, overlap = TRUE,
  
   suffix <- list(x = suffix[1], y = suffix[2])
   
-  if (!strand && !strand_opp){
-    res <- closest_impl(x, y, suffix$x, suffix$y)
-  }
+  res <- closest_impl(x, y, suffix$x, suffix$y)
 
-  strand.x = paste(strand, suffix[1], sep = '')
-  strand.y = paste(strand, suffix[2], sep = '')
-  
-  distance_type <- match.arg(distance_type, c("genome", "strand", "abs"))
-  
-  if (strand) {
-    x_pos <- filter(x, strand == "+") 
-    y_pos <- filter(y, strand == "+") 
-    x_neg <- filter(x, strand == "-") 
-    y_neg <- filter(y, strand == "-") 
-    res_pos <- closest_impl(x_pos, y_pos, suffix$x, suffix$y)
-    res_neg <- closest_impl(x_neg, y_neg, suffix$x, suffix$y)
-    res <- bind_rows(res_pos, res_neg)
-    res <- filter(res, strand.x == strand.y) 
-  } else if (strand_opp) {
-    x_pos <- filter(x, strand == "+") 
-    y_pos <- filter(y, strand == "+") 
-    x_neg <- filter(x, strand == "-") 
-    y_neg <- filter(y, strand == "-") 
-    res_pos <- closest_impl(x_pos, y_neg, suffix$x, suffix$y)
-    res_neg <- closest_impl(x_neg, y_pos, suffix$x, suffix$y)
-    res <- bind_rows(res_pos, res_neg)
-    res <- filter(res, strand.x != strand.y) 
-  }
+  dist <- match.arg(dist, c("genome", "strand", "abs"))
   
   # modify distance output based on user input 
   # genome type reporting is default output from closest_impl())
-  if (distance_type == "strand" &&  "strand" %in% colnames(x)) {
-    res$.distance <- ifelse(res$strand.x == "+", 
-                            res$.distance,
-                            -(res$.distance))
-  } else if (distance_type == "abs") {
-    res$.distance <- abs(res$.distance)
+  if (dist == "strand") {
+    res$.dist <- ifelse(res$strand.x == "+", res$.dist, -(res$.dist))
+  } else if (dist == "abs") {
+    res$.dist <- abs(res$.dist)
   } 
   
   # remove negative overlap information 

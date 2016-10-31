@@ -1,6 +1,6 @@
-title: valr 
-
-bootswatch: cosmo
+templates:
+  params:
+    bootswatch: cosmo
 
 reference:
   - title: Read data 
@@ -8,45 +8,43 @@ reference:
     - starts_with("read_")
   - title: Single set operations 
     contents:
-    - bed_sort
     - bed_cluster
     - bed_complement
-    - bed_merge
     - bed_flank
+    - bed_merge
     - bed_slop
     - bed_shift
+    - bed_sort
   - title: Multiple set operations
     contents:
+    - bed_closest
+    - bed_coverage
     - bed_intersect
     - bed_map
     - bed_subtract
     - bed_window
-    - bed_closest
-    - bed_coverage
   - title: Randomizing intervals
     contents:
     - bed_random
     - bed_shuffle
   - title: Interval statistics
     contents:
-    - bed_fisher
     - bed_absdist
     - bed_reldist
+    - bed_fisher
     - bed_jaccard
   - title: Utilities
     contents:
     - bed_makewindows
     - bed12_to_exons
     - bed_glyph
-    - format_bed
-    - shared_groups
-    - valr_example
+    - bound_intervals
+    - flip_strands
     - launch_shiny
+    - valr_example
     
-
 navbar:
   title: 'valr'
-  type: inverse
   left:
   - text: Overview
     href: articles/valr.html
@@ -54,7 +52,3 @@ navbar:
     href: reference/index.html
   - text: News
     href: news/index.html
-    
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/jayhesselberth/valr

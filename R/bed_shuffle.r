@@ -1,4 +1,4 @@
-#' shuffle input intervals
+#' Shuffle input intervals.
 #' 
 #' @param x tbl of intervals
 #' @param genome chrom sizes

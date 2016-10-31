@@ -4,14 +4,12 @@
 \alias{bed_merge}
 \title{Merge overlapping intervals.}
 \usage{
-bed_merge(x, max_dist = 0, strand = FALSE, ...)
+bed_merge(x, max_dist = 0, ...)
 }
 \arguments{
 \item{x}{tbl of intervals}
 
 \item{max_dist}{maximum distance between intervals to merge}
-
-\item{strand}{merge intervals on the same strand}
 
 \item{...}{name-value pairs that specify merging operations}
 }
@@ -44,7 +42,10 @@ x <- tibble::tribble(
 
 bed_merge(x)
 bed_merge(x, max_dist = 100)
-bed_merge(x, strand = TRUE)
+
+# merge intervals on same strand
+bed_merge(dplyr::group_by(x, strand))
+
 bed_merge(x, .value = sum(value))
 
 }

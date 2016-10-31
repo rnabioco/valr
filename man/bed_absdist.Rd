@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_absdist.r
 \name{bed_absdist}
 \alias{bed_absdist}
-\title{Compute the absolute distance between query and reference intervals}
+\title{Compute absolute distances between intervals.}
 \usage{
 bed_absdist(x, y, genome)
 }
@@ -14,20 +14,23 @@ bed_absdist(x, y, genome)
 \item{genome}{genome tbl}
 }
 \value{
-\code{data_frame}
+\code{data_frame} with \code{.absdist} and \code{.absdist_scaled} columns.
 }
 \description{
-Compute the absolute distance between query and reference intervals
+Compute absolute distances between intervals.
 }
 \details{
-\code{bed_absdist()} computes the absolute distance between the midpoint
-  of query intervals and the closest midpoints of a set of reference
-  intervals. Absolute distances are scaled by the inter-reference gap for the
-  chromosome as follows. For \code{Q} total query points and \code{R} reference points
-  on a chromosome, scale the distance for each query point \code{i} to the closest
-  reference point by the inter-reference gap for each chromosome. If the chromosome for
-   a supplied  \code{x} interval has no matching  \code{y} chromosome, the \code{absdist} will
-   be reported as an \code{NA}.
+\code{bed_absdist()} computes the absolute distance between the
+  midpoint of query intervals and the closest midpoints of a set of reference
+  intervals.
+  
+  Absolute distances are scaled by the inter-reference gap for the
+  chromosome as follows. For \code{Q} total query points and \code{R}
+  reference points on a chromosome, scale the distance for each query point
+  \code{i} to the closest reference point by the inter-reference gap for each
+  chromosome. If the chromosome for a supplied  \code{x} interval has no
+  matching  \code{y} chromosome, the \code{absdist} will be reported as an
+  \code{NA}.
 }
 \examples{
 x <- tibble::frame_data(

@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_jaccard.r
 \name{bed_jaccard}
 \alias{bed_jaccard}
-\title{Jaccard statistic.}
+\title{Calculate jaccard statistics on two sets of intervals.}
 \usage{
 bed_jaccard(x, y)
 }
@@ -12,10 +12,13 @@ bed_jaccard(x, y)
 \item{y}{tbl of intervals}
 }
 \value{
-\code{data_frame} with the following columns: \itemize{ 
-  \item{\code{len_i}}{ length of the intersection} \item{\code{len_u}}{
-  length of the union} \item{\code{jaccard}}{ jaccard statistic} 
-  \item{\code{n_int}}{ number of intersecting intervals between x and y} }
+\code{data_frame} with the following columns:
+  \itemize{ 
+    \item{\code{len_i}}{ length of the intersection}
+    \item{\code{len_u}}{ length of the union}
+    \item{\code{jaccard}}{ jaccard statistic} 
+    \item{\code{n_int}}{ number of intersecting intervals between x and y}
+    }
 }
 \description{
 Calculate jaccard statistics on two sets of intervals.

@@ -4,7 +4,7 @@
 \alias{bed_subtract}
 \title{Subtract intervals.}
 \usage{
-bed_subtract(x, y, any = FALSE, strand = FALSE, strand_opp = FALSE)
+bed_subtract(x, y, any = FALSE)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -12,10 +12,6 @@ bed_subtract(x, y, any = FALSE, strand = FALSE, strand_opp = FALSE)
 \item{y}{tbl of intervals}
 
 \item{any}{remove any \code{x} intervals that overlap \code{y}}
-
-\item{strand}{subtract intervals on same strand}
-
-\item{strand_opp}{subtract intervals on opposite strand}
 }
 \description{
 Subtract \code{y} intervals from \code{x} intervals.
@@ -23,12 +19,12 @@ Subtract \code{y} intervals from \code{x} intervals.
 \examples{
 x <- tibble::tribble(
 ~chrom, ~start, ~end,
-'chr1',      1,      100
+'chr1', 1,      100
 )
  
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1',      50,     75
+  'chr1', 50,     75
 )
  
 bed_glyph(bed_subtract(x, y))
@@ -47,11 +43,8 @@ y <- tibble::tribble(
  "chr1", 150,    175,
  "chr1", 510,    525,
  "chr1", 550,    575,
- # dangling left
  "chr1", 900,    1050,
- # dangling right
  "chr1", 1150,   1250,
- # full containment
  "chr1", 1299,   1501
 )
 

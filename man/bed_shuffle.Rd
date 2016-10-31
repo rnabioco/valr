@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_shuffle.r
 \name{bed_shuffle}
 \alias{bed_shuffle}
-\title{shuffle input intervals}
+\title{Shuffle input intervals.}
 \usage{
 bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
   within = FALSE, seed = 0)
@@ -26,7 +26,7 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
 \code{data_frame}
 }
 \description{
-shuffle input intervals
+Shuffle input intervals.
 }
 \examples{
 genome <- tibble::tribble(

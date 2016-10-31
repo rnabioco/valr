@@ -84,5 +84,21 @@ test_that("input groups are maintained in the output tbl issue #108",{
   x <- group_by(x, group)
   res <- bed_merge(x)
   expect_true(all(x$group %in% res$group))
-  })
+})
+
+test_that("intervals can be merged by strand",{
+  
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~strand,
+    'chr1', 100,    200,  '+',
+    'chr1', 200,    400,  '+',
+    'chr1', 300,    500,  '+',
+    'chr1', 125,    175,  '-',
+    'chr1', 150,    200,  '-'
+  ) 
+  
+  x <- group_by(x, strand)
+  res <- bed_merge(x)
+  expect_equal(nrow(res), 2)
+})
 

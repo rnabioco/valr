@@ -80,7 +80,7 @@ DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y) {
     out[i] = subset_x[i] ;
   }
   out[ncol_x] = rel_distances ;
-  names[ncol_x] = "absdist" ;
+  names[ncol_x] = ".absdist" ;
   
   out.attr("names") = names ; 
   out.attr("class") = classes_not_grouped() ;

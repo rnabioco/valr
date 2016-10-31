@@ -1,4 +1,4 @@
-#' Identify intersecting intervals within a specified distance
+#' Identify intervals within a specified distance.
 #' 
 #' @param ... params for bed_slop and bed_intersect
 #' @inheritParams bed_slop

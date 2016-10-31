@@ -7,8 +7,8 @@
 \alias{values_unique}
 \title{Map signals over intervals.}
 \usage{
-bed_map(x, y, ..., invert = FALSE, strand = FALSE, strand_opp = FALSE,
-  suffix = c(".x", ".y"), min_overlap = 1)
+bed_map(x, y, ..., invert = FALSE, suffix = c(".x", ".y"),
+  min_overlap = 1)
 
 concat(.data, sep = ",")
 
@@ -24,11 +24,7 @@ values(.data, sep = ",")
 \item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
 \code{\link{count}()}, \code{\link{concat}()}.}
 
-\item{invert}{report `x` intervals not in `y`}
-
-\item{strand}{intersect intervals on same strand}
-
-\item{strand_opp}{intersect intervals on opposite strands}
+\item{invert}{report \code{x} intervals not in \code{y}}
 
 \item{suffix}{colname suffixes in output}
 
@@ -75,22 +71,22 @@ y <- tibble::tribble(
  "chr2", 250, 500, 500)
 
 # also mean, median, sd etc
-bed_map(x, y, sum = sum(value))
-bed_map(x, y, min = min(value), max = max(value))
+bed_map(x, y, .sum = sum(value))
+bed_map(x, y, .min = min(value), .max = max(value))
 
-bed_map(x, y, concat(value))
+bed_map(x, y, .concat = concat(value))
 
 # can also use `nth` family from dplyr
-bed_map(x, y, dplyr::first(value))
-bed_map(x, y, dplyr::last(value))
+bed_map(x, y, .first = dplyr::first(value))
+bed_map(x, y, .last = dplyr::last(value))
 
-bed_map(x, y, absmax = abs(max(value)))
-bed_map(x, y, absmin = abs(min(value)))
-bed_map(x, y, count = length(value))
-bed_map(x, y, count_distinct = length(unique(value)))
+bed_map(x, y, .absmax = abs(max(value)))
+bed_map(x, y, .absmin = abs(min(value)))
+bed_map(x, y, .count = length(value))
+bed_map(x, y, .count_distinct = length(unique(value)))
 
-bed_map(x, y, vals = values(value))
-bed_map(x, y, vals.unique = values_unique(value))
+bed_map(x, y, .vals = values(value))
+bed_map(x, y, .vals.unique = values_unique(value))
 
 }
 \seealso{

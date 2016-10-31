@@ -6,7 +6,6 @@
 #' 
 #' @param x tbl of intervals
 #' @param max_dist maximum distance between clustered intervals.
-#' @param strand cluster features on same strand
 #'   
 #' @return \code{data_frame}
 #' @family single-set-ops
@@ -36,13 +35,10 @@
 #' bed_glyph(bed_cluster(x), label = '.id')
 #'
 #' @export
-bed_cluster <- function(x, max_dist = 0, strand = FALSE) {
+bed_cluster <- function(x, max_dist = 0) {
 
-  res <- group_by(x, chrom)
+  res <- group_by(x, chrom, add = TRUE)
   
-  if (strand)
-    res <- group_by(res, strand, add = TRUE)
-    
   res <- merge_impl(res, max_dist)
     
   res <- group_by(res, chrom)
