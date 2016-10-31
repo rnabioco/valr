@@ -19,9 +19,14 @@ flip_strands <- function(x) {
   if (! 'strand' %in% colnames(x))
     stop('`strand` column not found in `x`', call. = FALSE)
 
-  x <- mutate(x, .strand = ifelse(strand == '+', '-', '+'))
-  x <- select(x, -strand)
-  x <- rename(x, strand = .strand)
+  # remove existing groups
+  groups_x <- groups(x)
+  res <- ungroup(x)
   
-  x
+  res <- mutate(res, .strand = ifelse(strand == '+', '-', '+'))
+  res <- select(res, -strand)
+  res <- rename(res, strand = .strand)
+ 
+  res <- group_by_(res, .dots = groups_x) 
+  res
 }

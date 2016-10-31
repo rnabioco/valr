@@ -105,7 +105,7 @@ Command-line tools like `BEDtools` and `bedops` can be used in reproducible work
 
 The `group_by` function in dplyr can be used to perform fuctions on subsets of single and multiple `data_frame`s. Functions in `valr` leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by `strand` to perform comparisons among intervals on the same strand.
 
-```{r strand, eval = FALSE}
+```{r strand}
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
   'chr1', 1,      100,  '+',
@@ -129,7 +129,7 @@ bed_intersect(x, y)
 
 Comparisons between intervals on opposite strands are done using the `flip_strands()` function:
 
-```{r strand_opp, eval = FALSE}
+```{r strand_opp}
 x <- group_by(x, strand)
 
 y <- flip_strands(y)
