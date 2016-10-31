@@ -13,27 +13,38 @@ bed_coverage(x, y, ...)
 
 \item{...}{extra arguments (not used)}
 }
+\value{
+original \code{x} \code{data_frame} with the following additional
+  columns:
+\itemize{ 
+  \item{\code{.ints}}{ number of x intersections}
+  \item{\code{.cov}}{ per-base coverage of x intervals}
+  \item{\code{.len}}{ total length of y intervals covered by x intervals} 
+  \item{\code{.frac}}{ .len scaled by total of y intervals}
+  }
+}
 \description{
 Compute coverage of intervals.
 }
 \note{
-Book-ended intervals are counted as overlapping by default
+Book-ended intervals are counted as overlapping by default. Groups in
+  \code{x} and \code{y} are used during coverage calculation.
 }
 \examples{
 x <- tibble::tribble(
-~chrom, ~start, ~end,
-"chr1", 100,    500,
-"chr2", 200,    400,
-"chr2", 300,    500,
-"chr2", 800,    900
+~chrom, ~start, ~end, ~strand,
+"chr1", 100,    500,  '+',
+"chr2", 200,    400,  '+',
+"chr2", 300,    500,  '-',
+"chr2", 800,    900,  '-'
 )
 
 y <- tibble::tribble(
-~chrom, ~start, ~end, ~value,
-"chr1", 150,    400,  100,
-"chr1", 500,    550,  100,
-"chr2", 230,    430,  200,
-"chr2", 350,    430,  300
+~chrom, ~start, ~end, ~value, ~strand,
+"chr1", 150,    400,  100,    '+',
+"chr1", 500,    550,  100,    '+',
+"chr2", 230,    430,  200,    '-',
+"chr2", 350,    430,  300,    '-'
 )
 
 bed_coverage(x, y)
