@@ -33,7 +33,7 @@
 #' bed_merge(x, max_dist = 100)
 #' 
 #' # merge intervals on same strand
-#' bed_merge(group_by(x, strand))
+#' bed_merge(dplyr::group_by(x, strand))
 #' 
 #' bed_merge(x, .value = sum(value))
 #' 
