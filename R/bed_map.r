@@ -62,7 +62,6 @@
 #' 
 #' @export
 bed_map <- function(x, y, ..., invert = FALSE,
-                    strand = FALSE, strand_opp = FALSE,
                     suffix = c('.x', '.y'),
                     min_overlap = 1) {
   

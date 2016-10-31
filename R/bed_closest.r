@@ -50,7 +50,7 @@
 #' @export
 
 bed_closest <- function(x, y, overlap = TRUE,
-                        strand = FALSE, strand_opp = FALSE, suffix = c('.x', '.y'),
+                        suffix = c('.x', '.y'),
                         distance_type = c("genome", "strand", "abs")) {
   
   if (strand && !('strand' %in% colnames(x) && 'strand' %in% colnames(y)))

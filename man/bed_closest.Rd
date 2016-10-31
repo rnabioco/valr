@@ -4,8 +4,8 @@
 \alias{bed_closest}
 \title{Identify closest intervals.}
 \usage{
-bed_closest(x, y, overlap = TRUE, strand = FALSE, strand_opp = FALSE,
-  suffix = c(".x", ".y"), distance_type = c("genome", "strand", "abs"))
+bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"),
+  distance_type = c("genome", "strand", "abs"))
 }
 \arguments{
 \item{x}{tbl of intervals}

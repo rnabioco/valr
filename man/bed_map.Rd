@@ -7,8 +7,8 @@
 \alias{values_unique}
 \title{Map signals over intervals.}
 \usage{
-bed_map(x, y, ..., invert = FALSE, strand = FALSE, strand_opp = FALSE,
-  suffix = c(".x", ".y"), min_overlap = 1)
+bed_map(x, y, ..., invert = FALSE, suffix = c(".x", ".y"),
+  min_overlap = 1)
 
 concat(.data, sep = ",")
 
