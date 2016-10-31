@@ -66,33 +66,33 @@ test_that("default coverage works", {
   expect_true(all(res == pred))   
 })
 
-# test_that("coverage of stranded tbls can be calc", {
-#   pred <- tibble::tribble(
-#     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints,  ~.cov,  ~.len,  ~.frac,
-#     "chr1",	20,	70,	6,	25,	"+",	2,	50,	50,	1.0000000,
-#     "chr1",	50,	100,	1,	25,	"-",	1,	23,	50,	0.4600000,
-#     "chr1",	200,	250,	3,	25,	"+",	0,	0,	50,	0.000000,
-#     "chr2",	80,	130,	5,	25,	"-",	4,	50,	50,	1.0000000,
-#     "chr2",	150,	200,	4,	25,	"+",	3,	50,	50,	1.0000000,
-#     "chr2",	180,	230,	2,	25,	"-",	4,	34,	50,	0.6800000
-#   )
-#   res <- bed_coverage(group_by(a, strand), group_by(b, strand)) %>% bed_sort()
-#   expect_true(all(res == pred))   
-# })
-# 
-# test_that(" strand_opp coverage works (strand_opp = TRUE)", {
-#   pred <- tibble::tribble(
-#     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints,  ~.cov,  ~.len,  ~.frac,
-#     "chr1",	20,	70,	6,	25,	"+",	0,	0,	50,	0.0000000,
-#     "chr1",	50,	100,	1,	25,	"-",	4,	50,	50,	1.0000000,
-#     "chr1",	200,	250,	3,	25,	"+",	4,	38,	50,	0.760000,
-#     "chr2",	80,	130,	5,	25,	"-",	2,	50,	50,	1.0000000,
-#     "chr2",	150,	200,	4,	25,	"+",	4,	50,	50,	1.0000000,
-#     "chr2",	180,	230,	2,	25,	"-",	2,	50,	50,	1.0000000
-#   )
-#   res <- bed_coverage(group_by(a, strand), group_by(flip_strands(b), strand)) %>% bed_sort()
-#   expect_true(all(res == pred))   
-# })
+ test_that("coverage of stranded tbls can be calc", {
+   pred <- tibble::tribble(
+     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints,  ~.cov,  ~.len,  ~.frac,
+     "chr1",	20,	70,	6,	25,	"+",	2,	50,	50,	1.0000000,
+     "chr1",	50,	100,	1,	25,	"-",	1,	23,	50,	0.4600000,
+     "chr1",	200,	250,	3,	25,	"+",	0,	0,	50,	0.000000,
+     "chr2",	80,	130,	5,	25,	"-",	4,	50,	50,	1.0000000,
+     "chr2",	150,	200,	4,	25,	"+",	3,	50,	50,	1.0000000,
+     "chr2",	180,	230,	2,	25,	"-",	4,	34,	50,	0.6800000
+   )
+   res <- bed_coverage(group_by(a, strand), group_by(b, strand)) %>% bed_sort()
+   expect_true(all(res == pred))   
+ })
+ 
+ test_that(" strand_opp coverage works (strand_opp = TRUE)", {
+   pred <- tibble::tribble(
+     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints,  ~.cov,  ~.len,  ~.frac,
+     "chr1",	20,	70,	6,	25,	"+",	0,	0,	50,	0.0000000,
+     "chr1",	50,	100,	1,	25,	"-",	4,	50,	50,	1.0000000,
+     "chr1",	200,	250,	3,	25,	"+",	4,	38,	50,	0.760000,
+     "chr2",	80,	130,	5,	25,	"-",	2,	50,	50,	1.0000000,
+     "chr2",	150,	200,	4,	25,	"+",	4,	50,	50,	1.0000000,
+     "chr2",	180,	230,	2,	25,	"-",	2,	50,	50,	1.0000000
+   )
+   res <- bed_coverage(group_by(a, strand), group_by(flip_strands(b), strand)) %>% bed_sort()
+   expect_true(all(res == pred))   
+ })
 
 test_that("ensure that coverage is calculated with respect to input tbls issue#108",{
   
