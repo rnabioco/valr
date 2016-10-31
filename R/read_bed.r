@@ -26,9 +26,6 @@
 #' # Result is sorted by chrom and start unless `sort = FALSE`
 #' unsorted_bed_tbl <- read_bed(bed3_path, sort = FALSE)
 #' 
-#' # use `is_sorted` 
-#' is_sorted(unsorted_bed_tbl)
-#' 
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
                      sort = TRUE, ...) {
