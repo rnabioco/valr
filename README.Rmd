@@ -52,8 +52,8 @@ intergenic <- bed_subtract(snps, genes)
 nearby <- bed_closest(intergenic, genes)
 
 nearby %>%
-  select(starts_with('name'), .overlap, .distance) %>%
-  filter(abs(.distance) < 5000)
+  select(starts_with('name'), .overlap, .dist) %>%
+  filter(abs(.dist) < 5000)
 ```
 
 ### Visual documentation

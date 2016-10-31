@@ -72,21 +72,21 @@ intergenic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/
 nearby &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)
 
 nearby %&gt;%
-<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .distance) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.distance) &lt;<span class="st"> </span><span class="dv">1000</span>)
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) &lt;<span class="st"> </span><span class="dv">1000</span>)
 <span class="co">#&gt; # A tibble: 285 &times; 4</span>
-<span class="co">#&gt;         name.x            name.y .overlap .distance</span>
-<span class="co">#&gt;          &lt;chr&gt;             &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1    rs2261631             P704P        0      -267</span>
-<span class="co">#&gt; 2  rs570770556             POTEH        0      -912</span>
-<span class="co">#&gt; 3  rs538163832             POTEH        0      -952</span>
-<span class="co">#&gt; 4    rs9606135            TPTEP1        0      -421</span>
-<span class="co">#&gt; 5   rs11912392 ANKRD62P1-PARP4P3        0       104</span>
-<span class="co">#&gt; 6    rs8136454          BC038197        0       355</span>
-<span class="co">#&gt; 7    rs5992556              XKR3        0      -455</span>
-<span class="co">#&gt; 8  rs114101676              GAB4        0       473</span>
-<span class="co">#&gt; 9   rs62236167             CECR7        0       261</span>
-<span class="co">#&gt; 10   rs5747023             CECR1        0      -386</span>
+<span class="co">#&gt;         name.x            name.y .overlap .dist</span>
+<span class="co">#&gt;          &lt;chr&gt;             &lt;chr&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1    rs2261631             P704P        0  -267</span>
+<span class="co">#&gt; 2  rs570770556             POTEH        0  -912</span>
+<span class="co">#&gt; 3  rs538163832             POTEH        0  -952</span>
+<span class="co">#&gt; 4    rs9606135            TPTEP1        0  -421</span>
+<span class="co">#&gt; 5   rs11912392 ANKRD62P1-PARP4P3        0   104</span>
+<span class="co">#&gt; 6    rs8136454          BC038197        0   355</span>
+<span class="co">#&gt; 7    rs5992556              XKR3        0  -455</span>
+<span class="co">#&gt; 8  rs114101676              GAB4        0   473</span>
+<span class="co">#&gt; 9   rs62236167             CECR7        0   261</span>
+<span class="co">#&gt; 10   rs5747023             CECR1        0  -386</span>
 <span class="co">#&gt; # ... with 275 more rows</span></code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
@@ -269,16 +269,16 @@ shuffled
 <span class="co">#&gt; # A tibble: 100 &times; 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0004571739</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0002768562</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
+<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0002768562</span>
+<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
+<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
+<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
+<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
+<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
+<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
+<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
+<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
+<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0002303932</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
 </div>
