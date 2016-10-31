@@ -4,7 +4,7 @@
 \alias{read_genome}
 \title{Read genome files.}
 \usage{
-read_genome(filename)
+read_genome(path)
 }
 \arguments{
 \item{path}{containing chrom/contig names and sizes, 
