@@ -61,7 +61,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jayhesselberth/valr">
+  <a href="http://github.com/jayhesselberth/valr/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -84,8 +84,7 @@
     <p>Identify intersecting intervals.</p>
     
 
-    <pre><span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>strand</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>strand_opp</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -94,11 +93,7 @@
       <dt>y</dt>
       <dd>tbl of intervals</dd>
       <dt>invert</dt>
-      <dd>report `x` intervals not in `y`</dd>
-      <dt>strand</dt>
-      <dd>intersect intervals on same strand</dd>
-      <dt>strand_opp</dt>
-      <dd>intersect intervals on opposite strands</dd>
+      <dd>report <code>x</code> intervals not in <code>y</code></dd>
       <dt>suffix</dt>
       <dd>colname suffixes in output</dd>
       <dt>...</dt>
@@ -121,8 +116,7 @@
       <a class="anchor" href="#examples"></a>
       Examples
     </h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
 ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
 <span class='st'>'chr1'</span>, <span class='fl'>25</span>,      <span class='fl'>50</span>,
 <span class='st'>'chr1'</span>, <span class='fl'>100</span>,     <span class='fl'>125</span>

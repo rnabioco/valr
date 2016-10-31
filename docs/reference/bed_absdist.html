@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute the absolute distance between query and reference intervals — bed_absdist • valr</title>
+<title>Compute absolute distances between intervals. — bed_absdist • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -61,7 +61,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jayhesselberth/valr">
+  <a href="http://github.com/jayhesselberth/valr/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -77,11 +77,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute the absolute distance between query and reference intervals</h1>
+    <h1>Compute absolute distances between intervals.</h1>
     </div>
 
     
-    <p>Compute the absolute distance between query and reference intervals</p>
+    <p>Compute absolute distances between intervals.</p>
     
 
     <pre><span class='fu'>bed_absdist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</pre>
@@ -98,18 +98,20 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code></p>
+    <p><code>data_frame</code> with <code>.absdist</code> and <code>.absdist_scaled</code> columns.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>bed_absdist()</code> computes the absolute distance between the midpoint
-  of query intervals and the closest midpoints of a set of reference
-  intervals. Absolute distances are scaled by the inter-reference gap for the
-  chromosome as follows. For <code>Q</code> total query points and <code>R</code> reference points
-  on a chromosome, scale the distance for each query point <code>i</code> to the closest
-  reference point by the inter-reference gap for each chromosome. If the chromosome for
-   a supplied  <code>x</code> interval has no matching  <code>y</code> chromosome, the <code>absdist</code> will
-   be reported as an <code>NA</code>.</p>
+    <p><code>bed_absdist()</code> computes the absolute distance between the
+  midpoint of query intervals and the closest midpoints of a set of reference
+  intervals.</p>
+    <p>Absolute distances are scaled by the inter-reference gap for the
+  chromosome as follows. For <code>Q</code> total query points and <code>R</code>
+  reference points on a chromosome, scale the distance for each query point
+  <code>i</code> to the closest reference point by the inter-reference gap for each
+  chromosome. If the chromosome for a supplied  <code>x</code> interval has no
+  matching  <code>y</code> chromosome, the <code>absdist</code> will be reported as an
+  <code>NA</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -140,9 +142,9 @@
 )
 
 <span class='fu'>bed_absdist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 5
-#&gt;   chrom start   end absdist scaled_absdist
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;
-#&gt; 1  chr1    75   125      25            0.1
+#&gt;   chrom start   end .absdist .absdist_scaled
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;           &lt;dbl&gt;
+#&gt; 1  chr1    75   125       25             0.1
 #&gt; </div><div class='input'>
 
 </div></pre>

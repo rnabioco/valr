@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_reldist.r
 \name{bed_reldist}
 \alias{bed_reldist}
-\title{Compute the relative distance between query intervals and reference intervals}
+\title{Compute relative distances intervals.}
 \usage{
 bed_reldist(x, y, detail = FALSE)
 }
@@ -17,7 +17,7 @@ bed_reldist(x, y, detail = FALSE)
 \code{data_frame}
 }
 \description{
-Compute the relative distance between query intervals and reference intervals
+Compute relative distances intervals.
 }
 \examples{
 x <- tibble::tribble(

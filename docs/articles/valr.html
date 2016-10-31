@@ -25,7 +25,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/jayhesselberth/valr">
+  <a href="http://github.com/jayhesselberth/valr/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -41,7 +41,7 @@
       <h1>valr overview</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-10-28</h4>
+            <h4 class="date">2016-10-30</h4>
           </div>
 
     
@@ -123,7 +123,34 @@ y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
 </div>
 <div id="grouping-data" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#grouping-data" class="anchor"> </a></body></html>Grouping data</h3>
-<p>The <code>group_by</code> function in dplyr is a powerful way to performs fuctions on subsets of a data_frame. Several functions in <code>valr</code> leverage grouping to enable a variety of analysis modes. These are discussed in the [grouping vignette][].</p>
+<p>The <code>group_by</code> function in dplyr can be used to perform fuctions on subsets of single and multiple <code>data_frame</code>s. Functions in <code>valr</code> leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by <code>strand</code> to perform comparisons among intervals on the same strand.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
+  ~chrom, ~start, ~end, ~strand,
+  <span class="st">'chr1'</span>, <span class="dv">1</span>,      <span class="dv">100</span>,  <span class="st">'+'</span>,
+  <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">150</span>,  <span class="st">'+'</span>,
+  <span class="st">'chr2'</span>, <span class="dv">100</span>,    <span class="dv">200</span>,  <span class="st">'-'</span>
+)
+
+y &lt;-<span class="st"> </span>tibble::<span class="kw">tribble</span>(
+  ~chrom, ~start, ~end, ~strand,
+  <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">125</span>,  <span class="st">'+'</span>,
+  <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">150</span>,  <span class="st">'-'</span>,
+  <span class="st">'chr2'</span>, <span class="dv">50</span>,     <span class="dv">150</span>,  <span class="st">'+'</span>
+)
+
+<span class="co"># intersect tbls by strand</span>
+x &lt;-<span class="st"> </span><span class="kw">group_by</span>(x, strand)
+y &lt;-<span class="st"> </span><span class="kw">group_by</span>(y, strand)
+
+<span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)</code></pre></div>
+<p>Comparisons between intervals on opposite strands are done using the <code><a href="../reference/flip_strands.html">flip_strands()</a></code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">group_by</span>(x, strand)
+
+y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flip_strands.html">flip_strands</a></span>(y)
+y &lt;-<span class="st"> </span><span class="kw">group_by</span>(y, strand)
+
+<span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)</code></pre></div>
+<p>Both single set (e.g. <code><a href="../reference/bed_merge.html">bed_merge()</a></code>) and multi set operations will respect groupings in the input intervals.</p>
 </div>
 <div id="column-specification" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#column-specification" class="anchor"> </a></body></html>Column specification</h3>
@@ -231,16 +258,16 @@ shuffled
 <span class="co">#&gt; # A tibble: 100 &times; 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0002768562</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0002303932</span>
+<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0004571739</span>
+<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0002768562</span>
+<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
+<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
+<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
+<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
+<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
+<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
+<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
+<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
 </div>

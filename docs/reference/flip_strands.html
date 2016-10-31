@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compare two tbl_dfs and find the minimum shared groups — shared_groups • valr</title>
+<title>Flip strands in intervals. — flip_strands • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -61,7 +61,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jayhesselberth/valr">
+  <a href="http://github.com/jayhesselberth/valr/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -77,28 +77,20 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compare two tbl_dfs and find the minimum shared groups</h1>
+    <h1>Flip strands in intervals.</h1>
     </div>
 
     
-    <p><code>shared_groups</code> returns the minimum shared groups between
-<code>x</code> and <code>y</code> tbls. Return value is <code>NULL</code> if there are
-no shared groups.</p>
+    <p>Flips <code>+</code> stranded intervals to <code>-</code> and vice-versa.</p>
     
 
-    <pre><span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
+    <pre><span class='fu'>flip_strands</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>tbl</dd>
-      <dt>y</dt>
-      <dd>tbl</dd>
+      <dd>tbl of intervals</dd>
     </dl>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>list</code></p>
     
 
     <h2 class="hasAnchor" id="examples">
@@ -106,42 +98,24 @@ no shared groups.</p>
       Examples
     </h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
- ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
-  <span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>
-  )
+~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>strand</span>,
+<span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>,  <span class='st'>'+'</span>,
+<span class='st'>'chr2'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>,  <span class='st'>'-'</span>
+)
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>,  ~<span class='no'>value</span>,
-  <span class='st'>"chr1"</span>,    <span class='fl'>50</span>,       <span class='fl'>100</span>,  <span class='fl'>1</span>,
-  <span class='st'>"chr1"</span>,    <span class='fl'>100</span>,       <span class='fl'>150</span>,  <span class='fl'>2</span>
-  )
-
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>x</span>, <span class='no'>chrom</span>, <span class='no'>value</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>y</span>, <span class='no'>chrom</span>, <span class='no'>value</span>)
-<span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; chrom
-#&gt; 
-#&gt; [[2]]
-#&gt; value
-#&gt; 
-#&gt; </div><div class='input'>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>y</span>, <span class='no'>chrom</span>)
-<span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt; chrom
-#&gt; 
-#&gt; </div><div class='input'>
-<span class='no'>y</span> <span class='kw'>&lt;-</span><span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>ungroup</span>(<span class='no'>y</span>)
-<span class='fu'>shared_groups</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; NULL
-#&gt; </div></pre>
+<span class='fu'>flip_strands</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end strand
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;
+#&gt; 1  chr1     1   100      -
+#&gt; 2  chr2     1   100      +
+#&gt; </div><div class='input'> 
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

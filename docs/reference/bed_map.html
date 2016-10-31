@@ -61,7 +61,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jayhesselberth/valr">
+  <a href="http://github.com/jayhesselberth/valr/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -103,11 +103,7 @@
       <dd>name-value pairs of summary functions like <code>min()</code>, 
 <code>count()</code>, <code>concat()</code>.</dd>
       <dt>invert</dt>
-      <dd>report `x` intervals not in `y`</dd>
-      <dt>strand</dt>
-      <dd>intersect intervals on same strand</dd>
-      <dt>strand_opp</dt>
-      <dd>intersect intervals on opposite strands</dd>
+      <dd>report <code>x</code> intervals not in <code>y</code></dd>
       <dt>suffix</dt>
       <dd>colname suffixes in output</dd>
       <dt>min_overlap</dt>
@@ -164,66 +160,66 @@
  <span class='st'>"chr2"</span>, <span class='fl'>250</span>, <span class='fl'>500</span>, <span class='fl'>500</span>)
 
 <span class='co'># also mean, median, sd etc</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end   sum
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end  .sum
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1   100   250    30
 #&gt; 2  chr2   250   500   500
-#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>value</span>), <span class='kw'>max</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 5
-#&gt;   chrom start   end   min   max
+#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.min</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>value</span>), <span class='kw'>.max</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 5
+#&gt;   chrom start   end  .min  .max
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1   100   250    10    20
 #&gt; 2  chr2   250   500   500   500
 #&gt; </div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='fu'>concat</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end `concat(value)`
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;chr&gt;
-#&gt; 1  chr1   100   250           10,20
-#&gt; 2  chr2   250   500             500
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.concat</span> <span class='kw'>=</span> <span class='fu'>concat</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .concat
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;chr&gt;
+#&gt; 1  chr1   100   250   10,20
+#&gt; 2  chr2   250   500     500
 #&gt; </div><div class='input'>
 <span class='co'># can also use `nth` family from dplyr</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>first</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end `dplyr::first(value)`
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;                 &lt;dbl&gt;
-#&gt; 1  chr1   100   250                    10
-#&gt; 2  chr2   250   500                   500
-#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>last</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end `dplyr::last(value)`
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;                &lt;dbl&gt;
-#&gt; 1  chr1   100   250                   20
-#&gt; 2  chr2   250   500                  500
-#&gt; </div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>absmax</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>max</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end absmax
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1  chr1   100   250     20
-#&gt; 2  chr2   250   500    500
-#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>absmin</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>min</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end absmin
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.first</span> <span class='kw'>=</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>first</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .first
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
 #&gt; 1  chr1   100   250     10
 #&gt; 2  chr2   250   500    500
-#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>count</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end count
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
-#&gt; 1  chr1   100   250     2
-#&gt; 2  chr2   250   500     1
-#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>count_distinct</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='fu'>unique</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end count_distinct
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;int&gt;
-#&gt; 1  chr1   100   250              2
-#&gt; 2  chr2   250   500              1
+#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.last</span> <span class='kw'>=</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>last</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .last
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr1   100   250    20
+#&gt; 2  chr2   250   500   500
 #&gt; </div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>vals</span> <span class='kw'>=</span> <span class='fu'>values</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end  vals
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.absmax</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>max</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .absmax
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1  chr1   100   250      20
+#&gt; 2  chr2   250   500     500
+#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.absmin</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>min</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .absmin
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1  chr1   100   250      10
+#&gt; 2  chr2   250   500     500
+#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.count</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .count
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;int&gt;
+#&gt; 1  chr1   100   250      2
+#&gt; 2  chr2   250   500      1
+#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.count_distinct</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='fu'>unique</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .count_distinct
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;int&gt;
+#&gt; 1  chr1   100   250               2
+#&gt; 2  chr2   250   500               1
+#&gt; </div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.vals</span> <span class='kw'>=</span> <span class='fu'>values</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .vals
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
 #&gt; 1  chr1   100   250 10,20
 #&gt; 2  chr2   250   500   500
-#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>vals.unique</span> <span class='kw'>=</span> <span class='fu'>values_unique</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
-#&gt;   chrom start   end vals.unique
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;chr&gt;
-#&gt; 1  chr1   100   250       10,20
-#&gt; 2  chr2   250   500         500
+#&gt; </div><div class='input'><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.vals.unique</span> <span class='kw'>=</span> <span class='fu'>values_unique</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end .vals.unique
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;chr&gt;
+#&gt; 1  chr1   100   250        10,20
+#&gt; 2  chr2   250   500          500
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

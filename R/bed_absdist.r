@@ -1,4 +1,4 @@
-#' Compute the absolute distance between query and reference intervals
+#' Compute absolute distances between intervals.
 #' 
 #' @details \code{bed_absdist()} computes the absolute distance between the
 #'   midpoint of query intervals and the closest midpoints of a set of reference
@@ -16,7 +16,7 @@
 #' @param y tbl of intervals
 #' @param genome genome tbl
 #'   
-#' @return \code{data_frame}
+#' @return \code{data_frame} with \code{.absdist} and \code{.absdist_scaled} columns.
 #'   
 #' @family interval-stats
 #' @seealso

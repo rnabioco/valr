@@ -61,7 +61,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jayhesselberth/valr">
+  <a href="http://github.com/jayhesselberth/valr/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -84,7 +84,7 @@
     <p>Merge overlapping intervals.</p>
     
 
-    <pre><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>strand</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -92,8 +92,6 @@
       <dd>tbl of intervals</dd>
       <dt>max_dist</dt>
       <dd>maximum distance between intervals to merge</dd>
-      <dt>strand</dt>
-      <dd>merge intervals on the same strand</dd>
       <dt>...</dt>
       <dd>name-value pairs that specify merging operations</dd>
     </dl>
@@ -147,7 +145,11 @@
 #&gt; 1  chr1     1   250     .      .
 #&gt; 2  chr2     1    25     .      .
 #&gt; 3  chr2   200   550     .      .
-#&gt; </div><div class='input'><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>strand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 6 × 5
+#&gt; </div><div class='input'>
+<span class='co'># merge intervals on same strand</span>
+<span class='fu'>bed_merge</span>(<span class='fu'>group_by</span>(<span class='no'>x</span>, <span class='no'>strand</span>))</div><div class='output co'>#&gt; Source: local data frame [6 x 5]
+#&gt; Groups: strand [2]
+#&gt; 
 #&gt;   chrom start   end value strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
 #&gt; 1  chr1     1    50     .      +
@@ -156,7 +158,8 @@
 #&gt; 4  chr2     1    25     .      +
 #&gt; 5  chr2   200   400     .      -
 #&gt; 6  chr2   400   550     .      +
-#&gt; </div><div class='input'><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 5
+#&gt; </div><div class='input'>
+<span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 5
 #&gt;   chrom start   end value strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
 #&gt; 1  chr1     1    50     .      .
