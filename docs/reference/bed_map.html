@@ -118,6 +118,15 @@
 
     <p><code>data_frame</code></p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>input tbls can be grouped using <code>dplyr::group_by</code> prior to 
+  analysis. It is not necessary to group by <code>chrom</code>because functions do
+  this internally. Grouping input intervals by <code>strand</code> will constrain
+  analyses to the same strand. To compare opposing strands between two tbls,
+  the strand on the <code>y</code> tbl can first be be inverted using
+  <code>flip_strands</code>.</p>
+    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Book-ended intervals are not reported by default, but can be included
@@ -125,6 +134,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <p><a href='flip_strands.html'>flip_strands</a></p>
     <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/map.html'>http://bedtools.readthedocs.io/en/latest/content/tools/map.html</a></p>
     <p>Other multi-set-ops: <code><a href='bed_closest.html'>bed_closest</a></code>,
   <code><a href='bed_coverage.html'>bed_coverage</a></code>, <code><a href='bed_intersect.html'>bed_intersect</a></code>,
@@ -229,6 +239,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#note">Note</a></li>
 

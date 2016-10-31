@@ -20,6 +20,14 @@ bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
 \description{
 Identify intersecting intervals.
 }
+\details{
+input tbls can be grouped using \code{dplyr::group_by} prior to 
+  analysis. It is not necessary to group by \code{chrom}because functions do
+  this internally. Grouping input intervals by \code{strand} will constrain
+  analyses to the same strand. To compare opposing strands between two tbls,
+  the strand on the \code{y} tbl can first be be inverted using
+  \code{flip_strands}.
+}
 \note{
 Book-ended intervals have \code{.overlap} values of 0 in the output.
 }
@@ -58,6 +66,8 @@ bed_intersect(x, y)
  
 }
 \seealso{
+\link{flip_strands}
+
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 
 Other multi-set-ops: \code{\link{bed_closest}},

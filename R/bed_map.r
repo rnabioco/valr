@@ -7,6 +7,8 @@
 #' @param ... name-value pairs of summary functions like \code{\link{min}()}, 
 #'   \code{\link{count}()}, \code{\link{concat}()}.
 #'   
+#' @template groups
+#' 
 #' @return \code{data_frame}
 #'   
 #' @family multi-set-ops

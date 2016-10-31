@@ -6,6 +6,8 @@
 #' @param suffix colname suffixes in output
 #' @param dist format for distance to nearest interval
 #'              
+#' @template groups
+#' 
 #' @details \code{dist} can take one of these values:
 #'   \itemize{
 #'     \item{\code{genome}}{ negative distances signify upstream intervals (default)}

@@ -26,6 +26,14 @@ original \code{x} \code{data_frame} with the following additional
 \description{
 Compute coverage of intervals.
 }
+\details{
+input tbls can be grouped using \code{dplyr::group_by} prior to 
+  analysis. It is not necessary to group by \code{chrom}because functions do
+  this internally. Grouping input intervals by \code{strand} will constrain
+  analyses to the same strand. To compare opposing strands between two tbls,
+  the strand on the \code{y} tbl can first be be inverted using
+  \code{flip_strands}.
+}
 \note{
 Book-ended intervals are counted as overlapping by default. Groups in
   \code{x} and \code{y} are used during coverage calculation.
@@ -51,6 +59,8 @@ bed_coverage(x, y)
  
 }
 \seealso{
+\link{flip_strands}
+
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html}
 
 Other multi-set-ops: \code{\link{bed_closest}},

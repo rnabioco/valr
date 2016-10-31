@@ -29,6 +29,13 @@ bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"),
 Identify closest intervals.
 }
 \details{
+input tbls can be grouped using \code{dplyr::group_by} prior to 
+  analysis. It is not necessary to group by \code{chrom}because functions do
+  this internally. Grouping input intervals by \code{strand} will constrain
+  analyses to the same strand. To compare opposing strands between two tbls,
+  the strand on the \code{y} tbl can first be be inverted using
+  \code{flip_strands}.
+
 \code{dist} can take one of these values:
   \itemize{
     \item{\code{genome}}{ negative distances signify upstream intervals (default)}
@@ -68,6 +75,8 @@ bed_closest(x, y, overlap = FALSE)
 
 }
 \seealso{
+\link{flip_strands}
+
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 
 Other multi-set-ops: \code{\link{bed_coverage}},

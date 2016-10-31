@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>read genome files (i.e., UCSC &quot;chromSize&quot; files) — read_genome • valr</title>
+<title>Read genome files. — read_genome • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,28 +77,32 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>read genome files (i.e., UCSC &quot;chromSize&quot; files)</h1>
+    <h1>Read genome files.</h1>
     </div>
 
     
-    <p>Genome files contain chromosome name and size information. These sizes are 
-used by downstream functions to identify computed intervals that have ends
-outside the defined size.</p>
+    <p>Genome files (UCSC &quot;chromSize&quot; files) contain chromosome name and size
+information. These sizes are used by downstream functions to identify
+computed intervals that have ends outside the defined size.</p>
     
 
     <pre><span class='fu'>read_genome</span>(<span class='no'>filename</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>filename</dt>
-      <dd>file containing chrom/contig names and sizes,
+      <dt>path</dt>
+      <dd>containing chrom/contig names and sizes, 
 one-pair-per-line, tab-delimited</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code> with colnames <code>chrom</code> and <code>size</code>, sorted
+    <p><code>data_frame</code> with colnames <code>chrom</code> and <code>size</code>, sorted 
   by <code>size</code></p>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>URLs to genome files can also be used.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -137,6 +141,8 @@ one-pair-per-line, tab-delimited</dd>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

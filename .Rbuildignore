@@ -11,3 +11,4 @@
 ^docs$
 ^appveyor\.yml$
 ^_pkgdown\.yml$
+^man-roxygen$

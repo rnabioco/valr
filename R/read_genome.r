@@ -1,17 +1,19 @@
-#' read genome files (i.e., UCSC "chromSize" files)
+#' Read genome files.
 #' 
-#' Genome files contain chromosome name and size information. These sizes are 
-#' used by downstream functions to identify computed intervals that have ends
-#' outside the defined size.
+#' Genome files (UCSC "chromSize" files) contain chromosome name and size
+#' information. These sizes are used by downstream functions to identify
+#' computed intervals that have ends outside the defined size.
 #' 
-#' @param filename file containing chrom/contig names and sizes,
+#' @param path containing chrom/contig names and sizes, 
 #'   one-pair-per-line, tab-delimited
 #'   
-#' @return \code{data_frame} with colnames \code{chrom} and \code{size}, sorted
+#' @return \code{data_frame} with colnames \code{chrom} and \code{size}, sorted 
 #'   by \code{size}
 #'   
+#' @note URLs to genome files can also be used.
+#'   
 #' @family read-funcs
-#' 
+#'   
 #' @examples
 #' genome <- valr_example('hg19.chrom.sizes.gz')
 #' read_genome(genome)

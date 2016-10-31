@@ -4,6 +4,8 @@
 #' @param max_dist maximum distance between intervals to merge
 #' @param ... name-value pairs that specify merging operations
 #'
+#' @template groups
+#' 
 #' @return \code{data_frame}
 #' @family single-set-ops
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}

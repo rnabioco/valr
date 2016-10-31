@@ -2,22 +2,25 @@
 % Please edit documentation in R/read_genome.r
 \name{read_genome}
 \alias{read_genome}
-\title{read genome files (i.e., UCSC "chromSize" files)}
+\title{Read genome files.}
 \usage{
 read_genome(filename)
 }
 \arguments{
-\item{filename}{file containing chrom/contig names and sizes,
+\item{path}{containing chrom/contig names and sizes, 
 one-pair-per-line, tab-delimited}
 }
 \value{
-\code{data_frame} with colnames \code{chrom} and \code{size}, sorted
+\code{data_frame} with colnames \code{chrom} and \code{size}, sorted 
   by \code{size}
 }
 \description{
-Genome files contain chromosome name and size information. These sizes are 
-used by downstream functions to identify computed intervals that have ends
-outside the defined size.
+Genome files (UCSC "chromSize" files) contain chromosome name and size
+information. These sizes are used by downstream functions to identify
+computed intervals that have ends outside the defined size.
+}
+\note{
+URLs to genome files can also be used.
 }
 \examples{
 genome <- valr_example('hg19.chrom.sizes.gz')

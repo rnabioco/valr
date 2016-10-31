@@ -7,6 +7,8 @@
 #' @note Book-ended intervals are counted as overlapping by default. Groups in
 #'   \code{x} and \code{y} are used during coverage calculation.
 #' 
+#' @template groups
+#' 
 #' @family multi-set-ops
 #' 
 #' @return original \code{x} \code{data_frame} with the following additional

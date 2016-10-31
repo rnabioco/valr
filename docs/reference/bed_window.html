@@ -98,8 +98,18 @@
       <dd>params for bed_slop and bed_intersect</dd>
     </dl>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>input tbls can be grouped using <code>dplyr::group_by</code> prior to 
+  analysis. It is not necessary to group by <code>chrom</code>because functions do
+  this internally. Grouping input intervals by <code>strand</code> will constrain
+  analyses to the same strand. To compare opposing strands between two tbls,
+  the strand on the <code>y</code> tbl can first be be inverted using
+  <code>flip_strands</code>.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <p><a href='flip_strands.html'>flip_strands</a></p>
     <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/window.html'>http://bedtools.readthedocs.org/en/latest/content/tools/window.html</a></p>
     <p>Other multi-set-ops: <code><a href='bed_closest.html'>bed_closest</a></code>,
   <code><a href='bed_coverage.html'>bed_coverage</a></code>, <code><a href='bed_intersect.html'>bed_intersect</a></code>,
@@ -110,8 +120,7 @@
       <a class="anchor" href="#examples"></a>
       Examples
     </h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
  <span class='st'>'chr1'</span>,      <span class='fl'>25</span>,      <span class='fl'>50</span>,
  <span class='st'>'chr1'</span>,      <span class='fl'>100</span>,     <span class='fl'>125</span>
@@ -164,6 +173,8 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>

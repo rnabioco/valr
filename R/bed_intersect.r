@@ -6,6 +6,8 @@
 #' @param suffix colname suffixes in output
 #' @param ... extra arguments (not used)
 #'
+#' @template groups
+#' 
 #' @note Book-ended intervals have \code{.overlap} values of 0 in the output.
 #'  
 #' @examples 

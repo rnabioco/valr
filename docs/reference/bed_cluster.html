@@ -100,8 +100,18 @@ overlapping and book-ended intervals will be clustered.</p>
 
     <p><code>data_frame</code></p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>input tbls can be grouped using <code>dplyr::group_by</code> prior to 
+  analysis. It is not necessary to group by <code>chrom</code>because functions do
+  this internally. Grouping input intervals by <code>strand</code> will constrain
+  analyses to the same strand. To compare opposing strands between two tbls,
+  the strand on the <code>y</code> tbl can first be be inverted using
+  <code>flip_strands</code>.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <p><a href='flip_strands.html'>flip_strands</a></p>
     <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html'>http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html</a></p>
     <p>Other single-set-ops: <code><a href='bed_complement.html'>bed_complement</a></code>,
   <code><a href='bed_flank.html'>bed_flank</a></code>, <code><a href='bed_merge.html'>bed_merge</a></code>,
@@ -148,6 +158,8 @@ overlapping and book-ended intervals will be clustered.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

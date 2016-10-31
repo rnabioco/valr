@@ -18,8 +18,15 @@ bed_window(x, y, genome, ...)
 \description{
 Identify intervals within a specified distance.
 }
+\details{
+input tbls can be grouped using \code{dplyr::group_by} prior to 
+  analysis. It is not necessary to group by \code{chrom}because functions do
+  this internally. Grouping input intervals by \code{strand} will constrain
+  analyses to the same strand. To compare opposing strands between two tbls,
+  the strand on the \code{y} tbl can first be be inverted using
+  \code{flip_strands}.
+}
 \examples{
-
 x <- tibble::tribble(
  ~chrom, ~start, ~end,
  'chr1',      25,      50,
@@ -63,6 +70,8 @@ bed_window(x, y, genome, both = 100)
 
 }
 \seealso{
+\link{flip_strands}
+
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/window.html}
 
 Other multi-set-ops: \code{\link{bed_closest}},

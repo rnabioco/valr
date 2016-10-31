@@ -7,6 +7,8 @@
 #' @param x tbl of intervals
 #' @param max_dist maximum distance between clustered intervals.
 #'   
+#' @template groups
+#' 
 #' @return \code{data_frame}
 #' @family single-set-ops
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html} 

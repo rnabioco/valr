@@ -19,6 +19,14 @@ Returned \code{data_frame} contains a new \code{.id} column that can be used for
 grouping along with \code{chrom}. Default \code{max_dist} of 0 means that
 overlapping and book-ended intervals will be clustered.
 }
+\details{
+input tbls can be grouped using \code{dplyr::group_by} prior to 
+  analysis. It is not necessary to group by \code{chrom}because functions do
+  this internally. Grouping input intervals by \code{strand} will constrain
+  analyses to the same strand. To compare opposing strands between two tbls,
+  the strand on the \code{y} tbl can first be be inverted using
+  \code{flip_strands}.
+}
 \examples{
 x <- tibble::tribble(
  ~chrom, ~start, ~end,
@@ -44,6 +52,8 @@ bed_glyph(bed_cluster(x), label = '.id')
 
 }
 \seealso{
+\link{flip_strands}
+
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
 
 Other single-set-ops: \code{\link{bed_complement}},

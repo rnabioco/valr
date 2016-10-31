@@ -4,9 +4,10 @@
 #' @inheritParams bed_slop
 #' @inheritParams bed_intersect
 #'
+#' @template groups
+#'
 #' @family multi-set-ops 
 #' @examples
-#'
 #' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  'chr1',      25,      50,
