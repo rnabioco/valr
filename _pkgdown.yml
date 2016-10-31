@@ -1,6 +1,6 @@
-title: valr 
-
-bootswatch: lumen
+templates:
+  params:
+    bootswatch: cosmo
 
 reference:
   - title: Read data 
@@ -45,7 +45,6 @@ reference:
     
 navbar:
   title: 'valr'
-  type: inverse
   left:
   - text: Overview
     href: articles/valr.html
