@@ -2,7 +2,8 @@
 
 void coverage_group(intervalVector vx, intervalVector vy,
                      std::vector<int>& overlap_counts, std::vector<int>& ivls_bases_covered,
-                     std::vector<int>& x_ivl_lengths, std::vector<double>& fractions_covered) {
+                     std::vector<int>& x_ivl_lengths, std::vector<double>& fractions_covered,
+                     std::vector<int>& indices_x) {
   
   intervalTree tree_y(vy) ;
   intervalVector overlaps ;
@@ -11,6 +12,8 @@ void coverage_group(intervalVector vx, intervalVector vy,
   intervalVector::const_iterator it ; 
   for(it = vx.begin(); it != vx.end(); ++it) {
     
+    indices_x.push_back(it->value);
+
     tree_y.findOverlapping(it->start, it->stop, overlaps) ;
     
     // compute number of overlaps
@@ -47,6 +50,7 @@ void coverage_group(intervalVector vx, intervalVector vy,
     for (int i=0; i< overlap_count; i++){
       // If this is not first Interval and overlaps
       // with the previous one
+      
       if (index != 0 && overlaps[index-1].start <= overlaps[i].stop)
       {
         while (index != 0 && overlaps[index-1].start <= overlaps[i].stop)
@@ -72,12 +76,9 @@ void coverage_group(intervalVector vx, intervalVector vy,
       mergedOverlaps.push_back(overlaps[i]);;
     }
     overlaps.clear();
-    // sort overlaps by start ascending
-  //  std::sort(mergedOverlaps.begin(), mergedOverlaps.end(), intervalStartSorter) ;
     
     intervalVector::const_iterator oit ; 
     for(oit = mergedOverlaps.begin(); oit != mergedOverlaps.end(); ++oit) {
-   //   Rcout << "[" << oit->start << ", " << oit->stop << "] ";
     }
     
     // iterate through merged overlaps and compute number of covered bases
@@ -117,11 +118,14 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   std::vector<int> x_ivl_lengths ;
   std::vector<double> fractions_covered ;
   
+  // indices for subsetting 
+  std::vector<int> indices_x ;
+  
   auto data_x = x.data() ;
   
   PairedGroupApply(x, y, coverage_group,
                    std::ref(overlap_counts), std::ref(ivls_bases_covered),
-                   std::ref(x_ivl_lengths), std::ref(fractions_covered));
+                   std::ref(x_ivl_lengths), std::ref(fractions_covered), std::ref(indices_x));
 
   // handle condition with empty y df
   // just assign zeros, except for interval length
@@ -134,6 +138,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
       intervalVector vx = makeIntervalVector(data_x, gi_x) ;
       intervalVector::const_iterator it ;
       for(it = vx.begin(); it != vx.end(); ++it) {
+        indices_x.push_back(it->value) ;
         overlap_counts.push_back(0);
         int x_ivl_length = it->stop - it->start ; 
         x_ivl_lengths.push_back(x_ivl_length) ;
@@ -143,12 +148,12 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     }
   }
     
-//  DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x));
+  DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
   
-  auto ncol_x = data_x.size() ;
+  auto ncol_x = subset_x.size() ;
   
   CharacterVector names(ncol_x + 4) ;
-  CharacterVector names_x = data_x.attr("names") ;
+  CharacterVector names_x = subset_x.attr("names") ;
   CharacterVector new_cols = CharacterVector::create(".ints", ".cov", ".len", ".frac");
   
   // add in overlaps, bases covered, ivl length, and fraction
@@ -159,7 +164,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   for( int i=0; i<ncol_x; i++) {
     auto name_x = as<std::string>(names_x[i]) ;
     names[i] = name_x ;
-    out[i] = data_x[i] ;
+    out[i] = subset_x[i] ;
   }
   int n = new_cols.size() ;
   
@@ -176,7 +181,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   
   out.attr("names") = names ; 
   out.attr("class") = classes_not_grouped() ;
-  auto nrows = data_x.nrows() ; 
+  auto nrows = subset_x.nrows() ; 
   set_rownames(out, nrows) ;
   
   return out ; 
