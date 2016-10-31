@@ -76,9 +76,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   x_names_suffix <- stringr::str_c(x_names, suffix$x)
  
   # note that `y` columns have no suffix so can be referred to by the original names
-  res <- bed_intersect(x, y,
-                       invert = invert, strand = strand,
-                       strand_opp = strand_opp, suffix = c(suffix$x, ''))
+  res <- bed_intersect(x, y, invert = invert, suffix = c(suffix$x, ''))
   
   res <- filter(res, .overlap >= min_overlap)
   
