@@ -71,8 +71,8 @@ intergenic &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed
 nearby &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)
 
 nearby %&gt;%
-<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .distance) %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.distance) &lt;<span class="st"> </span><span class="dv">5000</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) &lt;<span class="st"> </span><span class="dv">5000</span>)</code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor"><a href="#visual-documentation" class="anchor"> </a>Visual documentation</h3>
