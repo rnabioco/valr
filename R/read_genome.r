@@ -24,7 +24,7 @@
 #' }
 #' 
 #' @export
-read_genome <- function(filename) {
+read_genome <- function(path) {
   colnames <- c('chrom', 'size')
   genome <- suppressMessages(readr::read_tsv(filename, col_names = colnames))
   genome <- arrange(genome, desc(size))
