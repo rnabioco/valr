@@ -11,11 +11,12 @@ valr_example <- function(path) {
   system.file("extdata", path, package = 'valr', mustWork = TRUE)
 }
 
-#' reformat bed tbl to match another tbl
+#' reformat tbl column ordering based upon another tbl
 #' 
-#' \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-#' Columns not found in \code{y} tbl are dropped from \code{x}. \code{y} columns
-#'  not found in \code{x} are added to \code{x} and populated with a dummy entry \code{"."}
+#' \code{format_bed} returns a tbl whose columns are ordered by another tbl. 
+#' The \code{x} tbl columns are reordered based on the \code{y} columns ordering.
+#' If there are \code{x} columns that do not exist in \code{y} they are moved to the last column. 
+#'
 #'  
 #' @param x tbl of intervals
 #' @param y tbl of intervals
