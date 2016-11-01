@@ -39,15 +39,9 @@ format_bed <- function(x, y) {
   names_x <- names(x)
   names_y <- names(y)
   
-  if (any(!names_y %in% names_x)){
-    cols_to_add <- setdiff(names_y, names_x)
-    n <- ncol(x)
-    for (i in seq_along(cols_to_add)){
-      x[n + i] <- "."
-      colnames(x)[n + i] <- cols_to_add[i]
-    }
-  }
-  x <- select(x, one_of(names_y))
+  names_x <- names_x[order(match(names_x,names_y))]
+  
+  x <- select(x, one_of(names_x))
   x
 }
 
