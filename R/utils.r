@@ -11,11 +11,12 @@ valr_example <- function(path) {
   system.file("extdata", path, package = 'valr', mustWork = TRUE)
 }
 
-#' reformat bed tbl to match another tbl
+#' reformat tbl column ordering based upon another tbl
 #' 
-#' \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-#' Columns not found in \code{y} tbl are dropped from \code{x}. \code{y} columns
-#'  not found in \code{x} are added to \code{x} and populated with a dummy entry \code{"."}
+#' \code{format_bed} returns a tbl whose columns are ordered by another tbl. 
+#' The \code{x} tbl columns are reordered based on the \code{y} columns ordering.
+#' If there are \code{x} columns that do not exist in \code{y} they are moved to the last column. 
+#'
 #'  
 #' @param x tbl of intervals
 #' @param y tbl of intervals
@@ -39,15 +40,9 @@ format_bed <- function(x, y) {
   names_x <- names(x)
   names_y <- names(y)
   
-  if (any(!names_y %in% names_x)){
-    cols_to_add <- setdiff(names_y, names_x)
-    n <- ncol(x)
-    for (i in seq_along(cols_to_add)){
-      x[n + i] <- "."
-      colnames(x)[n + i] <- cols_to_add[i]
-    }
-  }
-  x <- select(x, one_of(names_y))
+  names_x <- names_x[order(match(names_x,names_y))]
+  
+  x <- select(x, one_of(names_x))
   x
 }
 

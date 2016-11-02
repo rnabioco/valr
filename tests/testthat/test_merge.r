@@ -102,3 +102,39 @@ test_that("intervals can be merged by strand",{
   expect_equal(nrow(res), 2)
 })
 
+test_that("summaries can be computed issue #132",{
+  
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~value, ~strand,
+    "chr1", 1,      50,   1,      '+',
+    "chr1", 100,    200,  2,      '+',
+    "chr1", 150,    250,  3,      '-',
+    "chr2", 1,      25,   4,      '+',
+    "chr2", 200,    400,  5,      '-',
+    "chr2", 400,    500,  6,      '+',
+    "chr2", 450,    550,  7,      '+'
+  )
+  
+  res <- bed_merge(x, .value = sum(value))
+  expect_true(all(res$.value != "."))
+  expect_true(all(res$.value == c(1, 5, 4, 18)))
+})
+
+test_that("multiple summaries can be computed issue #132",{
+  
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~value, ~strand,
+    "chr1", 1,      50,   1,      '+',
+    "chr1", 100,    200,  2,      '+',
+    "chr1", 150,    250,  3,      '-',
+    "chr2", 1,      25,   4,      '+',
+    "chr2", 200,    400,  5,      '-',
+    "chr2", 400,    500,  6,      '+',
+    "chr2", 450,    550,  7,      '+'
+  )
+  
+  res <- bed_merge(x, .value = sum(value), .min = min(value))
+  expect_true(all(res$.value != "."))
+  expect_true(all(res$.value == c(1, 5, 4, 18)))
+  expect_true(all(res$.min == c(1, 2, 4, 5)))
+})
