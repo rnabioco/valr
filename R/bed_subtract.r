@@ -44,6 +44,7 @@
 #' )
 #' 
 #' bed_subtract(x, y)
+#' 
 #' bed_subtract(x, y, any = TRUE)
 #'  
 #' @export

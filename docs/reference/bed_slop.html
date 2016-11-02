@@ -122,10 +122,7 @@
   <code><a href='bed_shift.html'>bed_shift</a></code>, <code><a href='bed_shuffle.html'>bed_shuffle</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>,      <span class='fl'>110</span>,      <span class='fl'>120</span>,
@@ -154,12 +151,14 @@
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
 #&gt; 1  chr1   400  1000     .     .      +
 #&gt; 2  chr1   900  1500     .     .      -
-#&gt; </div><div class='input'><span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 6
+#&gt; </div><div class='input'>
+<span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 6
 #&gt;   chrom start   end  name score strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
 #&gt; 1  chr1   500  1100     .     .      +
 #&gt; 2  chr1  1000  1600     .     .      -
-#&gt; </div><div class='input'><span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 6
+#&gt; </div><div class='input'>
+<span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 6
 #&gt;   chrom start   end  name score strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
 #&gt; 1  chr1   400  1100     .     .      +

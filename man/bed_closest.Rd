@@ -19,7 +19,7 @@ bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"),
 \item{dist}{format for distance to nearest interval}
 }
 \value{
-\code{data_frame} with columns:
+\code{data_frame} with additional columns:
   \itemize{
     \item{\code{.dist}}{ distance to closest interval}
     \item{\code{.overlap}}{ overlap with closest interval}
@@ -30,13 +30,12 @@ Identify closest intervals.
 }
 \details{
 input tbls can be grouped using \code{dplyr::group_by} prior to 
-  analysis. It is not necessary to group by \code{chrom}because functions do
-  this internally. Grouping input intervals by \code{strand} will constrain
-  analyses to the same strand. To compare opposing strands between two tbls,
-  the strand on the \code{y} tbl can first be be inverted using
-  \code{flip_strands}.
+  analysis. Grouping by \code{chrom} is done by default. Grouping by 
+  \code{strand} will constrain analyses to the same strand. To compare 
+  opposing strands between two tbls, strands on the \code{y} tbl can first be
+  be inverted using \code{flip_strands}.
 
-\code{dist} can take one of these values:
+\code{dist} can take one of the following values:
   \itemize{
     \item{\code{genome}}{ negative distances signify upstream intervals (default)}
     \item{\code{strand}}{ upstream defined based on strand}
@@ -71,6 +70,7 @@ y <- tibble::tribble(
 ) 
 
 bed_closest(x, y)
+
 bed_closest(x, y, overlap = FALSE)
 
 }

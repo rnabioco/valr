@@ -64,6 +64,5 @@ bed_intersect <- function(x, y, invert = FALSE, suffix = c('.x', '.y'), ...) {
     res <- ungroup(res)
   }
   
-  res <- bed_sort(res)
   res
 }

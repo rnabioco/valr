@@ -114,16 +114,14 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls can be grouped using <code>dplyr::group_by</code> prior to 
-  analysis. It is not necessary to group by <code>chrom</code>because functions do
-  this internally. Grouping input intervals by <code>strand</code> will constrain
-  analyses to the same strand. To compare opposing strands between two tbls,
-  the strand on the <code>y</code> tbl can first be be inverted using
-  <code>flip_strands</code>.</p>
+  analysis. Grouping by <code>chrom</code> is done by default. Grouping by 
+  <code>strand</code> will constrain analyses to the same strand. To compare 
+  opposing strands between two tbls, strands on the <code>y</code> tbl can first be
+  be inverted using <code>flip_strands</code>.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Book-ended intervals are counted as overlapping by default. Groups in
-  <code>x</code> and <code>y</code> are used during coverage calculation.</p>
+    <p>Book-ended intervals are counted as overlapping.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -134,10 +132,7 @@
   <code><a href='bed_subtract.html'>bed_subtract</a></code>, <code><a href='bed_window.html'>bed_window</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
 ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>strand</span>,
 <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,  <span class='st'>'+'</span>,

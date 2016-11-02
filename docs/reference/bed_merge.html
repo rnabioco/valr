@@ -93,7 +93,7 @@
       <dt>max_dist</dt>
       <dd>maximum distance between intervals to merge</dd>
       <dt>...</dt>
-      <dd>name-value pairs that specify merging operations</dd>
+      <dd>name-value pairs that specify operations on merged intervals</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -103,11 +103,10 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls can be grouped using <code>dplyr::group_by</code> prior to 
-  analysis. It is not necessary to group by <code>chrom</code>because functions do
-  this internally. Grouping input intervals by <code>strand</code> will constrain
-  analyses to the same strand. To compare opposing strands between two tbls,
-  the strand on the <code>y</code> tbl can first be be inverted using
-  <code>flip_strands</code>.</p>
+  analysis. Grouping by <code>chrom</code> is done by default. Grouping by 
+  <code>strand</code> will constrain analyses to the same strand. To compare 
+  opposing strands between two tbls, strands on the <code>y</code> tbl can first be
+  be inverted using <code>flip_strands</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -119,10 +118,7 @@
   <code><a href='bed_shuffle.html'>bed_shuffle</a></code>, <code><a href='bed_slop.html'>bed_slop</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>,  <span class='fl'>1</span>,      <span class='fl'>50</span>,
@@ -142,40 +138,41 @@
  <span class='st'>"chr2"</span>, <span class='fl'>450</span>,    <span class='fl'>550</span>,  <span class='fl'>7</span>,      <span class='st'>'+'</span>
 )
 
-<span class='fu'>bed_merge</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 5
-#&gt;   chrom start   end value strand
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1  chr1     1    50     .      .
-#&gt; 2  chr1   100   250     .      .
-#&gt; 3  chr2     1    25     .      .
-#&gt; 4  chr2   200   550     .      .
-#&gt; </div><div class='input'><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 3 × 5
-#&gt;   chrom start   end value strand
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1  chr1     1   250     .      .
-#&gt; 2  chr2     1    25     .      .
-#&gt; 3  chr2   200   550     .      .
+<span class='fu'>bed_merge</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr1     1    50
+#&gt; 2  chr1   100   250
+#&gt; 3  chr2     1    25
+#&gt; 4  chr2   200   550
+#&gt; </div><div class='input'>
+<span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 3 × 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr1     1   250
+#&gt; 2  chr2     1    25
+#&gt; 3  chr2   200   550
 #&gt; </div><div class='input'>
 <span class='co'># merge intervals on same strand</span>
-<span class='fu'>bed_merge</span>(<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>x</span>, <span class='no'>strand</span>))</div><div class='output co'>#&gt; Source: local data frame [6 x 5]
+<span class='fu'>bed_merge</span>(<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>x</span>, <span class='no'>strand</span>))</div><div class='output co'>#&gt; Source: local data frame [6 x 4]
 #&gt; Groups: strand [2]
 #&gt; 
-#&gt;   chrom start   end value strand
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1  chr1     1    50     .      +
-#&gt; 2  chr1   100   200     .      +
-#&gt; 3  chr1   150   250     .      -
-#&gt; 4  chr2     1    25     .      +
-#&gt; 5  chr2   200   400     .      -
-#&gt; 6  chr2   400   550     .      +
+#&gt;   chrom start   end strand
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;
+#&gt; 1  chr1     1    50      +
+#&gt; 2  chr1   100   200      +
+#&gt; 3  chr1   150   250      -
+#&gt; 4  chr2     1    25      +
+#&gt; 5  chr2   200   400      -
+#&gt; 6  chr2   400   550      +
 #&gt; </div><div class='input'>
-<span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 5
-#&gt;   chrom start   end value strand
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1  chr1     1    50     .      .
-#&gt; 2  chr1   100   250     .      .
-#&gt; 3  chr2     1    25     .      .
-#&gt; 4  chr2   200   550     .      .
+<span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 4
+#&gt;   chrom start   end .value
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1  chr1     1    50      1
+#&gt; 2  chr1   100   250      5
+#&gt; 3  chr2     1    25      4
+#&gt; 4  chr2   200   550     18
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

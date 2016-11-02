@@ -10,7 +10,8 @@ flip_strands(x)
 \item{x}{tbl of intervals}
 }
 \description{
-Flips \code{+} stranded intervals to \code{-} and vice-versa.
+Flips positive (\code{+}) stranded intervals to negative (\code{-}) strands,
+and vice-versa. Facilitates comparisons among intervals on opposing strands.
 }
 \examples{
 x <- tibble::tribble(

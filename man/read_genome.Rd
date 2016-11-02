@@ -23,8 +23,8 @@ computed intervals that have ends outside the defined size.
 URLs to genome files can also be used.
 }
 \examples{
-genome <- valr_example('hg19.chrom.sizes.gz')
-read_genome(genome)
+
+read_genome(valr_example('hg19.chrom.sizes.gz'))
 
 \dontrun{
 # can also read from a URL

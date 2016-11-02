@@ -1,9 +1,10 @@
 #' Flip strands in intervals.
 #' 
-#' Flips \code{+} stranded intervals to \code{-} and vice-versa.
+#' Flips positive (\code{+}) stranded intervals to negative (\code{-}) strands,
+#' and vice-versa. Facilitates comparisons among intervals on opposing strands.
 #' 
 #' @param x tbl of intervals
-#' 
+#'   
 #' @examples 
 #' x <- tibble::tribble(
 #' ~chrom, ~start, ~end, ~strand,

@@ -34,7 +34,9 @@
 #' )
 #' 
 #' bed_slop(x, genome, left = 100)
+#' 
 #' bed_slop(x, genome, right = 100)
+#' 
 #' bed_slop(x, genome, both = 100)
 #'
 #' bed_slop(x, genome, both = 0.5, fraction = TRUE)

@@ -75,7 +75,7 @@ y <- tibble::tribble(
 bed_glyph(bed_intersect(x, y))
 ```
 
-And this glyph illustrates `bed_merge()`:
+And this glyph illustrates the result of `bed_merge()`:
 
 ```{r merge_glyph, echo = FALSE}
 x <- tibble::tribble(
@@ -142,7 +142,19 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 * Quantify extent of overlap between two sets of intervals with `bed_jaccard()`.
 
-## Related work {#related_work}
+### Utilities
+
+* Visualize the actions of valr functions with `bed_glyph()`.
+
+* Constrain intervals to a genome reference with `bound_intervals()`.
+
+* Subdivide intervals with `bed_makewindows()`.
+
+* Convert BED12 to BED6 format with `bed12_to_exons()`.
+
+* Calculate spacing between intervals with `interval_spacing()`.
+
+## Related work
 
 * Command-line tools [BEDtools][1] and [bedops][5].
 

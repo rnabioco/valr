@@ -1,4 +1,4 @@
-#' Create example glyphs for valr functions
+#' Create example glyphs for valr functions.
 #' 
 #' @param expr expression to evaluate
 #' @param res_name name of result in output
@@ -28,6 +28,7 @@
 #' )
 #' 
 #' bed_glyph(bed_merge(x))
+#' 
 #' bed_glyph(bed_cluster(x), label = '.id')
 #' 
 #' @export

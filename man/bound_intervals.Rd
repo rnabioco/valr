@@ -29,7 +29,10 @@ x <- tibble::tribble(
 
 genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
+# out-of-bounds are removed by default 
 bound_intervals(x, genome)
+
+# out-of-bounds intervals can be trimmed with trim = TRUE  
 bound_intervals(x, genome, trim = TRUE)
 
 }

@@ -49,7 +49,6 @@
 #' 
 #' bed_absdist(x, y, genome)
 #' 
-#' 
 #' @export
 bed_absdist <- function(x, y, genome) {
   

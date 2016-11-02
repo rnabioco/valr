@@ -2,7 +2,9 @@
 #' 
 #' @param x tbl of intervals
 #' @param genome chrom sizes
+#' 
 #' @family single-set-ops
+#' 
 #' @return \code{data_frame}
 #' 
 #' @examples 

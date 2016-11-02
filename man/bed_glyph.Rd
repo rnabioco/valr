@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_glyph.r
 \name{bed_glyph}
 \alias{bed_glyph}
-\title{Create example glyphs for valr functions}
+\title{Create example glyphs for valr functions.}
 \usage{
 bed_glyph(expr, label = NULL, res_name = "result")
 }
@@ -17,7 +17,7 @@ bed_glyph(expr, label = NULL, res_name = "result")
 \code{ggplot}
 }
 \description{
-Create example glyphs for valr functions
+Create example glyphs for valr functions.
 }
 \examples{
 x <- tibble::tribble(
@@ -41,6 +41,7 @@ x <- tibble::tribble(
 )
 
 bed_glyph(bed_merge(x))
+
 bed_glyph(bed_cluster(x), label = '.id')
 
 }

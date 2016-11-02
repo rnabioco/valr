@@ -15,8 +15,8 @@
 #' @family read-funcs
 #'   
 #' @examples
-#' genome <- valr_example('hg19.chrom.sizes.gz')
-#' read_genome(genome)
+#' 
+#' read_genome(valr_example('hg19.chrom.sizes.gz'))
 #' 
 #' \dontrun{
 #' # can also read from a URL
@@ -48,8 +48,11 @@ read_genome <- function(path) {
 #' )
 #' 
 #' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
-#' 
+#'
+#' # out-of-bounds are removed by default 
 #' bound_intervals(x, genome)
+#' 
+#' # out-of-bounds intervals can be trimmed with trim = TRUE  
 #' bound_intervals(x, genome, trim = TRUE)
 #' 
 #' @export

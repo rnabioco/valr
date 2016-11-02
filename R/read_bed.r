@@ -17,14 +17,12 @@
 #'   
 #' @examples
 #' # read_bed assumes 3 field BED format. 
-#' bed3_path <- valr_example('3fields.bed.gz')
-#' bed3_tbl <- read_bed(bed3_path)
+#' read_bed(valr_example('3fields.bed.gz'))
 #' 
-#' bed6_path <- valr_example('6fields.bed.gz')
-#' bed6_tbl <- read_bed(bed6_path, n_fields = 6)
+#' read_bed(valr_example('6fields.bed.gz'), n_fields = 6)
 #' 
-#' # Result is sorted by chrom and start unless `sort = FALSE`
-#' unsorted_bed_tbl <- read_bed(bed3_path, sort = FALSE)
+#' # result is sorted by chrom and start unless `sort = FALSE`
+#' read_bed(valr_example('3fields.bed.gz'), sort = FALSE)
 #' 
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
@@ -48,8 +46,8 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #' 
 #' @examples
-#' bed12_path <- valr_example('mm9.bed12.gz')
-#' bed12_tbl <- read_bed12(bed12_path)
+#' 
+#' read_bed12(valr_example('mm9.bed12.gz'))
 #' 
 #' @export
 read_bed12 <- function(filename, ...) {
@@ -62,8 +60,8 @@ read_bed12 <- function(filename, ...) {
 #' @details \url{https://genome.ucsc.edu/goldenPath/help/bedgraph.html}
 #' 
 #' @examples
-#' bedgraph_path <- valr_example('test.bg.gz')
-#' bedgraph_tbl <- read_bedgraph(bedgraph_path)
+#' 
+#' read_bedgraph(valr_example('test.bg.gz'))
 #' 
 #' @export
 read_bedgraph <- function(filename, ...) {
@@ -80,8 +78,8 @@ read_bedgraph <- function(filename, ...) {
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format12}
 #' 
 #' @examples
-#' narrowpeak_path <- valr_example('sample.narrowPeak.gz')
-#' read_narrowpeak(narrowpeak_path)
+#' 
+#' read_narrowpeak(valr_example('sample.narrowPeak.gz'))
 #' 
 #' @export
 read_narrowpeak <- function(filename, ...) {
@@ -95,8 +93,8 @@ read_narrowpeak <- function(filename, ...) {
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format13}
 #' 
 #' @examples
-#' broadpeak_path <- valr_example('sample.broadPeak.gz')
-#' read_broadpeak(broadpeak_path)
+#' 
+#' read_broadpeak(valr_example('sample.broadPeak.gz'))
 #' 
 #' @export
 read_broadpeak <- function(filename, ...) {

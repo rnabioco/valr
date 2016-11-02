@@ -46,16 +46,17 @@ x <- tibble::tribble(
    "chr2", 400, 450, "-",
    "chr3", 500, 550, "-",
    "chr3", 600, 650, "-" 
-   )
+)
 
 genome <- tibble::tribble(
    ~chrom, ~size,
    "chr1", 1000,
    "chr2", 2000,
    "chr3", 3000
-   )
+)
 
 bed_shift(x, genome, 100)
+
 bed_shift(x, genome, fraction = 0.5)
 
 # shift with respect to strand

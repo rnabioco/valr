@@ -41,7 +41,7 @@
       <h1>valr overview</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-10-31</h4>
+            <h4 class="date">2016-11-01</h4>
           </div>
 
     
@@ -226,7 +226,23 @@ x
 res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_map.html">bed_map</a></span>(x, y, <span class="dt">win_sum =</span> <span class="kw">sum</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) %&gt;%
 <span class="st">  </span><span class="kw">group_by</span>(.win_id) %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">win_mean =</span> <span class="kw">mean</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
-            <span class="dt">win_sd =</span> <span class="kw">sd</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+            <span class="dt">win_sd =</span> <span class="kw">sd</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+
+res
+<span class="co">#&gt; # A tibble: 41 &times; 3</span>
+<span class="co">#&gt;    .win_id win_mean    win_sd</span>
+<span class="co">#&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1        1 100.8974  85.83423</span>
+<span class="co">#&gt; 2        2 110.6829  81.13521</span>
+<span class="co">#&gt; 3        3 122.9070  99.09635</span>
+<span class="co">#&gt; 4        4 116.2800  96.30098</span>
+<span class="co">#&gt; 5        5 116.3500 102.33773</span>
+<span class="co">#&gt; 6        6 124.9048  95.08887</span>
+<span class="co">#&gt; 7        7 122.9437  94.39792</span>
+<span class="co">#&gt; 8        8 127.5946  91.47407</span>
+<span class="co">#&gt; 9        9 130.2051  95.71309</span>
+<span class="co">#&gt; 10      10 130.1220  88.82809</span>
+<span class="co">#&gt; # ... with 31 more rows</span></code></pre></div>
 <p>Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 
@@ -263,22 +279,21 @@ shuffled &lt;-<span class="st"> </span><span class="kw">shuffle_intervals</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">jaccard =</span> data %&gt;%
 <span class="st">           </span><span class="kw">map</span>(bed_jaccard, repeats) %&gt;%
 <span class="st">           </span><span class="kw">map_dbl</span>(<span class="st">"jaccard"</span>))
-<span class="co">#&gt; Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</span>
   
 shuffled
 <span class="co">#&gt; # A tibble: 100 &times; 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0002768562</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0002303932</span>
+<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0004571739</span>
+<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0002768562</span>
+<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
+<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
+<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
+<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
+<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
+<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
+<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
+<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
 </div>
@@ -322,6 +337,14 @@ shuffled
 <ul><li><p>Quantify overlaps between two sets of intervals with <code><a href="../reference/bed_fisher.html">bed_fisher()</a></code>.</p></li>
 <li><p>Quantify relative and absolute distances between sets of intervals with <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>.</p></li>
 <li><p>Quantify extent of overlap between two sets of intervals with <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code>.</p></li>
+</ul></div>
+<div id="utilities" class="section level3">
+<h3 class="hasAnchor"><html><body><a href="#utilities" class="anchor"> </a></body></html>Utilities</h3>
+<ul><li><p>Visualize the actions of valr functions with <code><a href="../reference/bed_glyph.html">bed_glyph()</a></code>.</p></li>
+<li><p>Constrain intervals to a genome reference with <code><a href="../reference/bound_intervals.html">bound_intervals()</a></code>.</p></li>
+<li><p>Subdivide intervals with <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code>.</p></li>
+<li><p>Convert BED12 to BED6 format with <code><a href="../reference/bed12_to_exons.html">bed12_to_exons()</a></code>.</p></li>
+<li><p>Calculate spacing between intervals with <code><a href="../reference/interval_spacing.html">interval_spacing()</a></code>.</p></li>
 </ul></div>
 </div>
 <div id="related_work" class="section level2">

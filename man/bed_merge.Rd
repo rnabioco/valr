@@ -11,7 +11,7 @@ bed_merge(x, max_dist = 0, ...)
 
 \item{max_dist}{maximum distance between intervals to merge}
 
-\item{...}{name-value pairs that specify merging operations}
+\item{...}{name-value pairs that specify operations on merged intervals}
 }
 \value{
 \code{data_frame}
@@ -21,11 +21,10 @@ Merge overlapping intervals.
 }
 \details{
 input tbls can be grouped using \code{dplyr::group_by} prior to 
-  analysis. It is not necessary to group by \code{chrom}because functions do
-  this internally. Grouping input intervals by \code{strand} will constrain
-  analyses to the same strand. To compare opposing strands between two tbls,
-  the strand on the \code{y} tbl can first be be inverted using
-  \code{flip_strands}.
+  analysis. Grouping by \code{chrom} is done by default. Grouping by 
+  \code{strand} will constrain analyses to the same strand. To compare 
+  opposing strands between two tbls, strands on the \code{y} tbl can first be
+  be inverted using \code{flip_strands}.
 }
 \examples{
 x <- tibble::tribble(
@@ -49,6 +48,7 @@ x <- tibble::tribble(
 )
 
 bed_merge(x)
+
 bed_merge(x, max_dist = 100)
 
 # merge intervals on same strand

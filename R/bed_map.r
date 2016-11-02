@@ -1,10 +1,8 @@
-#' Map signals over intervals.
-#' 
-#' Multiple mapping functions can be specified.
+#' Calculate summaries and statistics from overlapping intervals.
 #' 
 #' @inheritParams bed_intersect
 #' @param min_overlap minimum overlap for intervals.
-#' @param ... name-value pairs of summary functions like \code{\link{min}()}, 
+#' @param ... name-value pairs using functions like \code{\link{min}()}, 
 #'   \code{\link{count}()}, \code{\link{concat}()}.
 #'   
 #' @template groups
@@ -46,20 +44,26 @@
 #' 
 #' # also mean, median, sd etc
 #' bed_map(x, y, .sum = sum(value))
+#' 
 #' bed_map(x, y, .min = min(value), .max = max(value))
 #' 
 #' bed_map(x, y, .concat = concat(value))
 #' 
 #' # can also use `nth` family from dplyr
 #' bed_map(x, y, .first = dplyr::first(value))
+#' 
 #' bed_map(x, y, .last = dplyr::last(value))
 #' 
 #' bed_map(x, y, .absmax = abs(max(value)))
+#' 
 #' bed_map(x, y, .absmin = abs(min(value)))
+#' 
 #' bed_map(x, y, .count = length(value))
+#' 
 #' bed_map(x, y, .count_distinct = length(unique(value)))
 #' 
 #' bed_map(x, y, .vals = values(value))
+#' 
 #' bed_map(x, y, .vals.unique = values_unique(value))
 #' 
 #' @export

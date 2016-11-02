@@ -4,8 +4,7 @@
 #' @param y tbl of intervals 
 #' @param ... extra arguments (not used)
 #'
-#' @note Book-ended intervals are counted as overlapping by default. Groups in
-#'   \code{x} and \code{y} are used during coverage calculation.
+#' @note Book-ended intervals are counted as overlapping.
 #' 
 #' @template groups
 #' 

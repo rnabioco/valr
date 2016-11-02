@@ -43,7 +43,9 @@
 #' )
 #' 
 #' bed_flank(x, genome, left = 100)
+#' 
 #' bed_flank(x, genome, right = 100)
+#' 
 #' bed_flank(x, genome, both = 100)
 #'
 #' bed_flank(x, genome, both = 0.5, fraction = TRUE)

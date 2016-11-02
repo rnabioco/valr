@@ -5,7 +5,7 @@
 \alias{concat}
 \alias{values}
 \alias{values_unique}
-\title{Map signals over intervals.}
+\title{Calculate summaries and statistics from overlapping intervals.}
 \usage{
 bed_map(x, y, ..., invert = FALSE, suffix = c(".x", ".y"),
   min_overlap = 1)
@@ -21,7 +21,7 @@ values(.data, sep = ",")
 
 \item{y}{tbl of intervals}
 
-\item{...}{name-value pairs of summary functions like \code{\link{min}()}, 
+\item{...}{name-value pairs using functions like \code{\link{min}()}, 
 \code{\link{count}()}, \code{\link{concat}()}.}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
@@ -38,15 +38,14 @@ values(.data, sep = ",")
 \code{data_frame}
 }
 \description{
-Multiple mapping functions can be specified.
+Calculate summaries and statistics from overlapping intervals.
 }
 \details{
 input tbls can be grouped using \code{dplyr::group_by} prior to 
-  analysis. It is not necessary to group by \code{chrom}because functions do
-  this internally. Grouping input intervals by \code{strand} will constrain
-  analyses to the same strand. To compare opposing strands between two tbls,
-  the strand on the \code{y} tbl can first be be inverted using
-  \code{flip_strands}.
+  analysis. Grouping by \code{chrom} is done by default. Grouping by 
+  \code{strand} will constrain analyses to the same strand. To compare 
+  opposing strands between two tbls, strands on the \code{y} tbl can first be
+  be inverted using \code{flip_strands}.
 }
 \note{
 Book-ended intervals are not reported by default, but can be included
@@ -80,20 +79,26 @@ y <- tibble::tribble(
 
 # also mean, median, sd etc
 bed_map(x, y, .sum = sum(value))
+
 bed_map(x, y, .min = min(value), .max = max(value))
 
 bed_map(x, y, .concat = concat(value))
 
 # can also use `nth` family from dplyr
 bed_map(x, y, .first = dplyr::first(value))
+
 bed_map(x, y, .last = dplyr::last(value))
 
 bed_map(x, y, .absmax = abs(max(value)))
+
 bed_map(x, y, .absmin = abs(min(value)))
+
 bed_map(x, y, .count = length(value))
+
 bed_map(x, y, .count_distinct = length(unique(value)))
 
 bed_map(x, y, .vals = values(value))
+
 bed_map(x, y, .vals.unique = values_unique(value))
 
 }

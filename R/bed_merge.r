@@ -2,7 +2,7 @@
 #'
 #' @param x tbl of intervals 
 #' @param max_dist maximum distance between intervals to merge
-#' @param ... name-value pairs that specify merging operations
+#' @param ... name-value pairs that specify operations on merged intervals
 #'
 #' @template groups
 #' 
@@ -32,6 +32,7 @@
 #' )
 #' 
 #' bed_merge(x)
+#' 
 #' bed_merge(x, max_dist = 100)
 #' 
 #' # merge intervals on same strand

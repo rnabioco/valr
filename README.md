@@ -50,7 +50,7 @@ nearby %>%
 
 ![](img/README-intersect_glyph-1.png)
 
-And this glyph illustrates `bed_merge()`:
+And this glyph illustrates the result of `bed_merge()`:
 
 ![](img/README-merge_glyph-1.png)
 
@@ -108,6 +108,18 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 -   Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
 
 -   Quantify extent of overlap between two sets of intervals with `bed_jaccard()`.
+
+### Utilities
+
+-   Visualize the actions of valr functions with `bed_glyph()`.
+
+-   Constrain intervals to a genome reference with `bound_intervals()`.
+
+-   Subdivide intervals with `bed_makewindows()`.
+
+-   Convert BED12 to BED6 format with `bed12_to_exons()`.
+
+-   Calculate spacing between intervals with `interval_spacing()`.
 
 Related work
 ------------

@@ -207,6 +207,8 @@ res <- bed_map(x, y, win_sum = sum(value, na.rm = TRUE)) %>%
   group_by(.win_id) %>%
   summarize(win_mean = mean(win_sum, na.rm = TRUE),
             win_sd = sd(win_sum, na.rm = TRUE))
+
+res
 ```
 
 Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.
@@ -233,7 +235,7 @@ Estimates of significance for interval overlaps can be obtained by combining `be
 
 Here we examine the overlap of repeat classes in the human genome (on `chr22` only, for simplicity) using `bed_jaccard()`.
 
-```{r reldist_shuffle, message = FALSE}
+```{r reldist_shuffle, message = FALSE, warning = FALSE}
 library(purrr)
 library(tidyr)
 
@@ -332,6 +334,18 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 * Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
 
 * Quantify extent of overlap between two sets of intervals with `bed_jaccard()`.
+
+### Utilities
+
+* Visualize the actions of valr functions with `bed_glyph()`.
+
+* Constrain intervals to a genome reference with `bound_intervals()`.
+
+* Subdivide intervals with `bed_makewindows()`.
+
+* Convert BED12 to BED6 format with `bed12_to_exons()`.
+
+* Calculate spacing between intervals with `interval_spacing()`.
 
 ## Related work {#related_work}
 

@@ -78,7 +78,7 @@ nearby %&gt;%
 <h3 class="hasAnchor"><a href="#visual-documentation" class="anchor"> </a>Visual documentation</h3>
 <p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. This glyph (generated using <code><a href="reference/bed_glyph.html">bed_glyph()</a></code>) shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
 <p><img src="img/README-intersect_glyph-1.png" width="672"></p>
-<p>And this glyph illustrates <code><a href="reference/bed_merge.html">bed_merge()</a></code>:</p>
+<p>And this glyph illustrates the result of <code><a href="reference/bed_merge.html">bed_merge()</a></code>:</p>
 <p><img src="img/README-merge_glyph-1.png" width="672"></p>
 </div>
 <div id="reproducible-reports" class="section level3">
@@ -122,9 +122,17 @@ nearby %&gt;%
 <li><p>Quantify relative and absolute distances between sets of intervals with <code><a href="reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="reference/bed_absdist.html">bed_absdist()</a></code>.</p></li>
 <li><p>Quantify extent of overlap between two sets of intervals with <code><a href="reference/bed_jaccard.html">bed_jaccard()</a></code>.</p></li>
 </ul></div>
+<div id="utilities" class="section level3">
+<h3 class="hasAnchor"><a href="#utilities" class="anchor"> </a>Utilities</h3>
+<ul><li><p>Visualize the actions of valr functions with <code><a href="reference/bed_glyph.html">bed_glyph()</a></code>.</p></li>
+<li><p>Constrain intervals to a genome reference with <code><a href="reference/bound_intervals.html">bound_intervals()</a></code>.</p></li>
+<li><p>Subdivide intervals with <code><a href="reference/bed_makewindows.html">bed_makewindows()</a></code>.</p></li>
+<li><p>Convert BED12 to BED6 format with <code><a href="reference/bed12_to_exons.html">bed12_to_exons()</a></code>.</p></li>
+<li><p>Calculate spacing between intervals with <code><a href="reference/interval_spacing.html">interval_spacing()</a></code>.</p></li>
+</ul></div>
 </div>
-<div id="related_work" class="section level2">
-<h2 class="hasAnchor"><a href="#related_work" class="anchor"> </a>Related work</h2>
+<div id="related-work" class="section level2">
+<h2 class="hasAnchor"><a href="#related-work" class="anchor"> </a>Related work</h2>
 <ul><li><p>Command-line tools <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a> and <a href="http://bedops.readthedocs.org/en/latest/index.html">bedops</a>.</p></li>
 <li><p>The Python library <a href="https://pythonhosted.org/pybedtools/">pybedtools</a> wraps BEDtools.</p></li>
 <li><p>The R packages <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a>, <a href="https://CRAN.R-project.org/package=bedr">bedr</a>, <a href="https://bioconductor.org/packages/release/bioc/html/IRanges.html">IRanges</a> and <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">GenometriCorr</a> provide similar capability with a different philosophy.</p></li>
@@ -134,15 +142,14 @@ nearby %&gt;%
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Links</h2><ul class="list-unstyled"><li>Browse source code at <a href="http://github.com/jayhesselberth/valr/">http://github.com/jayhesselberth/valr/</a></li>
-<li>Report a bug at <a href="https://github.com/jayhesselberth/valr/issues">https://github.com/jayhesselberth/valr/issues</a></li>
-</ul><h2>Authors</h2><ul class="list-unstyled"><li>Jay Hesselberth<br><small class="roles">Author, maintainer</small></li>
-<li>Kent Riemondy<br><small class="roles">Author</small></li>
-<li>Ryan Sheridan<br><small class="roles">Contributor</small></li>
+    <h2>Links</h2><ul class="list-unstyled"><li>Browse source code at <br><a href="http://github.com/jayhesselberth/valr/">http://&#8203;github.com/&#8203;jayhesselberth/&#8203;valr/&#8203;</a></li>
+<li>Report a bug at <br><a href="https://github.com/jayhesselberth/valr/issues">https://&#8203;github.com/&#8203;jayhesselberth/&#8203;valr/&#8203;issues</a></li>
 </ul><h2>License</h2>
 <p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE">LICENSE</a></p>
-
-      <html><body><h2>Dev status</h2><ul class="list-unstyled"><li><a href="https://travis-ci.org/jayhesselberth/valr">
+<h2>Developers</h2><ul class="list-unstyled"><li>Jay Hesselberth <br><small class="roles"> Author, maintainer </small> </li>
+<li>Kent Riemondy <br><small class="roles"> Author </small> </li>
+<li><a href="authors.html">All authors...</a></li>
+</ul><html><body><h2>Dev status</h2><ul class="list-unstyled"><li><a href="https://travis-ci.org/jayhesselberth/valr">
   <img src="https://travis-ci.org/jayhesselberth/valr.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/jayhesselberth/valr">
   <img src="https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>

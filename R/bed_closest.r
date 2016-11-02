@@ -8,13 +8,13 @@
 #'              
 #' @template groups
 #' 
-#' @details \code{dist} can take one of these values:
+#' @details \code{dist} can take one of the following values:
 #'   \itemize{
 #'     \item{\code{genome}}{ negative distances signify upstream intervals (default)}
 #'     \item{\code{strand}}{ upstream defined based on strand}
 #'     \item{\code{abs}}{ absolute value of distance}}
 #' 
-#' @return \code{data_frame} with columns:
+#' @return \code{data_frame} with additional columns:
 #'   \itemize{
 #'     \item{\code{.dist}}{ distance to closest interval}
 #'     \item{\code{.overlap}}{ overlap with closest interval}
@@ -52,6 +52,7 @@
 #' ) 
 #' 
 #' bed_closest(x, y)
+#' 
 #' bed_closest(x, y, overlap = FALSE)
 #' 
 #' @export
