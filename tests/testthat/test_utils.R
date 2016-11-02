@@ -40,7 +40,11 @@ y <- tibble::frame_data(
   "chr1",    100,       150,  2.4
 )
 
-test_that("columns are reordered and dropped if not in y tbl, format_bed()", {
+test_that("x columns are reordered based on y, format_bed()", {
   res <- format_bed(x, y)
-  expect_true(all(colnames(y) == colnames(res)))
+  
+  pred <- intersect(colnames(y), colnames(res))
+  n <- length(pred)
+
+  expect_true(all(colnames(res[1:n]) == pred[1:n]))
 })
