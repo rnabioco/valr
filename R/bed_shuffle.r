@@ -59,4 +59,6 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
   # see issue # 81 in github
   
   res <- bind_cols(res, x[, !colnames(x) %in% colnames(res)])
+  
+  res
 }  
