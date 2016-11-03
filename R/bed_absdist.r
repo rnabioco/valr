@@ -11,8 +11,7 @@
 #'   the chromosome for a supplied  \code{x} interval has no matching  \code{y}
 #'   chromosome, the \code{absdist} will be reported as an \code{NA}.
 #'   
-#'   \deqn{ d_i(x,y) = min_{\substack{k}}(|q_i - r_k|)\frac{R}{Length\ of\
-#'   chromsome}}
+#'   \deqn{d_i(x,y) = min_k(|q_i - r_k|)\frac{R}{Length\ of\ chromsome}}
 #'   
 #'   By default both absolute and scaled distances are reported as \code{.absdist} and
 #'   \code{.absdist_scaled} respectively.
