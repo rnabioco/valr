@@ -8,8 +8,7 @@ void subtract_group(intervalVector vx, intervalVector vy,
   intervalVector overlaps ; 
   IntervalStartSorter<int, int> intervalStartSorter ;
   
-  intervalVector::const_iterator it ; 
-  for(it = vx.begin(); it != vx.end(); ++it) {
+  for(auto it = vx.begin(); it != vx.end(); ++it) {
 
     auto x_start = it->start;
     auto x_stop = it->stop;
@@ -34,8 +33,7 @@ void subtract_group(intervalVector vx, intervalVector vy,
 
     //iterate through overlaps with current x  interval
     // modifying start and stop as necessary
-    intervalVector::const_iterator oit ; 
-    for(oit = overlaps.begin(); oit != overlaps.end(); ++oit) {
+    for(auto oit = overlaps.begin(); oit != overlaps.end(); ++oit) {
       
       auto y_start = oit->start;
       auto y_stop = oit->stop;
@@ -118,8 +116,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
       }
     else {
       intervalVector vx = makeIntervalVector(df_x, indices_x) ;
-      intervalVector::const_iterator it ;
-      for(it = vx.begin(); it != vx.end(); ++it) {
+      for(auto it = vx.begin(); it != vx.end(); ++it) {
         indices_out.push_back(it->value) ;
         starts_out.push_back(it->start) ; 
         ends_out.push_back(it->stop) ;

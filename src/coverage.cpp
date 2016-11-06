@@ -9,8 +9,7 @@ void coverage_group(intervalVector vx, intervalVector vy,
   intervalVector overlaps ;
   IntervalSorterDesc<int, int> intervalSorterDesc;
   
-  intervalVector::const_iterator it ; 
-  for(it = vx.begin(); it != vx.end(); ++it) {
+  for(auto it = vx.begin(); it != vx.end(); ++it) {
     
     indices_x.push_back(it->value);
 
@@ -30,7 +29,6 @@ void coverage_group(intervalVector vx, intervalVector vy,
       continue;
     }
 
-    
     // variables to compute number of bases
     int ivl_bases_covered = 0; 
     auto x_ivl_start = it->start; 
@@ -68,21 +66,14 @@ void coverage_group(intervalVector vx, intervalVector vy,
       index++;
     }
    
-
     intervalVector mergedOverlaps;
-    // Now  stores the merged Intervals
-  //  Rcout << "\n The Merged Intervals are: ";
     for (int i = 0; i < index; i++){
       mergedOverlaps.push_back(overlaps[i]);;
     }
     overlaps.clear();
     
-    intervalVector::const_iterator oit ; 
-    for(oit = mergedOverlaps.begin(); oit != mergedOverlaps.end(); ++oit) {
-    }
-    
     // iterate through merged overlaps and compute number of covered bases
-    for(oit = mergedOverlaps.begin(); oit != mergedOverlaps.end(); ++oit) {
+    for(auto oit = mergedOverlaps.begin(); oit != mergedOverlaps.end(); ++oit) {
       
       auto y_ivl_start = oit->start; 
       auto y_ivl_stop = oit->stop;
@@ -100,7 +91,7 @@ void coverage_group(intervalVector vx, intervalVector vy,
       
     }
     
-    double fraction_covered = (double) ivl_bases_covered / x_ivl_length ;
+    auto fraction_covered = (double) ivl_bases_covered / x_ivl_length ;
     ivls_bases_covered.push_back(ivl_bases_covered) ;
     fractions_covered.push_back(fraction_covered) ; 
     
@@ -136,8 +127,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     for( int nx=0; nx<ng_x; nx++, ++git_x){
       SlicingIndex gi_x = *git_x ;
       intervalVector vx = makeIntervalVector(data_x, gi_x) ;
-      intervalVector::const_iterator it ;
-      for(it = vx.begin(); it != vx.end(); ++it) {
+      for(auto it = vx.begin(); it != vx.end(); ++it) {
         indices_x.push_back(it->value) ;
         overlap_counts.push_back(0);
         int x_ivl_length = it->stop - it->start ; 
@@ -159,7 +149,6 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   // add in overlaps, bases covered, ivl length, and fraction
   List out(ncol_x + 4) ;
 
-  
   // x names, data
   for( int i=0; i<ncol_x; i++) {
     auto name_x = as<std::string>(names_x[i]) ;

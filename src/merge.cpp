@@ -27,8 +27,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
     
     int id, last_id = 0 ; // holds start of the first of intervals to be merged
   
-    intervalVector::const_iterator it ;
-    for( it = intervals.begin(); it != intervals.end(); ++it) {
+    for(auto it = intervals.begin(); it != intervals.end(); ++it) {
       
       auto idx = it->value ;
      

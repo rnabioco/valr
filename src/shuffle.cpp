@@ -115,7 +115,7 @@ interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
     float total_mass = 0 ;
     std::vector<float> weights ;
     
-    for(intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
+    for(auto i = intervals.begin(); i != intervals.end(); ++i) {
       float mass = i->stop - i->start ;
       weights.push_back(mass) ;
       total_mass += mass ;
@@ -150,7 +150,7 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
    
     if(!start_rngs.count(chrom)) start_rngs[chrom] = { }; 
     
-    for(intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
+    for(auto i = intervals.begin(); i != intervals.end(); ++i) {
       UDIST rng(i->start, i->stop) ;
       start_rngs[chrom].push_back(rng) ;
     }
@@ -241,7 +241,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
     
       // check that the chosen end is <= the end of the overlapping interval 
       bool enclosed = true ;
-      for(intervalVector::const_iterator j = overlaps.begin(); j<overlaps.end(); ++j) {
+      for(auto j = overlaps.begin(); j<overlaps.end(); ++j) {
         if (rand_start >= j->start) {
           if (rand_end > j->stop) {
             enclosed = false ; 
