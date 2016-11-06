@@ -17,11 +17,11 @@ bed_subtract(x, y, any = FALSE)
 Subtract \code{y} intervals from \code{x} intervals.
 }
 \details{
-input tbls can be grouped using \code{dplyr::group_by} prior to 
-  analysis. Grouping by \code{chrom} is done by default. Grouping by 
+input tbls can be grouped using \code{\link[dplyr]{group_by}} prior to 
+  analysis. Input tbls are grouped by \code{chrom} by default. Grouping by 
   \code{strand} will constrain analyses to the same strand. To compare 
   opposing strands between two tbls, strands on the \code{y} tbl can first be
-  be inverted using \code{flip_strands}.
+  be inverted using \code{\link{flip_strands}}.
 }
 \examples{
 x <- tibble::tribble(
@@ -61,8 +61,6 @@ bed_subtract(x, y, any = TRUE)
  
 }
 \seealso{
-\link{flip_strands}
-
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 
 Other multi-set-ops: \code{\link{bed_closest}},

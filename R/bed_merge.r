@@ -1,15 +1,19 @@
 #' Merge overlapping intervals.
-#'
-#' @param x tbl of intervals 
+#' 
+#' Operations can be performed on merged intervals by specifying name-value
+#' pairs.
+#' 
+#' @param x tbl of intervals
 #' @param max_dist maximum distance between intervals to merge
 #' @param ... name-value pairs that specify operations on merged intervals
-#'
+#'   
 #' @template groups
-#' 
+#'   
 #' @return \code{data_frame}
 #' @family single-set-ops
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
-#' 
+#' @seealso
+#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
+#'   
 #' @examples 
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
@@ -19,7 +23,7 @@
 #' )
 #' 
 #' bed_glyph(bed_merge(x))
-#'
+#' 
 #' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~value, ~strand,
 #'  "chr1", 1,      50,   1,      '+',
