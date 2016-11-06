@@ -36,6 +36,12 @@ test_that("both with fraction works", {
   expect_equal(res$end, c(1250, 1750))
 })
 
+test_that("left / right with fraction works", {
+  res <- bed_slop(x, genome, left = 0.5, fraction = TRUE)
+  expect_equal(res$start, c(250, 750))
+  expect_equal(res$end, c(1000, 1500))
+})
+
 test_that("left, fraction, strand works", {
   res <- bed_slop(x, genome, left = 0.5, fraction = TRUE, strand = TRUE)
   expect_equal(res$start, c(250, 1000))
@@ -46,4 +52,10 @@ test_that("right, fraction, strand works", {
   res <- bed_slop(x, genome, right = 0.5, fraction = TRUE, strand = TRUE)
   expect_equal(res$start, c(500, 750))
   expect_equal(res$end, c(1250, 1500))
+})
+
+test_that("strand with left works", {
+  res <- bed_slop(x, genome, left = 100, strand = TRUE)
+  expect_equal(res$start, c(400, 1000))
+  expect_equal(res$end, c(1000, 1600))
 })
