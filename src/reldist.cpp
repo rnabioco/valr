@@ -7,18 +7,18 @@ void reldist_grouped(intervalVector& vx, intervalVector& vy,
   // first build sorted vector of y interval midpoints 
   
   std::vector<int> ref_midpoints ; 
-  for (auto vy_it = vy.begin(); vy_it != vy.end(); ++vy_it ){
-    int midpoint = (vy_it->start + vy_it->stop) / 2 ; 
+  for (auto vy_it : vy){
+    int midpoint = (vy_it.start + vy_it.stop) / 2 ; 
     ref_midpoints.push_back(midpoint) ;
   }
   
   std::sort(ref_midpoints.begin(), ref_midpoints.end()) ;
   
-  int low_idx, upper_idx;
+  std::size_t low_idx, upper_idx;
   
   // iterate through x intervals and calculate reldist using a binary search
-  for (auto vx_it = vx.begin(); vx_it != vx.end(); ++vx_it ){
-    int midpoint = (vx_it->start + vx_it->stop) / 2 ; 
+  for (auto vx_it : vx){
+    int midpoint = (vx_it.start + vx_it.stop) / 2 ; 
     auto low_it = std::lower_bound(ref_midpoints.begin(),
                                    ref_midpoints.end(), midpoint) ;
     
@@ -44,7 +44,7 @@ void reldist_grouped(intervalVector& vx, intervalVector& vy,
     auto reldist = (float) std::min(dist_l, dist_r) / float(right - left) ;
     
     rel_distances.push_back(reldist) ; 
-    indices_x.push_back(vx_it->value) ;
+    indices_x.push_back(vx_it.value) ;
       
   }
 }
