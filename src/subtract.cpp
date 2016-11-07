@@ -16,7 +16,7 @@ void subtract_group(intervalVector vx, intervalVector vy,
     tree_y.findOverlapping(it->start, it->stop, overlaps) ;
       
     // compute number of overlaps
-    std::size_t overlap_count = overlaps.size();
+    int overlap_count = overlaps.size();
     
     // handle no overlaps and continue
     if (overlap_count == 0){

@@ -14,13 +14,13 @@ void reldist_grouped(intervalVector& vx, intervalVector& vy,
   
   std::sort(ref_midpoints.begin(), ref_midpoints.end()) ;
   
-  std::vector<int>::iterator low_it;
-  std::size_t low_idx, upper_idx;
+  int low_idx, upper_idx;
   
   // iterate through x intervals and calculate reldist using a binary search
   for (auto vx_it = vx.begin(); vx_it != vx.end(); ++vx_it ){
     int midpoint = (vx_it->start + vx_it->stop) / 2 ; 
-    low_it = std::lower_bound(ref_midpoints.begin(), ref_midpoints.end(), midpoint) ;
+    auto low_it = std::lower_bound(ref_midpoints.begin(),
+                                   ref_midpoints.end(), midpoint) ;
     
     low_idx = low_it - ref_midpoints.begin() ;
     
@@ -37,11 +37,11 @@ void reldist_grouped(intervalVector& vx, intervalVector& vy,
     int left = ref_midpoints[low_idx] ; 
     int right = ref_midpoints[upper_idx] ;
     
-    std::size_t dist_l = abs(midpoint - left) ;
-    std::size_t dist_r = abs(midpoint - right) ;
+    int dist_l = abs(midpoint - left) ;
+    int dist_r = abs(midpoint - right) ;
     
     //calc relative distance
-    float reldist = (float) std::min(dist_l, dist_r) / float(right - left) ;
+    auto reldist = (float) std::min(dist_l, dist_r) / float(right - left) ;
     
     rel_distances.push_back(reldist) ; 
     indices_x.push_back(vx_it->value) ;
