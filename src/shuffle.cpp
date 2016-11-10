@@ -93,7 +93,7 @@ interval_map_t makeIntervalMap(DataFrame incl) {
   interval_map_t interval_map ;
 
   for (int i=0; i<nr; ++i) {
-    std::string chrom = as<std::string>(incl_chroms[i]) ;
+    auto chrom = as<std::string>(incl_chroms[i]) ;
 
     if (!interval_map.count(chrom))
       interval_map[chrom] = intervalVector() ;
@@ -238,7 +238,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
 
       auto rand_end = rand_start + df_sizes[i] ;
 
-      intervalVector overlaps = chrom_tree.findOverlapping(rand_start, rand_end) ;
+      auto overlaps = chrom_tree.findOverlapping(rand_start, rand_end) ;
 
       // didn't find an overlap, keep going
       if (overlaps.empty()) continue ;
