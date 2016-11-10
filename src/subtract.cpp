@@ -8,21 +8,21 @@ void subtract_group(intervalVector vx, intervalVector vy,
   intervalVector overlaps ;
   IntervalStartSorter<int, int> intervalStartSorter ;
 
-  for (auto it = vx.begin(); it != vx.end(); ++it) {
+  for (auto it : vx) {
 
-    auto x_start = it->start;
-    auto x_stop = it->stop;
+    auto x_start = it.start;
+    auto x_stop = it.stop;
 
-    tree_y.findOverlapping(it->start, it->stop, overlaps) ;
+    tree_y.findOverlapping(it.start, it.stop, overlaps) ;
 
     // compute number of overlaps
     int overlap_count = overlaps.size();
 
     // handle no overlaps and continue
     if (overlap_count == 0) {
-      indices_out.push_back(it->value) ;
-      starts_out.push_back(it->start) ;
-      ends_out.push_back(it->stop) ;
+      indices_out.push_back(it.value) ;
+      starts_out.push_back(it.start) ;
+      ends_out.push_back(it.stop) ;
       continue;
     }
     // sort overlaps by start not sure if necessary
@@ -33,10 +33,10 @@ void subtract_group(intervalVector vx, intervalVector vy,
 
     //iterate through overlaps with current x  interval
     // modifying start and stop as necessary
-    for (auto oit = overlaps.begin(); oit != overlaps.end(); ++oit) {
+    for (auto oit : overlaps) {
 
-      auto y_start = oit->start;
-      auto y_stop = oit->stop;
+      auto y_start = oit.start;
+      auto y_stop = oit.stop;
 
       if (y_start <= x_start) {
         //advance x_start to end of y
@@ -44,7 +44,7 @@ void subtract_group(intervalVector vx, intervalVector vy,
         continue ;
       } else if (y_start > x_start) {
         // report new interval
-        indices_out.push_back(it->value) ;
+        indices_out.push_back(it.value) ;
         starts_out.push_back(x_start) ;
         ends_out.push_back(y_start) ;
         // advance to end of y ivl
@@ -55,7 +55,7 @@ void subtract_group(intervalVector vx, intervalVector vy,
     }
 
     if (x_start < x_stop) {
-      indices_out.push_back(it->value) ;
+      indices_out.push_back(it.value) ;
       starts_out.push_back(x_start) ;
       ends_out.push_back(x_stop) ;
     }
@@ -113,13 +113,12 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     // return x intervals if x chromosome not found in y
     if (group_seen) {
       continue;
-    }
-    else {
+    } else {
       intervalVector vx = makeIntervalVector(df_x, indices_x) ;
-      for (auto it = vx.begin(); it != vx.end(); ++it) {
-        indices_out.push_back(it->value) ;
-        starts_out.push_back(it->start) ;
-        ends_out.push_back(it->stop) ;
+      for (auto it : vx) {
+        indices_out.push_back(it.value) ;
+        starts_out.push_back(it.start) ;
+        ends_out.push_back(it.stop) ;
       }
     }
   }

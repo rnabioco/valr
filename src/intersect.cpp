@@ -6,18 +6,18 @@ void intersect_group(intervalVector vx, intervalVector vy,
   intervalTree tree_y(vy) ;
   intervalVector overlaps ;
 
-  for (auto it = vx.begin(); it != vx.end(); ++it) {
+  for (auto it : vx) {
 
-    tree_y.findOverlapping(it->start, it->stop, overlaps) ;
+    tree_y.findOverlapping(it.start, it.stop, overlaps) ;
 
     // store current intervals
-    for (auto oit = overlaps.begin(); oit != overlaps.end(); ++oit) {
+    for (auto oit : overlaps) {
 
-      int overlap_size = intervalOverlap(*it, *oit) ;
+      int overlap_size = intervalOverlap(it, oit) ;
       overlap_sizes.push_back(overlap_size) ;
 
-      indices_x.push_back(it->value) ;
-      indices_y.push_back(oit->value) ;
+      indices_x.push_back(it.value) ;
+      indices_y.push_back(oit.value) ;
     }
 
     overlaps.clear() ;

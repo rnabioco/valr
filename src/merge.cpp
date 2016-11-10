@@ -27,15 +27,15 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
 
     int id, last_id = 0 ; // holds start of the first of intervals to be merged
 
-    for (auto it = intervals.begin(); it != intervals.end(); ++it) {
+    for (auto it : intervals) {
 
-      auto idx = it->value ;
+      auto idx = it.value ;
 
       // must be `int` type, not `auto`
-      int overlap = intervalOverlap(*it, last_interval) ;
+      int overlap = intervalOverlap(it, last_interval) ;
       overlaps[idx] = overlap ;
 
-      id = it->start ;
+      id = it.start ;
 
       if (overlap > 0) {
         ids[idx] = last_id ;
@@ -43,10 +43,10 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
         ids[idx] = last_id ;
       } else {
         ids[idx] = id ;
-        last_id = it->start ;
+        last_id = it.start ;
       }
 
-      last_interval = *it ;
+      last_interval = it ;
     }
   }
 

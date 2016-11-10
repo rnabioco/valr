@@ -10,30 +10,30 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
   // initiatialize maximum left and right distances to minimize for closest
   int max_end = std::max(vx.back().stop, vy.back().stop) ;
 
-  for (auto vx_it = vx.begin(); vx_it != vx.end(); ++vx_it) {
+  for (auto vx_it : vx) {
     intervalVector closest ;
     intervalVector closest_ivls ;
 
     min_dist = std::make_pair(max_end, closest_ivls) ;
-    tree_y.findClosest(vx_it->start, vx_it->stop, closest, min_dist) ;
+    tree_y.findClosest(vx_it.start, vx_it.stop, closest, min_dist) ;
 
-    for (auto ov_it = closest.begin(); ov_it != closest.end(); ++ov_it) {
+    for (auto ov_it : closest) {
 
-      auto overlap = intervalOverlap(*vx_it, *ov_it) ;
+      auto overlap = intervalOverlap(vx_it, ov_it) ;
 
       if (overlap > 0) {
-        indices_x.push_back(vx_it->value) ;
-        indices_y.push_back(ov_it->value) ;
+        indices_x.push_back(vx_it.value) ;
+        indices_y.push_back(ov_it.value) ;
         overlap_sizes.push_back(overlap) ;
         distance_sizes.push_back(0);
-      } else if (ov_it->start > vx_it->stop) {
-        indices_x.push_back(vx_it->value) ;
-        indices_y.push_back(ov_it->value) ;
+      } else if (ov_it.start > vx_it.stop) {
+        indices_x.push_back(vx_it.value) ;
+        indices_y.push_back(ov_it.value) ;
         overlap_sizes.push_back(0) ;
         distance_sizes.push_back(-overlap);
       } else {
-        indices_x.push_back(vx_it->value) ;
-        indices_y.push_back(ov_it->value) ;
+        indices_x.push_back(vx_it.value) ;
+        indices_y.push_back(ov_it.value) ;
         overlap_sizes.push_back(0) ;
         distance_sizes.push_back(overlap);
       }
