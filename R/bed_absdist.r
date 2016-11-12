@@ -27,7 +27,6 @@
 #' @seealso 
 #' \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #' 
-#' 
 #' @examples
 #' x <- tibble::frame_data(
 #' ~chrom,   ~start,    ~end,
@@ -84,6 +83,9 @@ bed_absdist <- function(x, y, genome) {
   x_missing <- ungroup(x_missing)
   x_missing <- mutate(x_missing, .absdist = NA, .absdist_scaled = NA)
   res <- bind_rows(res, x_missing)
+  
+  res <- bed_sort(res)
+  
   res
   
 }
