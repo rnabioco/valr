@@ -11,7 +11,7 @@ bed_reldist(x, y, detail = FALSE)
 
 \item{y}{tbl of intervals}
 
-\item{detail}{report relative distances for each interval. Default = FALSE}
+\item{detail}{report relative distances for each \code{x} interval.}
 }
 \value{
 \code{data_frame}
@@ -21,15 +21,15 @@ Compute relative distances intervals.
 }
 \examples{
 x <- tibble::tribble(
-~chrom,   ~start,    ~end,
-"chr1",    75,       125
+  ~chrom,   ~start,    ~end,
+  "chr1",    75,       125
 )
 
 y <- tibble::tribble(
   ~chrom,   ~start,    ~end,
   "chr1",    50,       100,
   "chr1",    100,       150
-  )
+)
 
 bed_reldist(x, y)
 

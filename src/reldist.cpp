@@ -73,7 +73,7 @@ DataFrame reldist_impl(GroupedDataFrame x, GroupedDataFrame y) {
     out[i] = subset_x[i] ;
   }
   out[ncol_x] = rel_distances ;
-  names[ncol_x] = "reldist" ;
+  names[ncol_x] = ".reldist" ;
 
   out.attr("names") = names ;
   out.attr("class") = classes_not_grouped() ;

@@ -13,20 +13,20 @@ y <- tibble::tribble(
 
 test_that("reldist calculation is correct", {
   res <- bed_reldist(x, y)
-  expect_true(res$reldist == 0.5)   
+  expect_true(res$.reldist == 0.5)   
 })
 
 test_that("self reldist is 0", {
   res <- bed_reldist(y, y)
-  expect_true(res$reldist == 0)   
+  expect_true(res$.reldist == 0)   
 })
 
 test_that("detail argument works", {
-  res <- bed_reldist(x, y, detail = T)
-  expect_true(all(names(res) %in% c("chrom", "start", "end", "reldist")))
+  res <- bed_reldist(x, y, detail = TRUE)
+  expect_true(all(names(res) %in% c("chrom", "start", "end", ".reldist")))
 })
 
-test_that("ensure that reldist is calculated with respect to input tbls issue#108", {
+test_that("reldist respects groups (#108)", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     'chr1', 100,    200,  'B',
@@ -52,13 +52,12 @@ test_that("ensure that reldist is calculated with respect to input tbls issue#10
     'chr2', 10000
   )
   
-  
   x <- bed_sort(x)
   x <- group_by(x, group, chrom)
   y <- bed_sort(y) 
   y <- group_by(y, group, chrom)
   
-  res <- bed_reldist(x, y, detail = T)
+  res <- bed_reldist(x, y, detail = TRUE)
   expect_true(nrow(res) == 1)
   
 })
