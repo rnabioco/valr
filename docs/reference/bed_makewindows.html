@@ -144,8 +144,7 @@
 #&gt; 7   chr1   160   170     A     .      +       7
 #&gt; 8   chr1   170   180     A     .      +       8
 #&gt; 9   chr1   180   190     A     .      +       9
-#&gt; 10  chr1   190   200     A     .      +      10
-#&gt; </div><div class='input'>
+#&gt; 10  chr1   190   200     A     .      +      10</div><div class='input'>
 <span class='co'># Fixed window size</span>
 <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
 #&gt;    chrom start   end  name score strand .win_id
@@ -159,8 +158,7 @@
 #&gt; 7   chr1   160   170     A     .      +       7
 #&gt; 8   chr1   170   180     A     .      +       8
 #&gt; 9   chr1   180   190     A     .      +       9
-#&gt; 10  chr1   190   200     A     .      +      10
-#&gt; </div><div class='input'>
+#&gt; 10  chr1   190   200     A     .      +      10</div><div class='input'>
 <span class='co'># Fixed window size with overlaps</span>
 <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; # A tibble: 20 × 7
 #&gt;    chrom start   end  name score strand .win_id
@@ -184,8 +182,7 @@
 #&gt; 17  chr1   180   190     A     .      +      17
 #&gt; 18  chr1   185   195     A     .      +      18
 #&gt; 19  chr1   190   200     A     .      +      19
-#&gt; 20  chr1   195   200     A     .      +      20
-#&gt; </div><div class='input'>
+#&gt; 20  chr1   195   200     A     .      +      20</div><div class='input'>
 <span class='co'># reverse win_id</span>
 <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
 #&gt;    chrom start   end  name score strand .win_id
@@ -199,8 +196,7 @@
 #&gt; 7   chr1   160   170     A     .      +       4
 #&gt; 8   chr1   170   180     A     .      +       3
 #&gt; 9   chr1   180   190     A     .      +       2
-#&gt; 10  chr1   190   200     A     .      +       1
-#&gt; </div><div class='input'>
+#&gt; 10  chr1   190   200     A     .      +       1</div><div class='input'>
 <span class='co'># bedtools 'namenum'</span>
 <span class='no'>wins</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)
 <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>mutate</span>(<span class='no'>wins</span>, <span class='kw'>namenum</span> <span class='kw'>=</span> <span class='kw'>stringr</span><span class='kw'>::</span><span class='fu'>str_c</span>(<span class='no'>name</span>, <span class='st'>'_'</span>, <span class='no'>.win_id</span>))</div><div class='output co'>#&gt; # A tibble: 10 × 8
@@ -215,8 +211,7 @@
 #&gt; 7   chr1   160   170     A     .      +       7     A_7
 #&gt; 8   chr1   170   180     A     .      +       8     A_8
 #&gt; 9   chr1   180   190     A     .      +       9     A_9
-#&gt; 10  chr1   190   200     A     .      +      10    A_10
-#&gt; </div><div class='input'>
+#&gt; 10  chr1   190   200     A     .      +      10    A_10</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

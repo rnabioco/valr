@@ -144,15 +144,13 @@ pairs.</p>
 #&gt; 1  chr1     1    50
 #&gt; 2  chr1   100   250
 #&gt; 3  chr2     1    25
-#&gt; 4  chr2   200   550
-#&gt; </div><div class='input'>
+#&gt; 4  chr2   200   550</div><div class='input'>
 <span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 3 × 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1     1   250
 #&gt; 2  chr2     1    25
-#&gt; 3  chr2   200   550
-#&gt; </div><div class='input'>
+#&gt; 3  chr2   200   550</div><div class='input'>
 <span class='co'># merge intervals on same strand</span>
 <span class='fu'>bed_merge</span>(<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>x</span>, <span class='no'>strand</span>))</div><div class='output co'>#&gt; Source: local data frame [6 x 4]
 #&gt; Groups: strand [2]
@@ -164,16 +162,14 @@ pairs.</p>
 #&gt; 3  chr1   150   250      -
 #&gt; 4  chr2     1    25      +
 #&gt; 5  chr2   200   400      -
-#&gt; 6  chr2   400   550      +
-#&gt; </div><div class='input'>
+#&gt; 6  chr2   400   550      +</div><div class='input'>
 <span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 4
 #&gt;   chrom start   end .value
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
 #&gt; 1  chr1     1    50      1
 #&gt; 2  chr1   100   250      5
 #&gt; 3  chr2     1    25      4
-#&gt; 4  chr2   200   550     18
-#&gt; </div><div class='input'>
+#&gt; 4  chr2   200   550     18</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
