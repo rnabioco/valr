@@ -265,7 +265,8 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
 
   return DataFrame::create(Named("chrom") = chroms_out,
                            Named("start") = starts_out,
-                           Named("end") = ends_out) ;
+                           Named("end") = ends_out,
+                           Named("stringsAsFactors") = false) ;
 }
 
 /***R
