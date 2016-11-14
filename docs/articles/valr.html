@@ -15,9 +15,21 @@
       <a class="navbar-brand" href="../index.html">valr</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav"><li>
-  <a href="../articles/valr.html">Overview</a>
-</li>
+      <ul class="nav navbar-nav"><li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Overview</li>
+    <li>
+      <a href="../articles/valr.html"></a>
+    </li>
+    <li class="dropdown-header">Interval Statistics</li>
+    <li>
+      <a href="../articles/interval-stats.html"></a>
+    </li>
+  </ul></li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -41,7 +53,7 @@
       <h1>valr overview</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-11-12</h4>
+            <h4 class="date">2016-11-14</h4>
           </div>
 
     
@@ -167,7 +179,7 @@ y &lt;-<span class="st"> </span><span class="kw">group_by</span>(y, strand)
 <h3 class="hasAnchor"><html><body><a href="#column-specification" class="anchor"> </a></body></html>Column specification</h3>
 <p>Columns in <code>BEDtools</code> are referred to by position:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># calculate the mean of column 6 for intervals in `b` that overlap with `a`</span>
-<span class="kw">bedtools</span> map -a a.bed -b b.bed -c 6 -o mean</code></pre></div>
+<span class="ex">bedtools</span> map -a a.bed -b b.bed -c 6 -o mean</code></pre></div>
 <p>In <code>valr</code>, columns are referred to by name and can be used in multiple name/value expressions for summaries.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the mean and variance for a `value` column</span>
 <span class="kw"><a href="../reference/bed_map.html">bed_map</a></span>(a, b, <span class="dt">.mean =</span> <span class="kw">mean</span>(value), <span class="dt">.var =</span> <span class="kw">var</span>(value))

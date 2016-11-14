@@ -2,10 +2,16 @@ templates:
   params:
     bootswatch: cosmo
 
+#home:
+#  links:
+#  - text: External data sets
+#    href: http://github.com/jayhesselberth/valrdata
+    
 reference:
   - title: Read data 
     contents:
     - starts_with("read_")
+    
   - title: Single set operations 
     contents:
     - bed_cluster
@@ -15,6 +21,7 @@ reference:
     - bed_slop
     - bed_shift
     - bed_sort
+    
   - title: Multiple set operations
     contents:
     - bed_closest
@@ -23,16 +30,19 @@ reference:
     - bed_map
     - bed_subtract
     - bed_window
+    
   - title: Randomizing intervals
     contents:
     - bed_random
     - bed_shuffle
+    
   - title: Interval statistics
     contents:
     - bed_absdist
     - bed_reldist
     - bed_fisher
     - bed_jaccard
+    
   - title: Utilities
     contents:
     - bed_makewindows
@@ -47,9 +57,16 @@ reference:
 navbar:
   title: 'valr'
   left:
-  - text: Overview
-    href: articles/valr.html
+  
+  - text: Articles
+    menu: 
+    - text: Overview
+    - href: articles/valr.html
+    - text: Interval Statistics
+    - href: articles/interval-stats.html
+    
   - text: Reference
     href: reference/index.html
+    
   - text: News
     href: news/index.html

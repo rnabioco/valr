@@ -8,7 +8,7 @@ This is a resubmission. In this second version I have:
 
 * Fixed non-canonical CRAN URLs
 
-* Eliminated compilation WARNINGS on CRAN win-builder.
+* Fixed compilation WARNINGS on CRAN win-builder. These warnings were caused by the use of GNU-specific extensions in Rcpp 0.12.7 (RcppCore/Rcpp#537). The new release of Rcpp (0.12.8) has been updated to eliminate these warnings.
 
 ## Test environments
 
