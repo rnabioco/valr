@@ -61,9 +61,9 @@ navbar:
   - text: Articles
     menu: 
     - text: Overview
-    - href: articles/valr.html
+      href: articles/valr.html
     - text: Interval Statistics
-    - href: articles/interval-stats.html
+      href: articles/interval-stats.html
     
   - text: Reference
     href: reference/index.html
