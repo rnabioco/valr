@@ -1,0 +1,98 @@
+---
+title: "Interval stats"
+author: "Jay Hesselberth"
+date: '`r format(Sys.Date(), "%B %d %Y")`'
+output: html_document
+---
+
+```{r setup, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "img/interval-stats-",
+  fig.height = 3,
+  fig.align = "center",
+  fig.width = 4
+)
+```
+
+## Interval statistics
+
+`valr` can be used to explore relationships between sets of intervals.
+
+```{r load-data, message = FALSE, warning = FALSE}
+library(valr)
+library(tidyverse)
+
+# load repeats and genes
+rpts <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
+gens <- read_bed(valr_example('hg19.refGene.chr22.bed.gz'), n_fields = 12)
+
+# load chrom sizes
+chrs <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+
+# create 1bp intervalss representing transcription start sites
+tss <- mutate(gens,
+              .start = ifelse(strand == '+', start, end),
+              .end = start + 1) %>%
+  select(chrom, start = .start, end = .end, name)
+
+tss
+```
+
+## Generate statistics
+
+Here is a function that takes the following inputs:
+
+- `x`: tbl of intervals
+- `y`: tbl of intervals
+- `genome`: tbl of chrom sizes
+- `grp`: grouping variables
+- `type`: name of data type e.g. 'obs' or 'shuf'. appears as a new column in the result.
+
+```{r stats}
+gen_stats <- function(x, y, genome, grp, type = NA) {
+  group_by_(x, .dots = grp) %>%
+    do(reldist = bed_reldist(., y, detail = TRUE) %>% select(.value = .reldist),
+       absdist = bed_absdist(., y, genome) %>% select(.value = .absdist)) %>%
+    gather_('stat', 'value', setdiff(names(.), list(grp))) %>%
+    mutate(type = type)
+} 
+
+shfs <- bed_shuffle(rpts, chrs, within = TRUE)
+
+obs_stats <- gen_stats(rpts, tss, chrs, 'name', 'obs')
+shf_stats <- gen_stats(shfs, tss, chrs, 'name', 'shuf')
+
+res <- bind_rows(obs_stats, shf_stats) %>%
+  unnest(value) %>% 
+  group_by(name, stat, type) %>%
+  mutate(.id = row_number()) %>%
+  spread(type, .value)
+
+res
+
+# now filter the results to remove x/y's with less than 2 obs
+n_obs <- res %>% summarize(max_id = max(.id)) %>% filter(max_id > 10)
+res <- res %>% left_join(n_obs, by = c('name', 'stat')) %>% na.omit()
+```
+
+## Empirical p-values with `ks.test()`
+
+```{r, warning = FALSE}
+pvals <- res %>% do(broom::tidy(ks.test(.$obs, .$shuf)))
+
+pvals <- arrange(pvals, p.value)
+
+pvals
+```
+
+## eCDFs
+
+```{r ecfs, eval = FALSE}
+group_by(data, type) %>%
+  ggplot(., aes(x = x)) +
+  stat_ecdf(color = type) + 
+  facet_grid(~ rpt)
+```
+
