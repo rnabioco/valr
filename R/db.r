@@ -16,7 +16,7 @@ NULL
 #' @seealso \url{https://genome.ucsc.edu/goldenpath/help/mysql.html}
 #'   
 #' @examples
-#' \dontrun {
+#' \dontrun{
 #' ucsc <- db_ucsc('hg38')
 #' 
 #' # fetch the `refGene` tbl

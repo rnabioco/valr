@@ -29,7 +29,7 @@ db_ensembl(dbname, host = "ensembldb.ensembl.org", user = "anonymous",
 Currently \code{db_ucsc} and \code{db_ensembl} are available for connections.
 }
 \examples{
-\dontrun {
+\dontrun{
 ucsc <- db_ucsc('hg38')
 
 # fetch the `refGene` tbl

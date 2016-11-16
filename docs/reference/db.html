@@ -125,15 +125,19 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> {
-  ucsc <- db_ucsc('hg38')
+    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
+<span class='co'># ucsc &lt;- db_ucsc('hg38')</span>
+<span class='co'># </span>
+<span class='co'># # fetch the `refGene` tbl</span>
+<span class='co'># tbl(ucsc, "refGene")</span>
+<span class='co'>## ---------------------------------------------</span>
 
-  # fetch the `refGene` tbl
-  tbl(ucsc, "refGene")
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:7:0: unexpected end of input</span>
-#&gt; <span class='error'>5:   tbl(ucsc, &quot;refGene&quot;)</span>
-#&gt; <span class='error'>6: </span>
-#&gt; <span class='error'>  ^</span></div></pre>
+<span class='co'>## Not run: ------------------------------------</span>
+<span class='co'># # squirrel genome</span>
+<span class='co'># ensembl &lt;- db_ensembl('spermophilus_tridecemlineatus_core_67_2')</span>
+<span class='co'># </span>
+<span class='co'># tbl(ensembl, "gene") </span>
+<span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
