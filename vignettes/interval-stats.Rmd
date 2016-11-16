@@ -1,12 +1,13 @@
 ---
-title: "Interval stats"
+title: "Interval statistics"
 author: "Jay Hesselberth"
 date: '`r format(Sys.Date(), "%B %d %Y")`'
 output: html_document
 ---
 
-```{r setup, echo = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
+  cache = TRUE,
   collapse = TRUE,
   comment = "#>",
   fig.path = "img/interval-stats-",
@@ -16,15 +17,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Interval statistics
-
-`valr` can be used to explore relationships between sets of intervals.
+`valr` can be used to explore relationships between sets of intervals. Here we explore the relationship between transcription start sites and repetitive elements in the human genome. 
 
 ```{r load-data, message = FALSE, warning = FALSE}
 library(valr)
 library(tidyverse)
 
-# load repeats and genes
+# load repeats and genes. Data in the valr package is restricted to chr22; the entire
+# files can be downloaded from UCSC.
 rpts <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
 gens <- read_bed(valr_example('hg19.refGene.chr22.bed.gz'), n_fields = 12)
 
@@ -40,59 +40,75 @@ tss <- mutate(gens,
 tss
 ```
 
-## Generate statistics
-
-Here is a function that takes the following inputs:
-
-- `x`: tbl of intervals
-- `y`: tbl of intervals
-- `genome`: tbl of chrom sizes
-- `grp`: grouping variables
-- `type`: name of data type e.g. 'obs' or 'shuf'. appears as a new column in the result.
+First we define a function that takes `x` and `y` intervals and computes distance statistics (using `bed_reldist()` and `bed_absdist()`) for specified groups.
 
 ```{r stats}
 gen_stats <- function(x, y, genome, grp, type = NA) {
   group_by_(x, .dots = grp) %>%
-    do(reldist = bed_reldist(., y, detail = TRUE) %>% select(.value = .reldist),
-       absdist = bed_absdist(., y, genome) %>% select(.value = .absdist)) %>%
+    do(reldist = bed_reldist(., y, detail = TRUE) %>%
+         select(.value = .reldist),
+       absdist = bed_absdist(., y, genome) %>%
+         select(.value = .absdist_scaled)
+       ) %>%
     gather_('stat', 'value', setdiff(names(.), list(grp))) %>%
     mutate(type = type)
 } 
+```
+
+```{r compute}
+obs_stats <- gen_stats(rpts, tss, chrs, 'name', 'obs')
 
 shfs <- bed_shuffle(rpts, chrs, within = TRUE)
-
-obs_stats <- gen_stats(rpts, tss, chrs, 'name', 'obs')
 shf_stats <- gen_stats(shfs, tss, chrs, 'name', 'shuf')
 
 res <- bind_rows(obs_stats, shf_stats) %>%
   unnest(value) %>% 
   group_by(name, stat, type) %>%
   mutate(.id = row_number()) %>%
-  spread(type, .value)
+  spread(type, .value) %>%
+  na.omit()
 
 res
-
-# now filter the results to remove x/y's with less than 2 obs
-n_obs <- res %>% summarize(max_id = max(.id)) %>% filter(max_id > 10)
-res <- res %>% left_join(n_obs, by = c('name', 'stat')) %>% na.omit()
 ```
 
-## Empirical p-values with `ks.test()`
+Now that the data are formatted, we can use `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group.
 
-```{r, warning = FALSE}
-pvals <- res %>% do(broom::tidy(ks.test(.$obs, .$shuf)))
+```{r pvalues, warning = FALSE}
+library(qvalue)
 
-pvals <- arrange(pvals, p.value)
+pvals <- res %>% do(twosided = broom::tidy(ks.test(.$obs, .$shuf)),
+                    less = broom::tidy(ks.test(.$obs, .$shuf, alternative = 'less')),
+                    greater = broom::tidy(ks.test(.$obs, .$shuf, alternative = 'greater'))) %>%
+  gather(alt, type, -name, -stat) %>%
+  unnest(type) %>%
+  select(name:p.value) %>%
+  arrange(p.value)
 
-pvals
+ggplot(pvals, aes(p.value)) +
+  geom_histogram(binwidth = 0.05) +
+  facet_grid(stat ~ alt) + theme_bw()
 ```
 
-## eCDFs
+We can assing false discovery rates (q.values) using the `qvalue` library.
 
-```{r ecfs, eval = FALSE}
-group_by(data, type) %>%
-  ggplot(., aes(x = x)) +
-  stat_ecdf(color = type) + 
-  facet_grid(~ rpt)
+```{r qvalues}
+pvals <- group_by(pvals, stat, alt) %>%
+  mutate(q.value = qvalue(p.value)$qvalues) %>%
+  ungroup() %>%
+  arrange(q.value)
+```
+
+We can visualize these results using `stat_ecdf()`.
+
+```{r ecfs}
+res_fold <- res %>%
+  gather(type, value, -name, -stat, -.id)
+
+signif <- head(pvals, 25)
+res_signif <- signif %>% left_join(res_fold, by = c('name','stat'))
+
+ggplot(res_signif, aes(x = value, color = type)) +
+  stat_ecdf() + 
+  facet_wrap(name ~ stat) + theme_classic() + scale_x_log10()
 ```
 
