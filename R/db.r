@@ -1,6 +1,8 @@
-#' Fetch data from remote databases
+#' Fetch data from remote databases.
 #' 
-#' Currently \code{db_ucsc} is available for connections.
+#' Currently \code{db_ucsc} and \code{db_ensembl} are available for connections.
+#' 
+#' @rdname db
 #' 
 #' @param dbname name of database
 #' @param host hostname
@@ -9,6 +11,8 @@
 #' @param port MySQL connection port
 #' @param ... params for connection
 #' 
+#' @seealso \url{https://genome.ucsc.edu/goldenpath/help/mysql.html}
+#'   
 #' @examples
 #' ucsc <- db_ucsc('hg38')
 #' 
@@ -22,9 +26,18 @@ db_ucsc <- function(dbname, host = 'genome-mysql.cse.ucsc.edu',
   src_mysql(dbname, host, port, user, password, ...)
 }
 
-#' Convert a remote tbl to BED format
-#'
-as_bed <- function(x, n = 6) {
-  select(x, chrom, start = txStart, end = txEnd,
-         name, strand) 
+#' @rdname db
+#' @seealso \url{http://www.ensembl.org/info/data/mysql.html}
+#' 
+#' @examples
+#' # squirrel genome
+#' ensembl <- db_ensembl('spermophilus_tridecemlineatus_core_67_2')
+#' 
+#' tbl(ensembl, "gene") 
+#' 
+#' @export
+db_ensembl <- function(dbname, host = 'ensembldb.ensembl.org',
+                       user = 'anonymous', password = '',
+                       port = 3306, ...) {
+  src_mysql(dbname, host, port, user, password, ...)
 }
