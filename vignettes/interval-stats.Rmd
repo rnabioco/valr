@@ -74,8 +74,6 @@ res
 Now that the data are formatted, we can use `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group.
 
 ```{r pvalues, warning = FALSE}
-library(qvalue)
-
 pvals <- res %>% do(twosided = broom::tidy(ks.test(.$obs, .$shuf)),
                     less = broom::tidy(ks.test(.$obs, .$shuf, alternative = 'less')),
                     greater = broom::tidy(ks.test(.$obs, .$shuf, alternative = 'greater'))) %>%
@@ -89,16 +87,18 @@ ggplot(pvals, aes(p.value)) +
   facet_grid(stat ~ alt) + theme_bw()
 ```
 
-We can assing false discovery rates (q.values) using the `qvalue` library.
+We can also assess false discovery rates (q.values) using the `qvalue` library.
 
 ```{r qvalues}
+library(qvalue)
+
 pvals <- group_by(pvals, stat, alt) %>%
   mutate(q.value = qvalue(p.value)$qvalues) %>%
   ungroup() %>%
   arrange(q.value)
 ```
 
-We can visualize these results using `stat_ecdf()`.
+Finally we can visualize these results using `stat_ecdf()`.
 
 ```{r ecfs}
 res_fold <- res %>%
