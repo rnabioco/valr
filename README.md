@@ -44,6 +44,16 @@ nearby %>%
   filter(abs(.dist) < 5000)
 ```
 
+### Remote databases
+
+Remote databases can be accessed with `db_ucsc()` (to access the UCSC Genome Browser) and `db_ensembl()` (to access Ensembl databases).
+
+``` r
+# access the `refGene` tbl on the `hg38` assembly
+ucsc <- db_ucsc('hg38')
+tbl(ucsc, 'refGene')
+```
+
 ### Visual documentation
 
 `valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. This glyph (generated using `bed_glyph()`) shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
@@ -70,6 +80,8 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 -   Genome files containing chromosome name and size information are loaded with `read_genome()`.
 
 -   VCF files are loaded with `read_vcf()`.
+
+-   Remote databases can be accessed with `db_ucsc()` and `db_ensembl()`.
 
 ### Transforming single interval sets
 

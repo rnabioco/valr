@@ -8,9 +8,10 @@ templates:
 #    href: http://github.com/jayhesselberth/valrdata
     
 reference:
-  - title: Read data 
+  - title: Load data 
     contents:
     - starts_with("read_")
+    - starts_with("db_")
     
   - title: Single set operations 
     contents:

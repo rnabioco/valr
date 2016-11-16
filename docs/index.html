@@ -84,6 +84,13 @@ nearby %&gt;%
 <span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) &lt;<span class="st"> </span><span class="dv">5000</span>)</code></pre></div>
 </div>
+<div id="remote-databases" class="section level3">
+<h3 class="hasAnchor"><a href="#remote-databases" class="anchor"> </a>Remote databases</h3>
+<p>Remote databases can be accessed with <code><a href="reference/db.html">db_ucsc()</a></code> (to access the UCSC Genome Browser) and <code><a href="reference/db.html">db_ensembl()</a></code> (to access Ensembl databases).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access the `refGene` tbl on the `hg38` assembly</span>
+ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
+<span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)</code></pre></div>
+</div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor"><a href="#visual-documentation" class="anchor"> </a>Visual documentation</h3>
 <p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. This glyph (generated using <code><a href="reference/bed_glyph.html">bed_glyph()</a></code>) shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
@@ -104,6 +111,7 @@ nearby %&gt;%
 <ul><li><p>BED and related files are read with <code><a href="reference/read_bed.html">read_bed()</a></code>, <code><a href="reference/read_bed.html">read_bed12()</a></code>, <code><a href="reference/read_bed.html">read_bedgraph()</a></code>, <code><a href="reference/read_bed.html">read_narrowpeak()</a></code> and <code><a href="reference/read_bed.html">read_broadpeak()</a></code>.</p></li>
 <li><p>Genome files containing chromosome name and size information are loaded with <code><a href="reference/read_genome.html">read_genome()</a></code>.</p></li>
 <li><p>VCF files are loaded with <code><a href="reference/read_vcf.html">read_vcf()</a></code>.</p></li>
+<li><p>Remote databases can be accessed with <code><a href="reference/db.html">db_ucsc()</a></code> and <code><a href="reference/db.html">db_ensembl()</a></code>.</p></li>
 </ul></div>
 <div id="transforming-single-interval-sets" class="section level3">
 <h3 class="hasAnchor"><a href="#transforming-single-interval-sets" class="anchor"> </a>Transforming single interval sets</h3>
