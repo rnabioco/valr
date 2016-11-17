@@ -51,7 +51,7 @@
       <h1>valr overview</h1>
                         <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-11-16</h4>
+            <h4 class="date">2016-11-17</h4>
           </div>
 
     
@@ -98,6 +98,31 @@ nearby %&gt;%
 <span class="co">#&gt; 9   rs62236167             CECR7        0   261</span>
 <span class="co">#&gt; 10   rs5747023             CECR1        0  -386</span>
 <span class="co">#&gt; # ... with 275 more rows</span></code></pre></div>
+</div>
+<div id="remote-databases" class="section level3">
+<h3 class="hasAnchor"><html><body><a href="#remote-databases" class="anchor"> </a></body></html>Remote databases</h3>
+<p>Remote databases can be accessed with <code><a href="../reference/db.html">db_ucsc()</a></code> (to access the UCSC Browser) and <code><a href="../reference/db.html">db_ensembl()</a></code> (to access Ensembl databases).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access the `refGene` tbl on the `hg38` assembly.</span>
+ucsc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
+<span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)
+<span class="co">#&gt; Source:   query [?? x 16]</span>
+<span class="co">#&gt; Database: mysql  [@genome-mysql.cse.ucsc.edu via TCP/IP:/]</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;      bin         name chrom strand   txStart     txEnd  cdsStart    cdsEnd</span>
+<span class="co">#&gt;    &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1    585    NR_046018  chr1      +     11873     14409     14409     14409</span>
+<span class="co">#&gt; 2    585    NR_024540  chr1      -     14361     29370     29370     29370</span>
+<span class="co">#&gt; 3   1078    NR_104148  chr7      +  64666082  64687830  64687830  64687830</span>
+<span class="co">#&gt; 4     14    NR_111960  chrX      +  44873174  45112612  45112612  45112612</span>
+<span class="co">#&gt; 5    585    NR_026818  chr1      -     34610     36081     36081     36081</span>
+<span class="co">#&gt; 6    585    NR_026820  chr1      -     34610     36081     36081     36081</span>
+<span class="co">#&gt; 7    585    NR_026822  chr1      -     34610     36081     36081     36081</span>
+<span class="co">#&gt; 8    585 NM_001005484  chr1      +     69090     70008     69090     70008</span>
+<span class="co">#&gt; 9    586    NR_039983  chr1      -    134772    140566    140566    140566</span>
+<span class="co">#&gt; 10   170    NR_103753  chr5      - 102608491 102671464 102671464 102671464</span>
+<span class="co">#&gt; # ... with more rows, and 8 more variables: exonCount &lt;int&gt;,</span>
+<span class="co">#&gt; #   exonStarts &lt;list&gt;, exonEnds &lt;list&gt;, score &lt;int&gt;, name2 &lt;chr&gt;,</span>
+<span class="co">#&gt; #   cdsStartStat &lt;chr&gt;, cdsEndStat &lt;chr&gt;, exonFrames &lt;list&gt;</span></code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#visual-documentation" class="anchor"> </a></body></html>Visual documentation</h3>

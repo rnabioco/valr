@@ -46,7 +46,7 @@ nearby %>%
 
 ### Remote databases
 
-Remote databases can be accessed with `db_ucsc()` (to access the UCSC Genome Browser) and `db_ensembl()` (to access Ensembl databases).
+Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
 
 ``` r
 # access the `refGene` tbl on the `hg38` assembly
@@ -59,10 +59,6 @@ tbl(ucsc, 'refGene')
 `valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. This glyph (generated using `bed_glyph()`) shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
 ![](img/README-intersect_glyph-1.png)
-
-And this glyph illustrates the result of `bed_merge()`:
-
-![](img/README-merge_glyph-1.png)
 
 ### Reproducible reports
 

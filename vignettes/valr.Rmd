@@ -63,6 +63,16 @@ nearby %>%
   filter(abs(.dist) < 1000)
 ```
 
+### Remote databases
+
+Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
+
+```{r db}
+# access the `refGene` tbl on the `hg38` assembly.
+ucsc <- db_ucsc('hg38')
+tbl(ucsc, 'refGene')
+```
+
 ### Visual documentation
 
 The `bed_glyph()` tool illustrates the results of operations in `valr`, similar to those found in the `BEDtools` documentation. This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:

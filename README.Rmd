@@ -58,8 +58,7 @@ nearby %>%
 
 ### Remote databases
 
-Remote databases can be accessed with `db_ucsc()` (to access the UCSC
-Genome Browser) and `db_ensembl()` (to access Ensembl databases).
+Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
 
 ```{r db, eval = FALSE}
 # access the `refGene` tbl on the `hg38` assembly
@@ -69,7 +68,7 @@ tbl(ucsc, 'refGene')
 
 ### Visual documentation
 
-`valr` includes helpful glyphs to illustrate the results of specific operations,  similar to those found in the `BEDtools` documentation. This glyph (generated using `bed_glyph()`) shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
+`valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. This glyph (generated using `bed_glyph()`) shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
 ```{r intersect_glyph, echo = FALSE}
 x <- tibble::tribble(
@@ -84,19 +83,6 @@ y <- tibble::tribble(
 )
 
 bed_glyph(bed_intersect(x, y))
-```
-
-And this glyph illustrates the result of `bed_merge()`:
-
-```{r merge_glyph, echo = FALSE}
-x <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  'chr1',      1,      50,
-  'chr1',      10,     75,
-  'chr1',      100,    120
-)
-
-bed_glyph(bed_merge(x))
 ```
 
 ### Reproducible reports 

@@ -86,7 +86,7 @@ nearby %&gt;%
 </div>
 <div id="remote-databases" class="section level3">
 <h3 class="hasAnchor"><a href="#remote-databases" class="anchor"> </a>Remote databases</h3>
-<p>Remote databases can be accessed with <code><a href="reference/db.html">db_ucsc()</a></code> (to access the UCSC Genome Browser) and <code><a href="reference/db.html">db_ensembl()</a></code> (to access Ensembl databases).</p>
+<p>Remote databases can be accessed with <code><a href="reference/db.html">db_ucsc()</a></code> (to access the UCSC Browser) and <code><a href="reference/db.html">db_ensembl()</a></code> (to access Ensembl databases).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access the `refGene` tbl on the `hg38` assembly</span>
 ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
 <span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)</code></pre></div>
@@ -95,8 +95,6 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
 <h3 class="hasAnchor"><a href="#visual-documentation" class="anchor"> </a>Visual documentation</h3>
 <p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. This glyph (generated using <code><a href="reference/bed_glyph.html">bed_glyph()</a></code>) shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
 <p><img src="img/README-intersect_glyph-1.png" width="672"></p>
-<p>And this glyph illustrates the result of <code><a href="reference/bed_merge.html">bed_merge()</a></code>:</p>
-<p><img src="img/README-merge_glyph-1.png" width="672"></p>
 </div>
 <div id="reproducible-reports" class="section level3">
 <h3 class="hasAnchor"><a href="#reproducible-reports" class="anchor"> </a>Reproducible reports</h3>
