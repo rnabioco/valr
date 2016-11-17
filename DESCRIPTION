@@ -27,7 +27,7 @@ Imports:
     ggplot2,
 SystemRequirements: C++11
 LinkingTo:
-    Rcpp (>= 0.12.6),
+    Rcpp (>= 0.12.8),
     BH,
     dplyr (>= 0.5.0)
 Suggests:
