@@ -2,7 +2,14 @@
 title: "Interval statistics"
 author: "Jay Hesselberth"
 date: '`r format(Sys.Date(), "%B %d %Y")`'
-output: html_document
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+    vignette: >
+      %\VignetteIndexEntry{valr}
+      %\VignetteEngine{knitr::rmarkdown}
+      %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
