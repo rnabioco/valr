@@ -62,22 +62,29 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
               end = .midpoint + 1)
   x <- select(x, -.midpoint)
 
-  # count overlaps per chromosome
+  # count overlaps per chromosome, 
   obs_counts <- bed_intersect(x, y)
-  
+
   # count overlaps
   obs_counts <- group_by(obs_counts, chrom)
   obs_counts <- summarize(obs_counts, .obs_counts = n())
   
-  # total x intervals tested
-  obs_counts <- mutate(obs_counts, .total_trials = nrow(x))
+          
+  #total x intervals tested
+  total_counts <- group_by(x, chrom)
+  total_counts <- summarize(total_counts, .total_trials = n())
+  obs_counts <- full_join(obs_counts, total_counts, by = "chrom")
+  obs_counts <- mutate(obs_counts, .obs_counts = if_else(is.na(.obs_counts), 
+                                                         as.integer(0), .obs_counts))
   
-  # calcuate probabilty of overlap by chance
+  # calculate probabilty of overlap by chance
   y <- mutate(y, 
               .length = end - start)
   y <- group_by(y, chrom)
   y <- summarize(y, .reference_coverage = sum(.length))
-  y <- inner_join(y, genome, by = "chrom")
+  # add in any missing chromosomes
+  y <- full_join(y, genome, by = "chrom")
+  
   null_dist <- mutate(y, .exp_prob = .reference_coverage / size)
  
   res <- inner_join(obs_counts, null_dist, by = "chrom")
@@ -114,7 +121,6 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
                                       1 - .p_value))
   res
 }  
-
 
 
 
