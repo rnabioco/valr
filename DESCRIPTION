@@ -36,7 +36,6 @@ Suggests:
     microbenchmark,
     covr,
     shinydashboard,
-    qvalue,
     RMySQL,
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
