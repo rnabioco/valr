@@ -2,7 +2,14 @@
 title: "Interval statistics"
 author: "Jay Hesselberth"
 date: '`r format(Sys.Date(), "%B %d %Y")`'
-output: html_document
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+    vignette: >
+      %\VignetteIndexEntry{valr}
+      %\VignetteEngine{knitr::rmarkdown}
+      %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
@@ -21,7 +28,10 @@ knitr::opts_chunk$set(
 
 ```{r load-data, message = FALSE, warning = FALSE}
 library(valr)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(broom)
 
 # load repeats and genes. Data in the valr package is restricted to chr22; the entire
 # files can be downloaded from UCSC.
@@ -87,13 +97,11 @@ ggplot(pvals, aes(p.value)) +
   facet_grid(stat ~ alt) + theme_bw()
 ```
 
-We can also assess false discovery rates (q.values) using the `qvalue` library.
+We can also assess false discovery rates (q.values) using `p.adjust()`.
 
 ```{r qvalues}
-library(qvalue)
-
 pvals <- group_by(pvals, stat, alt) %>%
-  mutate(q.value = qvalue(p.value)$qvalues) %>%
+  mutate(q.value = p.adjust(p.value)) %>%
   ungroup() %>%
   arrange(q.value)
 ```
