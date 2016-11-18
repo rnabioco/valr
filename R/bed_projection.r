@@ -61,7 +61,10 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
               start = .midpoint,
               end = .midpoint + 1)
   x <- select(x, -.midpoint)
-
+  
+  # flatten y intervals
+  y <- bed_merge(y)
+  
   # count overlaps per chromosome, 
   obs_counts <- bed_intersect(x, y)
 
@@ -78,6 +81,7 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
                                                          as.integer(0), .obs_counts))
   
   # calculate probabilty of overlap by chance
+
   y <- mutate(y, 
               .length = end - start)
   y <- group_by(y, chrom)
