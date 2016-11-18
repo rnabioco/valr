@@ -44,7 +44,7 @@ chrs <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 # create 1bp intervalss representing transcription start sites
 tss <- mutate(gens,
               .start = ifelse(strand == '+', start, end),
-              .end = start + 1) %>%
+              .end = .start + 1) %>%
   select(chrom, start = .start, end = .end, name)
 
 tss
@@ -119,4 +119,6 @@ ggplot(res_signif, aes(x = value, color = type)) +
   stat_ecdf() + 
   facet_wrap(name ~ stat) + theme_classic() + scale_x_log10()
 ```
+
+`bed_fisher()` and `bed-projection` are two addtitional statistical approaches to assess the relationship between two intervals which use the `fisher exact test` or the `binomial distribution` respectively. Here we'll demonstrate their usage on the same transcription start site and repeat element datasets. 
 
