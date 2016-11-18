@@ -28,7 +28,10 @@ knitr::opts_chunk$set(
 
 ```{r load-data, message = FALSE, warning = FALSE}
 library(valr)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(broom)
 
 # load repeats and genes. Data in the valr package is restricted to chr22; the entire
 # files can be downloaded from UCSC.

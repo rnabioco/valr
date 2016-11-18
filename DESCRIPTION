@@ -2,12 +2,11 @@ Package: valr
 Type: Package
 Title: Genome Interval Arithmetic in R
 Version: 0.1
-Authors@R: c(person('Jay', 'Hesselberth', role = c('aut', 'cre'), 
-                    email = 'jay.hesselberth@gmail.com'),
-             person('Kent', 'Riemondy', role = c('aut'),
-                    email = 'kent.riemondy@ucdenver.edu'),
-             person('Ryan', 'Sheridan', role = c('ctb'),
-                    email = 'ryan.sheridan@ucdenver.edu'))
+Authors@R: c(
+    person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com'),
+    person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
+    person('Ryan', 'Sheridan', role = c('ctb'), email = 'ryan.sheridan@ucdenver.edu')
+    )
 Description: Read and manipulate genome intervals and signals. valr 
              provides functionality similar to BEDtools and bedops within R,
              enabling interactive analysis and visualization of genome-scale data. 
@@ -36,7 +35,9 @@ Suggests:
     testthat,
     microbenchmark,
     covr,
-    shinydashboard
+    shinydashboard,
+    qvalue,
+    RMySQL,
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 URL: http://github.com/jayhesselberth/valr/
