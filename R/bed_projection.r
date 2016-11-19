@@ -12,10 +12,10 @@
 #'   \itemize{ 
 #'     \item{\code{chrom}} {the name of chromosome tested if \code{by_chrom} is \code{TRUE},
 #'      otherwise set to \code{whole_genome}}
-#'     \item{\code{.p_value}} {p-value from a binomial test, note that p-values > 0.5
-#'      will be reported as 1 - p-value and \code{.lower_tail} will be set to \code{FALSE}}
-#'     \item{\code{.effect_ratio}} {ratio of observed to expected overlap frequency}
-#'     \item{\code{.lower_tail}} {\code{TRUE} denotes that the observed number of overlaps
+#'     \item{\code{p.value}} {p-value from a binomial test, note that p-values > 0.5
+#'      will be reported as 1 - p-value and \code{lower_tail} will be set to \code{FALSE}}
+#'     \item{\code{obs_exp_ratio}} {ratio of observed to expected overlap frequency}
+#'     \item{\code{lower_tail}} {\code{TRUE} denotes that the observed number of overlaps
 #'      is in the lower tail of the distribution (less overlap than expected), \code{FALSE}
 #'     denotes that the observed probabililty are in the upper tail of the distribution
 #'      (more overlap than expected)}
@@ -97,10 +97,10 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   if (by_chrom){
     res <- group_by(res, chrom)
     res <- summarize(res,
-                     .p_value = pbinom(q = .obs_counts, 
+                     p.value = pbinom(q = .obs_counts, 
                                       size = .total_trials,
                                       prob = .exp_prob),
-                     .effect_ratio = (.obs_counts / .total_trials) / .exp_prob
+                     obs_exp_ratio = (.obs_counts / .total_trials) / .exp_prob
                      )
   } else {
     res <- ungroup(res)
@@ -111,18 +111,18 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
     
     res <- summarize(res,
                      chrom = "whole_genome",
-                     .p_value = pbinom(q = .obs_counts, 
+                     p.value = pbinom(q = .obs_counts, 
                                       size = .total_trials,
                                       prob = .exp_prob),
-                     .effect_ratio = (.obs_counts / .total_trials) / .exp_prob)
+                     obs_exp_ratio = (.obs_counts / .total_trials) / .exp_prob)
   }
   res <- mutate(res,
-                .lower_tail = if_else(.p_value < .5,
+                lower_tail = if_else(p.value < .5,
                                       "TRUE",
                                       "FALSE"),
-                .p_value = if_else(.p_value < .5,
-                                      .p_value,
-                                      1 - .p_value))
+                p.value = if_else(p.value < .5,
+                                  p.value,
+                                      1 - p.value))
   res
 }  
 

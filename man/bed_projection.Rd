@@ -20,10 +20,10 @@ bed_projection(x, y, genome, by_chrom = FALSE)
   \itemize{ 
     \item{\code{chrom}} {the name of chromosome tested if \code{by_chrom} is \code{TRUE},
      otherwise set to \code{whole_genome}}
-    \item{\code{.p_value}} {p-value from a binomial test, note that p-values > 0.5
-     will be reported as 1 - p-value and \code{.lower_tail} will be set to \code{FALSE}}
-    \item{\code{.effect_ratio}} {ratio of observed to expected overlap frequency}
-    \item{\code{.lower_tail}} {\code{TRUE} denotes that the observed number of overlaps
+    \item{\code{p.value}} {p-value from a binomial test, note that p-values > 0.5
+     will be reported as 1 - p-value and \code{lower_tail} will be set to \code{FALSE}}
+    \item{\code{obs_exp_ratio}} {ratio of observed to expected overlap frequency}
+    \item{\code{lower_tail}} {\code{TRUE} denotes that the observed number of overlaps
      is in the lower tail of the distribution (less overlap than expected), \code{FALSE}
     denotes that the observed probabililty are in the upper tail of the distribution
      (more overlap than expected)}
