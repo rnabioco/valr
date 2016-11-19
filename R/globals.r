@@ -11,4 +11,7 @@ globalVariables(c("chrom", "start", "end", "strand",
                   '.absdist', '.ref_gap', '.ref_points', 
                   "exon_starts", "key", "left_end", "left_start", "pos",
                   ".reldist", "right_end",
-                  "right_start", ".total", "value"))
+                  "right_start", ".total", "value",
+                  ".midpoint", ".obs_counts", ".length",
+                  ".reference_coverage", "total_trials", ".exp_prob",
+                  ".p.value"))
