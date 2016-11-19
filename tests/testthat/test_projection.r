@@ -29,7 +29,7 @@ test_that("basic projection test works", {
   
   exp <- 1 - pbinom(2, 3, 7/10)
   res <- bed_projection(x, y, genome)
-  expect_equal(res$.p_value, exp)
+  expect_equal(res$p.value, exp)
 })
 
 test_that("projection per chromosome works (by_chrom = TRUE)", {
@@ -84,9 +84,9 @@ test_that("report significant when intervals are underrepresented, .lower_tail =
     "chr1", 200,    900
   ) 
   res <- bed_projection(x, y, genome)
-  expect_true(res$.lower_tail == TRUE)
-  expect_true(res$.p_value < .5)
-  expect_true(res$.p_value == sig)
+  expect_true(res$lower_tail == TRUE)
+  expect_true(res$p.value < .5)
+  expect_true(res$p.value == sig)
 })
 
 test_that("report significant when intervals are overrepresented, .lower_tail = FALSE", {
@@ -112,7 +112,7 @@ test_that("report significant when intervals are overrepresented, .lower_tail = 
     "chr1", 200,    900
   ) 
   res <- bed_projection(x, y, genome)
-  expect_true(res$.lower_tail == FALSE)
-  expect_true(res$.p_value < .5)
-  expect_true(res$.p_value == sig)
+  expect_true(res$lower_tail == FALSE)
+  expect_true(res$p.value < .5)
+  expect_true(res$p.value == sig)
 })
