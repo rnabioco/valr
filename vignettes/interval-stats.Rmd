@@ -123,7 +123,7 @@ ggplot(res_signif, aes(x = value, color = type)) +
 
 `bed_projection()` is an additional statistical approach to assess the relationship between two intervals, based on the  `binomial distribution`. Here, we'll investigate the distribution of repetitive elements within the promoters `coding` or `non-coding` genes.
 
-First we'll extract a `5kb` region upstream of transription start site to represent the promoter region for `coding` and `non-coding` genes. T 
+First we'll extract `5kb` regions upstream of the transcription start sites to represent the promoter regions for `coding` and `non-coding` genes. 
 
 ```{r get_promoters}
 # Using the same data as before
