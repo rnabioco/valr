@@ -41,7 +41,7 @@ gens <- read_bed(valr_example('hg19.refGene.chr22.bed.gz'), n_fields = 12)
 # load chrom sizes
 chrs <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
-# create 1bp intervalss representing transcription start sites
+# create 1bp intervals representing transcription start sites
 tss <- mutate(gens,
               .start = ifelse(strand == '+', start, end),
               .end = .start + 1) %>%
@@ -120,5 +120,74 @@ ggplot(res_signif, aes(x = value, color = type)) +
   facet_wrap(name ~ stat) + theme_classic() + scale_x_log10()
 ```
 
-`bed_fisher()` and `bed-projection` are two addtitional statistical approaches to assess the relationship between two intervals which use the `fisher exact test` or the `binomial distribution` respectively. Here we'll demonstrate their usage on the same transcription start site and repeat element datasets. 
+*** 
 
+`bed_projection()` is an additional statistical approach to assess the relationship between two intervals, based on the  `binomial distribution`. Here, we'll investigate the distribution of repetitive elements within the promoters `coding` or `non-coding` genes.
+
+First we'll extract a `5kb` region upstream of transription start site to represent the promoter region for `coding` and `non-coding` genes. T 
+
+```{r get_promoters}
+# Using the same data as before
+gens
+rpts
+
+
+# create intervals 5kb upstream of tss representing promoters
+promoters <- mutate(gens,
+              .start = ifelse(strand == '+', start - 5000, end - 1),
+              .end   = ifelse(strand == '+', start + 1, end + 5000),
+              name   = ifelse(grepl("NR_", name), "non-coding", "coding")) %>%
+  select(chrom, start = .start, end = .end, name, score, strand)
+  
+# select coding and non-coding promoters
+nc_promoters <- filter(promoters, name == "non-coding")
+coding_promoters <- filter(promoters, name == "coding")
+nc_promoters
+coding_promoters
+```
+
+Next we'll apply the `bed_projection()` test for each repeat class for both `coding` and `non-coding` regions. 
+
+```{r get_projections}
+
+# function to apply bed_projection to groups
+gen_stats <- function(x, y, genome, grp, type = NA) {
+  group_by_(x, .dots = grp) %>%
+    do(repeat_counts = nrow(.),
+       projection = bed_projection(., y, genome) 
+       ) %>%
+    mutate(type = type)
+} 
+
+pvals_nc <- gen_stats(rpts, nc_promoters, chrs, "name", "non_coding")
+pvals_cd <- gen_stats(rpts, coding_promoters, chrs, "name", "coding")
+
+pvals <- bind_rows(pvals_nc, pvals_cd) %>% 
+  unnest() %>%
+  select(-chrom)
+
+#filter for repeat classes with at least 10 intervals
+pvals <- filter(pvals, 
+                repeat_counts > 10,
+                obs_exp_ratio != 0)
+# adjust pvalues 
+pvals <- pvals %>%
+  mutate(q.value = p.adjust(p.value))
+
+pvals
+```
+
+The `projection test` is a `two-tailed` statistical test. Significant p.values indicate either enrichment or depletion of query intervals in the reference interval sets. `lower_tail = TRUE` indicates that the query intervals are depleted, whereas `lower_tail = FALSE` indicates that the query intervals are enriched. 
+
+```{r}
+
+# show top 5 most significant repeats
+sig <- pvals %>% 
+  arrange(q.value) %>%
+  group_by(type) %>%
+  top_n(-5, q.value) %>%
+  arrange(type)
+
+knitr::kable(sig,
+             caption = "The most significant repeats overlapping coding and non-coding gene promoters")
+```
