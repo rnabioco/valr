@@ -14,7 +14,6 @@ output:
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  cache = TRUE,
   collapse = TRUE,
   comment = "#>",
   fig.path = "img/interval-stats-",
