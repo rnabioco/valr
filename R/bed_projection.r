@@ -97,7 +97,7 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   if (by_chrom){
     res <- group_by(res, chrom)
     res <- summarize(res,
-                     p.value = pbinom(q = .obs_counts, 
+                     p.value = stats::pbinom(q = .obs_counts, 
                                       size = .total_trials,
                                       prob = .exp_prob),
                      obs_exp_ratio = (.obs_counts / .total_trials) / .exp_prob
@@ -111,7 +111,7 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
     
     res <- summarize(res,
                      chrom = "whole_genome",
-                     p.value = pbinom(q = .obs_counts, 
+                     p.value = stats::pbinom(q = .obs_counts, 
                                       size = .total_trials,
                                       prob = .exp_prob),
                      obs_exp_ratio = (.obs_counts / .total_trials) / .exp_prob)
