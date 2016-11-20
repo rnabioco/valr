@@ -43,6 +43,7 @@ reference:
     - bed_reldist
     - bed_fisher
     - bed_jaccard
+    - bed_projection
     
   - title: Utilities
     contents:
