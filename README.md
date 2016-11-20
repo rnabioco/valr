@@ -9,6 +9,12 @@ valr <img src="logo.png" align="right" />
 Installation
 ------------
 
+The latest stable version can be installed from CRAN:
+
+``` r
+install.packages('valr')
+```
+
 The latest development version can be installed from github:
 
 ``` r
