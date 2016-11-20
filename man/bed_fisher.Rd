@@ -45,6 +45,7 @@ bed_fisher(x, y, genome)
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 
 Other interval-stats: \code{\link{bed_absdist}},
-  \code{\link{bed_jaccard}}, \code{\link{bed_reldist}}
+  \code{\link{bed_jaccard}}, \code{\link{bed_projection}},
+  \code{\link{bed_reldist}}
 }
 

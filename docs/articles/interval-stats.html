@@ -51,7 +51,7 @@
       <h1>Interval statistics</h1>
                         <h4 class="author">Jay Hesselberth</h4>
             
-            <h4 class="date">November 19 2016</h4>
+            <h4 class="date">November 20 2016</h4>
           </div>
 
     
@@ -72,25 +72,25 @@ gens &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_b
 <span class="co"># load chrom sizes</span>
 chrs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
 
-<span class="co"># create 1bp intervalss representing transcription start sites</span>
+<span class="co"># create 1bp intervals representing transcription start sites</span>
 tss &lt;-<span class="st"> </span><span class="kw">mutate</span>(gens,
               <span class="dt">.start =</span> <span class="kw">ifelse</span>(strand ==<span class="st"> '+'</span>, start, end),
-              <span class="dt">.end =</span> start +<span class="st"> </span><span class="dv">1</span>) %&gt;%
+              <span class="dt">.end =</span> .start +<span class="st"> </span><span class="dv">1</span>) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(chrom, <span class="dt">start =</span> .start, <span class="dt">end =</span> .end, name)
 
 tss
 <span class="co">#&gt; # A tibble: 1,267 &times; 4</span>
 <span class="co">#&gt;    chrom    start      end         name</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;dbl&gt;        &lt;chr&gt;</span>
-<span class="co">#&gt; 1  chr22 16193009 16150529    NR_122113</span>
+<span class="co">#&gt; 1  chr22 16193009 16193010    NR_122113</span>
 <span class="co">#&gt; 2  chr22 16157078 16157079    NR_133911</span>
 <span class="co">#&gt; 3  chr22 16162065 16162066    NR_073459</span>
 <span class="co">#&gt; 4  chr22 16162065 16162066    NR_073460</span>
-<span class="co">#&gt; 5  chr22 16231289 16199674    NR_132385</span>
-<span class="co">#&gt; 6  chr22 16287937 16256332 NM_001136213</span>
+<span class="co">#&gt; 5  chr22 16231289 16231290    NR_132385</span>
+<span class="co">#&gt; 6  chr22 16287937 16287938 NM_001136213</span>
 <span class="co">#&gt; 7  chr22 16274608 16274609    NR_046571</span>
-<span class="co">#&gt; 8  chr22 16449804 16448824 NM_001005239</span>
-<span class="co">#&gt; 9  chr22 17073700 17071648    NM_014406</span>
+<span class="co">#&gt; 8  chr22 16449804 16449805 NM_001005239</span>
+<span class="co">#&gt; 9  chr22 17073700 17073701    NM_014406</span>
 <span class="co">#&gt; 10 chr22 17082800 17082801    NR_001591</span>
 <span class="co">#&gt; # ... with 1,257 more rows</span></code></pre></div>
 <p>First we define a function that takes <code>x</code> and <code>y</code> intervals and computes distance statistics (using <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>) for specified groups.</p>
@@ -123,14 +123,14 @@ res
 <span class="co">#&gt;     name    stat   .id         obs     shuf</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;       &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt; 1   (A)n absdist     1 126.4610794 398.3905</span>
-<span class="co">#&gt; 2   (A)n absdist     2   5.6050746 390.5459</span>
-<span class="co">#&gt; 3   (A)n absdist     3   1.0093609 390.1060</span>
-<span class="co">#&gt; 4   (A)n absdist     4   0.1585214 338.5905</span>
+<span class="co">#&gt; 2   (A)n absdist     2   5.5929738 390.5459</span>
+<span class="co">#&gt; 3   (A)n absdist     3   0.7715170 390.1060</span>
+<span class="co">#&gt; 4   (A)n absdist     4   0.2205569 338.5905</span>
 <span class="co">#&gt; 5   (A)n absdist     5   1.0203258 325.9782</span>
 <span class="co">#&gt; 6   (A)n absdist     6   0.5561215 296.1639</span>
-<span class="co">#&gt; 7   (A)n absdist     7   0.3557903 234.3513</span>
-<span class="co">#&gt; 8   (A)n absdist     8   0.2337938 186.5005</span>
-<span class="co">#&gt; 9   (A)n absdist     9   0.6456680 155.8682</span>
+<span class="co">#&gt; 7   (A)n absdist     7   0.3747072 234.3513</span>
+<span class="co">#&gt; 8   (A)n absdist     8   0.5429340 186.5005</span>
+<span class="co">#&gt; 9   (A)n absdist     9   0.3323295 155.8682</span>
 <span class="co">#&gt; 10  (A)n absdist    10   3.3093910 126.6239</span>
 <span class="co">#&gt; # ... with 16,773 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group.</p>
@@ -162,7 +162,213 @@ res_signif &lt;-<span class="st"> </span>signif %&gt;%<span class="st"> </span><
 <span class="st">  </span><span class="kw">stat_ecdf</span>() +<span class="st"> </span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(name ~<span class="st"> </span>stat) +<span class="st"> </span><span class="kw">theme_classic</span>() +<span class="st"> </span><span class="kw">scale_x_log10</span>()</code></pre></div>
 <p><img src="img/interval-stats-ecfs-1.png" width="384" style="display: block; margin: auto;"></p>
-</div>
+<hr><p><code><a href="../reference/bed_projection.html">bed_projection()</a></code> is an additional statistical approach to assess the relationship between two intervals, based on the <code>binomial distribution</code>. Here, we&rsquo;ll investigate the distribution of repetitive elements within the promoters <code>coding</code> or <code>non-coding</code> genes.</p>
+<p>First we&rsquo;ll extract <code>5kb</code> regions upstream of the transcription start sites to represent the promoter regions for <code>coding</code> and <code>non-coding</code> genes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using the same data as before</span>
+gens
+<span class="co">#&gt; # A tibble: 1,267 &times; 12</span>
+<span class="co">#&gt;    chrom    start      end         name score strand cds_start  cds_end</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  chr22 16150528 16193009    NR_122113     0      -  16193009 16193009</span>
+<span class="co">#&gt; 2  chr22 16157078 16172265    NR_133911     0      +  16172265 16172265</span>
+<span class="co">#&gt; 3  chr22 16162065 16172265    NR_073459     0      +  16172265 16172265</span>
+<span class="co">#&gt; 4  chr22 16162065 16172265    NR_073460     0      +  16172265 16172265</span>
+<span class="co">#&gt; 5  chr22 16199673 16231289    NR_132385     0      -  16231289 16231289</span>
+<span class="co">#&gt; 6  chr22 16256331 16287937 NM_001136213     0      -  16258185 16287885</span>
+<span class="co">#&gt; 7  chr22 16274608 16277577    NR_046571     0      +  16277577 16277577</span>
+<span class="co">#&gt; 8  chr22 16448823 16449804 NM_001005239     0      -  16448823 16449804</span>
+<span class="co">#&gt; 9  chr22 17071647 17073700    NM_014406     0      -  17071766 17073440</span>
+<span class="co">#&gt; 10 chr22 17082800 17129720    NR_001591     0      +  17129720 17129720</span>
+<span class="co">#&gt; # ... with 1,257 more rows, and 4 more variables: item_rgb &lt;chr&gt;,</span>
+<span class="co">#&gt; #   exon_count &lt;int&gt;, exon_sizes &lt;chr&gt;, exon_starts &lt;chr&gt;</span>
+rpts
+<span class="co">#&gt; # A tibble: 10,000 &times; 6</span>
+<span class="co">#&gt;    chrom    start      end     name score strand</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt; 1  chr22 10522608 10522644  (AATA)n    39      +</span>
+<span class="co">#&gt; 2  chr22 10529446 10529561    AluJo   771      +</span>
+<span class="co">#&gt; 3  chr22 10534866 10534924     L1MD   356      -</span>
+<span class="co">#&gt; 4  chr22 10536350 10536483    L1MEd   362      -</span>
+<span class="co">#&gt; 5  chr22 10536811 10537128   AluYb8  3025      +</span>
+<span class="co">#&gt; 6  chr22 10543083 10543417 Tigger3a  1540      +</span>
+<span class="co">#&gt; 7  chr22 10549961 10550092    MSTB1   782      -</span>
+<span class="co">#&gt; 8  chr22 10554305 10554514    LTR29   835      -</span>
+<span class="co">#&gt; 9  chr22 10562009 10562402    L1MCa   858      -</span>
+<span class="co">#&gt; 10 chr22 10563539 10563681     L1M5   325      -</span>
+<span class="co">#&gt; # ... with 9,990 more rows</span>
+
+
+<span class="co"># create intervals 5kb upstream of tss representing promoters</span>
+promoters &lt;-<span class="st"> </span><span class="kw">mutate</span>(gens,
+              <span class="dt">.start =</span> <span class="kw">ifelse</span>(strand ==<span class="st"> '+'</span>, start -<span class="st"> </span><span class="dv">5000</span>, end -<span class="st"> </span><span class="dv">1</span>),
+              <span class="dt">.end   =</span> <span class="kw">ifelse</span>(strand ==<span class="st"> '+'</span>, start +<span class="st"> </span><span class="dv">1</span>, end +<span class="st"> </span><span class="dv">5000</span>),
+              <span class="dt">name   =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">"NR_"</span>, name), <span class="st">"non-coding"</span>, <span class="st">"coding"</span>)) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(chrom, <span class="dt">start =</span> .start, <span class="dt">end =</span> .end, name, score, strand)
+  
+<span class="co"># select coding and non-coding promoters</span>
+nc_promoters &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name ==<span class="st"> "non-coding"</span>)
+coding_promoters &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name ==<span class="st"> "coding"</span>)
+nc_promoters
+<span class="co">#&gt; # A tibble: 294 &times; 6</span>
+<span class="co">#&gt;    chrom    start      end       name score strand</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt; 1  chr22 16193008 16198009 non-coding     0      -</span>
+<span class="co">#&gt; 2  chr22 16152078 16157079 non-coding     0      +</span>
+<span class="co">#&gt; 3  chr22 16157065 16162066 non-coding     0      +</span>
+<span class="co">#&gt; 4  chr22 16157065 16162066 non-coding     0      +</span>
+<span class="co">#&gt; 5  chr22 16231288 16236289 non-coding     0      -</span>
+<span class="co">#&gt; 6  chr22 16269608 16274609 non-coding     0      +</span>
+<span class="co">#&gt; 7  chr22 17077800 17082801 non-coding     0      +</span>
+<span class="co">#&gt; 8  chr22 17156429 17161430 non-coding     0      -</span>
+<span class="co">#&gt; 9  chr22 17229327 17234328 non-coding     0      -</span>
+<span class="co">#&gt; 10 chr22 17303363 17308364 non-coding     0      +</span>
+<span class="co">#&gt; # ... with 284 more rows</span>
+coding_promoters
+<span class="co">#&gt; # A tibble: 973 &times; 6</span>
+<span class="co">#&gt;    chrom    start      end   name score strand</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt; 1  chr22 16287936 16292937 coding     0      -</span>
+<span class="co">#&gt; 2  chr22 16449803 16454804 coding     0      -</span>
+<span class="co">#&gt; 3  chr22 17073699 17078700 coding     0      -</span>
+<span class="co">#&gt; 4  chr22 17302588 17307589 coding     0      -</span>
+<span class="co">#&gt; 5  chr22 17302588 17307589 coding     0      -</span>
+<span class="co">#&gt; 6  chr22 17489111 17494112 coding     0      -</span>
+<span class="co">#&gt; 7  chr22 17560848 17565849 coding     0      +</span>
+<span class="co">#&gt; 8  chr22 17560848 17565849 coding     0      +</span>
+<span class="co">#&gt; 9  chr22 17602256 17607257 coding     0      -</span>
+<span class="co">#&gt; 10 chr22 17602212 17607213 coding     0      -</span>
+<span class="co">#&gt; # ... with 963 more rows</span></code></pre></div>
+<p>Next we&rsquo;ll apply the <code><a href="../reference/bed_projection.html">bed_projection()</a></code> test for each repeat class for both <code>coding</code> and <code>non-coding</code> regions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># function to apply bed_projection to groups</span>
+gen_stats &lt;-<span class="st"> </span>function(x, y, genome, grp, <span class="dt">type =</span> <span class="ot">NA</span>) {
+  <span class="kw">group_by_</span>(x, <span class="dt">.dots =</span> grp) %&gt;%
+<span class="st">    </span><span class="kw">do</span>(<span class="dt">repeat_counts =</span> <span class="kw">nrow</span>(.),
+       <span class="dt">projection =</span> <span class="kw"><a href="../reference/bed_projection.html">bed_projection</a></span>(., y, genome) 
+       ) %&gt;%
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">type =</span> type)
+} 
+
+pvals_nc &lt;-<span class="st"> </span><span class="kw">gen_stats</span>(rpts, nc_promoters, chrs, <span class="st">"name"</span>, <span class="st">"non_coding"</span>)
+pvals_cd &lt;-<span class="st"> </span><span class="kw">gen_stats</span>(rpts, coding_promoters, chrs, <span class="st">"name"</span>, <span class="st">"coding"</span>)
+
+pvals &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(pvals_nc, pvals_cd) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">unnest</span>() %&gt;%
+<span class="st">  </span><span class="kw">select</span>(-chrom)
+
+<span class="co">#filter for repeat classes with at least 10 intervals</span>
+pvals &lt;-<span class="st"> </span><span class="kw">filter</span>(pvals, 
+                repeat_counts &gt;<span class="st"> </span><span class="dv">10</span>,
+                obs_exp_ratio !=<span class="st"> </span><span class="dv">0</span>)
+<span class="co"># adjust pvalues </span>
+pvals &lt;-<span class="st"> </span>pvals %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">q.value =</span> <span class="kw">p.adjust</span>(p.value))
+
+pvals
+<span class="co">#&gt; # A tibble: 179 &times; 7</span>
+<span class="co">#&gt;      name       type repeat_counts     p.value obs_exp_ratio lower_tail</span>
+<span class="co">#&gt;     &lt;chr&gt;      &lt;chr&gt;         &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;</span>
+<span class="co">#&gt; 1    (A)n non_coding            28 0.003531508     4.7141679      FALSE</span>
+<span class="co">#&gt; 2   (AT)n non_coding            48 0.298021071     0.9166438      FALSE</span>
+<span class="co">#&gt; 3   (CA)n non_coding            31 0.156181108     1.4193194      FALSE</span>
+<span class="co">#&gt; 4   (GT)n non_coding            42 0.247323981     1.0475929      FALSE</span>
+<span class="co">#&gt; 5    (T)n non_coding            61 0.404997861     0.7212935      FALSE</span>
+<span class="co">#&gt; 6   (TG)n non_coding            40 0.062261083     2.1999450      FALSE</span>
+<span class="co">#&gt; 7  A-rich non_coding            54 0.348149650     0.8147945      FALSE</span>
+<span class="co">#&gt; 8     Alu non_coding            15 0.044577839     2.9332600      FALSE</span>
+<span class="co">#&gt; 9   AluJb non_coding           271 0.022516393     1.7859332      FALSE</span>
+<span class="co">#&gt; 10  AluJo non_coding           208 0.021590030     1.9037986      FALSE</span>
+<span class="co">#&gt; # ... with 169 more rows, and 1 more variables: q.value &lt;dbl&gt;</span></code></pre></div>
+<p>The <code>projection test</code> is a <code>two-tailed</code> statistical test. Significant p.values indicate either enrichment or depletion of query intervals in the reference interval sets. <code>lower_tail = TRUE</code> indicates that the query intervals are depleted, whereas <code>lower_tail = FALSE</code> indicates that the query intervals are enriched.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># show top 5 most significant repeats</span>
+sig &lt;-<span class="st"> </span>pvals %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(q.value) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(type) %&gt;%
+<span class="st">  </span><span class="kw">top_n</span>(-<span class="dv">5</span>, q.value) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(type)
+
+knitr::<span class="kw">kable</span>(sig,
+             <span class="dt">caption =</span> <span class="st">"The most significant repeats overlapping coding and non-coding gene promoters"</span>)</code></pre></div>
+<table class="table"><caption>The most significant repeats overlapping coding and non-coding gene promoters</caption>
+<thead><tr class="header"><th align="left">name</th>
+<th align="left">type</th>
+<th align="right">repeat_counts</th>
+<th align="right">p.value</th>
+<th align="right">obs_exp_ratio</th>
+<th align="left">lower_tail</th>
+<th align="right">q.value</th>
+</tr></thead><tbody><tr class="odd"><td align="left">AluSx1</td>
+<td align="left">coding</td>
+<td align="right">364</td>
+<td align="right">0.0000114</td>
+<td align="right">2.105784</td>
+<td align="left">FALSE</td>
+<td align="right">0.0020433</td>
+</tr><tr class="even"><td align="left">AluSx3</td>
+<td align="left">coding</td>
+<td align="right">95</td>
+<td align="right">0.0001425</td>
+<td align="right">2.913617</td>
+<td align="left">FALSE</td>
+<td align="right">0.0252231</td>
+</tr><tr class="odd"><td align="left">AluJb</td>
+<td align="left">coding</td>
+<td align="right">271</td>
+<td align="right">0.0002226</td>
+<td align="right">2.042757</td>
+<td align="left">FALSE</td>
+<td align="right">0.0385082</td>
+</tr><tr class="even"><td align="left">Charlie4z</td>
+<td align="left">coding</td>
+<td align="right">11</td>
+<td align="right">0.0012298</td>
+<td align="right">5.806859</td>
+<td align="left">FALSE</td>
+<td align="right">0.2053719</td>
+</tr><tr class="odd"><td align="left">AluSz</td>
+<td align="left">coding</td>
+<td align="right">259</td>
+<td align="right">0.0013212</td>
+<td align="right">1.890779</td>
+<td align="left">FALSE</td>
+<td align="right">0.2193255</td>
+</tr><tr class="even"><td align="left">MER3</td>
+<td align="left">non_coding</td>
+<td align="right">27</td>
+<td align="right">0.0000270</td>
+<td align="right">8.147944</td>
+<td align="left">FALSE</td>
+<td align="right">0.0048130</td>
+</tr><tr class="odd"><td align="left">L1MC4a</td>
+<td align="left">non_coding</td>
+<td align="right">23</td>
+<td align="right">0.0001449</td>
+<td align="right">7.651983</td>
+<td align="left">FALSE</td>
+<td align="right">0.0254988</td>
+</tr><tr class="even"><td align="left">L1ME1</td>
+<td align="left">non_coding</td>
+<td align="right">38</td>
+<td align="right">0.0002036</td>
+<td align="right">5.789329</td>
+<td align="left">FALSE</td>
+<td align="right">0.0356315</td>
+</tr><tr class="odd"><td align="left">G-rich</td>
+<td align="left">non_coding</td>
+<td align="right">54</td>
+<td align="right">0.0002174</td>
+<td align="right">4.888767</td>
+<td align="left">FALSE</td>
+<td align="right">0.0378348</td>
+</tr><tr class="even"><td align="left">L1MC5</td>
+<td align="left">non_coding</td>
+<td align="right">29</td>
+<td align="right">0.0004565</td>
+<td align="right">6.068814</td>
+<td align="left">FALSE</td>
+<td align="right">0.0785198</td>
+</tr></tbody></table></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate jaccard statistics on two sets of intervals. — bed_jaccard • valr</title>
+<title>Projection Test for query interval overlap. — bed_projection • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,14 +89,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate jaccard statistics on two sets of intervals.</h1>
+    <h1>Projection Test for query interval overlap.</h1>
     </div>
 
     
-    <p>Calculate jaccard statistics on two sets of intervals.</p>
+    <p>Projection Test for query interval overlap.</p>
     
 
-    <pre><span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
+    <pre><span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -104,56 +104,81 @@
       <dd>tbl of intervals</dd>
       <dt>y</dt>
       <dd>tbl of intervals</dd>
+      <dt>genome</dt>
+      <dd>chrom sizes</dd>
+      <dt>by_chrom</dt>
+      <dd>compute test per chromosome  rather than across whole genome</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>data_frame</code> with the following columns:
   <ul>
-<li><code>len_i</code> length of the intersection
+<li><code>chrom</code> the name of chromosome tested if <code>by_chrom</code> is <code>TRUE</code>,
+     otherwise set to <code>whole_genome</code>
     </li>
-<li><code>len_u</code> length of the union
+<li><code>p.value</code> p-value from a binomial test, note that p-values &gt; 0.5
+     will be reported as 1 - p-value and <code>lower_tail</code> will be set to <code>FALSE</code>
     </li>
-<li><code>jaccard</code> jaccard statistic 
+<li><code>obs_exp_ratio</code> ratio of observed to expected overlap frequency
     </li>
-<li><code>n_int</code> number of intersecting intervals between x and y
+<li><code>lower_tail</code> <code>TRUE</code> denotes that the observed number of overlaps
+     is in the lower tail of the distribution (less overlap than expected), <code>FALSE</code>
+    denotes that the observed probabililty are in the upper tail of the distribution
+     (more overlap than expected)
     </li>
 </ul></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of
-intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:</p>
-    <p>$$ J(x,y) = \frac{\mid x \bigcap y \mid}
-                     {\mid x \bigcup y \mid} = 
-                \frac{\mid x \bigcap y \mid}
-                     {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} $$</p>
+    <p>input tbls can be grouped using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> prior to 
+  analysis. Input tbls are grouped by <code>chrom</code> by default. Grouping by 
+  <code>strand</code> will constrain analyses to the same strand. To compare 
+  opposing strands between two tbls, strands on the <code>y</code> tbl can first be
+  be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html'>http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html</a></p>
+    <p><a href = 'http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529'>http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529</a></p>
     <p>Other interval-stats: <code><a href='bed_absdist.html'>bed_absdist</a></code>,
-  <code><a href='bed_fisher.html'>bed_fisher</a></code>, <code><a href='bed_projection.html'>bed_projection</a></code>,
+  <code><a href='bed_fisher.html'>bed_fisher</a></code>, <code><a href='bed_jaccard.html'>bed_jaccard</a></code>,
   <code><a href='bed_reldist.html'>bed_reldist</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>10</span>,     <span class='fl'>20</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>30</span>,     <span class='fl'>40</span>
+    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+ ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>1e4</span>,
+ <span class='st'>"chr2"</span>, <span class='fl'>2e4</span>,
+ <span class='st'>"chr3"</span>, <span class='fl'>4e4</span>
+)
+
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+<span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
+<span class='st'>"chr1"</span>, <span class='fl'>250</span>,    <span class='fl'>400</span>,
+<span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>600</span>,
+<span class='st'>"chr1"</span>, <span class='fl'>1000</span>,   <span class='fl'>2000</span>,
+<span class='st'>"chr2"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>
 )
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>15</span>,     <span class='fl'>20</span>
+ ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>175</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>525</span>,    <span class='fl'>575</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>1100</span>,   <span class='fl'>1200</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>1400</span>,   <span class='fl'>1600</span>,
+ <span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>1500</span>
 )
 
-<span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 4
-#&gt;   len_i len_u jaccard     n
-#&gt;   &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
-#&gt; 1     5    25    0.25     1</div><div class='input'> 
-</div></pre>
+<span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 4
+#&gt;          chrom      p.value obs_exp_ratio lower_tail
+#&gt;          &lt;chr&gt;        &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;
+#&gt; 1 whole_genome 4.641936e-05      10.74627      FALSE</div><div class='input'><span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom      p.value obs_exp_ratio lower_tail
+#&gt;   &lt;chr&gt;        &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;
+#&gt; 1  chr1 1.977539e-06            20      FALSE
+#&gt; 2  chr2 6.500000e-02             0      FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
