@@ -1,6 +1,15 @@
 context("db")
 
+has_internet <- function() {
+  ! is.null(curl::nslookup("r-project.org", error = FALSE))
+}
+
 test_that("ucsc connection works", {
+  skip('not working')
+  skip_if_not_installed('curl')
+       
+  if(!has_internet()) skip('no internet connection')
+  
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -12,6 +21,11 @@ test_that("ucsc connection works", {
 })
 
 test_that("ensembl connection works", {
+  skip('not working')
+  skip_if_not_installed('curl')
+  
+  if (!has_internet()) skip('no internet connection')
+  
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
