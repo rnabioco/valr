@@ -51,7 +51,7 @@
       <h1>Interval statistics</h1>
                         <h4 class="author">Jay Hesselberth</h4>
             
-            <h4 class="date">November 17 2016</h4>
+            <h4 class="date">November 19 2016</h4>
           </div>
 
     
@@ -59,7 +59,10 @@
 <div class="contents">
 <p><code>valr</code> can be used to explore relationships between sets of intervals. Here we explore the relationship between transcription start sites and repetitive elements in the human genome.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
-<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(tidyr)
+<span class="kw">library</span>(broom)
 
 <span class="co"># load repeats and genes. Data in the valr package is restricted to chr22; the entire</span>
 <span class="co"># files can be downloaded from UCSC.</span>
@@ -114,22 +117,22 @@ res &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(obs_stats, s
 <span class="st">  </span><span class="kw">na.omit</span>()
 
 res
-<span class="co">#&gt; Source: local data frame [16,777 x 5]</span>
+<span class="co">#&gt; Source: local data frame [16,783 x 5]</span>
 <span class="co">#&gt; Groups: name, stat [1,917]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;     name    stat   .id         obs         shuf</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;       &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   (A)n absdist     1 126.4610794 3.782088e+02</span>
-<span class="co">#&gt; 2   (A)n absdist     2   5.6050746 3.489827e+02</span>
-<span class="co">#&gt; 3   (A)n absdist     3   1.0093609 3.149131e+02</span>
-<span class="co">#&gt; 4   (A)n absdist     4   0.1585214 2.553528e+02</span>
-<span class="co">#&gt; 5   (A)n absdist     5   1.0203258 2.344293e+02</span>
-<span class="co">#&gt; 6   (A)n absdist     6   0.5561215 1.022334e+02</span>
-<span class="co">#&gt; 7   (A)n absdist     7   0.3557903 8.899137e+01</span>
-<span class="co">#&gt; 8   (A)n absdist     8   0.2337938 6.022942e+01</span>
-<span class="co">#&gt; 9   (A)n absdist     9   0.6456680 1.694344e+00</span>
-<span class="co">#&gt; 10  (A)n absdist    10   3.3093910 6.173914e-04</span>
-<span class="co">#&gt; # ... with 16,767 more rows</span></code></pre></div>
+<span class="co">#&gt;     name    stat   .id         obs     shuf</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;       &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   (A)n absdist     1 126.4610794 398.3905</span>
+<span class="co">#&gt; 2   (A)n absdist     2   5.6050746 390.5459</span>
+<span class="co">#&gt; 3   (A)n absdist     3   1.0093609 390.1060</span>
+<span class="co">#&gt; 4   (A)n absdist     4   0.1585214 338.5905</span>
+<span class="co">#&gt; 5   (A)n absdist     5   1.0203258 325.9782</span>
+<span class="co">#&gt; 6   (A)n absdist     6   0.5561215 296.1639</span>
+<span class="co">#&gt; 7   (A)n absdist     7   0.3557903 234.3513</span>
+<span class="co">#&gt; 8   (A)n absdist     8   0.2337938 186.5005</span>
+<span class="co">#&gt; 9   (A)n absdist     9   0.6456680 155.8682</span>
+<span class="co">#&gt; 10  (A)n absdist    10   3.3093910 126.6239</span>
+<span class="co">#&gt; # ... with 16,773 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvals &lt;-<span class="st"> </span>res %&gt;%<span class="st"> </span><span class="kw">do</span>(<span class="dt">twosided =</span> broom::<span class="kw">tidy</span>(<span class="kw">ks.test</span>(.$obs, .$shuf)),
                     <span class="dt">less =</span> broom::<span class="kw">tidy</span>(<span class="kw">ks.test</span>(.$obs, .$shuf, <span class="dt">alternative =</span> <span class="st">'less'</span>)),
@@ -143,11 +146,9 @@ res
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) +
 <span class="st">  </span><span class="kw">facet_grid</span>(stat ~<span class="st"> </span>alt) +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p><img src="img/interval-stats-pvalues-1.png" width="384" style="display: block; margin: auto;"></p>
-<p>We can also assess false discovery rates (q.values) using the <code>qvalue</code> library.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(qvalue)
-
-pvals &lt;-<span class="st"> </span><span class="kw">group_by</span>(pvals, stat, alt) %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">q.value =</span> <span class="kw">qvalue</span>(p.value)$qvalues) %&gt;%
+<p>We can also assess false discovery rates (q.values) using <code>p.adjust()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvals &lt;-<span class="st"> </span><span class="kw">group_by</span>(pvals, stat, alt) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">q.value =</span> <span class="kw">p.adjust</span>(p.value)) %&gt;%
 <span class="st">  </span><span class="kw">ungroup</span>() %&gt;%
 <span class="st">  </span><span class="kw">arrange</span>(q.value)</code></pre></div>
 <p>Finally we can visualize these results using <code>stat_ecdf()</code>.</p>
