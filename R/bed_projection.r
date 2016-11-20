@@ -71,7 +71,6 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   # count overlaps
   obs_counts <- group_by(obs_counts, chrom)
   obs_counts <- summarize(obs_counts, .obs_counts = n())
-  
           
   #total x intervals tested
   total_counts <- group_by(x, chrom)
@@ -81,7 +80,6 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
                                                          as.integer(0), .obs_counts))
   
   # calculate probabilty of overlap by chance
-
   y <- mutate(y, 
               .length = end - start)
   y <- group_by(y, chrom)
@@ -122,18 +120,6 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
                                       "FALSE"),
                 p.value = if_else(p.value < .5,
                                   p.value,
-                                      1 - p.value))
+                                  1 - p.value))
   res
 }  
-
-
-
-
-
-
-
-
-
-
-
-
