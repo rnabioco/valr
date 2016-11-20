@@ -111,7 +111,7 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 
 ### Interval statistics
 
--   Quantify overlaps between two sets of intervals with `bed_fisher()`.
+-   Calculate significance of overlaps between two sets of intervals with `bed_fisher()` and `bed_projection()`.
 
 -   Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
 
