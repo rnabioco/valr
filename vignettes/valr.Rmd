@@ -343,7 +343,7 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 * Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
 
-* Quantify extent of overlap between two sets of intervals with `bed_jaccard()`.
+* Quantify extent of overlap between two sets of intervals with `bed_jaccard()` or `bed_projection()`.
 
 ### Utilities
 
