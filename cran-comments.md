@@ -1,10 +1,14 @@
 ## Resubmission
  
-This is a resubmission. In this third version I:
+This is a resubmission. In this fourth version I:
+
+* excluded README.md from the build to eliminate a 404 error.
+
+In the third (previous) submssion, I:
 
 * updated the DESCRIPTION by singly-quoting and describing the use of 'BEDtools'.
 
-In the second (previous) resubmission, I:
+In the second (previous) submission, I:
 
 * Updated to the CRAN MIT LICENSE template.
 
