@@ -7,8 +7,8 @@ Authors@R: c(
     person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
     person('Ryan', 'Sheridan', role = c('ctb'), email = 'ryan.sheridan@ucdenver.edu')
     )
-Description: Read and manipulate genome intervals and signals. valr 
-             provides functionality similar to BEDtools and bedops within R,
+Description: Read and manipulate genome intervals and signals. Provides
+             functionality similar to the command-line tool suite 'BEDtools' within R,
              enabling interactive analysis and visualization of genome-scale data. 
 License: MIT + file LICENSE
 Depends:
