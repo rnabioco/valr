@@ -1,9 +1,9 @@
-#' Projection Test for query interval overlap.
+#' Projection test for query interval overlap.
 #' 
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param genome chrom sizes
-#' @param by_chrom compute test per chromosome  rather than across whole genome
+#' @param by_chrom compute test per chromosome
 #' 
 #' @template groups
 #' 
@@ -33,25 +33,26 @@
 #' )
 #' 
 #' x <- tibble::tribble(
-#'~chrom, ~start, ~end,
-#'"chr1", 100,    200,
-#'"chr1", 250,    400,
-#'"chr1", 500,    600,
-#'"chr1", 1000,   2000,
-#'"chr2", 100,    200
-#')
+#'  ~chrom, ~start, ~end,
+#'  "chr1", 100,    200,
+#'  "chr1", 250,    400,
+#'  "chr1", 500,    600,
+#'  "chr1", 1000,   2000,
+#'  "chr2", 100,    200
+#' )
 #'
-#'y <- tibble::tribble(
+#' y <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 150,    175,
 #'  "chr1", 525,    575,
 #'  "chr1", 1100,   1200,
 #'  "chr1", 1400,   1600,
 #'  "chr2", 200,    1500
-#') 
+#' ) 
 #'
-#'bed_projection(x, y, genome)
-#'bed_projection(x, y, genome, by_chrom = TRUE)
+#' bed_projection(x, y, genome)
+#' bed_projection(x, y, genome, by_chrom = TRUE)
+#' 
 #' @export
 bed_projection <- function(x, y, genome, by_chrom = FALSE) {
 

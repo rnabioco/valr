@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_projection.r
 \name{bed_projection}
 \alias{bed_projection}
-\title{Projection Test for query interval overlap.}
+\title{Projection test for query interval overlap.}
 \usage{
 bed_projection(x, y, genome, by_chrom = FALSE)
 }
@@ -13,7 +13,7 @@ bed_projection(x, y, genome, by_chrom = FALSE)
 
 \item{genome}{chrom sizes}
 
-\item{by_chrom}{compute test per chromosome  rather than across whole genome}
+\item{by_chrom}{compute test per chromosome}
 }
 \value{
 \code{data_frame} with the following columns:
@@ -30,7 +30,7 @@ bed_projection(x, y, genome, by_chrom = FALSE)
     }
 }
 \description{
-Projection Test for query interval overlap.
+Projection test for query interval overlap.
 }
 \details{
 input tbls can be grouped using \code{\link[dplyr]{group_by}} prior to 
@@ -48,12 +48,12 @@ genome <- tibble::tribble(
 )
 
 x <- tibble::tribble(
-~chrom, ~start, ~end,
-"chr1", 100,    200,
-"chr1", 250,    400,
-"chr1", 500,    600,
-"chr1", 1000,   2000,
-"chr2", 100,    200
+ ~chrom, ~start, ~end,
+ "chr1", 100,    200,
+ "chr1", 250,    400,
+ "chr1", 500,    600,
+ "chr1", 1000,   2000,
+ "chr2", 100,    200
 )
 
 y <- tibble::tribble(
@@ -67,6 +67,7 @@ y <- tibble::tribble(
 
 bed_projection(x, y, genome)
 bed_projection(x, y, genome, by_chrom = TRUE)
+
 }
 \seealso{
 \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}

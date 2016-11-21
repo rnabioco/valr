@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Projection Test for query interval overlap. — bed_projection • valr</title>
+<title>Projection test for query interval overlap. — bed_projection • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,11 +89,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Projection Test for query interval overlap.</h1>
+    <h1>Projection test for query interval overlap.</h1>
     </div>
 
     
-    <p>Projection Test for query interval overlap.</p>
+    <p>Projection test for query interval overlap.</p>
     
 
     <pre><span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -107,7 +107,7 @@
       <dt>genome</dt>
       <dd>chrom sizes</dd>
       <dt>by_chrom</dt>
-      <dd>compute test per chromosome  rather than across whole genome</dd>
+      <dd>compute test per chromosome</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -154,12 +154,12 @@
 )
 
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>250</span>,    <span class='fl'>400</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>600</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>1000</span>,   <span class='fl'>2000</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>
+ ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>250</span>,    <span class='fl'>400</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>600</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>1000</span>,   <span class='fl'>2000</span>,
+ <span class='st'>"chr2"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>
 )
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
@@ -178,7 +178,8 @@
 #&gt;   chrom      p.value obs_exp_ratio lower_tail
 #&gt;   &lt;chr&gt;        &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;
 #&gt; 1  chr1 1.977539e-06            20      FALSE
-#&gt; 2  chr2 6.500000e-02             0      FALSE</div></pre>
+#&gt; 2  chr2 6.500000e-02             0      FALSE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
