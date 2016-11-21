@@ -8,7 +8,7 @@ Authors@R: c(
     person('Ryan', 'Sheridan', role = c('ctb'), email = 'ryan.sheridan@ucdenver.edu')
     )
 Description: Read and manipulate genome intervals and signals. Provides
-             functionality similar to the command-line tool suite 'BEDtools' within R,
+             functionality similar to command-line tool suites within R,
              enabling interactive analysis and visualization of genome-scale data. 
 License: MIT + file LICENSE
 Depends:

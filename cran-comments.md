@@ -1,6 +1,10 @@
 ## Resubmission
  
-This is a resubmission. In this fourth version I:
+This is a resubmission. In this fifth version I:
+
+* removed a reference to 'BEDtools' in the Description.
+
+In the fourth (previous) version I:
 
 * excluded README.md from the build to eliminate a 404 error.
 
