@@ -20,8 +20,7 @@
 #' @export
 interval_spacing <- function(x) {
   
-  if (! is_merged(x) ) 
-    res <- bed_merge(x)
+  res <- bed_merge(x)
   
   groups_x <- groups(x)
   

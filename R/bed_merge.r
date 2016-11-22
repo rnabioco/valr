@@ -47,6 +47,8 @@
 #' @export
 bed_merge <- function(x, max_dist = 0, ...) {
   
+  if (is_merged(x)) return(x)
+  
   x_groups <- groups(x)
   
   if (max_dist < 0)
