@@ -3,7 +3,7 @@
 ## Major changes
 
 ## Minor changes
- 
+- fixed memory-access error in absdist.cpp
 - fixed vignette entry names
 
 # valr 0.1.0
