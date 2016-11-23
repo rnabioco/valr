@@ -5,3 +5,5 @@ inst/doc
 *.swp
 README.html
 *_cache/
+index.md
+index.html

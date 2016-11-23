@@ -1,6 +1,6 @@
 
-valr <img src="logo.png" align="right" />
-=========================================
+valr
+====
 
 [![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master) [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
 
@@ -62,9 +62,22 @@ tbl(ucsc, 'refGene')
 
 ### Visual documentation
 
-`valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. This glyph (generated using `bed_glyph()`) shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
+`valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. For example, `bed_glyph()` can be used to illustrate result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
-![](img/README-intersect_glyph-1.png)
+``` r
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1', 25,     50,
+  'chr1', 100,    125
+)
+
+y <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1', 30,     75
+)
+
+bed_glyph(bed_intersect(x, y))
+```
 
 ### Reproducible reports
 
