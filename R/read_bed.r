@@ -1,7 +1,8 @@
 #' @title Read BED and related files.
 #'   
-#' @description read functions for BED and related formats. Filenames can be
-#'   local file or URLs.
+#' @description read functions for BED and related formats. Filenames can be 
+#'   local file or URLs. The read functions load data into tbls with consistent
+#'   \code{chrom}, \code{start} and \code{end} colnames.
 #'   
 #' @param filename file or URL
 #' @param n_fields number fields in the BED file

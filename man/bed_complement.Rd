@@ -49,6 +49,7 @@ x <- tibble::tribble(
 
 # intervals not covered by x
 bed_complement(x, genome)
+
 }
 \seealso{
 Other single-set-ops: \code{\link{bed_cluster}},

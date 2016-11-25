@@ -21,6 +21,9 @@ NULL
 #' 
 #' # fetch the `refGene` tbl
 #' tbl(ucsc, "refGene")
+#' 
+#' # the `chromInfo` tbls have size information
+#' tbl(ucsc, "chromInfo")
 #' }
 #' 
 #' @export

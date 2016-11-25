@@ -5,20 +5,21 @@
 #' @param genome chrom sizes
 #' @param by_chrom compute test per chromosome
 #' 
-#' @template groups
+#' @template stats
 #' 
 #' @family interval-stats
+#' 
 #' @return \code{data_frame} with the following columns:
 #'   \itemize{ 
-#'     \item{\code{chrom}} {the name of chromosome tested if \code{by_chrom} is \code{TRUE},
-#'      otherwise set to \code{whole_genome}}
-#'     \item{\code{p.value}} {p-value from a binomial test, note that p-values > 0.5
-#'      will be reported as 1 - p-value and \code{lower_tail} will be set to \code{FALSE}}
+#'     \item{\code{chrom}} {the name of chromosome tested if \code{by_chrom = TRUE},
+#'      otherwise has a value of \code{'whole_genome'}}
+#'     \item{\code{p.value}} {p-value from a binomial test. p-values > 0.5
+#'      will be reported as 1 - p-value and \code{lower_tail} will be \code{FALSE}}
 #'     \item{\code{obs_exp_ratio}} {ratio of observed to expected overlap frequency}
-#'     \item{\code{lower_tail}} {\code{TRUE} denotes that the observed number of overlaps
-#'      is in the lower tail of the distribution (less overlap than expected), \code{FALSE}
-#'     denotes that the observed probabililty are in the upper tail of the distribution
-#'      (more overlap than expected)}
+#'     \item{\code{lower_tail}} a boolean column. {\code{TRUE} indicates the observed overlaps
+#'      is in the lower tail of the distribution (e.g., less overlap than expected); \code{FALSE}
+#'      indicates that the observed overlaps are in the upper tail of the distribution
+#'      (e.g., more overlap than expected)}
 #'     }
 #'   
 #' @seealso
@@ -57,8 +58,7 @@
 bed_projection <- function(x, y, genome, by_chrom = FALSE) {
 
   #find midpoints
-  x <- mutate(x, 
-              .midpoint = round((end + start) / 2),
+  x <- mutate(x, .midpoint = round((end + start) / 2),
               start = .midpoint,
               end = .midpoint + 1)
   x <- select(x, -.midpoint)
@@ -81,10 +81,10 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
                                                          as.integer(0), .obs_counts))
   
   # calculate probabilty of overlap by chance
-  y <- mutate(y, 
-              .length = end - start)
+  y <- mutate(y, .length = end - start)
   y <- group_by(y, chrom)
   y <- summarize(y, .reference_coverage = sum(.length))
+  
   # add in any missing chromosomes
   y <- full_join(y, genome, by = "chrom")
   
@@ -115,10 +115,11 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
                                       prob = .exp_prob),
                      obs_exp_ratio = (.obs_counts / .total_trials) / .exp_prob)
   }
+  
   res <- mutate(res,
                 lower_tail = if_else(p.value < .5,
-                                      "TRUE",
-                                      "FALSE"),
+                                     "TRUE",
+                                     "FALSE"),
                 p.value = if_else(p.value < .5,
                                   p.value,
                                   1 - p.value))

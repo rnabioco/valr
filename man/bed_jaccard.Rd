@@ -31,6 +31,11 @@ intervals. The Jaccard statistic takes values of \code{[0,1]} and is measured as
                      {\mid x \bigcup y \mid} = 
                 \frac{\mid x \bigcap y \mid}
                      {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} }
+
+Interval statistics can be used in combination with 
+  \code{\link[dplyr]{group_by}} and \code{\link[dplyr]{do}} to calculate 
+  statistics for subsets of data. See the Interval statistics vignette for
+  examples.
 }
 \examples{
 x <- tibble::tribble(

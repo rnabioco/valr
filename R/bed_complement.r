@@ -39,7 +39,7 @@
 #' 
 #' # intervals not covered by x
 #' bed_complement(x, genome)
-
+#'
 #' @export
 bed_complement <- function(x, genome) {
 

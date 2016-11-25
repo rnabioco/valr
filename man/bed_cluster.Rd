@@ -12,19 +12,19 @@ bed_cluster(x, max_dist = 0)
 \item{max_dist}{maximum distance between clustered intervals.}
 }
 \value{
-\code{data_frame}
+\code{data_frame} with \code{.id} column for clustered intervals.
 }
 \description{
-Returned \code{data_frame} contains a new \code{.id} column that can be used for
-grouping along with \code{chrom}. Default \code{max_dist} of 0 means that
-overlapping and book-ended intervals will be clustered.
+Output contains an \code{.id} column that can be used in downstream grouping
+operations. Default \code{max_dist = 0} means that both overlapping and
+book-ended intervals will be clustered.
 }
 \details{
-input tbls can be grouped using \code{\link[dplyr]{group_by}} prior to 
-  analysis. Input tbls are grouped by \code{chrom} by default. Grouping by 
-  \code{strand} will constrain analyses to the same strand. To compare 
-  opposing strands between two tbls, strands on the \code{y} tbl can first be
-  be inverted using \code{\link{flip_strands}}.
+input tbls are grouped by \code{chrom} by default, and additional
+  groups can be added using \code{\link[dplyr]{group_by}}. For example,
+  grouping by \code{strand} will constrain analyses to the same strand. To
+  compare opposing strands across two tbls, strands on the \code{y} tbl can
+  first be inverted using \code{\link{flip_strands}}.
 }
 \examples{
 x <- tibble::tribble(

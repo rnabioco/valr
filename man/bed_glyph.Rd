@@ -9,15 +9,15 @@ bed_glyph(expr, label = NULL, res_name = "result")
 \arguments{
 \item{expr}{expression to evaluate}
 
-\item{label}{col name for label output}
+\item{label}{colname in output to use for label values}
 
 \item{res_name}{name of result in output}
 }
 \value{
-\code{ggplot}
+a \code{ggplot} object
 }
 \description{
-Create example glyphs for valr functions.
+Used to illustrate the output of valr functions with small input tbls.
 }
 \examples{
 x <- tibble::tribble(

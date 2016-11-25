@@ -1,8 +1,8 @@
 #' Convert BED12 to individual exons in BED6.
 #' 
 #' After conversion to BED6 format, the \code{score} column contains the exon 
-#' number, with respect to strand (i.e., exon 1 for `-` strand genes will have 
-#' larger start and end coordinates).
+#' number, with respect to strand (i.e., the first exon for \code{-} strand
+#' genes will have larger start and end coordinates).
 #' 
 #' @param x tbl in BED12 format
 #' @family utils
@@ -10,10 +10,7 @@
 #' @examples
 #' bed12_path <- valr_example('mm9.bed12.gz')
 #' x <- read_bed12(bed12_path)
-#' y <- bed12_to_exons(x) 
-#' 
-#' # first exons
-#' subset(y, score == 1)
+#' bed12_to_exons(x) 
 #' 
 #' @export
 bed12_to_exons <- function(x) {

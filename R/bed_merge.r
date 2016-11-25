@@ -1,7 +1,8 @@
 #' Merge overlapping intervals.
 #' 
-#' Operations can be performed on merged intervals by specifying name-value
-#' pairs.
+#' Operations can be performed on merged intervals by specifying name-value 
+#' pairs. Default \code{max_dist} of \code{0} means book-ended intervals are
+#' merged.
 #' 
 #' @param x tbl of intervals
 #' @param max_dist maximum distance between intervals to merge
@@ -11,9 +12,9 @@
 #'   
 #' @return \code{data_frame}
 #' @family single-set-ops
-#' @seealso
-#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
-#'   
+#' @seealso 
+#' \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
+#' 
 #' @examples 
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,

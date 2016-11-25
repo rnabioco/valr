@@ -34,8 +34,9 @@ read_broadpeak(filename, ...)
 \code{data_frame}
 }
 \description{
-read functions for BED and related formats. Filenames can be
-  local file or URLs.
+read functions for BED and related formats. Filenames can be 
+  local file or URLs. The read functions load data into tbls with consistent
+  \code{chrom}, \code{start} and \code{end} colnames.
 }
 \details{
 \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}

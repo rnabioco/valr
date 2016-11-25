@@ -17,17 +17,16 @@ one-pair-per-line, tab-delimited}
 \description{
 Genome files (UCSC "chromSize" files) contain chromosome name and size
 information. These sizes are used by downstream functions to identify
-computed intervals that have ends outside the defined size.
+computed intervals that have coordinates outside of the genome bounds.
 }
 \note{
 URLs to genome files can also be used.
 }
 \examples{
-
 read_genome(valr_example('hg19.chrom.sizes.gz'))
 
 \dontrun{
-# can also read from a URL
+# `read_genome` accepts a URL
 read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 }
 

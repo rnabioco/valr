@@ -34,6 +34,9 @@ ucsc <- db_ucsc('hg38')
 
 # fetch the `refGene` tbl
 tbl(ucsc, "refGene")
+
+# the `chromInfo` tbls have size information
+tbl(ucsc, "chromInfo")
 }
 
 \dontrun{

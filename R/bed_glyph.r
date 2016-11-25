@@ -1,18 +1,20 @@
 #' Create example glyphs for valr functions.
 #' 
-#' @param expr expression to evaluate
-#' @param res_name name of result in output
-#' @param label col name for label output
+#' Used to illustrate the output of valr functions with small input tbls.
 #' 
-#' @return \code{ggplot}
-#'
+#' @param expr expression to evaluate
+#' @param label colname in output to use for label values
+#' @param res_name name of result in output
+#'   
+#' @return a \code{ggplot} object
+#'   
 #' @examples
 #' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  'chr1', 25,     50,
 #'  'chr1', 100,    125
 #' )
-#'
+#' 
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
 #'   'chr1', 30,     75,  50

@@ -17,7 +17,8 @@ bound_intervals(x, genome, trim = FALSE)
 \code{data_frame}
 }
 \description{
-Select intervals bounded by a genome.
+Used to remove out-of-bounds intervals, or trim interval coordinates using a
+\code{genome}.
 }
 \examples{
 x <- tibble::tribble(
@@ -29,10 +30,10 @@ x <- tibble::tribble(
 
 genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
-# out-of-bounds are removed by default 
+# out-of-bounds are removed by default ...
 bound_intervals(x, genome)
 
-# out-of-bounds intervals can be trimmed with trim = TRUE  
+# ... or can be trimmed within the bounds of a genome
 bound_intervals(x, genome, trim = TRUE)
 
 }

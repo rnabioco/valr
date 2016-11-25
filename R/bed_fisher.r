@@ -1,14 +1,19 @@
 #' Fisher's test on number of shared and unique intervals.
 #' 
+#' Borrows from the \code{BEDtools} implementation.
+#' 
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param genome tbl of chrom sizes
-#' 
+#'  
+#' @template stats
+#'  
 #' @family interval-stats
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
-#' 
+#' @seealso
+#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
+#'   
 #' @return \code{data_frame}
-#' 
+#'   
 #' @examples 
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,

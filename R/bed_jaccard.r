@@ -10,6 +10,8 @@
 #' 
 #' @param x tbl of intervals
 #' @param y tbl of intervals
+#' 
+#' @template stats
 #'   
 #' @family interval-stats
 #' @return \code{data_frame} with the following columns:

@@ -21,8 +21,7 @@ values(.data, sep = ",")
 
 \item{y}{tbl of intervals}
 
-\item{...}{name-value pairs using functions like \code{\link{min}()}, 
-\code{\link{count}()}, \code{\link{concat}()}.}
+\item{...}{name-value pairs specifying colnames and expressions to apply}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
@@ -38,18 +37,17 @@ values(.data, sep = ",")
 \code{data_frame}
 }
 \description{
-Calculate summaries and statistics from overlapping intervals.
+Used to apply functions like \code{\link{min}()}, \code{\link{count}()}, 
+\code{\link{concat}()} to intersecting intervals. Book-ended intervals are 
+not reported by default, but can be included by setting \code{min_overlap =
+0}.
 }
 \details{
-input tbls can be grouped using \code{\link[dplyr]{group_by}} prior to 
-  analysis. Input tbls are grouped by \code{chrom} by default. Grouping by 
-  \code{strand} will constrain analyses to the same strand. To compare 
-  opposing strands between two tbls, strands on the \code{y} tbl can first be
-  be inverted using \code{\link{flip_strands}}.
-}
-\note{
-Book-ended intervals are not reported by default, but can be included
-  by setting \code{min_overlap} to \code{0}.
+input tbls are grouped by \code{chrom} by default, and additional
+  groups can be added using \code{\link[dplyr]{group_by}}. For example,
+  grouping by \code{strand} will constrain analyses to the same strand. To
+  compare opposing strands across two tbls, strands on the \code{y} tbl can
+  first be inverted using \code{\link{flip_strands}}.
 }
 \examples{
 x <- tibble::tribble(

@@ -1,21 +1,22 @@
 #' Calculate summaries and statistics from overlapping intervals.
 #' 
+#' Used to apply functions like \code{\link{min}()}, \code{\link{count}()}, 
+#' \code{\link{concat}()} to intersecting intervals. Book-ended intervals are 
+#' not reported by default, but can be included by setting \code{min_overlap =
+#' 0}.
+#' 
 #' @inheritParams bed_intersect
 #' @param min_overlap minimum overlap for intervals.
-#' @param ... name-value pairs using functions like \code{\link{min}()}, 
-#'   \code{\link{count}()}, \code{\link{concat}()}.
+#' @param ... name-value pairs specifying colnames and expressions to apply
 #'   
 #' @template groups
-#' 
+#'   
 #' @return \code{data_frame}
 #'   
 #' @family multi-set-ops
 #' @seealso 
 #' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #' 
-#' @note Book-ended intervals are not reported by default, but can be included
-#'   by setting \code{min_overlap} to \code{0}.
-#'   
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
@@ -72,7 +73,6 @@ bed_map <- function(x, y, ..., invert = FALSE,
                     min_overlap = 1) {
   
   groups_x <- groups(x)
-  groups_y <- groups(y)
   
   # used only to get the `x` suffix; `y` suffix is ignored` 
   suffix <- list(x = suffix[1], y = suffix[2])

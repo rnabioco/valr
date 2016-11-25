@@ -1,4 +1,4 @@
-#' Compute relative distances intervals.
+#' Compute relative distances between intervals.
 #' 
 #' @param x tbl of intervals
 #' @param y tbl of intervals
@@ -6,7 +6,18 @@
 #'
 #' @family interval-stats
 #'  
-#' @return \code{data_frame}
+#' @return If \code{detail = FALSE}, a \code{data_frame} that summarizes
+#'  calcuclated \code{.reldist} values with the following columns:
+#'   \itemize{
+#'     \item{\code{.reldist}}{ relative distance metric}
+#'     \item{\code{.counts}}{ number of metric observations}
+#'     \item{\code{.total}}{ total observations}
+#'     \item{\code{.freq}}{ frequency of observation}}
+#'     
+#'     If \code{detail = TRUE}, a new \code{.reldist} column reports the relative
+#'     distance for each input \code{x} interval.
+#' 
+#' @template stats
 #' 
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}
 #' 
@@ -23,6 +34,8 @@
 #' )
 #' 
 #' bed_reldist(x, y)
+#' 
+#' bed_reldist(x, y, detail = TRUE)
 #' 
 #' @export
 bed_reldist <- function(x, y, detail = FALSE) {

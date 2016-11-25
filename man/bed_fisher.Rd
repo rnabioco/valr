@@ -17,7 +17,13 @@ bed_fisher(x, y, genome)
 \code{data_frame}
 }
 \description{
-Fisher's test on number of shared and unique intervals.
+Borrows from the \code{BEDtools} implementation.
+}
+\details{
+Interval statistics can be used in combination with 
+  \code{\link[dplyr]{group_by}} and \code{\link[dplyr]{do}} to calculate 
+  statistics for subsets of data. See the Interval statistics vignette for
+  examples.
 }
 \examples{
 x <- tibble::tribble(

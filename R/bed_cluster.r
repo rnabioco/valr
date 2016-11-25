@@ -1,18 +1,20 @@
 #' Cluster neighboring intervals.
 #' 
-#' Returned \code{data_frame} contains a new \code{.id} column that can be used for
-#' grouping along with \code{chrom}. Default \code{max_dist} of 0 means that
-#' overlapping and book-ended intervals will be clustered.
+#' Output contains an \code{.id} column that can be used in downstream grouping
+#' operations. Default \code{max_dist = 0} means that both overlapping and
+#' book-ended intervals will be clustered.
 #' 
 #' @param x tbl of intervals
 #' @param max_dist maximum distance between clustered intervals.
 #'   
 #' @template groups
-#' 
-#' @return \code{data_frame}
+#'   
+#' @return \code{data_frame} with \code{.id} column for clustered intervals.
+#'   
 #' @family single-set-ops
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html} 
-#'
+#' @seealso 
+#' \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
+#' 
 #' @examples
 #' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
@@ -35,7 +37,7 @@
 #' )
 #' 
 #' bed_glyph(bed_cluster(x), label = '.id')
-#'
+#' 
 #' @export
 bed_cluster <- function(x, max_dist = 0) {
 
