@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute relative distances intervals. — bed_reldist • valr</title>
+<title>Compute relative distances between intervals. — bed_reldist • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,11 +89,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute relative distances intervals.</h1>
+    <h1>Compute relative distances between intervals.</h1>
     </div>
 
     
-    <p>Compute relative distances intervals.</p>
+    <p>Compute relative distances between intervals.</p>
     
 
     <pre><span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>detail</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -110,7 +110,26 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code></p>
+    <p>If <code>detail = FALSE</code>, a <code>data_frame</code> that summarizes
+ calcuclated <code>.reldist</code> values with the following columns:
+  <ul>
+<li><code>.reldist</code> relative distance metric
+    </li>
+<li><code>.counts</code> number of metric observations
+    </li>
+<li><code>.total</code> total observations
+    </li>
+<li><code>.freq</code> frequency of observation</li>
+</ul></p>
+    <p>If <code>detail = TRUE</code>, a new <code>.reldist</code> column reports the relative
+    distance for each input <code>x</code> interval.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Interval statistics can be used in combination with 
+  <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 
+  statistics for subsets of data. See the Interval statistics vignette for
+  examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -136,6 +155,10 @@
 #&gt;   .reldist .counts .total .freq
 #&gt;      &lt;dbl&gt;   &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;
 #&gt; 1      0.5       1      1     1</div><div class='input'>
+<span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>detail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 4
+#&gt;   chrom start   end .reldist
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1  chr1    75   125      0.5</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -144,6 +167,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

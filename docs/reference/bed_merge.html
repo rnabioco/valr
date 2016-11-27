@@ -93,8 +93,9 @@
     </div>
 
     
-    <p>Operations can be performed on merged intervals by specifying name-value
-pairs.</p>
+    <p>Operations can be performed on merged intervals by specifying name-value 
+pairs. Default <code>max_dist</code> of <code>0</code> means book-ended intervals are
+merged.</p>
     
 
     <pre><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
@@ -115,11 +116,11 @@ pairs.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>input tbls can be grouped using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> prior to 
-  analysis. Input tbls are grouped by <code>chrom</code> by default. Grouping by 
-  <code>strand</code> will constrain analyses to the same strand. To compare 
-  opposing strands between two tbls, strands on the <code>y</code> tbl can first be
-  be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
+    <p>input tbls are grouped by <code>chrom</code> by default, and additional
+  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
+  grouping by <code>strand</code> will constrain analyses to the same strand. To
+  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

@@ -93,7 +93,9 @@
     </div>
 
     
-    <p>Identify intersecting intervals.</p>
+    <p>Report intersecting intervals from <code>x</code> and <code>y</code> tbls. Book-ended 
+intervals (or &quot;touching&quot; intervals) have <code>.overlap</code> values of <code>0</code>) 
+in the output.</p>
     
 
     <pre><span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)</pre>
@@ -112,17 +114,19 @@
       <dd>extra arguments (not used)</dd>
     </dl>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a <code>data_frame</code> with original columns from <code>x</code> and <code>y</code>,
+  suffixed with <code>.x</code> and <code>.y</code>, and a new <code>.overlap</code> column 
+  with the extent of overlap for the intersecting intervals.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>input tbls can be grouped using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> prior to 
-  analysis. Input tbls are grouped by <code>chrom</code> by default. Grouping by 
-  <code>strand</code> will constrain analyses to the same strand. To compare 
-  opposing strands between two tbls, strands on the <code>y</code> tbl can first be
-  be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Book-ended intervals have <code>.overlap</code> values of 0 in the output.</p>
+    <p>input tbls are grouped by <code>chrom</code> by default, and additional
+  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
+  grouping by <code>strand</code> will constrain analyses to the same strand. To
+  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -146,19 +150,19 @@
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><img src='bed_intersect-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><img src='bed_intersect-4.png' alt='' width='540' height='400' /><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>300</span>,    <span class='fl'>500</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>300</span>,    <span class='fl'>500</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>
 )
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>350</span>,    <span class='fl'>430</span>,  <span class='fl'>300</span>
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>350</span>,    <span class='fl'>430</span>,  <span class='fl'>300</span>
 )
 
 <span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 6 × 7
@@ -169,7 +173,11 @@
 #&gt; 3  chr2     200   400     230   430     200      170
 #&gt; 4  chr2     200   400     350   430     300       50
 #&gt; 5  chr2     300   500     230   430     200      130
-#&gt; 6  chr2     300   500     350   430     300       80</div><div class='input'> 
+#&gt; 6  chr2     300   500     350   430     300       80</div><div class='input'>
+<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr2   800   900</div><div class='input'> 
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -177,9 +185,9 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
 
-      <li><a href="#note">Note</a></li>
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

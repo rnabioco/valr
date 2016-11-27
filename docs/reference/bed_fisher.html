@@ -93,7 +93,7 @@
     </div>
 
     
-    <p>Fisher&#39;s test on number of shared and unique intervals.</p>
+    <p>Borrows from the <code>BEDtools</code> implementation.</p>
     
 
     <pre><span class='fu'>bed_fisher</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</pre>
@@ -111,6 +111,13 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>data_frame</code></p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Interval statistics can be used in combination with 
+  <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 
+  statistics for subsets of data. See the Interval statistics vignette for
+  examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -151,6 +158,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

@@ -114,28 +114,27 @@
 
     <p><code>data_frame</code> with the following columns:
   <ul>
-<li><code>chrom</code> the name of chromosome tested if <code>by_chrom</code> is <code>TRUE</code>,
-     otherwise set to <code>whole_genome</code>
+<li><code>chrom</code> the name of chromosome tested if <code>by_chrom = TRUE</code>,
+     otherwise has a value of <code>&#39;whole_genome&#39;</code>
     </li>
-<li><code>p.value</code> p-value from a binomial test, note that p-values &gt; 0.5
-     will be reported as 1 - p-value and <code>lower_tail</code> will be set to <code>FALSE</code>
+<li><code>p.value</code> p-value from a binomial test. p-values &gt; 0.5
+     will be reported as 1 - p-value and <code>lower_tail</code> will be <code>FALSE</code>
     </li>
 <li><code>obs_exp_ratio</code> ratio of observed to expected overlap frequency
     </li>
-<li><code>lower_tail</code> <code>TRUE</code> denotes that the observed number of overlaps
-     is in the lower tail of the distribution (less overlap than expected), <code>FALSE</code>
-    denotes that the observed probabililty are in the upper tail of the distribution
-     (more overlap than expected)
+<li><code>lower_tail</code> a boolean column. <code>TRUE</code> indicates the observed overlaps
+     is in the lower tail of the distribution (e.g., less overlap than expected); <code>FALSE</code>
+     indicates that the observed overlaps are in the upper tail of the distribution
+     (e.g., more overlap than expected)
     </li>
 </ul></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>input tbls can be grouped using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> prior to 
-  analysis. Input tbls are grouped by <code>chrom</code> by default. Grouping by 
-  <code>strand</code> will constrain analyses to the same strand. To compare 
-  opposing strands between two tbls, strands on the <code>y</code> tbl can first be
-  be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
+    <p>Interval statistics can be used in combination with 
+  <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 
+  statistics for subsets of data. See the Interval statistics vignette for
+  examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

@@ -55,7 +55,7 @@
 <div id="valr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor"><a href="#valr" class="anchor"> </a>valr <img src="logo.png" align="right"></h1></div>
 
-<p><strong><code>valr</code> provides tools to read and manipulate genome intervals and signals</strong>, similar to the <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables BEDtools-like analysis in the R/RStudio environment, and leverages modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a>.</p>
+<p><strong><code>valr</code> provides tools to read and manipulate genome intervals and signals</strong>, similar to the <a href="http://bedtools.readthedocs.org/en/latest/"><code>BEDtools</code></a> suite. <code>valr</code> enables analysis in the R/RStudio environment, leveraging modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="http://www.rcpp.org/"><code>Rcpp</code></a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor"><a href="#installation" class="anchor"> </a>Installation</h2>
 <p>The latest stable version can be installed from CRAN:</p>
@@ -66,7 +66,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">'jayhesselbert
 </div>
 <div id="why-valr" class="section level2">
 <h2 class="hasAnchor"><a href="#why-valr" class="anchor"> </a>Why <code>valr</code>?</h2>
-<p><strong>Why another tool set for interval manipulations?</strong> Based on our experience teaching genome analysis, we were motivated to develop interval arithmetic software that faciliates genome analysis in a single environment (RStudio), eliminating the need to master the command-line and exploratory analysis tools.</p>
+<p><strong>Why another tool set for interval manipulations?</strong> Based on our experience teaching genome analysis, we were motivated to develop interval arithmetic software that faciliates genome analysis in a single environment (RStudio), eliminating the need to master both command-line and exploratory analysis tools.</p>
 <p><code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
 <div id="familiar-tools-all-within-r" class="section level3">
 <h3 class="hasAnchor"><a href="#familiar-tools-all-within-r" class="anchor"> </a>Familiar tools, all within R</h3>
@@ -95,7 +95,7 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor"><a href="#visual-documentation" class="anchor"> </a>Visual documentation</h3>
-<p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. This glyph (generated using <code><a href="reference/bed_glyph.html">bed_glyph()</a></code>) shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
+<p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. For example, <code><a href="reference/bed_glyph.html">bed_glyph()</a></code> illustrates the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
 <p><img src="img/README-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div id="reproducible-reports" class="section level3">

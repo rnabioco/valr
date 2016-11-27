@@ -93,8 +93,9 @@
     </div>
 
     
-    <p>read functions for BED and related formats. Filenames can be
-  local file or URLs.</p>
+    <p>read functions for BED and related formats. Filenames can be 
+  local file or URLs. The read functions load data into tbls with consistent
+  <code>chrom</code>, <code>start</code> and <code>end</code> colnames.</p>
     
 
     <pre><span class='fu'>read_bed</span>(<span class='no'>filename</span>, <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='no'>bed12_coltypes</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,

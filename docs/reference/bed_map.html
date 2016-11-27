@@ -93,7 +93,10 @@
     </div>
 
     
-    <p>Calculate summaries and statistics from overlapping intervals.</p>
+    <p>Used to apply functions like <code>min()</code>, <code>count()</code>, 
+<code>concat()</code> to intersecting intervals. Book-ended intervals are 
+not reported by default, but can be included by setting <code>min_overlap =
+0</code>.</p>
     
 
     <pre><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>),
@@ -112,8 +115,7 @@
       <dt>y</dt>
       <dd>tbl of intervals</dd>
       <dt>...</dt>
-      <dd>name-value pairs using functions like <code>min()</code>, 
-<code>count()</code>, <code>concat()</code>.</dd>
+      <dd>name-value pairs specifying colnames and expressions to apply</dd>
       <dt>invert</dt>
       <dd>report <code>x</code> intervals not in <code>y</code></dd>
       <dt>suffix</dt>
@@ -132,16 +134,11 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>input tbls can be grouped using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> prior to 
-  analysis. Input tbls are grouped by <code>chrom</code> by default. Grouping by 
-  <code>strand</code> will constrain analyses to the same strand. To compare 
-  opposing strands between two tbls, strands on the <code>y</code> tbl can first be
-  be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Book-ended intervals are not reported by default, but can be included
-  by setting <code>min_overlap</code> to <code>0</code>.</p>
+    <p>input tbls are grouped by <code>chrom</code> by default, and additional
+  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
+  grouping by <code>strand</code> will constrain analyses to the same strand. To
+  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -243,8 +240,6 @@
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

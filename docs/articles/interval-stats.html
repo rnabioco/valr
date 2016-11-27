@@ -51,31 +51,33 @@
       <h1>Interval statistics</h1>
                         <h4 class="author">Jay Hesselberth</h4>
             
-            <h4 class="date">November 23 2016</h4>
+            <h4 class="date">November 27 2016</h4>
           </div>
 
     
     
 <div class="contents">
+<div id="overview" class="section level2">
+<h2 class="hasAnchor"><html><body><a href="#overview" class="anchor"> </a></body></html>Overview</h2>
 <p><code>valr</code> can be used to explore relationships between sets of intervals. Here we explore the relationship between transcription start sites and repetitive elements in the human genome.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(tidyr)
-<span class="kw">library</span>(broom)
 
 <span class="co"># load repeats and genes. Data in the valr package is restricted to chr22; the entire</span>
 <span class="co"># files can be downloaded from UCSC.</span>
 rpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.rmsk.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>) 
-gens &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.refGene.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">12</span>)
+genes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.refGene.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">12</span>)
 
 <span class="co"># load chrom sizes</span>
-chrs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
+genome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
 
 <span class="co"># create 1bp intervals representing transcription start sites</span>
-tss &lt;-<span class="st"> </span><span class="kw">mutate</span>(gens,
-              <span class="dt">.start =</span> <span class="kw">ifelse</span>(strand ==<span class="st"> '+'</span>, start, end),
-              <span class="dt">.end =</span> .start +<span class="st"> </span><span class="dv">1</span>) %&gt;%
+tss &lt;-
+<span class="st">  </span><span class="kw">mutate</span>(genes,
+         <span class="dt">.start =</span> <span class="kw">ifelse</span>(strand ==<span class="st"> '+'</span>, start, end),
+         <span class="dt">.end =</span> .start +<span class="st"> </span><span class="dv">1</span>) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(chrom, <span class="dt">start =</span> .start, <span class="dt">end =</span> .end, name)
 
 tss
@@ -93,207 +95,210 @@ tss
 <span class="co">#&gt; 9  chr22 17073700 17073701    NM_014406</span>
 <span class="co">#&gt; 10 chr22 17082800 17082801    NR_001591</span>
 <span class="co">#&gt; # ... with 1,257 more rows</span></code></pre></div>
-<p>First we define a function that takes <code>x</code> and <code>y</code> intervals and computes distance statistics (using <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>) for specified groups.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gen_stats &lt;-<span class="st"> </span>function(x, y, genome, grp, <span class="dt">type =</span> <span class="ot">NA</span>) {
+</div>
+<div id="distance-metrics" class="section level2">
+<h2 class="hasAnchor"><html><body><a href="#distance-metrics" class="anchor"> </a></body></html>Distance metrics</h2>
+<p>First we define a function that takes <code>x</code> and <code>y</code> intervals and computes distance statistics (using <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>) for specified groups. The value of each statistic is assigned to a <code>.value</code> column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">distance_stats &lt;-<span class="st"> </span>function(x, y, genome, grp, <span class="dt">type =</span> <span class="ot">NA</span>) {
   <span class="kw">group_by_</span>(x, <span class="dt">.dots =</span> grp) %&gt;%
-<span class="st">    </span><span class="kw">do</span>(<span class="dt">reldist =</span> <span class="kw"><a href="../reference/bed_reldist.html">bed_reldist</a></span>(., y, <span class="dt">detail =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="st">    </span><span class="kw">do</span>(
+       <span class="dt">reldist =</span> <span class="kw"><a href="../reference/bed_reldist.html">bed_reldist</a></span>(., y, <span class="dt">detail =</span> <span class="ot">TRUE</span>) %&gt;%
 <span class="st">         </span><span class="kw">select</span>(<span class="dt">.value =</span> .reldist),
        <span class="dt">absdist =</span> <span class="kw"><a href="../reference/bed_absdist.html">bed_absdist</a></span>(., y, genome) %&gt;%
-<span class="st">         </span><span class="kw">select</span>(<span class="dt">.value =</span> .absdist_scaled)
+<span class="st">         </span><span class="kw">select</span>(<span class="dt">.value =</span> .absdist)
        ) %&gt;%
-<span class="st">    </span><span class="kw">gather_</span>(<span class="st">'stat'</span>, <span class="st">'value'</span>, <span class="kw">setdiff</span>(<span class="kw">names</span>(.), <span class="kw">list</span>(grp))) %&gt;%
+<span class="st">    </span>tidyr::<span class="kw">gather_</span>(<span class="st">'stat'</span>, <span class="st">'value'</span>, <span class="kw">setdiff</span>(<span class="kw">names</span>(.), <span class="kw">list</span>(grp))) %&gt;%
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">type =</span> type)
 } </code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obs_stats &lt;-<span class="st"> </span><span class="kw">gen_stats</span>(rpts, tss, chrs, <span class="st">'name'</span>, <span class="st">'obs'</span>)
-
-shfs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(rpts, chrs, <span class="dt">within =</span> <span class="ot">TRUE</span>)
-shf_stats &lt;-<span class="st"> </span><span class="kw">gen_stats</span>(shfs, tss, chrs, <span class="st">'name'</span>, <span class="st">'shuf'</span>)
-
-res &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(obs_stats, shf_stats) %&gt;%
-<span class="st">  </span><span class="kw">unnest</span>(value) %&gt;%<span class="st"> </span>
+<p>We use the <code>distance_stats()</code> function to apply the <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code> function to each group of data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obs_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(rpts, tss, genome, <span class="st">'name'</span>, <span class="st">'obs'</span>)
+obs_stats
+<span class="co">#&gt; # A tibble: 2,106 &times; 4</span>
+<span class="co">#&gt;          name    stat             value  type</span>
+<span class="co">#&gt;         &lt;chr&gt;   &lt;chr&gt;            &lt;list&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1        (A)n reldist &lt;tibble [27 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 2  (AAAAACA)n reldist  &lt;tibble [1 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 3    (AAAAC)n reldist  &lt;tibble [6 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 4    (AAAAG)n reldist  &lt;tibble [2 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 5    (AAAAT)n reldist  &lt;tibble [3 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 6   (AAAATA)n reldist  &lt;tibble [1 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 7  (AAAATAA)n reldist  &lt;tibble [1 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 8     (AAAC)n reldist  &lt;tibble [2 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 9    (AAACA)n reldist  &lt;tibble [1 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; 10  (AAACAA)n reldist  &lt;tibble [1 &times; 1]&gt;   obs</span>
+<span class="co">#&gt; # ... with 2,096 more rows</span></code></pre></div>
+<p>And the same is done for a set of shuffled group of data. <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code> is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shfs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(rpts, genome, <span class="dt">within =</span> <span class="ot">TRUE</span>)
+shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(shfs, tss, genome, <span class="st">'name'</span>, <span class="st">'shuf'</span>)</code></pre></div>
+<p>Now we can bind the observed and shuffled data together, and do some tidying to put the data into a format appropriate for a statistical test. This involves:</p>
+<ol style="list-style-type: decimal"><li><code>unnest()</code>ing the data frames</li>
+<li>creating groups for each repeat (<code>name</code>), stat (<code>reldist</code> or <code>absdist</code>) and type (<code>obs</code> or <code>shf</code>)</li>
+<li>adding unique surrogate row numbers for each group</li>
+<li>using <code>tidyr::spread()</code> to create two new <code>obs</code> and <code>shuf</code> columns</li>
+<li>removing rows with <code>NA</code> values.</li>
+</ol><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(obs_stats, shf_stats) %&gt;%
+<span class="st">  </span>tidyr::<span class="kw">unnest</span>(value) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(name, stat, type) %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">.id =</span> <span class="kw">row_number</span>()) %&gt;%
-<span class="st">  </span><span class="kw">spread</span>(type, .value) %&gt;%
+<span class="st">  </span>tidyr::<span class="kw">spread</span>(type, .value) %&gt;%
 <span class="st">  </span><span class="kw">na.omit</span>()
 
 res
-<span class="co">#&gt; Source: local data frame [16,783 x 5]</span>
-<span class="co">#&gt; Groups: name, stat [1,917]</span>
+<span class="co">#&gt; Source: local data frame [16,818 x 5]</span>
+<span class="co">#&gt; Groups: name, stat [1,923]</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;     name    stat   .id         obs     shuf</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;       &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   (A)n absdist     1 126.4610794 398.3905</span>
-<span class="co">#&gt; 2   (A)n absdist     2   5.5929738 390.5459</span>
-<span class="co">#&gt; 3   (A)n absdist     3   0.7715170 390.1060</span>
-<span class="co">#&gt; 4   (A)n absdist     4   0.2205569 338.5905</span>
-<span class="co">#&gt; 5   (A)n absdist     5   1.0203258 325.9782</span>
-<span class="co">#&gt; 6   (A)n absdist     6   0.5561215 296.1639</span>
-<span class="co">#&gt; 7   (A)n absdist     7   0.3747072 234.3513</span>
-<span class="co">#&gt; 8   (A)n absdist     8   0.5429340 186.5005</span>
-<span class="co">#&gt; 9   (A)n absdist     9   0.3323295 155.8682</span>
-<span class="co">#&gt; 10  (A)n absdist    10   3.3093910 126.6239</span>
-<span class="co">#&gt; # ... with 16,773 more rows</span></code></pre></div>
-<p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvals &lt;-<span class="st"> </span>res %&gt;%<span class="st"> </span><span class="kw">do</span>(<span class="dt">twosided =</span> broom::<span class="kw">tidy</span>(<span class="kw">ks.test</span>(.$obs, .$shuf)),
-                    <span class="dt">less =</span> broom::<span class="kw">tidy</span>(<span class="kw">ks.test</span>(.$obs, .$shuf, <span class="dt">alternative =</span> <span class="st">'less'</span>)),
-                    <span class="dt">greater =</span> broom::<span class="kw">tidy</span>(<span class="kw">ks.test</span>(.$obs, .$shuf, <span class="dt">alternative =</span> <span class="st">'greater'</span>))) %&gt;%
-<span class="st">  </span><span class="kw">gather</span>(alt, type, -name, -stat) %&gt;%
+<span class="co">#&gt;     name    stat   .id     obs     shuf</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   (A)n absdist     1 5120782 16153243</span>
+<span class="co">#&gt; 2   (A)n absdist     2  226476 16105748</span>
+<span class="co">#&gt; 3   (A)n absdist     3   31241 15962647</span>
+<span class="co">#&gt; 4   (A)n absdist     4    8931 14610839</span>
+<span class="co">#&gt; 5   (A)n absdist     5   41316 11453482</span>
+<span class="co">#&gt; 6   (A)n absdist     6   22519  8160005</span>
+<span class="co">#&gt; 7   (A)n absdist     7   15173  4915515</span>
+<span class="co">#&gt; 8   (A)n absdist     8   21985  4180270</span>
+<span class="co">#&gt; 9   (A)n absdist     9   13457      361</span>
+<span class="co">#&gt; 10  (A)n absdist    10  134007    15272</span>
+<span class="co">#&gt; # ... with 16,808 more rows</span></code></pre></div>
+<p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code>broom::tidy()</code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
+
+<span class="co"># silence the tests with ties ...</span>
+ks.test.quiet &lt;-<span class="st"> </span>function(...) {<span class="kw">suppressWarnings</span>(<span class="kw">ks.test</span>(...))}
+
+pvals &lt;-<span class="st"> </span>res %&gt;%<span class="st"> </span><span class="kw">do</span>(<span class="dt">twosided =</span> broom::<span class="kw">tidy</span>(<span class="kw">ks.test.quiet</span>(.$obs, .$shuf)),
+                    <span class="dt">less =</span> broom::<span class="kw">tidy</span>(<span class="kw">ks.test.quiet</span>(.$obs, .$shuf, <span class="dt">alternative =</span> <span class="st">'less'</span>)),
+                    <span class="dt">greater =</span> broom::<span class="kw">tidy</span>(<span class="kw">ks.test.quiet</span>(.$obs, .$shuf, <span class="dt">alternative =</span> <span class="st">'greater'</span>))) %&gt;%
+<span class="st">  </span>tidyr::<span class="kw">gather</span>(alt, type, -name, -stat) %&gt;%
 <span class="st">  </span><span class="kw">unnest</span>(type) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name:p.value) %&gt;%
 <span class="st">  </span><span class="kw">arrange</span>(p.value)
-
-<span class="kw">ggplot</span>(pvals, <span class="kw">aes</span>(p.value)) +
+<span class="co">#&gt; Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</span></code></pre></div>
+<p>Histgrams of the different stats help visulaize the distribution of p.values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pvals, <span class="kw">aes</span>(p.value)) +
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) +
 <span class="st">  </span><span class="kw">facet_grid</span>(stat ~<span class="st"> </span>alt) +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="img/interval-stats-pvalues-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="img/interval-stats-pvalue_viz-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>We can also assess false discovery rates (q.values) using <code>p.adjust()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvals &lt;-<span class="st"> </span><span class="kw">group_by</span>(pvals, stat, alt) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvals &lt;-
+<span class="st">  </span><span class="kw">group_by</span>(pvals, stat, alt) %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">q.value =</span> <span class="kw">p.adjust</span>(p.value)) %&gt;%
 <span class="st">  </span><span class="kw">ungroup</span>() %&gt;%
 <span class="st">  </span><span class="kw">arrange</span>(q.value)</code></pre></div>
 <p>Finally we can visualize these results using <code>stat_ecdf()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res_fold &lt;-<span class="st"> </span>res %&gt;%
-<span class="st">  </span><span class="kw">gather</span>(type, value, -name, -stat, -.id)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res_gather &lt;-<span class="st"> </span>tidyr::<span class="kw">gather</span>(res, type, value, -name, -stat, -.id)
 
-signif &lt;-<span class="st"> </span><span class="kw">head</span>(pvals, <span class="dv">25</span>)
-res_signif &lt;-<span class="st"> </span>signif %&gt;%<span class="st"> </span><span class="kw">left_join</span>(res_fold, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">'name'</span>,<span class="st">'stat'</span>))
+signif &lt;-<span class="st"> </span><span class="kw">head</span>(pvals, <span class="dv">5</span>)
+
+res_signif &lt;-
+<span class="st">  </span>signif %&gt;%
+<span class="st">  </span><span class="kw">left_join</span>(res_gather, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">'name'</span>, <span class="st">'stat'</span>))
 
 <span class="kw">ggplot</span>(res_signif, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">color =</span> type)) +
 <span class="st">  </span><span class="kw">stat_ecdf</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(name ~<span class="st"> </span>stat) +<span class="st"> </span><span class="kw">theme_classic</span>() +<span class="st"> </span><span class="kw">scale_x_log10</span>()</code></pre></div>
+<span class="st">  </span><span class="kw">facet_grid</span>(stat ~<span class="st"> </span>name) +<span class="st"> </span><span class="kw">theme_classic</span>() +<span class="st"> </span><span class="kw">scale_x_log10</span>()</code></pre></div>
 <p><img src="img/interval-stats-ecfs-1.png" width="384" style="display: block; margin: auto;"></p>
-<hr><p><code><a href="../reference/bed_projection.html">bed_projection()</a></code> is an additional statistical approach to assess the relationship between two intervals, based on the <code>binomial distribution</code>. Here, we&rsquo;ll investigate the distribution of repetitive elements within the promoters <code>coding</code> or <code>non-coding</code> genes.</p>
-<p>First we&rsquo;ll extract <code>5kb</code> regions upstream of the transcription start sites to represent the promoter regions for <code>coding</code> and <code>non-coding</code> genes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using the same data as before</span>
-gens
-<span class="co">#&gt; # A tibble: 1,267 &times; 12</span>
-<span class="co">#&gt;    chrom    start      end         name score strand cds_start  cds_end</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1  chr22 16150528 16193009    NR_122113     0      -  16193009 16193009</span>
-<span class="co">#&gt; 2  chr22 16157078 16172265    NR_133911     0      +  16172265 16172265</span>
-<span class="co">#&gt; 3  chr22 16162065 16172265    NR_073459     0      +  16172265 16172265</span>
-<span class="co">#&gt; 4  chr22 16162065 16172265    NR_073460     0      +  16172265 16172265</span>
-<span class="co">#&gt; 5  chr22 16199673 16231289    NR_132385     0      -  16231289 16231289</span>
-<span class="co">#&gt; 6  chr22 16256331 16287937 NM_001136213     0      -  16258185 16287885</span>
-<span class="co">#&gt; 7  chr22 16274608 16277577    NR_046571     0      +  16277577 16277577</span>
-<span class="co">#&gt; 8  chr22 16448823 16449804 NM_001005239     0      -  16448823 16449804</span>
-<span class="co">#&gt; 9  chr22 17071647 17073700    NM_014406     0      -  17071766 17073440</span>
-<span class="co">#&gt; 10 chr22 17082800 17129720    NR_001591     0      +  17129720 17129720</span>
-<span class="co">#&gt; # ... with 1,257 more rows, and 4 more variables: item_rgb &lt;chr&gt;,</span>
-<span class="co">#&gt; #   exon_count &lt;int&gt;, exon_sizes &lt;chr&gt;, exon_starts &lt;chr&gt;</span>
-rpts
-<span class="co">#&gt; # A tibble: 10,000 &times; 6</span>
-<span class="co">#&gt;    chrom    start      end     name score strand</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1  chr22 10522608 10522644  (AATA)n    39      +</span>
-<span class="co">#&gt; 2  chr22 10529446 10529561    AluJo   771      +</span>
-<span class="co">#&gt; 3  chr22 10534866 10534924     L1MD   356      -</span>
-<span class="co">#&gt; 4  chr22 10536350 10536483    L1MEd   362      -</span>
-<span class="co">#&gt; 5  chr22 10536811 10537128   AluYb8  3025      +</span>
-<span class="co">#&gt; 6  chr22 10543083 10543417 Tigger3a  1540      +</span>
-<span class="co">#&gt; 7  chr22 10549961 10550092    MSTB1   782      -</span>
-<span class="co">#&gt; 8  chr22 10554305 10554514    LTR29   835      -</span>
-<span class="co">#&gt; 9  chr22 10562009 10562402    L1MCa   858      -</span>
-<span class="co">#&gt; 10 chr22 10563539 10563681     L1M5   325      -</span>
-<span class="co">#&gt; # ... with 9,990 more rows</span>
-
-
-<span class="co"># create intervals 5kb upstream of tss representing promoters</span>
-promoters &lt;-<span class="st"> </span><span class="kw">mutate</span>(gens,
-              <span class="dt">.start =</span> <span class="kw">ifelse</span>(strand ==<span class="st"> '+'</span>, start -<span class="st"> </span><span class="dv">5000</span>, end -<span class="st"> </span><span class="dv">1</span>),
-              <span class="dt">.end   =</span> <span class="kw">ifelse</span>(strand ==<span class="st"> '+'</span>, start +<span class="st"> </span><span class="dv">1</span>, end +<span class="st"> </span><span class="dv">5000</span>),
-              <span class="dt">name   =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">"NR_"</span>, name), <span class="st">"non-coding"</span>, <span class="st">"coding"</span>)) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(chrom, <span class="dt">start =</span> .start, <span class="dt">end =</span> .end, name, score, strand)
+</div>
+<div id="projection-test" class="section level2">
+<h2 class="hasAnchor"><html><body><a href="#projection-test" class="anchor"> </a></body></html>Projection test</h2>
+<p><code><a href="../reference/bed_projection.html">bed_projection()</a></code> is a statistical approach to assess the relationship between two intervals based on the binomial distribution. Here, we examine the distribution of repetitive elements within the promoters of coding or non-coding genes.</p>
+<p>First we&rsquo;ll extract 5 kb regions upstream of the transcription start sites to represent the promoter regions for coding and non-coding genes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create intervals 5kb upstream of tss representing promoters</span>
+promoters &lt;-
+<span class="st">  </span><span class="kw"><a href="../reference/bed_flank.html">bed_flank</a></span>(genes, genome, <span class="dt">left =</span> <span class="dv">5000</span>, <span class="dt">strand =</span> <span class="ot">TRUE</span>) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">'NR_'</span>, name), <span class="st">'non-coding'</span>, <span class="st">'coding'</span>)) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(chrom:strand)
   
 <span class="co"># select coding and non-coding promoters</span>
-nc_promoters &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name ==<span class="st"> "non-coding"</span>)
-coding_promoters &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name ==<span class="st"> "coding"</span>)
-nc_promoters
-<span class="co">#&gt; # A tibble: 294 &times; 6</span>
-<span class="co">#&gt;    chrom    start      end       name score strand</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1  chr22 16193008 16198009 non-coding     0      -</span>
-<span class="co">#&gt; 2  chr22 16152078 16157079 non-coding     0      +</span>
-<span class="co">#&gt; 3  chr22 16157065 16162066 non-coding     0      +</span>
-<span class="co">#&gt; 4  chr22 16157065 16162066 non-coding     0      +</span>
-<span class="co">#&gt; 5  chr22 16231288 16236289 non-coding     0      -</span>
-<span class="co">#&gt; 6  chr22 16269608 16274609 non-coding     0      +</span>
-<span class="co">#&gt; 7  chr22 17077800 17082801 non-coding     0      +</span>
-<span class="co">#&gt; 8  chr22 17156429 17161430 non-coding     0      -</span>
-<span class="co">#&gt; 9  chr22 17229327 17234328 non-coding     0      -</span>
-<span class="co">#&gt; 10 chr22 17303363 17308364 non-coding     0      +</span>
-<span class="co">#&gt; # ... with 284 more rows</span>
-coding_promoters
+promoters_coding &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name ==<span class="st"> 'coding'</span>)
+promoters_ncoding &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name ==<span class="st"> 'non-coding'</span>)
+
+promoters_coding
 <span class="co">#&gt; # A tibble: 973 &times; 6</span>
 <span class="co">#&gt;    chrom    start      end   name score strand</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1  chr22 16287936 16292937 coding     0      -</span>
-<span class="co">#&gt; 2  chr22 16449803 16454804 coding     0      -</span>
-<span class="co">#&gt; 3  chr22 17073699 17078700 coding     0      -</span>
-<span class="co">#&gt; 4  chr22 17302588 17307589 coding     0      -</span>
-<span class="co">#&gt; 5  chr22 17302588 17307589 coding     0      -</span>
-<span class="co">#&gt; 6  chr22 17489111 17494112 coding     0      -</span>
-<span class="co">#&gt; 7  chr22 17560848 17565849 coding     0      +</span>
-<span class="co">#&gt; 8  chr22 17560848 17565849 coding     0      +</span>
-<span class="co">#&gt; 9  chr22 17602256 17607257 coding     0      -</span>
-<span class="co">#&gt; 10 chr22 17602212 17607213 coding     0      -</span>
-<span class="co">#&gt; # ... with 963 more rows</span></code></pre></div>
-<p>Next we&rsquo;ll apply the <code><a href="../reference/bed_projection.html">bed_projection()</a></code> test for each repeat class for both <code>coding</code> and <code>non-coding</code> regions.</p>
+<span class="co">#&gt; 1  chr22 16287937 16292937 coding     0      -</span>
+<span class="co">#&gt; 2  chr22 16449804 16454804 coding     0      -</span>
+<span class="co">#&gt; 3  chr22 17073700 17078700 coding     0      -</span>
+<span class="co">#&gt; 4  chr22 17302589 17307589 coding     0      -</span>
+<span class="co">#&gt; 5  chr22 17302589 17307589 coding     0      -</span>
+<span class="co">#&gt; 6  chr22 17489112 17494112 coding     0      -</span>
+<span class="co">#&gt; 7  chr22 17560848 17565848 coding     0      +</span>
+<span class="co">#&gt; 8  chr22 17560848 17565848 coding     0      +</span>
+<span class="co">#&gt; 9  chr22 17602213 17607213 coding     0      -</span>
+<span class="co">#&gt; 10 chr22 17602257 17607257 coding     0      -</span>
+<span class="co">#&gt; # ... with 963 more rows</span>
+
+promoters_ncoding
+<span class="co">#&gt; # A tibble: 294 &times; 6</span>
+<span class="co">#&gt;    chrom    start      end       name score strand</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt; 1  chr22 16152078 16157078 non-coding     0      +</span>
+<span class="co">#&gt; 2  chr22 16157065 16162065 non-coding     0      +</span>
+<span class="co">#&gt; 3  chr22 16157065 16162065 non-coding     0      +</span>
+<span class="co">#&gt; 4  chr22 16193009 16198009 non-coding     0      -</span>
+<span class="co">#&gt; 5  chr22 16231289 16236289 non-coding     0      -</span>
+<span class="co">#&gt; 6  chr22 16269608 16274608 non-coding     0      +</span>
+<span class="co">#&gt; 7  chr22 17077800 17082800 non-coding     0      +</span>
+<span class="co">#&gt; 8  chr22 17156430 17161430 non-coding     0      -</span>
+<span class="co">#&gt; 9  chr22 17229328 17234328 non-coding     0      -</span>
+<span class="co">#&gt; 10 chr22 17303363 17308363 non-coding     0      +</span>
+<span class="co">#&gt; # ... with 284 more rows</span></code></pre></div>
+<p>Next we&rsquo;ll apply the <code><a href="../reference/bed_projection.html">bed_projection()</a></code> test for each repeat class for both coding and non-coding regions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="co"># function to apply bed_projection to groups</span>
-gen_stats &lt;-<span class="st"> </span>function(x, y, genome, grp, <span class="dt">type =</span> <span class="ot">NA</span>) {
+projection_stats &lt;-<span class="st"> </span>function(x, y, genome, grp, <span class="dt">type =</span> <span class="ot">NA</span>) {
   <span class="kw">group_by_</span>(x, <span class="dt">.dots =</span> grp) %&gt;%
-<span class="st">    </span><span class="kw">do</span>(<span class="dt">repeat_counts =</span> <span class="kw">nrow</span>(.),
-       <span class="dt">projection =</span> <span class="kw"><a href="../reference/bed_projection.html">bed_projection</a></span>(., y, genome) 
-       ) %&gt;%
+<span class="st">    </span><span class="kw">do</span>(<span class="dt">n_repeats =</span> <span class="kw">nrow</span>(.),
+       <span class="dt">projection =</span> <span class="kw"><a href="../reference/bed_projection.html">bed_projection</a></span>(., y, genome)) %&gt;%
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">type =</span> type)
 } 
 
-pvals_nc &lt;-<span class="st"> </span><span class="kw">gen_stats</span>(rpts, nc_promoters, chrs, <span class="st">"name"</span>, <span class="st">"non_coding"</span>)
-pvals_cd &lt;-<span class="st"> </span><span class="kw">gen_stats</span>(rpts, coding_promoters, chrs, <span class="st">"name"</span>, <span class="st">"coding"</span>)
+pvals_coding &lt;-<span class="st"> </span><span class="kw">projection_stats</span>(rpts, promoters_coding, genome, <span class="st">'name'</span>, <span class="st">'coding'</span>)
+pvals_ncoding &lt;-<span class="st"> </span><span class="kw">projection_stats</span>(rpts, promoters_ncoding, genome, <span class="st">'name'</span>, <span class="st">'non_coding'</span>)
 
-pvals &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(pvals_nc, pvals_cd) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">unnest</span>() %&gt;%
+pvals &lt;-
+<span class="st">  </span><span class="kw">bind_rows</span>(pvals_ncoding, pvals_coding) %&gt;%<span class="st"> </span>
+<span class="st">  </span>tidyr::<span class="kw">unnest</span>() %&gt;%
 <span class="st">  </span><span class="kw">select</span>(-chrom)
 
-<span class="co">#filter for repeat classes with at least 10 intervals</span>
-pvals &lt;-<span class="st"> </span><span class="kw">filter</span>(pvals, 
-                repeat_counts &gt;<span class="st"> </span><span class="dv">10</span>,
+<span class="co"># filter for repeat classes with at least 10 intervals</span>
+pvals &lt;-<span class="st"> </span><span class="kw">filter</span>(pvals, n_repeats &gt;<span class="st"> </span><span class="dv">10</span>,
                 obs_exp_ratio !=<span class="st"> </span><span class="dv">0</span>)
+
 <span class="co"># adjust pvalues </span>
-pvals &lt;-<span class="st"> </span>pvals %&gt;%
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">q.value =</span> <span class="kw">p.adjust</span>(p.value))
+pvals &lt;-<span class="st"> </span><span class="kw">mutate</span>(pvals, <span class="dt">q.value =</span> <span class="kw">p.adjust</span>(p.value))
 
 pvals
 <span class="co">#&gt; # A tibble: 179 &times; 7</span>
-<span class="co">#&gt;      name       type repeat_counts     p.value obs_exp_ratio lower_tail</span>
-<span class="co">#&gt;     &lt;chr&gt;      &lt;chr&gt;         &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;</span>
-<span class="co">#&gt; 1    (A)n non_coding            28 0.003531508     4.7141679      FALSE</span>
-<span class="co">#&gt; 2   (AT)n non_coding            48 0.298021071     0.9166438      FALSE</span>
-<span class="co">#&gt; 3   (CA)n non_coding            31 0.156181108     1.4193194      FALSE</span>
-<span class="co">#&gt; 4   (GT)n non_coding            42 0.247323981     1.0475929      FALSE</span>
-<span class="co">#&gt; 5    (T)n non_coding            61 0.404997861     0.7212935      FALSE</span>
-<span class="co">#&gt; 6   (TG)n non_coding            40 0.062261083     2.1999450      FALSE</span>
-<span class="co">#&gt; 7  A-rich non_coding            54 0.348149650     0.8147945      FALSE</span>
-<span class="co">#&gt; 8     Alu non_coding            15 0.044577839     2.9332600      FALSE</span>
-<span class="co">#&gt; 9   AluJb non_coding           271 0.022516393     1.7859332      FALSE</span>
-<span class="co">#&gt; 10  AluJo non_coding           208 0.021590030     1.9037986      FALSE</span>
+<span class="co">#&gt;      name       type n_repeats     p.value obs_exp_ratio lower_tail</span>
+<span class="co">#&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;</span>
+<span class="co">#&gt; 1    (A)n non_coding        28 0.003529188     4.7150373      FALSE</span>
+<span class="co">#&gt; 2   (AT)n non_coding        48 0.297946444     0.9168128      FALSE</span>
+<span class="co">#&gt; 3   (CA)n non_coding        31 0.156135635     1.4195811      FALSE</span>
+<span class="co">#&gt; 4   (GT)n non_coding        42 0.247258594     1.0477861      FALSE</span>
+<span class="co">#&gt; 5    (T)n non_coding        61 0.404908066     0.7214265      FALSE</span>
+<span class="co">#&gt; 6   (TG)n non_coding        40 0.062233679     2.2003507      FALSE</span>
+<span class="co">#&gt; 7  A-rich non_coding        54 0.348067174     0.8149447      FALSE</span>
+<span class="co">#&gt; 8     Alu non_coding        15 0.044563006     2.9338010      FALSE</span>
+<span class="co">#&gt; 9   AluJb non_coding       271 0.022488504     1.7862626      FALSE</span>
+<span class="co">#&gt; 10  AluJo non_coding       208 0.021566061     1.9041497      FALSE</span>
 <span class="co">#&gt; # ... with 169 more rows, and 1 more variables: q.value &lt;dbl&gt;</span></code></pre></div>
-<p>The <code>projection test</code> is a <code>two-tailed</code> statistical test. Significant p.values indicate either enrichment or depletion of query intervals in the reference interval sets. <code>lower_tail = TRUE</code> indicates that the query intervals are depleted, whereas <code>lower_tail = FALSE</code> indicates that the query intervals are enriched.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># show top 5 most significant repeats</span>
-sig &lt;-<span class="st"> </span>pvals %&gt;%<span class="st"> </span>
+<p>The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of <code>lower_tail = TRUE</code> column indicates that the query intervals are depleted, whereas <code>lower_tail = FALSE</code> indicates that the query intervals are enriched.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+
+<span class="co"># find and show top 5 most significant repeats</span>
+signif_tests &lt;-
+<span class="st">  </span>pvals %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">arrange</span>(q.value) %&gt;%
 <span class="st">  </span><span class="kw">group_by</span>(type) %&gt;%
 <span class="st">  </span><span class="kw">top_n</span>(-<span class="dv">5</span>, q.value) %&gt;%
 <span class="st">  </span><span class="kw">arrange</span>(type)
 
-knitr::<span class="kw">kable</span>(sig,
-             <span class="dt">caption =</span> <span class="st">"The most significant repeats overlapping coding and non-coding gene promoters"</span>)</code></pre></div>
-<table class="table"><caption>The most significant repeats overlapping coding and non-coding gene promoters</caption>
-<thead><tr class="header"><th align="left">name</th>
+knitr::<span class="kw">kable</span>(signif_tests)</code></pre></div>
+<table class="table"><thead><tr class="header"><th align="left">name</th>
 <th align="left">type</th>
-<th align="right">repeat_counts</th>
+<th align="right">n_repeats</th>
 <th align="right">p.value</th>
 <th align="right">obs_exp_ratio</th>
 <th align="left">lower_tail</th>
@@ -302,76 +307,83 @@ knitr::<span class="kw">kable</span>(sig,
 <td align="left">coding</td>
 <td align="right">364</td>
 <td align="right">0.0000114</td>
-<td align="right">2.105784</td>
+<td align="right">2.106148</td>
 <td align="left">FALSE</td>
-<td align="right">0.0020433</td>
+<td align="right">0.0020357</td>
 </tr><tr class="even"><td align="left">AluSx3</td>
 <td align="left">coding</td>
 <td align="right">95</td>
-<td align="right">0.0001425</td>
-<td align="right">2.913617</td>
+<td align="right">0.0001422</td>
+<td align="right">2.914120</td>
 <td align="left">FALSE</td>
-<td align="right">0.0252231</td>
+<td align="right">0.0251780</td>
 </tr><tr class="odd"><td align="left">AluJb</td>
 <td align="left">coding</td>
 <td align="right">271</td>
-<td align="right">0.0002226</td>
-<td align="right">2.042757</td>
+<td align="right">0.0002220</td>
+<td align="right">2.043110</td>
 <td align="left">FALSE</td>
-<td align="right">0.0385082</td>
+<td align="right">0.0384039</td>
 </tr><tr class="even"><td align="left">Charlie4z</td>
 <td align="left">coding</td>
 <td align="right">11</td>
-<td align="right">0.0012298</td>
-<td align="right">5.806859</td>
+<td align="right">0.0012290</td>
+<td align="right">5.807861</td>
 <td align="left">FALSE</td>
-<td align="right">0.2053719</td>
+<td align="right">0.2052397</td>
 </tr><tr class="odd"><td align="left">AluSz</td>
 <td align="left">coding</td>
 <td align="right">259</td>
-<td align="right">0.0013212</td>
-<td align="right">1.890779</td>
+<td align="right">0.0013182</td>
+<td align="right">1.891105</td>
 <td align="left">FALSE</td>
-<td align="right">0.2193255</td>
+<td align="right">0.2188250</td>
 </tr><tr class="even"><td align="left">MER3</td>
 <td align="left">non_coding</td>
 <td align="right">27</td>
 <td align="right">0.0000270</td>
-<td align="right">8.147944</td>
+<td align="right">8.149447</td>
 <td align="left">FALSE</td>
-<td align="right">0.0048130</td>
+<td align="right">0.0048081</td>
 </tr><tr class="odd"><td align="left">L1MC4a</td>
 <td align="left">non_coding</td>
 <td align="right">23</td>
-<td align="right">0.0001449</td>
-<td align="right">7.651983</td>
+<td align="right">0.0001448</td>
+<td align="right">7.653394</td>
 <td align="left">FALSE</td>
-<td align="right">0.0254988</td>
+<td align="right">0.0254769</td>
 </tr><tr class="even"><td align="left">L1ME1</td>
 <td align="left">non_coding</td>
 <td align="right">38</td>
-<td align="right">0.0002036</td>
-<td align="right">5.789329</td>
+<td align="right">0.0002034</td>
+<td align="right">5.790397</td>
 <td align="left">FALSE</td>
-<td align="right">0.0356315</td>
+<td align="right">0.0355962</td>
 </tr><tr class="odd"><td align="left">G-rich</td>
 <td align="left">non_coding</td>
 <td align="right">54</td>
-<td align="right">0.0002174</td>
-<td align="right">4.888767</td>
+<td align="right">0.0002172</td>
+<td align="right">4.889668</td>
 <td align="left">FALSE</td>
-<td align="right">0.0378348</td>
+<td align="right">0.0377926</td>
 </tr><tr class="even"><td align="left">L1MC5</td>
 <td align="left">non_coding</td>
 <td align="right">29</td>
-<td align="right">0.0004565</td>
-<td align="right">6.068814</td>
+<td align="right">0.0004561</td>
+<td align="right">6.069933</td>
 <td align="left">FALSE</td>
-<td align="right">0.0785198</td>
+<td align="right">0.0784540</td>
 </tr></tbody></table></div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked"><li><a href="#overview">Overview</a></li>
+      <li><a href="#distance-metrics">Distance metrics</a></li>
+      <li><a href="#projection-test">Projection test</a></li>
+      </ul></div>
       </div>
 
 </div>
