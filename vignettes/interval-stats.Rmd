@@ -17,11 +17,13 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "img/interval-stats-",
-  fig.height = 3,
+  fig.height = 4,
   fig.align = "center",
   fig.width = 4
 )
 ```
+
+## Overview
 
 `valr` can be used to explore relationships between sets of intervals. Here we explore the relationship between transcription start sites and repetitive elements in the human genome. 
 
@@ -30,67 +32,96 @@ library(valr)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
-library(broom)
 
 # load repeats and genes. Data in the valr package is restricted to chr22; the entire
 # files can be downloaded from UCSC.
 rpts <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
-gens <- read_bed(valr_example('hg19.refGene.chr22.bed.gz'), n_fields = 12)
+genes <- read_bed(valr_example('hg19.refGene.chr22.bed.gz'), n_fields = 12)
 
 # load chrom sizes
-chrs <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
 # create 1bp intervals representing transcription start sites
-tss <- mutate(gens,
-              .start = ifelse(strand == '+', start, end),
-              .end = .start + 1) %>%
+tss <-
+  mutate(genes,
+         .start = ifelse(strand == '+', start, end),
+         .end = .start + 1) %>%
   select(chrom, start = .start, end = .end, name)
 
 tss
 ```
 
-First we define a function that takes `x` and `y` intervals and computes distance statistics (using `bed_reldist()` and `bed_absdist()`) for specified groups.
+## Distance metrics
+
+First we define a function that takes `x` and `y` intervals and computes distance statistics (using `bed_reldist()` and `bed_absdist()`) for specified groups. The value of each statistic is assigned to a `.value` column.
 
 ```{r stats}
-gen_stats <- function(x, y, genome, grp, type = NA) {
+distance_stats <- function(x, y, genome, grp, type = NA) {
   group_by_(x, .dots = grp) %>%
-    do(reldist = bed_reldist(., y, detail = TRUE) %>%
+    do(
+       reldist = bed_reldist(., y, detail = TRUE) %>%
          select(.value = .reldist),
        absdist = bed_absdist(., y, genome) %>%
-         select(.value = .absdist_scaled)
+         select(.value = .absdist)
        ) %>%
-    gather_('stat', 'value', setdiff(names(.), list(grp))) %>%
+    tidyr::gather_('stat', 'value', setdiff(names(.), list(grp))) %>%
     mutate(type = type)
 } 
 ```
 
-```{r compute}
-obs_stats <- gen_stats(rpts, tss, chrs, 'name', 'obs')
+We use the `distance_stats()` function to apply the `bed_absdist()` function to each group of data.
 
-shfs <- bed_shuffle(rpts, chrs, within = TRUE)
-shf_stats <- gen_stats(shfs, tss, chrs, 'name', 'shuf')
+```{r compute_obs}
+obs_stats <- distance_stats(rpts, tss, genome, 'name', 'obs')
+obs_stats
+```
 
+And the same is done for a set of  shuffled group of data. `bed_shuffle()` is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)
+
+```{r compute_shf}
+shfs <- bed_shuffle(rpts, genome, within = TRUE)
+shf_stats <- distance_stats(shfs, tss, genome, 'name', 'shuf')
+```
+
+Now we can bind the observed and shuffled data together, and do some tidying to put the data into a format appropriate for a statistical test. This involves:
+
+1. `unnest()`ing the data frames
+1. creating groups for each repeat (`name`), stat (`reldist` or `absdist`) and type (`obs` or `shf`)
+1. adding unique surrogate row numbers for each group
+1. using `tidyr::spread()` to create two new `obs` and `shuf` columns
+1. removing rows with `NA` values.
+
+```{r bind_res}
 res <- bind_rows(obs_stats, shf_stats) %>%
-  unnest(value) %>% 
+  tidyr::unnest(value) %>% 
   group_by(name, stat, type) %>%
   mutate(.id = row_number()) %>%
-  spread(type, .value) %>%
+  tidyr::spread(type, .value) %>%
   na.omit()
 
 res
 ```
 
-Now that the data are formatted, we can use `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group.
+Now that the data are formatted, we can use `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group. `broom::tidy()` is used to reformat the results of each test into a `data_frame`, and the results of each test are `gather`ed to into a `type` column for each test type.
 
-```{r pvalues, warning = FALSE}
-pvals <- res %>% do(twosided = broom::tidy(ks.test(.$obs, .$shuf)),
-                    less = broom::tidy(ks.test(.$obs, .$shuf, alternative = 'less')),
-                    greater = broom::tidy(ks.test(.$obs, .$shuf, alternative = 'greater'))) %>%
-  gather(alt, type, -name, -stat) %>%
+```{r pvalues}
+library(broom)
+
+# silence the tests with ties ...
+ks.test.quiet <- function(...) {suppressWarnings(ks.test(...))}
+
+pvals <- res %>% do(twosided = broom::tidy(ks.test.quiet(.$obs, .$shuf)),
+                    less = broom::tidy(ks.test.quiet(.$obs, .$shuf, alternative = 'less')),
+                    greater = broom::tidy(ks.test.quiet(.$obs, .$shuf, alternative = 'greater'))) %>%
+  tidyr::gather(alt, type, -name, -stat) %>%
   unnest(type) %>%
   select(name:p.value) %>%
   arrange(p.value)
+```
 
+Histgrams of the different stats help visulaize the distribution of p.values.
+
+```{r pvalue_viz}
 ggplot(pvals, aes(p.value)) +
   geom_histogram(binwidth = 0.05) +
   facet_grid(stat ~ alt) + theme_bw()
@@ -99,7 +130,8 @@ ggplot(pvals, aes(p.value)) +
 We can also assess false discovery rates (q.values) using `p.adjust()`.
 
 ```{r qvalues}
-pvals <- group_by(pvals, stat, alt) %>%
+pvals <-
+  group_by(pvals, stat, alt) %>%
   mutate(q.value = p.adjust(p.value)) %>%
   ungroup() %>%
   arrange(q.value)
@@ -108,85 +140,83 @@ pvals <- group_by(pvals, stat, alt) %>%
 Finally we can visualize these results using `stat_ecdf()`.
 
 ```{r ecfs}
-res_fold <- res %>%
-  gather(type, value, -name, -stat, -.id)
+res_gather <- tidyr::gather(res, type, value, -name, -stat, -.id)
 
-signif <- head(pvals, 25)
-res_signif <- signif %>% left_join(res_fold, by = c('name','stat'))
+signif <- head(pvals, 5)
+
+res_signif <-
+  signif %>%
+  left_join(res_gather, by = c('name', 'stat'))
 
 ggplot(res_signif, aes(x = value, color = type)) +
   stat_ecdf() + 
-  facet_wrap(name ~ stat) + theme_classic() + scale_x_log10()
+  facet_grid(stat ~ name) + theme_classic() + scale_x_log10()
 ```
 
-*** 
+## Projection test
 
-`bed_projection()` is an additional statistical approach to assess the relationship between two intervals, based on the  `binomial distribution`. Here, we'll investigate the distribution of repetitive elements within the promoters `coding` or `non-coding` genes.
+`bed_projection()` is a statistical approach to assess the relationship between two intervals based on the  binomial distribution. Here, we examine the distribution of repetitive elements within the promoters of coding or non-coding genes.
 
-First we'll extract `5kb` regions upstream of the transcription start sites to represent the promoter regions for `coding` and `non-coding` genes. 
+First we'll extract 5 kb regions upstream of the transcription start sites to represent the promoter regions for coding and non-coding genes. 
 
 ```{r get_promoters}
-# Using the same data as before
-gens
-rpts
-
-
 # create intervals 5kb upstream of tss representing promoters
-promoters <- mutate(gens,
-              .start = ifelse(strand == '+', start - 5000, end - 1),
-              .end   = ifelse(strand == '+', start + 1, end + 5000),
-              name   = ifelse(grepl("NR_", name), "non-coding", "coding")) %>%
-  select(chrom, start = .start, end = .end, name, score, strand)
+promoters <-
+  bed_flank(genes, genome, left = 5000, strand = TRUE) %>%
+  mutate(name = ifelse(grepl('NR_', name), 'non-coding', 'coding')) %>%
+  select(chrom:strand)
   
 # select coding and non-coding promoters
-nc_promoters <- filter(promoters, name == "non-coding")
-coding_promoters <- filter(promoters, name == "coding")
-nc_promoters
-coding_promoters
+promoters_coding <- filter(promoters, name == 'coding')
+promoters_ncoding <- filter(promoters, name == 'non-coding')
+
+promoters_coding
+
+promoters_ncoding
 ```
 
-Next we'll apply the `bed_projection()` test for each repeat class for both `coding` and `non-coding` regions. 
+Next we'll apply the `bed_projection()` test for each repeat class for both coding and non-coding regions. 
 
 ```{r get_projections}
 
 # function to apply bed_projection to groups
-gen_stats <- function(x, y, genome, grp, type = NA) {
+projection_stats <- function(x, y, genome, grp, type = NA) {
   group_by_(x, .dots = grp) %>%
-    do(repeat_counts = nrow(.),
-       projection = bed_projection(., y, genome) 
-       ) %>%
+    do(n_repeats = nrow(.),
+       projection = bed_projection(., y, genome)) %>%
     mutate(type = type)
 } 
 
-pvals_nc <- gen_stats(rpts, nc_promoters, chrs, "name", "non_coding")
-pvals_cd <- gen_stats(rpts, coding_promoters, chrs, "name", "coding")
+pvals_coding <- projection_stats(rpts, promoters_coding, genome, 'name', 'coding')
+pvals_ncoding <- projection_stats(rpts, promoters_ncoding, genome, 'name', 'non_coding')
 
-pvals <- bind_rows(pvals_nc, pvals_cd) %>% 
-  unnest() %>%
+pvals <-
+  bind_rows(pvals_ncoding, pvals_coding) %>% 
+  tidyr::unnest() %>%
   select(-chrom)
 
-#filter for repeat classes with at least 10 intervals
-pvals <- filter(pvals, 
-                repeat_counts > 10,
+# filter for repeat classes with at least 10 intervals
+pvals <- filter(pvals, n_repeats > 10,
                 obs_exp_ratio != 0)
+
 # adjust pvalues 
-pvals <- pvals %>%
-  mutate(q.value = p.adjust(p.value))
+pvals <- mutate(pvals, q.value = p.adjust(p.value))
 
 pvals
 ```
 
-The `projection test` is a `two-tailed` statistical test. Significant p.values indicate either enrichment or depletion of query intervals in the reference interval sets. `lower_tail = TRUE` indicates that the query intervals are depleted, whereas `lower_tail = FALSE` indicates that the query intervals are enriched. 
+The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of `lower_tail = TRUE` column indicates that the query intervals are depleted, whereas `lower_tail = FALSE` indicates that the query intervals are enriched. 
 
-```{r}
+```{r table}
+library(knitr)
 
-# show top 5 most significant repeats
-sig <- pvals %>% 
+# find and show top 5 most significant repeats
+signif_tests <-
+  pvals %>% 
   arrange(q.value) %>%
   group_by(type) %>%
   top_n(-5, q.value) %>%
   arrange(type)
 
-knitr::kable(sig,
-             caption = "The most significant repeats overlapping coding and non-coding gene promoters")
+knitr::kable(signif_tests)
 ```

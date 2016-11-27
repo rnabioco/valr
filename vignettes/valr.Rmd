@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "img/overview-",
-  fig.height = 3,
+  fig.height = 4,
   fig.align = "center",
   fig.width = 4
 )
@@ -62,6 +62,10 @@ nearby %>%
   select(starts_with('name'), .overlap, .dist) %>%
   filter(abs(.dist) < 1000)
 ```
+
+### Input data
+
+`valr` assigns common column names to facilitate comparisons between tbls. All tbls will have `chrom`, `start`, and `end` columns, and some tbls from multi-column formats will have additional pre-determined column names. See the `read_bed()` documentation for details.
 
 ### Remote databases
 
