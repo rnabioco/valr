@@ -1,3 +1,5 @@
+^index\.md$
+^index\.html$
 ^index\.Rmd$
 ^README\.Rmd$
 ^img$
