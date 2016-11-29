@@ -5,15 +5,15 @@ has_internet <- function() {
 }
 
 test_that("ucsc connection works", {
-  skip('not working')
   skip_if_not_installed('curl')
+  skip_if_not_installed('RMySQL')
        
   if(!has_internet()) skip('no internet connection')
   
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
-  
+ 
   db <- db_ucsc("hg38")
   refgene <- tbl(db, "refGene")
   expect_is(refgene, "tbl_mysql")
@@ -21,8 +21,8 @@ test_that("ucsc connection works", {
 })
 
 test_that("ensembl connection works", {
-  skip('not working')
   skip_if_not_installed('curl')
+  skip_if_not_installed('RMySQL')
   
   if (!has_internet()) skip('no internet connection')
   

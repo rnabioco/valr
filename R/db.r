@@ -17,13 +17,15 @@ NULL
 #'   
 #' @examples
 #' \dontrun{
-#' ucsc <- db_ucsc('hg38')
+#' if(require(RMySQL)) {
+#'   ucsc <- db_ucsc('hg38')
 #' 
-#' # fetch the `refGene` tbl
-#' tbl(ucsc, "refGene")
+#'   # fetch the `refGene` tbl
+#'   tbl(ucsc, "refGene")
 #' 
-#' # the `chromInfo` tbls have size information
-#' tbl(ucsc, "chromInfo")
+#'   # the `chromInfo` tbls have size information
+#'   tbl(ucsc, "chromInfo")
+#' }
 #' }
 #' 
 #' @export
@@ -38,10 +40,12 @@ db_ucsc <- function(dbname, host = 'genome-mysql.cse.ucsc.edu',
 #' 
 #' @examples
 #' \dontrun{
-#' # squirrel genome
-#' ensembl <- db_ensembl('spermophilus_tridecemlineatus_core_67_2')
+#' if(require(RMySQL)) {
+#'   # squirrel genome
+#'   ensembl <- db_ensembl('spermophilus_tridecemlineatus_core_67_2')
 #' 
-#' tbl(ensembl, "gene") 
+#'   tbl(ensembl, "gene") 
+#' }  
 #' }
 #' 
 #' @export

@@ -4,6 +4,8 @@
 
 ## Minor changes
 
+- test / vignette guards for Suggested RMySQL
+
 - fixed memory leak in absdist.cpp
 
 - fixed vignette entry names

@@ -73,8 +73,10 @@ Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) a
 
 ```{r db}
 # access the `refGene` tbl on the `hg38` assembly.
-ucsc <- db_ucsc('hg38')
-tbl(ucsc, 'refGene')
+if(require(RMySQL)) {
+  ucsc <- db_ucsc('hg38')
+  tbl(ucsc, 'refGene')
+}
 ```
 
 ### Visual documentation
