@@ -10,3 +10,8 @@ test_that('glyphs are rendered', {
   res <- bed_glyph(bed_merge(x))
   expect_is(res, 'ggplot')
 })
+
+test_that('glyph labels are applied', {
+  res <- bed_glyph(bed_merge(x, id = n()), label = 'id')
+  expect_equal(res$labels$label, 'id')
+})
