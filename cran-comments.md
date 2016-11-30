@@ -1,3 +1,7 @@
+## New minor version
+
+* I received an email from Dr. Brian Ripley asking for fixes "ASAP" to a memory leak in absdist.cpp and to incorporate checks for the existence of the RMySQL package in the vignettes and tests.
+
 ## Test environments
 
 * Windows Server 2012 R2 x64 (on appveyor), R 3.3.2

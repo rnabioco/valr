@@ -1,6 +1,4 @@
-# valr 0.1.0.9000
-
-## Major changes
+# valr 0.1.1
 
 ## Minor changes
 
