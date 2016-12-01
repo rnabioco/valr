@@ -75,7 +75,7 @@ bed_glyph <- function(expr, label = NULL, res_name = 'result') {
   expr_names <- expr_names[expr_names != '']
   expr_names <- intersect(expr_names, names(res))
   
-  if (!purrr::is_empty(expr_names)) out_cols <- bind_cols(out_cols, select(res, starts_with(expr_names)))
+  if (!(length(expr_names) == 0)) out_cols <- bind_cols(out_cols, select(res, starts_with(expr_names)))
  
   # get dot cols from result e.g. `.overlap`
   out_cols <- bind_cols(out_cols, select(res, starts_with(stringr::fixed('.'))))

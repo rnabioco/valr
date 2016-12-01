@@ -16,7 +16,6 @@ Depends:
 Imports:
     dplyr (>= 0.5.0),
     lazyeval,
-    purrr,
     readr,
     stringr,
     tibble,
@@ -37,6 +36,7 @@ Suggests:
     covr,
     shinydashboard,
     RMySQL,
+    purrr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 URL: http://github.com/jayhesselberth/valr/
