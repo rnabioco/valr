@@ -646,8 +646,8 @@ test_that("ensure that subtraction is done with respect to input tbls issue#108"
     'chr1', 125,    175,  'C',
     'chr2', 150,    200,  'A'
   )
-  x_grouped <- bed_sort(x) %>% group_by(group, chrom)
-  y_grouped <- bed_sort(y) %>% group_by(group, chrom)
+  x_grouped <- arrange(x, chrom, start) %>% group_by(group, chrom)
+  y_grouped <- arrange(y, chrom, start) %>% group_by(group, chrom)
   res <- bed_closest(x_grouped, y_grouped)
   expect_true(all(res$group.x == res$group.y))
 })

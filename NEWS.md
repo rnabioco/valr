@@ -1,5 +1,9 @@
 # valr 0.1.1.9000
 
+## Major changes
+
+* Deprecate `bed_sort()` in favor of using `dplyr::arrange()` explicitly (fixes #134).
+
 # valr 0.1.1
 
 ## Minor changes

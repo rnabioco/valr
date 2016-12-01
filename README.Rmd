@@ -111,13 +111,13 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 ### Transforming single interval sets
 
-* Intervals are ordered with `bed_sort()`.
-
 * Interval coordinates are adjusted with `bed_slop()` and `bed_shift()`, and new flanking intervals are created with `bed_flank()`.
 
 * Nearby intervals are combined with `bed_merge()` and identified (but not merged) with `bed_cluster()`.  
 
 * Intervals not covered by a query are created with `bed_complement()`.
+
+* Intervals are ordered with `dplyr::arrange()`.
 
 ### Comparing multiple interval sets
 

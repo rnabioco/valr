@@ -1,3 +1,37 @@
+#' Sorting tbls of intervals
+#' 
+#' Interval tbls can be sorted using \code{\link[dplyr]{arrange}}. See examples 
+#' for sorting by chrom and start, and by size using
+#' \code{\link[dplyr]{mutate}}.
+#' 
+#' @name sorting
+#'   
+#' @examples
+#' 
+#' # unsorted tbl
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1', 150,    500,
+#'   'chr1', 1,      100,
+#'   'chr2', 500,    1000,
+#'   'chr2', 100,    300
+#' ) 
+#' 
+#' # sort by start
+#' dplyr::arrange(x, start)
+#' 
+#' # sort by descending start
+#' dplyr::arrange(x, desc(start))
+#' 
+#' # sort by chrom and start
+#' dplyr::arrange(x, chrom, start)
+#' 
+#' # sort by size
+#' x <- dplyr::mutate(x, .size = end - start)
+#' dplyr::arrange(x, .size)
+#' 
+NULL
+
 #' Sort a tbl of intervals.
 #' 
 #' Multiple sorting parameters can be combined. note that \code{by_chrom} sorts
@@ -39,9 +73,10 @@
 #' bed_sort(x, by_size = TRUE, by_chrom = TRUE)
 #' 
 #' @export
-bed_sort <- function(x, by_size = FALSE,
-                     by_chrom = FALSE, reverse = FALSE) {
+bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
 
+  .Deprecated(msg = 'bed_sort() is deprecated. see examples in `?sorting`.')
+  
   if (by_size) {
     
     res <- mutate(x, .size = end - start) 
@@ -79,17 +114,3 @@ bed_sort <- function(x, by_size = FALSE,
   res
 }
 
-#' Ask whether tbl is sorted.
-#' 
-#' @param x tbl of intervals
-#' @noRd
-is_sorted <- function(x) {
-  
-  sorted_attr <- attr(x, "sorted")
-  
-  if (is.null(sorted_attr) || ! sorted_attr) {
-    return (FALSE)
-  } else {
-    return (TRUE)
-  }
-}

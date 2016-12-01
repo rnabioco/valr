@@ -160,7 +160,7 @@ test_that("input x groups are used for comparing intervals issue #108",{
     'chr1', 125,    175,  'B',
     'chr1', 150,    200,  'B'
   )
-  x <- bed_sort(x)
+  x <- arrange(x, chrom, start)
   x <- group_by(x, group)
   res <- bed_intersect(x, x)
   expect_true(all(res$group.x == res$group.y))

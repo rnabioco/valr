@@ -64,7 +64,7 @@ bed_subtract <- function(x, y, any = FALSE) {
   }
 
   res <- subtract_impl(x, y)
-  res <- bed_sort(res)
+  res <- arrange(res, chrom, start)
 
   res  
 }

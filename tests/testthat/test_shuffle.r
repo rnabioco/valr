@@ -7,7 +7,7 @@ genome <- tibble::tribble(
   "chr3", 1e8
 )
 
-x <- bed_random(genome, n = 100) %>% bed_sort
+x <- bed_random(genome, n = 100) %>% arrange(chrom, start) 
 
 test_that('within = TRUE maintains chroms', {
   res <- bed_shuffle(x, genome, within = TRUE)

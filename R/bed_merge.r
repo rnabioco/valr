@@ -48,18 +48,14 @@
 #' @export
 bed_merge <- function(x, max_dist = 0, ...) {
   
+  if (max_dist < 0)
+    stop('max_dist must be positive', call. = FALSE)
+
   if (is_merged(x)) return(x)
   
   x_groups <- groups(x)
   
-  if (max_dist < 0)
-    stop('max_dist must be positive', call. = FALSE)
-  
-  if ( ! is_sorted(x) ) {
-    res <- bed_sort(x)
-  } else {
-    res <- x
-  }
+  res <- arrange(x, chrom, start)
  
   res <- group_by(res, chrom, add = TRUE)
   

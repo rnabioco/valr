@@ -99,7 +99,7 @@ bed_slop <- function(x, genome, both = 0, left = 0,
   if ( fraction ) res <- select(res, -.size) 
   
   res <- bound_intervals(res, genome, trim)
-  res <- bed_sort(res)
+  res <- arrange(res, chrom, start)
 
   res
 }

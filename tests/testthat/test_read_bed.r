@@ -13,7 +13,6 @@ test_that('read BED3', {
   bed3_tbl <- read_bed(bed3_path)
   expect_equal(ncol(bed3_tbl), 3)
   expect_equal(nrow(bed3_tbl), 10)
-  expect_true(attr(bed3_tbl, "sorted"))
 })
 
 
@@ -21,13 +20,11 @@ test_that('read BED6', {
   bed6_tbl <- read_bed(bed6_path, n_fields = 6)
   expect_equal(ncol(bed6_tbl), 6)
   expect_equal(nrow(bed6_tbl), 10)
-  expect_true(attr(bed6_tbl, "sorted"))
 })
 
 test_that('read BED12', {
   bed12_tbl <- read_bed12(bed12_path)
   expect_equal(ncol(bed12_tbl), 12)
-  expect_true(attr(bed12_tbl, "sorted"))
 })
 
 
@@ -35,7 +32,6 @@ test_that('read bedGraph', {
   bedgraph_tbl <- read_bedgraph(bedgraph_path)
   expect_equal(ncol(bedgraph_tbl), 4)
   expect_equal(nrow(bedgraph_tbl), 4)
-  expect_true(attr(bedgraph_tbl, "sorted"))
 })
 
 test_that('read narrowPeak', {
