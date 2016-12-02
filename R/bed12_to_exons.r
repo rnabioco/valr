@@ -36,7 +36,7 @@ bed12_to_exons <- function(x) {
   res <- rename(res, start = .start, end = .end, score = .exon_num)
   
   res <- ungroup(res)
-  res <- bed_sort(res)
+  res <- arrange(res, chrom, start)
   
   res
 }

@@ -59,7 +59,7 @@ bed_complement <- function(x, genome) {
   res <- as_data_frame(res)
 
   res <- bind_rows(res, chroms_no_overlaps)
-  res <- bed_sort(res)
+  res <- arrange(res, chrom, start)
  
   res 
 }

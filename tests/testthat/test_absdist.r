@@ -86,9 +86,9 @@ test_that("ensure that absdist is calculated with respect to input tbls issue#10
   )
   
   orig <- bed_absdist(x, y, genome)
-  x <- bed_sort(x)
+  x <- arrange(x, chrom, start)
   x <- group_by(x, group, chrom)
-  y <- bed_sort(y) 
+  y <- arrange(y, chrom, start) 
   y <- group_by(y, group, chrom)
   
   res <- bed_absdist(x, y, genome)

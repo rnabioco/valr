@@ -142,7 +142,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   }   
 
   res <- bound_intervals(res, genome, trim)
-  res <- bed_sort(res)
+  res <- arrange(res, chrom, start)
   
   res
 }

@@ -86,7 +86,7 @@ bed_absdist <- function(x, y, genome) {
   x_missing <- mutate(x_missing, .absdist = NA, .absdist_scaled = NA)
   res <- bind_rows(res, x_missing)
   
-  res <- bed_sort(res)
+  res <- arrange(res, chrom, start)
   
   res
 }

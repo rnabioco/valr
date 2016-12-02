@@ -22,6 +22,7 @@ reference:
     - bed_slop
     - bed_shift
     - bed_sort
+    - sorting
     
   - title: Multiple set operations
     contents:

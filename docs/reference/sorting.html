@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fetch data from remote databases. — db • valr</title>
+<title>Sorting tbls of intervals — sorting • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,70 +89,67 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fetch data from remote databases.</h1>
+    <h1>Sorting tbls of intervals</h1>
     </div>
 
     
-    <p>Currently <code>db_ucsc</code> and <code>db_ensembl</code> are available for connections.</p>
+    <p>Interval tbls can be sorted using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>arrange</a></code>. See examples 
+for sorting by chrom and start, and by size using
+<code><a href='http://www.rdocumentation.org/packages/dplyr/topics/mutate'>mutate</a></code>.</p>
     
 
-    <pre><span class='fu'>db_ucsc</span>(<span class='no'>dbname</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"genome-mysql.cse.ucsc.edu"</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"genomep"</span>,
-  <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"password"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>3306</span>, <span class='no'>...</span>)
-
-<span class='fu'>db_ensembl</span>(<span class='no'>dbname</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"ensembldb.ensembl.org"</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"anonymous"</span>,
-  <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>3306</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>dbname</dt>
-      <dd>name of database</dd>
-      <dt>host</dt>
-      <dd>hostname</dd>
-      <dt>user</dt>
-      <dd>username</dd>
-      <dt>password</dt>
-      <dd>password</dd>
-      <dt>port</dt>
-      <dd>MySQL connection port</dd>
-      <dt>...</dt>
-      <dd>params for connection</dd>
-    </dl>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p><a href = 'https://genome.ucsc.edu/goldenpath/help/mysql.html'>https://genome.ucsc.edu/goldenpath/help/mysql.html</a></p>
-    <p><a href = 'http://www.ensembl.org/info/data/mysql.html'>http://www.ensembl.org/info/data/mysql.html</a></p>
-    
+        
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># if(require(RMySQL)) {</span>
-<span class='co'>#   ucsc &lt;- db_ucsc('hg38')</span>
-<span class='co'># </span>
-<span class='co'>#   # fetch the `refGene` tbl</span>
-<span class='co'>#   tbl(ucsc, "refGene")</span>
-<span class='co'># </span>
-<span class='co'>#   # the `chromInfo` tbls have size information</span>
-<span class='co'>#   tbl(ucsc, "chromInfo")</span>
-<span class='co'># }</span>
-<span class='co'>## ---------------------------------------------</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># unsorted tbl</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>500</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>,
+  <span class='st'>'chr2'</span>, <span class='fl'>500</span>,    <span class='fl'>1000</span>,
+  <span class='st'>'chr2'</span>, <span class='fl'>100</span>,    <span class='fl'>300</span>
+)
 
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># if(require(RMySQL)) {</span>
-<span class='co'>#   # squirrel genome</span>
-<span class='co'>#   ensembl &lt;- db_ensembl('spermophilus_tridecemlineatus_core_67_2')</span>
-<span class='co'># </span>
-<span class='co'>#   tbl(ensembl, "gene") </span>
-<span class='co'># }  </span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+<span class='co'># sort by start</span>
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>start</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr1     1   100
+#&gt; 2  chr2   100   300
+#&gt; 3  chr1   150   500
+#&gt; 4  chr2   500  1000</div><div class='input'>
+<span class='co'># sort by descending start</span>
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='fu'>desc</span>(<span class='no'>start</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr2   500  1000
+#&gt; 2  chr1   150   500
+#&gt; 3  chr2   100   300
+#&gt; 4  chr1     1   100</div><div class='input'>
+<span class='co'># sort by chrom and start</span>
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>chrom</span>, <span class='no'>start</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr1     1   100
+#&gt; 2  chr1   150   500
+#&gt; 3  chr2   100   300
+#&gt; 4  chr2   500  1000</div><div class='input'>
+<span class='co'># sort by size</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>mutate</span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='no'>end</span> - <span class='no'>start</span>)
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>.size</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 4
+#&gt;   chrom start   end .size
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr1     1   100    99
+#&gt; 2  chr2   100   300   200
+#&gt; 3  chr1   150   500   350
+#&gt; 4  chr2   500  1000   500</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

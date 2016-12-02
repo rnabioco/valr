@@ -98,7 +98,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   x_not <- anti_join(x, res, by = c("chrom", x_names))
   
   res <- bind_rows(res, x_not)
-  res <- bed_sort(res)
+  res <- arrange(res, chrom, start)
  
   # reassign original `x` groups. `y` groups are gone at this point
   res <- group_by_(res, .dots = c(groups_x))

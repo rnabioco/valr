@@ -316,7 +316,7 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 ### Transforming single interval sets
 
-* Intervals are ordered with `bed_sort()`.
+* Intervals are ordered with `dplyr::arrange()`.
 
 * Interval coordinates are adjusted with `bed_slop()` and `bed_shift()`, and new flanking intervals are created with `bed_flank()`.
 

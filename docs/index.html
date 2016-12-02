@@ -115,10 +115,10 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
 </ul></div>
 <div id="transforming-single-interval-sets" class="section level3">
 <h3 class="hasAnchor"><a href="#transforming-single-interval-sets" class="anchor"> </a>Transforming single interval sets</h3>
-<ul><li><p>Intervals are ordered with <code><a href="reference/bed_sort.html">bed_sort()</a></code>.</p></li>
-<li><p>Interval coordinates are adjusted with <code><a href="reference/bed_slop.html">bed_slop()</a></code> and <code><a href="reference/bed_shift.html">bed_shift()</a></code>, and new flanking intervals are created with <code><a href="reference/bed_flank.html">bed_flank()</a></code>.</p></li>
+<ul><li><p>Interval coordinates are adjusted with <code><a href="reference/bed_slop.html">bed_slop()</a></code> and <code><a href="reference/bed_shift.html">bed_shift()</a></code>, and new flanking intervals are created with <code><a href="reference/bed_flank.html">bed_flank()</a></code>.</p></li>
 <li><p>Nearby intervals are combined with <code><a href="reference/bed_merge.html">bed_merge()</a></code> and identified (but not merged) with <code><a href="reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
 <li><p>Intervals not covered by a query are created with <code><a href="reference/bed_complement.html">bed_complement()</a></code>.</p></li>
+<li><p>Intervals can be ordered with <code>dplyr::arrange()</code>.</p></li>
 </ul></div>
 <div id="comparing-multiple-interval-sets" class="section level3">
 <h3 class="hasAnchor"><a href="#comparing-multiple-interval-sets" class="anchor"> </a>Comparing multiple interval sets</h3>

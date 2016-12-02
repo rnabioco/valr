@@ -80,7 +80,7 @@ test_that("input groups are maintained in the output tbl issue #108",{
     'chr1', 150,    200,  'B'
   ) 
   
-  x <- bed_sort(x)
+  x <- arrange(x, chrom, start)
   x <- group_by(x, group)
   res <- bed_merge(x)
   expect_true(all(x$group %in% res$group))

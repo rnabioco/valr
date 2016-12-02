@@ -62,12 +62,10 @@ bed_closest <- function(x, y, overlap = TRUE,
   
   check_suffix(suffix) 
  
-  if ( ! is_sorted(x) )
-    x <- bed_sort(x)
-  if ( ! is_sorted(y) )
-    y <- bed_sort(y)
-  
+  x <- arrange(x, chrom, start)
   x <- group_by(x, chrom, add = TRUE)
+  
+  y <- arrange(y, chrom, start)
   y <- group_by(y, chrom, add = TRUE)
  
   suffix <- list(x = suffix[1], y = suffix[2])

@@ -150,9 +150,9 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
     'chr3', 100,    300,  'A', NA
   )
   
-  x <- bed_sort(x)
+  x <- arrange(x, chrom, start)
   x <- group_by(x, group)
-  y <- bed_sort(y) 
+  y <- arrange(y, chrom, start) 
   y <- group_by(y, group)
   
   res <- bed_map(x, y, total = sum(value))

@@ -36,7 +36,7 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
   bed_tbl <- tibble::as_tibble(bed_raw) 
 
   if (sort) {
-    bed_tbl <- bed_sort(bed_tbl)
+    bed_tbl <- arrange(bed_tbl, chrom, start)
   }
  
   bed_tbl
@@ -70,7 +70,7 @@ read_bedgraph <- function(filename, ...) {
   bedgraph_tbl <- read_bed(filename, n_fields = 4, sort = FALSE) %>%
     rename(value = name) %>%
     mutate(value = as.double(value))
-  bedgraph_tbl <- bed_sort(bedgraph_tbl)
+  bedgraph_tbl <- arrange(bedgraph_tbl, chrom, start)
   bedgraph_tbl
 }
 

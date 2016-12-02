@@ -52,9 +52,9 @@ test_that("reldist respects groups (#108)", {
     'chr2', 10000
   )
   
-  x <- bed_sort(x)
+  x <- arrange(x, chrom, start)
   x <- group_by(x, group, chrom)
-  y <- bed_sort(y) 
+  y <- arrange(y, chrom, start) 
   y <- group_by(y, group, chrom)
   
   res <- bed_reldist(x, y, detail = TRUE)
