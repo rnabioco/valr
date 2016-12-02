@@ -34,19 +34,22 @@ NULL
 
 #' Sort a tbl of intervals.
 #' 
-#' Multiple sorting parameters can be combined. note that \code{by_chrom} sorts
+#' Multiple sorting parameters can be combined. note that \code{by_chrom} sorts 
 #' within a chrom, not by chrom.
 #' 
 #' Sorting strips groups from the input.
 #' 
+#' @section Deprecated function: \code{bed_sort} has been deprecated. Instead
+#'   use \code{\link[dplyr]{arrange}}. See \link{sorting} for details.
+#'   
 #' @param x tbl of intervals
 #' @param by_size sort by interval size
 #' @param by_chrom sort within chromosome
 #' @param reverse reverse sort order
 #'   
-#' @seealso
-#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
-#'   
+#' @seealso 
+#' \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
+#' 
 #' @examples
 #' x <- tibble::tribble(
 #'    ~chrom, ~start, ~end,
