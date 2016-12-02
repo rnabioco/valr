@@ -54,13 +54,13 @@ bed_makewindows <- function(x, genome, win_size = 0,
   
   x <- rowwise(x)
   #pass rows to split_intervals, by default do() will convert to list
-  res <- do(x, 
-            split_interval(as_data_frame(.),
-                                     genome,
-                                     win_size, 
-                                     step_size, 
-                                     num_win, 
-                                     reverse))
+  res <- do_(x, 
+            ~split_interval(as_data_frame(.), 
+                           genome,
+                           win_size, 
+                           step_size, 
+                           num_win, 
+                           reverse))
   res <- ungroup(res)
   res 
 }
@@ -70,7 +70,7 @@ bed_makewindows <- function(x, genome, win_size = 0,
 split_interval <- function(interval, genome, win_size, step_size,
                            num_win, reverse) {
   
-  # get size of chrom for coord check later
+  # get size of chrom for coord chec later
   cur_chrom <- interval$chrom
   chrom_size <- genome[genome$chrom == cur_chrom,]$size
   
