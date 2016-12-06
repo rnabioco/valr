@@ -1,6 +1,5 @@
 ---
 title: 'valr overview'
-author: "Jay Hesselberth <jay.hesselberth@gmail.com>"
 date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette:

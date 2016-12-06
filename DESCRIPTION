@@ -39,5 +39,5 @@ Suggests:
     RMySQL,
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
-URL: http://github.com/jayhesselberth/valr/
-BugReports: https://github.com/jayhesselberth/valr/issues
+URL: http://github.com/rnabioco/valr/
+BugReports: https://github.com/rnabioco/valr/issues

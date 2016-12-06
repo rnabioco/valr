@@ -5,7 +5,11 @@ templates:
 #home:
 #  links:
 #  - text: External data sets
-#    href: http://github.com/jayhesselberth/valrdata
+#    href: http://github.com/rnabioco/valrdata
+#home:
+#  links:
+#  - text: Interative shiny app 
+#    href: http://github.com/rnabioco/valrshiny
     
 reference:
   - title: Load data 

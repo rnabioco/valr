@@ -35,7 +35,7 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="http://github.com/jayhesselberth/valr/">
+  <a href="http://github.com/rnabioco/valr/">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -49,9 +49,8 @@
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
-                        <h4 class="author">Jay Hesselberth <a href="mailto:jay.hesselberth@gmail.com">jay.hesselberth@gmail.com</a></h4>
             
-            <h4 class="date">2016-11-27</h4>
+            <h4 class="date">2016-12-06</h4>
           </div>
 
     
@@ -107,8 +106,11 @@ nearby %&gt;%
 <h3 class="hasAnchor"><html><body><a href="#remote-databases" class="anchor"> </a></body></html>Remote databases</h3>
 <p>Remote databases can be accessed with <code><a href="../reference/db.html">db_ucsc()</a></code> (to access the UCSC Browser) and <code><a href="../reference/db.html">db_ensembl()</a></code> (to access Ensembl databases).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access the `refGene` tbl on the `hg38` assembly.</span>
-ucsc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
-<span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)
+if(<span class="kw">require</span>(RMySQL)) {
+  ucsc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
+  <span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)
+}
+<span class="co">#&gt; Loading required package: RMySQL</span>
 <span class="co">#&gt; Source:   query [?? x 16]</span>
 <span class="co">#&gt; Database: mysql  [@genome-mysql.cse.ucsc.edu via TCP/IP:/]</span>
 <span class="co">#&gt; </span>
@@ -323,22 +325,23 @@ shuffled
 <span class="co">#&gt; # A tibble: 100 &times; 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0005540725</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0004714286</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0005412618</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0007938169</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0003623596</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0003629793</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0005284514</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0002764432</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0002502169</span>
+<span class="co">#&gt; 1      1 &lt;tibble [10,000 &times; 6]&gt; 0.0003448034</span>
+<span class="co">#&gt; 2      2 &lt;tibble [10,000 &times; 6]&gt; 0.0003879722</span>
+<span class="co">#&gt; 3      3 &lt;tibble [10,000 &times; 6]&gt; 0.0001653521</span>
+<span class="co">#&gt; 4      4 &lt;tibble [10,000 &times; 6]&gt; 0.0002541404</span>
+<span class="co">#&gt; 5      5 &lt;tibble [10,000 &times; 6]&gt; 0.0008018792</span>
+<span class="co">#&gt; 6      6 &lt;tibble [10,000 &times; 6]&gt; 0.0005125422</span>
+<span class="co">#&gt; 7      7 &lt;tibble [10,000 &times; 6]&gt; 0.0001806308</span>
+<span class="co">#&gt; 8      8 &lt;tibble [10,000 &times; 6]&gt; 0.0004311447</span>
+<span class="co">#&gt; 9      9 &lt;tibble [10,000 &times; 6]&gt; 0.0002303932</span>
+<span class="co">#&gt; 10    10 &lt;tibble [10,000 &times; 6]&gt; 0.0003819820</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
 </div>
 <div id="benchmarks" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#benchmarks" class="anchor"> </a></body></html>Benchmarks</h2>
 <p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis. This graph illustrates the timing of functions in <code>valr</code> for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.</p>
+<pre><code>#&gt; Loading required package: microbenchmark</code></pre>
 <p><img src="img/overview-benchmarks-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="api" class="section level2">
@@ -352,7 +355,7 @@ shuffled
 </ul></div>
 <div id="transforming-single-interval-sets" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#transforming-single-interval-sets" class="anchor"> </a></body></html>Transforming single interval sets</h3>
-<ul><li><p>Intervals are ordered with <code><a href="../reference/bed_sort.html">bed_sort()</a></code>.</p></li>
+<ul><li><p>Intervals are ordered with <code>dplyr::arrange()</code>.</p></li>
 <li><p>Interval coordinates are adjusted with <code><a href="../reference/bed_slop.html">bed_slop()</a></code> and <code><a href="../reference/bed_shift.html">bed_shift()</a></code>, and new flanking intervals are created with <code><a href="../reference/bed_flank.html">bed_flank()</a></code>.</p></li>
 <li><p>Nearby intervals are combined with <code><a href="../reference/bed_merge.html">bed_merge()</a></code> and identified (but not merged) with <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
 <li><p>Intervals not covered by a query are created with <code><a href="../reference/bed_complement.html">bed_complement()</a></code>.</p></li>

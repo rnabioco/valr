@@ -13,7 +13,7 @@ library(dplyr)
 
 # valr 
 
-[![Build Status](https://travis-ci.org/jayhesselberth/valr.svg?branch=master)](https://travis-ci.org/jayhesselberth/valr)
+[![Build Status](https://travis-ci.org/rnabioco/valr.svg?branch=master)](https://travis-ci.org/rnabioco/valr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jayhesselberth/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/jayhesselberth/valr/master.svg)](https://codecov.io/github/jayhesselberth/valr?branch=master)
 [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
@@ -32,7 +32,7 @@ The latest development version can be installed from github:
 
 ```r
 # install.packages("devtools")
-devtools::install_github('jayhesselberth/valr')
+devtools::install_github('rnabioco/valr')
 ```
 
 ## Why `valr`?
