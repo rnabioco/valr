@@ -52,13 +52,16 @@ bed_makewindows <- function(x, genome, win_size = 0,
   if (win_size == 0 && num_win == 0)
     stop('specify either `win_size` or `num_win`', call. = FALSE)
   
-  res <- purrr::by_row(x, split_interval, genome, win_size,
-           step_size, num_win, 
-           reverse, .collate = 'rows',
-           .labels = FALSE)
-  
-  res <- select(res, -.row)
-    
+  x <- rowwise(x)
+  #pass rows to split_intervals, by default do() will convert to list
+  res <- do_(x, 
+            ~split_interval(as_data_frame(.), 
+                           genome,
+                           win_size, 
+                           step_size, 
+                           num_win, 
+                           reverse))
+  res <- ungroup(res)
   res 
 }
 
@@ -67,14 +70,14 @@ bed_makewindows <- function(x, genome, win_size = 0,
 split_interval <- function(interval, genome, win_size, step_size,
                            num_win, reverse) {
   
-  # get size of chrom for coord check later
+  # get size of chrom for coord chec later
   cur_chrom <- interval$chrom
   chrom_size <- genome[genome$chrom == cur_chrom,]$size
   
   if (num_win > 0) {
     win_size <- round((interval$end - interval$start) / num_win)
   } 
-   
+  
   res <- transform(interval, .start = seq(from = start, to = end,
                    by = win_size - step_size))
   

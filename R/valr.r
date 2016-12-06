@@ -26,7 +26,6 @@
 #' @importFrom readr read_tsv col_integer col_character col_double
 #' @importFrom stringr str_replace str_split str_c str_length
 #' @importFrom tidyr unnest
-#' @importFrom purrr by_row
 #' @importFrom lazyeval lazy_dots
 #' @importFrom stats fisher.test
 #' @importFrom broom tidy
