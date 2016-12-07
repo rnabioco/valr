@@ -58,7 +58,6 @@ reference:
     - bound_intervals
     - flip_strands
     - interval_spacing
-    - launch_shiny
     - valr_example
     
 navbar:

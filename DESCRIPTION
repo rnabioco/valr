@@ -21,7 +21,6 @@ Imports:
     tibble,
     tidyr,
     broom,
-    shiny,
     ggplot2,
 SystemRequirements: C++11
 LinkingTo:
@@ -34,7 +33,6 @@ Suggests:
     testthat,
     microbenchmark,
     covr,
-    shinydashboard,
     RMySQL,
     purrr
 VignetteBuilder: knitr
