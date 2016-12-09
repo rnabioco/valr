@@ -275,7 +275,7 @@ shuffled
 
 Certain algorithms in `valr` were implemented in `Rcpp` to enable fluid interactive analysis.  This graph illustrates the timing of functions in `valr` for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.
 
-```{r benchmarks, echo = FALSE, fig.width=6}
+```{r benchmarks, echo = FALSE, message = FALSE, fig.width=6}
 if(require(microbenchmark)) {
 
     genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
