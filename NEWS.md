@@ -4,6 +4,8 @@
 
 * Transfer repository to http:://github.com/rnabioco/valr, update links and docs.
 
+* Move shiny app to new repo (http://github.com/rnabioco/valrshiny).
+
 ## Major changes
 
 * Deprecate `bed_sort()` in favor of using `dplyr::arrange()` explicitly (fixes #134).

@@ -31,6 +31,5 @@
 #' @importFrom broom tidy
 #' @importFrom utils head tail
 #' @import ggplot2
-#' @import shiny
 #' @import dplyr
 "_PACKAGE"
