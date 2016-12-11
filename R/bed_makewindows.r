@@ -52,50 +52,35 @@ bed_makewindows <- function(x, genome, win_size = 0,
   if (win_size == 0 && num_win == 0)
     stop('specify either `win_size` or `num_win`', call. = FALSE)
   
+  x <- ungroup(x)
+  x <- mutate(x, .row_id = row_number())
   x <- rowwise(x)
-  #pass rows to split_intervals, by default do() will convert to list
-  res <- do_(x, 
-            ~split_interval(as_data_frame(.), 
-                           genome,
-                           win_size, 
-                           step_size, 
-                           num_win, 
-                           reverse))
-  res <- ungroup(res)
-  res 
-}
-
-#' @param interval row of data frame
-#' @noRd
-split_interval <- function(interval, genome, win_size, step_size,
-                           num_win, reverse) {
-  
-  # get size of chrom for coord chec later
-  cur_chrom <- interval$chrom
-  chrom_size <- genome[genome$chrom == cur_chrom,]$size
-  
   if (num_win > 0) {
-    win_size <- round((interval$end - interval$start) / num_win)
-  } 
-  
-  res <- transform(interval, .start = seq(from = start, to = end,
-                   by = win_size - step_size))
-  
-  res <- mutate(res, .end = ifelse(.start + win_size < end,
-                                   .start + win_size, end),
-                     .win_num = row_number())
-  res <- filter(res, .start != .end & .end <= chrom_size)
+    x <- mutate(x, 
+                 .win_size = round((end - start) / num_win))
+  } else {
+    x <- mutate(x, .win_size = win_size)
+  }
+
+  res <- mutate(x, .start = list(seq(start, end, 
+                                     by = .win_size - step_size)),
+                .win_num = list(seq(1, length(.start))))
+  res <- tidyr::unnest(res)
+  res <- mutate(res, .end = ifelse(.start + .win_size < end,
+                                   .start + .win_size, end))
+  res <- filter(res, .start != .end )
   res <- mutate(res, start = .start, end = .end)
-  res <- select(res, -.start, -.end)
- 
+  res <- select(res, -.start, -.end, -.win_size)
+  
   # add .win_id column
+  res <- group_by(res, .row_id)
   if (reverse) {
     res <- mutate(res, .win_id = rank(-.win_num))
   } else {
     res <- mutate(res, .win_id = rank(.win_num))
   }
   
-  res <- select(res, -.win_num)
-  
+  res <- ungroup(res)
+  res <- select(res, -.win_num, -.row_id)
   res
 }
