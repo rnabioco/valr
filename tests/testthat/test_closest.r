@@ -652,7 +652,53 @@ test_that("ensure that subtraction is done with respect to input tbls issue#108"
   expect_true(all(res$group == res$group.y))
 })
 
+test_that("ensure that output can be piped to other valr functions #161", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group,
+    'chr1', 100,    200,  'A',
+    'chr1', 200,    400,  'A',
+    'chr1', 300,    500,  'A',
+    'chr1', 125,    175,  'C',
+    'chr1', 150,    200,  'B'
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group,
+    'chr1', 100,    200,  'A',
+    'chr1', 200,    400,  'B',
+    'chr1', 300,    500,  'A',
+    'chr1', 125,    175,  'C',
+    'chr2', 150,    200,  'A'
+  )
+  
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    'chr1', 1000,
+    'chr2', 2000
+  )
+  
+  res <- bed_closest(x, y)
 
+  expect_is(res %>% bed_cluster(.), "tbl_df")
+  expect_is(res %>% bed_complement(., genome), "tbl_df")
+  expect_is(res %>% bed_flank(., both = 100, genome), "tbl_df")
+  expect_is(res %>% bed_makewindows(., genome, 100), "tbl_df")
+  expect_is(res %>% bed_flank(., genome, 10), "tbl_df")
+  expect_is(res %>% 
+              rename(.x_overlap = .overlap) %>% 
+              bed_map(., y, suffix = ".test"), "tbl_df")
+  expect_is(res %>% bed_merge(.), "tbl_df")
+  expect_is(res %>% 
+              rename(.x_overlap = .overlap) %>% 
+              bed_projection(., y, suffix = ".test", genome), "tbl_df")
+  expect_is(res %>% bed_reldist(., y), "tbl_df")
+  expect_is(res %>% bed_shift(., genome, 100), "tbl_df")
+  expect_is(res %>% bed_shuffle(., genome), "tbl_df")
+  expect_is(res %>% bed_slop(., genome, both = 100), "tbl_df")
+  expect_is(res %>% bed_subtract(., y), "tbl_df")
+  expect_is(res %>% 
+              rename(.x_overlap = .overlap) %>% 
+              bed_window(., y, suffix = ".test", genome), "tbl_df")
+})
 
 
 
