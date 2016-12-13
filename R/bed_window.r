@@ -48,6 +48,7 @@
 #' )
 #' 
 #' bed_window(x, y, genome, both = 100)
+#' bed_window(x, y, genome, both = 100, trim  = TRUE)
 #' 
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/window.html}
 #'  
@@ -60,11 +61,11 @@ bed_window <- function(x, y, genome, ...) {
   
   res <- bed_intersect(slop_x, y, ...)
   
-  res <- mutate(res, start.x = .start.x, end.x = .end.x)
+  res <- mutate(res, start = .start, end = .end)
   
   res <- ungroup(res)
   
-  res <- select(res, -.start.x, -.end.x)
+  res <- select(res, -.start, -.end)
   
   res
 }

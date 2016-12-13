@@ -57,19 +57,19 @@
 #' 
 #' 
 #' @export
-bed_intersect <- function(x, y, invert = FALSE, suffix = c('.x', '.y'), ...) {
+bed_intersect <- function(x, y, invert = FALSE, suffix = c('.y'), ...) {
  
   check_suffix(suffix) 
  
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 
-  suffix <- list(x = suffix[1], y = suffix[2])
+  suffix <- list(y = suffix[1])
 
-  res <- intersect_impl(x, y, suffix$x, suffix$y)
+  res <- intersect_impl(x, y, suffix$y)
   
   if (invert) {
-    colspec <- c('chrom' = 'chrom', 'start' = 'start.x', 'end' = 'end.x') 
+    colspec <- c('chrom', 'start', 'end') 
     res <- anti_join(x, res, by = colspec)
     res <- ungroup(res)
   }

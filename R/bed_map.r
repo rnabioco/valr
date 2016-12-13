@@ -69,20 +69,27 @@
 #' 
 #' @export
 bed_map <- function(x, y, ..., invert = FALSE,
-                    suffix = c('.x', '.y'),
                     min_overlap = 1) {
   
   groups_x <- groups(x)
   
   # used only to get the `x` suffix; `y` suffix is ignored` 
-  suffix <- list(x = suffix[1], y = suffix[2])
+  suffix <- list(y = ".y")
  
-  # `x` names are suffixed to use for grouping later 
   x_names <- colnames(x)[!colnames(x) %in% "chrom"]
-  x_names_suffix <- stringr::str_c(x_names, suffix$x)
  
   # note that `y` columns have no suffix so can be referred to by the original names
-  res <- bed_intersect(x, y, invert = invert, suffix = c(suffix$x, ''))
+  res <- bed_intersect(x, y, invert = invert, suffix$y)
+  #suffix x to distinguish x from y
+  colnames(res) <- ifelse(colnames(res) %in% x_names, 
+                          stringr::str_c(colnames(res), ".x"), 
+                          colnames(res))
+  
+  x_names_suffix <- stringr::str_c(x_names, ".x")
+  
+  ## remove y suffix, but don't pattern match with '.' regex
+  names_no_y <- stringr::str_replace(names(res), stringr::fixed(".y"), '')
+  names(res) <- names_no_y
   
   res <- filter(res, .overlap >= min_overlap)
   
@@ -91,7 +98,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
   res <- ungroup(res)
   ## remove x suffix, but don't pattern match with '.' regex
-  names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), '')
+  names_no_x <- stringr::str_replace(names(res), stringr::fixed(".x"), '')
   names(res) <- names_no_x
   
   # find rows of `x` that did not intersect
