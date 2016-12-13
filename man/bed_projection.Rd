@@ -4,7 +4,7 @@
 \alias{bed_projection}
 \title{Projection test for query interval overlap.}
 \usage{
-bed_projection(x, y, genome, by_chrom = FALSE)
+bed_projection(x, y, genome, by_chrom = FALSE, ...)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -14,6 +14,8 @@ bed_projection(x, y, genome, by_chrom = FALSE)
 \item{genome}{chrom sizes}
 
 \item{by_chrom}{compute test per chromosome}
+
+\item{...}{additional arguments passed on to \code{bed_intersect()}}
 }
 \value{
 \code{data_frame} with the following columns:

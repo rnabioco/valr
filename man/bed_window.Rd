@@ -66,6 +66,7 @@ genome <- tibble::tribble(
 )
 
 bed_window(x, y, genome, both = 100)
+bed_window(x, y, genome, both = 100, trim  = TRUE)
 
 }
 \seealso{

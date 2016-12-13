@@ -7,8 +7,7 @@
 \alias{values_unique}
 \title{Calculate summaries and statistics from overlapping intervals.}
 \usage{
-bed_map(x, y, ..., invert = FALSE, suffix = c(".x", ".y"),
-  min_overlap = 1)
+bed_map(x, y, ..., invert = FALSE, suffix = c(".y"), min_overlap = 1)
 
 concat(.data, sep = ",")
 
@@ -25,7 +24,7 @@ values(.data, sep = ",")
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
-\item{suffix}{colname suffixes in output}
+\item{suffix}{colname suffix for \code{y} columns in output}
 
 \item{min_overlap}{minimum overlap for intervals.}
 

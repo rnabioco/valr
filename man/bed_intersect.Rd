@@ -4,7 +4,7 @@
 \alias{bed_intersect}
 \title{Identify intersecting intervals.}
 \usage{
-bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
+bed_intersect(x, y, invert = FALSE, suffix = c(".y"), ...)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -13,7 +13,7 @@ bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
-\item{suffix}{colname suffixes in output}
+\item{suffix}{colname suffix for \code{y} columns in output}
 
 \item{...}{extra arguments (not used)}
 }

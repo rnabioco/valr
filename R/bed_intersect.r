@@ -7,7 +7,7 @@
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param invert report \code{x} intervals not in \code{y}
-#' @param suffix colname suffixes in output
+#' @param suffix colname suffix for \code{y} columns in output
 #' @param ... extra arguments (not used)
 #'   
 #' @return a \code{data_frame} with original columns from \code{x} and \code{y},

@@ -5,8 +5,8 @@ absdist_impl <- function(x, y) {
     .Call('valr_absdist_impl', PACKAGE = 'valr', x, y)
 }
 
-closest_impl <- function(x, y, suffix_x, suffix_y) {
-    .Call('valr_closest_impl', PACKAGE = 'valr', x, y, suffix_x, suffix_y)
+closest_impl <- function(x, y, suffix_y) {
+    .Call('valr_closest_impl', PACKAGE = 'valr', x, y, suffix_y)
 }
 
 complement_impl <- function(gdf, genome) {
@@ -17,8 +17,8 @@ coverage_impl <- function(x, y) {
     .Call('valr_coverage_impl', PACKAGE = 'valr', x, y)
 }
 
-intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
-    .Call('valr_intersect_impl', PACKAGE = 'valr', x, y, suffix_x, suffix_y)
+intersect_impl <- function(x, y, suffix_y = ".y") {
+    .Call('valr_intersect_impl', PACKAGE = 'valr', x, y, suffix_y)
 }
 
 merge_impl <- function(gdf, max_dist = 0L) {

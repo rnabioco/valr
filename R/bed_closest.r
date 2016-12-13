@@ -3,7 +3,7 @@
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param overlap report overlapping intervals 
-#' @param suffix colname suffixes in output
+#' @param suffix colname suffix for \code{y} columns in output
 #' @param dist format for distance to nearest interval
 #'              
 #' @template groups
