@@ -69,12 +69,15 @@
 #' 
 #' @export
 bed_map <- function(x, y, ..., invert = FALSE,
+                    suffix = c(".y"),
                     min_overlap = 1) {
   
   groups_x <- groups(x)
   
-  # used only to get the `x` suffix; `y` suffix is ignored` 
-  suffix <- list(y = ".y")
+  check_suffix(suffix)
+  
+  # used only internally to distinguish x and y columns 
+  suffix <- list(y = suffix[1])
  
   x_names <- colnames(x)[!colnames(x) %in% "chrom"]
  
@@ -88,7 +91,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   x_names_suffix <- stringr::str_c(x_names, ".x")
   
   ## remove y suffix, but don't pattern match with '.' regex
-  names_no_y <- stringr::str_replace(names(res), stringr::fixed(".y"), '')
+  names_no_y <- stringr::str_replace(names(res), stringr::fixed(suffix$y), '')
   names(res) <- names_no_y
   
   res <- filter(res, .overlap >= min_overlap)
@@ -98,7 +101,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
   res <- ungroup(res)
   ## remove x suffix, but don't pattern match with '.' regex
-  names_no_x <- stringr::str_replace(names(res), stringr::fixed(".x"), '')
+  names_no_x <- stringr::str_replace(names(res), "[.]x$", '')
   names(res) <- names_no_x
   
   # find rows of `x` that did not intersect
