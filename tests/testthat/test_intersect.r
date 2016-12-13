@@ -112,13 +112,13 @@ test_that("incorrect `suffix` args throw errors", {
     ~chrom, ~start, ~end, ~name, ~score,
     "chr1", 1000,   1500, '.',   '.'
   )
-  
+ 
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score,
+   ~chrom, ~start, ~end, ~name, ~score,
     "chr1", 1000,   1200, '.',   '.'
   )
   
-  expect_error(bed_intersect(x, y, suffix = 'TESTING')) 
+  expect_error(bed_intersect(x, y, suffix = c(1, "2"))) 
 })
 
 test_that("intersections from x bed_tbl with more chroms than y are captured", {
@@ -163,7 +163,7 @@ test_that("input x groups are used for comparing intervals issue #108",{
   x <- arrange(x, chrom, start)
   x <- group_by(x, group)
   res <- bed_intersect(x, x)
-  expect_true(all(res$group.x == res$group.y))
+  expect_true(all(res$group == res$group.y))
   
 })
 
