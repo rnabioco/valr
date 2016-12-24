@@ -2,14 +2,10 @@ templates:
   params:
     bootswatch: cosmo
 
-#home:
-#  links:
-#  - text: External data sets
-#    href: http://github.com/rnabioco/valrdata
-#home:
-#  links:
-#  - text: Interative shiny app 
-#    href: http://github.com/rnabioco/valrshiny
+home:
+  links:
+  - text: External data sets
+    href: http://github.com/rnabioco/valrdata
     
 reference:
   - title: Load data 

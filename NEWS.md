@@ -4,7 +4,7 @@
 
 * Transfer repository to http:://github.com/rnabioco/valr, update links and docs.
 
-* Move shiny app to new repo (http://github.com/rnabioco/valrshiny).
+* Move shiny app to new repo (http://github.com/rnabioco/valrdata).
 
 ## Major changes
 
