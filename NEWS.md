@@ -1,4 +1,8 @@
-# valr 0.1.1.9000
+# valr 0.1.2
+
+## Major changes
+
+* Deprecate `bed_sort()` in favor of using `dplyr::arrange()` explicitly (fixes #134).
 
 ## Minor changes
 
@@ -6,9 +10,7 @@
 
 * Move shiny app to new repo (http://github.com/rnabioco/valrdata).
 
-## Major changes
-
-* Deprecate `bed_sort()` in favor of using `dplyr::arrange()` explicitly (fixes #134).
+* Add Kent Riemondy to LICENSE file.
 
 # valr 0.1.1
 
