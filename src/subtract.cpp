@@ -85,7 +85,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   std::vector<int> indices_out ;
   for (int nx=0; nx<ng_x; nx++, ++git_x) {
 
-    SlicingIndex indices_x = *git_x ;
+    GroupedSlicingIndex indices_x = *git_x ;
 
     // keep track of if x chrom is present in y
     bool group_seen(false);
@@ -93,7 +93,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     GroupedDataFrame::group_iterator git_y = gdf_y.group_begin() ;
     for (int ny=0; ny<ng_y; ny++, ++git_y) {
 
-      SlicingIndex indices_y = *git_y ;
+      GroupedSlicingIndex indices_y = *git_y ;
 
       bool same_groups = compareDataFrameRows(labels_x, labels_y, nx, ny);
 
@@ -124,7 +124,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   }
 
   // extract out x data, new intervals will be generated as copies of the parent interval
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_out, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(indices_out, "data.frame");
 
   auto ncol_x = subset_x.size() ;
 

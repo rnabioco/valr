@@ -70,7 +70,7 @@ DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y) {
   DataFrame df_x = x.data() ;
   PairedGroupApply(x, y, absdist_grouped, std::ref(indices_x), std::ref(rel_distances));
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(indices_x, "data.frame");
 
   auto ncol_x = subset_x.size() ;
 

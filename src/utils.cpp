@@ -20,7 +20,7 @@ genome_map_t makeChromSizes(DataFrame genome) {
 // the value field of intervals in the returned vector correspond to the index
 // of the interval in the original dataframe (i.e., the values of the
 // SlicingIndex)
-intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) {
+intervalVector makeIntervalVector(DataFrame df, GroupedSlicingIndex si) {
 
   intervalVector intervals ;
 
@@ -42,8 +42,8 @@ bool compareDataFrameRows(DataFrame df_x, DataFrame df_y, int idx_x, int idx_y) 
   IntegerVector x_idx = IntegerVector::create(idx_x) ;
   IntegerVector y_idx = IntegerVector::create(idx_y) ;
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(x_idx, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(y_idx, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(x_idx, "data.frame");
+  DataFrame subset_y = DataFrameSubsetVisitors(df_y, df_y.names()).subset(y_idx, "data.frame");
 
   int ncols = df_x.size() ;
   bool cols_equal = false;

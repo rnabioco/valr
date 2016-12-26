@@ -19,7 +19,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
   for (int i=0; i<ng; i++, ++git) {
 
-    SlicingIndex indices = *git ;
+    GroupedSlicingIndex indices = *git ;
 
     intervalVector intervals = makeIntervalVector(df, indices);
 
