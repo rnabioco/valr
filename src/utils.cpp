@@ -58,3 +58,6 @@ bool compareDataFrameRows(DataFrame df_x, DataFrame df_y, int idx_x, int idx_y) 
   return cols_equal ;
 }
 
+void copy_most_attributes(SEXP out, SEXP data) {
+  Rf_copyMostAttrib(data, out);
+}
