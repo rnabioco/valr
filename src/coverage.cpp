@@ -171,7 +171,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   out[ncol_x + 3] = fractions_covered ;
 
   out.attr("names") = names ;
-  out.attr("class") = classes_not_grouped() ;
+  set_class(out, classes_not_grouped()) ;
   auto nrows = subset_x.nrows() ;
   set_rownames(out, nrows) ;
 

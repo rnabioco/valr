@@ -70,7 +70,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   std::string overlaps_name = ".overlap_merge" ;
   names[nc+1] = overlaps_name;
 
-  out.attr("class") = df.attr("class") ;
+  set_class(out, get_class(df)) ;
   out.attr("row.names") = df.attr("row.names") ;
   out.attr("names") = names ;
 
