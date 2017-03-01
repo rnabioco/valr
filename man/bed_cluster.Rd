@@ -7,7 +7,7 @@
 bed_cluster(x, max_dist = 0)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{tbl of interval}
 
 \item{max_dist}{maximum distance between clustered intervals.}
 }
@@ -58,4 +58,3 @@ Other single-set-ops: \code{\link{bed_complement}},
   \code{\link{bed_random}}, \code{\link{bed_shift}},
   \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
 }
-
