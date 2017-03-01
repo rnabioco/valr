@@ -23,4 +23,3 @@ bed12_to_exons(x)
 \seealso{
 Other utils: \code{\link{bed_makewindows}}
 }
-

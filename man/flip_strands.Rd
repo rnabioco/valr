@@ -23,4 +23,3 @@ x <- tibble::tribble(
 flip_strands(x)
  
 }
-

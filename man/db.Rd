@@ -2,8 +2,8 @@
 % Please edit documentation in R/db.r
 \name{db}
 \alias{db}
-\alias{db_ensembl}
 \alias{db_ucsc}
+\alias{db_ensembl}
 \title{Fetch data from remote databases.}
 \usage{
 db_ucsc(dbname, host = "genome-mysql.cse.ucsc.edu", user = "genomep",
@@ -56,4 +56,3 @@ if(require(RMySQL)) {
 
 \url{http://www.ensembl.org/info/data/mysql.html}
 }
-

@@ -16,4 +16,3 @@ Provide working directory for valr example files.
 valr_example('hg19.chrom.sizes.gz')
 
 }
-

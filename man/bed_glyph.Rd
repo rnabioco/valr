@@ -45,4 +45,3 @@ bed_glyph(bed_merge(x))
 bed_glyph(bed_cluster(x), label = '.id')
 
 }
-

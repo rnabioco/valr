@@ -28,4 +28,3 @@ read_vcf(vcf_file)
 Other read-funcs: \code{\link{read_bed}},
   \code{\link{read_genome}}
 }
-

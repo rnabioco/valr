@@ -103,7 +103,7 @@ book-ended intervals will be clustered.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>tbl of intervals</dd>
+      <dd>tbl of interval</dd>
       <dt>max_dist</dt>
       <dd>maximum distance between clustered intervals.</dd>
     </dl>
@@ -135,16 +135,20 @@ book-ended intervals will be clustered.</p>
  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,  <span class='fl'>200</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>180</span>,  <span class='fl'>250</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>250</span>,  <span class='fl'>500</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>501</span>,  <span class='fl'>1000</span>
+ <span class='st'>"chr1"</span>, <span class='fl'>501</span>,  <span class='fl'>1000</span>,
+ <span class='st'>"chr2"</span>, <span class='fl'>1</span>,    <span class='fl'>100</span>,
+ <span class='st'>"chr2"</span>, <span class='fl'>150</span>,  <span class='fl'>200</span>
 )
 
-<span class='fu'>bed_cluster</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 4
+<span class='fu'>bed_cluster</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 6 × 4
 #&gt;   chrom start   end   .id
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
 #&gt; 1  chr1   100   200     1
 #&gt; 2  chr1   180   250     1
 #&gt; 3  chr1   250   500     1
-#&gt; 4  chr1   501  1000     2</div><div class='input'>
+#&gt; 4  chr1   501  1000     2
+#&gt; 5  chr2     1   100     3
+#&gt; 6  chr2   150   200     4</div><div class='input'>
 <span class='co'># glyph illustrating clustering of overlapping and book-ended intervals</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,

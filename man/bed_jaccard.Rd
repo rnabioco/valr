@@ -59,4 +59,3 @@ Other interval-stats: \code{\link{bed_absdist}},
   \code{\link{bed_fisher}}, \code{\link{bed_projection}},
   \code{\link{bed_reldist}}
 }
-

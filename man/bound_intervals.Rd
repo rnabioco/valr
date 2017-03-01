@@ -37,4 +37,3 @@ bound_intervals(x, genome)
 bound_intervals(x, genome, trim = TRUE)
 
 }
-

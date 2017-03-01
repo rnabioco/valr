@@ -4,8 +4,8 @@
 \alias{read_bed}
 \alias{read_bed12}
 \alias{read_bedgraph}
-\alias{read_broadpeak}
 \alias{read_narrowpeak}
+\alias{read_broadpeak}
 \title{Read BED and related files.}
 \usage{
 read_bed(filename, n_fields = 3, col_types = bed12_coltypes, sort = TRUE,
@@ -75,4 +75,3 @@ read_broadpeak(valr_example('sample.broadPeak.gz'))
 Other read-funcs: \code{\link{read_genome}},
   \code{\link{read_vcf}}
 }
-

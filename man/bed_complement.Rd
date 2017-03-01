@@ -57,4 +57,3 @@ Other single-set-ops: \code{\link{bed_cluster}},
   \code{\link{bed_random}}, \code{\link{bed_shift}},
   \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
 }
-

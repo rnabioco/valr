@@ -27,4 +27,3 @@ x <- tibble::tribble(
 interval_spacing(x)
   
 }
-

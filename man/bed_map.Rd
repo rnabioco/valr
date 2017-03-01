@@ -3,8 +3,8 @@
 \name{bed_map}
 \alias{bed_map}
 \alias{concat}
-\alias{values}
 \alias{values_unique}
+\alias{values}
 \title{Calculate summaries and statistics from overlapping intervals.}
 \usage{
 bed_map(x, y, ..., invert = FALSE, suffix = c(".x", ".y"),
@@ -107,4 +107,3 @@ Other multi-set-ops: \code{\link{bed_closest}},
   \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
   \code{\link{bed_subtract}}, \code{\link{bed_window}}
 }
-

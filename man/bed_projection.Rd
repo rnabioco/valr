@@ -75,4 +75,3 @@ Other interval-stats: \code{\link{bed_absdist}},
   \code{\link{bed_fisher}}, \code{\link{bed_jaccard}},
   \code{\link{bed_reldist}}
 }
-

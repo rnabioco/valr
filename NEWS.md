@@ -1,10 +1,12 @@
-# valr 0.1.2
+# valr 0.1.2 (unreleased)
 
 ## Major changes
 
 * Deprecate `bed_sort()` in favor of using `dplyr::arrange()` explicitly (fixes #134).
 
 ## Minor changes
+
+* Make `.id` values contiguous values in `bed_cluster()` output (#171)
 
 * Transfer repository to http:://github.com/rnabioco/valr, update links and docs.
 
