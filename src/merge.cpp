@@ -16,6 +16,8 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   IntegerVector starts   = df["start"] ;
   IntegerVector ends     = df["end"] ;
 
+  std::size_t cluster_id = 0; //store counter for cluster id
+
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
   for (int i=0; i<ng; i++, ++git) {
 
@@ -25,8 +27,6 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
 
     interval_t last_interval = interval_t(0,0,0) ;
 
-    int id, last_id = 0 ; // holds start of the first of intervals to be merged
-
     for (auto it : intervals) {
 
       auto idx = it.value ;
@@ -35,15 +35,15 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
       int overlap = intervalOverlap(it, last_interval) ;
       overlaps[idx] = overlap ;
 
-      id = it.start ;
-
+      // if overlaps or within max_dist assign to previous cluster
       if (overlap > 0) {
-        ids[idx] = last_id ;
+        ids[idx] = cluster_id ;
       } else if (overlap <= 0 && std::abs(overlap) <= max_dist) {
-        ids[idx] = last_id ;
+        ids[idx] = cluster_id ;
       } else {
-        ids[idx] = id ;
-        last_id = it.start ;
+        // increment cluster id and assign
+        ++cluster_id ;
+        ids[idx] = cluster_id ;
       }
 
       last_interval = it ;
