@@ -2,10 +2,9 @@
 #'
 #' Output contains an \code{.id} column that can be used in downstream grouping
 #' operations. Default \code{max_dist = 0} means that both overlapping and
-#' book-ended intervals will be clustered. Note that input tbl is assumed to be sorted
-#' by \code{chrom} and \code{start}
+#' book-ended intervals will be clustered.
 #'
-#' @param x tbl of intervals (requires sorted input)
+#' @param x tbl of interval
 #' @param max_dist maximum distance between clustered intervals.
 #'
 #' @template groups
@@ -43,6 +42,7 @@
 bed_cluster <- function(x, max_dist = 0) {
 
   res <- group_by(x, chrom, add = TRUE)
+  res <- arrange(res, chrom, start)
 
   res <- merge_impl(res, max_dist)
 

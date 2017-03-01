@@ -7,7 +7,7 @@
 bed_cluster(x, max_dist = 0)
 }
 \arguments{
-\item{x}{tbl of intervals (requires sorted input)}
+\item{x}{tbl of interval}
 
 \item{max_dist}{maximum distance between clustered intervals.}
 }
@@ -17,8 +17,7 @@ bed_cluster(x, max_dist = 0)
 \description{
 Output contains an \code{.id} column that can be used in downstream grouping
 operations. Default \code{max_dist = 0} means that both overlapping and
-book-ended intervals will be clustered. Note that input tbl is assumed to be sorted
-by \code{chrom} and \code{start}
+book-ended intervals will be clustered.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
