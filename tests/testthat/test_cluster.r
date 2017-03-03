@@ -19,13 +19,13 @@ x <- tibble::tribble(
 test_that("basic cluster works", {
   res <- bed_cluster(x)
   # test number of groups in output
-  expect_equal(length(unique(res$.id)), 5)
+  expect_equal(length(unique(res$.id)), 4)
 })
 
 test_that("stranded cluster works", {
   res <- bed_cluster(group_by(x, strand))
   # test number of groups in output
-  expect_equal(length(unique(res$.id)), 7)
+  expect_equal(length(unique(res$.id)), 6)
 })
 
 x <- tibble::tribble(
