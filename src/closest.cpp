@@ -48,16 +48,10 @@ void closest_grouped(intervalVector& vx, intervalVector& vy,
 
 //[[Rcpp::export]]
 DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
-                       const std::string& suffix_x, const std::string& suffix_y) {
-
-//  auto ng_x = x.ngroups() ;
-//  auto ng_y = y.ngroups() ;
+                       const std::string& suffix_y) {
 
   DataFrame df_x = x.data() ;
   DataFrame df_y = y.data() ;
-
-//  auto nr_x = df_x.nrows() ;
-//  auto nr_y = df_y.nrows() ;
 
   // for subsetting / return df
   std::vector<int> indices_x ;
@@ -85,9 +79,6 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   // x names, data
   for (int i=0; i<ncol_x; i++) {
     auto name_x = as<std::string>(names_x[i]) ;
-    if (name_x != "chrom") {
-      name_x += suffix_x ;
-    }
     names[i] = name_x ;
     out[i] = subset_x[i] ;
   }

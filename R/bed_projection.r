@@ -4,6 +4,7 @@
 #' @param y tbl of intervals
 #' @param genome chrom sizes
 #' @param by_chrom compute test per chromosome
+#' @param ... additional arguments passed on to \code{bed_intersect()}
 #' 
 #' @template stats
 #' 
@@ -55,7 +56,7 @@
 #' bed_projection(x, y, genome, by_chrom = TRUE)
 #' 
 #' @export
-bed_projection <- function(x, y, genome, by_chrom = FALSE) {
+bed_projection <- function(x, y, genome, by_chrom = FALSE, ...) {
 
   #find midpoints
   x <- mutate(x, .midpoint = round((end + start) / 2),
@@ -67,7 +68,7 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   y <- bed_merge(y)
   
   # count overlaps per chromosome, 
-  obs_counts <- bed_intersect(x, y)
+  obs_counts <- bed_intersect(x, y, ...)
 
   # count overlaps
   obs_counts <- group_by(obs_counts, chrom)

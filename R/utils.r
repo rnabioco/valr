@@ -94,6 +94,6 @@ shared_groups <- function(x, y) {
 
 # dplyr::check_suffix
 check_suffix <- function(suffix) {
-  if (!is.character(suffix) || length(suffix) != 2)
-    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
+  if (!is.character(suffix) || length(suffix) != 1)
+    stop("`suffix` must be a character of length 1.", call. = FALSE)
 }

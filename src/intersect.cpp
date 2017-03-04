@@ -27,7 +27,6 @@ void intersect_group(intervalVector vx, intervalVector vy,
 
 //[[Rcpp::export]]
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
-                         const std::string& suffix_x = ".x",
                          const std::string& suffix_y = ".y") {
 
   // indices for subsetting
@@ -58,9 +57,6 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   // x names, data
   for (int i=0; i<ncol_x; i++) {
     auto name_x = as<std::string>(names_x[i]) ;
-    if (name_x != "chrom") {
-      name_x += suffix_x ;
-    }
     names[i] = name_x ;
     out[i] = subset_x[i] ;
   }

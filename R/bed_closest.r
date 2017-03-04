@@ -3,7 +3,7 @@
 #' @param x tbl of intervals
 #' @param y tbl of intervals
 #' @param overlap report overlapping intervals 
-#' @param suffix colname suffixes in output
+#' @param suffix colname suffix for \code{y} columns in output
 #' @param dist format for distance to nearest interval
 #'              
 #' @template groups
@@ -57,7 +57,7 @@
 #' 
 #' @export
 bed_closest <- function(x, y, overlap = TRUE,
-                        suffix = c('.x', '.y'),
+                        suffix = c('.y'),
                         dist = c("genome", "strand", "abs")) {
   
   check_suffix(suffix) 
@@ -68,16 +68,16 @@ bed_closest <- function(x, y, overlap = TRUE,
   y <- arrange(y, chrom, start)
   y <- group_by(y, chrom, add = TRUE)
  
-  suffix <- list(x = suffix[1], y = suffix[2])
+  suffix <- list(y = suffix[1])
   
-  res <- closest_impl(x, y, suffix$x, suffix$y)
+  res <- closest_impl(x, y, suffix$y)
 
   dist <- match.arg(dist, c("genome", "strand", "abs"))
   
   # modify distance output based on user input 
   # genome type reporting is default output from closest_impl())
   if (dist == "strand") {
-    res$.dist <- ifelse(res$strand.x == "+", res$.dist, -(res$.dist))
+    res$.dist <- ifelse(res$strand == "+", res$.dist, -(res$.dist))
   } else if (dist == "abs") {
     res$.dist <- abs(res$.dist)
   } 
