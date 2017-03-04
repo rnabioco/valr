@@ -6,6 +6,7 @@
 
 ## Minor changes
 
+
 * Make `.id` values sequential across chroms in `bed_cluster()` output (#171)
 
 * Transfer repository to http:://github.com/rnabioco/valr, update links and docs.

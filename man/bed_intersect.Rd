@@ -19,12 +19,12 @@ bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
 }
 \value{
 a \code{data_frame} with original columns from \code{x} and \code{y},
-  suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column 
+  suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
   with the extent of overlap for the intersecting intervals.
 }
 \description{
-Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended 
-intervals (or "touching" intervals) have \code{.overlap} values of \code{0}) 
+Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended
+intervals (or "touching" intervals) have \code{.overlap} values of \code{0})
 in the output.
 }
 \details{
@@ -68,7 +68,12 @@ y <- tibble::tribble(
 bed_intersect(x, y)
 
 bed_intersect(x, y, invert = TRUE)
- 
+
+# start and end of each overlapping interval
+res <- bed_intersect(x, y)
+dplyr::mutate(res, start = pmax(start.x, start.y),
+                   end = pmin(end.x, end.y))
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
