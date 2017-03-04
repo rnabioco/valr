@@ -6,13 +6,17 @@
 
 ## Minor changes
 
-* Make `.id` values contiguous values in `bed_cluster()` output (#171)
+* Make `.id` values sequential across chroms in `bed_cluster()` output (#171)
 
 * Transfer repository to http:://github.com/rnabioco/valr, update links and docs.
 
 * Move shiny app to new repo (http://github.com/rnabioco/valrdata).
 
 * Add Kent Riemondy to LICENSE file.
+
+## Bug fixes
+
+* `bed_merge()` now merges contained intervals (#177)
 
 # valr 0.1.1
 
