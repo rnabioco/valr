@@ -27,26 +27,41 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
 
     interval_t last_interval = interval_t(0,0,0) ;
 
+    // approach from http://www.geeksforgeeks.org/merging-intervals/
+
+    std::stack<interval_t> s ;
+    s.push(last_interval) ;
+
     for (auto it : intervals) {
 
       auto idx = it.value ;
 
-      // must be `int` type, not `auto`
       int overlap = intervalOverlap(it, last_interval) ;
       overlaps[idx] = overlap ;
+      last_interval = it ;
 
-      // if overlaps or within max_dist assign to previous cluster
-      if (overlap > 0) {
-        ids[idx] = cluster_id ;
-      } else if (overlap <= 0 && std::abs(overlap) <= max_dist) {
-        ids[idx] = cluster_id ;
-      } else {
-        // increment cluster id and assign
-        ++cluster_id ;
+      auto top = s.top() ;
+      if (top.stop + max_dist < it.start) {
+        // no overlap push to stack and get new id
+        s.push(it) ;
+        cluster_id++ ;
         ids[idx] = cluster_id ;
       }
 
-      last_interval = it ;
+      else if (top.stop + max_dist < it.stop) {
+        // overlaps and need to update stack top position
+        // do not update id
+        top.stop = it.stop ;
+        s.pop() ;
+        s.push(top) ;
+        ids[idx] = cluster_id ;
+      }
+
+      else {
+        // overlaps but contained in stack top ivl
+        // do not update id
+        ids[idx] = cluster_id ;
+      }
     }
   }
 

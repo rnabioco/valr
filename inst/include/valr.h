@@ -6,7 +6,7 @@
 #include "IntervalTree.h"
 #include <functional>
 #include <random>
-
+#include <stack>
 
 //[[Rcpp::depends(dplyr)]]
 //[[Rcpp::plugins(cpp11)]]
