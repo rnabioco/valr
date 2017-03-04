@@ -6,7 +6,7 @@
 
 ## Minor changes
 
-* Make `.id` values contiguous values in `bed_cluster()` output (#171)
+* Make `.id` values contiguous values in `bed_cluster()` output (#171, @robertamezquita)
 
 * Transfer repository to http:://github.com/rnabioco/valr, update links and docs.
 
