@@ -71,7 +71,7 @@
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">December 24 2016</h4>
+            <h4 class="date">March 07 2017</h4>
           </div>
 
     
@@ -150,7 +150,7 @@ obs_stats
 <span class="co">#&gt; 10  (AAACAA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
 <span class="co">#&gt; # ... with 2,096 more rows</span></code></pre></div>
 <p>And the same is done for a set of shuffled group of data. <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code> is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shfs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(rpts, genome, <span class="dt">within =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shfs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(rpts, genome, <span class="dt">within =</span> <span class="ot">TRUE</span>, <span class="dt">seed =</span> <span class="dv">1010486</span>)
 shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(shfs, tss, genome, <span class="st">'name'</span>, <span class="st">'shuf'</span>)</code></pre></div>
 <p>Now we can bind the observed and shuffled data together, and do some tidying to put the data into a format appropriate for a statistical test. This involves:</p>
 <ol style="list-style-type: decimal">
@@ -169,22 +169,22 @@ shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(s
 <span class="st">  </span><span class="kw">na.omit</span>()
 
 res
-<span class="co">#&gt; Source: local data frame [16,783 x 5]</span>
-<span class="co">#&gt; Groups: name, stat [1,917]</span>
+<span class="co">#&gt; Source: local data frame [16,659 x 5]</span>
+<span class="co">#&gt; Groups: name, stat [1,903]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     name    stat   .id     obs     shuf</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   (A)n absdist     1 5120782 16132005</span>
-<span class="co">#&gt; 2   (A)n absdist     2  226476 15814356</span>
-<span class="co">#&gt; 3   (A)n absdist     3   31241 15796544</span>
-<span class="co">#&gt; 4   (A)n absdist     4    8931 13710527</span>
-<span class="co">#&gt; 5   (A)n absdist     5   41316 13199818</span>
-<span class="co">#&gt; 6   (A)n absdist     6   22519 11992550</span>
-<span class="co">#&gt; 7   (A)n absdist     7   15173  9489576</span>
-<span class="co">#&gt; 8   (A)n absdist     8   21985  7551954</span>
-<span class="co">#&gt; 9   (A)n absdist     9   13457  6311562</span>
-<span class="co">#&gt; 10  (A)n absdist    10  134007  5127374</span>
-<span class="co">#&gt; # ... with 16,773 more rows</span></code></pre></div>
+<span class="co">#&gt; 1   (A)n absdist     1 5120782 12846274</span>
+<span class="co">#&gt; 2   (A)n absdist     2  226476 12729092</span>
+<span class="co">#&gt; 3   (A)n absdist     3   31241  8239065</span>
+<span class="co">#&gt; 4   (A)n absdist     4    8931  6929891</span>
+<span class="co">#&gt; 5   (A)n absdist     5   41316  5407516</span>
+<span class="co">#&gt; 6   (A)n absdist     6   22519  4173195</span>
+<span class="co">#&gt; 7   (A)n absdist     7   15173  3611447</span>
+<span class="co">#&gt; 8   (A)n absdist     8   21985  3233777</span>
+<span class="co">#&gt; 9   (A)n absdist     9   13457   130009</span>
+<span class="co">#&gt; 10  (A)n absdist    10  134007     3775</span>
+<span class="co">#&gt; # ... with 16,649 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code>broom::tidy()</code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
 
@@ -197,8 +197,7 @@ pvals &lt;-<span class="st"> </span>res %&gt;%<span class="st"> </span><span cla
 <span class="st">  </span>tidyr::<span class="kw">gather</span>(alt, type, -name, -stat) %&gt;%
 <span class="st">  </span><span class="kw">unnest</span>(type) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name:p.value) %&gt;%
-<span class="st">  </span><span class="kw">arrange</span>(p.value)
-<span class="co">#&gt; Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</span></code></pre></div>
+<span class="st">  </span><span class="kw">arrange</span>(p.value)</code></pre></div>
 <p>Histgrams of the different stats help visulaize the distribution of p.values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pvals, <span class="kw">aes</span>(p.value)) +
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) +
