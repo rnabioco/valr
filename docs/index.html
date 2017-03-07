@@ -86,7 +86,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'valr'</span>)</code></pre></div>
 <p>The latest development version can be installed from github:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'rnabioco/valr'</span>)</code></pre></div>
+devtools::<span class="kw">install_github</span>(<span class="st">'rnabioco/valr'</span>)</code></pre></div>
 </div>
 <div id="why-valr" class="section level2">
 <h2 class="hasAnchor">
@@ -108,9 +108,9 @@ intergenic &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed
 <span class="co"># find distance from intergenic snps to nearest gene</span>
 nearby &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)
 
-nearby <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)</code></pre></div>
+nearby %&gt;%
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) &lt;<span class="st"> </span><span class="dv">5000</span>)</code></pre></div>
 </div>
 <div id="remote-databases" class="section level3">
 <h3 class="hasAnchor">

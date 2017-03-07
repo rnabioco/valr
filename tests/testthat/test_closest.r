@@ -6,8 +6,8 @@ test_that("1bp closer, check for off-by-one errors", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",	10,	20
-  ) 
-  
+  )
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
@@ -15,7 +15,7 @@ test_that("1bp closer, check for off-by-one errors", {
     "chr1",	20, 21
   )
   res <- bed_closest(x, y)
-  expect_equal(nrow(res), 3)   
+  expect_equal(nrow(res), 3)
 })
 
 test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
@@ -23,15 +23,15 @@ test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
     ~chrom,   ~start,    ~end,
     "chr1",	10,	20
   )
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
     "chr1", 19, 20,
     "chr1",	20, 21
-  ) 
+  )
   res <- bed_closest(y, x)
-  expect_equal(nrow(res), 3)   
+  expect_equal(nrow(res), 3)
 })
 
 test_that("0bp apart closer, check for off-by-one errors", {
@@ -39,15 +39,15 @@ test_that("0bp apart closer, check for off-by-one errors", {
     ~chrom,   ~start,    ~end,
     "chr1",	10,	20
   )
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
     "chr1", 19, 21,
     "chr1",	20, 21
-  ) 
+  )
   res <- bed_closest(x, y)
-  expect_equal(nrow(res), 3)   
+  expect_equal(nrow(res), 3)
 })
 
 test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
@@ -55,15 +55,15 @@ test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
     ~chrom,   ~start,    ~end,
     "chr1",	10,	20
   )
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
     "chr1", 19, 21,
     "chr1",	20, 21
-  ) 
+  )
   res <- bed_closest(y, x)
-  expect_equal(nrow(res), 3)   
+  expect_equal(nrow(res), 3)
 })
 
 test_that("check that first left interval at index 0 is not lost", {
@@ -74,9 +74,9 @@ test_that("check that first left interval at index 0 is not lost", {
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10
-  ) 
+  )
   res <- bed_closest(x, y)
-  expect_equal(nrow(res), 1) 
+  expect_equal(nrow(res), 1)
 }
 )
 
@@ -88,9 +88,9 @@ test_that("check that first right interval at index 0 is not lost", {
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 20, 21
-  ) 
+  )
   res <- bed_closest(x, y)
-  expect_equal(nrow(res), 1) 
+  expect_equal(nrow(res), 1)
 }
 )
 
@@ -98,11 +98,11 @@ test_that("check that strand closest works (strand = TRUE)", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10,	"+")
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 90, 120, "b", 1,	"-")
-  
+
   res <- bed_closest(group_by(x, strand), group_by(y, strand))
   expect_equal(nrow(res), 0)
 }
@@ -113,19 +113,19 @@ test_that("check that same strand is reported (strand = TRUE", {
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1",	80,	100,	"q1",	1,	"+"
   )
-    
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1",	5,	  15,	"d1.1",	1,	"+",
     "chr1",	20,	  60,	"d1.2",	2,	"-",
     "chr1",	200,	220,	"d1.3",	3,	"-"
-  ) 
-  
+  )
+
   pred <- tibble::tribble(
     ~chrom,   ~start.x,    ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y,    ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.distance,
-    "chr1",	 80,	100,	"q1",	1,	"+",	5, 	15, 	"d1.1",	1,	"+", 0, -65 
+    "chr1",	 80,	100,	"q1",	1,	"+",	5, 	15, 	"d1.1",	1,	"+", 0, -65
   )
-  
+
   res <- bed_closest(group_by(x, strand), group_by(y, strand))
   expect_true(all(pred == res))
 }
@@ -136,19 +136,19 @@ test_that("check that different strand is reported (strand_opp = TRUE", {
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1",	80,	100,	"q1",	1,	"+"
   )
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1",	5,	  15,	"d1.1",	1,	"+",
     "chr1",	20,	  60,	"d1.2",	2,	"-",
     "chr1",	200,	220,	"d1.3",	3,	"-"
-  ) 
-  
+  )
+
   pred <- tibble::tribble(
     ~chrom,   ~start.x,    ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",	 80,	100,	"q1",	1,	"+",	20, 	60, 	"d1.2",	2,	"+", 0, -20 
+    "chr1",	 80,	100,	"q1",	1,	"+",	20, 	60, 	"d1.2",	2,	"+", 0, -20
   )
-  
+
   res <- bed_closest(group_by(x, strand), group_by(flip_strands(y), strand))
   expect_true(all(pred == res))
 }
@@ -158,45 +158,13 @@ test_that("check that reciprocal strand closest works (strand_opp = TRUE) ", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10,	"+")
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
     "chr1", 80, 90, "b", 1,	"-")
-  
+
   res <- bed_closest(group_by(x, strand), group_by(flip_strands(y), strand))
   expect_equal(nrow(res), 1)
-}
-)
-
-test_that("check that stranded distance reporting works ( dist = 'strand') ", {
-  x <- tibble::tribble(
-    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1", 100, 200, "a", 10,	"+",
-    "chr1", 100, 200, "a", 10,	"-"
-    )
-  
-  y <- tibble::tribble(
-    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1", 310, 320, "b", 1,	"-")
-  
-  res <- bed_closest(x, y, dist = "strand")
-  expect_true(res$.dist[1] > 0 &&  res$.dist[2] < 0)
-}
-)
-
-test_that("check that abs distance reporting works (dist = 'abs')", {
-  x <- tibble::tribble(
-    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1", 100, 200, "a", 10,	"+",
-    "chr1", 350, 400, "a", 10,	"+"
-  )
-  
-  y <- tibble::tribble(
-    ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1", 310, 320, "b", 1,	"+")
-  
-  res <- bed_closest(x, y, dist = "abs")
-  expect_true(res$.dist[1] > 0 &&  res$.dist[2] > 0)
 }
 )
 
@@ -205,14 +173,14 @@ test_that("overlapping intervals are removed (overlap = F)", {
     ~chrom,   ~start,    ~end,
     "chr1",	10,	20
   )
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
     "chr1", 19, 21,
     "chr1",	20, 21
-  ) 
-  
+  )
+
   res <- bed_closest(x, y, overlap = FALSE)
   expect_true(res[2, "start.y"] != 19)
 }
@@ -223,7 +191,7 @@ test_that("duplicate intervals are not reported", {
     ~chrom, ~start, ~end,
     "chr1", 100,    200
     )
-  
+
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100,    200,
@@ -241,7 +209,7 @@ test_that("all overlapping features are reported", {
     ~chrom, ~start, ~end,
     "chr1", 100,    200
   )
-  
+
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100,    200,
@@ -258,9 +226,9 @@ test_that("all overlapping features are reported", {
 }
 )
 
-test_that("test reporting of first overlapping feature and 
+test_that("test reporting of first overlapping feature and
            overlap = F excludes overlapping intervals", {
-  
+
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1",	100,	101,
@@ -290,7 +258,7 @@ test_that("test reporting of first overlapping feature and
 }
 )
 
-### test all distance reporting conditions ###
+### test distance reporting conditions ###
 
 ### tbls to test
 d_q1 <- tibble::tribble(
@@ -327,28 +295,8 @@ test_that("default distance reporting works for forward hit on left, forward que
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1",      80,   100, "d_q1.1",       5,        "+",      40,    60,  "d1F.1",      10,        "+",        0,       -20
-  ) 
+  )
   res <- bed_closest(d_q1, d_d1F)
-  expect_true(all(pred == res))
-}
-)
-
-test_that("strand distance reporting works for forward hit on left, forward query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      40,    60,  "d1F.1",      10,        "+",        0,       -20
-  ) 
-  res <- bed_closest(d_q1, d_d1F, dist = "strand")
-  expect_true(all(pred == res))
-}
-)
-
-test_that("abs distance reporting works for forward hit on left, forward query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      40,    60,  "d1F.1",      10,        "+",        0,       20
-  ) 
-  res <- bed_closest(d_q1, d_d1F, dist = "abs")
   expect_true(all(pred == res))
 }
 )
@@ -357,18 +305,8 @@ test_that("default distance reporting works for reverse hit on left, forward que
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1",      80,   100, "d_q1.1",       5,        "+",      40,    60,  "d1R.1",      10,        "-",        0,       -20
-  ) 
+  )
   res <- bed_closest(d_q1, d_d1R)
-  expect_true(all(pred == res))
-}
-)
-
-test_that("strand distance reporting works for reverse hit on left, forward query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      40,    60,  "d1R.1",      10,        "-",        0,       -20
-  ) 
-  res <- bed_closest(d_q1, d_d1R, dist = "strand")
   expect_true(all(pred == res))
 }
 )
@@ -377,28 +315,8 @@ test_that("default distance reporting works for forward hit on left, reverse que
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1",      80,   100, "d_q2.1",       5,        "-",      40,    60,  "d1F.1",      10,        "+",        0,       -20
-  ) 
+  )
   res <- bed_closest(d_q2, d_d1F)
-  expect_true(all(pred == res))
-}
-)
-
-test_that("strand distance reporting works for forward hit on left, reverse query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      40,    60,  "d1F.1",      10,        "+",        0,       20
-  ) 
-  res <- bed_closest(d_q2, d_d1F, dist = "strand")
-  expect_true(all(pred == res))
-}
-)
-
-test_that("abs distance reporting works for forward hit on left, reverse query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      40,    60,  "d1F.1",      10,        "+",        0,       20
-  ) 
-  res <- bed_closest(d_q2, d_d1F, dist = "abs")
   expect_true(all(pred == res))
 }
 )
@@ -407,59 +325,18 @@ test_that("default distance reporting works for reverse hit on left, reverse que
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1",      80,   100, "d_q2.1",       5,        "-",      40,    60,  "d1R.1",      10,        "-",        0,       -20
-  ) 
+  )
   res <- bed_closest(d_q2, d_d1R)
   expect_true(all(pred == res))
 }
 )
 
-test_that("strand distance reporting works for reverse hit on left, reverse query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      40,    60,  "d1R.1",      10,        "-",        0,       20
-  ) 
-  res <- bed_closest(d_q2, d_d1R, dist = "strand")
-  expect_true(all(pred == res))
-}
-)
-
-test_that("abs distance reporting works for reverse hit on left, reverse query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      40,    60,  "d1R.1",      10,        "-",        0,       20
-  ) 
-  res <- bed_closest(d_q2, d_d1R, dist = "abs")
-  expect_true(all(pred == res))
-}
-)
-
-
 test_that("default distance reporting works for forward hit on right, forward query", {
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      140,    160,  "d2F.1",      10,        "+",        0,      40 
-  ) 
+    "chr1",      80,   100, "d_q1.1",       5,        "+",      140,    160,  "d2F.1",      10,        "+",        0,      40
+  )
   res <- bed_closest(d_q1, d_d2F)
-  expect_true(all(pred == res))
-}
-)
-
-test_that("strand distance reporting works for forward hit on right, forward query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      140,    160,  "d2F.1",      10,        "+",        0,       40
-  ) 
-  res <- bed_closest(d_q1, d_d2F, dist = "strand")
-  expect_true(all(pred == res))
-}
-)
-
-test_that("abs distance reporting works for forward hit on right, forward query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      140,    160,  "d2F.1",      10,        "+",        0,       40
-  ) 
-  res <- bed_closest(d_q1, d_d2F, dist = "abs")
   expect_true(all(pred == res))
 }
 )
@@ -467,29 +344,9 @@ test_that("abs distance reporting works for forward hit on right, forward query"
 test_that("default distance reporting works for reverse hit on right, forward query", {
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      140,    160,  "d2R.1",      10,        "-",        0,      40 
-  ) 
+    "chr1",      80,   100, "d_q1.1",       5,        "+",      140,    160,  "d2R.1",      10,        "-",        0,      40
+  )
   res <- bed_closest(d_q1, d_d2R)
-  expect_true(all(pred == res))
-}
-)
-
-test_that("strand distance reporting works for rverse hit on right, forward query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      140,    160,  "d2R.1",      10,        "-",        0,       40
-  ) 
-  res <- bed_closest(d_q1, d_d2R, dist = "strand")
-  expect_true(all(pred == res))
-}
-)
-
-test_that("abs distance reporting works for reverse hit on right, forward query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q1.1",       5,        "+",      140,    160,  "d2R.1",      10,        "-",        0,       40
-  ) 
-  res <- bed_closest(d_q1, d_d2R, dist = "abs")
   expect_true(all(pred == res))
 }
 )
@@ -497,29 +354,9 @@ test_that("abs distance reporting works for reverse hit on right, forward query"
 test_that("default distance reporting works for forward hit on right, reverse query", {
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      140,    160,  "d2F.1",      10,        "+",        0,      40 
-  ) 
+    "chr1",      80,   100, "d_q2.1",       5,        "-",      140,    160,  "d2F.1",      10,        "+",        0,      40
+  )
   res <- bed_closest(d_q2, d_d2F)
-  expect_true(all(pred == res))
-}
-)
-
-test_that("strand distance reporting works for forward hit on right, reverse query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      140,    160,  "d2F.1",      10,        "+",        0,       -40
-  ) 
-  res <- bed_closest(d_q2, d_d2F, dist = "strand")
-  expect_true(all(pred == res))
-}
-)
-
-test_that("abs distance reporting works for forward hit on right, reverse query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      140,    160,  "d2F.1",      10,        "+",        0,       40
-  ) 
-  res <- bed_closest(d_q2, d_d2F, dist = "abs")
   expect_true(all(pred == res))
 }
 )
@@ -527,29 +364,9 @@ test_that("abs distance reporting works for forward hit on right, reverse query"
 test_that("default distance reporting works for reverse hit on right, reverse query", {
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      140,    160,  "d2R.1",      10,        "-",        0,      40 
-  ) 
+    "chr1",      80,   100, "d_q2.1",       5,        "-",      140,    160,  "d2R.1",      10,        "-",        0,      40
+  )
   res <- bed_closest(d_q2, d_d2R)
-  expect_true(all(pred == res))
-}
-)
-
-test_that("strand distance reporting works for reverse hit on right, reverse query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      140,    160,  "d2R.1",      10,        "-",        0,       -40
-  ) 
-  res <- bed_closest(d_q2, d_d2R, dist = "strand")
-  expect_true(all(pred == res))
-}
-)
-
-test_that("abs distance reporting works for reverse hit on right, reverse query", {
-  pred <- tibble::tribble(
-    ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",      80,   100, "d_q2.1",       5,        "-",      140,    160,  "d2R.1",      10,        "-",        0,       40
-  ) 
-  res <- bed_closest(d_q2, d_d2R, dist = "abs")
   expect_true(all(pred == res))
 }
 )
@@ -571,7 +388,7 @@ test_that("Make sure non-overlapping ties are reported ", {
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1",      10,   20, "a1",       1,        "-",      8,    9,  "b1",      1,        "+",        0,       -1,
     "chr1",      10,   20, "a1",       1,        "-",      21,    22,  "b2",      1,        "-",        0,       1
-  ) 
+  )
   res <- bed_closest(a2, b2)
   expect_true(all(pred == res))
 }
@@ -581,18 +398,17 @@ test_that("Make sure non-overlapping ties are reported with strand = T ", {
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1",      10,   20, "a1",       1,        "-",      21,    22,  "b2",      1,        "-",        0,       1
-  ) 
+  )
   res <- bed_closest(group_by(a2, strand), group_by(b2, strand))
   expect_true(all(pred == res))
 }
 )
 
-
 test_that("Make sure non-overlapping ties are reported with strand_opp = T ", {
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1",      10,   20, "a1",       1,        "-",      8,    9,  "b1",      1,        "-",        0,       -1
-  ) 
+  )
   res <- bed_closest(group_by(a2, strand), group_by(flip_strands(b2), strand))
   expect_true(all(pred == res))
 }
@@ -603,11 +419,11 @@ test_that("Make sure that closest intervals are captured when intervals span mul
   snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6, n_max = 10)
   genes_one_node <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6, n_max = 63)
   genes_two_nodes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6, n_max = 64)
-  
+
   res_expt_one_node <- bed_closest(snps, genes_one_node)
   res_expt_two_nodes <- bed_closest(snps, genes_two_nodes)
   # adding one extra interval should not result in doubling the reported intervals
-  expect_false(nrow(res_expt_two_nodes) >= 2 * nrow(res_expt_one_node))           
+  expect_false(nrow(res_expt_two_nodes) >= 2 * nrow(res_expt_one_node))
 })
 
 test_that("test that a max of two duplicated x ivls are returned, assuming non-overlapping, and non-duplicate y ivls #105", {
@@ -620,11 +436,11 @@ test_that("test that a max of two duplicated x ivls are returned, assuming non-o
   genes <- filter(genes, ivl_count == 1)
   genes <- select(genes, -ivl_count)
   genes <- group_by(genes, chrom)
-  
+
   res <- bed_closest(snps, genes, overlap = FALSE)
-  res <- group_by(res, chrom, start.x, end.x) 
+  res <- group_by(res, chrom, start.x, end.x)
   res <- summarize(res, n = n())
-  # there should not be more than 2 possible closest ivls. 
+  # there should not be more than 2 possible closest ivls.
   expect_true(all(res$n <= 2))
 })
 
@@ -651,8 +467,3 @@ test_that("ensure that subtraction is done with respect to input tbls issue#108"
   res <- bed_closest(x_grouped, y_grouped)
   expect_true(all(res$group.x == res$group.y))
 })
-
-
-
-
-
