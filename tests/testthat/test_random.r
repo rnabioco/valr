@@ -6,6 +6,7 @@ genome <- tibble::tribble(
   "chr2", 1e6
 ) %>% mutate(chrom = as.character(chrom))
 
+# Seed for reproducible bed_random tests
 seed <- 1010486
 
 test_that("returns correct number of intervals", {

@@ -7,8 +7,10 @@ genome <- tibble::tribble(
   "chr3", 1e8
 )
 
-x <- bed_random(genome, n = 100, seed = seed) %>% arrange(chrom, start)
+# Seed for reproducible bed_shuffle tests
 seed <- 1010486
+
+x <- bed_random(genome, n = 100, seed = seed) %>% arrange(chrom, start)
 
 test_that('within = TRUE maintains chroms', {
   res <- bed_shuffle(x, genome, within = TRUE, seed = seed)
