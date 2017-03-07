@@ -169,24 +169,25 @@ shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(s
 <span class="st">  </span><span class="kw">na.omit</span>()
 
 res
-<span class="co">#&gt; Source: local data frame [16,792 x 5]</span>
-<span class="co">#&gt; Groups: name, stat [1,914]</span>
+<span class="co">#&gt; Source: local data frame [16,783 x 5]</span>
+<span class="co">#&gt; Groups: name, stat [1,917]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     name    stat   .id     obs     shuf</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   (A)n absdist     1 5120782 12994665</span>
-<span class="co">#&gt; 2   (A)n absdist     2  226476 10142569</span>
-<span class="co">#&gt; 3   (A)n absdist     3   31241  9324589</span>
-<span class="co">#&gt; 4   (A)n absdist     4    8931  8497577</span>
-<span class="co">#&gt; 5   (A)n absdist     5   41316  7408638</span>
-<span class="co">#&gt; 6   (A)n absdist     6   22519  6009524</span>
-<span class="co">#&gt; 7   (A)n absdist     7   15173  4678515</span>
-<span class="co">#&gt; 8   (A)n absdist     8   21985  2833472</span>
-<span class="co">#&gt; 9   (A)n absdist     9   13457  2116237</span>
-<span class="co">#&gt; 10  (A)n absdist    10  134007    38887</span>
-<span class="co">#&gt; # ... with 16,782 more rows</span></code></pre></div>
+<span class="co">#&gt; 1   (A)n absdist     1 5120782 16132005</span>
+<span class="co">#&gt; 2   (A)n absdist     2  226476 15814356</span>
+<span class="co">#&gt; 3   (A)n absdist     3   31241 15796544</span>
+<span class="co">#&gt; 4   (A)n absdist     4    8931 13710527</span>
+<span class="co">#&gt; 5   (A)n absdist     5   41316 13199818</span>
+<span class="co">#&gt; 6   (A)n absdist     6   22519 11992550</span>
+<span class="co">#&gt; 7   (A)n absdist     7   15173  9489576</span>
+<span class="co">#&gt; 8   (A)n absdist     8   21985  7551954</span>
+<span class="co">#&gt; 9   (A)n absdist     9   13457  6311562</span>
+<span class="co">#&gt; 10  (A)n absdist    10  134007  5127374</span>
+<span class="co">#&gt; # ... with 16,773 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code>broom::tidy()</code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
+<span class="co">#&gt; Warning: package 'broom' was built under R version 3.3.2</span>
 
 <span class="co"># silence the tests with ties ...</span>
 ks.test.quiet &lt;-<span class="st"> </span>function(...) {<span class="kw">suppressWarnings</span>(<span class="kw">ks.test</span>(...))}
@@ -312,6 +313,7 @@ pvals
 <span class="co">#&gt; # ... with 169 more rows, and 1 more variables: q.value &lt;dbl&gt;</span></code></pre></div>
 <p>The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of <code>lower_tail = TRUE</code> column indicates that the query intervals are depleted, whereas <code>lower_tail = FALSE</code> indicates that the query intervals are enriched.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+<span class="co">#&gt; Warning: package 'knitr' was built under R version 3.3.2</span>
 
 <span class="co"># find and show top 5 most significant repeats</span>
 signif_tests &lt;-
