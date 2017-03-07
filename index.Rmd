@@ -12,7 +12,9 @@ knitr::opts_chunk$set(
   fig.path = "img/README-")
 ```
 
-# valr <img src="logo.png" align="right" />
+# valr
+
+<img src="logo.png" align="right" />
 
 [![Build Status](https://travis-ci.org/rnabioco/valr.svg?branch=master)](https://travis-ci.org/rnabioco/valr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rnabioco/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr)
