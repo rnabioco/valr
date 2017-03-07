@@ -10,6 +10,7 @@ genome <- tibble::tribble(
 # Seed for reproducible bed_shuffle tests
 seed <- 1010486
 
+# Random genome intervals for bed_shuffle tests
 x <- bed_random(genome, n = 100, seed = seed) %>% arrange(chrom, start)
 
 test_that('within = TRUE maintains chroms', {
