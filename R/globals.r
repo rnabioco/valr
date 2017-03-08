@@ -8,10 +8,10 @@ globalVariables(c("chrom", "start", "end", "strand",
                   ".facet", ".id_merge", ".overlap_merge",
                   ".end.x", ".start.x", "CHROM", "POS", "REF",
                   ".counts", "exon_sizes",
-                  '.absdist', '.ref_gap', '.ref_points', 
+                  '.absdist', '.ref_gap', '.ref_points',
                   "exon_starts", "key", "left_end", "left_start", "pos",
                   ".reldist", "right_end",
                   "right_start", ".total", "value",
                   ".midpoint", ".obs_counts", ".length",
                   ".reference_coverage", ".total_trials", ".exp_prob",
-                  "p.value"))
+                  "p.value", ".win_size", ".row_id"))
