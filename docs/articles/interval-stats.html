@@ -187,6 +187,7 @@ res
 <span class="co">#&gt; # ... with 16,649 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code>broom::tidy()</code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
+<span class="co">#&gt; Warning: package 'broom' was built under R version 3.3.2</span>
 
 <span class="co"># silence the tests with ties ...</span>
 ks.test.quiet &lt;-<span class="st"> </span>function(...) {<span class="kw">suppressWarnings</span>(<span class="kw">ks.test</span>(...))}
@@ -197,7 +198,8 @@ pvals &lt;-<span class="st"> </span>res %&gt;%<span class="st"> </span><span cla
 <span class="st">  </span>tidyr::<span class="kw">gather</span>(alt, type, -name, -stat) %&gt;%
 <span class="st">  </span><span class="kw">unnest</span>(type) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name:p.value) %&gt;%
-<span class="st">  </span><span class="kw">arrange</span>(p.value)</code></pre></div>
+<span class="st">  </span><span class="kw">arrange</span>(p.value)
+<span class="co">#&gt; Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</span></code></pre></div>
 <p>Histgrams of the different stats help visulaize the distribution of p.values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pvals, <span class="kw">aes</span>(p.value)) +
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) +
@@ -311,6 +313,7 @@ pvals
 <span class="co">#&gt; # ... with 169 more rows, and 1 more variables: q.value &lt;dbl&gt;</span></code></pre></div>
 <p>The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of <code>lower_tail = TRUE</code> column indicates that the query intervals are depleted, whereas <code>lower_tail = FALSE</code> indicates that the query intervals are enriched.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+<span class="co">#&gt; Warning: package 'knitr' was built under R version 3.3.2</span>
 
 <span class="co"># find and show top 5 most significant repeats</span>
 signif_tests &lt;-

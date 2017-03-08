@@ -137,11 +137,12 @@ if(<span class="kw">require</span>(RMySQL)) {
   ucsc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
   <span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)
 }
+<span class="co">#&gt; Loading required package: RMySQL</span>
 <span class="co">#&gt; Source:   query [?? x 16]</span>
 <span class="co">#&gt; Database: mysql 5.6.26-log [genomep@genome-mysql.cse.ucsc.edu:/hg38]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;      bin         name chrom strand  txStart    txEnd cdsStart   cdsEnd</span>
-<span class="co">#&gt;    &lt;dbl&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;    &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;    &lt;int&gt;    &lt;int&gt;</span>
 <span class="co">#&gt; 1    585    NR_046018  chr1      +    11873    14409    14409    14409</span>
 <span class="co">#&gt; 2    585    NR_024540  chr1      -    14361    29370    29370    29370</span>
 <span class="co">#&gt; 3   1078    NR_104148  chr7      + 64666082 64687830 64687830 64687830</span>
@@ -152,9 +153,9 @@ if(<span class="kw">require</span>(RMySQL)) {
 <span class="co">#&gt; 8    585    NR_026820  chr1      -    34610    36081    36081    36081</span>
 <span class="co">#&gt; 9    585    NR_026822  chr1      -    34610    36081    36081    36081</span>
 <span class="co">#&gt; 10   585 NM_001005484  chr1      +    69090    70008    69090    70008</span>
-<span class="co">#&gt; # ... with more rows, and 8 more variables: exonCount &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   exonStarts &lt;chr&gt;, exonEnds &lt;chr&gt;, score &lt;int&gt;, name2 &lt;chr&gt;,</span>
-<span class="co">#&gt; #   cdsStartStat &lt;chr&gt;, cdsEndStat &lt;chr&gt;, exonFrames &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt; # ... with more rows, and 8 more variables: exonCount &lt;int&gt;,</span>
+<span class="co">#&gt; #   exonStarts &lt;list&gt;, exonEnds &lt;list&gt;, score &lt;int&gt;, name2 &lt;chr&gt;,</span>
+<span class="co">#&gt; #   cdsStartStat &lt;chr&gt;, cdsEndStat &lt;chr&gt;, exonFrames &lt;list&gt;</span></code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor">
