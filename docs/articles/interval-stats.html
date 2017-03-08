@@ -31,7 +31,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -54,7 +54,7 @@
 <li>
   <a href="http://github.com/rnabioco/valr/">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -65,17 +65,17 @@
 </div>
 <!--/.navbar -->
 
-      
+
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
-            
+
             <h4 class="date">March 07 2017</h4>
           </div>
 
-    
-    
+
+
 <div class="contents">
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -88,7 +88,7 @@
 
 <span class="co"># load repeats and genes. Data in the valr package is restricted to chr22; the entire</span>
 <span class="co"># files can be downloaded from UCSC.</span>
-rpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.rmsk.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>) 
+rpts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.rmsk.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)
 genes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.refGene.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">12</span>)
 
 <span class="co"># load chrom sizes</span>
@@ -187,7 +187,6 @@ res
 <span class="co">#&gt; # ... with 16,649 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code>broom::tidy()</code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
-<span class="co">#&gt; Warning: package 'broom' was built under R version 3.3.2</span>
 
 <span class="co"># silence the tests with ties ...</span>
 ks.test.quiet &lt;-<span class="st"> </span>function(...) {<span class="kw">suppressWarnings</span>(<span class="kw">ks.test</span>(...))}
@@ -235,7 +234,7 @@ promoters &lt;-
 <span class="st">  </span><span class="kw"><a href="../reference/bed_flank.html">bed_flank</a></span>(genes, genome, <span class="dt">left =</span> <span class="dv">5000</span>, <span class="dt">strand =</span> <span class="ot">TRUE</span>) %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">'NR_'</span>, name), <span class="st">'non-coding'</span>, <span class="st">'coding'</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(chrom:strand)
-  
+
 <span class="co"># select coding and non-coding promoters</span>
 promoters_coding &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name ==<span class="st"> 'coding'</span>)
 promoters_ncoding &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name ==<span class="st"> 'non-coding'</span>)
@@ -279,7 +278,7 @@ projection_stats &lt;-<span class="st"> </span>function(x, y, genome, grp, <span
 <span class="st">    </span><span class="kw">do</span>(<span class="dt">n_repeats =</span> <span class="kw">nrow</span>(.),
        <span class="dt">projection =</span> <span class="kw"><a href="../reference/bed_projection.html">bed_projection</a></span>(., y, genome)) %&gt;%
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">type =</span> type)
-} 
+}
 
 pvals_coding &lt;-<span class="st"> </span><span class="kw">projection_stats</span>(rpts, promoters_coding, genome, <span class="st">'name'</span>, <span class="st">'coding'</span>)
 pvals_ncoding &lt;-<span class="st"> </span><span class="kw">projection_stats</span>(rpts, promoters_ncoding, genome, <span class="st">'name'</span>, <span class="st">'non_coding'</span>)
@@ -313,7 +312,6 @@ pvals
 <span class="co">#&gt; # ... with 169 more rows, and 1 more variables: q.value &lt;dbl&gt;</span></code></pre></div>
 <p>The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of <code>lower_tail = TRUE</code> column indicates that the query intervals are depleted, whereas <code>lower_tail = FALSE</code> indicates that the query intervals are enriched.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
-<span class="co">#&gt; Warning: package 'knitr' was built under R version 3.3.2</span>
 
 <span class="co"># find and show top 5 most significant repeats</span>
 signif_tests &lt;-
