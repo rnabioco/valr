@@ -17,7 +17,7 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
 
   int ngroups = gdf.ngroups() ;
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
-  for (int i=0; i<ngroups; ++i, ++git) {
+  for (int i = 0; i < ngroups; ++i, ++git) {
 
     SlicingIndex indices = *git ;
     int ni = indices.size() ;
@@ -28,7 +28,7 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
     // get chrom from first index
     auto chrom = as<std::string>(chroms[indices[0]]) ;
 
-    for (int j=0; j<ni; ++j) {
+    for (int j = 0; j < ni; ++j) {
 
       start = starts[indices[j]] ;
       end = ends[indices[j]] ;

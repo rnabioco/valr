@@ -47,12 +47,12 @@ void PairedGroupApply(const GroupedDataFrame& x,
   DataFrame labels_y(data_y.attr("labels"));
 
   GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-  for (int nx=0; nx<ng_x; nx++, ++git_x) {
+  for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
     SlicingIndex gi_x = *git_x ;
 
     GroupedDataFrame::group_iterator git_y = y.group_begin() ;
-    for (int ny=0; ny<ng_y; ny++, ++git_y) {
+    for (int ny = 0; ny < ng_y; ny++, ++git_y) {
 
       SlicingIndex gi_y = *git_y ;
 

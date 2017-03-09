@@ -24,7 +24,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
   // make and store a DIST for each chrom size
   std::vector< UDIST > size_rngs ;
 
-  for (int i=0; i<nchrom; ++i) {
+  for (int i = 0; i < nchrom; ++i) {
 
     auto size = sizes[i] ;
     // sub length to avoid off-chrom coordinates
@@ -35,7 +35,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
   CharacterVector rand_chroms(n) ;
   IntegerVector rand_starts(n) ;
 
-  for (int i=0; i<n; ++i) {
+  for (int i = 0; i < n; ++i) {
 
     auto chrom_idx = chrom_dist(generator) ;
     rand_chroms[i] = chroms[chrom_idx] ;

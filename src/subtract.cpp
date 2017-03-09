@@ -83,7 +83,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   GroupedDataFrame::group_iterator git_x = gdf_x.group_begin() ;
   // indices_to_report
   std::vector<int> indices_out ;
-  for (int nx=0; nx<ng_x; nx++, ++git_x) {
+  for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
     SlicingIndex indices_x = *git_x ;
 
@@ -91,7 +91,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     bool group_seen(false);
 
     GroupedDataFrame::group_iterator git_y = gdf_y.group_begin() ;
-    for (int ny=0; ny<ng_y; ny++, ++git_y) {
+    for (int ny = 0; ny < ng_y; ny++, ++git_y) {
 
       SlicingIndex indices_y = *git_y ;
 
@@ -135,7 +135,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   List out(ncol_x) ;
 
   // build new dataframe with colnames and existing data
-  for (int i=0; i<ncol_x; i++) {
+  for (int i = 0; i < ncol_x; i++) {
     auto name_x = as<std::string>(names_x[i]) ;
     names[i] = name_x ;
     out[i] = subset_x[i] ;

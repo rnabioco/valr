@@ -8,7 +8,7 @@ genome_map_t makeChromSizes(DataFrame genome) {
   IntegerVector sizes = genome["size"] ;
 
   int nchrom = genome.nrows() ;
-  for (int i=0; i<nchrom; ++i) {
+  for (int i = 0; i < nchrom; ++i) {
     std::string chrom = as<std::string>(chroms[i]) ;
     int size = sizes[i] ;
     chrom_sizes.insert({chrom, size}) ;
@@ -29,7 +29,7 @@ intervalVector makeIntervalVector(DataFrame df, SlicingIndex si) {
 
   int size = si.size() ;
 
-  for (int i=0; i<size; ++i) {
+  for (int i = 0; i < size; ++i) {
     int j = si[i] ;
     intervals.push_back(interval_t(starts[j], ends[j], j)) ;
   }
@@ -47,7 +47,7 @@ bool compareDataFrameRows(DataFrame df_x, DataFrame df_y, int idx_x, int idx_y) 
 
   int ncols = df_x.size() ;
   bool cols_equal = false;
-  for (int i = 0; i<ncols; i++) {
+  for (int i = 0; i < ncols; i++) {
     CharacterVector col_x = subset_x[i] ;
     CharacterVector col_y = subset_y[i] ;
     cols_equal = is_true(all(col_x == col_y)) ;

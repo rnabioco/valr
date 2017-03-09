@@ -19,13 +19,13 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   std::size_t cluster_id = 0; //store counter for cluster id
 
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
-  for (int i=0; i<ng; i++, ++git) {
+  for (int i = 0; i < ng; i++, ++git) {
 
     SlicingIndex indices = *git ;
 
     intervalVector intervals = makeIntervalVector(df, indices);
 
-    interval_t last_interval = interval_t(0,0,0) ;
+    interval_t last_interval = interval_t(0, 0, 0) ;
 
     // approach from http://www.geeksforgeeks.org/merging-intervals/
 
@@ -70,7 +70,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   CharacterVector onames = df.attr("names") ;
   CharacterVector names(nc + 2) ;
 
-  for (int i=0; i<nc; i++) {
+  for (int i = 0; i < nc; i++) {
     out[i] = df[i] ;
     names[i] = onames[i] ;
   }
@@ -81,9 +81,9 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   names[nc] = id_name ;
 
   // add overlaps
-  out[nc+1] = overlaps ;
+  out[nc + 1] = overlaps ;
   std::string overlaps_name = ".overlap_merge" ;
-  names[nc+1] = overlaps_name;
+  names[nc + 1] = overlaps_name;
 
   out.attr("class") = df.attr("class") ;
   out.attr("row.names") = df.attr("row.names") ;

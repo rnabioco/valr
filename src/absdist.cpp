@@ -80,7 +80,7 @@ DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y) {
   List out(ncol_x + 1) ;
 
   // x names, data
-  for (int i=0; i<ncol_x; i++) {
+  for (int i = 0; i < ncol_x; i++) {
     names[i] = names_x[i] ;
     out[i] = subset_x[i] ;
   }

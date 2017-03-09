@@ -45,17 +45,17 @@ void coverage_group(intervalVector vx, intervalVector vy,
     int index = 0; // Stores index of last element
 
     // Traverse all overlapping intervals
-    for (int i=0; i< overlap_count; i++) {
+    for (int i = 0; i < overlap_count; i++) {
       // If this is not first Interval and overlaps
       // with the previous one
 
-      if (index != 0 && overlaps[index-1].start <= overlaps[i].stop)
+      if (index != 0 && overlaps[index - 1].start <= overlaps[i].stop)
       {
-        while (index != 0 && overlaps[index-1].start <= overlaps[i].stop)
+        while (index != 0 && overlaps[index - 1].start <= overlaps[i].stop)
         {
           // Merge previous and current Intervals
-          overlaps[index-1].stop = std::max(overlaps[index-1].stop, overlaps[i].stop);
-          overlaps[index-1].start = std::min(overlaps[index-1].start, overlaps[i].start);
+          overlaps[index - 1].stop = std::max(overlaps[index - 1].stop, overlaps[i].stop);
+          overlaps[index - 1].start = std::min(overlaps[index - 1].start, overlaps[i].start);
           index--;
         }
       }
@@ -124,7 +124,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     auto ng_x = x.ngroups() ;
 
     GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-    for (int nx=0; nx<ng_x; nx++, ++git_x) {
+    for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
       SlicingIndex gi_x = *git_x ;
       intervalVector vx = makeIntervalVector(data_x, gi_x) ;
@@ -152,7 +152,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   List out(ncol_x + 4) ;
 
   // x names, data
-  for (int i=0; i<ncol_x; i++) {
+  for (int i = 0; i < ncol_x; i++) {
     auto name_x = as<std::string>(names_x[i]) ;
     names[i] = name_x ;
     out[i] = subset_x[i] ;
@@ -160,7 +160,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   int n = new_cols.size() ;
 
   // new names
-  for (int i = 0; i< n ; i++) {
+  for (int i = 0; i < n ; i++) {
     names[ncol_x + i] = new_cols[i] ;
   }
 

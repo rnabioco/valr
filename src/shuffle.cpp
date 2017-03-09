@@ -47,7 +47,7 @@ PDIST makeChromRNG(DataFrame incl) {
   std::map<std::string, float> chrom_mass ;
 
   int nr = incl.nrows() ;
-  for (int i=0; i<nr; i++) {
+  for (int i = 0; i < nr; i++) {
 
     std::string chrom = as<std::string>(incl_chroms[i]) ;
 
@@ -92,7 +92,7 @@ interval_map_t makeIntervalMap(DataFrame incl) {
   int nr = incl.nrows() ;
   interval_map_t interval_map ;
 
-  for (int i=0; i<nr; ++i) {
+  for (int i = 0; i < nr; ++i) {
     auto chrom = as<std::string>(incl_chroms[i]) ;
 
     if (!interval_map.count(chrom))
@@ -201,7 +201,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
   // sort in lexographic order
   CharacterVector chrom_names = unique(incl_chroms).sort() ;
 
-  for (int i = 0; i<nr; ++i) {
+  for (int i = 0; i < nr; ++i) {
 
     // select a chromosome
     if (within) {
