@@ -4,17 +4,16 @@
 \alias{bed_glyph}
 \title{Create example glyphs for valr functions.}
 \usage{
-bed_glyph(expr, label = NULL, res_name = "result")
+bed_glyph(expr, label = NULL)
 }
 \arguments{
 \item{expr}{expression to evaluate}
 
-\item{label}{colname in output to use for label values}
-
-\item{res_name}{name of result in output}
+\item{label}{column name to use for label values. should be present in the
+result of the call.}
 }
 \value{
-a \code{ggplot} object
+\code{\link[ggplot2]{ggplot}}
 }
 \description{
 Used to illustrate the output of valr functions with small input tbls.
