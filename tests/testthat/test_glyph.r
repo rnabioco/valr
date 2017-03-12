@@ -15,3 +15,13 @@ test_that('glyph labels are applied', {
   res <- bed_glyph(bed_merge(x, id = n()), label = 'id')
   expect_equal(res$labels$label, 'id')
 })
+
+genome <- tibble::tribble(
+  ~chrom, ~size,
+  "chr1", 1e6
+)
+
+x <- bed_random(genome, n = 101)
+test_that('exceeding max intervals throws an error', {
+  expect_error(bed_glyph(bed_intersect(x, x)))
+})
