@@ -5,6 +5,9 @@
 * Deprecate `bed_sort()` in favor of using `dplyr::arrange()` explicitly (fixes #134).
 
 ## Minor changes
+
+* add `src/init.c` that calls `R_registerRoutines` and `R_useDynamicSymbols` to address NOTE in r-devel
+
 * Deprecate `dist` parameter in `bed_closest()` in favor of using user supplied functions (#182 @kriemo)
 
 * Make `.id` values sequential across chroms in `bed_cluster()` output (#171)
