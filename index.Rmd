@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rnabioco/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg)](https://codecov.io/github/rnabioco/valr?branch=master)
 [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
+[![](http://cranlogs.r-pkg.org/badges/valr)](http://cran.rstudio.com/web/packages/valr/index.html)
 
 **`valr` provides tools to read and manipulate genome intervals and signals**, similar to the [`BEDtools`][1] suite. `valr` enables analysis in the R/RStudio environment, leveraging modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][3]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][2].
 
