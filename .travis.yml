@@ -9,13 +9,15 @@ matrix:
   allow_failures:
     - os: osx
   include:
+    - r: release
+    - r: devel
     - os: linux
       compiler: gcc-4.8
       addons:
         apt:
-          sources: 
+          sources:
           - 'ubuntu-toolchain-r-test'
-          packages: 
+          packages:
           - 'g++-4.8'
       before_install: |
         mkdir ~/.R
@@ -26,9 +28,9 @@ matrix:
       compiler: gcc-5
       addons:
        apt:
-        sources: 
+        sources:
         - 'ubuntu-toolchain-r-test'
-        packages: 
+        packages:
         - 'g++-5'
       before_install: |
        mkdir ~/.R
@@ -39,9 +41,9 @@ matrix:
       compiler: gcc-6
       addons:
         apt:
-          sources: 
+          sources:
            - 'ubuntu-toolchain-r-test'
-          packages: 
+          packages:
            - 'g++-6'
       before_install: |
         mkdir ~/.R
@@ -52,10 +54,10 @@ matrix:
       compiler: clang-3.7
       addons:
         apt:
-          sources: 
+          sources:
             - 'ubuntu-toolchain-r-test'
             - 'llvm-toolchain-precise-3.7'
-          packages: 
+          packages:
             - 'clang-3.7'
       before_install: |
         mkdir ~/.R
