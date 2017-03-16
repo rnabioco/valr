@@ -1,4 +1,6 @@
-# valr 0.1.2 (unreleased)
+# valr 0.1.2.9000
+
+# valr 0.1.2
 
 ## Major changes
 
