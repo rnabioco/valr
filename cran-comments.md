@@ -1,3 +1,9 @@
+## Resubmission
+
+This is a resubmission. In this version I have:
+
+* corrected a non-canonical CRAN URL.
+
 ## New minor version
 
 * Maintenance release to fix some small errors (see NEWS.md)
