@@ -13,7 +13,7 @@
 #include "valr.h"
 
 inline bool compare_rows(DataFrame df_x, DataFrame df_y,
-                  int idx_x, int idx_y) {
+                         int idx_x, int idx_y) {
 
   IntegerVector idxs_x = IntegerVector::create(idx_x) ;
   IntegerVector idxs_y = IntegerVector::create(idx_y) ;
@@ -37,8 +37,8 @@ inline bool compare_rows(DataFrame df_x, DataFrame df_y,
 
 template < typename FN, typename... ARGS >
 inline void GroupApply(const GroupedDataFrame& x,
-                const GroupedDataFrame& y,
-                FN&& fn, ARGS&& ... args) {
+                       const GroupedDataFrame& y,
+                       FN&& fn, ARGS&& ... args) {
 
   auto data_x = x.data() ;
   auto data_y = y.data() ;

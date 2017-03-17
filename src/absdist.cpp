@@ -9,7 +9,7 @@
 
 #include "valr.h"
 
-void absdist_grouped(ivl_vector_t & vx, ivl_vector_t& vy,
+void absdist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
                      std::vector<int>& indices_x,
                      std::vector<float>& rel_distances) {
 
