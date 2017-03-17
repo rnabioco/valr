@@ -10,10 +10,12 @@
 #include "valr.h"
 
 // [[Rcpp::export]]
-DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
+DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0,
+                      std::string col_chrom = "chrom",
+                      std::string col_size = "size") {
 
-  CharacterVector chroms = genome["chrom"] ;
-  NumericVector sizes = genome["size"] ;
+  CharacterVector chroms = genome[col_chrom] ;
+  NumericVector sizes = genome[col_size] ;
 
   int nchrom = chroms.size() ;
 
@@ -21,23 +23,23 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
     seed = round(R::runif(0, RAND_MAX)) ;
 
   // seed the generator
-  auto generator = ENG(seed) ;
+  auto generator = ENGINE(seed) ;
 
   // calculate weights for chrom distribution
   float mass = sum(sizes) ;
   NumericVector weights = sizes / mass ;
 
   Range chromidx(0, nchrom) ;
-  PDIST chrom_dist(chromidx.begin(), chromidx.end(), weights.begin()) ;
+  PCONST_DIST chrom_dist(chromidx.begin(), chromidx.end(), weights.begin()) ;
 
   // make and store a DIST for each chrom size
-  std::vector< UDIST > size_rngs ;
+  std::vector< UINT_DIST > size_rngs ;
 
   for (int i = 0; i < nchrom; ++i) {
 
     auto size = sizes[i] ;
     // sub length to avoid off-chrom coordinates
-    UDIST size_dist(1, size - length) ;
+    UINT_DIST size_dist(1, size - length) ;
     size_rngs.push_back(size_dist) ;
   }
 
@@ -49,7 +51,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
     auto chrom_idx = chrom_dist(generator) ;
     rand_chroms[i] = chroms[chrom_idx] ;
 
-    UDIST size_dist = size_rngs[chrom_idx] ;
+    UINT_DIST size_dist = size_rngs[chrom_idx] ;
 
     auto rand_start = size_dist(generator) ;
     rand_starts[i] = rand_start ;
@@ -57,10 +59,10 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
 
   IntegerVector rand_ends = rand_starts + length ;
 
-  return DataFrame::create(Named("chrom") = rand_chroms,
-                           Named("start") = rand_starts,
-                           Named("end") = rand_ends,
-                           Named("stringsAsFactors") = false) ;
+  return DataFrame::create(_("chrom") = rand_chroms,
+                           _("start") = rand_starts,
+                           _("end") = rand_ends,
+                           _("stringsAsFactors") = false) ;
 
 }
 

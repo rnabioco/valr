@@ -32,13 +32,13 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
 
     SlicingIndex indices = *git ;
 
-    intervalVector intervals = makeIntervalVector(df, indices);
+    ivl_vector_t intervals = makeIntervalVector(df, indices);
 
-    interval_t last_interval = interval_t(0, 0, 0) ;
+    ivl_t last_interval = ivl_t(0, 0, 0) ;
 
     // approach from http://www.geeksforgeeks.org/merging-intervals/
 
-    std::stack<interval_t> s ;
+    std::stack<ivl_t> s ;
     s.push(last_interval) ;
 
     for (auto it : intervals) {

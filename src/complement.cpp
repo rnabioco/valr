@@ -69,10 +69,10 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
     }
   }
 
-  return DataFrame::create(Named("chrom") = chroms_out,
-                           Named("start") = starts_out,
-                           Named("end") = ends_out,
-                           Named("stringsAsFactors") = false) ;
+  return DataFrame::create(_("chrom") = chroms_out,
+                           _("start") = starts_out,
+                           _("end") = ends_out,
+                           _("stringsAsFactors") = false) ;
 }
 
 /***R

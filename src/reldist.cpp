@@ -9,7 +9,7 @@
 
 #include "valr.h"
 
-void reldist_grouped(intervalVector& vx, intervalVector& vy,
+void reldist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
                      std::vector<int>& indices_x,
                      std::vector<float>& rel_distances) {
 
@@ -49,7 +49,7 @@ void reldist_grouped(intervalVector& vx, intervalVector& vy,
     int dist_l = abs(midpoint - left) ;
     int dist_r = abs(midpoint - right) ;
 
-    //calc relative distance
+    // calc relative distance
     auto reldist = (float) std::min(dist_l, dist_r) / float(right - left) ;
 
     rel_distances.push_back(reldist) ;
@@ -65,7 +65,7 @@ DataFrame reldist_impl(GroupedDataFrame x, GroupedDataFrame y) {
   std::vector<int> indices_x ;
 
   DataFrame df_x = x.data() ;
-  PairedGroupApply(x, y, reldist_grouped, std::ref(indices_x), std::ref(rel_distances));
+  GroupApply(x, y, reldist_grouped, std::ref(indices_x), std::ref(rel_distances));
 
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
 

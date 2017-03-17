@@ -9,13 +9,13 @@
 
 #include "valr.h"
 
-void coverage_group(intervalVector vx, intervalVector vy,
+void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
                     std::vector<int>& overlap_counts, std::vector<int>& ivls_bases_covered,
                     std::vector<int>& x_ivl_lengths, std::vector<double>& fractions_covered,
                     std::vector<int>& indices_x) {
 
-  intervalTree tree_y(vy) ;
-  intervalVector overlaps ;
+  ivl_tree_t tree_y(vy) ;
+  ivl_vector_t overlaps ;
   IntervalSorterDesc<int, int> intervalSorterDesc;
 
   for (auto it : vx) {
@@ -75,7 +75,7 @@ void coverage_group(intervalVector vx, intervalVector vy,
       index++;
     }
 
-    intervalVector mergedOverlaps;
+    ivl_vector_t mergedOverlaps;
     for (int i = 0; i < index; i++) {
       mergedOverlaps.push_back(overlaps[i]);;
     }
@@ -123,9 +123,9 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
 
   auto data_x = x.data() ;
 
-  PairedGroupApply(x, y, coverage_group,
-                   std::ref(overlap_counts), std::ref(ivls_bases_covered),
-                   std::ref(x_ivl_lengths), std::ref(fractions_covered), std::ref(indices_x));
+  GroupApply(x, y, coverage_group,
+             std::ref(overlap_counts), std::ref(ivls_bases_covered),
+             std::ref(x_ivl_lengths), std::ref(fractions_covered), std::ref(indices_x));
 
   // handle condition with empty y df
   // just assign zeros, except for interval length
@@ -136,7 +136,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
       SlicingIndex gi_x = *git_x ;
-      intervalVector vx = makeIntervalVector(data_x, gi_x) ;
+      ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
 
       for (auto it : vx) {
         indices_x.push_back(it.value) ;

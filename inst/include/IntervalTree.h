@@ -19,8 +19,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __INTERVAL_TREE_H
-#define __INTERVAL_TREE_H
+#ifndef valr__INTERVAL_TREE_H
+#define valr__INTERVAL_TREE_H
 
 #include <vector>
 #include <algorithm>

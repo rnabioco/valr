@@ -9,7 +9,7 @@
 
 #include "valr.h"
 
-void absdist_grouped(intervalVector& vx, intervalVector& vy,
+void absdist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
                      std::vector<int>& indices_x,
                      std::vector<float>& rel_distances) {
 
@@ -77,7 +77,7 @@ DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y) {
   std::vector<int> indices_x ;
 
   DataFrame df_x = x.data() ;
-  PairedGroupApply(x, y, absdist_grouped, std::ref(indices_x), std::ref(rel_distances));
+  GroupApply(x, y, absdist_grouped, std::ref(indices_x), std::ref(rel_distances));
 
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
 
