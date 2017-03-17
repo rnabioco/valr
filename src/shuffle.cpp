@@ -1,15 +1,11 @@
-/*****************************************************
-
- shuffle.cpp
-
- (c) 2016
-     Jay Hesselberth
-     University of Colorado School of Medicine
-     <jay.hesselberth@gmail.com
-
- MIT License
-
-*****************************************************/
+// shuffle.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
 
 #include "valr.h"
 

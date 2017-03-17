@@ -1,3 +1,12 @@
+// valr.h
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #ifndef valr__valr_H
 #define valr__valr_H
 

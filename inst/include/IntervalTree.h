@@ -22,9 +22,6 @@ SOFTWARE.
 #ifndef __INTERVAL_TREE_H
 #define __INTERVAL_TREE_H
 
-// Modified from IntervalTree.h from EKG
-// https://github.com/ekg/intervaltree
-
 #include <vector>
 #include <algorithm>
 #include <iostream>
