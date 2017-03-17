@@ -1,4 +1,4 @@
-context("genome file functions")
+context("genome files")
 
 genome_path <- system.file('extdata', 'hg19.chrom.sizes.gz', package = 'valr')
 genome <- read_genome(genome_path)
@@ -10,7 +10,7 @@ test_that("genomes are correctly read", {
 })
 
 test_that("unbounded intervals are removed", {
-  
+
   x <- tibble::tribble(
    ~chrom, ~start, ~end,
    "chr1", -100,   500,
@@ -27,4 +27,20 @@ test_that("trim param removes dangling intervals", {
   )
   res <- bound_intervals(x, genome, trim = TRUE)
   expect_equal(res$end, 249250621)
+})
+
+test_that("duplicate chroms throw an error.", {
+
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 1000,
+    "chr1", 1000
+  )
+
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,      10000
+  )
+
+  expect_error(bed_complement(x, genome))
 })

@@ -1,10 +1,20 @@
+// intersect.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
-void intersect_group(intervalVector vx, intervalVector vy,
+void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes) {
-  intervalTree tree_y(vy) ;
-  intervalVector overlaps ;
+
+  ivl_tree_t tree_y(vy) ;
+  ivl_vector_t overlaps ;
 
   for (auto it : vx) {
 
@@ -33,6 +43,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   // indices for subsetting
   std::vector<int> indices_x ;
   std::vector<int> indices_y ;
+
   // overlap sizes
   std::vector<int> overlap_sizes ;
 
@@ -40,7 +51,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   auto data_y = y.data() ;
 
   // set up interval trees for each chromosome and apply intersect_group
-  PairedGroupApply(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes));
+  GroupApply(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes));
 
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(data_y, names(data_y)).subset(indices_y, "data.frame");

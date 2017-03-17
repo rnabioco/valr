@@ -25,8 +25,8 @@ merge_impl <- function(gdf, max_dist = 0L) {
     .Call('valr_merge_impl', PACKAGE = 'valr', gdf, max_dist)
 }
 
-random_impl <- function(genome, length, n, seed = 0L) {
-    .Call('valr_random_impl', PACKAGE = 'valr', genome, length, n, seed)
+random_impl <- function(genome, length, n, seed = 0L, col_chrom = "chrom", col_size = "size") {
+    .Call('valr_random_impl', PACKAGE = 'valr', genome, length, n, seed, col_chrom, col_size)
 }
 
 reldist_impl <- function(x, y) {

@@ -1,10 +1,25 @@
+// group_apply.h
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
+#ifndef valr__group_apply_H
+#define valr__group_apply_H
+
 #include "valr.h"
 
-bool compare_rows(DataFrame df_x, DataFrame df_y,
+inline bool compare_rows(DataFrame df_x, DataFrame df_y,
                   int idx_x, int idx_y) {
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(idx_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(idx_y, "data.frame");
+  IntegerVector idxs_x = IntegerVector::create(idx_x) ;
+  IntegerVector idxs_y = IntegerVector::create(idx_y) ;
+
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(idxs_x, "data.frame");
+  DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(idxs_y, "data.frame");
 
   int ncols = df_x.size() ;
   bool cols_equal = false;
@@ -21,7 +36,7 @@ bool compare_rows(DataFrame df_x, DataFrame df_y,
 
 
 template < typename FN, typename... ARGS >
-void GroupApply(const GroupedDataFrame& x,
+inline void GroupApply(const GroupedDataFrame& x,
                 const GroupedDataFrame& y,
                 FN&& fn, ARGS&& ... args) {
 
@@ -48,11 +63,13 @@ void GroupApply(const GroupedDataFrame& x,
 
       if (same_groups) {
 
-        intervalVector vx = makeIntervalVector(data_x, gi_x) ;
-        intervalVector vy = makeIntervalVector(data_y, gi_y) ;
+        ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
+        ivl_vector_t vy = makeIntervalVector(data_y, gi_y) ;
 
         std::bind(std::forward<FN>(fn), vx, vy, std::forward<ARGS>(args)...)();
       }
     }
   }
 }
+
+#endif

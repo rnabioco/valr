@@ -1,3 +1,12 @@
+// complement.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
 //[[Rcpp::export]]
@@ -60,10 +69,10 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
     }
   }
 
-  return DataFrame::create(Named("chrom") = chroms_out,
-                           Named("start") = starts_out,
-                           Named("end") = ends_out,
-                           Named("stringsAsFactors") = false) ;
+  return DataFrame::create(_("chrom") = chroms_out,
+                           _("start") = starts_out,
+                           _("end") = ends_out,
+                           _("stringsAsFactors") = false) ;
 }
 
 /***R

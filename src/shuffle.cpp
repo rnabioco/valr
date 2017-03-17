@@ -1,22 +1,18 @@
-/*****************************************************
-
- shuffle.cpp
-
- (c) 2016
-     Jay Hesselberth
-     University of Colorado School of Medicine
-     <jay.hesselberth@gmail.com
-
- MIT License
-
-*****************************************************/
+// shuffle.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
 
 #include "valr.h"
 
-typedef std::unordered_map<std::string, intervalTree> chrom_tree_t ;
-typedef std::unordered_map<std::string, intervalVector> interval_map_t ;
-typedef std::unordered_map<std::string, PDIST > interval_rng_t ;
-typedef std::unordered_map<std::string, std::vector< UDIST > > start_rng_t ;
+typedef std::unordered_map<std::string, ivl_tree_t> chrom_tree_t ;
+typedef std::unordered_map<std::string, ivl_vector_t> interval_map_t ;
+typedef std::unordered_map<std::string, PCONST_DIST > interval_rng_t ;
+typedef std::unordered_map<std::string, std::vector< UINT_DIST> > start_rng_t ;
 
 chrom_tree_t makeIntervalTrees(DataFrame incl, interval_map_t interval_map) {
 
@@ -26,16 +22,16 @@ chrom_tree_t makeIntervalTrees(DataFrame incl, interval_map_t interval_map) {
   for (auto kv : interval_map) {
 
     std::string chrom = kv.first ;
-    intervalVector iv = kv.second ;
+    ivl_vector_t iv = kv.second ;
 
-    chrom_trees[chrom] = intervalTree(iv) ;
+    chrom_trees[chrom] = ivl_tree_t(iv) ;
 
   }
   return chrom_trees ;
 }
 
 // used to select a chrom by its weighted mass
-PDIST makeChromRNG(DataFrame incl) {
+PCONST_DIST makeChromRNG(DataFrame incl) {
 
   CharacterVector incl_chroms = incl["chrom"] ;
   IntegerVector incl_starts = incl["start"] ;
@@ -78,7 +74,7 @@ PDIST makeChromRNG(DataFrame incl) {
   if (nchrom == 1) nchrom = 0;
 
   Range chrom_range(0, nchrom) ;
-  PDIST chrom_rng(chrom_range.begin(), chrom_range.end(), weights.begin()) ;
+  PCONST_DIST chrom_rng(chrom_range.begin(), chrom_range.end(), weights.begin()) ;
 
   return chrom_rng ;
 }
@@ -96,9 +92,9 @@ interval_map_t makeIntervalMap(DataFrame incl) {
     auto chrom = as<std::string>(incl_chroms[i]) ;
 
     if (!interval_map.count(chrom))
-      interval_map[chrom] = intervalVector() ;
+      interval_map[chrom] = ivl_vector_t() ;
 
-    interval_map[chrom].push_back(interval_t(incl_starts[i], incl_ends[i], i)) ;
+    interval_map[chrom].push_back(ivl_t(incl_starts[i], incl_ends[i], i)) ;
   }
 
   return interval_map ;
@@ -134,7 +130,7 @@ interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
     if (n_ivls == 1) n_ivls = 0;
 
     Range ivl_range(0, n_ivls) ;
-    PDIST ivl_rng(ivl_range.begin(), ivl_range.end(), weights.begin()) ;
+    PCONST_DIST ivl_rng(ivl_range.begin(), ivl_range.end(), weights.begin()) ;
 
     interval_map_rngs[chrom] = ivl_rng ;
   }
@@ -155,7 +151,7 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
     if (!start_rngs.count(chrom)) start_rngs[chrom] = { };
 
     for (auto i : intervals) {
-      UDIST rng(i.start, i.stop) ;
+      UINT_DIST rng(i.start, i.stop) ;
       start_rngs[chrom].push_back(rng) ;
     }
   }
@@ -171,7 +167,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
   if (seed == 0) seed = round(R::runif(0, RAND_MAX)) ;
 
   // seed the generator
-  auto generator = ENG(seed) ;
+  auto generator = ENGINE(seed) ;
 
   // data on incoming df
   CharacterVector df_chroms = df["chrom"] ;
@@ -233,7 +229,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
       // get a random interval index
       int rand_ivl_idx = interval_rng(generator) ;
       // get the start rng and pick a start
-      UDIST start_rng = start_rngs[chrom][rand_ivl_idx] ;
+      UINT_DIST start_rng = start_rngs[chrom][rand_ivl_idx] ;
       int rand_start = start_rng(generator) ;
 
       auto rand_end = rand_start + df_sizes[i] ;
@@ -263,10 +259,10 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
 
   }
 
-  return DataFrame::create(Named("chrom") = chroms_out,
-                           Named("start") = starts_out,
-                           Named("end") = ends_out,
-                           Named("stringsAsFactors") = false) ;
+  return DataFrame::create(_("chrom") = chroms_out,
+                           _("start") = starts_out,
+                           _("end") = ends_out,
+                           _("stringsAsFactors") = false) ;
 }
 
 /***R

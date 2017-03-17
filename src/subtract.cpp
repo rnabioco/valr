@@ -1,11 +1,20 @@
+// subtract.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
-void subtract_group(intervalVector vx, intervalVector vy,
+void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
                     std::vector<int>& indices_out,
                     std::vector<int>& starts_out, std::vector<int>& ends_out) {
 
-  intervalTree tree_y(vy) ;
-  intervalVector overlaps ;
+  ivl_tree_t tree_y(vy) ;
+  ivl_vector_t overlaps ;
   IntervalStartSorter<int, int> intervalStartSorter ;
 
   for (auto it : vx) {
@@ -63,6 +72,7 @@ void subtract_group(intervalVector vx, intervalVector vy,
     overlaps.clear() ;
   }
 }
+
 //[[Rcpp::export]]
 DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
 
@@ -95,13 +105,13 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
 
       SlicingIndex indices_y = *git_y ;
 
-      bool same_groups = compareDataFrameRows(labels_x, labels_y, nx, ny);
+      bool same_groups = compare_rows(labels_x, labels_y, nx, ny);
 
       if (same_groups) {
         group_seen = true ;
 
-        intervalVector vx = makeIntervalVector(df_x, indices_x) ;
-        intervalVector vy = makeIntervalVector(df_y, indices_y) ;
+        ivl_vector_t vx = makeIntervalVector(df_x, indices_x) ;
+        ivl_vector_t vy = makeIntervalVector(df_y, indices_y) ;
 
         subtract_group(vx, vy,
                        indices_out,
@@ -114,7 +124,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     if (group_seen) {
       continue;
     } else {
-      intervalVector vx = makeIntervalVector(df_x, indices_x) ;
+      ivl_vector_t vx = makeIntervalVector(df_x, indices_x) ;
       for (auto it : vx) {
         indices_out.push_back(it.value) ;
         starts_out.push_back(it.start) ;
@@ -140,6 +150,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
     names[i] = name_x ;
     out[i] = subset_x[i] ;
   }
+
   out.attr("names") = names ;
   out.attr("class") = classes_not_grouped() ;
   auto nrows = subset_x.nrows() ;

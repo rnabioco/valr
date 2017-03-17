@@ -1,3 +1,12 @@
+// merge.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
 //[[Rcpp::export]]
@@ -23,13 +32,13 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
 
     SlicingIndex indices = *git ;
 
-    intervalVector intervals = makeIntervalVector(df, indices);
+    ivl_vector_t intervals = makeIntervalVector(df, indices);
 
-    interval_t last_interval = interval_t(0, 0, 0) ;
+    ivl_t last_interval = ivl_t(0, 0, 0) ;
 
     // approach from http://www.geeksforgeeks.org/merging-intervals/
 
-    std::stack<interval_t> s ;
+    std::stack<ivl_t> s ;
     s.push(last_interval) ;
 
     for (auto it : intervals) {

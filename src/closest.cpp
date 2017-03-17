@@ -1,18 +1,27 @@
+// closest.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
-void closest_grouped(intervalVector& vx, intervalVector& vy,
+void closest_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes, std::vector<int>& distance_sizes) {
 
-  intervalTree tree_y(vy) ;
+  ivl_tree_t tree_y(vy) ;
 
-  std::pair<int, intervalVector> min_dist;
+  std::pair<int, ivl_vector_t> min_dist;
   // initiatialize maximum left and right distances to minimize for closest
   int max_end = std::max(vx.back().stop, vy.back().stop) ;
 
   for (auto vx_it : vx) {
-    intervalVector closest ;
-    intervalVector closest_ivls ;
+    ivl_vector_t closest ;
+    ivl_vector_t closest_ivls ;
 
     min_dist = std::make_pair(max_end, closest_ivls) ;
     tree_y.findClosest(vx_it.start, vx_it.stop, closest, min_dist) ;
@@ -57,8 +66,8 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   std::vector<int> distance_sizes ;
 
   // set up interval trees for each chromosome and apply closest_grouped
-  PairedGroupApply(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y),
-                   std::ref(overlap_sizes), std::ref(distance_sizes));
+  GroupApply(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y),
+             std::ref(overlap_sizes), std::ref(distance_sizes));
 
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(indices_y, "data.frame");
