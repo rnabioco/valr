@@ -22,10 +22,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   IntegerVector ids(nr) ;      // store ids
   IntegerVector overlaps(nr) ; // store overlap values
 
-  IntegerVector starts   = df["start"] ;
-  IntegerVector ends     = df["end"] ;
-
-  std::size_t cluster_id = 0; //store counter for cluster id
+  std::size_t cluster_id = 0;  //store counter for cluster id
 
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
   for (int i = 0; i < ng; i++, ++git) {
