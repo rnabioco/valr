@@ -27,9 +27,6 @@ using namespace dplyr ;
 #include "intervals.h"
 #include "group_apply.h"
 #include "genome.h"
-
-typedef std::mt19937                           ENGINE ;
-typedef std::uniform_int_distribution<int>     UINT_DIST ;
-typedef std::piecewise_constant_distribution<> PCONST_DIST ;
+#include "random.h"
 
 #endif
