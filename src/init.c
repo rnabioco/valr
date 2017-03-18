@@ -7,6 +7,9 @@
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
+// DO NOT EDIT. created automatically from R >=3.4.0 using
+// tools::package_native_routine_registration_skeleton('.')
+
 #include <R.h>
 #include <Rinternals.h>
 #include <stdlib.h> // for NULL
