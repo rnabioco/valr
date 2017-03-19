@@ -1,5 +1,9 @@
 # valr 0.1.2.9000
 
+## Bug fixes
+
+* Merge intervals in `bed_jaccard()` and use numeric values for calculation (fixes #204).
+
 # valr 0.1.2
 
 ## Major changes
