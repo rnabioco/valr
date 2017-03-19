@@ -23,5 +23,5 @@ test_that("jaccard coeff is calc'd for large data sets", {
   y <- bed_random(genome, n = 1e5, seed = 20000)
 
   res <- bed_jaccard(x, y)
-  expect_equal(res$jaccard, 0.01613906)
+  expect_equal(round(res$jaccard, 3), 0.016)
 })
