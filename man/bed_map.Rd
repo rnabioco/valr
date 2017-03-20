@@ -37,8 +37,8 @@ values(.data, sep = ",")
 \code{data_frame}
 }
 \description{
-Used to apply functions like \code{\link{min}()}, \code{\link{count}()}, 
-\code{\link{concat}()} to intersecting intervals. Book-ended intervals are 
+Used to apply functions like \code{\link{min}()}, \code{\link{count}()},
+\code{\link{concat}()} to intersecting intervals. Book-ended intervals are
 not reported by default, but can be included by setting \code{min_overlap =
 0}.
 }
@@ -66,14 +66,16 @@ bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
 
 x <- tibble::tribble(
  ~chrom, ~start, ~end,
- "chr1", 100, 250,
- "chr2", 250, 500)
- 
+ "chr1", 100,    250,
+ "chr2", 250,    500
+)
+
 y <- tibble::tribble(
  ~chrom, ~start, ~end, ~value,
- "chr1", 100, 250, 10,
- "chr1", 150, 250, 20,
- "chr2", 250, 500, 500)
+ "chr1", 100,    250,  10,
+ "chr1", 150,    250,  20,
+ "chr2", 250,    500,  500
+)
 
 # also mean, median, sd etc
 bed_map(x, y, .sum = sum(value))
@@ -81,6 +83,9 @@ bed_map(x, y, .sum = sum(value))
 bed_map(x, y, .min = min(value), .max = max(value))
 
 bed_map(x, y, .concat = concat(value))
+
+# can also create a list-col
+bed_map(x, y, .values = tibble::tibble(value))
 
 # can also use `nth` family from dplyr
 bed_map(x, y, .first = dplyr::first(value))
