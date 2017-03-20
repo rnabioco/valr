@@ -81,6 +81,8 @@ tbl(ucsc, 'refGene')
 `valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. For example, `bed_glyph()` illustrates the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
 ```{r intersect_glyph, echo = FALSE}
+library(valr)
+
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 25,     50,

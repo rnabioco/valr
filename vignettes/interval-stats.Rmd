@@ -78,7 +78,7 @@ obs_stats
 And the same is done for a set of  shuffled group of data. `bed_shuffle()` is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)
 
 ```{r compute_shf}
-shfs <- bed_shuffle(rpts, genome, within = TRUE, seed = 1010486)
+shfs <- bed_shuffle(rpts, genome, within = TRUE)
 shf_stats <- distance_stats(shfs, tss, genome, 'name', 'shuf')
 ```
 
