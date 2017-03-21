@@ -28,12 +28,12 @@ x <- tibble::tribble(
 ~chrom, ~start, ~end,
 'chr1', 1,      100
 )
- 
+
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 50,     75
 )
- 
+
 bed_glyph(bed_subtract(x, y))
 
 x <- tibble::tribble(
@@ -58,7 +58,7 @@ y <- tibble::tribble(
 bed_subtract(x, y)
 
 bed_subtract(x, y, any = TRUE)
- 
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
