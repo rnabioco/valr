@@ -51,7 +51,6 @@
 bed_subtract <- function(x, y, any = FALSE) {
 
   x <- group_by(x, chrom, add = TRUE)
- # y <- bed_merge(y)
   y <- group_by(y, chrom, add = TRUE)
 
   # find groups not in y
