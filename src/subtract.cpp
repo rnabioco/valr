@@ -80,58 +80,14 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   std::vector<int> starts_out ;
   std::vector<int> ends_out ;
 
-  auto ng_x = gdf_x.ngroups() ;
-  auto ng_y = gdf_y.ngroups() ;
-
   DataFrame df_x = gdf_x.data() ;
   DataFrame df_y = gdf_y.data() ;
 
-  // get labels info for grouping
-  DataFrame labels_x(df_x.attr("labels"));
-  DataFrame labels_y(df_y.attr("labels"));
-
-  GroupedDataFrame::group_iterator git_x = gdf_x.group_begin() ;
   // indices_to_report
   std::vector<int> indices_out ;
-  for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
-    SlicingIndex indices_x = *git_x ;
-
-    // keep track of if x chrom is present in y
-    bool group_seen(false);
-
-    GroupedDataFrame::group_iterator git_y = gdf_y.group_begin() ;
-    for (int ny = 0; ny < ng_y; ny++, ++git_y) {
-
-      SlicingIndex indices_y = *git_y ;
-
-      bool same_groups = compare_rows(labels_x, labels_y, nx, ny);
-
-      if (same_groups) {
-        group_seen = true ;
-
-        ivl_vector_t vx = makeIntervalVector(df_x, indices_x) ;
-        ivl_vector_t vy = makeIntervalVector(df_y, indices_y) ;
-
-        subtract_group(vx, vy,
-                       indices_out,
-                       starts_out, ends_out) ;
-
-      }
-    }
-
-    // return x intervals if x chromosome not found in y
-    if (group_seen) {
-      continue;
-    } else {
-      ivl_vector_t vx = makeIntervalVector(df_x, indices_x) ;
-      for (auto it : vx) {
-        indices_out.push_back(it.value) ;
-        starts_out.push_back(it.start) ;
-        ends_out.push_back(it.stop) ;
-      }
-    }
-  }
+  // set up interval trees for each chromosome and apply subtract_group
+  GroupApply(gdf_x, gdf_y, subtract_group, std::ref(indices_out), std::ref(starts_out), std::ref(ends_out));
 
   // extract out x data, new intervals will be generated as copies of the parent interval
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_out, "data.frame");
