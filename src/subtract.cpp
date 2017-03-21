@@ -37,9 +37,6 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
     // sort overlaps by start not sure if necessary
     std::sort(overlaps.begin(), overlaps.end(), intervalStartSorter) ;
 
-    // keep track of the number of new intervals to generate
-    int new_ivl_count = 0;
-
     //iterate through overlaps with current x  interval
     // modifying start and stop as necessary
     for (auto oit : overlaps) {
@@ -47,23 +44,27 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
       auto y_start = oit.start;
       auto y_stop = oit.stop;
 
-      if (y_start <= x_start) {
-        //advance x_start to end of y
-        x_start = std::min(y_stop, x_stop) ;
-        continue ;
-      } else if (y_start > x_start) {
+      if (x_start > x_stop) {
+        break ;
+      } else if (y_start <= x_start) {
+        // advance x_start to end of y unless y is shorter than x
+        if (x_start > y_stop) {
+          continue ;
+        } else {
+          x_start = y_stop ;
+        };
+      } else {
         // report new interval
         indices_out.push_back(it.value) ;
         starts_out.push_back(x_start) ;
         ends_out.push_back(y_start) ;
         // advance to end of y ivl
         x_start = y_stop;
-        new_ivl_count++ ;
-        continue ;
       }
     }
 
     if (x_start < x_stop) {
+      // report interval
       indices_out.push_back(it.value) ;
       starts_out.push_back(x_start) ;
       ends_out.push_back(x_stop) ;
