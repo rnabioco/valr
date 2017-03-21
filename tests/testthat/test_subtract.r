@@ -31,12 +31,12 @@ test_that("left dangling y intervals adjust x starts", {
     ~chrom, ~start, ~end,
     "chr1", 100,    200
   ) %>% group_by(chrom)
-  
+
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 75,    150
   ) %>% group_by(chrom)
-  
+
   res <- bed_subtract(x, y)
   expect_equal(res$start, 150)
 })
@@ -46,12 +46,12 @@ test_that("right dangling y intervals adjust x ends", {
     ~chrom, ~start, ~end,
     "chr1", 100,    200
   ) %>% group_by(chrom)
-  
+
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 175,    250
   ) %>% group_by(chrom)
-  
+
   res <- bed_subtract(x, y)
   expect_equal(res$end, 175)
 })
@@ -61,15 +61,15 @@ test_that("fully contained x intervals are removed", {
     ~chrom, ~start, ~end,
     "chr1", 100,    200
   ) %>% group_by(chrom)
-  
+
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 50,    250
   ) %>% group_by(chrom)
-  
+
   res <- bed_subtract(x, y)
   expect_equal(nrow(res), 0)
-  
+
 })
 
 test_that("subtractions from x bed_tbl with more chroms than y are captured", {
@@ -78,11 +78,11 @@ test_that("subtractions from x bed_tbl with more chroms than y are captured", {
     "chr1",    100,       200,
     "chr3",    400,       500
   )
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr3",    425,       475) 
-  
+    "chr3",    425,       475)
+
   res <- bed_subtract(x, y)
   expect_true("chr3" %in% res$chrom)
 })
@@ -93,11 +93,11 @@ test_that("non-overlapping intervals from different chrom are not dropped", {
     "chr1",    100,       200,
     "chr3",    400,       500
   )
-  
+
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr3",    425,       475) 
-  
+    "chr3",    425,       475)
+
   res <- bed_subtract(x, y)
   expect_true("chr1" %in% res$chrom)
 })
@@ -107,7 +107,7 @@ a <- tibble::tribble(
   "chr1",	10,	20,	"a1",	1,	"+",
   "chr1",	50,	70,	"a2",	2,	"-"
 )
-  
+
 b <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
   "chr1",	18,	25,	"b1",	1,	"-",
@@ -120,3 +120,18 @@ test_that("tbls grouped by strand are processed", {
   expect_true(all(res == a))
 })
 
+test_that("longest merged y intervals are used for subtraction", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 500,    600
+  )
+
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 510,    580,
+    "chr1", 550,    575
+  )
+
+  res <- bed_subtract(x, y)
+  expect_true(max(res$start) == 580)
+})
