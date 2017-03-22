@@ -71,7 +71,7 @@
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
             
-            <h4 class="date">2017-03-19</h4>
+            <h4 class="date">2017-03-22</h4>
           </div>
 
     
@@ -359,23 +359,23 @@ shuffled
 <span class="co">#&gt; # A tibble: 100 × 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 × 6]&gt; 0.0003554402</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 × 6]&gt; 0.0003977802</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 × 6]&gt; 0.0004502532</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 × 6]&gt; 0.0002597589</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 × 6]&gt; 0.0003382550</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 × 6]&gt; 0.0004013087</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 × 6]&gt; 0.0003407355</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 × 6]&gt; 0.0004877504</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 × 6]&gt; 0.0002723894</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 × 6]&gt; 0.0004006493</span>
+<span class="co">#&gt; 1      1 &lt;tibble [10,000 × 6]&gt; 0.0004376491</span>
+<span class="co">#&gt; 2      2 &lt;tibble [10,000 × 6]&gt; 0.0002911571</span>
+<span class="co">#&gt; 3      3 &lt;tibble [10,000 × 6]&gt; 0.0003969787</span>
+<span class="co">#&gt; 4      4 &lt;tibble [10,000 × 6]&gt; 0.0003279117</span>
+<span class="co">#&gt; 5      5 &lt;tibble [10,000 × 6]&gt; 0.0003239776</span>
+<span class="co">#&gt; 6      6 &lt;tibble [10,000 × 6]&gt; 0.0008284006</span>
+<span class="co">#&gt; 7      7 &lt;tibble [10,000 × 6]&gt; 0.0003356493</span>
+<span class="co">#&gt; 8      8 &lt;tibble [10,000 × 6]&gt; 0.0003479919</span>
+<span class="co">#&gt; 9      9 &lt;tibble [10,000 × 6]&gt; 0.0004043911</span>
+<span class="co">#&gt; 10    10 &lt;tibble [10,000 × 6]&gt; 0.0001914222</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
 </div>
 <div id="benchmarks" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#benchmarks" class="anchor"> </a></body></html>Benchmarks</h2>
-<p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis. This graph illustrates the timing of functions in <code>valr</code> for two sets of 100,000 random 1 kilobase intervals from the hg19 genome.</p>
+<p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis. This graph illustrates the timing of functions in <code>valr</code> for two sets of 1 million random 1 kilobase intervals from the hg19 genome.</p>
 <p><img src="img/overview-benchmarks-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="api" class="section level2">
