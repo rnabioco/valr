@@ -22,7 +22,6 @@ Imports:
     tidyr,
     broom,
     ggplot2,
-    praise,
 SystemRequirements: C++11
 LinkingTo:
     Rcpp (>= 0.12.8),

@@ -64,14 +64,3 @@ bed_complement <- function(x, genome) {
   res
 }
 
-#' @noRd
-#' @importFrom praise praise
-#'
-#' @examples
-#' bed_compliment(x, genome)
-#'
-#' @export
-bed_compliment <- function(x, genome) {
-  message(praise("${EXCLAMATION}! Those are ${adjective} intervals!"))
-  bed_complement(x, genome)
-}
