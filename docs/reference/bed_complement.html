@@ -98,9 +98,7 @@
     <p>Identify intervals in a genome not covered by a query.</p>
     
 
-    <pre><span class='fu'>bed_complement</span>(<span class='no'>x</span>, <span class='no'>genome</span>)
-
-<span class='fu'>bed_compliment</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</pre>
+    <pre><span class='fu'>bed_complement</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -153,15 +151,6 @@
 
 <span class='co'># intervals not covered by x</span>
 <span class='fu'>bed_complement</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 6 × 3
-#&gt;   chrom start   end
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  chr1     1   100
-#&gt; 2  chr1   400   500
-#&gt; 3  chr2   100   200
-#&gt; 4  chr2   400   600
-#&gt; 5  chr3     1   500
-#&gt; 6  chr3   600   800</div><div class='input'>
-<span class='fu'>bed_compliment</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; <span class='message'>AHHH! Those are super-duper intervals!</span></div><div class='output co'>#&gt; # A tibble: 6 × 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1     1   100

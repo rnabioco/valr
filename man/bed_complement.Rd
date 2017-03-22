@@ -2,12 +2,9 @@
 % Please edit documentation in R/bed_complement.r
 \name{bed_complement}
 \alias{bed_complement}
-\alias{bed_compliment}
 \title{Identify intervals in a genome not covered by a query.}
 \usage{
 bed_complement(x, genome)
-
-bed_compliment(x, genome)
 }
 \arguments{
 \item{x}{tbl of intervals}
@@ -52,8 +49,6 @@ x <- tibble::tribble(
 
 # intervals not covered by x
 bed_complement(x, genome)
-
-bed_compliment(x, genome)
 
 }
 \seealso{

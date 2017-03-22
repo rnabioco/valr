@@ -64,7 +64,7 @@ bed_complement <- function(x, genome) {
   res
 }
 
-#' @rdname bed_complement
+#' @noRd
 #' @importFrom praise praise
 #'
 #' @examples
