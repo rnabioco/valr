@@ -99,6 +99,13 @@
     <div id="valr-0-1-2-9000" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-1-2-9000" class="anchor"> </a>valr 0.1.2.9000</h1>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"> </a>Minor changes</h2>
+<ul>
+<li>intervals returned from <code><a href="../reference/bed_random.html">bed_random()</a></code> are sorted by <code>chrom</code> and <code>start</code> by default.</li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"> </a>Bug fixes</h2>
@@ -117,9 +124,9 @@
 <li>Deprecate <code><a href="../reference/bed_sort.html">bed_sort()</a></code> in favor of using <code>dplyr::arrange()</code> explicitly (fixes #134).</li>
 </ul>
 </div>
-<div id="minor-changes" class="section level2">
+<div id="minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"> </a>Minor changes</h2>
+<a href="#minor-changes-1" class="anchor"> </a>Minor changes</h2>
 <ul>
 <li><p>add <code>src/init.c</code> that calls <code>R_registerRoutines</code> and <code>R_useDynamicSymbols</code> to address NOTE in r-devel</p></li>
 <li><p>Deprecate <code>dist</code> parameter in <code><a href="../reference/bed_closest.html">bed_closest()</a></code> in favor of using user supplied functions (#182 @kriemo)</p></li>
@@ -141,9 +148,9 @@
     <div id="valr-0-1-1" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-1-1" class="anchor"> </a>valr 0.1.1</h1>
-<div id="minor-changes-1" class="section level2">
+<div id="minor-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-1" class="anchor"> </a>Minor changes</h2>
+<a href="#minor-changes-2" class="anchor"> </a>Minor changes</h2>
 <ul>
 <li><p>test / vignette guards for Suggested RMySQL</p></li>
 <li><p>fixed memory leak in absdist.cpp</p></li>

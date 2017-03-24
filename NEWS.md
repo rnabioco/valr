@@ -1,5 +1,9 @@
 # valr 0.1.2.9000
 
+## Minor changes
+
+* intervals returned from `bed_random()` are sorted by `chrom` and `start` by default.
+
 ## Bug fixes
 
 * Merge intervals in `bed_jaccard()` and use numeric values for calculation (fixes #204).

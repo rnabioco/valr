@@ -4,7 +4,8 @@
 \alias{bed_random}
 \title{Generate randomly placed intervals on a genome.}
 \usage{
-bed_random(genome, length = 1000, n = 1e+06, seed = 0)
+bed_random(genome, length = 1000, n = 1e+06, sort_by = c("chrom",
+  "start"), seed = 0)
 }
 \arguments{
 \item{genome}{genome tbl}
@@ -13,10 +14,15 @@ bed_random(genome, length = 1000, n = 1e+06, seed = 0)
 
 \item{n}{number of intervals to generate}
 
+\item{sort_by}{sorting variables}
+
 \item{seed}{seed RNG for reproducible intervals}
 }
 \description{
 Generate randomly placed intervals on a genome.
+}
+\details{
+Sorting can be suppressed with \code{sort_by = NULL}.
 }
 \examples{
 genome <- tibble::tribble(
@@ -25,12 +31,14 @@ genome <- tibble::tribble(
   "chr2",  50000000,
   "chr3",  60000000,
   "chrX",  5000000
-) 
+)
 
-# random intervals (unsorted)
 bed_random(genome, seed = 10104)
 
-# 500 random intervals of length 500 
+# sorting can be suppressed
+bed_random(genome, sort_by = NULL, seed = 10104)
+
+# 500 random intervals of length 500
 bed_random(genome, length = 500, n = 500, seed = 10104)
 
 }
