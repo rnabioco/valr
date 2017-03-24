@@ -2,9 +2,9 @@ bibentry(bibtype = "Unpublished",
          title   = "valr: Genome Interval Arithmetic in R",
          year    = 2017,
          author  = c(
-             person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com'),
              person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
-             person('Ryan', 'Sheridan', role = c('ctb'), email = 'ryan.sheridan@ucdenver.edu')
+             person('Ryan', 'Sheridan', role = c('ctb'), email = 'ryan.sheridan@ucdenver.edu'),
+             person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com')
          ),
          note    = "To be deposited in bioArxiv.",
          header  = "To cite valr in publications use:",
