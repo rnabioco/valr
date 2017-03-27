@@ -4,7 +4,7 @@
 #' @param y tbl of intervals
 #' @param detail report relative distances for each \code{x} interval.
 #'
-#' @family interval-stats
+#' @family interval statistics
 #'  
 #' @return If \code{detail = FALSE}, a \code{data_frame} that summarizes
 #'  calcuclated \code{.reldist} values with the following columns:

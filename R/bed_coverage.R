@@ -8,7 +8,7 @@
 #' 
 #' @template groups
 #' 
-#' @family multi-set-ops
+#' @family multiple set operations
 #' 
 #' @return original \code{x} \code{data_frame} with the following additional
 #'   columns:

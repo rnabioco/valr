@@ -12,7 +12,7 @@
 #'   
 #' @return \code{data_frame}
 #'   
-#' @family read-funcs
+#' @family read functions
 #'   
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #'   

@@ -43,7 +43,7 @@ bed_shuffle(x, genome)
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 
-Other single-set-ops: \code{\link{bed_cluster}},
+Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_complement}}, \code{\link{bed_flank}},
   \code{\link{bed_merge}}, \code{\link{bed_random}},
   \code{\link{bed_shift}}, \code{\link{bed_slop}}

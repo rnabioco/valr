@@ -67,7 +67,7 @@ bed_shift(stranded, genome, 100)
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
 
-Other single-set-ops: \code{\link{bed_cluster}},
+Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_complement}}, \code{\link{bed_flank}},
   \code{\link{bed_merge}}, \code{\link{bed_random}},
   \code{\link{bed_shuffle}}, \code{\link{bed_slop}}

@@ -11,7 +11,7 @@
 #'
 #' @return \code{data_frame} with \code{.id} column for clustered intervals.
 #'
-#' @family single-set-ops
+#' @family single set operations
 #' @seealso
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
 #'

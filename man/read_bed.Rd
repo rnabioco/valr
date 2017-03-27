@@ -72,6 +72,6 @@ read_broadpeak(valr_example('sample.broadPeak.gz'))
 
 }
 \seealso{
-Other read-funcs: \code{\link{read_genome}},
+Other read functions: \code{\link{read_genome}},
   \code{\link{read_vcf}}
 }

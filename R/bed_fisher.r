@@ -8,7 +8,7 @@
 #'  
 #' @template stats
 #'  
-#' @family interval-stats
+#' @family interval statistics
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 #'   

@@ -12,7 +12,7 @@
 #'   
 #' @note URLs to genome files can also be used.
 #'   
-#' @family read-funcs
+#' @family read functions
 #'   
 #' @examples
 #' read_genome(valr_example('hg19.chrom.sizes.gz'))

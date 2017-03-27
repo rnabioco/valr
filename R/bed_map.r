@@ -13,7 +13,7 @@
 #'
 #' @return \code{data_frame}
 #'
-#' @family multi-set-ops
+#' @family multiple set operations
 #' @seealso
 #' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #'

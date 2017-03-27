@@ -7,7 +7,7 @@
 #' 
 #' @template stats
 #' 
-#' @family interval-stats
+#' @family interval statistics
 #' 
 #' @return \code{data_frame} with the following columns:
 #'   \itemize{ 

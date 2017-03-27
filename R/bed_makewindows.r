@@ -11,7 +11,7 @@
 #'   interval names (see 'namenum' example below) or in subsequent 
 #'   \code{group_by} operations (see vignette).
 #' 
-#' @family utils  
+#' @family utilities  
 #' @return \code{data_frame} with \code{.win_id} column that contains a numeric 
 #'   identifier for the window.
 #'   

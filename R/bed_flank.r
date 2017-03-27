@@ -12,7 +12,7 @@
 #' 
 #' @return \code{data_frame}
 #' 
-#' @family single-set-ops
+#' @family single set operations
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/flank.html}
 #' 

@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -101,45 +103,41 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>tbl of intervals</dd>
+      <dd><p>tbl of intervals</p></dd>
       <dt>y</dt>
-      <dd>tbl of intervals</dd>
+      <dd><p>tbl of intervals</p></dd>
       <dt>genome</dt>
-      <dd>chrom sizes</dd>
+      <dd><p>chrom sizes</p></dd>
       <dt>by_chrom</dt>
-      <dd>compute test per chromosome</dd>
+      <dd><p>compute test per chromosome</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code> with the following columns:
-  <ul>
-<li><code>chrom</code> the name of chromosome tested if <code>by_chrom = TRUE</code>,
-     otherwise has a value of <code>&#39;whole_genome&#39;</code>
-    </li>
-<li><code>p.value</code> p-value from a binomial test. p-values &gt; 0.5
-     will be reported as 1 - p-value and <code>lower_tail</code> will be <code>FALSE</code>
-    </li>
-<li><code>obs_exp_ratio</code> ratio of observed to expected overlap frequency
-    </li>
-<li><code>lower_tail</code> a boolean column. <code>TRUE</code> indicates the observed overlaps
+    <p><code>data_frame</code> with the following columns:</p><ul>
+<li><p><code>chrom</code> the name of chromosome tested if <code>by_chrom = TRUE</code>,
+     otherwise has a value of <code>'whole_genome'</code></p></li>
+<li><p><code>p.value</code> p-value from a binomial test. p-values &gt; 0.5
+     will be reported as 1 - p-value and <code>lower_tail</code> will be <code>FALSE</code></p></li>
+<li><p><code>obs_exp_ratio</code> ratio of observed to expected overlap frequency</p></li>
+<li><p><code>lower_tail</code> a boolean column. <code>TRUE</code> indicates the observed overlaps
      is in the lower tail of the distribution (e.g., less overlap than expected); <code>FALSE</code>
      indicates that the observed overlaps are in the upper tail of the distribution
-     (e.g., more overlap than expected)
-    </li>
-</ul></p>
+     (e.g., more overlap than expected)</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Interval statistics can be used in combination with 
   <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 
-  statistics for subsets of data. See <code>vignette(&#39;interval-stats&#39;)</code> for
+  statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for
   examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href = 'http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529'>http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529</a></p>
-    <p>Other interval-stats: <code><a href='bed_absdist.html'>bed_absdist</a></code>,
+<p>Other interval statistics: <code><a href='bed_absdist.html'>bed_absdist</a></code>,
   <code><a href='bed_fisher.html'>bed_fisher</a></code>, <code><a href='bed_jaccard.html'>bed_jaccard</a></code>,
   <code><a href='bed_reldist.html'>bed_reldist</a></code></p>
     

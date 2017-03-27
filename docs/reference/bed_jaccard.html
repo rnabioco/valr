@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -101,42 +103,38 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>tbl of intervals</dd>
+      <dd><p>tbl of intervals</p></dd>
       <dt>y</dt>
-      <dd>tbl of intervals</dd>
+      <dd><p>tbl of intervals</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code> with the following columns:
-  <ul>
-<li><code>len_i</code> length of the intersection
-    </li>
-<li><code>len_u</code> length of the union
-    </li>
-<li><code>jaccard</code> jaccard statistic 
-    </li>
-<li><code>n_int</code> number of intersecting intervals between x and y
-    </li>
-</ul></p>
+    <p><code>data_frame</code> with the following columns:</p><ul>
+<li><p><code>len_i</code> length of the intersection</p></li>
+<li><p><code>len_u</code> length of the union</p></li>
+<li><p><code>jaccard</code> jaccard statistic</p></li>
+<li><p><code>n_int</code> number of intersecting intervals between x and y</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of
-intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:</p>
-    <p>$$ J(x,y) = \frac{\mid x \bigcap y \mid}
-                     {\mid x \bigcup y \mid} = 
+intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:
+    $$ J(x,y) = \frac{\mid x \bigcap y \mid}
+                     {\mid x \bigcup y \mid} =
                 \frac{\mid x \bigcap y \mid}
                      {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} $$</p>
-    <p>Interval statistics can be used in combination with 
+<p>Interval statistics can be used in combination with 
   <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 
-  statistics for subsets of data. See <code>vignette(&#39;interval-stats&#39;)</code> for
+  statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for
   examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html'>http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html</a></p>
-    <p>Other interval-stats: <code><a href='bed_absdist.html'>bed_absdist</a></code>,
+<p>Other interval statistics: <code><a href='bed_absdist.html'>bed_absdist</a></code>,
   <code><a href='bed_fisher.html'>bed_fisher</a></code>, <code><a href='bed_projection.html'>bed_projection</a></code>,
   <code><a href='bed_reldist.html'>bed_reldist</a></code></p>
     
@@ -155,8 +153,8 @@ intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measu
 
 <span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 4
 #&gt;   len_i len_u jaccard     n
-#&gt;   &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
-#&gt; 1     5    25    0.25     1</div><div class='input'> 
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1     5    25    0.25     1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

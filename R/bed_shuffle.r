@@ -9,7 +9,7 @@
 #' @param seed seed for reproducible intervals
 #' 
 #' @return \code{data_frame}
-#' @family single-set-ops
+#' @family single set operations
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 #' 
 #' @examples 

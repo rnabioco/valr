@@ -13,7 +13,7 @@
 #'     \item{\code{.overlap}}{ overlap with closest interval}
 #'   }
 #'
-#' @family multi-set-ops
+#' @family multiple set operations
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 #'
 #' @examples

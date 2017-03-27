@@ -8,7 +8,7 @@
 #'
 #' @details Sorting can be suppressed with \code{sort_by = NULL}.
 #'
-#' @family single-set-ops
+#' @family single set operations
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 #'
 #' @examples

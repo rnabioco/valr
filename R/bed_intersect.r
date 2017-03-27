@@ -56,7 +56,7 @@
 #' dplyr::mutate(res, start = pmax(start.x, start.y),
 #'                    end = pmin(end.x, end.y))
 #'
-#' @family multi-set-ops
+#' @family multiple set operations
 #' @seealso
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 #'

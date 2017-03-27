@@ -8,7 +8,7 @@
 #'
 #' @template groups
 #'
-#' @family multi-set-ops
+#' @family multiple set operations
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 #'
 #' @examples

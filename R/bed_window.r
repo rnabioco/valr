@@ -6,7 +6,7 @@
 #'
 #' @template groups
 #'
-#' @family multi-set-ops 
+#' @family multiple set operations 
 #' @examples
 #' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
