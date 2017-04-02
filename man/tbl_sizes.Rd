@@ -11,7 +11,7 @@ tbl_sizes(x, ..., .validate = TRUE)
 
 \item{...}{params for \code{\link[tibble]{tibble}}}
 
-\item{validate}{check valid column names}
+\item{.validate}{check valid column names}
 }
 \description{
 Equivalent to information in UCSC "chromSizes" files.
