@@ -1,11 +1,11 @@
 #' Identify intervals in a genome not covered by a query.
 #'
-#' @param x tbl of intervals
-#' @param genome chrom sizes
+#' @param x \code{\link{tbl_interval}}
+#' @param genome \code{\link{tbl_sizes}}
 #'
 #' @family single set operations
 #'
-#' @return \code{data_frame}
+#' @return \code{\link{tbl_interval}}
 #'
 #' @examples
 #' x <- tibble::tribble(

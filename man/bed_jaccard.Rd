@@ -7,12 +7,12 @@
 bed_jaccard(x, y)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 }
 \value{
-\code{data_frame} with the following columns:
+\code{\link{tbl_interval}} with the following columns:
   \itemize{
     \item{\code{len_i}}{ length of the intersection}
     \item{\code{len_u}}{ length of the union}

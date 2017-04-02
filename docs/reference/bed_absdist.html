@@ -104,16 +104,16 @@ the closest midpoints of <code>y</code> intervals.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd><p>tbl of intervals</p></dd>
+      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
       <dt>y</dt>
-      <dd><p>tbl of intervals</p></dd>
+      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
       <dt>genome</dt>
-      <dd><p>genome tbl</p></dd>
+      <dd><p><code><a href='tbl_sizes.html'>tbl_sizes</a></code></p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code> with <code>.absdist</code> and <code>.absdist_scaled</code> 
+    <p><code>tbl_interval</code> with <code>.absdist</code> and <code>.absdist_scaled</code>
   columns.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -123,9 +123,9 @@ the closest midpoints of <code>y</code> intervals.</p>
   points on a chromosome, scale the distance for each query point <code>i</code> to
   the closest reference point by the inter-reference gap for each chromosome.
   If an <code>x</code> interval has no matching <code>y</code> chromosome,
-  <code>.absdist</code> is <code>NA</code>.
-    $$d_i(x,y) = min_k(|q_i - r_k|)\frac{R}{Length\ of\ chromosome}$$
-    Both absolute and scaled distances are reported as <code>.absdist</code> and 
+  <code>.absdist</code> is <code>NA</code>.</p>
+<p>$$d_i(x,y) = min_k(|q_i - r_k|)\frac{R}{Length\ of\ chromosome}$$</p>
+<p>Both absolute and scaled distances are reported as <code>.absdist</code> and
   <code>.absdist_scaled</code>.</p>
 <p>Interval statistics can be used in combination with 
   <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 

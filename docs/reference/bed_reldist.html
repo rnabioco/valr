@@ -103,22 +103,24 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd><p>tbl of intervals</p></dd>
+      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
       <dt>y</dt>
-      <dd><p>tbl of intervals</p></dd>
+      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
       <dt>detail</dt>
       <dd><p>report relative distances for each <code>x</code> interval.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If <code>detail = FALSE</code>, a <code>data_frame</code> that summarizes
+    <p>If <code>detail = FALSE</code>, a <code>tbl_interval</code> that summarizes
  calcuclated <code>.reldist</code> values with the following columns:</p><ul>
 <li><p><code>.reldist</code> relative distance metric</p></li>
 <li><p><code>.counts</code> number of metric observations</p></li>
 <li><p><code>.total</code> total observations</p></li>
 <li><p><code>.freq</code> frequency of observation</p></li>
-</ul><p>If <code>detail = TRUE</code>, a new <code>.reldist</code> column reports the relative
+</ul>
+
+<p>If <code>detail = TRUE</code>, a new <code>.reldist</code> column reports the relative
     distance for each input <code>x</code> interval.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>

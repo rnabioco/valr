@@ -7,11 +7,11 @@
 bed_fisher(x, y, genome)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
-\item{genome}{tbl of chrom sizes}
+\item{genome}{\code{\link{tbl_sizes}}}
 }
 \value{
 \code{data_frame}

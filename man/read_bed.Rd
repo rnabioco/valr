@@ -24,17 +24,17 @@ read_broadpeak(filename, ...)
 
 \item{n_fields}{number fields in the BED file}
 
-\item{col_types}{column type spec for \code{readr::read_tsv}}
+\item{col_types}{column type spec for \code{\link[readr]{read_tsv}}}
 
 \item{sort}{sort the tbl by chrom and start}
 
-\item{...}{options to pass to \code{readr::read_tsv}}
+\item{...}{options to pass to \code{\link[readr]{read_tsv}}}
 }
 \value{
-\code{data_frame}
+\code{\link{tbl_interval}}
 }
 \description{
-read functions for BED and related formats. Filenames can be 
+read functions for BED and related formats. Filenames can be
   local file or URLs. The read functions load data into tbls with consistent
   \code{chrom}, \code{start} and \code{end} colnames.
 }
@@ -50,7 +50,7 @@ read functions for BED and related formats. Filenames can be
 \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format13}
 }
 \examples{
-# read_bed assumes 3 field BED format. 
+# read_bed assumes 3 field BED format.
 read_bed(valr_example('3fields.bed.gz'))
 
 read_bed(valr_example('6fields.bed.gz'), n_fields = 6)

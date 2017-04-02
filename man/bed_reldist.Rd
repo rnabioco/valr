@@ -7,21 +7,21 @@
 bed_reldist(x, y, detail = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
 \item{detail}{report relative distances for each \code{x} interval.}
 }
 \value{
-If \code{detail = FALSE}, a \code{data_frame} that summarizes
+If \code{detail = FALSE}, a \code{\link{tbl_interval}} that summarizes
  calcuclated \code{.reldist} values with the following columns:
   \itemize{
     \item{\code{.reldist}}{ relative distance metric}
     \item{\code{.counts}}{ number of metric observations}
     \item{\code{.total}}{ total observations}
     \item{\code{.freq}}{ frequency of observation}}
-    
+
     If \code{detail = TRUE}, a new \code{.reldist} column reports the relative
     distance for each input \code{x} interval.
 }

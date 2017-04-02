@@ -8,7 +8,7 @@ bed_random(genome, length = 1000, n = 1e+06, sort_by = c("chrom",
   "start"), seed = 0)
 }
 \arguments{
-\item{genome}{genome tbl}
+\item{genome}{\code{\link{tbl_sizes}}}
 
 \item{length}{length of intervals}
 

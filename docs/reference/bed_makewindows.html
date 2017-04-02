@@ -104,9 +104,9 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd><p>tbl of intervals</p></dd>
+      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
       <dt>genome</dt>
-      <dd><p>genome file with chromosome sizes</p></dd>
+      <dd><p><code><a href='tbl_sizes.html'>tbl_sizes</a></code></p></dd>
       <dt>win_size</dt>
       <dd><p>divide intervals into fixed-size windows</p></dd>
       <dt>step_size</dt>
@@ -119,13 +119,13 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code> with <code>.win_id</code> column that contains a numeric 
+    <p><code>tbl_interval</code> with <code>.win_id</code> column that contains a numeric
   identifier for the window.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The <code>name</code> and <code>.win_id</code> columns can be used to create new 
-  interval names (see 'namenum' example below) or in subsequent 
+    <p>The <code>name</code> and <code>.win_id</code> columns can be used to create new
+  interval names (see 'namenum' example below) or in subsequent
   <code>group_by</code> operations (see vignette).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -145,7 +145,7 @@
 )
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>10</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.win_id'</span>)</div><img src='bed_makewindows-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='co'># Fixed number of windows </span>
+<span class='co'># Fixed number of windows</span>
 <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
 #&gt;    chrom start   end  name score strand .win_id
 #&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;

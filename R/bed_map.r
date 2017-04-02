@@ -11,7 +11,7 @@
 #'
 #' @template groups
 #'
-#' @return \code{data_frame}
+#' @return \code{\link{tbl_interval}}
 #'
 #' @family multiple set operations
 #' @seealso

@@ -4,12 +4,12 @@
 #' operations. Default \code{max_dist = 0} means that both overlapping and
 #' book-ended intervals will be clustered.
 #'
-#' @param x tbl of interval
+#' @param x \code{\link{tbl_interval}}
 #' @param max_dist maximum distance between clustered intervals.
 #'
 #' @template groups
 #'
-#' @return \code{data_frame} with \code{.id} column for clustered intervals.
+#' @return \code{\link{tbl_interval}} with \code{.id} column for clustered intervals.
 #'
 #' @family single set operations
 #' @seealso

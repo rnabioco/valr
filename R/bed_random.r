@@ -1,6 +1,6 @@
 #' Generate randomly placed intervals on a genome.
 #'
-#' @param genome genome tbl
+#' @param genome \code{\link{tbl_sizes}}
 #' @param length length of intervals
 #' @param n number of intervals to generate
 #' @param sort_by sorting variables

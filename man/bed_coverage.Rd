@@ -7,19 +7,19 @@
 bed_coverage(x, y, ...)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
 \item{...}{extra arguments (not used)}
 }
 \value{
-original \code{x} \code{data_frame} with the following additional
+\code{x} \code{\link{tbl_interval}} with the following additional
   columns:
-\itemize{ 
+\itemize{
   \item{\code{.ints}}{ number of x intersections}
   \item{\code{.cov}}{ per-base coverage of x intervals}
-  \item{\code{.len}}{ total length of y intervals covered by x intervals} 
+  \item{\code{.len}}{ total length of y intervals covered by x intervals}
   \item{\code{.frac}}{ .len scaled by total of y intervals}
   }
 }
@@ -54,7 +54,7 @@ y <- tibble::tribble(
 )
 
 bed_coverage(x, y)
- 
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html}

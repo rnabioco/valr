@@ -2,15 +2,19 @@
 % Please edit documentation in R/tbls.r
 \name{tbl_interval}
 \alias{tbl_interval}
-\title{create an interval tibble}
+\alias{tbl_ivl}
+\title{Tibble for intervals.}
 \usage{
-tbl_interval(...)
+tbl_interval(..., validate = TRUE)
+
+tbl_ivl(..., validate = TRUE)
 }
 \arguments{
-\item{...}{A set of name-value pairs. Arguments are evaluated sequentially,
-so you can refer to previously created variables.}
+\item{...}{params for \code{\link[tibble]{tibble}}}
+
+\item{validate}{check valid column names}
 }
 \description{
-Inherits from \code{[tibble](tibble)} and enforces \code{chrom}, \code{start}
-and \code{end} columns.
+Inherits from \code{\link[tibble]{tibble}} and enforces \code{chrom},
+\code{start} and \code{end} columns.
 }

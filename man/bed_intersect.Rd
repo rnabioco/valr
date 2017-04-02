@@ -7,9 +7,9 @@
 bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
@@ -18,7 +18,7 @@ bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
 \item{...}{extra arguments (not used)}
 }
 \value{
-a \code{data_frame} with original columns from \code{x} and \code{y},
+\code{\link{tbl_interval}} with original columns from \code{x} and \code{y},
   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
   with the extent of overlap for the intersecting intervals.
 }

@@ -7,9 +7,9 @@
 bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{chromosome sizes}
+\item{genome}{\code{\link{tbl_sizes}}}
 
 \item{size}{number of bases to shift. postive numbers shift right, negative shift left.}
 
@@ -18,13 +18,12 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 \item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \value{
-\code{data_frame}
+\code{\link{tbl_interval}}
 }
 \description{
 Out-of-bounds intervals are removed by default.
 }
 \examples{
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
  'chr1',      25,      50,
@@ -45,7 +44,7 @@ x <- tibble::tribble(
    "chr2", 300, 350, "+",
    "chr2", 400, 450, "-",
    "chr3", 500, 550, "-",
-   "chr3", 600, 650, "-" 
+   "chr3", 600, 650, "-"
 )
 
 genome <- tibble::tribble(
@@ -61,7 +60,7 @@ bed_shift(x, genome, fraction = 0.5)
 
 # shift with respect to strand
 stranded <- dplyr::group_by(x, strand)
-bed_shift(stranded, genome, 100) 
+bed_shift(stranded, genome, 100)
 
 }
 \seealso{

@@ -7,9 +7,9 @@
 bed_subtract(x, y, any = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
 \item{any}{remove any \code{x} intervals that overlap \code{y}}
 }

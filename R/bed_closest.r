@@ -1,13 +1,13 @@
 #' Identify closest intervals.
 #'
-#' @param x tbl of intervals
-#' @param y tbl of intervals
+#' @param x \code{\link{tbl_interval}}
+#' @param y \code{\link{tbl_interval}}
 #' @param overlap report overlapping intervals
 #' @param suffix colname suffixes in output
 #'
 #' @template groups
 #'
-#' @return \code{data_frame} with additional columns:
+#' @return \code{\link{tbl_interval}} with additional columns:
 #'   \itemize{
 #'     \item{\code{.dist}}{ distance to closest interval, negative distances denote upstream intervals}
 #'     \item{\code{.overlap}}{ overlap with closest interval}
@@ -61,10 +61,14 @@
 #' )
 #'
 #' res <- bed_closest(x, y)
-#' res$.strand_dist <- ifelse(res$strand.x == "+", res$.dist, -(res$.dist))
 #'
-#' #Report absolute distances
+#' # convert distance based on strand
+#' res$.dist_strand <- ifelse(res$strand.x == "+", res$.dist, -(res$.dist))
+#' res
+#'
+#' # report absolute distances
 #' res$.abs_dist <- abs(res$.dist)
+#' res
 #'
 #' @export
 bed_closest <- function(x, y, overlap = TRUE,

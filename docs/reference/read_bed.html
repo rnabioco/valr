@@ -95,7 +95,7 @@
     </div>
 
     
-    <p>read functions for BED and related formats. Filenames can be 
+    <p>read functions for BED and related formats. Filenames can be
   local file or URLs. The read functions load data into tbls with consistent
   <code>chrom</code>, <code>start</code> and <code>end</code> colnames.</p>
     
@@ -118,16 +118,16 @@
       <dt>n_fields</dt>
       <dd><p>number fields in the BED file</p></dd>
       <dt>col_types</dt>
-      <dd><p>column type spec for <code>readr::read_tsv</code></p></dd>
+      <dd><p>column type spec for <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code></p></dd>
       <dt>sort</dt>
       <dd><p>sort the tbl by chrom and start</p></dd>
       <dt>...</dt>
-      <dd><p>options to pass to <code>readr::read_tsv</code></p></dd>
+      <dd><p>options to pass to <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code></p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code></p>
+    <p><code>tbl_interval</code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -144,7 +144,7 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format. </span>
+    <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format.</span>
 <span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 10 × 3
 #&gt;    chrom  start    end
 #&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;

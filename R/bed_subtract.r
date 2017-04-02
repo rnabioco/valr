@@ -2,8 +2,8 @@
 #'
 #' Subtract \code{y} intervals from \code{x} intervals.
 #'
-#' @param x tbl of intervals
-#' @param y tbl of intervals
+#' @param x \code{\link{tbl_interval}}
+#' @param y \code{\link{tbl_interval}}
 #' @param any remove any \code{x} intervals that overlap \code{y}
 #'
 #' @template groups

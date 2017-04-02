@@ -2,15 +2,19 @@
 % Please edit documentation in R/tbls.r
 \name{tbl_sizes}
 \alias{tbl_sizes}
-\title{create a sizes tibble}
+\alias{tbl_szs}
+\title{Tibble for reference sizes.}
 \usage{
-tbl_sizes(...)
+tbl_sizes(..., validate = TRUE)
+
+tbl_szs(..., validate = TRUE)
 }
 \arguments{
-\item{...}{A set of name-value pairs. Arguments are evaluated sequentially,
-so you can refer to previously created variables.}
+\item{...}{params for \code{\link[tibble]{tibble}}}
+
+\item{validate}{check valid column names}
 }
 \description{
-Inherits from \code{[tibble](tibble)} and enforces \code{chrom} and
+Inherits from \code{\link[tibble]{tibble}} and enforces \code{chrom} and
 \code{size} columns. Identical to UCSC "chromSizes" files.
 }

@@ -1,17 +1,22 @@
-#' create an interval tibble
+#' Tibble for intervals.
 #'
-#' Inherits from \code{[tibble](tibble)} and enforces \code{chrom}, \code{start}
-#' and \code{end} columns.
+#' Inherits from \code{\link[tibble]{tibble}} and enforces \code{chrom},
+#' \code{start} and \code{end} columns.
 #'
-#' @inheritParams tibble::tibble
+#' @param ... params for \code{\link[tibble]{tibble}}
+#' @param validate check valid column names
 #'
 #' @export
-tbl_interval <- function(...) {
+tbl_interval <- function(..., validate = TRUE) {
   out <- tibble::tibble(...)
+  if (validate) {
+    out <- check_interval(out)
+  }
   class(out) <- union('tbl_ivl', class(out))
   out
 }
 
+#' @rdname tbl_interval
 #' @export
 tbl_ivl <- tbl_interval
 
@@ -26,20 +31,25 @@ as_tbl_ivl.tbl_df <- function(x, ...) {
   x
 }
 
-#' create a sizes tibble
+#' Tibble for reference sizes.
 #'
-#' Inherits from \code{[tibble](tibble)} and enforces \code{chrom} and
+#' Inherits from \code{\link[tibble]{tibble}} and enforces \code{chrom} and
 #' \code{size} columns. Identical to UCSC "chromSizes" files.
 #'
-#' @inheritParams tibble::tibble
+#' @param ... params for \code{\link[tibble]{tibble}}
+#' @param validate check valid column names
 #'
 #' @export
-tbl_sizes <- function(...) {
+tbl_sizes <- function(..., validate = TRUE) {
   out <- tibble::tibble(...)
+  if (validate) {
+    out <- check_sizes(out)
+  }
   class(out) <- union('tbl_szs', class(out))
   out
 }
 
+#' @rdname tbl_sizes
 #' @export
 tbl_szs <- tbl_sizes
 
@@ -51,5 +61,17 @@ as_tbl_szs <- function (x, ...) {
 #' @export
 as_tbl_szs.tbl_df <- function(x, ...) {
   class(x) <- union('tbl_szs', class(x))
+  x
+}
+
+# Validity checks ---------------------------------------------------
+
+check_interval <- function(x) {
+  expect_names <- c('chrom', 'start', 'end')
+  x
+}
+
+check_sizes <- function(x) {
+  expect_names <- c('chrom', 'size')
   x
 }

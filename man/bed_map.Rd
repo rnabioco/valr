@@ -17,9 +17,9 @@ values_unique(.data, sep = ",")
 values(.data, sep = ",")
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
 \item{...}{name-value pairs specifying colnames and expressions to apply}
 
@@ -34,7 +34,7 @@ values(.data, sep = ",")
 \item{sep}{separator character}
 }
 \value{
-\code{data_frame}
+\code{\link{tbl_interval}}
 }
 \description{
 Used to apply functions like \code{\link{min}()}, \code{\link{count}()},
