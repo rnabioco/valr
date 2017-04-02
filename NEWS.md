@@ -1,5 +1,9 @@
 # valr 0.1.2.9000
 
+## Major changes
+
+* new `tbl_ivl` and `tbl_szs` that wrap tibbles and enforce strict column naming. Input tables can be and are coerced with `as_tbl_ivl()` and `as_tbl_szs()` in each method.
+
 ## Minor changes
 
 * intervals returned from `bed_random()` are sorted by `chrom` and `start` by default.
