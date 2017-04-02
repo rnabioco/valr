@@ -54,6 +54,10 @@
 #' @export
 bed_window <- function(x, y, genome, ...) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   x <- mutate(x, .start = start, .end = end)
 
   slop_x <- bed_slop(x, genome, ...)

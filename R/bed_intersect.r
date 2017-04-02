@@ -64,6 +64,9 @@
 #' @export
 bed_intersect <- function(x, y, invert = FALSE, suffix = c('.x', '.y'), ...) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
+
   check_suffix(suffix)
 
   x <- group_by(x, chrom, add = TRUE)

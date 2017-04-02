@@ -77,6 +77,9 @@ bed_map <- function(x, y, ..., invert = FALSE,
                     suffix = c('.x', '.y'),
                     min_overlap = 1) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
+
   groups_x <- groups(x)
 
   # used only to get the `x` suffix; `y` suffix is ignored`

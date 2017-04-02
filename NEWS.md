@@ -2,7 +2,7 @@
 
 ## Major changes
 
-* new `tbl_interval()` and `tbl_sizes()` table types that wrap tibbles and enforce strict column naming. Input tables can be and are coerced with `as_tbl_ivl()` and `as_tbl_szs()` in each method.
+* new `tbl_interval()` and `tbl_sizes()` that wrap tibbles and enforce strict column naming. `is.tbl_interval()` and `is.tbl_sizes()` are used to for valid classes.
 
 ## Minor changes
 

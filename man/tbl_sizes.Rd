@@ -2,19 +2,36 @@
 % Please edit documentation in R/tbls.r
 \name{tbl_sizes}
 \alias{tbl_sizes}
-\alias{tbl_szs}
 \title{Tibble for reference sizes.}
 \usage{
-tbl_sizes(..., validate = TRUE)
-
-tbl_szs(..., validate = TRUE)
+tbl_sizes(x, ..., .validate = TRUE)
 }
 \arguments{
+\item{x}{A \code{data_frame}}
+
 \item{...}{params for \code{\link[tibble]{tibble}}}
 
 \item{validate}{check valid column names}
 }
 \description{
-Inherits from \code{\link[tibble]{tibble}} and enforces \code{chrom} and
-\code{size} columns. Identical to UCSC "chromSizes" files.
+Equivalent to information in UCSC "chromSizes" files.
+}
+\details{
+Required column names:
+
+\itemize{
+  \item{\code{chrom}}
+  \item{\code{size}}}
+}
+\examples{
+genome <- tibble::tribble(
+  ~chrom, ~size,
+  'chr1', 1e6,
+  'chr2', 1e7
+)
+
+is.tbl_sizes(genome)
+genome <- tbl_sizes(genome)
+is.tbl_sizes(genome)
+
 }

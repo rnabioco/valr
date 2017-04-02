@@ -2,19 +2,38 @@
 % Please edit documentation in R/tbls.r
 \name{tbl_interval}
 \alias{tbl_interval}
-\alias{tbl_ivl}
 \title{Tibble for intervals.}
 \usage{
-tbl_interval(..., validate = TRUE)
-
-tbl_ivl(..., validate = TRUE)
+tbl_interval(x, ..., .validate = TRUE)
 }
 \arguments{
+\item{x}{A \code{data_frame}}
+
 \item{...}{params for \code{\link[tibble]{tibble}}}
 
-\item{validate}{check valid column names}
+\item{.validate}{check valid column names}
 }
 \description{
-Inherits from \code{\link[tibble]{tibble}} and enforces \code{chrom},
-\code{start} and \code{end} columns.
+Tibble for intervals.
+}
+\details{
+Required column names:
+
+\itemize{
+  \item{\code{chrom}}
+  \item{\code{start}}
+  \item{\code{end}}}
+}
+\examples{
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',  1,      50,
+  'chr1',  10,     75,
+  'chr1',  100,    120
+)
+
+is.tbl_interval(x)
+x <- tbl_interval(x)
+is.tbl_interval(x)
+
 }

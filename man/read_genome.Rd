@@ -11,8 +11,7 @@ read_genome(path)
 tab-delimited}
 }
 \value{
-\code{\link{tbl_sizes}} with colnames \code{chrom} and \code{size},
-  sorted by \code{size}
+\code{\link{tbl_sizes}}, sorted by \code{size}
 }
 \description{
 Genome files (UCSC "chromSize" files) contain chromosome name and size

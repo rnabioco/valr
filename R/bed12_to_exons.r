@@ -15,6 +15,8 @@
 #' @export
 bed12_to_exons <- function(x) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+
   if (! ncol(x) == 12)
     stop('expected 12 column input', call. = FALSE)
 

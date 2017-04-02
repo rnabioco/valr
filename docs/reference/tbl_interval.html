@@ -95,29 +95,51 @@
     </div>
 
     
-    <p>Inherits from <code><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></code> and enforces <code>chrom</code>,
-<code>start</code> and <code>end</code> columns.</p>
+    <p>Tibble for intervals.</p>
     
 
-    <pre><span class='fu'>tbl_interval</span>(<span class='no'>...</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>tbl_ivl</span>(<span class='no'>...</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre><span class='fu'>tbl_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>.validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
+      <dt>x</dt>
+      <dd><p>A <code>data_frame</code></p></dd>
       <dt>...</dt>
       <dd><p>params for <code><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></code></p></dd>
-      <dt>validate</dt>
+      <dt>.validate</dt>
       <dd><p>check valid column names</p></dd>
     </dl>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>Required column names:</p><ul>
+<li><p><code>chrom</code></p></li>
+<li><p><code>start</code></p></li>
+<li><p><code>end</code></p></li>
+</ul>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>'chr1'</span>,  <span class='fl'>1</span>,      <span class='fl'>50</span>,
+  <span class='st'>'chr1'</span>,  <span class='fl'>10</span>,     <span class='fl'>75</span>,
+  <span class='st'>'chr1'</span>,  <span class='fl'>100</span>,    <span class='fl'>120</span>
+)
+
+<span class='fu'><a href='is.tbl_interval.html'>is.tbl_interval</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>tbl_interval</span>(<span class='no'>x</span>)
+<span class='fu'><a href='is.tbl_interval.html'>is.tbl_interval</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -27,6 +27,9 @@
 bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
                         max_tries = 1000, within = FALSE, seed = 0) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   # flatten incl and excl
   if (!is.null(incl))
       incl <- bed_merge(incl)

@@ -20,6 +20,8 @@
 #' @export
 interval_spacing <- function(x) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+
   res <- bed_merge(x)
 
   groups_x <- groups(x)

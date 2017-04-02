@@ -38,6 +38,10 @@
 #' @export
 bed_fisher <- function(x, y, genome) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   # number of intervals
   n_x <- nrow(x)
   n_y <- nrow(y)

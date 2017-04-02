@@ -56,6 +56,9 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE, ...) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   if (!any(c(both, left, right) > 0))
     stop('specify one of both, left, right', call. = FALSE)
 

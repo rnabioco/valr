@@ -46,6 +46,9 @@ bed_slop <- function(x, genome, both = 0, left = 0,
                      right = 0, fraction = FALSE,
                      strand = FALSE, trim = FALSE, ...) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   if (strand && ! 'strand' %in% colnames(x))
     stop('expected `strand` in `x`', call. = FALSE)
 

@@ -57,6 +57,10 @@
 #' @export
 bed_projection <- function(x, y, genome, by_chrom = FALSE) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   #find midpoints
   x <- mutate(x, .midpoint = round((end + start) / 2),
               start = .midpoint,

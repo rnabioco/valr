@@ -43,6 +43,9 @@
 #' @export
 bed_complement <- function(x, genome) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   res <- bed_merge(x)
 
   # non-overlapping chroms

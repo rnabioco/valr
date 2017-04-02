@@ -20,6 +20,8 @@ flip_strands <- function(x) {
   if (! 'strand' %in% colnames(x))
     stop('`strand` column not found in `x`', call. = FALSE)
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+
   # remove existing groups
   groups_x <- groups(x)
   res <- ungroup(x)

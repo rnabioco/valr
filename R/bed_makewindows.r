@@ -49,6 +49,9 @@ bed_makewindows <- function(x, genome, win_size = 0,
                             step_size = 0, num_win = 0,
                             reverse = FALSE) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   if (win_size == 0 && num_win == 0)
     stop('specify either `win_size` or `num_win`', call. = FALSE)
 

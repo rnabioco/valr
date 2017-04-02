@@ -40,6 +40,9 @@
 #' @export
 bed_reldist <- function(x, y, detail = FALSE) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
+
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tibble for reference sizes. — tbl_sizes • valr</title>
+<title>Test if the object is a tbl_interval. — is.tbl_interval • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -91,53 +91,34 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tibble for reference sizes.</h1>
+    <h1>Test if the object is a tbl_interval.</h1>
     </div>
 
     
-    <p>Equivalent to information in UCSC "chromSizes" files.</p>
+    <p>Test if the object is a tbl_interval.</p>
     
 
-    <pre><span class='fu'>tbl_sizes</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>.validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre><span class='fu'>is.tbl_interval</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd><p>A <code>data_frame</code></p></dd>
-      <dt>...</dt>
-      <dd><p>params for <code><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></code></p></dd>
-      <dt>validate</dt>
-      <dd><p>check valid column names</p></dd>
+      <dd><p>An object</p></dd>
     </dl>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Required column names:</p><ul>
-<li><p><code>chrom</code></p></li>
-<li><p><code>size</code></p></li>
-</ul>
+    <p><code>TRUE</code> if the object inherits from the <code>tbl_interval</code> class.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
-  <span class='st'>'chr1'</span>, <span class='fl'>1e6</span>,
-  <span class='st'>'chr2'</span>, <span class='fl'>1e7</span>
-)
-
-<span class='fu'><a href='is.tbl_sizes.html'>is.tbl_sizes</a></span>(<span class='no'>genome</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'>tbl_sizes</span>(<span class='no'>genome</span>)
-<span class='fu'><a href='is.tbl_sizes.html'>is.tbl_sizes</a></span>(<span class='no'>genome</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>
