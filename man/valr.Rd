@@ -12,7 +12,7 @@ reference. valr was developed to facilitate interactive analysis of
 genome-scale data sets, leveraging the power of dplyr and piping.
 }
 \details{
-To learn more about valr, start with the vignette: 
+To learn more about valr, start with the vignette:
 \code{browseVignettes(package = "valr")}
 }
 \seealso{
