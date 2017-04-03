@@ -103,13 +103,8 @@ check_sizes <- function(x) {
   dups <- duplicated(chroms)
 
   if (any(dups)) {
-    chrom_dups <- chroms[dups]
-    if (length(chrom_dups) > 1) {
-      err <- paste0(chrom_dups, collapse = ', ')
-    } else {
-      err <- chrom_dups[1]
-    }
-    stop(sprintf("duplicate chroms in genome: %s", err))
+    stop(sprintf("duplicate chroms in genome: %s",
+                 paste0(chroms[dups], collapse = ', ')))
   }
 
   x
@@ -119,15 +114,10 @@ check_names <- function(x, expected) {
 
   names_missing <- setdiff(expected, names(x))
 
-  if (length(names_missing != 0)) {
-    if (length(names_missing) > 1) {
-      err <- paste0(names_missing, collapse = ', ')
-    } else {
-      err <- names_missing[1]
-    }
-
+  if (length(names_missing) > 1) {
     stop(sprintf("expected %d required names, missing: %s",
-                 length(expected), err))
+                 length(expected),
+                 paste0(names_missing, collapse = ', ')))
   }
 
 }
