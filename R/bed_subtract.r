@@ -2,8 +2,8 @@
 #'
 #' Subtract \code{y} intervals from \code{x} intervals.
 #'
-#' @param x tbl of intervals
-#' @param y tbl of intervals
+#' @param x \code{\link{tbl_interval}}
+#' @param y \code{\link{tbl_interval}}
 #' @param any remove any \code{x} intervals that overlap \code{y}
 #'
 #' @template groups
@@ -49,6 +49,9 @@
 #'
 #' @export
 bed_subtract <- function(x, y, any = FALSE) {
+
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
 
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)

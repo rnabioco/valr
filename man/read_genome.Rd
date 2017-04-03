@@ -7,12 +7,11 @@
 read_genome(path)
 }
 \arguments{
-\item{path}{containing chrom/contig names and sizes, 
-one-pair-per-line, tab-delimited}
+\item{path}{containing chrom/contig names and sizes, one-pair-per-line,
+tab-delimited}
 }
 \value{
-\code{data_frame} with colnames \code{chrom} and \code{size}, sorted 
-  by \code{size}
+\code{\link{tbl_sizes}}, sorted by \code{size}
 }
 \description{
 Genome files (UCSC "chromSize" files) contain chromosome name and size

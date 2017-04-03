@@ -7,14 +7,14 @@
 bed_absdist(x, y, genome)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
-\item{genome}{genome tbl}
+\item{genome}{\code{\link{tbl_sizes}}}
 }
 \value{
-\code{data_frame} with \code{.absdist} and \code{.absdist_scaled} 
+\code{\link{tbl_interval}} with \code{.absdist} and \code{.absdist_scaled}
   columns.
 }
 \description{
@@ -28,10 +28,10 @@ Absolute distances are scaled by the inter-reference gap for the
   the closest reference point by the inter-reference gap for each chromosome.
   If an \code{x} interval has no matching \code{y} chromosome,
   \code{.absdist} is \code{NA}.
-  
+
   \deqn{d_i(x,y) = min_k(|q_i - r_k|)\frac{R}{Length\ of\ chromosome}}
-  
-  Both absolute and scaled distances are reported as \code{.absdist} and 
+
+  Both absolute and scaled distances are reported as \code{.absdist} and
   \code{.absdist_scaled}.
 
 Interval statistics can be used in combination with 
@@ -50,7 +50,7 @@ y <- tibble::frame_data(
   "chr1",    50,       100,
   "chr1",    100,       150
   )
-  
+
 genome <- tibble::frame_data(
   ~chrom, ~size,
   "chr1", 500,

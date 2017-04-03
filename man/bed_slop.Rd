@@ -8,9 +8,9 @@ bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
   strand = FALSE, trim = FALSE, ...)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{tbl of chrom sizes}
+\item{genome}{\code{\link{tbl_sizes}}}
 
 \item{both}{number of bases on both sizes}
 
@@ -27,7 +27,7 @@ bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 \item{...}{extra arguments (not used)}
 }
 \value{
-\code{data_frame}
+\code{\link{tbl_interval}}
 }
 \description{
 Increase the size of input intervals.
@@ -38,7 +38,7 @@ x <- tibble::tribble(
   'chr1',      110,      120,
   'chr1',      225,     235
   )
-  
+
 genome <- tibble::tribble(
   ~chrom, ~size,
   'chr1',      400

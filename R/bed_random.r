@@ -1,6 +1,6 @@
 #' Generate randomly placed intervals on a genome.
 #'
-#' @param genome genome tbl
+#' @param genome \code{\link{tbl_sizes}}
 #' @param length length of intervals
 #' @param n number of intervals to generate
 #' @param sort_by sorting variables
@@ -30,6 +30,8 @@
 #'
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6, sort_by = c('chrom', 'start'), seed = 0) {
+
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
 
   if(!all(genome$size > length))
     stop('`length` must be greater than all chrom sizes', call. = FALSE)

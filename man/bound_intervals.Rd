@@ -7,14 +7,14 @@
 bound_intervals(x, genome, trim = FALSE)
 }
 \arguments{
-\item{x}{a tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{a tbl of chrom sizes}
+\item{genome}{\code{\link{tbl_sizes}}}
 
 \item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \value{
-\code{data_frame}
+\code{\link{tbl_interval}}
 }
 \description{
 Used to remove out-of-bounds intervals, or trim interval coordinates using a

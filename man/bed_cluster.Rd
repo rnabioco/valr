@@ -7,12 +7,12 @@
 bed_cluster(x, max_dist = 0)
 }
 \arguments{
-\item{x}{tbl of interval}
+\item{x}{\code{\link{tbl_interval}}}
 
 \item{max_dist}{maximum distance between clustered intervals.}
 }
 \value{
-\code{data_frame} with \code{.id} column for clustered intervals.
+\code{\link{tbl_interval}} with \code{.id} column for clustered intervals.
 }
 \description{
 Output contains an \code{.id} column that can be used in downstream grouping

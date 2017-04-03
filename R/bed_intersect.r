@@ -4,13 +4,13 @@
 #' intervals (or "touching" intervals) have \code{.overlap} values of \code{0})
 #' in the output.
 #'
-#' @param x tbl of intervals
-#' @param y tbl of intervals
+#' @param x \code{\link{tbl_interval}}
+#' @param y \code{\link{tbl_interval}}
 #' @param invert report \code{x} intervals not in \code{y}
 #' @param suffix colname suffixes in output
 #' @param ... extra arguments (not used)
 #'
-#' @return a \code{data_frame} with original columns from \code{x} and \code{y},
+#' @return \code{\link{tbl_interval}} with original columns from \code{x} and \code{y},
 #'   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
 #'   with the extent of overlap for the intersecting intervals.
 #'
@@ -63,6 +63,9 @@
 #'
 #' @export
 bed_intersect <- function(x, y, invert = FALSE, suffix = c('.x', '.y'), ...) {
+
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
 
   check_suffix(suffix)
 

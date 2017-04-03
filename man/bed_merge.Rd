@@ -7,17 +7,17 @@
 bed_merge(x, max_dist = 0, ...)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
 \item{max_dist}{maximum distance between intervals to merge}
 
 \item{...}{name-value pairs that specify operations on merged intervals}
 }
 \value{
-\code{data_frame}
+\code{\link{tbl_interval}}
 }
 \description{
-Operations can be performed on merged intervals by specifying name-value 
+Operations can be performed on merged intervals by specifying name-value
 pairs. Default \code{max_dist} of \code{0} means book-ended intervals are
 merged.
 }

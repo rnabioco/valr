@@ -7,17 +7,17 @@
 bed_projection(x, y, genome, by_chrom = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
-\item{genome}{chrom sizes}
+\item{genome}{\code{\link{tbl_sizes}}}
 
 \item{by_chrom}{compute test per chromosome}
 }
 \value{
-\code{data_frame} with the following columns:
-  \itemize{ 
+\code{\link{tbl_interval}} with the following columns:
+  \itemize{
     \item{\code{chrom}} {the name of chromosome tested if \code{by_chrom = TRUE},
      otherwise has a value of \code{'whole_genome'}}
     \item{\code{p.value}} {p-value from a binomial test. p-values > 0.5
@@ -62,7 +62,7 @@ y <- tibble::tribble(
  "chr1", 1100,   1200,
  "chr1", 1400,   1600,
  "chr2", 200,    1500
-) 
+)
 
 bed_projection(x, y, genome)
 bed_projection(x, y, genome, by_chrom = TRUE)

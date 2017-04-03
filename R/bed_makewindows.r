@@ -1,68 +1,71 @@
 #' Divide intervals into new sub-intervals ("windows").
-#' 
-#' @param x tbl of intervals
-#' @param genome genome file with chromosome sizes
+#'
+#' @param x \code{\link{tbl_interval}}
+#' @param genome \code{\link{tbl_sizes}}
 #' @param win_size divide intervals into fixed-size windows
 #' @param step_size size to step before next window
 #' @param num_win divide intervals to fixed number of windows
 #' @param reverse reverse window numbers
-#'   
-#' @note The \code{name} and \code{.win_id} columns can be used to create new 
-#'   interval names (see 'namenum' example below) or in subsequent 
+#'
+#' @note The \code{name} and \code{.win_id} columns can be used to create new
+#'   interval names (see 'namenum' example below) or in subsequent
 #'   \code{group_by} operations (see vignette).
-#' 
-#' @family utilities  
-#' @return \code{data_frame} with \code{.win_id} column that contains a numeric 
+#'
+#' @family utilities
+#' @return \code{\link{tbl_interval}} with \code{.win_id} column that contains a numeric
 #'   identifier for the window.
-#'   
-#' @examples 
+#'
+#' @examples
 #' genome <- tibble::tribble(
 #'  ~chrom, ~size,
 #'  "chr1", 200
 #' )
-#' 
+#'
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'   "chr1", 100,    200,  'A',   '.',    '+'
 #' )
-#' 
-#' bed_glyph(bed_makewindows(x, genome, num_win = 10), label = '.win_id') 
-#' 
-#' # Fixed number of windows 
+#'
+#' bed_glyph(bed_makewindows(x, genome, num_win = 10), label = '.win_id')
+#'
+#' # Fixed number of windows
 #' bed_makewindows(x, genome, num_win = 10)
-#' 
+#'
 #' # Fixed window size
 #' bed_makewindows(x, genome, win_size = 10)
-#' 
+#'
 #' # Fixed window size with overlaps
 #' bed_makewindows(x, genome, win_size = 10, step_size = 5)
-#' 
+#'
 #' # reverse win_id
 #' bed_makewindows(x, genome, win_size = 10, reverse = TRUE)
-#' 
+#'
 #' # bedtools 'namenum'
 #' wins <- bed_makewindows(x, genome, win_size = 10)
 #' dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
-#' 
+#'
 #' @export
 bed_makewindows <- function(x, genome, win_size = 0,
                             step_size = 0, num_win = 0,
                             reverse = FALSE) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+
   if (win_size == 0 && num_win == 0)
     stop('specify either `win_size` or `num_win`', call. = FALSE)
-  
+
   x <- ungroup(x)
   x <- mutate(x, .row_id = row_number())
   x <- rowwise(x)
   if (num_win > 0) {
-    x <- mutate(x, 
+    x <- mutate(x,
                  .win_size = round((end - start) / num_win))
   } else {
     x <- mutate(x, .win_size = win_size)
   }
 
-  res <- mutate(x, .start = list(seq(start, end, 
+  res <- mutate(x, .start = list(seq(start, end,
                                      by = .win_size - step_size)),
                 .win_num = list(seq(1, length(.start))))
   res <- tidyr::unnest(res)
@@ -71,7 +74,7 @@ bed_makewindows <- function(x, genome, win_size = 0,
   res <- filter(res, .start != .end )
   res <- mutate(res, start = .start, end = .end)
   res <- select(res, -.start, -.end, -.win_size)
-  
+
   # add .win_id column
   res <- group_by(res, .row_id)
   if (reverse) {
@@ -79,7 +82,7 @@ bed_makewindows <- function(x, genome, win_size = 0,
   } else {
     res <- mutate(res, .win_id = rank(.win_num))
   }
-  
+
   res <- ungroup(res)
   res <- select(res, -.win_num, -.row_id)
   res

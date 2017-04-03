@@ -8,13 +8,13 @@
 #'                 \frac{\mid x \bigcap y \mid}
 #'                      {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} }
 #'
-#' @param x tbl of intervals
-#' @param y tbl of intervals
+#' @param x \code{\link{tbl_interval}}
+#' @param y \code{\link{tbl_interval}}
 #'
 #' @template stats
 #'
 #' @family interval statistics
-#' @return \code{data_frame} with the following columns:
+#' @return \code{\link{tbl_interval}} with the following columns:
 #'   \itemize{
 #'     \item{\code{len_i}}{ length of the intersection}
 #'     \item{\code{len_u}}{ length of the union}
@@ -41,6 +41,9 @@
 #'
 #' @export
 bed_jaccard <- function(x, y) {
+
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- tbl_interval(y)
 
   x <- bed_merge(x)
   y <- bed_merge(y)

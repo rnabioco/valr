@@ -7,10 +7,10 @@
 interval_spacing(x)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 }
 \value{
-\code{data_frame} with \code{.spacing} column.
+\code{\link{tbl_interval}} with \code{.spacing} column.
 }
 \description{
 Overlapping intervals are merged. Spacing for the first interval of each
@@ -25,5 +25,5 @@ x <- tibble::tribble(
 )
 
 interval_spacing(x)
-  
+
 }

@@ -8,13 +8,13 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
   within = FALSE, seed = 0)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{chrom sizes}
+\item{genome}{\code{\link{tbl_sizes}}}
 
-\item{incl}{tbl of included intervals}
+\item{incl}{\code{\link{tbl_interval}} of included intervals}
 
-\item{excl}{tbl of excluded intervals}
+\item{excl}{\code{\link{tbl_interval}} of excluded intervals}
 
 \item{max_tries}{maximum tries to identify a bounded interval}
 
@@ -23,7 +23,7 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
 \item{seed}{seed for reproducible intervals}
 }
 \value{
-\code{data_frame}
+\code{\link{tbl_interval}}
 }
 \description{
 Shuffle input intervals.

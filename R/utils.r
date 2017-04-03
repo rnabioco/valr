@@ -18,21 +18,20 @@ valr_example <- function(path) {
 #' If there are \code{x} columns that do not exist in \code{y} they are moved to the last column.
 #'
 #'
-#' @param x tbl of intervals
-#' @param y tbl of intervals
+#' @param x \code{\link{tbl_interval}}
+#' @param y \code{\link{tbl_interval}}
 #'
 #' @examples
 #' x <- tibble::tribble(
 #'   ~end,  ~chrom,   ~start, ~value,
 #'   75,  "chr1",    125,    10
-#'  )
+#' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom,   ~start,    ~end,  ~scores,
 #'   "chr1",    50,       100,  1.2,
 #'   "chr1",    100,       150,  2.4
-#'   )
-#'
+#' )
 #'
 #' format_bed(x, y)
 #' @noRd
@@ -52,8 +51,8 @@ format_bed <- function(x, y) {
 #' Identify minimum shared groups between \code{x} and \code{y} tbls. Returns
 #' \code{NULL} if there are no shared groups.
 #'
-#' @param x tbl of intervals
-#' @param y tbl of intervals
+#' @param x \code{\link{tbl_interval}}
+#' @param y \code{\link{tbl_interval}}
 #'
 #' @return \code{list} of groups or \code{NULL}
 #'

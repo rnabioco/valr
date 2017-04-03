@@ -7,16 +7,16 @@
 bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"))
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
 \item{overlap}{report overlapping intervals}
 
 \item{suffix}{colname suffixes in output}
 }
 \value{
-\code{data_frame} with additional columns:
+\code{\link{tbl_interval}} with additional columns:
   \itemize{
     \item{\code{.dist}}{ distance to closest interval, negative distances denote upstream intervals}
     \item{\code{.overlap}}{ overlap with closest interval}
@@ -77,10 +77,14 @@ y <- tibble::tribble(
 )
 
 res <- bed_closest(x, y)
-res$.strand_dist <- ifelse(res$strand.x == "+", res$.dist, -(res$.dist))
 
-#Report absolute distances
+# convert distance based on strand
+res$.dist_strand <- ifelse(res$strand.x == "+", res$.dist, -(res$.dist))
+res
+
+# report absolute distances
 res$.abs_dist <- abs(res$.dist)
+res
 
 }
 \seealso{

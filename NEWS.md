@@ -1,5 +1,9 @@
 # valr 0.1.2.9000
 
+## Major changes
+
+* new `tbl_interval()` and `tbl_sizes()` that wrap tibbles and enforce strict column naming. `is.tbl_interval()` and `is.tbl_sizes()` are used to for valid classes.
+
 ## Minor changes
 
 * intervals returned from `bed_random()` are sorted by `chrom` and `start` by default.
