@@ -24,6 +24,13 @@ test_that("invalid tbl_ivl names throw error", {
     'chr1',  1,  50
   )
   expect_error(tbl_interval(x), 'expected 3 required names, missing: chrom, start, end')
+
+  # missing 1 only
+  x <- tibble::tribble(
+    ~chrom, ~start, ~oops,
+    'chr1',  1,  50
+  )
+  expect_error(tbl_interval(x), 'expected 3 required names, missing: end')
 })
 
 test_that("invalid tbl_szs names throw error", {

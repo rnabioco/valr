@@ -112,12 +112,11 @@ check_sizes <- function(x) {
 
 check_names <- function(x, expected) {
 
-  names_missing <- setdiff(expected, names(x))
+  missing <- setdiff(expected, names(x))
 
-  if (length(names_missing) > 1) {
+  if (length(missing) != 0) {
     stop(sprintf("expected %d required names, missing: %s",
                  length(expected),
-                 paste0(names_missing, collapse = ', ')))
+                 paste0(missing, collapse = ', ')))
   }
-
 }

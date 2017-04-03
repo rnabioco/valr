@@ -14,5 +14,4 @@ globalVariables(c("chrom", "start", "end", "strand",
                   "right_start", ".total", "value",
                   ".midpoint", ".obs_counts", ".length",
                   ".reference_coverage", ".total_trials", ".exp_prob",
-                  "p.value", ".win_size", ".row_id",
-                  "names_missing"))
+                  "p.value", ".win_size", ".row_id"))
