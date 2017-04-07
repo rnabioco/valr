@@ -10,7 +10,7 @@ bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 \arguments{
 \item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 
 \item{both}{number of bases on both sizes}
 
@@ -33,25 +33,25 @@ bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 Increase the size of input intervals.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
-  'chr1',      110,      120,
-  'chr1',      225,     235
-  )
+  'chr1', 110,    120,
+  'chr1', 225,    235
+)
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
   ~chrom, ~size,
-  'chr1',      400
+  'chr1', 400
 )
 
 bed_glyph(bed_slop(x, genome, both = 20, trim = TRUE))
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
  ~chrom, ~size,
  "chr1", 5000
 )
 
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
  "chr1", 500,    1000, '.',   '.',     '+',
  "chr1", 1000,   1500, '.',   '.',     '-'

@@ -101,18 +101,25 @@
     <pre><span class='fu'>bed_coverage</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
-      <dt>y</dt>
-      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
-      <dt>...</dt>
-      <dd><p>extra arguments (not used)</p></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>extra arguments (not used)</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>x</code> <code>tbl_interval</code> with the following additional
+    <p><code>x</code> <code><a href='tbl_interval.html'>tbl_interval</a></code> with the following additional
   columns:</p><ul>
 <li><p><code>.ints</code> number of x intersections</p></li>
 <li><p><code>.cov</code> per-base coverage of x intervals</p></li>
@@ -142,20 +149,20 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>strand</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,  <span class='st'>'+'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,  <span class='st'>'+'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>300</span>,    <span class='fl'>500</span>,  <span class='st'>'-'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>,  <span class='st'>'-'</span>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>strand</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,  <span class='st'>'+'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,  <span class='st'>'+'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>300</span>,    <span class='fl'>500</span>,  <span class='st'>'-'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>,  <span class='st'>'-'</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,    <span class='st'>'+'</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,    <span class='st'>'+'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>,    <span class='st'>'-'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>350</span>,    <span class='fl'>430</span>,  <span class='fl'>300</span>,    <span class='st'>'-'</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,    <span class='st'>'+'</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,    <span class='st'>'+'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>,    <span class='st'>'-'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>350</span>,    <span class='fl'>430</span>,  <span class='fl'>300</span>,    <span class='st'>'-'</span>
 )
 
 <span class='fu'>bed_coverage</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 8

@@ -9,7 +9,7 @@ bound_intervals(x, genome, trim = FALSE)
 \arguments{
 \item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 
 \item{trim}{adjust coordinates for out-of-bounds intervals}
 }
@@ -21,7 +21,7 @@ Used to remove out-of-bounds intervals, or trim interval coordinates using a
 \code{genome}.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
  "chr1", -100,   500,
  "chr1", 100,    1e9,

@@ -14,7 +14,7 @@ Flips positive (\code{+}) stranded intervals to negative (\code{-}) strands,
 and vice-versa. Facilitates comparisons among intervals on opposing strands.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end, ~strand,
   'chr1', 1,      100,  '+',
   'chr2', 1,      100,  '-'

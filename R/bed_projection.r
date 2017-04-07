@@ -2,7 +2,7 @@
 #'
 #' @param x \code{\link{tbl_interval}}
 #' @param y \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #' @param by_chrom compute test per chromosome
 #'
 #' @template stats
@@ -26,14 +26,14 @@
 #'   \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #'
 #' @examples
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'  ~chrom, ~size,
 #'  "chr1", 1e4,
 #'  "chr2", 2e4,
 #'  "chr3", 4e4
 #' )
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100,    200,
 #'  "chr1", 250,    400,
@@ -42,7 +42,7 @@
 #'  "chr2", 100,    200
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 150,    175,
 #'  "chr1", 525,    575,
@@ -59,7 +59,7 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_interval(y)) y <- tbl_interval(y)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   #find midpoints
   x <- mutate(x, .midpoint = round((end + start) / 2),

@@ -8,7 +8,7 @@ bed_random(genome, length = 1000, n = 1e+06, sort_by = c("chrom",
   "start"), seed = 0)
 }
 \arguments{
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 
 \item{length}{length of intervals}
 
@@ -25,7 +25,7 @@ Generate randomly placed intervals on a genome.
 Sorting can be suppressed with \code{sort_by = NULL}.
 }
 \examples{
-genome <- tibble::tribble(
+genome <- trbl_genome(
   ~chrom,  ~size,
   "chr1",  10000000,
   "chr2",  50000000,

@@ -102,22 +102,29 @@
     <pre><span class='fu'>bound_intervals</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
-      <dt>genome</dt>
-      <dd><p><code><a href='tbl_sizes.html'>tbl_sizes</a></code></p></dd>
-      <dt>trim</dt>
-      <dd><p>adjust coordinates for out-of-bounds intervals</p></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+    </tr>
+    <tr>
+      <th>genome</th>
+      <td><p><code><a href='tbl_genome.html'>tbl_genome</a></code></p></td>
+    </tr>
+    <tr>
+      <th>trim</th>
+      <td><p>adjust coordinates for out-of-bounds intervals</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_interval</code></p>
+    <p><code><a href='tbl_interval.html'>tbl_interval</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
  <span class='st'>"chr1"</span>, -<span class='fl'>100</span>,   <span class='fl'>500</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>1e9</span>,

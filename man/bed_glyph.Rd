@@ -19,20 +19,20 @@ result of the call.}
 Used to illustrate the output of valr functions with small input tbls.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
  'chr1', 25,     50,
  'chr1', 100,    125
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end, ~value,
   'chr1', 30,     75,  50
 )
 
 bed_glyph(bed_intersect(x, y))
 
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 30,     75,
   'chr1', 50,     90,

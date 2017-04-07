@@ -4,7 +4,7 @@
 #'
 #' @param x \code{\link{tbl_interval}}
 #' @param y \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #'
 #' @template stats
 #'
@@ -12,23 +12,23 @@
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 #'
-#' @return \code{data_frame}
+#' @return \code{tbl_interval}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 10,     20,
 #'   "chr1", 30,     40,
 #'   "chr1", 51,     52
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 15,     25,
 #'   "chr1", 51,     52
 #' )
 #'
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'   ~chrom, ~size,
 #'   "chr1", 500
 #' )
@@ -40,7 +40,7 @@ bed_fisher <- function(x, y, genome) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_interval(y)) y <- tbl_interval(y)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   # number of intervals
   n_x <- nrow(x)

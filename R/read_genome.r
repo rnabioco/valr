@@ -7,7 +7,7 @@
 #' @param path containing chrom/contig names and sizes, one-pair-per-line,
 #'   tab-delimited
 #'
-#' @return \code{\link{tbl_sizes}}, sorted by \code{size}
+#' @return \code{\link{tbl_genome}}, sorted by \code{size}
 #'
 #' @note URLs to genome files can also be used.
 #'
@@ -26,7 +26,7 @@ read_genome <- function(path) {
   colnames <- c('chrom', 'size')
   genome <- suppressMessages(readr::read_tsv(path, col_names = colnames))
   genome <- arrange(genome, desc(size))
-  genome <- tbl_sizes(genome)
+  genome <- tbl_genome(genome)
   genome
 }
 
@@ -36,13 +36,13 @@ read_genome <- function(path) {
 #' \code{genome}.
 #'
 #' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
 #' @return \code{\link{tbl_interval}}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", -100,   500,
 #'  "chr1", 100,    1e9,

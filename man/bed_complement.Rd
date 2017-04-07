@@ -9,7 +9,7 @@ bed_complement(x, genome)
 \arguments{
 \item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 }
 \value{
 \code{\link{tbl_interval}}
@@ -18,27 +18,27 @@ bed_complement(x, genome)
 Identify intervals in a genome not covered by a query.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',      1,      10,
   'chr1',      75,    100
 )
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
   ~chrom, ~size,
   'chr1', 200
 )
 
 bed_glyph(bed_complement(x, genome))
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
    ~chrom,  ~size,
    "chr1", 500,
    "chr2", 600,
    "chr3", 800
 )
 
-x <- tibble::tribble(
+x <- trbl_interval(
    ~chrom, ~start, ~end,
    "chr1", 100,    300,
    "chr1", 200,    400,

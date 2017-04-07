@@ -1,7 +1,7 @@
 #' Shuffle input intervals.
 #'
 #' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #' @param incl \code{\link{tbl_interval}} of included intervals
 #' @param excl \code{\link{tbl_interval}} of excluded intervals
 #' @param max_tries maximum tries to identify a bounded interval
@@ -13,7 +13,7 @@
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 #'
 #' @examples
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'  ~chrom, ~size,
 #'  "chr1", 1e6,
 #'  "chr2", 2e6,
@@ -28,7 +28,7 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
                         max_tries = 1000, within = FALSE, seed = 0) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   # flatten incl and excl
   if (!is.null(incl))

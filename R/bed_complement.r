@@ -1,34 +1,34 @@
 #' Identify intervals in a genome not covered by a query.
 #'
 #' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #'
 #' @family single set operations
 #'
 #' @return \code{\link{tbl_interval}}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1',      1,      10,
 #'   'chr1',      75,    100
 #' )
 #'
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'   ~chrom, ~size,
 #'   'chr1', 200
 #' )
 #'
 #' bed_glyph(bed_complement(x, genome))
 #'
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'    ~chrom,  ~size,
 #'    "chr1", 500,
 #'    "chr2", 600,
 #'    "chr3", 800
 #' )
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'    ~chrom, ~start, ~end,
 #'    "chr1", 100,    300,
 #'    "chr1", 200,    400,
@@ -44,7 +44,7 @@
 bed_complement <- function(x, genome) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   res <- bed_merge(x)
 

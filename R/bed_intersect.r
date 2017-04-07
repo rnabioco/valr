@@ -17,13 +17,13 @@
 #' @template groups
 #'
 #' @examples
-#' x <- tibble::tribble(
-#' ~chrom, ~start, ~end,
-#' 'chr1', 25,      50,
-#' 'chr1', 100,     125
+#' x <- trbl_interval(
+#'   ~chrom, ~start, ~end,
+#'   'chr1', 25,      50,
+#'   'chr1', 100,     125
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 30,     75
 #' )
@@ -31,7 +31,7 @@
 #' bed_glyph(bed_intersect(x, y))
 #' bed_glyph(bed_intersect(x, y, invert = TRUE))
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 100,    500,
 #'   "chr2", 200,    400,
@@ -39,7 +39,7 @@
 #'   "chr2", 800,    900
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom, ~start, ~end, ~value,
 #'   "chr1", 150,    400,  100,
 #'   "chr1", 500,    550,  100,

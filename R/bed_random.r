@@ -1,6 +1,6 @@
 #' Generate randomly placed intervals on a genome.
 #'
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #' @param length length of intervals
 #' @param n number of intervals to generate
 #' @param sort_by sorting variables
@@ -12,7 +12,7 @@
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 #'
 #' @examples
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'   ~chrom,  ~size,
 #'   "chr1",  10000000,
 #'   "chr2",  50000000,
@@ -31,7 +31,7 @@
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6, sort_by = c('chrom', 'start'), seed = 0) {
 
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   if(!all(genome$size > length))
     stop('`length` must be greater than all chrom sizes', call. = FALSE)

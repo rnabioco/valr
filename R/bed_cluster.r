@@ -16,7 +16,7 @@
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100,  200,
 #'  "chr1", 180,  250,
@@ -29,7 +29,7 @@
 #' bed_cluster(x)
 #'
 #' # glyph illustrating clustering of overlapping and book-ended intervals
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 1,      10,
 #'   'chr1', 5,      20,

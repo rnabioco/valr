@@ -98,24 +98,24 @@
     <div class="contents">
     <div id="valr-0-1-2-9000" class="section level1">
 <h1 class="hasAnchor">
-<a href="#valr-0-1-2-9000" class="anchor"> </a>valr 0.1.2.9000</h1>
+<a href="#valr-0-1-2-9000" class="anchor"></a>valr 0.1.2.9000</h1>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"> </a>Major changes</h2>
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
-<li>new <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_sizes.html">tbl_sizes()</a></code> that wrap tibbles and enforce strict column naming. <code><a href="../reference/is.tbl_interval.html">is.tbl_interval()</a></code> and <code><a href="../reference/is.tbl_sizes.html">is.tbl_sizes()</a></code> are used to for valid classes.</li>
+<li>new <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code> that wrap tibbles and enforce strict column naming. <code><a href="../reference/trbl_interval.html">trbl_interval()</a></code> and <code><a href="../reference/trbl_genome.html">trbl_genome()</a></code> are constructors that take <code>tibble::tribble()</code> formatting and <code><a href="../reference/is.tbl_interval.html">is.tbl_interval()</a></code> and <code><a href="../reference/is.tbl_genome.html">is.tbl_genome()</a></code> are used to check for valid classes.</li>
 </ul>
 </div>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"> </a>Minor changes</h2>
+<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>intervals returned from <code><a href="../reference/bed_random.html">bed_random()</a></code> are sorted by <code>chrom</code> and <code>start</code> by default.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"> </a>Bug fixes</h2>
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Merge intervals in <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> and use numeric values for calculation (fixes #204).</li>
 </ul>
@@ -123,17 +123,17 @@
 </div>
     <div id="valr-0-1-2" class="section level1">
 <h1 class="hasAnchor">
-<a href="#valr-0-1-2" class="anchor"> </a>valr 0.1.2</h1>
+<a href="#valr-0-1-2" class="anchor"></a>valr 0.1.2</h1>
 <div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"> </a>Major changes</h2>
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Deprecate <code><a href="../reference/bed_sort.html">bed_sort()</a></code> in favor of using <code>dplyr::arrange()</code> explicitly (fixes #134).</li>
 </ul>
 </div>
 <div id="minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-1" class="anchor"> </a>Minor changes</h2>
+<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>add <code>src/init.c</code> that calls <code>R_registerRoutines</code> and <code>R_useDynamicSymbols</code> to address NOTE in r-devel</p></li>
 <li><p>Deprecate <code>dist</code> parameter in <code><a href="../reference/bed_closest.html">bed_closest()</a></code> in favor of using user supplied functions (#182 @kriemo)</p></li>
@@ -145,7 +145,7 @@
 </div>
 <div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"> </a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code><a href="../reference/bed_merge.html">bed_merge()</a></code> now merges contained intervals (#177)</li>
@@ -154,10 +154,10 @@
 </div>
     <div id="valr-0-1-1" class="section level1">
 <h1 class="hasAnchor">
-<a href="#valr-0-1-1" class="anchor"> </a>valr 0.1.1</h1>
+<a href="#valr-0-1-1" class="anchor"></a>valr 0.1.1</h1>
 <div id="minor-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-2" class="anchor"> </a>Minor changes</h2>
+<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>test / vignette guards for Suggested RMySQL</p></li>
 <li><p>fixed memory leak in absdist.cpp</p></li>
@@ -167,10 +167,10 @@
 </div>
     <div id="valr-0-1-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#valr-0-1-0" class="anchor"> </a>valr 0.1.0</h1>
+<a href="#valr-0-1-0" class="anchor"></a>valr 0.1.0</h1>
 <div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"> </a>Major changes</h2>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li>initial release on CRAN</li>
 </ul>

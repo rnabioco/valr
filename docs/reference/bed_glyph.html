@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -99,13 +101,18 @@
     <pre><span class='fu'>bed_glyph</span>(<span class='no'>expr</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>expr</dt>
-      <dd>expression to evaluate</dd>
-      <dt>label</dt>
-      <dd>column name to use for label values. should be present in the
-result of the call.</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>expr</th>
+      <td><p>expression to evaluate</p></td>
+    </tr>
+    <tr>
+      <th>label</th>
+      <td><p>column name to use for label values. should be present in the
+result of the call.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -113,19 +120,19 @@ result of the call.</dd>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>25</span>,     <span class='fl'>50</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>125</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>75</span>,  <span class='fl'>50</span>
 )
 
 <span class='fu'>bed_glyph</span>(<span class='fu'><a href='bed_intersect.html'>bed_intersect</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><img src='bed_glyph-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>75</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>50</span>,     <span class='fl'>90</span>,

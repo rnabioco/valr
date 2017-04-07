@@ -22,12 +22,13 @@ valr_example <- function(path) {
 #' @param y \code{\link{tbl_interval}}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' # names out of order
+#' x <- trbl_interval(
 #'   ~end,  ~chrom,   ~start, ~value,
 #'   75,  "chr1",    125,    10
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom,   ~start,    ~end,  ~scores,
 #'   "chr1",    50,       100,  1.2,
 #'   "chr1",    100,       150,  2.4
@@ -57,13 +58,13 @@ format_bed <- function(x, y) {
 #' @return \code{list} of groups or \code{NULL}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end, ~value,
 #'   "chr1", 150,    400,  100,
 #'   "chr2", 230,    430,  200
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom, ~start, ~end, ~value,
 #'   "chr1", 50,     100,  1,
 #'   "chr1", 100,    150,  2

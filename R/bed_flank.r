@@ -1,7 +1,7 @@
 #' Create flanking intervals from input intervals.
 #'
 #' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #' @param both number of bases on both sizes
 #' @param left number of bases on left side
 #' @param right number of bases on right side
@@ -18,28 +18,28 @@
 #'
 #' @examples
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1',      25,      50,
 #'   'chr1',      100,     125
 #' )
 #'
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'   ~chrom, ~size,
 #'   'chr1', 130
 #' )
 #'
 #' bed_glyph(bed_flank(x, genome, both = 20))
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'  ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'  "chr1", 500,    1000, '.',   '.',    '+',
 #'  "chr1", 1000,   1500, '.',   '.',    '-'
 #' )
 #'
-#' genome <- tibble::tribble(
-#'  ~chrom, ~size,
-#'  "chr1", 5000
+#' genome <- trbl_genome(
+#'   ~chrom, ~size,
+#'   "chr1", 5000
 #' )
 #'
 #' bed_flank(x, genome, left = 100)
@@ -50,14 +50,13 @@
 #'
 #' bed_flank(x, genome, both = 0.5, fraction = TRUE)
 #'
-#'
 #' @export
 bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE, ...) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   if (!any(c(both, left, right) > 0))
     stop('specify one of both, left, right', call. = FALSE)

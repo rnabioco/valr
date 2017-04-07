@@ -101,20 +101,29 @@
     <pre><span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
-      <dt>y</dt>
-      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
-      <dt>overlap</dt>
-      <dd><p>report overlapping intervals</p></dd>
-      <dt>suffix</dt>
-      <dd><p>colname suffixes in output</p></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+    </tr>
+    <tr>
+      <th>overlap</th>
+      <td><p>report overlapping intervals</p></td>
+    </tr>
+    <tr>
+      <th>suffix</th>
+      <td><p>colname suffixes in output</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_interval</code> with additional columns:</p><ul>
+    <p><code><a href='tbl_interval.html'>tbl_interval</a></code> with additional columns:</p><ul>
 <li><p><code>.dist</code> distance to closest interval, negative distances denote upstream intervals</p></li>
 <li><p><code>.overlap</code> overlap with closest interval</p></li>
 </ul>
@@ -137,30 +146,30 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>,      <span class='fl'>100</span>,     <span class='fl'>125</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>,      <span class='fl'>25</span>,      <span class='fl'>50</span>,
   <span class='st'>'chr1'</span>,     <span class='fl'>140</span>,     <span class='fl'>175</span>
 )
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><img src='bed_closest-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>600</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>5000</span>,   <span class='fl'>6000</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>600</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>5000</span>,   <span class='fl'>6000</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
 ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>200</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>550</span>,    <span class='fl'>580</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>7000</span>,   <span class='fl'>8500</span>
+  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>200</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>550</span>,    <span class='fl'>580</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>7000</span>,   <span class='fl'>8500</span>
 )
 
 <span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 7
@@ -177,15 +186,15 @@
 #&gt; 2  chr1     500   600     150   200  -300
 #&gt; 3  chr2    5000  6000    7000  8500  1000</div><div class='input'>
 <span class='co'># Report distance based on strand</span>
-<span class='no'>x</span>  <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>10</span>,     <span class='fl'>20</span>,     <span class='st'>"a"</span>,    <span class='fl'>1</span>,      <span class='st'>"-"</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
+  <span class='st'>"chr1"</span>,       <span class='fl'>10</span>,     <span class='fl'>20</span>,     <span class='st'>"a"</span>,    <span class='fl'>1</span>,      <span class='st'>"-"</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
- ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
- <span class='st'>"chr1"</span>,        <span class='fl'>8</span>,      <span class='fl'>9</span>,      <span class='st'>"b"</span>,    <span class='fl'>1</span>,      <span class='st'>"+"</span>,
- <span class='st'>"chr1"</span>,        <span class='fl'>21</span>,     <span class='fl'>22</span>,     <span class='st'>"b"</span>,    <span class='fl'>1</span>, <span class='st'>"-"</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
+  <span class='st'>"chr1"</span>,       <span class='fl'>8</span>,      <span class='fl'>9</span>,      <span class='st'>"b"</span>,    <span class='fl'>1</span>,      <span class='st'>"+"</span>,
+  <span class='st'>"chr1"</span>,       <span class='fl'>21</span>,     <span class='fl'>22</span>,     <span class='st'>"b"</span>,    <span class='fl'>1</span>, <span class='st'>"-"</span>
 )
 
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>)

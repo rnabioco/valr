@@ -10,7 +10,7 @@ bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
 \arguments{
 \item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 
 \item{win_size}{divide intervals into fixed-size windows}
 
@@ -33,12 +33,12 @@ The \code{name} and \code{.win_id} columns can be used to create new
   \code{group_by} operations (see vignette).
 }
 \examples{
-genome <- tibble::tribble(
+genome <- trbl_genome(
  ~chrom, ~size,
  "chr1", 200
 )
 
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100,    200,  'A',   '.',    '+'
 )
