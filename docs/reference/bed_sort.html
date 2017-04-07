@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -100,16 +102,25 @@ within a chrom, not by chrom.</p>
     <pre><span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>tbl of intervals</dd>
-      <dt>by_size</dt>
-      <dd>sort by interval size</dd>
-      <dt>by_chrom</dt>
-      <dd>sort within chromosome</dd>
-      <dt>reverse</dt>
-      <dd>reverse sort order</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>tbl of intervals</p></td>
+    </tr>
+    <tr>
+      <th>by_size</th>
+      <td><p>sort by interval size</p></td>
+    </tr>
+    <tr>
+      <th>by_chrom</th>
+      <td><p>sort within chromosome</p></td>
+    </tr>
+    <tr>
+      <th>reverse</th>
+      <td><p>reverse sort order</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -126,7 +137,7 @@ within a chrom, not by chrom.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
    ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
    <span class='st'>"chr8"</span>, <span class='fl'>500</span>, <span class='fl'>1000</span>,
    <span class='st'>"chr8"</span>, <span class='fl'>1000</span>, <span class='fl'>5000</span>,

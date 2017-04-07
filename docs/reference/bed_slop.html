@@ -102,30 +102,49 @@
   <span class='kw'>strand</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></dd>
-      <dt>genome</dt>
-      <dd><p><code><a href='tbl_sizes.html'>tbl_sizes</a></code></p></dd>
-      <dt>both</dt>
-      <dd><p>number of bases on both sizes</p></dd>
-      <dt>left</dt>
-      <dd><p>number of bases on left side</p></dd>
-      <dt>right</dt>
-      <dd><p>number of bases on right side</p></dd>
-      <dt>fraction</dt>
-      <dd><p>define flanks based on fraction of interval length</p></dd>
-      <dt>strand</dt>
-      <dd><p>define <code>left</code> and <code>right</code> based on strand</p></dd>
-      <dt>trim</dt>
-      <dd><p>adjust coordinates for out-of-bounds intervals</p></dd>
-      <dt>...</dt>
-      <dd><p>extra arguments (not used)</p></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+    </tr>
+    <tr>
+      <th>genome</th>
+      <td><p><code><a href='tbl_genome.html'>tbl_genome</a></code></p></td>
+    </tr>
+    <tr>
+      <th>both</th>
+      <td><p>number of bases on both sizes</p></td>
+    </tr>
+    <tr>
+      <th>left</th>
+      <td><p>number of bases on left side</p></td>
+    </tr>
+    <tr>
+      <th>right</th>
+      <td><p>number of bases on right side</p></td>
+    </tr>
+    <tr>
+      <th>fraction</th>
+      <td><p>define flanks based on fraction of interval length</p></td>
+    </tr>
+    <tr>
+      <th>strand</th>
+      <td><p>define <code>left</code> and <code>right</code> based on strand</p></td>
+    </tr>
+    <tr>
+      <th>trim</th>
+      <td><p>adjust coordinates for out-of-bounds intervals</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>extra arguments (not used)</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_interval</code></p>
+    <p><code><a href='tbl_interval.html'>tbl_interval</a></code></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -137,24 +156,24 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>'chr1'</span>,      <span class='fl'>110</span>,      <span class='fl'>120</span>,
-  <span class='st'>'chr1'</span>,      <span class='fl'>225</span>,     <span class='fl'>235</span>
-  )
+  <span class='st'>'chr1'</span>, <span class='fl'>110</span>,    <span class='fl'>120</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>225</span>,    <span class='fl'>235</span>
+)
 
-<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_genome.html'>trbl_genome</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
-  <span class='st'>'chr1'</span>,      <span class='fl'>400</span>
+  <span class='st'>'chr1'</span>, <span class='fl'>400</span>
 )
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><img src='bed_slop-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_genome.html'>trbl_genome</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>5000</span>
 )
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>1000</span>, <span class='st'>'.'</span>,   <span class='st'>'.'</span>,     <span class='st'>'+'</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>1000</span>,   <span class='fl'>1500</span>, <span class='st'>'.'</span>,   <span class='st'>'.'</span>,     <span class='st'>'-'</span>

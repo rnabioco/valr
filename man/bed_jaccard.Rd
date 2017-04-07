@@ -38,13 +38,13 @@ Interval statistics can be used in combination with
   examples.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   "chr1", 10,     20,
   "chr1", 30,     40
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   "chr1", 15,     20
 )

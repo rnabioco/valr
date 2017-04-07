@@ -14,15 +14,7 @@ tbl_interval(x, ..., .validate = TRUE)
 \item{.validate}{check valid column names}
 }
 \description{
-Tibble for intervals.
-}
-\details{
-Required column names:
-
-\itemize{
-  \item{\code{chrom}}
-  \item{\code{start}}
-  \item{\code{end}}}
+Required column names are \code{chrom}, \code{start} and \code{end}
 }
 \examples{
 x <- tibble::tribble(

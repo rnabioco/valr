@@ -11,10 +11,10 @@ bed_fisher(x, y, genome)
 
 \item{y}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 }
 \value{
-\code{data_frame}
+\code{tbl_interval}
 }
 \description{
 Borrows from the \code{BEDtools} implementation.
@@ -26,20 +26,20 @@ Interval statistics can be used in combination with
   examples.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   "chr1", 10,     20,
   "chr1", 30,     40,
   "chr1", 51,     52
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   "chr1", 15,     25,
   "chr1", 51,     52
 )
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
   ~chrom, ~size,
   "chr1", 500
 )

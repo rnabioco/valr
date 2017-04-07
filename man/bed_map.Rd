@@ -50,12 +50,12 @@ input tbls are grouped by \code{chrom} by default, and additional
   first be inverted using \code{\link{flip_strands}}.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',      1,      100
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end, ~value,
   'chr1',      1,     20,    10,
   'chr1',      30,    50,    20,
@@ -64,13 +64,13 @@ y <- tibble::tribble(
 
 bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
 
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
  "chr1", 100,    250,
  "chr2", 250,    500
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
  ~chrom, ~start, ~end, ~value,
  "chr1", 100,    250,  10,
  "chr1", 150,    250,  20,

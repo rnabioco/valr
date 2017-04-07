@@ -12,19 +12,19 @@
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 #'
 #' @examples
-#' x <- tibble::tribble(
-#' ~chrom, ~start, ~end,
-#' 'chr1', 1,      100
+#' x <- trbl_interval(
+#'   ~chrom, ~start, ~end,
+#'   'chr1', 1,      100
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 50,     75
 #' )
 #'
 #' bed_glyph(bed_subtract(x, y))
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 100,    200,
 #'  "chr1", 250,    400,
@@ -33,7 +33,7 @@
 #'  "chr1", 1300,   1500
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", 150,    175,
 #'  "chr1", 510,    525,

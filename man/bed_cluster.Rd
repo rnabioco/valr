@@ -27,7 +27,7 @@ input tbls are grouped by \code{chrom} by default, and additional
   first be inverted using \code{\link{flip_strands}}.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
  "chr1", 100,  200,
  "chr1", 180,  250,
@@ -40,7 +40,7 @@ x <- tibble::tribble(
 bed_cluster(x)
 
 # glyph illustrating clustering of overlapping and book-ended intervals
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 1,      10,
   'chr1', 5,      20,

@@ -29,7 +29,7 @@ input tbls are grouped by \code{chrom} by default, and additional
   first be inverted using \code{\link{flip_strands}}.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',  1,      50,
   'chr1',  10,     75,
@@ -38,7 +38,7 @@ x <- tibble::tribble(
 
 bed_glyph(bed_merge(x))
 
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end, ~value, ~strand,
  "chr1", 1,      50,   1,      '+',
  "chr1", 100,    200,  2,      '+',

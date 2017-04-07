@@ -9,7 +9,7 @@
 #' @examples
 #' 
 #' # unsorted tbl
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 150,    500,
 #'   'chr1', 1,      100,
@@ -51,7 +51,7 @@ NULL
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
 #' 
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'    ~chrom, ~start, ~end,
 #'    "chr8", 500, 1000,
 #'    "chr8", 1000, 5000,

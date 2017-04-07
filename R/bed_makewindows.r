@@ -1,7 +1,7 @@
 #' Divide intervals into new sub-intervals ("windows").
 #'
 #' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #' @param win_size divide intervals into fixed-size windows
 #' @param step_size size to step before next window
 #' @param num_win divide intervals to fixed number of windows
@@ -16,12 +16,12 @@
 #'   identifier for the window.
 #'
 #' @examples
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'  ~chrom, ~size,
 #'  "chr1", 200
 #' )
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'   "chr1", 100,    200,  'A',   '.',    '+'
 #' )
@@ -50,7 +50,7 @@ bed_makewindows <- function(x, genome, win_size = 0,
                             reverse = FALSE) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   if (win_size == 0 && num_win == 0)
     stop('specify either `win_size` or `num_win`', call. = FALSE)

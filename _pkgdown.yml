@@ -11,6 +11,7 @@ reference:
   - title: Data types
     contents:
     - starts_with("tbl_")
+    - starts_with("trbl_")
     - starts_with("is.")
 
   - title: Load data

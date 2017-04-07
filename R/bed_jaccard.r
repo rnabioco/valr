@@ -26,13 +26,13 @@
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 10,     20,
 #'   "chr1", 30,     40
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 15,     20
 #' )

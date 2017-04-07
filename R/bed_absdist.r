@@ -17,7 +17,7 @@
 #'
 #' @param x \code{\link{tbl_interval}}
 #' @param y \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_sizes}}
+#' @param genome \code{\link{tbl_genome}}
 #'
 #' @return \code{\link{tbl_interval}} with \code{.absdist} and \code{.absdist_scaled}
 #'   columns.
@@ -30,18 +30,18 @@
 #' \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #'
 #' @examples
-#' x <- tibble::frame_data(
-#' ~chrom,   ~start,    ~end,
-#' "chr1",    75,       125
-#'   )
+#' x <- trbl_interval(
+#'   ~chrom,   ~start,    ~end,
+#'   "chr1",    75,       125
+#' )
 #'
-#' y <- tibble::frame_data(
+#' y <- trbl_interval(
 #'   ~chrom,   ~start,    ~end,
 #'   "chr1",    50,       100,
 #'   "chr1",    100,       150
-#'   )
+#' )
 #'
-#' genome <- tibble::frame_data(
+#' genome <- trbl_genome(
 #'   ~chrom, ~size,
 #'   "chr1", 500,
 #'   "chr2", 1000
@@ -54,7 +54,7 @@ bed_absdist <- function(x, y, genome) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_interval(y)) y <- tbl_interval(y)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   # find minimum shared groups
   groups_xy <- shared_groups(y, x)
