@@ -80,7 +80,7 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 
 ### Data types
 
--   `tbl_interval()` and `tbl_genome()` wrap tibbles and enforce strict column naming. `trbl_interval()` and `trbl_genome()` are constructors that take `tibble::tribble()` formatting and `is.tbl_interval()` and `is.tbl_genome()` are used to check for valid classes.
+-   `tbl_interval()` and `tbl_genome()` wrap tibbles and enforce strict column naming. `trbl_interval()` and `trbl_genome()` are constructors that take `tibble::tribble()` formatting.
 
 ### Reading data
 
