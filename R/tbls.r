@@ -38,7 +38,7 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
 #' trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1',  1,      50,
-#'   'chr1',  10,     75,
+#'   'chr1',  10,     75
 #' )
 #'
 #' @export
@@ -90,7 +90,7 @@ tbl_genome <- function(x, ..., .validate = TRUE) {
 
 #' Construct a tbl_genome using tribble formatting.
 #'
-#' @param data for \code{\link[tibble]{tribble}}
+#' @param ... for \code{\link[tibble]{tribble}}
 #'
 #' @return \code{\link{tbl_genome}}
 #'

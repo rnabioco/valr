@@ -19,7 +19,7 @@ Construct an tbl_interval using tribble formatting.
 trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',  1,      50,
-  'chr1',  10,     75,
+  'chr1',  10,     75
 )
 
 }

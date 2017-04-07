@@ -59,7 +59,7 @@ y <- trbl_interval(
   "chr2", 350,    430
 )
 
-genome <- trbl_interval(
+genome <- trbl_genome(
   ~chrom, ~size,
   "chr1", 500,
   "chr2", 1000

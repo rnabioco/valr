@@ -7,7 +7,7 @@
 trbl_genome(...)
 }
 \arguments{
-\item{data}{for \code{\link[tibble]{tribble}}}
+\item{...}{for \code{\link[tibble]{tribble}}}
 }
 \value{
 \code{\link{tbl_genome}}

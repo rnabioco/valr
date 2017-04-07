@@ -170,14 +170,19 @@
   <span class='st'>"chr2"</span>, <span class='fl'>350</span>,    <span class='fl'>430</span>
 )
 
-<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_genome.html'>trbl_genome</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
   <span class='st'>"chr1"</span>, <span class='fl'>500</span>,
   <span class='st'>"chr2"</span>, <span class='fl'>1000</span>
-)</div><div class='output co'>#&gt; <span class='error'>Error in check_names(x, expect_names): expected 3 required names, missing: start, end</span></div><div class='input'>
-<span class='fu'>bed_window</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 0 × 6
-#&gt; # ... with 6 variables: chrom &lt;chr&gt;, start.x &lt;dbl&gt;, end.x &lt;dbl&gt;, start.y &lt;dbl&gt;,
-#&gt; #   end.y &lt;dbl&gt;, .overlap &lt;int&gt;</div><div class='input'>
+)
+
+<span class='fu'>bed_window</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 6
+#&gt;   chrom start.x end.x start.y end.y .overlap
+#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
+#&gt; 1  chr2     200   400     230   430      200
+#&gt; 2  chr2     200   400     350   430       80
+#&gt; 3  chr2     300   500     230   430      200
+#&gt; 4  chr2     300   500     350   430       80</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -118,8 +118,12 @@
     <pre class="examples"><div class='input'><span class='fu'>trbl_interval</span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>,  <span class='fl'>1</span>,      <span class='fl'>50</span>,
-  <span class='st'>'chr1'</span>,  <span class='fl'>10</span>,     <span class='fl'>75</span>,
-)</div><div class='output co'>#&gt; <span class='error'>Error in extract_frame_data_from_dots(...): argument is missing, with no default</span></div><div class='input'>
+  <span class='st'>'chr1'</span>,  <span class='fl'>10</span>,     <span class='fl'>75</span>
+)</div><div class='output co'>#&gt; # A tibble: 2 × 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr1     1    50
+#&gt; 2  chr1    10    75</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
