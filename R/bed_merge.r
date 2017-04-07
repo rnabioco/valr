@@ -16,7 +16,7 @@
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1',  1,      50,
 #'   'chr1',  10,     75,
@@ -25,7 +25,7 @@
 #'
 #' bed_glyph(bed_merge(x))
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'  ~chrom, ~start, ~end, ~value, ~strand,
 #'  "chr1", 1,      50,   1,      '+',
 #'  "chr1", 100,    200,  2,      '+',

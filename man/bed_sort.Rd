@@ -28,7 +28,7 @@ Sorting strips groups from the input.
 }
 
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
    ~chrom, ~start, ~end,
    "chr8", 500, 1000,
    "chr8", 1000, 5000,

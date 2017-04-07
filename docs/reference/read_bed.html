@@ -112,22 +112,33 @@
 <span class='fu'>read_broadpeak</span>(<span class='no'>filename</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>filename</dt>
-      <dd><p>file or URL</p></dd>
-      <dt>n_fields</dt>
-      <dd><p>number fields in the BED file</p></dd>
-      <dt>col_types</dt>
-      <dd><p>column type spec for <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code></p></dd>
-      <dt>sort</dt>
-      <dd><p>sort the tbl by chrom and start</p></dd>
-      <dt>...</dt>
-      <dd><p>options to pass to <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code></p></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>filename</th>
+      <td><p>file or URL</p></td>
+    </tr>
+    <tr>
+      <th>n_fields</th>
+      <td><p>number fields in the BED file</p></td>
+    </tr>
+    <tr>
+      <th>col_types</th>
+      <td><p>column type spec for <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code></p></td>
+    </tr>
+    <tr>
+      <th>sort</th>
+      <td><p>sort the tbl by chrom and start</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>options to pass to <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code></p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>tbl_interval</code></p>
+    <p><code><a href='tbl_interval.html'>tbl_interval</a></code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

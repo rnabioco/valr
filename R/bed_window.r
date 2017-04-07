@@ -8,25 +8,25 @@
 #'
 #' @family multiple set operations
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'  ~chrom, ~start, ~end,
 #'  'chr1', 25,     50,
 #'  'chr1', 100,    125
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 60,     75
 #' )
 #'
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'   ~chrom, ~size,
 #'   'chr1', 125
 #' )
 #'
 #' bed_glyph(bed_window(x, y, genome, both = 15))
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 10,    100,
 #'   "chr2", 200,    400,
@@ -34,14 +34,14 @@
 #'   "chr2", 800,    900
 #' )
 #'
-#' y <- tibble::tribble(
+#' y <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 150,    400,
 #'   "chr2", 230,    430,
 #'   "chr2", 350,    430
 #' )
 #'
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'   ~chrom, ~size,
 #'   "chr1", 500,
 #'   "chr2", 1000
@@ -56,7 +56,7 @@ bed_window <- function(x, y, genome, ...) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_interval(y)) y <- tbl_interval(y)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   x <- mutate(x, .start = start, .end = end)
 

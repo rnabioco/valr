@@ -11,7 +11,7 @@ bed_window(x, y, genome, ...)
 
 \item{y}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 
 \item{...}{params for bed_slop and bed_intersect}
 }
@@ -26,25 +26,25 @@ input tbls are grouped by \code{chrom} by default, and additional
   first be inverted using \code{\link{flip_strands}}.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
  'chr1', 25,     50,
  'chr1', 100,    125
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 60,     75
 )
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
   ~chrom, ~size,
   'chr1', 125
 )
 
 bed_glyph(bed_window(x, y, genome, both = 15))
 
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   "chr1", 10,    100,
   "chr2", 200,    400,
@@ -52,14 +52,14 @@ x <- tibble::tribble(
   "chr2", 800,    900
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   "chr1", 150,    400,
   "chr2", 230,    430,
   "chr2", 350,    430
 )
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
   ~chrom, ~size,
   "chr1", 500,
   "chr2", 1000

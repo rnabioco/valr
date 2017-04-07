@@ -6,7 +6,7 @@
 #' @param x \code{\link{tbl_interval}}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end, ~strand,
 #'   'chr1', 1,      100,  '+',
 #'   'chr2', 1,      100,  '-'

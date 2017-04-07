@@ -11,7 +11,7 @@ bed_absdist(x, y, genome)
 
 \item{y}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 }
 \value{
 \code{\link{tbl_interval}} with \code{.absdist} and \code{.absdist_scaled}
@@ -40,18 +40,18 @@ Interval statistics can be used in combination with
   examples.
 }
 \examples{
-x <- tibble::frame_data(
-~chrom,   ~start,    ~end,
-"chr1",    75,       125
-  )
+x <- trbl_interval(
+  ~chrom,   ~start,    ~end,
+  "chr1",    75,       125
+)
 
-y <- tibble::frame_data(
+y <- trbl_interval(
   ~chrom,   ~start,    ~end,
   "chr1",    50,       100,
   "chr1",    100,       150
-  )
+)
 
-genome <- tibble::frame_data(
+genome <- trbl_genome(
   ~chrom, ~size,
   "chr1", 500,
   "chr2", 1000

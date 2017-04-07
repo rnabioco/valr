@@ -10,7 +10,7 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
 \arguments{
 \item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 
 \item{incl}{\code{\link{tbl_interval}} of included intervals}
 
@@ -29,7 +29,7 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
 Shuffle input intervals.
 }
 \examples{
-genome <- tibble::tribble(
+genome <- trbl_genome(
  ~chrom, ~size,
  "chr1", 1e6,
  "chr2", 2e6,

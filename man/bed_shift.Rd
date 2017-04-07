@@ -9,7 +9,7 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 \arguments{
 \item{x}{\code{\link{tbl_interval}}}
 
-\item{genome}{\code{\link{tbl_sizes}}}
+\item{genome}{\code{\link{tbl_genome}}}
 
 \item{size}{number of bases to shift. postive numbers shift right, negative shift left.}
 
@@ -24,20 +24,20 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 Out-of-bounds intervals are removed by default.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
  'chr1',      25,      50,
  'chr1',      100,     125
 )
 
-genome = tibble::tribble(
+genome <- trbl_genome(
   ~chrom, ~size,
-  'chr1',      125
+  'chr1', 125
 )
 
 bed_glyph(bed_shift(x, genome, size = -20))
 
-x <- tibble::tribble(
+x <- trbl_interval(
    ~chrom, ~start, ~end, ~strand,
    "chr1", 100, 150, "+",
    "chr1", 200, 250, "+",
@@ -47,7 +47,7 @@ x <- tibble::tribble(
    "chr3", 600, 650, "-"
 )
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
    ~chrom, ~size,
    "chr1", 1000,
    "chr2", 2000,

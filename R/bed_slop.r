@@ -9,25 +9,25 @@
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/slop.html}
 #'
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',      110,      120,
-#'   'chr1',      225,     235
-#'   )
+#'   'chr1', 110,    120,
+#'   'chr1', 225,    235
+#' )
 #'
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'   ~chrom, ~size,
-#'   'chr1',      400
+#'   'chr1', 400
 #' )
 #'
 #' bed_glyph(bed_slop(x, genome, both = 20, trim = TRUE))
 #'
-#' genome <- tibble::tribble(
+#' genome <- trbl_genome(
 #'  ~chrom, ~size,
 #'  "chr1", 5000
 #' )
 #'
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'  ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'  "chr1", 500,    1000, '.',   '.',     '+',
 #'  "chr1", 1000,   1500, '.',   '.',     '-'
@@ -47,7 +47,7 @@ bed_slop <- function(x, genome, both = 0, left = 0,
                      strand = FALSE, trim = FALSE, ...) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_sizes(genome)) genome <- tbl_sizes(genome)
+  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   if (strand && ! 'strand' %in% colnames(x))
     stop('expected `strand` in `x`', call. = FALSE)

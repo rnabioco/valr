@@ -8,11 +8,11 @@
 #' @return \code{\link{tbl_interval}} with \code{.spacing} column.
 #'
 #' @examples
-#' x <- tibble::tribble(
-#' ~chrom, ~start, ~end,
-#' 'chr1', 1,      100,
-#' 'chr1', 150,    200,
-#' 'chr2', 200,    300
+#' x <- trbl_interval(
+#'   ~chrom, ~start, ~end,
+#'   'chr1', 1,      100,
+#'   'chr1', 150,    200,
+#'   'chr2', 200,    300
 #' )
 #'
 #' interval_spacing(x)

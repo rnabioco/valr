@@ -10,7 +10,7 @@ is.tbl_interval(x)
 \item{x}{An object}
 }
 \value{
-\code{TRUE} if the object inherits from the \code{tbl_interval} class.
+\code{TRUE} if the object inherits from the \code{\link{tbl_interval}} class.
 }
 \description{
 Test if the object is a tbl_interval.
