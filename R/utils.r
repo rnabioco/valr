@@ -13,10 +13,10 @@ valr_example <- function(path) {
 
 #' reformat tbl column ordering based upon another tbl
 #'
-#' \code{format_bed} returns a tbl whose columns are ordered by another tbl.
-#' The \code{x} tbl columns are reordered based on the \code{y} columns ordering.
-#' If there are \code{x} columns that do not exist in \code{y} they are moved to the last column.
-#'
+#' \code{reorder_names} returns a tbl whose columns are ordered by another tbl.
+#' The \code{x} tbl columns are reordered based on the \code{y} columns
+#' ordering. \code{x} columns that do not exist in \code{y} are moved to the
+#' last column.
 #'
 #' @param x \code{\link{tbl_interval}}
 #' @param y \code{\link{tbl_interval}}
@@ -24,19 +24,19 @@ valr_example <- function(path) {
 #' @examples
 #' # names out of order
 #' x <- trbl_interval(
-#'   ~end,  ~chrom,   ~start, ~value,
-#'   75,  "chr1",    125,    10
+#'   ~end, ~chrom, ~start, ~value,
+#'   75,   "chr1", 125,    10
 #' )
 #'
 #' y <- trbl_interval(
-#'   ~chrom,   ~start,    ~end,  ~scores,
-#'   "chr1",    50,       100,  1.2,
-#'   "chr1",    100,       150,  2.4
+#'   ~chrom, ~start, ~end,  ~scores,
+#'   "chr1", 50,     100,   1.2,
+#'   "chr1", 100,    150,   2.4
 #' )
 #'
-#' format_bed(x, y)
+#' reorder_names(x, y)
 #' @noRd
-format_bed <- function(x, y) {
+reorder_names <- function(x, y) {
   names_x <- names(x)
   names_y <- names(y)
 

@@ -74,7 +74,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
   # restore original grouping
   res <- group_by_(res, .dots = x_groups)
   res <- select(res, -.id_merge)
-  res <- format_bed(res, x)
+  res <- reorder_names(res, x)
 
   attr(res, 'merged') <- TRUE
 
