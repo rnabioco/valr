@@ -64,6 +64,5 @@ bed_merge(x, .value = sum(value))
 
 Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_complement}}, \code{\link{bed_flank}},
-  \code{\link{bed_random}}, \code{\link{bed_shift}},
-  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
+  \code{\link{bed_shift}}, \code{\link{bed_slop}}
 }

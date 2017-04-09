@@ -18,6 +18,9 @@ bed_random(genome, length = 1000, n = 1e+06, sort_by = c("chrom",
 
 \item{seed}{seed RNG for reproducible intervals}
 }
+\value{
+\code{\link{tbl_interval}}
+}
 \description{
 Generate randomly placed intervals on a genome.
 }
@@ -45,8 +48,5 @@ bed_random(genome, length = 500, n = 500, seed = 10104)
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 
-Other single set operations: \code{\link{bed_cluster}},
-  \code{\link{bed_complement}}, \code{\link{bed_flank}},
-  \code{\link{bed_merge}}, \code{\link{bed_shift}},
-  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
+Other randomizing operations: \code{\link{bed_shuffle}}
 }

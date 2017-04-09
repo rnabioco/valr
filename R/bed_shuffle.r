@@ -9,7 +9,7 @@
 #' @param seed seed for reproducible intervals
 #'
 #' @return \code{\link{tbl_interval}}
-#' @family single set operations
+#' @family randomizing operations
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 #'
 #' @examples

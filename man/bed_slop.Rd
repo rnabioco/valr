@@ -71,6 +71,5 @@ bed_slop(x, genome, both = 0.5, fraction = TRUE)
 
 Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_complement}}, \code{\link{bed_flank}},
-  \code{\link{bed_merge}}, \code{\link{bed_random}},
-  \code{\link{bed_shift}}, \code{\link{bed_shuffle}}
+  \code{\link{bed_merge}}, \code{\link{bed_shift}}
 }

@@ -8,7 +8,9 @@
 #'
 #' @details Sorting can be suppressed with \code{sort_by = NULL}.
 #'
-#' @family single set operations
+#' @return \code{\link{tbl_interval}}
+#'
+#' @family randomizing operations
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 #'
 #' @examples
