@@ -4,24 +4,21 @@
 \alias{bed_closest}
 \title{Identify closest intervals.}
 \usage{
-bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"),
-  dist = c("genome", "strand", "abs"))
+bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"))
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
 \item{overlap}{report overlapping intervals}
 
 \item{suffix}{colname suffixes in output}
-
-\item{dist}{format for distance to nearest interval}
 }
 \value{
-\code{data_frame} with additional columns:
+\code{\link{tbl_interval}} with additional columns:
   \itemize{
-    \item{\code{.dist}}{ distance to closest interval}
+    \item{\code{.dist}}{ distance to closest interval, negative distances denote upstream intervals}
     \item{\code{.overlap}}{ overlap with closest interval}
   }
 }
@@ -34,51 +31,66 @@ input tbls are grouped by \code{chrom} by default, and additional
   grouping by \code{strand} will constrain analyses to the same strand. To
   compare opposing strands across two tbls, strands on the \code{y} tbl can
   first be inverted using \code{\link{flip_strands}}.
-
-\code{dist} can take one of the following values:
-  \itemize{
-    \item{\code{genome}}{ negative distances signify upstream intervals (default)}
-    \item{\code{strand}}{ upstream defined based on strand}
-    \item{\code{abs}}{ absolute value of distance}}
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',      100,     125
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',      25,      50,
   'chr1',     140,     175
 )
- 
+
 bed_glyph(bed_closest(x, y))
 
-x <- tibble::tribble(
-~chrom, ~start, ~end,
-"chr1", 500,    600,
-"chr2", 5000,   6000
-) 
+x <- trbl_interval(
+  ~chrom, ~start, ~end,
+  "chr1", 500,    600,
+  "chr2", 5000,   6000
+)
 
-y <- tibble::tribble(
+y <- trbl_interval(
 ~chrom, ~start, ~end,
-"chr1", 100,    200,
-"chr1", 150,    200,
-"chr1", 550,    580,
-"chr2", 7000,   8500
-) 
+  "chr1", 100,    200,
+  "chr1", 150,    200,
+  "chr1", 550,    580,
+  "chr2", 7000,   8500
+)
 
 bed_closest(x, y)
 
 bed_closest(x, y, overlap = FALSE)
 
+# Report distance based on strand
+x <- trbl_interval(
+  ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+  "chr1",	10,	20,	"a",	1,	"-"
+)
+
+y <- trbl_interval(
+  ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
+  "chr1",	8,	9,	"b",	1,	"+",
+  "chr1",	21,	22,	"b",	1, "-"
+)
+
+res <- bed_closest(x, y)
+
+# convert distance based on strand
+res$.dist_strand <- ifelse(res$strand.x == "+", res$.dist, -(res$.dist))
+res
+
+# report absolute distances
+res$.abs_dist <- abs(res$.dist)
+res
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 
-Other multi-set-ops: \code{\link{bed_coverage}},
+Other multiple set operations: \code{\link{bed_coverage}},
   \code{\link{bed_intersect}}, \code{\link{bed_map}},
   \code{\link{bed_subtract}}, \code{\link{bed_window}}
 }
-

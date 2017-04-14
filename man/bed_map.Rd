@@ -3,8 +3,8 @@
 \name{bed_map}
 \alias{bed_map}
 \alias{concat}
-\alias{values}
 \alias{values_unique}
+\alias{values}
 \title{Calculate summaries and statistics from overlapping intervals.}
 \usage{
 bed_map(x, y, ..., invert = FALSE, suffix = c(".x", ".y"),
@@ -17,9 +17,9 @@ values_unique(.data, sep = ",")
 values(.data, sep = ",")
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link{tbl_interval}}}
 
 \item{...}{name-value pairs specifying colnames and expressions to apply}
 
@@ -34,11 +34,11 @@ values(.data, sep = ",")
 \item{sep}{separator character}
 }
 \value{
-\code{data_frame}
+\code{\link{tbl_interval}}
 }
 \description{
-Used to apply functions like \code{\link{min}()}, \code{\link{count}()}, 
-\code{\link{concat}()} to intersecting intervals. Book-ended intervals are 
+Used to apply functions like \code{\link{min}()}, \code{\link{count}()},
+\code{\link{concat}()} to intersecting intervals. Book-ended intervals are
 not reported by default, but can be included by setting \code{min_overlap =
 0}.
 }
@@ -50,12 +50,12 @@ input tbls are grouped by \code{chrom} by default, and additional
   first be inverted using \code{\link{flip_strands}}.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',      1,      100
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end, ~value,
   'chr1',      1,     20,    10,
   'chr1',      30,    50,    20,
@@ -64,16 +64,18 @@ y <- tibble::tribble(
 
 bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
 
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
- "chr1", 100, 250,
- "chr2", 250, 500)
- 
-y <- tibble::tribble(
+ "chr1", 100,    250,
+ "chr2", 250,    500
+)
+
+y <- trbl_interval(
  ~chrom, ~start, ~end, ~value,
- "chr1", 100, 250, 10,
- "chr1", 150, 250, 20,
- "chr2", 250, 500, 500)
+ "chr1", 100,    250,  10,
+ "chr1", 150,    250,  20,
+ "chr2", 250,    500,  500
+)
 
 # also mean, median, sd etc
 bed_map(x, y, .sum = sum(value))
@@ -81,6 +83,9 @@ bed_map(x, y, .sum = sum(value))
 bed_map(x, y, .min = min(value), .max = max(value))
 
 bed_map(x, y, .concat = concat(value))
+
+# can also create a list-col
+bed_map(x, y, .values = tibble::tibble(value))
 
 # can also use `nth` family from dplyr
 bed_map(x, y, .first = dplyr::first(value))
@@ -103,8 +108,7 @@ bed_map(x, y, .vals.unique = values_unique(value))
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 
-Other multi-set-ops: \code{\link{bed_closest}},
+Other multiple set operations: \code{\link{bed_closest}},
   \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
   \code{\link{bed_subtract}}, \code{\link{bed_window}}
 }
-

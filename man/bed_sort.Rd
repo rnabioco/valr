@@ -26,8 +26,9 @@ Sorting strips groups from the input.
  \code{bed_sort} has been deprecated. Instead
   use \code{\link[dplyr]{arrange}}. See \link{sorting} for details.
 }
+
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
    ~chrom, ~start, ~end,
    "chr8", 500, 1000,
    "chr8", 1000, 5000,
@@ -55,4 +56,3 @@ bed_sort(x, by_size = TRUE, by_chrom = TRUE)
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
 }
-

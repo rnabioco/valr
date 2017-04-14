@@ -2,9 +2,9 @@
 valr
 ====
 
-[![Build Status](https://travis-ci.org/rnabioco/valr.svg?branch=master)](https://travis-ci.org/rnabioco/valr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rnabioco/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg)](https://codecov.io/github/rnabioco/valr?branch=master) [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
+[![Build Status](https://travis-ci.org/rnabioco/valr.svg?branch=master)](https://travis-ci.org/rnabioco/valr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rnabioco/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg)](https://codecov.io/github/rnabioco/valr?branch=master) [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr) [![](http://cranlogs.r-pkg.org/badges/valr?color=FFD700)](https://CRAN.R-project.org/package=valr)
 
-**`valr` provides tools to read and manipulate genome intervals and signals**, similar to the [`BEDtools`](http://bedtools.readthedocs.org/en/latest/) suite. `valr` enables analysis in the R/RStudio environment, leveraging modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`](http://www.rcpp.org/)/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`](https://github.com/hadley/dplyr).
+**`valr` provides tools to read and manipulate genome intervals and signals**, similar to the [`BEDtools`](http://bedtools.readthedocs.org/en/latest/) suite. `valr` enables analysis in the R/RStudio environment, leveraging modern R tools in the [`tidyverse`](http://tidyverse.org) for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`](http://www.rcpp.org/)/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`](https://github.com/hadley/dplyr).
 
 Installation
 ------------
@@ -27,7 +27,7 @@ Why `valr`?
 
 **Why another tool set for interval manipulations?** Based on our experience teaching genome analysis, we were motivated to develop interval arithmetic software that faciliates genome analysis in a single environment (RStudio), eliminating the need to master both command-line and exploratory analysis tools.
 
-`valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
+**Note:** `valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
 ### Familiar tools, all within R
 
@@ -50,28 +50,18 @@ nearby %>%
   filter(abs(.dist) < 5000)
 ```
 
-### Remote databases
-
-Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
-
-``` r
-# access the `refGene` tbl on the `hg38` assembly
-ucsc <- db_ucsc('hg38')
-tbl(ucsc, 'refGene')
-```
-
 ### Visual documentation
 
 `valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. For example, `bed_glyph()` can be used to illustrate result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
 ``` r
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 25,     50,
   'chr1', 100,    125
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 30,     75
 )
@@ -87,6 +77,10 @@ API
 ---
 
 Function names are similar to their their [BEDtools](http://bedtools.readthedocs.org/en/latest/) counterparts, with some additions.
+
+### Data types
+
+-   `tbl_interval()` and `tbl_genome()` wrap tibbles and enforce strict column naming. `trbl_interval()` and `trbl_genome()` are constructors that take `tibble::tribble()` formatting.
 
 ### Reading data
 
@@ -147,6 +141,8 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 -   Convert BED12 to BED6 format with `bed12_to_exons()`.
 
 -   Calculate spacing between intervals with `interval_spacing()`.
+
+-   Access remote databases with `db_ucsc()` and `db_ensembl()`.
 
 Related work
 ------------

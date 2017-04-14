@@ -3,7 +3,6 @@
 ^index\.Rmd$
 ^README\.Rmd$
 ^img$
-^logo\.png$
 ^README-.*\.png$
 ^data-raw$
 ^.*\.Rproj$
@@ -15,3 +14,4 @@
 ^appveyor\.yml$
 ^_pkgdown\.yml$
 ^man-roxygen$
+^.github$

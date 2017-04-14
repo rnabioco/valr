@@ -4,44 +4,18 @@ language: r
 warnings_are_errors: false
 cache: packages
 
-# based on: https://github.com/wesm/feather/issues/154
 matrix:
   allow_failures:
     - os: osx
   include:
     - os: linux
-      compiler: gcc-4.8
-      addons:
-        apt:
-          sources: 
-          - 'ubuntu-toolchain-r-test'
-          packages: 
-          - 'g++-4.8'
-      before_install: |
-        mkdir ~/.R
-        cat <<EOF > ~/.R/Makevars
-        CXX1X=g++-4.8
-        CXX1XSTD=-std=c++11
-    - os: linux
-      compiler: gcc-5
-      addons:
-       apt:
-        sources: 
-        - 'ubuntu-toolchain-r-test'
-        packages: 
-        - 'g++-5'
-      before_install: |
-       mkdir ~/.R
-       cat <<EOF > ~/.R/Makevars
-       CXX1X=g++-5
-       CXX1XSTD=-std=c++11
-    - os: linux
+      r: release
       compiler: gcc-6
       addons:
         apt:
-          sources: 
+          sources:
            - 'ubuntu-toolchain-r-test'
-          packages: 
+          packages:
            - 'g++-6'
       before_install: |
         mkdir ~/.R
@@ -49,18 +23,18 @@ matrix:
         CXX1X=g++-6
         CXX1XSTD=-std=c++11
     - os: linux
-      compiler: clang-3.7
+      r: devel
+      compiler: gcc-6
       addons:
         apt:
-          sources: 
-            - 'ubuntu-toolchain-r-test'
-            - 'llvm-toolchain-precise-3.7'
-          packages: 
-            - 'clang-3.7'
+          sources:
+           - 'ubuntu-toolchain-r-test'
+          packages:
+           - 'g++-6'
       before_install: |
         mkdir ~/.R
         cat <<EOF > ~/.R/Makevars
-        CXX1X=clang++-3.7
+        CXX1X=g++-6
         CXX1XSTD=-std=c++11
     - os: osx
       compiler: clang

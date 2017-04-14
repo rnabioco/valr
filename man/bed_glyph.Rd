@@ -4,36 +4,35 @@
 \alias{bed_glyph}
 \title{Create example glyphs for valr functions.}
 \usage{
-bed_glyph(expr, label = NULL, res_name = "result")
+bed_glyph(expr, label = NULL)
 }
 \arguments{
 \item{expr}{expression to evaluate}
 
-\item{label}{colname in output to use for label values}
-
-\item{res_name}{name of result in output}
+\item{label}{column name to use for label values. should be present in the
+result of the call.}
 }
 \value{
-a \code{ggplot} object
+\code{\link[ggplot2]{ggplot}}
 }
 \description{
 Used to illustrate the output of valr functions with small input tbls.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
  'chr1', 25,     50,
  'chr1', 100,    125
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end, ~value,
   'chr1', 30,     75,  50
 )
 
 bed_glyph(bed_intersect(x, y))
 
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 30,     75,
   'chr1', 50,     90,
@@ -45,4 +44,3 @@ bed_glyph(bed_merge(x))
 bed_glyph(bed_cluster(x), label = '.id')
 
 }
-

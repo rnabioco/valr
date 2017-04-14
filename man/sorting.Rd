@@ -11,7 +11,7 @@ for sorting by chrom and start, and by size using
 \examples{
 
 # unsorted tbl
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 150,    500,
   'chr1', 1,      100,
@@ -33,4 +33,3 @@ x <- dplyr::mutate(x, .size = end - start)
 dplyr::arrange(x, .size)
 
 }
-

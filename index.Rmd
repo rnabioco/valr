@@ -12,14 +12,17 @@ knitr::opts_chunk$set(
   fig.path = "img/README-")
 ```
 
-# valr <img src="logo.png" align="right" />
+# valr
+
+<img src="logo.png" align="right" />
 
 [![Build Status](https://travis-ci.org/rnabioco/valr.svg?branch=master)](https://travis-ci.org/rnabioco/valr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rnabioco/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg)](https://codecov.io/github/rnabioco/valr?branch=master)
 [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
+[![](http://cranlogs.r-pkg.org/badges/valr?color=FFD700)](https://CRAN.R-project.org/package=valr)
 
-**`valr` provides tools to read and manipulate genome intervals and signals**, similar to the [`BEDtools`][1] suite. `valr` enables analysis in the R/RStudio environment, leveraging modern R tools for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][3]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][2].
+**`valr` provides tools to read and manipulate genome intervals and signals**, similar to the [`BEDtools`][1] suite. `valr` enables analysis in the R/RStudio environment, leveraging modern R tools in the [`tidyverse`][14] for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][3]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][2].
 
 ## Installation
 
@@ -40,7 +43,7 @@ devtools::install_github('rnabioco/valr')
 
 **Why another tool set for interval manipulations?** Based on our experience teaching genome analysis, we were motivated to develop interval arithmetic software that faciliates genome analysis in a single environment (RStudio), eliminating the need to master both command-line and exploratory analysis tools.
 
-`valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
+**Note:** `valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
 ### Familiar tools, all within R
 
@@ -63,6 +66,31 @@ nearby %>%
   filter(abs(.dist) < 5000)
 ```
 
+### Visual documentation
+
+`valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. For example, `bed_glyph()` illustrates the result of intersecting `x` and `y` intervals with `bed_intersect()`:
+
+```{r intersect_glyph, echo = FALSE}
+library(valr)
+
+x <- trbl_interval(
+  ~chrom, ~start, ~end,
+  'chr1', 25,     50,
+  'chr1', 100,    125
+)
+
+y <- trbl_interval(
+  ~chrom, ~start, ~end,
+  'chr1', 30,     75
+)
+
+bed_glyph(bed_intersect(x, y))
+```
+
+### Reproducible reports 
+
+`valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because computations in `valr` are fast, it can be for exploratory analysis with `RMarkdown`, and for interactive analysis using `shiny`.
+
 ### Remote databases
 
 Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
@@ -73,32 +101,13 @@ ucsc <- db_ucsc('hg38')
 tbl(ucsc, 'refGene')
 ```
 
-### Visual documentation
-
-`valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. For example, `bed_glyph()` illustrates the result of intersecting `x` and `y` intervals with `bed_intersect()`:
-
-```{r intersect_glyph, echo = FALSE}
-x <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  'chr1', 25,     50,
-  'chr1', 100,    125
-)
-
-y <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  'chr1', 30,     75
-)
-
-bed_glyph(bed_intersect(x, y))
-```
-
-### Reproducible reports 
-
-`valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast, it can be for exploratory analysis with `RMarkdown`, and for interactive analysis using `shiny`.
-
 ## API
 
 Function names are similar to their their [BEDtools][1] counterparts, with some additions.
+
+### Data types
+
+* `tbl_interval()` and `tbl_genome()` wrap tibbles and enforce strict column naming. `trbl_interval()` and `trbl_genome()` are constructors that take `tibble::tribble()` formatting.
 
 ### Reading data
 
@@ -160,6 +169,8 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 * Calculate spacing between intervals with `interval_spacing()`.
 
+* Access remote databases with `db_ucsc()` and `db_ensembl()`.
+
 ## Related work
 
 * Command-line tools [BEDtools][1] and [bedops][5].
@@ -181,3 +192,4 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 [11]: https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/
 [12]: https://bitbucket.org/snakemake/snakemake/wiki/Home
 [13]: http://shiny.rstudio.com/
+[14]: http://tidyverse.org

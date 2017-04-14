@@ -1,3 +1,12 @@
+// merge.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
 //[[Rcpp::export]]
@@ -13,40 +22,52 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   IntegerVector ids(nr) ;      // store ids
   IntegerVector overlaps(nr) ; // store overlap values
 
-  IntegerVector starts   = df["start"] ;
-  IntegerVector ends     = df["end"] ;
+  std::size_t cluster_id = 0;  //store counter for cluster id
 
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
-  for (int i=0; i<ng; i++, ++git) {
+  for (int i = 0; i < ng; i++, ++git) {
 
     GroupedSlicingIndex indices = *git ;
 
-    intervalVector intervals = makeIntervalVector(df, indices);
+    ivl_vector_t intervals = makeIntervalVector(df, indices);
 
-    interval_t last_interval = interval_t(0,0,0) ;
+    ivl_t last_interval = ivl_t(0, 0, 0) ;
 
-    int id, last_id = 0 ; // holds start of the first of intervals to be merged
+    // approach from http://www.geeksforgeeks.org/merging-intervals/
+
+    std::stack<ivl_t> s ;
+    s.push(last_interval) ;
 
     for (auto it : intervals) {
 
       auto idx = it.value ;
 
-      // must be `int` type, not `auto`
       int overlap = intervalOverlap(it, last_interval) ;
       overlaps[idx] = overlap ;
+      last_interval = it ;
 
-      id = it.start ;
-
-      if (overlap > 0) {
-        ids[idx] = last_id ;
-      } else if (overlap <= 0 && std::abs(overlap) <= max_dist) {
-        ids[idx] = last_id ;
-      } else {
-        ids[idx] = id ;
-        last_id = it.start ;
+      auto top = s.top() ;
+      if (top.stop + max_dist < it.start) {
+        // no overlap push to stack and get new id
+        s.push(it) ;
+        cluster_id++ ;
+        ids[idx] = cluster_id ;
       }
 
-      last_interval = it ;
+      else if (top.stop + max_dist < it.stop) {
+        // overlaps and need to update stack top position
+        // do not update id
+        top.stop = it.stop ;
+        s.pop() ;
+        s.push(top) ;
+        ids[idx] = cluster_id ;
+      }
+
+      else {
+        // overlaps but contained in stack top ivl
+        // do not update id
+        ids[idx] = cluster_id ;
+      }
     }
   }
 
@@ -55,7 +76,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   CharacterVector onames = df.attr("names") ;
   CharacterVector names(nc + 2) ;
 
-  for (int i=0; i<nc; i++) {
+  for (int i = 0; i < nc; i++) {
     out[i] = df[i] ;
     names[i] = onames[i] ;
   }
@@ -66,9 +87,9 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   names[nc] = id_name ;
 
   // add overlaps
-  out[nc+1] = overlaps ;
+  out[nc + 1] = overlaps ;
   std::string overlaps_name = ".overlap_merge" ;
-  names[nc+1] = overlaps_name;
+  names[nc + 1] = overlaps_name;
 
   set_class(out, get_class(df)) ;
   out.attr("row.names") = df.attr("row.names") ;

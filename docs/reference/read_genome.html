@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -93,7 +95,7 @@
     </div>
 
     
-    <p>Genome files (UCSC &quot;chromSize&quot; files) contain chromosome name and size
+    <p>Genome files (UCSC "chromSize" files) contain chromosome name and size
 information. These sizes are used by downstream functions to identify
 computed intervals that have coordinates outside of the genome bounds.</p>
     
@@ -101,16 +103,18 @@ computed intervals that have coordinates outside of the genome bounds.</p>
     <pre><span class='fu'>read_genome</span>(<span class='no'>path</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>path</dt>
-      <dd>containing chrom/contig names and sizes, 
-one-pair-per-line, tab-delimited</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>containing chrom/contig names and sizes, one-pair-per-line,
+tab-delimited</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code> with colnames <code>chrom</code> and <code>size</code>, sorted 
-  by <code>size</code></p>
+    <p><code><a href='tbl_genome.html'>tbl_genome</a></code>, sorted by <code>size</code></p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -118,7 +122,7 @@ one-pair-per-line, tab-delimited</dd>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other read-funcs: <code><a href='read_bed.html'>read_bed</a></code>,
+    <p>Other read functions: <code><a href='read_bed.html'>read_bed</a></code>,
   <code><a href='read_vcf.html'>read_vcf</a></code></p>
     
 

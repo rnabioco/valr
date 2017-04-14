@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -93,7 +95,7 @@
     </div>
 
     
-    <p>read functions for BED and related formats. Filenames can be 
+    <p>read functions for BED and related formats. Filenames can be
   local file or URLs. The read functions load data into tbls with consistent
   <code>chrom</code>, <code>start</code> and <code>end</code> colnames.</p>
     
@@ -110,39 +112,50 @@
 <span class='fu'>read_broadpeak</span>(<span class='no'>filename</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>filename</dt>
-      <dd>file or URL</dd>
-      <dt>n_fields</dt>
-      <dd>number fields in the BED file</dd>
-      <dt>col_types</dt>
-      <dd>column type spec for <code>readr::read_tsv</code></dd>
-      <dt>sort</dt>
-      <dd>sort the tbl by chrom and start</dd>
-      <dt>...</dt>
-      <dd>options to pass to <code>readr::read_tsv</code></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>filename</th>
+      <td><p>file or URL</p></td>
+    </tr>
+    <tr>
+      <th>n_fields</th>
+      <td><p>number fields in the BED file</p></td>
+    </tr>
+    <tr>
+      <th>col_types</th>
+      <td><p>column type spec for <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code></p></td>
+    </tr>
+    <tr>
+      <th>sort</th>
+      <td><p>sort the tbl by chrom and start</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>options to pass to <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>read_tsv</a></code></p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code></p>
+    <p><code><a href='tbl_interval.html'>tbl_interval</a></code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a></p>
-    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a></p>
-    <p><a href = 'https://genome.ucsc.edu/goldenPath/help/bedgraph.html'>https://genome.ucsc.edu/goldenPath/help/bedgraph.html</a></p>
-    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format12'>https://genome.ucsc.edu/FAQ/FAQformat.html#format12</a></p>
-    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format13'>https://genome.ucsc.edu/FAQ/FAQformat.html#format13</a></p>
+    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a>
+    <a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a>
+    <a href = 'https://genome.ucsc.edu/goldenPath/help/bedgraph.html'>https://genome.ucsc.edu/goldenPath/help/bedgraph.html</a>
+    <a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format12'>https://genome.ucsc.edu/FAQ/FAQformat.html#format12</a>
+    <a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format13'>https://genome.ucsc.edu/FAQ/FAQformat.html#format13</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other read-funcs: <code><a href='read_genome.html'>read_genome</a></code>,
+    <p>Other read functions: <code><a href='read_genome.html'>read_genome</a></code>,
   <code><a href='read_vcf.html'>read_vcf</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format. </span>
+    <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format.</span>
 <span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 10 × 3
 #&gt;    chrom  start    end
 #&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;

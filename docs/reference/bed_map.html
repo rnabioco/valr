@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -93,8 +95,8 @@
     </div>
 
     
-    <p>Used to apply functions like <code>min()</code>, <code>count()</code>, 
-<code>concat()</code> to intersecting intervals. Book-ended intervals are 
+    <p>Used to apply functions like <code>min()</code>, <code>count()</code>,
+<code>concat()</code> to intersecting intervals. Book-ended intervals are
 not reported by default, but can be included by setting <code>min_overlap =
 0</code>.</p>
     
@@ -109,28 +111,45 @@ not reported by default, but can be included by setting <code>min_overlap =
 <span class='fu'>values</span>(<span class='no'>.data</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>","</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>tbl of intervals</dd>
-      <dt>y</dt>
-      <dd>tbl of intervals</dd>
-      <dt>...</dt>
-      <dd>name-value pairs specifying colnames and expressions to apply</dd>
-      <dt>invert</dt>
-      <dd>report <code>x</code> intervals not in <code>y</code></dd>
-      <dt>suffix</dt>
-      <dd>colname suffixes in output</dd>
-      <dt>min_overlap</dt>
-      <dd>minimum overlap for intervals.</dd>
-      <dt>.data</dt>
-      <dd>data</dd>
-      <dt>sep</dt>
-      <dd>separator character</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>name-value pairs specifying colnames and expressions to apply</p></td>
+    </tr>
+    <tr>
+      <th>invert</th>
+      <td><p>report <code>x</code> intervals not in <code>y</code></p></td>
+    </tr>
+    <tr>
+      <th>suffix</th>
+      <td><p>colname suffixes in output</p></td>
+    </tr>
+    <tr>
+      <th>min_overlap</th>
+      <td><p>minimum overlap for intervals.</p></td>
+    </tr>
+    <tr>
+      <th>.data</th>
+      <td><p>data</p></td>
+    </tr>
+    <tr>
+      <th>sep</th>
+      <td><p>separator character</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code></p>
+    <p><code><a href='tbl_interval.html'>tbl_interval</a></code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -143,18 +162,18 @@ not reported by default, but can be included by setting <code>min_overlap =
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/map.html'>http://bedtools.readthedocs.io/en/latest/content/tools/map.html</a></p>
-    <p>Other multi-set-ops: <code><a href='bed_closest.html'>bed_closest</a></code>,
+<p>Other multiple set operations: <code><a href='bed_closest.html'>bed_closest</a></code>,
   <code><a href='bed_coverage.html'>bed_coverage</a></code>, <code><a href='bed_intersect.html'>bed_intersect</a></code>,
   <code><a href='bed_subtract.html'>bed_subtract</a></code>, <code><a href='bed_window.html'>bed_window</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>,      <span class='fl'>1</span>,      <span class='fl'>100</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
   <span class='st'>'chr1'</span>,      <span class='fl'>1</span>,     <span class='fl'>20</span>,    <span class='fl'>10</span>,
   <span class='st'>'chr1'</span>,      <span class='fl'>30</span>,    <span class='fl'>50</span>,    <span class='fl'>20</span>,
@@ -162,16 +181,18 @@ not reported by default, but can be included by setting <code>min_overlap =
 )
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'value'</span>)</div><img src='bed_map-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>100</span>, <span class='fl'>250</span>,
- <span class='st'>"chr2"</span>, <span class='fl'>250</span>, <span class='fl'>500</span>)
+ <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,
+ <span class='st'>"chr2"</span>, <span class='fl'>250</span>,    <span class='fl'>500</span>
+)
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>100</span>, <span class='fl'>250</span>, <span class='fl'>10</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>150</span>, <span class='fl'>250</span>, <span class='fl'>20</span>,
- <span class='st'>"chr2"</span>, <span class='fl'>250</span>, <span class='fl'>500</span>, <span class='fl'>500</span>)
+ <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,  <span class='fl'>10</span>,
+ <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>250</span>,  <span class='fl'>20</span>,
+ <span class='st'>"chr2"</span>, <span class='fl'>250</span>,    <span class='fl'>500</span>,  <span class='fl'>500</span>
+)
 
 <span class='co'># also mean, median, sd etc</span>
 <span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
@@ -189,6 +210,12 @@ not reported by default, but can be included by setting <code>min_overlap =
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;chr&gt;
 #&gt; 1  chr1   100   250   10,20
 #&gt; 2  chr2   250   500     500</div><div class='input'>
+<span class='co'># can also create a list-col</span>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.values</span> <span class='kw'>=</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tibble</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
+#&gt;   chrom start   end   .values
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;list&gt;
+#&gt; 1  chr1   100   250 &lt;dbl [2]&gt;
+#&gt; 2  chr2   250   500 &lt;dbl [1]&gt;</div><div class='input'>
 <span class='co'># can also use `nth` family from dplyr</span>
 <span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.first</span> <span class='kw'>=</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>first</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 × 4
 #&gt;   chrom start   end .first

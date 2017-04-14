@@ -1,14 +1,20 @@
+## Resubmission
+
+This is a resubmission. In this version I have:
+
+* corrected a non-canonical CRAN URL.
+
 ## New minor version
 
-* I received an email from Dr. Brian Ripley asking for fixes "ASAP" to a memory leak in absdist.cpp and to incorporate checks for the existence of the RMySQL package in the vignettes and tests.
+* Maintenance release to fix some small errors (see NEWS.md)
 
 ## Test environments
 
-* Windows Server 2012 R2 x64 (on appveyor), R 3.3.2
+* Windows Server 2012 R2 x64 (on appveyor), R 3.3.3
 * win-builder (devel and release)
-* local OS X install, R 3.3.2
-* OS X (on travis-ci), R 3.3.2
-* ubuntu 14.04 (on travis-ci), R 3.3.2
+* local OS X install, R 3.3.3
+* OS X (on travis-ci), R 3.3.3
+* ubuntu 14.04 (on travis-ci), R 3.3.3
 
 ## R CMD check results
 

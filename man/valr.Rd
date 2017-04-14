@@ -4,6 +4,7 @@
 \name{valr}
 \alias{valr}
 \alias{valr-package}
+\alias{valr-package}
 \title{valr: genome interval arithmetic in R}
 \description{
 valr provides tools to read and manipulate intervals and signals on a genome
@@ -11,13 +12,8 @@ reference. valr was developed to facilitate interactive analysis of
 genome-scale data sets, leveraging the power of dplyr and piping.
 }
 \details{
-To learn more about valr, start with the vignette: 
+To learn more about valr, start with the vignette:
 \code{browseVignettes(package = "valr")}
-}
-\author{
-Jay Hesselberth <jay.hesselberth@gmail.com>
-
-Kent Riemondy <kent.riemondy@gmail.com>
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/index.html}
@@ -30,4 +26,8 @@ Kent Riemondy <kent.riemondy@gmail.com>
 
 \url{https://CRAN.R-project.org/package=bedr}
 }
+\author{
+Jay Hesselberth <jay.hesselberth@gmail.com>
 
+Kent Riemondy <kent.riemondy@gmail.com>
+}
