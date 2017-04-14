@@ -8,11 +8,19 @@
 #' @param y \code{\link{tbl_interval}}
 #' @param invert report \code{x} intervals not in \code{y}
 #' @param suffix colname suffixes in output
-#' @param ... extra arguments (not used)
+#' @param ... pass multiple y \code{\link{tbl_interval}s} or a list of  \code{tbl_intervals}
+#'                  to  \code{bed_intersect2}. Not used  for \code{bed_intersect}
 #'
 #' @return \code{\link{tbl_interval}} with original columns from \code{x} and \code{y},
 #'   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
 #'   with the extent of overlap for the intersecting intervals.
+#'
+#'   If  \code{bed_intersect2} is used, then an additional column \code{source.y} will
+#'   be reported that contains a number corresponding to the order of the input files.
+#'   If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
+#'    \code{list(a = y, b = z)}), then the names will be reported instead
+#'   of the numeric indexes (see examples).
+#'
 #'
 #' @template groups
 #'
@@ -56,6 +64,21 @@
 #' dplyr::mutate(res, start = pmax(start.x, start.y),
 #'                    end = pmin(end.x, end.y))
 #'
+#' z <- trbl_interval(
+#'   ~chrom, ~start, ~end, ~value,
+#'   "chr1", 150,    400,  100,
+#'   "chr1", 500,    550,  100,
+#'   "chr2", 230,    430,  200,
+#'   "chr2", 750,    900,  400
+#' )
+#'
+#' bed_intersect2(x, y, z)
+#'
+#' bed_intersect2(x, exons = y, introns = z)
+#'
+#' # a list of tbl_intervals can also be passed
+#' bed_intersect2(x, list(exons = y, introns = z))
+#'
 #' @family multiple set operations
 #' @seealso
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
@@ -77,10 +100,40 @@ bed_intersect <- function(x, y, invert = FALSE, suffix = c('.x', '.y'), ...) {
   res <- intersect_impl(x, y, suffix$x, suffix$y)
 
   if (invert) {
-    colspec <- c('chrom' = 'chrom', 'start' = 'start.x', 'end' = 'end.x')
+    colspec <- c('chrom' = 'chrom',
+                 'start' = paste0('start', suffix$x),
+                 'end' = paste0('end', suffix$x))
     res <- anti_join(x, res, by = colspec)
     res <- ungroup(res)
   }
 
   res
+}
+
+#' @export
+#' @rdname bed_intersect
+#'
+bed_intersect2 <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
+
+  #determine if list supplied to ... or series of variables
+  if (typeof(substitute(...)) == "symbol") {
+    y_tbl <- list(...)
+  } else {
+    # extract out just a list not a list of lists
+    y_tbl <- list(...)[[1]]
+  }
+
+  if (length(y_tbl) > 1){
+    #bind_rows preserves grouping
+    y <- bind_rows(y_tbl, .id = "source")
+    y <- select(y, -source, everything(), source)
+  } else {
+    # only one tbl supplied, so extract out single tbl from list
+    y <- y_tbl[[1]]
+  }
+
+  res <- bed_intersect(x, y, invert = invert, suffix = suffix)
+
+  res
+
 }
