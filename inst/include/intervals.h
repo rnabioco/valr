@@ -21,7 +21,7 @@ typedef IntervalTree<int>  ivl_tree_t ;
 // of the interval in the original dataframe (i.e., the values of the
 // SlicingIndex)
 
-inline ivl_vector_t makeIntervalVector(DataFrame df, SlicingIndex si,
+inline ivl_vector_t makeIntervalVector(DataFrame df, GroupedSlicingIndex si,
                                        std::string col_start = "start",
                                        std::string col_end = "end") {
 
