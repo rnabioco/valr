@@ -2,35 +2,30 @@
 % Please edit documentation in R/bed_intersect.r
 \name{bed_intersect}
 \alias{bed_intersect}
-\alias{bed_intersect2}
 \title{Identify intersecting intervals.}
 \usage{
-bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
-
-bed_intersect2(x, ..., invert = FALSE, suffix = c(".x", ".y"))
+bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"))
 }
 \arguments{
 \item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{...}{single y  \code{\link{tbl_interval}}, multiple y \code{\link{tbl_interval}s}
+or a list of y  \code{tbl_intervals}}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
 \item{suffix}{colname suffixes in output}
-
-\item{...}{pass multiple y \code{\link{tbl_interval}s} or a list of  \code{tbl_intervals}
-to  \code{bed_intersect2}. Not used  for \code{bed_intersect}}
 }
 \value{
 \code{\link{tbl_interval}} with original columns from \code{x} and \code{y},
   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
   with the extent of overlap for the intersecting intervals.
 
-  If  \code{bed_intersect2} is used, then an additional column \code{source.y} will
-  be reported that contains a number corresponding to the order of the input files.
+  If  multiple \code{y} tbls are supplied, then an additional column \code{source.y} will
+  be reported that contains the variable names associated with each interval.
   If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
-   \code{list(a = y, b = z)}), then the names will be reported instead
-  of the numeric indexes (see examples).
+   \code{list(a = y, b = z)}), then the supplied names will be reported instead
+  of the variable names (see examples).
 }
 \description{
 Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended
@@ -92,12 +87,12 @@ z <- trbl_interval(
   "chr2", 750,    900,  400
 )
 
-bed_intersect2(x, y, z)
+bed_intersect(x, y, z)
 
-bed_intersect2(x, exons = y, introns = z)
+bed_intersect(x, exons = y, introns = z)
 
 # a list of tbl_intervals can also be passed
-bed_intersect2(x, list(exons = y, introns = z))
+bed_intersect(x, list(exons = y, introns = z))
 
 }
 \seealso{

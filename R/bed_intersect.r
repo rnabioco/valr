@@ -5,21 +5,20 @@
 #' in the output.
 #'
 #' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
+#' @param ... single y  \code{\link{tbl_interval}}, multiple y \code{\link{tbl_interval}s}
+#'                   or a list of y  \code{tbl_intervals}
 #' @param invert report \code{x} intervals not in \code{y}
 #' @param suffix colname suffixes in output
-#' @param ... pass multiple y \code{\link{tbl_interval}s} or a list of  \code{tbl_intervals}
-#'                  to  \code{bed_intersect2}. Not used  for \code{bed_intersect}
 #'
 #' @return \code{\link{tbl_interval}} with original columns from \code{x} and \code{y},
 #'   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
 #'   with the extent of overlap for the intersecting intervals.
 #'
-#'   If  \code{bed_intersect2} is used, then an additional column \code{source.y} will
-#'   be reported that contains a number corresponding to the order of the input files.
+#'   If  multiple \code{y} tbls are supplied, then an additional column \code{source.y} will
+#'   be reported that contains the variable names associated with each interval.
 #'   If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
-#'    \code{list(a = y, b = z)}), then the names will be reported instead
-#'   of the numeric indexes (see examples).
+#'    \code{list(a = y, b = z)}), then the supplied names will be reported instead
+#'   of the variable names (see examples).
 #'
 #'
 #' @template groups
@@ -72,12 +71,12 @@
 #'   "chr2", 750,    900,  400
 #' )
 #'
-#' bed_intersect2(x, y, z)
+#' bed_intersect(x, y, z)
 #'
-#' bed_intersect2(x, exons = y, introns = z)
+#' bed_intersect(x, exons = y, introns = z)
 #'
 #' # a list of tbl_intervals can also be passed
-#' bed_intersect2(x, list(exons = y, introns = z))
+#' bed_intersect(x, list(exons = y, introns = z))
 #'
 #' @family multiple set operations
 #' @seealso
@@ -85,7 +84,30 @@
 #'
 #'
 #' @export
-bed_intersect <- function(x, y, invert = FALSE, suffix = c('.x', '.y'), ...) {
+bed_intersect <- function(x, ..., invert = FALSE, suffix = c('.x', '.y')) {
+
+  #determine if list supplied to ... or series of variables
+  if (typeof(substitute(...)) == "symbol") {
+    y_tbl <- list(...)
+  } else {
+    # extract out just a list not a list of lists
+    y_tbl <- list(...)[[1]]
+  }
+
+  if (length(y_tbl) > 1){
+    # multiple y tbls supplied
+    if (is.null(names(y_tbl))){
+      # name each tbl based on supplied variable
+      dots <- eval(substitute(alist(...)))
+      names(y_tbl) <- dots
+    }
+    #bind_rows preserves grouping
+    y <- bind_rows(y_tbl, .id = "source")
+    y <- select(y, -source, everything(), source)
+  } else {
+    # only one tbl supplied, so extract out single tbl from list
+    y <- y_tbl[[1]]
+  }
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_interval(y)) y <- tbl_interval(y)
@@ -108,32 +130,4 @@ bed_intersect <- function(x, y, invert = FALSE, suffix = c('.x', '.y'), ...) {
   }
 
   res
-}
-
-#' @export
-#' @rdname bed_intersect
-#'
-bed_intersect2 <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
-
-  #determine if list supplied to ... or series of variables
-  if (typeof(substitute(...)) == "symbol") {
-    y_tbl <- list(...)
-  } else {
-    # extract out just a list not a list of lists
-    y_tbl <- list(...)[[1]]
-  }
-
-  if (length(y_tbl) > 1){
-    #bind_rows preserves grouping
-    y <- bind_rows(y_tbl, .id = "source")
-    y <- select(y, -source, everything(), source)
-  } else {
-    # only one tbl supplied, so extract out single tbl from list
-    y <- y_tbl[[1]]
-  }
-
-  res <- bed_intersect(x, y, invert = invert, suffix = suffix)
-
-  res
-
 }

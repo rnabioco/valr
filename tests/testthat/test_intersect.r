@@ -201,7 +201,7 @@ test_that("invert = T, and custom suffixes don't result in failed anti_join()",{
   expect_equal(nrow(res), 1)
 })
 
-test_that("multiple y tbl_intervals can be passed to bed_intersect2 (#220)",{
+test_that("multiple y tbl_intervals can be passed to bed_intersect (#220)",{
   x <- trbl_interval(
     ~chrom, ~start, ~end,
     "chr1", 100,    500,
@@ -226,16 +226,16 @@ test_that("multiple y tbl_intervals can be passed to bed_intersect2 (#220)",{
     "chr2", 750,    900,  400
   )
 
-  res <- bed_intersect2(x, y, z)
-  expect_true(all(c(1, 2) %in% res$source.y ))
+  res <- bed_intersect(x, y, z)
+  expect_true(all(c("y", "z") %in% res$source.y ))
 
   # check that named args can be passed also
-  res <- bed_intersect2(x, first_file = y, second_file = z)
+  res <- bed_intersect(x, first_file = y, second_file = z)
   expect_true(all(c("first_file", "second_file") %in% res$source.y ))
 
   # check that list input is parsed correctly
-  res1 <- bed_intersect2(x, first_file = y, second_file = z)
-  res2 <- bed_intersect2(x, list(first_file = y, second_file = z))
+  res1 <- bed_intersect(x, first_file = y, second_file = z)
+  res2 <- bed_intersect(x, list(first_file = y, second_file = z))
   expect_equal(res1, res2)
 })
 
@@ -258,6 +258,6 @@ test_that("groups are respected when passing multiple y tbl_intervals ",{
   y <- group_by(y, strand)
   z <- group_by(z, strand)
 
-  res <- bed_intersect2(x, y, z)
+  res <- bed_intersect(x, y, z)
   expect_equal(nrow(res), 1)
 })
