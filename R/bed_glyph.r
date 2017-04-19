@@ -112,7 +112,10 @@ bed_glyph <- function(expr, label = NULL) {
   ys <- mutate(ys, .y = row_number(.id))
   ys <- ungroup(ys)
 
-  res <- arrange(ys, .facet)
+  ys <- arrange(ys, .facet, chrom, start)
+  res <- arrange(res, .facet, chrom, start)
+
+  res <- mutate(res, .y = ys$.y)
 
   # make name_result col appear last in the facets
   fct_names <- c(expr_vars, name_result)
