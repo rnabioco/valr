@@ -7,7 +7,7 @@
 ## Minor changes
 
 * intervals returned from `bed_random()` are sorted by `chrom` and `start` by default.
-* new `bed_intersect2()` which accepts multiple tbls for intersection (#220 @kriemo)
+* `bed_intersect()` now accepts multiple tbls for intersection (#220 @kriemo).
   
 ## Bug fixes
 

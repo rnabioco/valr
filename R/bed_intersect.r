@@ -14,8 +14,9 @@
 #'   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
 #'   with the extent of overlap for the intersecting intervals.
 #'
-#'   If  multiple \code{y} tbls are supplied, then an additional column \code{source.y} will
-#'   be reported that contains the variable names associated with each interval.
+#'   If  multiple \code{y} tbls are supplied, then an additional column \code{.source} will
+#'   be reported that contains the variable names associated with each interval. All original
+#'   columns from the y tbls will be suffixed with \code{.y} in the output.
 #'   If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
 #'    \code{list(a = y, b = z)}), then the supplied names will be reported instead
 #'   of the variable names (see examples).
@@ -107,10 +108,12 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c('.x', '.y')) {
     }
   }
 
+  multiple_tbls <- FALSE
   if (length(y_tbl) > 1){
+    multiple_tbls <- TRUE
     #bind_rows preserves grouping
-    y <- bind_rows(y_tbl, .id = "source")
-    y <- select(y, -source, everything(), source)
+    y <- bind_rows(y_tbl, .id = ".source")
+    y <- select(y, -.source, everything(), .source)
   } else {
     # only one tbl supplied, so extract out single tbl from list
     y <- y_tbl[[1]]
@@ -134,6 +137,15 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c('.x', '.y')) {
                  'end' = paste0('end', suffix$x))
     res <- anti_join(x, res, by = colspec)
     res <- ungroup(res)
+  }
+
+  if (multiple_tbls) {
+    # rename .source.y to .source
+    source_col <- paste0(".source", suffix$y)
+    replace_col <- stringr::str_replace(source_col,
+                                        stringr::fixed(suffix$y), "")
+    cols <- colnames(res)
+    colnames(res) <- ifelse(cols == source_col, replace_col, cols)
   }
 
   res

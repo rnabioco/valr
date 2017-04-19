@@ -21,8 +21,9 @@ or a list of y  \code{tbl_intervals}}
   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
   with the extent of overlap for the intersecting intervals.
 
-  If  multiple \code{y} tbls are supplied, then an additional column \code{source.y} will
-  be reported that contains the variable names associated with each interval.
+  If  multiple \code{y} tbls are supplied, then an additional column \code{.source} will
+  be reported that contains the variable names associated with each interval. All original
+  columns from the y tbls will be suffixed with \code{.y} in the output.
   If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
    \code{list(a = y, b = z)}), then the supplied names will be reported instead
   of the variable names (see examples).
