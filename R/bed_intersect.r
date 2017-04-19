@@ -89,18 +89,25 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c('.x', '.y')) {
   #determine if list supplied to ... or series of variables
   if (typeof(substitute(...)) == "symbol") {
     y_tbl <- list(...)
-  } else {
-    # extract out just a list not a list of lists
-    y_tbl <- list(...)[[1]]
-  }
-
-  if (length(y_tbl) > 1){
-    # multiple y tbls supplied
     if (is.null(names(y_tbl))){
       # name each tbl based on supplied variable
       dots <- eval(substitute(alist(...)))
       names(y_tbl) <- dots
     }
+  } else {
+    # extract out just a list not a list of lists
+    y_tbl <- list(...)[[1]]
+    if (is.null(names(y_tbl))){
+      # name each tbl based on supplied variable
+      dots <- eval(substitute(alist(...)))[[1]]
+      # extract out variables from language object list(a, b, c)
+      dots <- as.character(dots)
+      dots <- dots[2:length(dots)]
+      names(y_tbl) <- as.character(dots)
+    }
+  }
+
+  if (length(y_tbl) > 1){
     #bind_rows preserves grouping
     y <- bind_rows(y_tbl, .id = "source")
     y <- select(y, -source, everything(), source)
