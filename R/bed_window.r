@@ -1,5 +1,7 @@
 #' Identify intervals within a specified distance.
 #'
+#' @param x \code{\link{tbl_interval}}
+#' @param y  \code{\link{tbl_interval}}
 #' @param ... params for bed_slop and bed_intersect
 #' @inheritParams bed_slop
 #' @inheritParams bed_intersect
@@ -60,9 +62,24 @@ bed_window <- function(x, y, genome, ...) {
 
   x <- mutate(x, .start = start, .end = end)
 
-  slop_x <- bed_slop(x, genome, ...)
+  # capture command line args
+  cmd_args <- list(...)
 
-  res <- bed_intersect(slop_x, y, ...)
+  # get arguments for bed_slop and bed_intersect
+  slop_arg_names <- names(formals(bed_slop))
+  intersect_arg_names <- names(formals(bed_intersect))
+
+  # parse supplied args into those for bed_slop or bed_intersect
+  slop_args <- cmd_args[names(cmd_args) %in% slop_arg_names]
+  intersect_args <- cmd_args[names(cmd_args) %in% intersect_arg_names]
+
+  # pass new list of args to bed_slop
+  slop_x <- do.call(bed_slop,
+                    c(list("x" = x, "genome" = genome) , slop_args))
+
+  # pass new list of args to bed_intersect
+  res <- do.call(bed_intersect,
+                 c(list("x" = slop_x, "y" = y) , intersect_args))
 
   res <- mutate(res, start.x = .start.x, end.x = .end.x)
 

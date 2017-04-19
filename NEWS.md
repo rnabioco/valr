@@ -7,7 +7,8 @@
 ## Minor changes
 
 * intervals returned from `bed_random()` are sorted by `chrom` and `start` by default.
-
+* `bed_intersect()` now accepts multiple tbls for intersection (#220 @kriemo).
+  
 ## Bug fixes
 
 * Merge intervals in `bed_jaccard()` and use numeric values for calculation (fixes #204).

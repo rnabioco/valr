@@ -4,23 +4,29 @@
 \alias{bed_intersect}
 \title{Identify intersecting intervals.}
 \usage{
-bed_intersect(x, y, invert = FALSE, suffix = c(".x", ".y"), ...)
+bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"))
 }
 \arguments{
 \item{x}{\code{\link{tbl_interval}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{...}{single y  \code{\link{tbl_interval}}, multiple y \code{\link{tbl_interval}s}
+or a list of y  \code{tbl_intervals}}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
 \item{suffix}{colname suffixes in output}
-
-\item{...}{extra arguments (not used)}
 }
 \value{
 \code{\link{tbl_interval}} with original columns from \code{x} and \code{y},
   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
   with the extent of overlap for the intersecting intervals.
+
+  If  multiple \code{y} tbls are supplied, then an additional column \code{.source} will
+  be reported that contains the variable names associated with each interval. All original
+  columns from the y tbls will be suffixed with \code{.y} in the output.
+  If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
+   \code{list(a = y, b = z)}), then the supplied names will be reported instead
+  of the variable names (see examples).
 }
 \description{
 Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended
@@ -73,6 +79,21 @@ bed_intersect(x, y, invert = TRUE)
 res <- bed_intersect(x, y)
 dplyr::mutate(res, start = pmax(start.x, start.y),
                    end = pmin(end.x, end.y))
+
+z <- trbl_interval(
+  ~chrom, ~start, ~end, ~value,
+  "chr1", 150,    400,  100,
+  "chr1", 500,    550,  100,
+  "chr2", 230,    430,  200,
+  "chr2", 750,    900,  400
+)
+
+bed_intersect(x, y, z)
+
+bed_intersect(x, exons = y, introns = z)
+
+# a list of tbl_intervals can also be passed
+bed_intersect(x, list(exons = y, introns = z))
 
 }
 \seealso{

@@ -5,7 +5,10 @@
 #' not reported by default, but can be included by setting \code{min_overlap =
 #' 0}.
 #'
-#' @inheritParams bed_intersect
+#' @param x \code{\link{tbl_interval}}
+#' @param y  \code{\link{tbl_interval}}
+#' @param invert report \code{x} intervals not in \code{y}
+#' @param suffix colname suffixes in output
 #' @param min_overlap minimum overlap for intervals.
 #' @param ... name-value pairs specifying colnames and expressions to apply
 #'

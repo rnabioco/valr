@@ -257,8 +257,9 @@ library(tidyr)
 repeats <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
 genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
+
 shuffle_intervals <- function(n, .data, genome) {
-  replicate(n, bed_shuffle(.data, genome), simplify = FALSE) %>%
+  replicate(n, bed_shuffle(.data, genome, seed = 1010486), simplify = FALSE) %>%
     bind_rows(.id = 'rep') %>%
     group_by(rep) %>% nest()
 }
