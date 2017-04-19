@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -98,7 +98,7 @@
     <p>Identify intervals within a specified distance.</p>
     
 
-    <pre><span class='fu'>bed_window</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_window</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -176,13 +176,13 @@
   <span class='st'>"chr2"</span>, <span class='fl'>1000</span>
 )
 
-<span class='fu'>bed_window</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 6
-#&gt;   chrom start.x end.x start.y end.y .overlap
-#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
-#&gt; 1  chr2     200   400     230   430      200
-#&gt; 2  chr2     200   400     350   430       80
-#&gt; 3  chr2     300   500     230   430      200
-#&gt; 4  chr2     300   500     350   430       80</div><div class='input'>
+<span class='fu'>bed_window</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 7
+#&gt;   chrom start.x end.x start.y end.y .source .overlap
+#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;chr&gt;    &lt;int&gt;
+#&gt; 1  chr2     200   400     230   430       1      200
+#&gt; 2  chr2     200   400     350   430       1       80
+#&gt; 3  chr2     300   500     230   430       1      200
+#&gt; 4  chr2     300   500     350   430       1       80</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

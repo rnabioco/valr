@@ -44,7 +44,10 @@ bed_glyph <- function(expr, label = NULL) {
   # get required args i.e. those without defaults
   args_req <- names(args_all[sapply(args_all, is.name)])
 
-  args_excl <- c('genome', '...')
+  # for bed_intersect replace ... with y
+  if (expr[[1]] == "bed_intersect") args_req[args_req == "..."] <- "y"
+
+  args_excl <- c('genome', "...")
   args_req <- args_req[!args_req %in% args_excl]
 
   nargs <- length(args_req)
@@ -103,13 +106,14 @@ bed_glyph <- function(expr, label = NULL) {
   }
 
   # assign `.y` values in the result based on clustering
-  ys <- bed_cluster(res)
-  ys <- group_by(ys, .facet)
+  ys <- group_by(res, .facet)
+  ys <- bed_cluster(ys)
+  ys <- group_by(ys, .facet, .id)
   ys <- mutate(ys, .y = row_number(.id))
   ys <- ungroup(ys)
 
-  ys <- arrange(ys, .facet)
-  res <- arrange(res, .facet)
+  ys <- arrange(ys, .facet, chrom, start)
+  res <- arrange(res, .facet, chrom, start)
 
   res <- mutate(res, .y = ys$.y)
 
