@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -103,7 +103,8 @@
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
-<li>new <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code> that wrap tibbles and enforce strict column naming. <code><a href="../reference/trbl_interval.html">trbl_interval()</a></code> and <code><a href="../reference/trbl_genome.html">trbl_genome()</a></code> are constructors that take <code>tibble::tribble()</code> formatting and <code><a href="../reference/is.tbl_interval.html">is.tbl_interval()</a></code> and <code><a href="../reference/is.tbl_genome.html">is.tbl_genome()</a></code> are used to check for valid classes.</li>
+<li><p><code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> now accepts multiple tbls for intersection (#220 @kriemo).</p></li>
+<li><p>new <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code> that wrap tibbles and enforce strict column naming. <code><a href="../reference/trbl_interval.html">trbl_interval()</a></code> and <code><a href="../reference/trbl_genome.html">trbl_genome()</a></code> are constructors that take <code>tibble::tribble()</code> formatting and <code><a href="../reference/is.tbl_interval.html">is.tbl_interval()</a></code> and <code><a href="../reference/is.tbl_genome.html">is.tbl_genome()</a></code> are used to check for valid classes.</p></li>
 </ul>
 </div>
 <div id="minor-changes" class="section level2">

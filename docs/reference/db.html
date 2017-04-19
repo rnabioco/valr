@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -98,7 +98,7 @@
     <p>Currently <code>db_ucsc</code> and <code>db_ensembl</code> are available for connections.</p>
     
 
-    <pre><span class='fu'>db_ucsc</span>(<span class='no'>dbname</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"genome-mysql.cse.ucsc.edu"</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"genomep"</span>,
+    <pre class="usage"><span class='fu'>db_ucsc</span>(<span class='no'>dbname</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"genome-mysql.cse.ucsc.edu"</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"genomep"</span>,
   <span class='kw'>password</span> <span class='kw'>=</span> <span class='st'>"password"</span>, <span class='kw'>port</span> <span class='kw'>=</span> <span class='fl'>3306</span>, <span class='no'>...</span>)
 
 <span class='fu'>db_ensembl</span>(<span class='no'>dbname</span>, <span class='kw'>host</span> <span class='kw'>=</span> <span class='st'>"ensembldb.ensembl.org"</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"anonymous"</span>,
@@ -140,26 +140,26 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># if(require(RMySQL)) {</span>
-<span class='co'>#   ucsc &lt;- db_ucsc('hg38')</span>
-<span class='co'># </span>
-<span class='co'>#   # fetch the `refGene` tbl</span>
-<span class='co'>#   tbl(ucsc, "refGene")</span>
-<span class='co'># </span>
-<span class='co'>#   # the `chromInfo` tbls have size information</span>
-<span class='co'>#   tbl(ucsc, "chromInfo")</span>
-<span class='co'># }</span>
-<span class='co'>## ---------------------------------------------</span>
+    <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
+  <span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>RMySQL</span>)) {
+    <span class='no'>ucsc</span> <span class='kw'>&lt;-</span> <span class='fu'>db_ucsc</span>(<span class='st'>'hg38'</span>)
 
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># if(require(RMySQL)) {</span>
-<span class='co'>#   # squirrel genome</span>
-<span class='co'>#   ensembl &lt;- db_ensembl('spermophilus_tridecemlineatus_core_67_2')</span>
-<span class='co'># </span>
-<span class='co'>#   tbl(ensembl, "gene") </span>
-<span class='co'># }  </span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+    <span class='co'># fetch the `refGene` tbl</span>
+    <span class='fu'>tbl</span>(<span class='no'>ucsc</span>, <span class='st'>"refGene"</span>)
+
+    <span class='co'># the `chromInfo` tbls have size information</span>
+    <span class='fu'>tbl</span>(<span class='no'>ucsc</span>, <span class='st'>"chromInfo"</span>)
+  }
+})
+
+<span class='fu'>not_run</span>({
+  <span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>RMySQL</span>)) {
+    <span class='co'># squirrel genome</span>
+    <span class='no'>ensembl</span> <span class='kw'>&lt;-</span> <span class='fu'>db_ensembl</span>(<span class='st'>'spermophilus_tridecemlineatus_core_67_2'</span>)
+
+    <span class='fu'>tbl</span>(<span class='no'>ensembl</span>, <span class='st'>"gene"</span>)
+  }
+})</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

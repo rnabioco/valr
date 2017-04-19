@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -100,7 +100,7 @@ information. These sizes are used by downstream functions to identify
 computed intervals that have coordinates outside of the genome bounds.</p>
     
 
-    <pre><span class='fu'>read_genome</span>(<span class='no'>path</span>)</pre>
+    <pre class="usage"><span class='fu'>read_genome</span>(<span class='no'>path</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -141,10 +141,10 @@ tab-delimited</p></td>
 #&gt; 9   chr8 146364022
 #&gt; 10  chr9 141213431
 #&gt; # ... with 15 more rows</div><div class='input'>
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># # `read_genome` accepts a URL</span>
-<span class='co'># read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+<span class='fu'>not_run</span>({
+  <span class='co'># `read_genome` accepts a URL</span>
+  <span class='fu'>read_genome</span>(<span class='st'>'https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes'</span>)
+})</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
