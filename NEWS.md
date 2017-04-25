@@ -6,6 +6,8 @@
 
 ## Minor changes
 
+* Updates for compatibility with dplyr v0.6.0. Mainly API conformity on the C++ side. dplyr v0.6.0 is now required.
+
 * intervals returned from `bed_random()` are sorted by `chrom` and `start` by default.
 
 ## Bug fixes
