@@ -1,6 +1,6 @@
 
-valr
-====
+valr <img src="man/figures/logo.png" align="right" />
+=====================================================
 
 [![Build Status](https://travis-ci.org/rnabioco/valr.svg?branch=master)](https://travis-ci.org/rnabioco/valr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rnabioco/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr) [![Coverage Status](https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg)](https://codecov.io/github/rnabioco/valr?branch=master) [![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr) [![](http://cranlogs.r-pkg.org/badges/valr?color=FFD700)](https://CRAN.R-project.org/package=valr)
 
