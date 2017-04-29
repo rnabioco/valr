@@ -13,6 +13,7 @@ Description: Read and manipulate genome intervals and signals. Provides
 License: MIT + file LICENSE
 Depends:
     R (>= 3.1.2)
+Remotes: jayhesselberth/dplyr    
 Imports:
     dplyr (>= 0.5.0),
     lazyeval,
@@ -26,7 +27,9 @@ SystemRequirements: C++11
 LinkingTo:
     Rcpp (>= 0.12.8),
     BH,
-    dplyr (>= 0.5.0)
+    dplyr (>= 0.5.0),
+    plogr,
+    bindrcpp
 Suggests:
     knitr,
     rmarkdown,

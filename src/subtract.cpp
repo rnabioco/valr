@@ -91,7 +91,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   GroupApply(gdf_x, gdf_y, subtract_group, std::ref(indices_out), std::ref(starts_out), std::ref(ends_out));
 
   // extract out x data, new intervals will be generated as copies of the parent interval
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_out, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(indices_out, "data.frame");
 
   auto ncol_x = subset_x.size() ;
 
@@ -109,7 +109,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   }
 
   out.attr("names") = names ;
-  out.attr("class") = classes_not_grouped() ;
+  set_class(out, classes_not_grouped()) ;
   auto nrows = subset_x.nrows() ;
   set_rownames(out, nrows) ;
 

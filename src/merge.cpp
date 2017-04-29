@@ -27,7 +27,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
   for (int i = 0; i < ng; i++, ++git) {
 
-    SlicingIndex indices = *git ;
+    GroupedSlicingIndex indices = *git ;
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
 
@@ -91,7 +91,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   std::string overlaps_name = ".overlap_merge" ;
   names[nc + 1] = overlaps_name;
 
-  out.attr("class") = df.attr("class") ;
+  set_class(out, get_class(df)) ;
   out.attr("row.names") = df.attr("row.names") ;
   out.attr("names") = names ;
 

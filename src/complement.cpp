@@ -28,7 +28,7 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
   for (int i = 0; i < ngroups; ++i, ++git) {
 
-    SlicingIndex indices = *git ;
+    GroupedSlicingIndex indices = *git ;
     int ni = indices.size() ;
 
     int start, end ;

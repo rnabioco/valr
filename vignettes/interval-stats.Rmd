@@ -192,6 +192,7 @@ pvals_ncoding <- projection_stats(rpts, promoters_ncoding, genome, 'name', 'non_
 
 pvals <-
   bind_rows(pvals_ncoding, pvals_coding) %>% 
+  ungroup() %>% 
   tidyr::unnest() %>%
   select(-chrom)
 

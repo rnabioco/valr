@@ -53,8 +53,8 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   // set up interval trees for each chromosome and apply intersect_group
   GroupApply(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes));
 
-  DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(data_y, names(data_y)).subset(indices_y, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(data_x, data_x.names()).subset(indices_x, "data.frame");
+  DataFrame subset_y = DataFrameSubsetVisitors(data_y, data_y.names()).subset(indices_y, "data.frame");
 
   auto ncol_x = subset_x.size() ;
   auto ncol_y = subset_y.size() ;
@@ -93,7 +93,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   names[ncol_x + ncol_y - 1] = ".overlap" ;
 
   out.attr("names") = names ;
-  out.attr("class") = classes_not_grouped() ;
+  set_class(out, classes_not_grouped()) ;
   auto nrows = subset_x.nrows() ;
   set_rownames(out, nrows) ;
 
