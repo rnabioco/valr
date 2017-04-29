@@ -1,9 +1,9 @@
 #' Tibble for intervals.
 #'
-#' Required column names are \code{chrom}, \code{start} and \code{end}
+#' Required column names are `chrom`, `start` and `end`
 #'
-#' @param x A \code{data_frame}
-#' @param ... params for \code{\link[tibble]{tibble}}
+#' @param x A `data_frame`
+#' @param ... params for [tibble::tibble()]
 #' @param .validate check valid column names
 #'
 #' @examples
@@ -30,9 +30,9 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
 
 #' Construct an tbl_interval using tribble formatting.
 #'
-#' @param ... data for \code{\link[tibble]{tribble}}
+#' @param ... data for [tibble::tribble()]
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @examples
 #' trbl_interval(
@@ -52,7 +52,7 @@ trbl_interval <- function(...) {
 #' Test if the object is a tbl_interval.
 #'
 #' @param x An object
-#' @return \code{TRUE} if the object inherits from the \code{\link{tbl_interval}} class.
+#' @return `TRUE` if the object inherits from the [tbl_interval()] class.
 #' @export
 is.tbl_interval <- function(x) {
   "tbl_ivl" %in% class(x)
@@ -61,10 +61,10 @@ is.tbl_interval <- function(x) {
 #' Tibble for reference sizes.
 #'
 #' Equivalent to information in UCSC "chromSizes" files. Required column names are:
-#' \code{chrom} and \code{size}
+#' `chrom` and `size`
 #'
-#' @param x A \code{data_frame}
-#' @param ... params for \code{\link[tibble]{tibble}}
+#' @param x A `data_frame`
+#' @param ... params for [tibble::tibble()]
 #' @param .validate check valid column names
 #'
 #' @examples
@@ -90,9 +90,9 @@ tbl_genome <- function(x, ..., .validate = TRUE) {
 
 #' Construct a tbl_genome using tribble formatting.
 #'
-#' @param ... for \code{\link[tibble]{tribble}}
+#' @param ... for [tibble::tribble()]
 #'
-#' @return \code{\link{tbl_genome}}
+#' @return [tbl_genome()]
 #'
 #' @examples
 #' trbl_genome(
@@ -111,7 +111,7 @@ trbl_genome <- function(...) {
 #' Test if the object is a tbl_genome.
 #'
 #' @param x An object
-#' @return \code{TRUE} if the object inherits from the \code{\link{tbl_genome}} class.
+#' @return `TRUE` if the object inherits from the [tbl_genome()] class.
 #' @export
 is.tbl_genome <- function(x) {
   "tbl_gnm" %in% class(x)

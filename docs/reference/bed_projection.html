@@ -105,15 +105,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>genome</th>
-      <td><p><code><a href='tbl_genome.html'>tbl_genome</a></code></p></td>
+      <td><p><code><a href='tbl_genome.html'>tbl_genome()</a></code></p></td>
     </tr>
     <tr>
       <th>by_chrom</th>
@@ -123,25 +123,25 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval</a></code> with the following columns:</p><ul>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following columns:</p><ul>
 <li><p><code>chrom</code> the name of chromosome tested if <code>by_chrom = TRUE</code>,
-     otherwise has a value of <code>'whole_genome'</code></p></li>
+otherwise has a value of <code>'whole_genome'</code></p></li>
 <li><p><code>p.value</code> p-value from a binomial test. p-values &gt; 0.5
-     will be reported as 1 - p-value and <code>lower_tail</code> will be <code>FALSE</code></p></li>
+will be reported as 1 - p-value and <code>lower_tail</code> will be <code>FALSE</code></p></li>
 <li><p><code>obs_exp_ratio</code> ratio of observed to expected overlap frequency</p></li>
 <li><p><code>lower_tail</code> a boolean column. <code>TRUE</code> indicates the observed overlaps
-     is in the lower tail of the distribution (e.g., less overlap than expected); <code>FALSE</code>
-     indicates that the observed overlaps are in the upper tail of the distribution
-     (e.g., more overlap than expected)</p></li>
+is in the lower tail of the distribution (e.g., less overlap than expected); <code>FALSE</code>
+indicates that the observed overlaps are in the upper tail of the distribution
+(e.g., more overlap than expected)</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Interval statistics can be used in combination with 
-  <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 
-  statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for
-  examples.</p>
+    <p>Interval statistics can be used in combination with
+<code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>dplyr::do()</a></code> to calculate
+statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for
+examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

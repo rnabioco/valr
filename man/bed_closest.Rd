@@ -7,30 +7,30 @@
 bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"))
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{overlap}{report overlapping intervals}
 
 \item{suffix}{colname suffixes in output}
 }
 \value{
-\code{\link{tbl_interval}} with additional columns:
-  \itemize{
-    \item{\code{.dist}}{ distance to closest interval, negative distances denote upstream intervals}
-    \item{\code{.overlap}}{ overlap with closest interval}
-  }
+\code{\link[=tbl_interval]{tbl_interval()}} with additional columns:
+\itemize{
+\item \code{.dist} distance to closest interval, negative distances denote upstream intervals
+\item \code{.overlap} overlap with closest interval
+}
 }
 \description{
 Identify closest intervals.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
 x <- trbl_interval(
@@ -66,14 +66,14 @@ bed_closest(x, y, overlap = FALSE)
 
 # Report distance based on strand
 x <- trbl_interval(
-  ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	10,	20,	"a",	1,	"-"
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  "chr1", 10,	   20,   "a",   1,      "-"
 )
 
 y <- trbl_interval(
-  ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	8,	9,	"b",	1,	"+",
-  "chr1",	21,	22,	"b",	1, "-"
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  "chr1", 8,	     9,	   "b",   1,      "+",
+  "chr1", 21,	   22,	 "b",   1,      "-"
 )
 
 res <- bed_closest(x, y)

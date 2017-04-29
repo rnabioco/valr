@@ -8,9 +8,9 @@ bed_flank(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
   strand = FALSE, trim = FALSE, ...)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{\code{\link{tbl_genome}}}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{both}{number of bases on both sizes}
 
@@ -27,7 +27,7 @@ bed_flank(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 \item{...}{extra arguments (not used)}
 }
 \value{
-\code{\link{tbl_interval}}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Create flanking intervals from input intervals.

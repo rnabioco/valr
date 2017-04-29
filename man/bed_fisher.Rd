@@ -7,11 +7,11 @@
 bed_fisher(x, y, genome)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{\code{\link{tbl_genome}}}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 }
 \value{
 \code{tbl_interval}
@@ -20,10 +20,10 @@ bed_fisher(x, y, genome)
 Borrows from the \code{BEDtools} implementation.
 }
 \details{
-Interval statistics can be used in combination with 
-  \code{\link[dplyr]{group_by}} and \code{\link[dplyr]{do}} to calculate 
-  statistics for subsets of data. See \code{vignette('interval-stats')} for
-  examples.
+Interval statistics can be used in combination with
+\code{\link[dplyr:group_by]{dplyr::group_by()}} and \code{\link[dplyr:do]{dplyr::do()}} to calculate
+statistics for subsets of data. See \code{vignette('interval-stats')} for
+examples.
 }
 \examples{
 x <- trbl_interval(

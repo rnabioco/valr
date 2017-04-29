@@ -1,10 +1,10 @@
 #' Fisher's test on number of shared and unique intervals.
 #'
-#' Borrows from the \code{BEDtools} implementation.
+#' Borrows from the `BEDtools` implementation.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
+#' @param genome [tbl_genome()]
 #'
 #' @template stats
 #'
@@ -12,7 +12,7 @@
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 #'
-#' @return \code{tbl_interval}
+#' @return `tbl_interval`
 #'
 #' @examples
 #' x <- trbl_interval(

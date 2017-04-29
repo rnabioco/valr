@@ -1,18 +1,18 @@
 #' Divide intervals into new sub-intervals ("windows").
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
+#' @param x [tbl_interval()]
+#' @param genome [tbl_genome()]
 #' @param win_size divide intervals into fixed-size windows
 #' @param step_size size to step before next window
 #' @param num_win divide intervals to fixed number of windows
 #' @param reverse reverse window numbers
 #'
-#' @note The \code{name} and \code{.win_id} columns can be used to create new
+#' @note The `name` and `.win_id` columns can be used to create new
 #'   interval names (see 'namenum' example below) or in subsequent
-#'   \code{group_by} operations (see vignette).
+#'   `group_by` operations (see vignette).
 #'
 #' @family utilities
-#' @return \code{\link{tbl_interval}} with \code{.win_id} column that contains a numeric
+#' @return [tbl_interval()] with `.win_id` column that contains a numeric
 #'   identifier for the window.
 #'
 #' @examples

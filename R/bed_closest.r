@@ -1,17 +1,15 @@
 #' Identify closest intervals.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
 #' @param overlap report overlapping intervals
 #' @param suffix colname suffixes in output
 #'
 #' @template groups
 #'
-#' @return \code{\link{tbl_interval}} with additional columns:
-#'   \itemize{
-#'     \item{\code{.dist}}{ distance to closest interval, negative distances denote upstream intervals}
-#'     \item{\code{.overlap}}{ overlap with closest interval}
-#'   }
+#' @return [tbl_interval()] with additional columns:
+#'   - `.dist` distance to closest interval, negative distances denote upstream intervals
+#'   - `.overlap` overlap with closest interval
 #'
 #' @family multiple set operations
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
@@ -50,14 +48,14 @@
 #'
 #' # Report distance based on strand
 #' x <- trbl_interval(
-#'   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-#'   "chr1",	10,	20,	"a",	1,	"-"
+#'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
+#'   "chr1", 10,	   20,   "a",   1,      "-"
 #' )
 #'
 #' y <- trbl_interval(
-#'   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-#'   "chr1",	8,	9,	"b",	1,	"+",
-#'   "chr1",	21,	22,	"b",	1, "-"
+#'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
+#'   "chr1", 8,	     9,	   "b",   1,      "+",
+#'   "chr1", 21,	   22,	 "b",   1,      "-"
 #' )
 #'
 #' res <- bed_closest(x, y)

@@ -1,11 +1,11 @@
 #' Calculate interval spacing.
 #'
 #' Overlapping intervals are merged. Spacing for the first interval of each
-#' chromosome is undefined (\code{NA}).
+#' chromosome is undefined (`NA`).
 #'
-#' @param x \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
 #'
-#' @return \code{\link{tbl_interval}} with \code{.spacing} column.
+#' @return [tbl_interval()] with `.spacing` column.
 #'
 #' @examples
 #' x <- trbl_interval(

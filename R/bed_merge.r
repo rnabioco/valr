@@ -1,16 +1,16 @@
 #' Merge overlapping intervals.
 #'
 #' Operations can be performed on merged intervals by specifying name-value
-#' pairs. Default \code{max_dist} of \code{0} means book-ended intervals are
+#' pairs. Default `max_dist` of `0` means book-ended intervals are
 #' merged.
 #'
-#' @param x \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
 #' @param max_dist maximum distance between intervals to merge
 #' @param ... name-value pairs that specify operations on merged intervals
 #'
 #' @template groups
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #' @family single set operations
 #' @seealso
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}

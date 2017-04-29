@@ -7,32 +7,33 @@
 bed_reldist(x, y, detail = FALSE)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{detail}{report relative distances for each \code{x} interval.}
 }
 \value{
-If \code{detail = FALSE}, a \code{\link{tbl_interval}} that summarizes
- calcuclated \code{.reldist} values with the following columns:
-  \itemize{
-    \item{\code{.reldist}}{ relative distance metric}
-    \item{\code{.counts}}{ number of metric observations}
-    \item{\code{.total}}{ total observations}
-    \item{\code{.freq}}{ frequency of observation}}
+If \code{detail = FALSE}, a \code{\link[=tbl_interval]{tbl_interval()}} that summarizes
+calculated \code{.reldist} values with the following columns:
+\itemize{
+\item \code{.reldist} relative distance metric
+\item \code{.counts} number of metric observations
+\item \code{.total} total observations
+\item \code{.freq} frequency of observation
+}
 
-    If \code{detail = TRUE}, a new \code{.reldist} column reports the relative
-    distance for each input \code{x} interval.
+If \code{detail = TRUE}, a new \code{.reldist} column reports the relative
+distance for each input \code{x} interval.
 }
 \description{
 Compute relative distances between intervals.
 }
 \details{
-Interval statistics can be used in combination with 
-  \code{\link[dplyr]{group_by}} and \code{\link[dplyr]{do}} to calculate 
-  statistics for subsets of data. See \code{vignette('interval-stats')} for
-  examples.
+Interval statistics can be used in combination with
+\code{\link[dplyr:group_by]{dplyr::group_by()}} and \code{\link[dplyr:do]{dplyr::do()}} to calculate
+statistics for subsets of data. See \code{vignette('interval-stats')} for
+examples.
 }
 \examples{
 x <- trbl_interval(

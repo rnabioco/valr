@@ -7,7 +7,7 @@
 flip_strands(x)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 }
 \description{
 Flips positive (\code{+}) stranded intervals to negative (\code{-}) strands,

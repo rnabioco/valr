@@ -13,13 +13,13 @@ valr_example <- function(path) {
 
 #' reformat tbl column ordering based upon another tbl
 #'
-#' \code{reorder_names} returns a tbl whose columns are ordered by another tbl.
-#' The \code{x} tbl columns are reordered based on the \code{y} columns
-#' ordering. \code{x} columns that do not exist in \code{y} are moved to the
+#' `reorder_names` returns a tbl whose columns are ordered by another tbl.
+#' The `x` tbl columns are reordered based on the `y` columns
+#' ordering. `x` columns that do not exist in `y` are moved to the
 #' last column.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
 #'
 #' @examples
 #' # names out of order
@@ -49,13 +49,13 @@ reorder_names <- function(x, y) {
 
 #' Identify groups shared between to tbls
 #'
-#' Identify minimum shared groups between \code{x} and \code{y} tbls. Returns
-#' \code{NULL} if there are no shared groups.
+#' Identify minimum shared groups between `x` and `y` tbls. Returns
+#' `NULL` if there are no shared groups.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
 #'
-#' @return \code{list} of groups or \code{NULL}
+#' @return `list` of groups or `NULL`
 #'
 #' @examples
 #' x <- trbl_interval(
@@ -100,6 +100,6 @@ check_suffix <- function(suffix) {
 
 #' Return group labels from tbl_df
 #' @param grp_df grouped tbl_df
-#' @return \code{tibble} of grouping labels or \code{NULL} if no groups present
+#' @return `tibble` of grouping labels or `NULL` if no groups present
 #' @noRd
 get_labels <- function(grp_tbl) attr(grp_tbl, "labels")

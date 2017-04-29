@@ -24,19 +24,19 @@ read_broadpeak(filename, ...)
 
 \item{n_fields}{number fields in the BED file}
 
-\item{col_types}{column type spec for \code{\link[readr]{read_tsv}}}
+\item{col_types}{column type spec for \code{\link[readr:read_tsv]{readr::read_tsv()}}}
 
 \item{sort}{sort the tbl by chrom and start}
 
-\item{...}{options to pass to \code{\link[readr]{read_tsv}}}
+\item{...}{options to pass to \code{\link[readr:read_tsv]{readr::read_tsv()}}}
 }
 \value{
-\code{\link{tbl_interval}}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 read functions for BED and related formats. Filenames can be
-  local file or URLs. The read functions load data into tbls with consistent
-  \code{chrom}, \code{start} and \code{end} colnames.
+local file or URLs. The read functions load data into tbls with consistent
+\code{chrom}, \code{start} and \code{end} colnames.
 }
 \details{
 \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}

@@ -7,31 +7,31 @@
 bed_coverage(x, y, ...)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{...}{extra arguments (not used)}
 }
 \value{
-\code{x} \code{\link{tbl_interval}} with the following additional
-  columns:
+\code{x} \code{\link[=tbl_interval]{tbl_interval()}} with the following additional
+columns:
 \itemize{
-  \item{\code{.ints}}{ number of x intersections}
-  \item{\code{.cov}}{ per-base coverage of x intervals}
-  \item{\code{.len}}{ total length of y intervals covered by x intervals}
-  \item{\code{.frac}}{ .len scaled by total of y intervals}
-  }
+\item \code{.ints} number of x intersections
+\item \code{.cov} per-base coverage of x intervals
+\item \code{.len} total length of y intervals covered by x intervals
+\item \code{.frac} \code{.len} scaled by total of y intervals
+}
 }
 \description{
 Compute coverage of intervals.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \note{
 Book-ended intervals are counted as overlapping.

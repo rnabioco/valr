@@ -107,11 +107,11 @@ in the output.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>single y  <code><a href='tbl_interval.html'>tbl_interval</a></code>, multiple y <code><a href='tbl_interval.html'>tbl_interval</a>s</code>
+      <td><p>single y  <code><a href='tbl_interval.html'>tbl_interval()</a></code>, multiple y <code><a href='tbl_interval.html'>tbl_interval</a>s</code>
 or a list of y  <code>tbl_intervals</code></p></td>
     </tr>
     <tr>
@@ -126,23 +126,23 @@ or a list of y  <code>tbl_intervals</code></p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval</a></code> with original columns from <code>x</code> and <code>y</code>,
-  suffixed with <code>.x</code> and <code>.y</code>, and a new <code>.overlap</code> column
-  with the extent of overlap for the intersecting intervals.</p>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with original columns from <code>x</code> and <code>y</code>,
+suffixed with <code>.x</code> and <code>.y</code>, and a new <code>.overlap</code> column
+with the extent of overlap for the intersecting intervals.</p>
 <p>If  multiple <code>y</code> tbls are supplied, then an additional column <code>.source</code> will
-  be reported that contains the variable names associated with each interval. All original
-  columns from the y tbls will be suffixed with <code>.y</code> in the output.
-  If named tbls are supplied to <code>...</code> (i.e <code>a = y, b = z</code> or
-   <code>list(a = y, b = z)</code>), then the supplied names will be reported instead
-  of the variable names (see examples).</p>
+be reported that contains the variable names associated with each interval. All original
+columns from the y tbls will be suffixed with <code>.y</code> in the output.
+If named tbls are supplied to <code>...</code> (i.e <code>a = y, b = z</code> or
+<code>list(a = y, b = z)</code>), then the supplied names will be reported instead
+of the variable names (see examples).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
-  grouping by <code>strand</code> will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
-  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
+groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code>. For example,
+grouping by <code>strand</code> will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

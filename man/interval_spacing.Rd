@@ -7,10 +7,10 @@
 interval_spacing(x)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 }
 \value{
-\code{\link{tbl_interval}} with \code{.spacing} column.
+\code{\link[=tbl_interval]{tbl_interval()}} with \code{.spacing} column.
 }
 \description{
 Overlapping intervals are merged. Spacing for the first interval of each

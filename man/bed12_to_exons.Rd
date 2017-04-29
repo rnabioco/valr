@@ -7,7 +7,7 @@
 bed12_to_exons(x)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 }
 \description{
 After conversion to BED6 format, the \code{score} column contains the exon

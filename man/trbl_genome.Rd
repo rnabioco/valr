@@ -7,10 +7,10 @@
 trbl_genome(...)
 }
 \arguments{
-\item{...}{for \code{\link[tibble]{tribble}}}
+\item{...}{for \code{\link[tibble:tribble]{tibble::tribble()}}}
 }
 \value{
-\code{\link{tbl_genome}}
+\code{\link[=tbl_genome]{tbl_genome()}}
 }
 \description{
 Construct a tbl_genome using tribble formatting.

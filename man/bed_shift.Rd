@@ -7,9 +7,9 @@
 bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{\code{\link{tbl_genome}}}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{size}{number of bases to shift. postive numbers shift right, negative shift left.}
 
@@ -18,7 +18,7 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 \item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \value{
-\code{\link{tbl_interval}}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Out-of-bounds intervals are removed by default.

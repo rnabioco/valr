@@ -1,6 +1,6 @@
 #' Fetch data from remote databases.
 #' 
-#' Currently \code{db_ucsc} and \code{db_ensembl} are available for connections.
+#' Currently `db_ucsc` and `db_ensembl` are available for connections.
 #' 
 #' @name db
 #' 

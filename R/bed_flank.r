@@ -1,16 +1,16 @@
 #' Create flanking intervals from input intervals.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
+#' @param x [tbl_interval()]
+#' @param genome [tbl_genome()]
 #' @param both number of bases on both sizes
 #' @param left number of bases on left side
 #' @param right number of bases on right side
 #' @param fraction define flanks based on fraction of interval length
-#' @param strand define \code{left} and \code{right} based on strand
+#' @param strand define `left` and `right` based on strand
 #' @param trim adjust coordinates for out-of-bounds intervals
 #' @param ... extra arguments (not used)
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @family single set operations
 #' @seealso

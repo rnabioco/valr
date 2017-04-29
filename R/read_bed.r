@@ -2,15 +2,15 @@
 #'
 #' @description read functions for BED and related formats. Filenames can be
 #'   local file or URLs. The read functions load data into tbls with consistent
-#'   \code{chrom}, \code{start} and \code{end} colnames.
+#'   `chrom`, `start` and `end` colnames.
 #'
 #' @param filename file or URL
 #' @param n_fields number fields in the BED file
-#' @param col_types column type spec for \code{\link[readr]{read_tsv}}
+#' @param col_types column type spec for [readr::read_tsv()]
 #' @param sort sort the tbl by chrom and start
-#' @param ... options to pass to \code{\link[readr]{read_tsv}}
+#' @param ... options to pass to [readr::read_tsv()]
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @family read functions
 #'

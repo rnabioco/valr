@@ -1,26 +1,24 @@
 #' Projection test for query interval overlap.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
+#' @param genome [tbl_genome()]
 #' @param by_chrom compute test per chromosome
 #'
 #' @template stats
 #'
 #' @family interval statistics
 #'
-#' @return \code{\link{tbl_interval}} with the following columns:
-#'   \itemize{
-#'     \item{\code{chrom}} {the name of chromosome tested if \code{by_chrom = TRUE},
-#'      otherwise has a value of \code{'whole_genome'}}
-#'     \item{\code{p.value}} {p-value from a binomial test. p-values > 0.5
-#'      will be reported as 1 - p-value and \code{lower_tail} will be \code{FALSE}}
-#'     \item{\code{obs_exp_ratio}} {ratio of observed to expected overlap frequency}
-#'     \item{\code{lower_tail}} a boolean column. {\code{TRUE} indicates the observed overlaps
-#'      is in the lower tail of the distribution (e.g., less overlap than expected); \code{FALSE}
+#' @return [tbl_interval()] with the following columns:
+#'   - `chrom` the name of chromosome tested if `by_chrom = TRUE`,
+#'      otherwise has a value of `'whole_genome'`
+#'   - `p.value` p-value from a binomial test. p-values > 0.5
+#'      will be reported as 1 - p-value and `lower_tail` will be `FALSE`
+#'   - `obs_exp_ratio` ratio of observed to expected overlap frequency
+#'   - `lower_tail` a boolean column. `TRUE` indicates the observed overlaps
+#'      is in the lower tail of the distribution (e.g., less overlap than expected); `FALSE`
 #'      indicates that the observed overlaps are in the upper tail of the distribution
-#'      (e.g., more overlap than expected)}
-#'     }
+#'      (e.g., more overlap than expected)
 #'
 #' @seealso
 #'   \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}

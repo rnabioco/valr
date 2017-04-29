@@ -17,9 +17,9 @@ values_unique(.data, sep = ",")
 values(.data, sep = ",")
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{...}{name-value pairs specifying colnames and expressions to apply}
 
@@ -34,20 +34,20 @@ values(.data, sep = ",")
 \item{sep}{separator character}
 }
 \value{
-\code{\link{tbl_interval}}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
-Used to apply functions like \code{\link{min}()}, \code{\link{count}()},
-\code{\link{concat}()} to intersecting intervals. Book-ended intervals are
+Used to apply functions like \code{\link[=min]{min()}}, \code{\link[=count]{count()}},
+\code{\link[=concat]{concat()}} to intersecting intervals. Book-ended intervals are
 not reported by default, but can be included by setting \code{min_overlap =
 0}.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
 x <- trbl_interval(

@@ -7,10 +7,10 @@
 trbl_interval(...)
 }
 \arguments{
-\item{...}{data for \code{\link[tibble]{tribble}}}
+\item{...}{data for \code{\link[tibble:tribble]{tibble::tribble()}}}
 }
 \value{
-\code{\link{tbl_interval}}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Construct an tbl_interval using tribble formatting.

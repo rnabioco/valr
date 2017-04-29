@@ -2,13 +2,13 @@
 #'
 #' Out-of-bounds intervals are removed by default.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
+#' @param x [tbl_interval()]
+#' @param genome [tbl_genome()]
 #' @param size number of bases to shift. postive numbers shift right, negative shift left.
-#' @param fraction define \code{size} as a fraction of interval
+#' @param fraction define `size` as a fraction of interval
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @family single set operations
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
