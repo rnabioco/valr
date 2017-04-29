@@ -8,7 +8,7 @@ bed_random(genome, length = 1000, n = 1e+06, sort_by = c("chrom",
   "start"), seed = 0)
 }
 \arguments{
-\item{genome}{\code{\link{tbl_genome}}}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{length}{length of intervals}
 
@@ -19,7 +19,7 @@ bed_random(genome, length = 1000, n = 1e+06, sort_by = c("chrom",
 \item{seed}{seed RNG for reproducible intervals}
 }
 \value{
-\code{\link{tbl_interval}}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Generate randomly placed intervals on a genome.

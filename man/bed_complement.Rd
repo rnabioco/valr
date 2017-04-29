@@ -7,12 +7,12 @@
 bed_complement(x, genome)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{\code{\link{tbl_genome}}}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 }
 \value{
-\code{\link{tbl_interval}}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Identify intervals in a genome not covered by a query.

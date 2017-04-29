@@ -1,11 +1,11 @@
 #' Identify intervals in a genome not covered by a query.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
+#' @param x [tbl_interval()]
+#' @param genome [tbl_genome()]
 #'
 #' @family single set operations
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @examples
 #' x <- trbl_interval(

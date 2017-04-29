@@ -2,7 +2,7 @@
 #'
 #' @inheritParams bed_flank
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @family single set operations
 #' @seealso

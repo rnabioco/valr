@@ -105,11 +105,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>overlap</th>
@@ -123,7 +123,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval</a></code> with additional columns:</p><ul>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with additional columns:</p><ul>
 <li><p><code>.dist</code> distance to closest interval, negative distances denote upstream intervals</p></li>
 <li><p><code>.overlap</code> overlap with closest interval</p></li>
 </ul>
@@ -132,10 +132,10 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
-  grouping by <code>strand</code> will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
-  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
+groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code>. For example,
+grouping by <code>strand</code> will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -187,14 +187,14 @@
 #&gt; 3  chr2    5000  6000    7000  8500  1000</div><div class='input'>
 <span class='co'># Report distance based on strand</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
-  <span class='st'>"chr1"</span>,       <span class='fl'>10</span>,     <span class='fl'>20</span>,     <span class='st'>"a"</span>,    <span class='fl'>1</span>,      <span class='st'>"-"</span>
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>10</span>,      <span class='fl'>20</span>,   <span class='st'>"a"</span>,   <span class='fl'>1</span>,      <span class='st'>"-"</span>
 )
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
-  <span class='st'>"chr1"</span>,       <span class='fl'>8</span>,      <span class='fl'>9</span>,      <span class='st'>"b"</span>,    <span class='fl'>1</span>,      <span class='st'>"+"</span>,
-  <span class='st'>"chr1"</span>,       <span class='fl'>21</span>,     <span class='fl'>22</span>,     <span class='st'>"b"</span>,    <span class='fl'>1</span>, <span class='st'>"-"</span>
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>8</span>,         <span class='fl'>9</span>,    <span class='st'>"b"</span>,   <span class='fl'>1</span>,      <span class='st'>"+"</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>21</span>,      <span class='fl'>22</span>,   <span class='st'>"b"</span>,   <span class='fl'>1</span>,      <span class='st'>"-"</span>
 )
 
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>)

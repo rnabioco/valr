@@ -1,24 +1,24 @@
 #' Identify intersecting intervals.
 #'
-#' Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended
-#' intervals (or "touching" intervals) have \code{.overlap} values of \code{0})
+#' Report intersecting intervals from `x` and `y` tbls. Book-ended
+#' intervals (or "touching" intervals) have `.overlap` values of `0`)
 #' in the output.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param ... single y  \code{\link{tbl_interval}}, multiple y \code{\link{tbl_interval}s}
-#'                   or a list of y  \code{tbl_intervals}
-#' @param invert report \code{x} intervals not in \code{y}
+#' @param x [tbl_interval()]
+#' @param ... single y  [tbl_interval()], multiple y \code{\link{tbl_interval}s}
+#'                   or a list of y  `tbl_intervals`
+#' @param invert report `x` intervals not in `y`
 #' @param suffix colname suffixes in output
 #'
-#' @return \code{\link{tbl_interval}} with original columns from \code{x} and \code{y},
-#'   suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
+#' @return [tbl_interval()] with original columns from `x` and `y`,
+#'   suffixed with `.x` and `.y`, and a new `.overlap` column
 #'   with the extent of overlap for the intersecting intervals.
 #'
-#'   If  multiple \code{y} tbls are supplied, then an additional column \code{.source} will
+#'   If  multiple `y` tbls are supplied, then an additional column `.source` will
 #'   be reported that contains the variable names associated with each interval. All original
-#'   columns from the y tbls will be suffixed with \code{.y} in the output.
-#'   If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
-#'    \code{list(a = y, b = z)}), then the supplied names will be reported instead
+#'   columns from the y tbls will be suffixed with `.y` in the output.
+#'   If named tbls are supplied to `...` (i.e `a = y, b = z` or
+#'    `list(a = y, b = z)`), then the supplied names will be reported instead
 #'   of the variable names (see examples).
 #'
 #'

@@ -7,11 +7,11 @@
 bed_window(x, y, genome, ...)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{\code{\link{tbl_genome}}}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{...}{params for bed_slop and bed_intersect}
 }
@@ -20,10 +20,10 @@ Identify intervals within a specified distance.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
 x <- trbl_interval(

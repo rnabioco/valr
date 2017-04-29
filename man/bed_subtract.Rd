@@ -7,9 +7,9 @@
 bed_subtract(x, y, any = FALSE)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{any}{remove any \code{x} intervals that overlap \code{y}}
 }
@@ -18,10 +18,10 @@ Subtract \code{y} intervals from \code{x} intervals.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
 x <- trbl_interval(

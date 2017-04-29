@@ -7,18 +7,18 @@
 bed_jaccard(x, y)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{\code{\link{tbl_interval}}}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 }
 \value{
-\code{\link{tbl_interval}} with the following columns:
-  \itemize{
-    \item{\code{len_i}}{ length of the intersection}
-    \item{\code{len_u}}{ length of the union}
-    \item{\code{jaccard}}{ jaccard statistic}
-    \item{\code{n_int}}{ number of intersecting intervals between x and y}
-    }
+\code{\link[=tbl_interval]{tbl_interval()}} with the following columns:
+\itemize{
+\item \code{len_i} length of the intersection
+\item \code{len_u} length of the union
+\item \code{jaccard} jaccard statistic
+\item \code{n_int} number of intersecting intervals between x and y
+}
 }
 \description{
 Calculate jaccard statistics on two sets of intervals.
@@ -32,10 +32,10 @@ intervals. The Jaccard statistic takes values of \code{[0,1]} and is measured as
                 \frac{\mid x \bigcap y \mid}
                      {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} }
 
-Interval statistics can be used in combination with 
-  \code{\link[dplyr]{group_by}} and \code{\link[dplyr]{do}} to calculate 
-  statistics for subsets of data. See \code{vignette('interval-stats')} for
-  examples.
+Interval statistics can be used in combination with
+\code{\link[dplyr:group_by]{dplyr::group_by()}} and \code{\link[dplyr:do]{dplyr::do()}} to calculate
+statistics for subsets of data. See \code{vignette('interval-stats')} for
+examples.
 }
 \examples{
 x <- trbl_interval(

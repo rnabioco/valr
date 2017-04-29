@@ -105,17 +105,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval</a></code> with the following columns:</p><ul>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following columns:</p><ul>
 <li><p><code>len_i</code> length of the intersection</p></li>
 <li><p><code>len_u</code> length of the union</p></li>
 <li><p><code>jaccard</code> jaccard statistic</p></li>
@@ -131,10 +131,10 @@ intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measu
                      {\mid x \bigcup y \mid} =
                 \frac{\mid x \bigcap y \mid}
                      {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} $$</p>
-<p>Interval statistics can be used in combination with 
-  <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 
-  statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for
-  examples.</p>
+<p>Interval statistics can be used in combination with
+<code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>dplyr::do()</a></code> to calculate
+statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for
+examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

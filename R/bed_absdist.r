@@ -1,25 +1,25 @@
 #' Compute absolute distances between intervals.
 #'
-#' Computes the absolute distance between the midpoints of \code{x} intervals and
-#' the closest midpoints of \code{y} intervals.
+#' Computes the absolute distance between the midpoints of `x` intervals and
+#' the closest midpoints of `y` intervals.
 #'
 #' @details Absolute distances are scaled by the inter-reference gap for the
-#'   chromosome as follows. For \code{Q} query points and \code{R} reference
-#'   points on a chromosome, scale the distance for each query point \code{i} to
+#'   chromosome as follows. For `Q` query points and `R` reference
+#'   points on a chromosome, scale the distance for each query point `i` to
 #'   the closest reference point by the inter-reference gap for each chromosome.
-#'   If an \code{x} interval has no matching \code{y} chromosome,
-#'   \code{.absdist} is \code{NA}.
+#'   If an `x` interval has no matching `y` chromosome,
+#'   `.absdist` is `NA`.
 #'
 #'   \deqn{d_i(x,y) = min_k(|q_i - r_k|)\frac{R}{Length\ of\ chromosome}}
 #'
-#'   Both absolute and scaled distances are reported as \code{.absdist} and
-#'   \code{.absdist_scaled}.
+#'   Both absolute and scaled distances are reported as `.absdist` and
+#'   `.absdist_scaled`.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
+#' @param genome [tbl_genome()]
 #'
-#' @return \code{\link{tbl_interval}} with \code{.absdist} and \code{.absdist_scaled}
+#' @return [tbl_interval()] with `.absdist` and `.absdist_scaled`
 #'   columns.
 #'
 #' @template stats

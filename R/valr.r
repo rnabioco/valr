@@ -5,7 +5,7 @@
 #' genome-scale data sets, leveraging the power of dplyr and piping.
 #'
 #' To learn more about valr, start with the vignette:
-#' \code{browseVignettes(package = "valr")}
+#' `browseVignettes(package = "valr")`
 #'
 #' @author Jay Hesselberth <jay.hesselberth@@gmail.com>
 #' @author Kent Riemondy <kent.riemondy@@gmail.com>

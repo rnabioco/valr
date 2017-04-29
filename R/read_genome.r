@@ -7,7 +7,7 @@
 #' @param path containing chrom/contig names and sizes, one-pair-per-line,
 #'   tab-delimited
 #'
-#' @return \code{\link{tbl_genome}}, sorted by \code{size}
+#' @return [tbl_genome()], sorted by `size`
 #'
 #' @note URLs to genome files can also be used.
 #'
@@ -33,13 +33,13 @@ read_genome <- function(path) {
 #' Select intervals bounded by a genome.
 #'
 #' Used to remove out-of-bounds intervals, or trim interval coordinates using a
-#' \code{genome}.
+#' `genome`.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
+#' @param x [tbl_interval()]
+#' @param genome [tbl_genome()]
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @examples
 #' x <- trbl_interval(

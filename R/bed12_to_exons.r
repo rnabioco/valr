@@ -1,10 +1,10 @@
 #' Convert BED12 to individual exons in BED6.
 #'
-#' After conversion to BED6 format, the \code{score} column contains the exon
-#' number, with respect to strand (i.e., the first exon for \code{-} strand
+#' After conversion to BED6 format, the `score` column contains the exon
+#' number, with respect to strand (i.e., the first exon for `-` strand
 #' genes will have larger start and end coordinates).
 #'
-#' @param x \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
 #' @family utilities
 #'
 #' @examples

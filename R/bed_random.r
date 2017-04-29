@@ -1,14 +1,14 @@
 #' Generate randomly placed intervals on a genome.
 #'
-#' @param genome \code{\link{tbl_genome}}
+#' @param genome [tbl_genome()]
 #' @param length length of intervals
 #' @param n number of intervals to generate
 #' @param sort_by sorting variables
 #' @param seed seed RNG for reproducible intervals
 #'
-#' @details Sorting can be suppressed with \code{sort_by = NULL}.
+#' @details Sorting can be suppressed with `sort_by = NULL`.
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @family randomizing operations
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}

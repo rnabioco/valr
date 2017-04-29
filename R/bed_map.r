@@ -1,20 +1,20 @@
 #' Calculate summaries and statistics from overlapping intervals.
 #'
-#' Used to apply functions like \code{\link{min}()}, \code{\link{count}()},
-#' \code{\link{concat}()} to intersecting intervals. Book-ended intervals are
+#' Used to apply functions like [min()], [count()],
+#' [concat()] to intersecting intervals. Book-ended intervals are
 #' not reported by default, but can be included by setting \code{min_overlap =
 #' 0}.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y  \code{\link{tbl_interval}}
-#' @param invert report \code{x} intervals not in \code{y}
+#' @param x [tbl_interval()]
+#' @param y  [tbl_interval()]
+#' @param invert report `x` intervals not in `y`
 #' @param suffix colname suffixes in output
 #' @param min_overlap minimum overlap for intervals.
 #' @param ... name-value pairs specifying colnames and expressions to apply
 #'
 #' @template groups
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #'
 #' @family multiple set operations
 #' @seealso

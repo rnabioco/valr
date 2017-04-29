@@ -8,9 +8,9 @@ bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
   reverse = FALSE)
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{\code{\link{tbl_genome}}}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{win_size}{divide intervals into fixed-size windows}
 
@@ -21,16 +21,16 @@ bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
 \item{reverse}{reverse window numbers}
 }
 \value{
-\code{\link{tbl_interval}} with \code{.win_id} column that contains a numeric
-  identifier for the window.
+\code{\link[=tbl_interval]{tbl_interval()}} with \code{.win_id} column that contains a numeric
+identifier for the window.
 }
 \description{
 Divide intervals into new sub-intervals ("windows").
 }
 \note{
 The \code{name} and \code{.win_id} columns can be used to create new
-  interval names (see 'namenum' example below) or in subsequent
-  \code{group_by} operations (see vignette).
+interval names (see 'namenum' example below) or in subsequent
+\code{group_by} operations (see vignette).
 }
 \examples{
 genome <- trbl_genome(

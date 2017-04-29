@@ -1,7 +1,7 @@
 #' Compute coverage of intervals.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
 #' @param ... extra arguments (not used)
 #'
 #' @note Book-ended intervals are counted as overlapping.
@@ -10,14 +10,12 @@
 #'
 #' @family multiple set operations
 #'
-#' @return \code{x} \code{\link{tbl_interval}} with the following additional
+#' @return `x` [tbl_interval()] with the following additional
 #'   columns:
-#' \itemize{
-#'   \item{\code{.ints}}{ number of x intersections}
-#'   \item{\code{.cov}}{ per-base coverage of x intervals}
-#'   \item{\code{.len}}{ total length of y intervals covered by x intervals}
-#'   \item{\code{.frac}}{ .len scaled by total of y intervals}
-#'   }
+#'   - `.ints` number of x intersections
+#'   - `.cov` per-base coverage of x intervals
+#'   - `.len` total length of y intervals covered by x intervals
+#'   - `.frac` `.len` scaled by total of y intervals
 #
 #' @examples
 #' x <- trbl_interval(

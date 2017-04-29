@@ -1,9 +1,9 @@
 #' Flip strands in intervals.
 #'
-#' Flips positive (\code{+}) stranded intervals to negative (\code{-}) strands,
+#' Flips positive (`+`) stranded intervals to negative (`-`) strands,
 #' and vice-versa. Facilitates comparisons among intervals on opposing strands.
 #'
-#' @param x \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
 #'
 #' @examples
 #' x <- trbl_interval(

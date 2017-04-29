@@ -1,14 +1,14 @@
 #' Shuffle input intervals.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param genome \code{\link{tbl_genome}}
-#' @param incl \code{\link{tbl_interval}} of included intervals
-#' @param excl \code{\link{tbl_interval}} of excluded intervals
+#' @param x [tbl_interval()]
+#' @param genome [tbl_genome()]
+#' @param incl [tbl_interval()] of included intervals
+#' @param excl [tbl_interval()] of excluded intervals
 #' @param max_tries maximum tries to identify a bounded interval
 #' @param within shuffle within chromosomes
 #' @param seed seed for reproducible intervals
 #'
-#' @return \code{\link{tbl_interval}}
+#' @return [tbl_interval()]
 #' @family randomizing operations
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 #'

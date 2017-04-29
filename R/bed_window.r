@@ -1,7 +1,7 @@
 #' Identify intervals within a specified distance.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y  \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
+#' @param y  [tbl_interval()]
 #' @param ... params for bed_slop and bed_intersect
 #' @inheritParams bed_slop
 #' @inheritParams bed_intersect

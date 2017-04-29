@@ -1,21 +1,20 @@
 #' Compute relative distances between intervals.
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
-#' @param detail report relative distances for each \code{x} interval.
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
+#' @param detail report relative distances for each `x` interval.
 #'
 #' @family interval statistics
 #'
-#' @return If \code{detail = FALSE}, a \code{\link{tbl_interval}} that summarizes
-#'  calcuclated \code{.reldist} values with the following columns:
-#'   \itemize{
-#'     \item{\code{.reldist}}{ relative distance metric}
-#'     \item{\code{.counts}}{ number of metric observations}
-#'     \item{\code{.total}}{ total observations}
-#'     \item{\code{.freq}}{ frequency of observation}}
+#' @return If `detail = FALSE`, a [tbl_interval()] that summarizes
+#'  calculated `.reldist` values with the following columns:
+#'   - `.reldist` relative distance metric
+#'   - `.counts` number of metric observations
+#'   - `.total` total observations
+#'   - `.freq` frequency of observation
 #'
-#'     If \code{detail = TRUE}, a new \code{.reldist} column reports the relative
-#'     distance for each input \code{x} interval.
+#'   If `detail = TRUE`, a new `.reldist` column reports the relative
+#'   distance for each input `x` interval.
 #'
 #' @template stats
 #'

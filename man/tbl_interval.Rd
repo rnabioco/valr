@@ -9,7 +9,7 @@ tbl_interval(x, ..., .validate = TRUE)
 \arguments{
 \item{x}{A \code{data_frame}}
 
-\item{...}{params for \code{\link[tibble]{tibble}}}
+\item{...}{params for \code{\link[tibble:tibble]{tibble::tibble()}}}
 
 \item{.validate}{check valid column names}
 }

@@ -1,26 +1,24 @@
 #' Calculate jaccard statistics on two sets of intervals.
 #'
-#' @details \code{bed_jaccard()} quantifies the extent of overlap between to sets of
-#' intervals. The Jaccard statistic takes values of \code{[0,1]} and is measured as:
+#' @details `bed_jaccard()` quantifies the extent of overlap between to sets of
+#' intervals. The Jaccard statistic takes values of `[0,1]` and is measured as:
 #'
 #' \deqn{ J(x,y) = \frac{\mid x \bigcap y \mid}
 #'                      {\mid x \bigcup y \mid} =
 #'                 \frac{\mid x \bigcap y \mid}
 #'                      {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} }
 #'
-#' @param x \code{\link{tbl_interval}}
-#' @param y \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
+#' @param y [tbl_interval()]
 #'
 #' @template stats
 #'
 #' @family interval statistics
-#' @return \code{\link{tbl_interval}} with the following columns:
-#'   \itemize{
-#'     \item{\code{len_i}}{ length of the intersection}
-#'     \item{\code{len_u}}{ length of the union}
-#'     \item{\code{jaccard}}{ jaccard statistic}
-#'     \item{\code{n_int}}{ number of intersecting intervals between x and y}
-#'     }
+#' @return [tbl_interval()] with the following columns:
+#'   - `len_i` length of the intersection
+#'   - `len_u` length of the union
+#'   - `jaccard` jaccard statistic
+#'   - `n_int` number of intersecting intervals between x and y
 #'
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html}

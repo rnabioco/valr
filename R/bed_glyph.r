@@ -6,7 +6,7 @@
 #' @param label column name to use for label values. should be present in the
 #'   result of the call.
 #'
-#' @return \code{\link[ggplot2]{ggplot}}
+#' @return [ggplot2::ggplot()]
 #'
 #' @examples
 #' x <- trbl_interval(

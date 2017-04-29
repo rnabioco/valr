@@ -1,15 +1,15 @@
 #' Cluster neighboring intervals.
 #'
-#' Output contains an \code{.id} column that can be used in downstream grouping
-#' operations. Default \code{max_dist = 0} means that both overlapping and
+#' Output contains an `.id` column that can be used in downstream grouping
+#' operations. Default `max_dist = 0` means that both overlapping and
 #' book-ended intervals will be clustered.
 #'
-#' @param x \code{\link{tbl_interval}}
+#' @param x [tbl_interval()]
 #' @param max_dist maximum distance between clustered intervals.
 #'
 #' @template groups
 #'
-#' @return \code{\link{tbl_interval}} with \code{.id} column for clustered intervals.
+#' @return [tbl_interval()] with `.id` column for clustered intervals.
 #'
 #' @family single set operations
 #' @seealso

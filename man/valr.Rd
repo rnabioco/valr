@@ -27,7 +27,7 @@ To learn more about valr, start with the vignette:
 \url{https://CRAN.R-project.org/package=bedr}
 }
 \author{
-Jay Hesselberth <jay.hesselberth@gmail.com>
+Jay Hesselberth \href{mailto:jay.hesselberth@gmail.com}{jay.hesselberth@gmail.com}
 
-Kent Riemondy <kent.riemondy@gmail.com>
+Kent Riemondy \href{mailto:kent.riemondy@gmail.com}{kent.riemondy@gmail.com}
 }

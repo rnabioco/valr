@@ -105,11 +105,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>detail</th>
@@ -119,8 +119,8 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>If <code>detail = FALSE</code>, a <code><a href='tbl_interval.html'>tbl_interval</a></code> that summarizes
- calcuclated <code>.reldist</code> values with the following columns:</p><ul>
+    <p>If <code>detail = FALSE</code>, a <code><a href='tbl_interval.html'>tbl_interval()</a></code> that summarizes
+calculated <code>.reldist</code> values with the following columns:</p><ul>
 <li><p><code>.reldist</code> relative distance metric</p></li>
 <li><p><code>.counts</code> number of metric observations</p></li>
 <li><p><code>.total</code> total observations</p></li>
@@ -128,14 +128,14 @@
 </ul>
 
 <p>If <code>detail = TRUE</code>, a new <code>.reldist</code> column reports the relative
-    distance for each input <code>x</code> interval.</p>
+distance for each input <code>x</code> interval.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Interval statistics can be used in combination with 
-  <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>do</a></code> to calculate 
-  statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for
-  examples.</p>
+    <p>Interval statistics can be used in combination with
+<code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code> and <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/do'>dplyr::do()</a></code> to calculate
+statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for
+examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

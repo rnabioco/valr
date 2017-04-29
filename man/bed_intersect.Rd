@@ -7,9 +7,9 @@
 bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"))
 }
 \arguments{
-\item{x}{\code{\link{tbl_interval}}}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{...}{single y  \code{\link{tbl_interval}}, multiple y \code{\link{tbl_interval}s}
+\item{...}{single y  \code{\link[=tbl_interval]{tbl_interval()}}, multiple y \code{\link{tbl_interval}s}
 or a list of y  \code{tbl_intervals}}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
@@ -17,16 +17,16 @@ or a list of y  \code{tbl_intervals}}
 \item{suffix}{colname suffixes in output}
 }
 \value{
-\code{\link{tbl_interval}} with original columns from \code{x} and \code{y},
-  suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
-  with the extent of overlap for the intersecting intervals.
+\code{\link[=tbl_interval]{tbl_interval()}} with original columns from \code{x} and \code{y},
+suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
+with the extent of overlap for the intersecting intervals.
 
-  If  multiple \code{y} tbls are supplied, then an additional column \code{.source} will
-  be reported that contains the variable names associated with each interval. All original
-  columns from the y tbls will be suffixed with \code{.y} in the output.
-  If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
-   \code{list(a = y, b = z)}), then the supplied names will be reported instead
-  of the variable names (see examples).
+If  multiple \code{y} tbls are supplied, then an additional column \code{.source} will
+be reported that contains the variable names associated with each interval. All original
+columns from the y tbls will be suffixed with \code{.y} in the output.
+If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
+\code{list(a = y, b = z)}), then the supplied names will be reported instead
+of the variable names (see examples).
 }
 \description{
 Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended
@@ -35,10 +35,10 @@ in the output.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
 x <- trbl_interval(

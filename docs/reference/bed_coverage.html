@@ -105,11 +105,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval</a></code></p></td>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -119,22 +119,22 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>x</code> <code><a href='tbl_interval.html'>tbl_interval</a></code> with the following additional
-  columns:</p><ul>
+    <p><code>x</code> <code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following additional
+columns:</p><ul>
 <li><p><code>.ints</code> number of x intersections</p></li>
 <li><p><code>.cov</code> per-base coverage of x intervals</p></li>
 <li><p><code>.len</code> total length of y intervals covered by x intervals</p></li>
-<li><p><code>.frac</code> .len scaled by total of y intervals</p></li>
+<li><p><code>.frac</code> <code>.len</code> scaled by total of y intervals</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
-  grouping by <code>strand</code> will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
-  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
+groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code>. For example,
+grouping by <code>strand</code> will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

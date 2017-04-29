@@ -13,7 +13,7 @@ bed_glyph(expr, label = NULL)
 result of the call.}
 }
 \value{
-\code{\link[ggplot2]{ggplot}}
+\code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}
 }
 \description{
 Used to illustrate the output of valr functions with small input tbls.
