@@ -14,7 +14,6 @@
 #include <functional>
 #include <stack>
 
-// [[Rcpp::depends(dplyr)]]
 // [[Rcpp::plugins(cpp11)]]
 
 #include <Rcpp.h>
