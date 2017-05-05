@@ -71,7 +71,7 @@
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">April 19 2017</h4>
+            <h4 class="date">May 05 2017</h4>
           </div>
 
     
@@ -105,15 +105,15 @@ tss
 <span class="co">#&gt; # A tibble: 1,267 × 4</span>
 <span class="co">#&gt;    chrom    start      end         name</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;dbl&gt;        &lt;chr&gt;</span>
-<span class="co">#&gt; 1  chr22 16193009 16193010    NR_122113</span>
-<span class="co">#&gt; 2  chr22 16157078 16157079    NR_133911</span>
-<span class="co">#&gt; 3  chr22 16162065 16162066    NR_073459</span>
-<span class="co">#&gt; 4  chr22 16162065 16162066    NR_073460</span>
-<span class="co">#&gt; 5  chr22 16231289 16231290    NR_132385</span>
-<span class="co">#&gt; 6  chr22 16287937 16287938 NM_001136213</span>
-<span class="co">#&gt; 7  chr22 16274608 16274609    NR_046571</span>
-<span class="co">#&gt; 8  chr22 16449804 16449805 NM_001005239</span>
-<span class="co">#&gt; 9  chr22 17073700 17073701    NM_014406</span>
+<span class="co">#&gt;  1 chr22 16193009 16193010    NR_122113</span>
+<span class="co">#&gt;  2 chr22 16157078 16157079    NR_133911</span>
+<span class="co">#&gt;  3 chr22 16162065 16162066    NR_073459</span>
+<span class="co">#&gt;  4 chr22 16162065 16162066    NR_073460</span>
+<span class="co">#&gt;  5 chr22 16231289 16231290    NR_132385</span>
+<span class="co">#&gt;  6 chr22 16287937 16287938 NM_001136213</span>
+<span class="co">#&gt;  7 chr22 16274608 16274609    NR_046571</span>
+<span class="co">#&gt;  8 chr22 16449804 16449805 NM_001005239</span>
+<span class="co">#&gt;  9 chr22 17073700 17073701    NM_014406</span>
 <span class="co">#&gt; 10 chr22 17082800 17082801    NR_001591</span>
 <span class="co">#&gt; # ... with 1,257 more rows</span></code></pre></div>
 </div>
@@ -138,15 +138,15 @@ obs_stats
 <span class="co">#&gt; # A tibble: 2,106 × 4</span>
 <span class="co">#&gt;          name    stat             value  type</span>
 <span class="co">#&gt;         &lt;chr&gt;   &lt;chr&gt;            &lt;list&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1        (A)n reldist &lt;tibble [27 × 1]&gt;   obs</span>
-<span class="co">#&gt; 2  (AAAAACA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
-<span class="co">#&gt; 3    (AAAAC)n reldist  &lt;tibble [6 × 1]&gt;   obs</span>
-<span class="co">#&gt; 4    (AAAAG)n reldist  &lt;tibble [2 × 1]&gt;   obs</span>
-<span class="co">#&gt; 5    (AAAAT)n reldist  &lt;tibble [3 × 1]&gt;   obs</span>
-<span class="co">#&gt; 6   (AAAATA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
-<span class="co">#&gt; 7  (AAAATAA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
-<span class="co">#&gt; 8     (AAAC)n reldist  &lt;tibble [2 × 1]&gt;   obs</span>
-<span class="co">#&gt; 9    (AAACA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
+<span class="co">#&gt;  1       (A)n reldist &lt;tibble [27 × 1]&gt;   obs</span>
+<span class="co">#&gt;  2 (AAAAACA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
+<span class="co">#&gt;  3   (AAAAC)n reldist  &lt;tibble [6 × 1]&gt;   obs</span>
+<span class="co">#&gt;  4   (AAAAG)n reldist  &lt;tibble [2 × 1]&gt;   obs</span>
+<span class="co">#&gt;  5   (AAAAT)n reldist  &lt;tibble [3 × 1]&gt;   obs</span>
+<span class="co">#&gt;  6  (AAAATA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
+<span class="co">#&gt;  7 (AAAATAA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
+<span class="co">#&gt;  8    (AAAC)n reldist  &lt;tibble [2 × 1]&gt;   obs</span>
+<span class="co">#&gt;  9   (AAACA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
 <span class="co">#&gt; 10  (AAACAA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
 <span class="co">#&gt; # ... with 2,096 more rows</span></code></pre></div>
 <p>And the same is done for a set of shuffled group of data. <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code> is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)</p>
@@ -173,17 +173,18 @@ res
 <span class="co">#&gt; Source: local data frame [16,659 x 5]</span>
 <span class="co">#&gt; Groups: name, stat [1,903]</span>
 <span class="co">#&gt; </span>
+<span class="co">#&gt; # A tibble: 16,659 × 5</span>
 <span class="co">#&gt;     name    stat   .id     obs     shuf</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   (A)n absdist     1 5120782 12846274</span>
-<span class="co">#&gt; 2   (A)n absdist     2  226476 12729092</span>
-<span class="co">#&gt; 3   (A)n absdist     3   31241  8239065</span>
-<span class="co">#&gt; 4   (A)n absdist     4    8931  6929891</span>
-<span class="co">#&gt; 5   (A)n absdist     5   41316  5407516</span>
-<span class="co">#&gt; 6   (A)n absdist     6   22519  4173195</span>
-<span class="co">#&gt; 7   (A)n absdist     7   15173  3611447</span>
-<span class="co">#&gt; 8   (A)n absdist     8   21985  3233777</span>
-<span class="co">#&gt; 9   (A)n absdist     9   13457   130009</span>
+<span class="co">#&gt;  1  (A)n absdist     1 5120782 12846274</span>
+<span class="co">#&gt;  2  (A)n absdist     2  226476 12729092</span>
+<span class="co">#&gt;  3  (A)n absdist     3   31241  8239065</span>
+<span class="co">#&gt;  4  (A)n absdist     4    8931  6929891</span>
+<span class="co">#&gt;  5  (A)n absdist     5   41316  5407516</span>
+<span class="co">#&gt;  6  (A)n absdist     6   22519  4173195</span>
+<span class="co">#&gt;  7  (A)n absdist     7   15173  3611447</span>
+<span class="co">#&gt;  8  (A)n absdist     8   21985  3233777</span>
+<span class="co">#&gt;  9  (A)n absdist     9   13457   130009</span>
 <span class="co">#&gt; 10  (A)n absdist    10  134007     3775</span>
 <span class="co">#&gt; # ... with 16,649 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code>broom::tidy()</code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
@@ -244,15 +245,15 @@ promoters_coding
 <span class="co">#&gt; # A tibble: 973 × 6</span>
 <span class="co">#&gt;    chrom    start      end   name score strand</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1  chr22 16287937 16292937 coding     0      -</span>
-<span class="co">#&gt; 2  chr22 16449804 16454804 coding     0      -</span>
-<span class="co">#&gt; 3  chr22 17073700 17078700 coding     0      -</span>
-<span class="co">#&gt; 4  chr22 17302589 17307589 coding     0      -</span>
-<span class="co">#&gt; 5  chr22 17302589 17307589 coding     0      -</span>
-<span class="co">#&gt; 6  chr22 17489112 17494112 coding     0      -</span>
-<span class="co">#&gt; 7  chr22 17560848 17565848 coding     0      +</span>
-<span class="co">#&gt; 8  chr22 17560848 17565848 coding     0      +</span>
-<span class="co">#&gt; 9  chr22 17602213 17607213 coding     0      -</span>
+<span class="co">#&gt;  1 chr22 16287937 16292937 coding     0      -</span>
+<span class="co">#&gt;  2 chr22 16449804 16454804 coding     0      -</span>
+<span class="co">#&gt;  3 chr22 17073700 17078700 coding     0      -</span>
+<span class="co">#&gt;  4 chr22 17302589 17307589 coding     0      -</span>
+<span class="co">#&gt;  5 chr22 17302589 17307589 coding     0      -</span>
+<span class="co">#&gt;  6 chr22 17489112 17494112 coding     0      -</span>
+<span class="co">#&gt;  7 chr22 17560848 17565848 coding     0      +</span>
+<span class="co">#&gt;  8 chr22 17560848 17565848 coding     0      +</span>
+<span class="co">#&gt;  9 chr22 17602213 17607213 coding     0      -</span>
 <span class="co">#&gt; 10 chr22 17602257 17607257 coding     0      -</span>
 <span class="co">#&gt; # ... with 963 more rows</span>
 
@@ -260,15 +261,15 @@ promoters_ncoding
 <span class="co">#&gt; # A tibble: 294 × 6</span>
 <span class="co">#&gt;    chrom    start      end       name score strand</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
-<span class="co">#&gt; 1  chr22 16152078 16157078 non-coding     0      +</span>
-<span class="co">#&gt; 2  chr22 16157065 16162065 non-coding     0      +</span>
-<span class="co">#&gt; 3  chr22 16157065 16162065 non-coding     0      +</span>
-<span class="co">#&gt; 4  chr22 16193009 16198009 non-coding     0      -</span>
-<span class="co">#&gt; 5  chr22 16231289 16236289 non-coding     0      -</span>
-<span class="co">#&gt; 6  chr22 16269608 16274608 non-coding     0      +</span>
-<span class="co">#&gt; 7  chr22 17077800 17082800 non-coding     0      +</span>
-<span class="co">#&gt; 8  chr22 17156430 17161430 non-coding     0      -</span>
-<span class="co">#&gt; 9  chr22 17229328 17234328 non-coding     0      -</span>
+<span class="co">#&gt;  1 chr22 16152078 16157078 non-coding     0      +</span>
+<span class="co">#&gt;  2 chr22 16157065 16162065 non-coding     0      +</span>
+<span class="co">#&gt;  3 chr22 16157065 16162065 non-coding     0      +</span>
+<span class="co">#&gt;  4 chr22 16193009 16198009 non-coding     0      -</span>
+<span class="co">#&gt;  5 chr22 16231289 16236289 non-coding     0      -</span>
+<span class="co">#&gt;  6 chr22 16269608 16274608 non-coding     0      +</span>
+<span class="co">#&gt;  7 chr22 17077800 17082800 non-coding     0      +</span>
+<span class="co">#&gt;  8 chr22 17156430 17161430 non-coding     0      -</span>
+<span class="co">#&gt;  9 chr22 17229328 17234328 non-coding     0      -</span>
 <span class="co">#&gt; 10 chr22 17303363 17308363 non-coding     0      +</span>
 <span class="co">#&gt; # ... with 284 more rows</span></code></pre></div>
 <p>Next we’ll apply the <code><a href="../reference/bed_projection.html">bed_projection()</a></code> test for each repeat class for both coding and non-coding regions.</p>
@@ -300,15 +301,15 @@ pvals
 <span class="co">#&gt; # A tibble: 179 × 7</span>
 <span class="co">#&gt;      name       type n_repeats     p.value obs_exp_ratio lower_tail</span>
 <span class="co">#&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;</span>
-<span class="co">#&gt; 1    (A)n non_coding        28 0.003529188     4.7150373      FALSE</span>
-<span class="co">#&gt; 2   (AT)n non_coding        48 0.297946444     0.9168128      FALSE</span>
-<span class="co">#&gt; 3   (CA)n non_coding        31 0.156135635     1.4195811      FALSE</span>
-<span class="co">#&gt; 4   (GT)n non_coding        42 0.247258594     1.0477861      FALSE</span>
-<span class="co">#&gt; 5    (T)n non_coding        61 0.404908066     0.7214265      FALSE</span>
-<span class="co">#&gt; 6   (TG)n non_coding        40 0.062233679     2.2003507      FALSE</span>
-<span class="co">#&gt; 7  A-rich non_coding        54 0.348067174     0.8149447      FALSE</span>
-<span class="co">#&gt; 8     Alu non_coding        15 0.044563006     2.9338010      FALSE</span>
-<span class="co">#&gt; 9   AluJb non_coding       271 0.022488504     1.7862626      FALSE</span>
+<span class="co">#&gt;  1   (A)n non_coding        28 0.003529188     4.7150373      FALSE</span>
+<span class="co">#&gt;  2  (AT)n non_coding        48 0.297946444     0.9168128      FALSE</span>
+<span class="co">#&gt;  3  (CA)n non_coding        31 0.156135635     1.4195811      FALSE</span>
+<span class="co">#&gt;  4  (GT)n non_coding        42 0.247258594     1.0477861      FALSE</span>
+<span class="co">#&gt;  5   (T)n non_coding        61 0.404908066     0.7214265      FALSE</span>
+<span class="co">#&gt;  6  (TG)n non_coding        40 0.062233679     2.2003507      FALSE</span>
+<span class="co">#&gt;  7 A-rich non_coding        54 0.348067174     0.8149447      FALSE</span>
+<span class="co">#&gt;  8    Alu non_coding        15 0.044563006     2.9338010      FALSE</span>
+<span class="co">#&gt;  9  AluJb non_coding       271 0.022488504     1.7862626      FALSE</span>
 <span class="co">#&gt; 10  AluJo non_coding       208 0.021566061     1.9041497      FALSE</span>
 <span class="co">#&gt; # ... with 169 more rows, and 1 more variables: q.value &lt;dbl&gt;</span></code></pre></div>
 <p>The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of <code>lower_tail = TRUE</code> column indicates that the query intervals are depleted, whereas <code>lower_tail = FALSE</code> indicates that the query intervals are enriched.</p>

@@ -162,43 +162,43 @@ interval names (see 'namenum' example below) or in subsequent
 <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
 #&gt;    chrom start   end  name score strand .win_id
 #&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
-#&gt; 1   chr1   100   110     A     .      +       1
-#&gt; 2   chr1   110   120     A     .      +       2
-#&gt; 3   chr1   120   130     A     .      +       3
-#&gt; 4   chr1   130   140     A     .      +       4
-#&gt; 5   chr1   140   150     A     .      +       5
-#&gt; 6   chr1   150   160     A     .      +       6
-#&gt; 7   chr1   160   170     A     .      +       7
-#&gt; 8   chr1   170   180     A     .      +       8
-#&gt; 9   chr1   180   190     A     .      +       9
+#&gt;  1  chr1   100   110     A     .      +       1
+#&gt;  2  chr1   110   120     A     .      +       2
+#&gt;  3  chr1   120   130     A     .      +       3
+#&gt;  4  chr1   130   140     A     .      +       4
+#&gt;  5  chr1   140   150     A     .      +       5
+#&gt;  6  chr1   150   160     A     .      +       6
+#&gt;  7  chr1   160   170     A     .      +       7
+#&gt;  8  chr1   170   180     A     .      +       8
+#&gt;  9  chr1   180   190     A     .      +       9
 #&gt; 10  chr1   190   200     A     .      +      10</div><div class='input'>
 <span class='co'># Fixed window size</span>
 <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
 #&gt;    chrom start   end  name score strand .win_id
 #&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
-#&gt; 1   chr1   100   110     A     .      +       1
-#&gt; 2   chr1   110   120     A     .      +       2
-#&gt; 3   chr1   120   130     A     .      +       3
-#&gt; 4   chr1   130   140     A     .      +       4
-#&gt; 5   chr1   140   150     A     .      +       5
-#&gt; 6   chr1   150   160     A     .      +       6
-#&gt; 7   chr1   160   170     A     .      +       7
-#&gt; 8   chr1   170   180     A     .      +       8
-#&gt; 9   chr1   180   190     A     .      +       9
+#&gt;  1  chr1   100   110     A     .      +       1
+#&gt;  2  chr1   110   120     A     .      +       2
+#&gt;  3  chr1   120   130     A     .      +       3
+#&gt;  4  chr1   130   140     A     .      +       4
+#&gt;  5  chr1   140   150     A     .      +       5
+#&gt;  6  chr1   150   160     A     .      +       6
+#&gt;  7  chr1   160   170     A     .      +       7
+#&gt;  8  chr1   170   180     A     .      +       8
+#&gt;  9  chr1   180   190     A     .      +       9
 #&gt; 10  chr1   190   200     A     .      +      10</div><div class='input'>
 <span class='co'># Fixed window size with overlaps</span>
 <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; # A tibble: 20 × 7
 #&gt;    chrom start   end  name score strand .win_id
 #&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
-#&gt; 1   chr1   100   110     A     .      +       1
-#&gt; 2   chr1   105   115     A     .      +       2
-#&gt; 3   chr1   110   120     A     .      +       3
-#&gt; 4   chr1   115   125     A     .      +       4
-#&gt; 5   chr1   120   130     A     .      +       5
-#&gt; 6   chr1   125   135     A     .      +       6
-#&gt; 7   chr1   130   140     A     .      +       7
-#&gt; 8   chr1   135   145     A     .      +       8
-#&gt; 9   chr1   140   150     A     .      +       9
+#&gt;  1  chr1   100   110     A     .      +       1
+#&gt;  2  chr1   105   115     A     .      +       2
+#&gt;  3  chr1   110   120     A     .      +       3
+#&gt;  4  chr1   115   125     A     .      +       4
+#&gt;  5  chr1   120   130     A     .      +       5
+#&gt;  6  chr1   125   135     A     .      +       6
+#&gt;  7  chr1   130   140     A     .      +       7
+#&gt;  8  chr1   135   145     A     .      +       8
+#&gt;  9  chr1   140   150     A     .      +       9
 #&gt; 10  chr1   145   155     A     .      +      10
 #&gt; 11  chr1   150   160     A     .      +      11
 #&gt; 12  chr1   155   165     A     .      +      12
@@ -214,30 +214,30 @@ interval names (see 'namenum' example below) or in subsequent
 <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
 #&gt;    chrom start   end  name score strand .win_id
 #&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
-#&gt; 1   chr1   100   110     A     .      +      10
-#&gt; 2   chr1   110   120     A     .      +       9
-#&gt; 3   chr1   120   130     A     .      +       8
-#&gt; 4   chr1   130   140     A     .      +       7
-#&gt; 5   chr1   140   150     A     .      +       6
-#&gt; 6   chr1   150   160     A     .      +       5
-#&gt; 7   chr1   160   170     A     .      +       4
-#&gt; 8   chr1   170   180     A     .      +       3
-#&gt; 9   chr1   180   190     A     .      +       2
+#&gt;  1  chr1   100   110     A     .      +      10
+#&gt;  2  chr1   110   120     A     .      +       9
+#&gt;  3  chr1   120   130     A     .      +       8
+#&gt;  4  chr1   130   140     A     .      +       7
+#&gt;  5  chr1   140   150     A     .      +       6
+#&gt;  6  chr1   150   160     A     .      +       5
+#&gt;  7  chr1   160   170     A     .      +       4
+#&gt;  8  chr1   170   180     A     .      +       3
+#&gt;  9  chr1   180   190     A     .      +       2
 #&gt; 10  chr1   190   200     A     .      +       1</div><div class='input'>
 <span class='co'># bedtools 'namenum'</span>
 <span class='no'>wins</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)
 <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>mutate</span>(<span class='no'>wins</span>, <span class='kw'>namenum</span> <span class='kw'>=</span> <span class='kw'>stringr</span><span class='kw'>::</span><span class='fu'>str_c</span>(<span class='no'>name</span>, <span class='st'>'_'</span>, <span class='no'>.win_id</span>))</div><div class='output co'>#&gt; # A tibble: 10 × 8
 #&gt;    chrom start   end  name score strand .win_id namenum
 #&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;   &lt;chr&gt;
-#&gt; 1   chr1   100   110     A     .      +       1     A_1
-#&gt; 2   chr1   110   120     A     .      +       2     A_2
-#&gt; 3   chr1   120   130     A     .      +       3     A_3
-#&gt; 4   chr1   130   140     A     .      +       4     A_4
-#&gt; 5   chr1   140   150     A     .      +       5     A_5
-#&gt; 6   chr1   150   160     A     .      +       6     A_6
-#&gt; 7   chr1   160   170     A     .      +       7     A_7
-#&gt; 8   chr1   170   180     A     .      +       8     A_8
-#&gt; 9   chr1   180   190     A     .      +       9     A_9
+#&gt;  1  chr1   100   110     A     .      +       1     A_1
+#&gt;  2  chr1   110   120     A     .      +       2     A_2
+#&gt;  3  chr1   120   130     A     .      +       3     A_3
+#&gt;  4  chr1   130   140     A     .      +       4     A_4
+#&gt;  5  chr1   140   150     A     .      +       5     A_5
+#&gt;  6  chr1   150   160     A     .      +       6     A_6
+#&gt;  7  chr1   160   170     A     .      +       7     A_7
+#&gt;  8  chr1   170   180     A     .      +       8     A_8
+#&gt;  9  chr1   180   190     A     .      +       9     A_9
 #&gt; 10  chr1   190   200     A     .      +      10    A_10</div><div class='input'>
 </div></pre>
   </div>

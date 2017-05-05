@@ -71,7 +71,7 @@
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
             
-            <h4 class="date">2017-04-19</h4>
+            <h4 class="date">2017-05-05</h4>
           </div>
 
     
@@ -111,15 +111,15 @@ nearby <span class="op">%&gt;%</span>
 <span class="co">#&gt; # A tibble: 285 × 4</span>
 <span class="co">#&gt;         name.x            name.y .overlap .dist</span>
 <span class="co">#&gt;          &lt;chr&gt;             &lt;chr&gt;    &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1    rs2261631             P704P        0  -267</span>
-<span class="co">#&gt; 2  rs570770556             POTEH        0  -912</span>
-<span class="co">#&gt; 3  rs538163832             POTEH        0  -952</span>
-<span class="co">#&gt; 4    rs9606135            TPTEP1        0  -421</span>
-<span class="co">#&gt; 5   rs11912392 ANKRD62P1-PARP4P3        0   104</span>
-<span class="co">#&gt; 6    rs8136454          BC038197        0   355</span>
-<span class="co">#&gt; 7    rs5992556              XKR3        0  -455</span>
-<span class="co">#&gt; 8  rs114101676              GAB4        0   473</span>
-<span class="co">#&gt; 9   rs62236167             CECR7        0   261</span>
+<span class="co">#&gt;  1   rs2261631             P704P        0  -267</span>
+<span class="co">#&gt;  2 rs570770556             POTEH        0  -912</span>
+<span class="co">#&gt;  3 rs538163832             POTEH        0  -952</span>
+<span class="co">#&gt;  4   rs9606135            TPTEP1        0  -421</span>
+<span class="co">#&gt;  5  rs11912392 ANKRD62P1-PARP4P3        0   104</span>
+<span class="co">#&gt;  6   rs8136454          BC038197        0   355</span>
+<span class="co">#&gt;  7   rs5992556              XKR3        0  -455</span>
+<span class="co">#&gt;  8 rs114101676              GAB4        0   473</span>
+<span class="co">#&gt;  9  rs62236167             CECR7        0   261</span>
 <span class="co">#&gt; 10   rs5747023             CECR1        0  -386</span>
 <span class="co">#&gt; # ... with 275 more rows</span></code></pre></div>
 </div>
@@ -137,25 +137,7 @@ nearby <span class="op">%&gt;%</span>
   ucsc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
   <span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)
 }
-<span class="co">#&gt; Loading required package: RMySQL</span>
-<span class="co">#&gt; Source:   query [?? x 16]</span>
-<span class="co">#&gt; Database: mysql  [@genome-mysql.cse.ucsc.edu via TCP/IP:/]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;      bin         name chrom strand  txStart    txEnd cdsStart   cdsEnd</span>
-<span class="co">#&gt;    &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;    &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1    585    NR_046018  chr1      +    11873    14409    14409    14409</span>
-<span class="co">#&gt; 2    585    NR_024540  chr1      -    14361    29370    29370    29370</span>
-<span class="co">#&gt; 3    932    NR_104645  chrX      + 45505387 45523644 45523644 45523644</span>
-<span class="co">#&gt; 4   1078    NR_104148  chr7      + 64666082 64687830 64687830 64687830</span>
-<span class="co">#&gt; 5    103    NR_120408 chr14      + 31561384 31861223 31861223 31861223</span>
-<span class="co">#&gt; 6    585    NR_026818  chr1      -    34610    36081    36081    36081</span>
-<span class="co">#&gt; 7    585    NR_026822  chr1      -    34610    36081    36081    36081</span>
-<span class="co">#&gt; 8    585 NM_001005484  chr1      +    69090    70008    69090    70008</span>
-<span class="co">#&gt; 9    586    NR_039983  chr1      -   134772   140566   140566   140566</span>
-<span class="co">#&gt; 10   831    NR_104160 chr10      - 32345111 32347218 32347218 32347218</span>
-<span class="co">#&gt; # ... with more rows, and 8 more variables: exonCount &lt;int&gt;,</span>
-<span class="co">#&gt; #   exonStarts &lt;list&gt;, exonEnds &lt;list&gt;, score &lt;int&gt;, name2 &lt;chr&gt;,</span>
-<span class="co">#&gt; #   cdsStartStat &lt;chr&gt;, cdsEndStat &lt;chr&gt;, exonFrames &lt;list&gt;</span></code></pre></div>
+<span class="co">#&gt; Loading required package: RMySQL</span></code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor">
@@ -284,15 +266,15 @@ x
 <span class="co">#&gt; # A tibble: 13,530 × 7</span>
 <span class="co">#&gt;    chrom    start      end      name score strand .win_id</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  chr22 16161065 16161115 LINC00516     3      +       1</span>
-<span class="co">#&gt; 2  chr22 16161115 16161165 LINC00516     3      +       2</span>
-<span class="co">#&gt; 3  chr22 16161165 16161215 LINC00516     3      +       3</span>
-<span class="co">#&gt; 4  chr22 16161215 16161265 LINC00516     3      +       4</span>
-<span class="co">#&gt; 5  chr22 16161265 16161315 LINC00516     3      +       5</span>
-<span class="co">#&gt; 6  chr22 16161315 16161365 LINC00516     3      +       6</span>
-<span class="co">#&gt; 7  chr22 16161365 16161415 LINC00516     3      +       7</span>
-<span class="co">#&gt; 8  chr22 16161415 16161465 LINC00516     3      +       8</span>
-<span class="co">#&gt; 9  chr22 16161465 16161515 LINC00516     3      +       9</span>
+<span class="co">#&gt;  1 chr22 16161065 16161115 LINC00516     3      +       1</span>
+<span class="co">#&gt;  2 chr22 16161115 16161165 LINC00516     3      +       2</span>
+<span class="co">#&gt;  3 chr22 16161165 16161215 LINC00516     3      +       3</span>
+<span class="co">#&gt;  4 chr22 16161215 16161265 LINC00516     3      +       4</span>
+<span class="co">#&gt;  5 chr22 16161265 16161315 LINC00516     3      +       5</span>
+<span class="co">#&gt;  6 chr22 16161315 16161365 LINC00516     3      +       6</span>
+<span class="co">#&gt;  7 chr22 16161365 16161415 LINC00516     3      +       7</span>
+<span class="co">#&gt;  8 chr22 16161415 16161465 LINC00516     3      +       8</span>
+<span class="co">#&gt;  9 chr22 16161465 16161515 LINC00516     3      +       9</span>
 <span class="co">#&gt; 10 chr22 16161515 16161565 LINC00516     3      +      10</span>
 <span class="co">#&gt; # ... with 13,520 more rows</span></code></pre></div>
 <p>Now we use the <code>.win_id</code> group with <code><a href="../reference/bed_map.html">bed_map()</a></code> to caluclate a sum by mapping <code>y</code> signals onto the intervals in <code>x</code>. These data are regrouped by <code>.win_id</code> and a summary with <code>mean</code> and <code>sd</code> values is calculated.</p>
@@ -306,15 +288,15 @@ res
 <span class="co">#&gt; # A tibble: 41 × 3</span>
 <span class="co">#&gt;    .win_id win_mean    win_sd</span>
 <span class="co">#&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1        1 100.8974  85.83423</span>
-<span class="co">#&gt; 2        2 110.6829  81.13521</span>
-<span class="co">#&gt; 3        3 122.9070  99.09635</span>
-<span class="co">#&gt; 4        4 116.2800  96.30098</span>
-<span class="co">#&gt; 5        5 116.3500 102.33773</span>
-<span class="co">#&gt; 6        6 124.9048  95.08887</span>
-<span class="co">#&gt; 7        7 122.9437  94.39792</span>
-<span class="co">#&gt; 8        8 127.5946  91.47407</span>
-<span class="co">#&gt; 9        9 130.2051  95.71309</span>
+<span class="co">#&gt;  1       1 100.8974  85.83423</span>
+<span class="co">#&gt;  2       2 110.6829  81.13521</span>
+<span class="co">#&gt;  3       3 122.9070  99.09635</span>
+<span class="co">#&gt;  4       4 116.2800  96.30098</span>
+<span class="co">#&gt;  5       5 116.3500 102.33773</span>
+<span class="co">#&gt;  6       6 124.9048  95.08887</span>
+<span class="co">#&gt;  7       7 122.9437  94.39792</span>
+<span class="co">#&gt;  8       8 127.5946  91.47407</span>
+<span class="co">#&gt;  9       9 130.2051  95.71309</span>
 <span class="co">#&gt; 10      10 130.1220  88.82809</span>
 <span class="co">#&gt; # ... with 31 more rows</span></code></pre></div>
 <p>Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.</p>
@@ -360,15 +342,15 @@ shuffled
 <span class="co">#&gt; # A tibble: 100 × 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1      1 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 2      2 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 3      3 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 4      4 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 5      5 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 6      6 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 7      7 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 8      8 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 9      9 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  1     1 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  2     2 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  3     3 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  4     4 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  5     5 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  6     6 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  7     7 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  8     8 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  9     9 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
 <span class="co">#&gt; 10    10 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
