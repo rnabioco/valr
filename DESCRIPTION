@@ -1,7 +1,7 @@
 Package: valr
 Type: Package
 Title: Genome Interval Arithmetic in R
-Version: 0.1.2.9000
+Version: 0.2.0
 Authors@R: c(
     person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com'),
     person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
@@ -26,7 +26,6 @@ SystemRequirements: C++11
 LinkingTo:
     Rcpp (>= 0.12.8),
     BH,
-    dplyr (>= 0.5.0)
 Suggests:
     knitr,
     rmarkdown,

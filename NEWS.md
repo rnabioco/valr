@@ -1,6 +1,8 @@
-# valr 0.1.2.9000
+# valr 0.2.0
 
 ## Major changes
+
+* Package dplyr v0.5.0 headers with valr to remove dplyr LinkingTo dependency.
 
 * `bed_intersect()` now accepts multiple tbls for intersection (#220 @kriemo).
 

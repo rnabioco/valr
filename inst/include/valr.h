@@ -14,13 +14,12 @@
 #include <functional>
 #include <stack>
 
-// [[Rcpp::depends(dplyr)]]
 // [[Rcpp::plugins(cpp11)]]
 
 #include <Rcpp.h>
-#include <dplyr.h>
-
 using namespace Rcpp ;
+
+#include <dplyr.h>
 using namespace dplyr ;
 
 #include "IntervalTree.h"

@@ -1,12 +1,10 @@
-## Resubmission
-
-This is a resubmission. In this version I have:
-
-* corrected a non-canonical CRAN URL.
-
 ## New minor version
 
-* Maintenance release to fix some small errors (see NEWS.md)
+* This is a new minor version with a few API changes.
+
+* A major change is the packaging of dplyr headers in valr, which removes the
+  dplyr LinkingTo dependency and eliminates errors associated with linking
+  errors against the forthcoming dplyr v0.6.0 release.
 
 ## Test environments
 
