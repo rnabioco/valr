@@ -1,6 +1,6 @@
 ## New minor version
 
-* This is a new minor version with a few API changes.
+* This is a new minor version with a few API changes (see NEWS.md).
 
 * A major change is the packaging of dplyr headers in valr, which removes the
   dplyr LinkingTo dependency and eliminates errors associated with linking
@@ -8,11 +8,11 @@
 
 ## Test environments
 
-* Windows Server 2012 R2 x64 (on appveyor), R 3.3.3
+* Windows Server 2012 R2 x64 (on appveyor), R 3.4.0
 * win-builder (devel and release)
-* local OS X install, R 3.3.3
-* OS X (on travis-ci), R 3.3.3
-* ubuntu 14.04 (on travis-ci), R 3.3.3
+* local OS X install, R 3.4.0
+* OS X (on travis-ci), R 3.4.0
+* ubuntu 14.04 (on travis-ci), R 3.4.0
 
 ## R CMD check results
 
