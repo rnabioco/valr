@@ -68,6 +68,8 @@ bed_makewindows <- function(x, genome, win_size = 0,
   res <- mutate(x, .start = list(seq(start, end,
                                      by = .win_size - step_size)),
                 .win_num = list(seq(1, length(.start))))
+  # can't unnest if grouped by row
+  res <- ungroup(res)
   res <- tidyr::unnest(res)
   res <- mutate(res, .end = ifelse(.start + .win_size < end,
                                    .start + .win_size, end))
