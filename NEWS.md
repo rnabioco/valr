@@ -1,5 +1,9 @@
 # valr 0.2.0.9000
 
+## Bug fixes
+
+* quote `dplyr::everything()` when called in SE variant of `deplyr::select()` (fixes #240)
+
 # valr 0.2.0
 
 ## Major changes
