@@ -20,7 +20,6 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    broom,
     ggplot2,
 SystemRequirements: C++11
 LinkingTo:

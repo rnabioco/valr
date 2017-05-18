@@ -2,7 +2,10 @@
 
 ## Bug fixes
 * minor vignette fixes and changes to `bed_makewindows()` and `bed_random()` for dplyr0.6.0 compatibilty (fixes #242)
+
 * quote `dplyr::everything()` when called in SE variant of `dplyr::select()` (fixes #240)
+
+* provide `broom::tidy` compatibility functions to remove broom dependency.
 
 # valr 0.2.0
 
