@@ -85,7 +85,7 @@ bed_map(x, y, .min = min(value), .max = max(value))
 bed_map(x, y, .concat = concat(value))
 
 # can also create a list-col
-bed_map(x, y, .values = tibble::tibble(value))
+bed_map(x, y, .values = list(value))
 
 # can also use `nth` family from dplyr
 bed_map(x, y, .first = dplyr::first(value))
