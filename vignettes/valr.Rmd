@@ -70,7 +70,7 @@ nearby %>%
 
 Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
 
-```{r db, warning = F}
+```{r db, warning = F, eval = F}
 # access the `refGene` tbl on the `hg38` assembly.
 if(require(RMySQL)) {
   ucsc <- db_ucsc('hg38')
