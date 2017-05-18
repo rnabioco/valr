@@ -1,5 +1,7 @@
 # valr 0.2.0.9000
 
+* provide `broom::tidy` compatibility functions to remove broom dependency.
+
 # valr 0.2.0
 
 ## Major changes

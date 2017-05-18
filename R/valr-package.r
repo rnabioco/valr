@@ -28,7 +28,6 @@
 #' @importFrom tidyr unnest
 #' @importFrom lazyeval lazy_dots
 #' @importFrom stats fisher.test
-#' @importFrom broom tidy
 #' @importFrom utils head tail
 #' @import ggplot2
 #' @import dplyr

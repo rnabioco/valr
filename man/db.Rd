@@ -46,8 +46,8 @@ if(require(RMySQL)) {
   # squirrel genome
   ensembl <- db_ensembl('spermophilus_tridecemlineatus_core_67_2')
 
-  tbl(ensembl, "gene") 
-}  
+  tbl(ensembl, "gene")
+}
 }
 
 }
