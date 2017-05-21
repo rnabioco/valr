@@ -30,6 +30,6 @@ flip_strands <- function(x) {
   res <- select(res, -strand)
   res <- rename(res, strand = .strand)
 
-  res <- group_by_(res, .dots = groups_x)
+  res <- group_by(res, !!! groups_x)
   res
 }

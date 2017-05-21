@@ -99,7 +99,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
 
   ##  map supplied functions to each set of intervals
   res <- group_by_(res, .dots = c("chrom", x_names_suffix))
-  res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
+  res <- summarize(res, !!! rlang::quos(...))
   res <- ungroup(res)
   ## remove x suffix, but don't pattern match with '.' regex
   names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), '')

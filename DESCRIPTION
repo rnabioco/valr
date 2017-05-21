@@ -1,7 +1,7 @@
 Package: valr
 Type: Package
 Title: Genome Interval Arithmetic in R
-Version: 0.2.0.9000
+Version: 0.2.0.9001
 Authors@R: c(
     person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com'),
     person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
@@ -14,8 +14,8 @@ License: MIT + file LICENSE
 Depends:
     R (>= 3.1.2)
 Imports:
-    dplyr (>= 0.5.0),
-    lazyeval,
+    dplyr (>= 0.6.0),
+    rlang,
     readr,
     stringr,
     tibble,

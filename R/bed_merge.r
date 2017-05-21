@@ -64,7 +64,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
   res <- merge_impl(res, max_dist)
 
   dots <- list(.start = ~min(start), .end = ~max(end))
-  dots <- c(dots, lazyeval::lazy_dots(...))
+  dots <- c(dots, rlang::quos(...))
 
   res <- group_by_(res, .dots = c("chrom", ".id_merge", x_groups), add = TRUE)
 
