@@ -108,7 +108,7 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
     res <- summarize(res,
                      .obs_counts = sum(.obs_counts),
                      .total_trials = sum(.total_trials),
-                     .exp_prob = sum(.reference_coverage) / sum(size))
+                     .exp_prob = sum(.reference_coverage) / sum(as.numeric(size)))
 
     res <- summarize(res,
                      chrom = "whole_genome",
