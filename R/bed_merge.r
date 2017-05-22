@@ -66,13 +66,14 @@ bed_merge <- function(x, max_dist = 0, ...) {
   dots <- list(.start = ~min(start), .end = ~max(end))
   dots <- c(dots, rlang::quos(...))
 
-  res <- group_by_(res, .dots = c("chrom", ".id_merge", x_groups), add = TRUE)
+  res <- group_by(res, !!! rlang::syms(c("chrom", ".id_merge", x_groups)), add = TRUE)
 
   res <- summarize_(res, .dots = dots)
   res <- rename(res, start = .start, end = .end)
   res <- ungroup(res)
+
   # restore original grouping
-  res <- group_by_(res, .dots = x_groups)
+  res <- group_by(res, !!! rlang::syms(x_groups))
   res <- select(res, -.id_merge)
   res <- reorder_names(res, x)
 
