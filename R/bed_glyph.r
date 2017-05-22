@@ -45,7 +45,7 @@ bed_glyph <- function(expr, label = NULL) {
   args_req <- names(args_all[sapply(args_all, is.name)])
 
   # for bed_intersect replace ... with y
-  if (expr[[1]] == "bed_intersect") args_req[args_req == "..."] <- "y"
+  if (expr[[1]] == "bed_intersect") args_req <- as.character(c(expr[[2]],expr[[3]]))
 
   args_excl <- c('genome', "...")
   args_req <- args_req[!args_req %in% args_excl]
