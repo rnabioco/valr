@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -93,22 +95,25 @@
     </div>
 
     
-    <p>After conversion to BED6 format, the <code>score</code> column contains the exon 
+    <p>After conversion to BED6 format, the <code>score</code> column contains the exon
 number, with respect to strand (i.e., the first exon for <code>-</code> strand
 genes will have larger start and end coordinates).</p>
     
 
-    <pre><span class='fu'>bed12_to_exons</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>bed12_to_exons</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>tbl in BED12 format</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other utils: <code><a href='bed_makewindows.html'>bed_makewindows</a></code></p>
+    <p>Other utilities: <code><a href='bed_makewindows.html'>bed_makewindows</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -117,15 +122,15 @@ genes will have larger start and end coordinates).</p>
 <span class='fu'>bed12_to_exons</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 29 × 6
 #&gt;    chrom   start     end      name score strand
 #&gt;    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;
-#&gt; 1   chr1 4797973 4798063  testgene     1      +
-#&gt; 2   chr1 4798535 4798567  testgene     2      +
-#&gt; 3   chr1 4818664 4818730  testgene     3      +
-#&gt; 4   chr1 4820348 4820396  testgene     4      +
-#&gt; 5   chr1 4822391 4822462  testgene     5      +
-#&gt; 6   chr1 4827081 4827155  testgene     6      +
-#&gt; 7   chr1 4829467 4829569  testgene     7      +
-#&gt; 8   chr1 4831036 4831213  testgene     8      +
-#&gt; 9   chr1 4835043 4836816  testgene     9      +
+#&gt;  1  chr1 4797973 4798063  testgene     1      +
+#&gt;  2  chr1 4798535 4798567  testgene     2      +
+#&gt;  3  chr1 4818664 4818730  testgene     3      +
+#&gt;  4  chr1 4820348 4820396  testgene     4      +
+#&gt;  5  chr1 4822391 4822462  testgene     5      +
+#&gt;  6  chr1 4827081 4827155  testgene     6      +
+#&gt;  7  chr1 4829467 4829569  testgene     7      +
+#&gt;  8  chr1 4831036 4831213  testgene     8      +
+#&gt;  9  chr1 4835043 4836816  testgene     9      +
 #&gt; 10 chr10 4848118 4848584 diffchrom     1      +
 #&gt; # ... with 19 more rows</div><div class='input'>
 </div></pre>

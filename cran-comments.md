@@ -1,14 +1,18 @@
 ## New minor version
 
-* I received an email from Dr. Brian Ripley asking for fixes "ASAP" to a memory leak in absdist.cpp and to incorporate checks for the existence of the RMySQL package in the vignettes and tests.
+* This is a new minor version with a few API changes (see NEWS.md).
+
+* A major change is the packaging of dplyr headers in valr, which removes the
+  dplyr LinkingTo dependency and eliminates errors associated with linking
+  errors against the forthcoming dplyr v0.6.0 release.
 
 ## Test environments
 
-* Windows Server 2012 R2 x64 (on appveyor), R 3.3.2
+* Windows Server 2012 R2 x64 (on appveyor), R 3.4.0
 * win-builder (devel and release)
-* local OS X install, R 3.3.2
-* OS X (on travis-ci), R 3.3.2
-* ubuntu 14.04 (on travis-ci), R 3.3.2
+* local OS X install, R 3.4.0
+* OS X (on travis-ci), R 3.4.0
+* ubuntu 14.04 (on travis-ci), R 3.4.0
 
 ## R CMD check results
 

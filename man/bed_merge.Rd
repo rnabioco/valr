@@ -7,29 +7,29 @@
 bed_merge(x, max_dist = 0, ...)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{max_dist}{maximum distance between intervals to merge}
 
 \item{...}{name-value pairs that specify operations on merged intervals}
 }
 \value{
-\code{data_frame}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
-Operations can be performed on merged intervals by specifying name-value 
+Operations can be performed on merged intervals by specifying name-value
 pairs. Default \code{max_dist} of \code{0} means book-ended intervals are
 merged.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',  1,      50,
   'chr1',  10,     75,
@@ -38,7 +38,7 @@ x <- tibble::tribble(
 
 bed_glyph(bed_merge(x))
 
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end, ~value, ~strand,
  "chr1", 1,      50,   1,      '+',
  "chr1", 100,    200,  2,      '+',
@@ -62,8 +62,7 @@ bed_merge(x, .value = sum(value))
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 
-Other single-set-ops: \code{\link{bed_cluster}},
+Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_complement}}, \code{\link{bed_flank}},
-  \code{\link{bed_random}}, \code{\link{bed_shift}},
-  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
+  \code{\link{bed_shift}}, \code{\link{bed_slop}}
 }

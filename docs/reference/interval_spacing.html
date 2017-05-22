@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -97,25 +99,28 @@
 chromosome is undefined (<code>NA</code>).</p>
     
 
-    <pre><span class='fu'>interval_spacing</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>interval_spacing</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>tbl of intervals</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code> with <code>.spacing</code> column.</p>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with <code>.spacing</code> column.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-<span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>,
-<span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>200</span>,
-<span class='st'>'chr2'</span>, <span class='fl'>200</span>,    <span class='fl'>300</span>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>200</span>,
+  <span class='st'>'chr2'</span>, <span class='fl'>200</span>,    <span class='fl'>300</span>
 )
 
 <span class='fu'>interval_spacing</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 3 × 4
@@ -123,7 +128,7 @@ chromosome is undefined (<code>NA</code>).</p>
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
 #&gt; 1  chr1     1   100       NA
 #&gt; 2  chr1   150   200       50
-#&gt; 3  chr2   200   300       NA</div><div class='input'>  
+#&gt; 3  chr2   200   300       NA</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -6,7 +6,7 @@ output:
     toc: true
     toc_depth: 2
     vignette: >
-      %\VignetteIndexEntry{Interval Statistics}
+      %\VignetteIndexEntry{valr-interval-statistics}
       %\VignetteEngine{knitr::rmarkdown}
       %\VignetteEncoding{UTF-8}
 ---
@@ -78,7 +78,8 @@ obs_stats
 And the same is done for a set of  shuffled group of data. `bed_shuffle()` is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)
 
 ```{r compute_shf}
-shfs <- bed_shuffle(rpts, genome, within = TRUE, seed = 1010486)
+seed <- 1010486
+shfs <- bed_shuffle(rpts, genome, within = TRUE, seed = seed)
 shf_stats <- distance_stats(shfs, tss, genome, 'name', 'shuf')
 ```
 
@@ -190,7 +191,8 @@ pvals_coding <- projection_stats(rpts, promoters_coding, genome, 'name', 'coding
 pvals_ncoding <- projection_stats(rpts, promoters_ncoding, genome, 'name', 'non_coding')
 
 pvals <-
-  bind_rows(pvals_ncoding, pvals_coding) %>% 
+  bind_rows(pvals_ncoding, pvals_coding) %>%
+  ungroup() %>% 
   tidyr::unnest() %>%
   select(-chrom)
 

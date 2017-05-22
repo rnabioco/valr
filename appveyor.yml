@@ -23,7 +23,7 @@ test_script:
 on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
-  
+
 branches:
   only:
     - master
@@ -35,12 +35,11 @@ environment:
 
   matrix:
   - R_VERSION: release
-    GCC_PATH: gcc-4.6.3
-  - R_VERSION: release
     R_ARCH: x64
     GCC_PATH: mingw_64
-  - R_VERSION: release
-    GCC_PATH: mingw_32
+  - R_VERSION: devel
+    R_ARCH: x64
+    GCC_PATH: mingw_64
 
 artifacts:
   - path: '*.Rcheck\**\*.log'

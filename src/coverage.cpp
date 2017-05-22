@@ -1,12 +1,21 @@
+// coverage.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
-void coverage_group(intervalVector vx, intervalVector vy,
+void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
                     std::vector<int>& overlap_counts, std::vector<int>& ivls_bases_covered,
                     std::vector<int>& x_ivl_lengths, std::vector<double>& fractions_covered,
                     std::vector<int>& indices_x) {
 
-  intervalTree tree_y(vy) ;
-  intervalVector overlaps ;
+  ivl_tree_t tree_y(vy) ;
+  ivl_vector_t overlaps ;
   IntervalSorterDesc<int, int> intervalSorterDesc;
 
   for (auto it : vx) {
@@ -45,17 +54,17 @@ void coverage_group(intervalVector vx, intervalVector vy,
     int index = 0; // Stores index of last element
 
     // Traverse all overlapping intervals
-    for (int i=0; i< overlap_count; i++) {
+    for (int i = 0; i < overlap_count; i++) {
       // If this is not first Interval and overlaps
       // with the previous one
 
-      if (index != 0 && overlaps[index-1].start <= overlaps[i].stop)
+      if (index != 0 && overlaps[index - 1].start <= overlaps[i].stop)
       {
-        while (index != 0 && overlaps[index-1].start <= overlaps[i].stop)
+        while (index != 0 && overlaps[index - 1].start <= overlaps[i].stop)
         {
           // Merge previous and current Intervals
-          overlaps[index-1].stop = std::max(overlaps[index-1].stop, overlaps[i].stop);
-          overlaps[index-1].start = std::min(overlaps[index-1].start, overlaps[i].start);
+          overlaps[index - 1].stop = std::max(overlaps[index - 1].stop, overlaps[i].stop);
+          overlaps[index - 1].start = std::min(overlaps[index - 1].start, overlaps[i].start);
           index--;
         }
       }
@@ -66,7 +75,7 @@ void coverage_group(intervalVector vx, intervalVector vy,
       index++;
     }
 
-    intervalVector mergedOverlaps;
+    ivl_vector_t mergedOverlaps;
     for (int i = 0; i < index; i++) {
       mergedOverlaps.push_back(overlaps[i]);;
     }
@@ -114,9 +123,9 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
 
   auto data_x = x.data() ;
 
-  PairedGroupApply(x, y, coverage_group,
-                   std::ref(overlap_counts), std::ref(ivls_bases_covered),
-                   std::ref(x_ivl_lengths), std::ref(fractions_covered), std::ref(indices_x));
+  GroupApply(x, y, coverage_group,
+             std::ref(overlap_counts), std::ref(ivls_bases_covered),
+             std::ref(x_ivl_lengths), std::ref(fractions_covered), std::ref(indices_x));
 
   // handle condition with empty y df
   // just assign zeros, except for interval length
@@ -124,10 +133,10 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     auto ng_x = x.ngroups() ;
 
     GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-    for (int nx=0; nx<ng_x; nx++, ++git_x) {
+    for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
       SlicingIndex gi_x = *git_x ;
-      intervalVector vx = makeIntervalVector(data_x, gi_x) ;
+      ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
 
       for (auto it : vx) {
         indices_x.push_back(it.value) ;
@@ -152,7 +161,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   List out(ncol_x + 4) ;
 
   // x names, data
-  for (int i=0; i<ncol_x; i++) {
+  for (int i = 0; i < ncol_x; i++) {
     auto name_x = as<std::string>(names_x[i]) ;
     names[i] = name_x ;
     out[i] = subset_x[i] ;
@@ -160,7 +169,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   int n = new_cols.size() ;
 
   // new names
-  for (int i = 0; i< n ; i++) {
+  for (int i = 0; i < n ; i++) {
     names[ncol_x + i] = new_cols[i] ;
   }
 

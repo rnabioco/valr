@@ -1,13 +1,12 @@
-citHeader("To cite valr in publications use:")
-
-citEntry(entry        = "Unpublished",
-         title        = "Genome Interval Arithmetic in R with {valr}",
-         author       = personList(as.person("Ryan Sheridan"),
-                                   as.person("Kent Riemondy"),
-                                   as.person("Jay Hesselberth")),
-         note         = "to be deposited in bioArxiv.",
-         
-         textVersion  =
-           paste("Riemondy et al. (2016).",
-                 "Genome Interval Arithmetic in R with valr.")
+bibentry(bibtype = "Unpublished",
+         title   = "valr: Genome Interval Arithmetic in R",
+         year    = 2017,
+         author  = c(
+             person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
+             person('Ryan', 'Sheridan', role = c('ctb'), email = 'ryan.sheridan@ucdenver.edu'),
+             person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com')
+         ),
+         note    = "To be deposited in bioArxiv.",
+         header  = "To cite valr in publications use:",
+         url     = "https://CRAN.R-project.org/package=valr"
 )

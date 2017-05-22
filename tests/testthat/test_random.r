@@ -35,3 +35,9 @@ test_that("chrom sizes less than length throws an error", {
   )
   expect_error(bed_random(genome, seed = seed))
 })
+
+test_that("intervals are sorted by default", {
+  x <- bed_random(genome, seed = seed)
+  y <- bed_random(genome, sort_by = NULL, seed = seed)
+  expect_false(all(x == y))
+})

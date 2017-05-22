@@ -7,40 +7,41 @@
 bed_reldist(x, y, detail = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{detail}{report relative distances for each \code{x} interval.}
 }
 \value{
-If \code{detail = FALSE}, a \code{data_frame} that summarizes
- calcuclated \code{.reldist} values with the following columns:
-  \itemize{
-    \item{\code{.reldist}}{ relative distance metric}
-    \item{\code{.counts}}{ number of metric observations}
-    \item{\code{.total}}{ total observations}
-    \item{\code{.freq}}{ frequency of observation}}
-    
-    If \code{detail = TRUE}, a new \code{.reldist} column reports the relative
-    distance for each input \code{x} interval.
+If \code{detail = FALSE}, a \code{\link[=tbl_interval]{tbl_interval()}} that summarizes
+calculated \code{.reldist} values with the following columns:
+\itemize{
+\item \code{.reldist} relative distance metric
+\item \code{.counts} number of metric observations
+\item \code{.total} total observations
+\item \code{.freq} frequency of observation
+}
+
+If \code{detail = TRUE}, a new \code{.reldist} column reports the relative
+distance for each input \code{x} interval.
 }
 \description{
 Compute relative distances between intervals.
 }
 \details{
-Interval statistics can be used in combination with 
-  \code{\link[dplyr]{group_by}} and \code{\link[dplyr]{do}} to calculate 
-  statistics for subsets of data. See \code{vignette('interval-stats')} for
-  examples.
+Interval statistics can be used in combination with
+\code{\link[dplyr:group_by]{dplyr::group_by()}} and \code{\link[dplyr:do]{dplyr::do()}} to calculate
+statistics for subsets of data. See \code{vignette('interval-stats')} for
+examples.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom,   ~start,    ~end,
   "chr1",    75,       125
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom,   ~start,    ~end,
   "chr1",    50,       100,
   "chr1",    100,       150
@@ -54,7 +55,7 @@ bed_reldist(x, y, detail = TRUE)
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}
 
-Other interval-stats: \code{\link{bed_absdist}},
+Other interval statistics: \code{\link{bed_absdist}},
   \code{\link{bed_fisher}}, \code{\link{bed_jaccard}},
   \code{\link{bed_projection}}
 }

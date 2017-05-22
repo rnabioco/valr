@@ -7,9 +7,9 @@
 bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{chromosome sizes}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{size}{number of bases to shift. postive numbers shift right, negative shift left.}
 
@@ -18,37 +18,36 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 \item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \value{
-\code{data_frame}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Out-of-bounds intervals are removed by default.
 }
 \examples{
-
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
  'chr1',      25,      50,
  'chr1',      100,     125
 )
 
-genome = tibble::tribble(
+genome <- trbl_genome(
   ~chrom, ~size,
-  'chr1',      125
+  'chr1', 125
 )
 
 bed_glyph(bed_shift(x, genome, size = -20))
 
-x <- tibble::tribble(
+x <- trbl_interval(
    ~chrom, ~start, ~end, ~strand,
    "chr1", 100, 150, "+",
    "chr1", 200, 250, "+",
    "chr2", 300, 350, "+",
    "chr2", 400, 450, "-",
    "chr3", 500, 550, "-",
-   "chr3", 600, 650, "-" 
+   "chr3", 600, 650, "-"
 )
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
    ~chrom, ~size,
    "chr1", 1000,
    "chr2", 2000,
@@ -61,14 +60,13 @@ bed_shift(x, genome, fraction = 0.5)
 
 # shift with respect to strand
 stranded <- dplyr::group_by(x, strand)
-bed_shift(stranded, genome, 100) 
+bed_shift(stranded, genome, 100)
 
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
 
-Other single-set-ops: \code{\link{bed_cluster}},
+Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_complement}}, \code{\link{bed_flank}},
-  \code{\link{bed_merge}}, \code{\link{bed_random}},
-  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
+  \code{\link{bed_merge}}, \code{\link{bed_slop}}
 }

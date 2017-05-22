@@ -7,38 +7,38 @@
 bed_complement(x, genome)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{chrom sizes}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 }
 \value{
-\code{data_frame}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Identify intervals in a genome not covered by a query.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',      1,      10,
-  'chr1',      75,    100    
+  'chr1',      75,    100
 )
 
-genome <- tibble::tribble(
-  ~chrom, ~size, 
+genome <- trbl_genome(
+  ~chrom, ~size,
   'chr1', 200
 )
 
 bed_glyph(bed_complement(x, genome))
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
    ~chrom,  ~size,
    "chr1", 500,
    "chr2", 600,
    "chr3", 800
-) 
+)
 
-x <- tibble::tribble(
+x <- trbl_interval(
    ~chrom, ~start, ~end,
    "chr1", 100,    300,
    "chr1", 200,    400,
@@ -52,8 +52,7 @@ bed_complement(x, genome)
 
 }
 \seealso{
-Other single-set-ops: \code{\link{bed_cluster}},
+Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_flank}}, \code{\link{bed_merge}},
-  \code{\link{bed_random}}, \code{\link{bed_shift}},
-  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
+  \code{\link{bed_shift}}, \code{\link{bed_slop}}
 }

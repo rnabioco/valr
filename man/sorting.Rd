@@ -4,14 +4,14 @@
 \alias{sorting}
 \title{Sorting tbls of intervals}
 \description{
-Interval tbls can be sorted using \code{\link[dplyr]{arrange}}. See examples 
+Interval tbls can be sorted using \code{\link[dplyr:arrange]{dplyr::arrange()}}. See examples
 for sorting by chrom and start, and by size using
-\code{\link[dplyr]{mutate}}.
+\code{\link[dplyr:mutate]{dplyr::mutate()}}.
 }
 \examples{
 
 # unsorted tbl
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 150,    500,
   'chr1', 1,      100,

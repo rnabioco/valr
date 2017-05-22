@@ -4,41 +4,49 @@
 \alias{bed_random}
 \title{Generate randomly placed intervals on a genome.}
 \usage{
-bed_random(genome, length = 1000, n = 1e+06, seed = 0)
+bed_random(genome, length = 1000, n = 1e+06, sort_by = c("chrom",
+  "start"), seed = 0)
 }
 \arguments{
-\item{genome}{genome tbl}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{length}{length of intervals}
 
 \item{n}{number of intervals to generate}
 
+\item{sort_by}{sorting variables}
+
 \item{seed}{seed RNG for reproducible intervals}
+}
+\value{
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Generate randomly placed intervals on a genome.
 }
+\details{
+Sorting can be suppressed with \code{sort_by = NULL}.
+}
 \examples{
-genome <- tibble::tribble(
+genome <- trbl_genome(
   ~chrom,  ~size,
   "chr1",  10000000,
   "chr2",  50000000,
   "chr3",  60000000,
   "chrX",  5000000
-) 
+)
 
-# random intervals (unsorted)
 bed_random(genome, seed = 10104)
 
-# 500 random intervals of length 500 
+# sorting can be suppressed
+bed_random(genome, sort_by = NULL, seed = 10104)
+
+# 500 random intervals of length 500
 bed_random(genome, length = 500, n = 500, seed = 10104)
 
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 
-Other single-set-ops: \code{\link{bed_cluster}},
-  \code{\link{bed_complement}}, \code{\link{bed_flank}},
-  \code{\link{bed_merge}}, \code{\link{bed_shift}},
-  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
+Other randomizing operations: \code{\link{bed_shuffle}}
 }

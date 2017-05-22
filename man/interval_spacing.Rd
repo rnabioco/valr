@@ -7,23 +7,23 @@
 interval_spacing(x)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 }
 \value{
-\code{data_frame} with \code{.spacing} column.
+\code{\link[=tbl_interval]{tbl_interval()}} with \code{.spacing} column.
 }
 \description{
 Overlapping intervals are merged. Spacing for the first interval of each
 chromosome is undefined (\code{NA}).
 }
 \examples{
-x <- tibble::tribble(
-~chrom, ~start, ~end,
-'chr1', 1,      100,
-'chr1', 150,    200,
-'chr2', 200,    300
+x <- trbl_interval(
+  ~chrom, ~start, ~end,
+  'chr1', 1,      100,
+  'chr1', 150,    200,
+  'chr2', 200,    300
 )
 
 interval_spacing(x)
-  
+
 }

@@ -7,59 +7,59 @@
 bed_coverage(x, y, ...)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{...}{extra arguments (not used)}
 }
 \value{
-original \code{x} \code{data_frame} with the following additional
-  columns:
-\itemize{ 
-  \item{\code{.ints}}{ number of x intersections}
-  \item{\code{.cov}}{ per-base coverage of x intervals}
-  \item{\code{.len}}{ total length of y intervals covered by x intervals} 
-  \item{\code{.frac}}{ .len scaled by total of y intervals}
-  }
+\code{x} \code{\link[=tbl_interval]{tbl_interval()}} with the following additional
+columns:
+\itemize{
+\item \code{.ints} number of x intersections
+\item \code{.cov} per-base coverage of x intervals
+\item \code{.len} total length of y intervals covered by x intervals
+\item \code{.frac} \code{.len} scaled by total of y intervals
+}
 }
 \description{
 Compute coverage of intervals.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \note{
 Book-ended intervals are counted as overlapping.
 }
 \examples{
-x <- tibble::tribble(
-~chrom, ~start, ~end, ~strand,
-"chr1", 100,    500,  '+',
-"chr2", 200,    400,  '+',
-"chr2", 300,    500,  '-',
-"chr2", 800,    900,  '-'
+x <- trbl_interval(
+  ~chrom, ~start, ~end, ~strand,
+  "chr1", 100,    500,  '+',
+  "chr2", 200,    400,  '+',
+  "chr2", 300,    500,  '-',
+  "chr2", 800,    900,  '-'
 )
 
-y <- tibble::tribble(
-~chrom, ~start, ~end, ~value, ~strand,
-"chr1", 150,    400,  100,    '+',
-"chr1", 500,    550,  100,    '+',
-"chr2", 230,    430,  200,    '-',
-"chr2", 350,    430,  300,    '-'
+y <- trbl_interval(
+  ~chrom, ~start, ~end, ~value, ~strand,
+  "chr1", 150,    400,  100,    '+',
+  "chr1", 500,    550,  100,    '+',
+  "chr2", 230,    430,  200,    '-',
+  "chr2", 350,    430,  300,    '-'
 )
 
 bed_coverage(x, y)
- 
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html}
 
-Other multi-set-ops: \code{\link{bed_closest}},
+Other multiple set operations: \code{\link{bed_closest}},
   \code{\link{bed_intersect}}, \code{\link{bed_map}},
   \code{\link{bed_subtract}}, \code{\link{bed_window}}
 }

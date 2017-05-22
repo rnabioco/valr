@@ -1,15 +1,15 @@
 #' Sorting tbls of intervals
 #' 
-#' Interval tbls can be sorted using \code{\link[dplyr]{arrange}}. See examples 
+#' Interval tbls can be sorted using [dplyr::arrange()]. See examples 
 #' for sorting by chrom and start, and by size using
-#' \code{\link[dplyr]{mutate}}.
+#' [dplyr::mutate()].
 #' 
 #' @name sorting
 #'   
 #' @examples
 #' 
 #' # unsorted tbl
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 150,    500,
 #'   'chr1', 1,      100,
@@ -34,13 +34,13 @@ NULL
 
 #' Sort a tbl of intervals.
 #' 
-#' Multiple sorting parameters can be combined. note that \code{by_chrom} sorts 
+#' Multiple sorting parameters can be combined. note that `by_chrom` sorts 
 #' within a chrom, not by chrom.
 #' 
 #' Sorting strips groups from the input.
 #' 
-#' @section Deprecated function: \code{bed_sort} has been deprecated. Instead
-#'   use \code{\link[dplyr]{arrange}}. See \link{sorting} for details.
+#' @section Deprecated function: `bed_sort` has been deprecated. Instead
+#'   use [dplyr::arrange()]. See \link{sorting} for details.
 #'   
 #' @param x tbl of intervals
 #' @param by_size sort by interval size
@@ -51,7 +51,7 @@ NULL
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
 #' 
 #' @examples
-#' x <- tibble::tribble(
+#' x <- trbl_interval(
 #'    ~chrom, ~start, ~end,
 #'    "chr8", 500, 1000,
 #'    "chr8", 1000, 5000,

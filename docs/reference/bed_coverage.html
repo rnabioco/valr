@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -96,40 +98,43 @@
     <p>Compute coverage of intervals.</p>
     
 
-    <pre><span class='fu'>bed_coverage</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_coverage</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>tbl of intervals</dd>
-      <dt>y</dt>
-      <dd>tbl of intervals</dd>
-      <dt>...</dt>
-      <dd>extra arguments (not used)</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>extra arguments (not used)</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>original <code>x</code> <code>data_frame</code> with the following additional
-  columns:
-<ul>
-<li><code>.ints</code> number of x intersections
-  </li>
-<li><code>.cov</code> per-base coverage of x intervals
-  </li>
-<li><code>.len</code> total length of y intervals covered by x intervals 
-  </li>
-<li><code>.frac</code> .len scaled by total of y intervals
-  </li>
-</ul></p>
+    <p><code>x</code> <code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following additional
+columns:</p><ul>
+<li><p><code>.ints</code> number of x intersections</p></li>
+<li><p><code>.cov</code> per-base coverage of x intervals</p></li>
+<li><p><code>.len</code> total length of y intervals covered by x intervals</p></li>
+<li><p><code>.frac</code> <code>.len</code> scaled by total of y intervals</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
-  grouping by <code>strand</code> will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
-  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
+groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code>. For example,
+grouping by <code>strand</code> will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -138,35 +143,35 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html'>http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html</a></p>
-    <p>Other multi-set-ops: <code><a href='bed_closest.html'>bed_closest</a></code>,
+<p>Other multiple set operations: <code><a href='bed_closest.html'>bed_closest</a></code>,
   <code><a href='bed_intersect.html'>bed_intersect</a></code>, <code><a href='bed_map.html'>bed_map</a></code>,
   <code><a href='bed_subtract.html'>bed_subtract</a></code>, <code><a href='bed_window.html'>bed_window</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>strand</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,  <span class='st'>'+'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,  <span class='st'>'+'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>300</span>,    <span class='fl'>500</span>,  <span class='st'>'-'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>,  <span class='st'>'-'</span>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>strand</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,  <span class='st'>'+'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,  <span class='st'>'+'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>300</span>,    <span class='fl'>500</span>,  <span class='st'>'-'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>,  <span class='st'>'-'</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,    <span class='st'>'+'</span>,
-<span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,    <span class='st'>'+'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>,    <span class='st'>'-'</span>,
-<span class='st'>"chr2"</span>, <span class='fl'>350</span>,    <span class='fl'>430</span>,  <span class='fl'>300</span>,    <span class='st'>'-'</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,    <span class='st'>'+'</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,    <span class='st'>'+'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>,    <span class='st'>'-'</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>350</span>,    <span class='fl'>430</span>,  <span class='fl'>300</span>,    <span class='st'>'-'</span>
 )
 
-<span class='fu'>bed_coverage</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 8
+<span class='fu'>bed_coverage</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 8
 #&gt;   chrom start   end strand .ints  .cov  .len .frac
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
 #&gt; 1  chr1   100   500      +     2   250   400 0.625
 #&gt; 2  chr2   200   400      +     2   170   200 0.850
 #&gt; 3  chr2   300   500      -     2   130   200 0.650
-#&gt; 4  chr2   800   900      -     0     0   100 0.000</div><div class='input'> 
+#&gt; 4  chr2   800   900      -     0     0   100 0.000</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

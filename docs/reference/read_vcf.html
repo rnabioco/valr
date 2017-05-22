@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -96,13 +98,16 @@
     <p>Read a VCF file.</p>
     
 
-    <pre><span class='fu'>read_vcf</span>(<span class='no'>vcf</span>)</pre>
+    <pre class="usage"><span class='fu'>read_vcf</span>(<span class='no'>vcf</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>vcf</dt>
-      <dd>vcf filename</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>vcf</th>
+      <td><p>vcf filename</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -111,11 +116,11 @@
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>return value has <code>chrom</code>, <code>start</code> and <code>end</code> columns.
-  Interval lengths are the size of the &#39;REF&#39; field.</p>
+Interval lengths are the size of the 'REF' field.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other read-funcs: <code><a href='read_bed.html'>read_bed</a></code>,
+    <p>Other read functions: <code><a href='read_bed.html'>read_bed</a></code>,
   <code><a href='read_genome.html'>read_genome</a></code></p>
     
 
@@ -124,15 +129,15 @@
 <span class='fu'>read_vcf</span>(<span class='no'>vcf_file</span>)</div><div class='output co'>#&gt; # A tibble: 11 × 18
 #&gt;    CHROM   POS      ID   REF   ALT  QUAL FILTER                         INFO
 #&gt;    &lt;chr&gt; &lt;int&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;                        &lt;chr&gt;
-#&gt; 1      1    10    1:10     A     T   100   PASS  NS=5;AC=0;AN=10;AF=0.000000
-#&gt; 2      1    20    1:20     G     C   100   PASS               NS=0;AC=0;AN=0
-#&gt; 3      1    30    1:30     C     A   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
-#&gt; 4      1    40    1:40     A     C   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
-#&gt; 5      1 10000 1:10000     G     C   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
-#&gt; 6      1 20000 1:20000     T     A   100   PASS NS=6;AC=12;AN=12;AF=1.000000
-#&gt; 7      4  5000  4:5000     A     T   100   PASS NS=6;AC=12;AN=12;AF=1.000000
-#&gt; 8      4  6000  4:6000     C     T   100   PASS NS=6;AC=11;AN=12;AF=0.916667
-#&gt; 9      X   800   X:800     A     C   100   PASS NS=6;AC=12;AN=12;AF=1.000000
+#&gt;  1     1    10    1:10     A     T   100   PASS  NS=5;AC=0;AN=10;AF=0.000000
+#&gt;  2     1    20    1:20     G     C   100   PASS               NS=0;AC=0;AN=0
+#&gt;  3     1    30    1:30     C     A   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
+#&gt;  4     1    40    1:40     A     C   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
+#&gt;  5     1 10000 1:10000     G     C   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
+#&gt;  6     1 20000 1:20000     T     A   100   PASS NS=6;AC=12;AN=12;AF=1.000000
+#&gt;  7     4  5000  4:5000     A     T   100   PASS NS=6;AC=12;AN=12;AF=1.000000
+#&gt;  8     4  6000  4:6000     C     T   100   PASS NS=6;AC=11;AN=12;AF=0.916667
+#&gt;  9     X   800   X:800     A     C   100   PASS NS=6;AC=12;AN=12;AF=1.000000
 #&gt; 10     X   900   X:900     A     T   100   PASS NS=6;AC=12;AN=12;AF=1.000000
 #&gt; 11     X  1000  X:1000     T     G   100   PASS NS=5;AC=10;AN=10;AF=1.000000
 #&gt; # ... with 10 more variables: FORMAT &lt;chr&gt;, X1 &lt;chr&gt;, X2 &lt;chr&gt;, X3 &lt;chr&gt;,

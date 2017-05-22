@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -94,62 +96,76 @@
 
     
     <p>Report intersecting intervals from <code>x</code> and <code>y</code> tbls. Book-ended
-intervals (or &quot;touching&quot; intervals) have <code>.overlap</code> values of <code>0</code>)
+intervals (or "touching" intervals) have <code>.overlap</code> values of <code>0</code>)
 in the output.</p>
     
 
-    <pre><span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>tbl of intervals</dd>
-      <dt>y</dt>
-      <dd>tbl of intervals</dd>
-      <dt>invert</dt>
-      <dd>report <code>x</code> intervals not in <code>y</code></dd>
-      <dt>suffix</dt>
-      <dd>colname suffixes in output</dd>
-      <dt>...</dt>
-      <dd>extra arguments (not used)</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>single y  <code><a href='tbl_interval.html'>tbl_interval()</a></code>, multiple y <code><a href='tbl_interval.html'>tbl_interval</a>s</code>
+or a list of y  <code>tbl_intervals</code></p></td>
+    </tr>
+    <tr>
+      <th>invert</th>
+      <td><p>report <code>x</code> intervals not in <code>y</code></p></td>
+    </tr>
+    <tr>
+      <th>suffix</th>
+      <td><p>colname suffixes in output</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>data_frame</code> with original columns from <code>x</code> and <code>y</code>,
-  suffixed with <code>.x</code> and <code>.y</code>, and a new <code>.overlap</code> column
-  with the extent of overlap for the intersecting intervals.</p>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with original columns from <code>x</code> and <code>y</code>,
+suffixed with <code>.x</code> and <code>.y</code>, and a new <code>.overlap</code> column
+with the extent of overlap for the intersecting intervals.</p>
+<p>If  multiple <code>y</code> tbls are supplied, then an additional column <code>.source</code> will
+be reported that contains the variable names associated with each interval. All original
+columns from the y tbls will be suffixed with <code>.y</code> in the output.
+If named tbls are supplied to <code>...</code> (i.e <code>a = y, b = z</code> or
+<code>list(a = y, b = z)</code>), then the supplied names will be reported instead
+of the variable names (see examples).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
-  grouping by <code>strand</code> will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
-  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
+groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code>. For example,
+grouping by <code>strand</code> will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html'>http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html</a></p>
-    <p>Other multi-set-ops: <code><a href='bed_closest.html'>bed_closest</a></code>,
+<p>Other multiple set operations: <code><a href='bed_closest.html'>bed_closest</a></code>,
   <code><a href='bed_coverage.html'>bed_coverage</a></code>, <code><a href='bed_map.html'>bed_map</a></code>,
   <code><a href='bed_subtract.html'>bed_subtract</a></code>, <code><a href='bed_window.html'>bed_window</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
-~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-<span class='st'>'chr1'</span>, <span class='fl'>25</span>,      <span class='fl'>50</span>,
-<span class='st'>'chr1'</span>, <span class='fl'>100</span>,     <span class='fl'>125</span>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>25</span>,      <span class='fl'>50</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>100</span>,     <span class='fl'>125</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>75</span>
 )
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><img src='bed_intersect-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><img src='bed_intersect-4.png' alt='' width='540' height='400' /><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,
   <span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,
@@ -157,7 +173,7 @@ in the output.</p>
   <span class='st'>"chr2"</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
   <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
   <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,
@@ -190,6 +206,57 @@ in the output.</p>
 #&gt; 4  chr2     200   400     350   430     300       50   350   400
 #&gt; 5  chr2     300   500     230   430     200      130   300   430
 #&gt; 6  chr2     300   500     350   430     300       80   350   430</div><div class='input'>
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
+  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>230</span>,    <span class='fl'>430</span>,  <span class='fl'>200</span>,
+  <span class='st'>"chr2"</span>, <span class='fl'>750</span>,    <span class='fl'>900</span>,  <span class='fl'>400</span>
+)
+
+<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)</div><div class='output co'>#&gt; # A tibble: 11 × 8
+#&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
+#&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;chr&gt;    &lt;int&gt;
+#&gt;  1  chr1     100   500     150   400     100       y      250
+#&gt;  2  chr1     100   500     150   400     100       z      250
+#&gt;  3  chr1     100   500     500   550     100       y        0
+#&gt;  4  chr1     100   500     500   550     100       z        0
+#&gt;  5  chr2     200   400     230   430     200       y      170
+#&gt;  6  chr2     200   400     230   430     200       z      170
+#&gt;  7  chr2     200   400     350   430     300       y       50
+#&gt;  8  chr2     300   500     230   430     200       y      130
+#&gt;  9  chr2     300   500     230   430     200       z      130
+#&gt; 10  chr2     300   500     350   430     300       y       80
+#&gt; 11  chr2     800   900     750   900     400       z      100</div><div class='input'>
+<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='kw'>exons</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>introns</span> <span class='kw'>=</span> <span class='no'>z</span>)</div><div class='output co'>#&gt; # A tibble: 11 × 8
+#&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
+#&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;chr&gt;    &lt;int&gt;
+#&gt;  1  chr1     100   500     150   400     100   exons      250
+#&gt;  2  chr1     100   500     150   400     100 introns      250
+#&gt;  3  chr1     100   500     500   550     100   exons        0
+#&gt;  4  chr1     100   500     500   550     100 introns        0
+#&gt;  5  chr2     200   400     230   430     200   exons      170
+#&gt;  6  chr2     200   400     230   430     200 introns      170
+#&gt;  7  chr2     200   400     350   430     300   exons       50
+#&gt;  8  chr2     300   500     230   430     200   exons      130
+#&gt;  9  chr2     300   500     230   430     200 introns      130
+#&gt; 10  chr2     300   500     350   430     300   exons       80
+#&gt; 11  chr2     800   900     750   900     400 introns      100</div><div class='input'>
+<span class='co'># a list of tbl_intervals can also be passed</span>
+<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='fu'>list</span>(<span class='kw'>exons</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>introns</span> <span class='kw'>=</span> <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 11 × 8
+#&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
+#&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;chr&gt;    &lt;int&gt;
+#&gt;  1  chr1     100   500     150   400     100   exons      250
+#&gt;  2  chr1     100   500     150   400     100 introns      250
+#&gt;  3  chr1     100   500     500   550     100   exons        0
+#&gt;  4  chr1     100   500     500   550     100 introns        0
+#&gt;  5  chr2     200   400     230   430     200   exons      170
+#&gt;  6  chr2     200   400     230   430     200 introns      170
+#&gt;  7  chr2     200   400     350   430     300   exons       50
+#&gt;  8  chr2     300   500     230   430     200   exons      130
+#&gt;  9  chr2     300   500     230   430     200 introns      130
+#&gt; 10  chr2     300   500     350   430     300   exons       80
+#&gt; 11  chr2     800   900     750   900     400 introns      100</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

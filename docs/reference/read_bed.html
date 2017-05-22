@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -93,12 +95,12 @@
     </div>
 
     
-    <p>read functions for BED and related formats. Filenames can be 
-  local file or URLs. The read functions load data into tbls with consistent
-  <code>chrom</code>, <code>start</code> and <code>end</code> colnames.</p>
+    <p>read functions for BED and related formats. Filenames can be
+local file or URLs. The read functions load data into tbls with consistent
+<code>chrom</code>, <code>start</code> and <code>end</code> colnames.</p>
     
 
-    <pre><span class='fu'>read_bed</span>(<span class='no'>filename</span>, <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='no'>bed12_coltypes</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>read_bed</span>(<span class='no'>filename</span>, <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>col_types</span> <span class='kw'>=</span> <span class='no'>bed12_coltypes</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='no'>...</span>)
 
 <span class='fu'>read_bed12</span>(<span class='no'>filename</span>, <span class='no'>...</span>)
@@ -110,78 +112,89 @@
 <span class='fu'>read_broadpeak</span>(<span class='no'>filename</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>filename</dt>
-      <dd>file or URL</dd>
-      <dt>n_fields</dt>
-      <dd>number fields in the BED file</dd>
-      <dt>col_types</dt>
-      <dd>column type spec for <code>readr::read_tsv</code></dd>
-      <dt>sort</dt>
-      <dd>sort the tbl by chrom and start</dd>
-      <dt>...</dt>
-      <dd>options to pass to <code>readr::read_tsv</code></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>filename</th>
+      <td><p>file or URL</p></td>
+    </tr>
+    <tr>
+      <th>n_fields</th>
+      <td><p>number fields in the BED file</p></td>
+    </tr>
+    <tr>
+      <th>col_types</th>
+      <td><p>column type spec for <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>readr::read_tsv()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>sort</th>
+      <td><p>sort the tbl by chrom and start</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>options to pass to <code><a href='http://www.rdocumentation.org/packages/readr/topics/read_delim'>readr::read_tsv()</a></code></p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code></p>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a></p>
-    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a></p>
-    <p><a href = 'https://genome.ucsc.edu/goldenPath/help/bedgraph.html'>https://genome.ucsc.edu/goldenPath/help/bedgraph.html</a></p>
-    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format12'>https://genome.ucsc.edu/FAQ/FAQformat.html#format12</a></p>
-    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format13'>https://genome.ucsc.edu/FAQ/FAQformat.html#format13</a></p>
+    <p><a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a>
+    <a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>https://genome.ucsc.edu/FAQ/FAQformat.html#format1</a>
+    <a href = 'https://genome.ucsc.edu/goldenPath/help/bedgraph.html'>https://genome.ucsc.edu/goldenPath/help/bedgraph.html</a>
+    <a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format12'>https://genome.ucsc.edu/FAQ/FAQformat.html#format12</a>
+    <a href = 'https://genome.ucsc.edu/FAQ/FAQformat.html#format13'>https://genome.ucsc.edu/FAQ/FAQformat.html#format13</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other read-funcs: <code><a href='read_genome.html'>read_genome</a></code>,
+    <p>Other read functions: <code><a href='read_genome.html'>read_genome</a></code>,
   <code><a href='read_vcf.html'>read_vcf</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format. </span>
+    <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format.</span>
 <span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 10 × 3
 #&gt;    chrom  start    end
 #&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-#&gt; 1   chr1  11873  14409
-#&gt; 2   chr1  14361  19759
-#&gt; 3   chr1  14406  29370
-#&gt; 4   chr1  34610  36081
-#&gt; 5   chr1  69090  70008
-#&gt; 6   chr1 134772 140566
-#&gt; 7   chr1 321083 321115
-#&gt; 8   chr1 321145 321207
-#&gt; 9   chr1 322036 326938
+#&gt;  1  chr1  11873  14409
+#&gt;  2  chr1  14361  19759
+#&gt;  3  chr1  14406  29370
+#&gt;  4  chr1  34610  36081
+#&gt;  5  chr1  69090  70008
+#&gt;  6  chr1 134772 140566
+#&gt;  7  chr1 321083 321115
+#&gt;  8  chr1 321145 321207
+#&gt;  9  chr1 322036 326938
 #&gt; 10  chr1 327545 328439</div><div class='input'>
 <span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'6fields.bed.gz'</span>), <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 6
 #&gt;    chrom  start    end         name score strand
 #&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1   chr1  11873  14409      DDX11L1     3      +
-#&gt; 2   chr1  14361  19759       WASH7P    10      -
-#&gt; 3   chr1  14406  29370       WASH7P     7      -
-#&gt; 4   chr1  34610  36081      FAM138F     3      -
-#&gt; 5   chr1  69090  70008        OR4F5     1      +
-#&gt; 6   chr1 134772 140566    LOC729737     3      -
-#&gt; 7   chr1 321083 321115     DQ597235     1      +
-#&gt; 8   chr1 321145 321207     DQ599768     1      +
-#&gt; 9   chr1 322036 326938 LOC100133331     3      +
+#&gt;  1  chr1  11873  14409      DDX11L1     3      +
+#&gt;  2  chr1  14361  19759       WASH7P    10      -
+#&gt;  3  chr1  14406  29370       WASH7P     7      -
+#&gt;  4  chr1  34610  36081      FAM138F     3      -
+#&gt;  5  chr1  69090  70008        OR4F5     1      +
+#&gt;  6  chr1 134772 140566    LOC729737     3      -
+#&gt;  7  chr1 321083 321115     DQ597235     1      +
+#&gt;  8  chr1 321145 321207     DQ599768     1      +
+#&gt;  9  chr1 322036 326938 LOC100133331     3      +
 #&gt; 10  chr1 327545 328439    LOC388312     1      +</div><div class='input'>
 <span class='co'># result is sorted by chrom and start unless `sort = FALSE`</span>
 <span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 3
 #&gt;    chrom  start    end
 #&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-#&gt; 1   chr1  11873  14409
-#&gt; 2   chr1  14361  19759
-#&gt; 3   chr1  14406  29370
-#&gt; 4   chr1  34610  36081
-#&gt; 5   chr1  69090  70008
-#&gt; 6   chr1 134772 140566
-#&gt; 7   chr1 321083 321115
-#&gt; 8   chr1 321145 321207
-#&gt; 9   chr1 322036 326938
+#&gt;  1  chr1  11873  14409
+#&gt;  2  chr1  14361  19759
+#&gt;  3  chr1  14406  29370
+#&gt;  4  chr1  34610  36081
+#&gt;  5  chr1  69090  70008
+#&gt;  6  chr1 134772 140566
+#&gt;  7  chr1 321083 321115
+#&gt;  8  chr1 321145 321207
+#&gt;  9  chr1 322036 326938
 #&gt; 10  chr1 327545 328439</div><div class='input'>
 
 <span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.bed12.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 3 × 12
@@ -204,30 +217,30 @@
 <span class='fu'>read_narrowpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.narrowPeak.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 570 × 10
 #&gt;    chrom    start      end  name score strand signal   pvalue qvalue  peak
 #&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
-#&gt; 1  chr22 17372940 17373090     .     0      .      4  4.62628     -1    -1
-#&gt; 2  chr22 17392200 17392350     .     0      .      5  4.67347     -1    -1
-#&gt; 3  chr22 17398400 17398550     .     0      .     10 11.62090     -1    -1
-#&gt; 4  chr22 17539180 17539330     .     0      .     21 30.93400     -1    -1
-#&gt; 5  chr22 17652440 17652590     .     0      .      6  5.35123     -1    -1
-#&gt; 6  chr22 17652780 17652930     .     0      .     12 12.52210     -1    -1
-#&gt; 7  chr22 17980800 17980950     .     0      .     12 12.59440     -1    -1
-#&gt; 8  chr22 18038260 18038410     .     0      .     29 36.01930     -1    -1
-#&gt; 9  chr22 18225280 18225430     .     0      .     21 25.00740     -1    -1
+#&gt;  1 chr22 17372940 17373090     .     0      .      4  4.62628     -1    -1
+#&gt;  2 chr22 17392200 17392350     .     0      .      5  4.67347     -1    -1
+#&gt;  3 chr22 17398400 17398550     .     0      .     10 11.62090     -1    -1
+#&gt;  4 chr22 17539180 17539330     .     0      .     21 30.93400     -1    -1
+#&gt;  5 chr22 17652440 17652590     .     0      .      6  5.35123     -1    -1
+#&gt;  6 chr22 17652780 17652930     .     0      .     12 12.52210     -1    -1
+#&gt;  7 chr22 17980800 17980950     .     0      .     12 12.59440     -1    -1
+#&gt;  8 chr22 18038260 18038410     .     0      .     29 36.01930     -1    -1
+#&gt;  9 chr22 18225280 18225430     .     0      .     21 25.00740     -1    -1
 #&gt; 10 chr22 18268020 18268170     .     0      .     14 12.98120     -1    -1
 #&gt; # ... with 560 more rows</div><div class='input'>
 
 <span class='fu'>read_broadpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.broadPeak.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 1,181 × 9
 #&gt;    chrom    start      end  name score strand    signal pvalue qvalue
 #&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1  chr22 16847903 16848440     .   503      . 10.530253    2.5     -1
-#&gt; 2  chr22 16849452 16851326     .   483      .  9.806790   15.7     -1
-#&gt; 3  chr22 16849955 16850086     .  1000      . 32.374499    4.2     -1
-#&gt; 4  chr22 16850694 16850924     .   831      . 22.537030    4.9     -1
-#&gt; 5  chr22 16852964 16853782     .   499      . 10.369338    6.2     -1
-#&gt; 6  chr22 16855065 16855803     .   477      .  9.577821    3.9     -1
-#&gt; 7  chr22 16855944 16856974     .   491      . 10.065081    8.5     -1
-#&gt; 8  chr22 16857425 16857958     .   505      . 10.609279    2.5     -1
-#&gt; 9  chr22 16858284 16858824     .   549      . 12.217043    4.5     -1
+#&gt;  1 chr22 16847903 16848440     .   503      . 10.530253    2.5     -1
+#&gt;  2 chr22 16849452 16851326     .   483      .  9.806790   15.7     -1
+#&gt;  3 chr22 16849955 16850086     .  1000      . 32.374499    4.2     -1
+#&gt;  4 chr22 16850694 16850924     .   831      . 22.537030    4.9     -1
+#&gt;  5 chr22 16852964 16853782     .   499      . 10.369338    6.2     -1
+#&gt;  6 chr22 16855065 16855803     .   477      .  9.577821    3.9     -1
+#&gt;  7 chr22 16855944 16856974     .   491      . 10.065081    8.5     -1
+#&gt;  8 chr22 16857425 16857958     .   505      . 10.609279    2.5     -1
+#&gt;  9 chr22 16858284 16858824     .   549      . 12.217043    4.5     -1
 #&gt; 10 chr22 16859972 16862024     .   404      .  6.889310    9.3     -1
 #&gt; # ... with 1,171 more rows</div><div class='input'>
 </div></pre>

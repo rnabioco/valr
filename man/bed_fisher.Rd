@@ -7,39 +7,39 @@
 bed_fisher(x, y, genome)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{tbl of chrom sizes}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 }
 \value{
-\code{data_frame}
+\code{tbl_interval}
 }
 \description{
 Borrows from the \code{BEDtools} implementation.
 }
 \details{
-Interval statistics can be used in combination with 
-  \code{\link[dplyr]{group_by}} and \code{\link[dplyr]{do}} to calculate 
-  statistics for subsets of data. See \code{vignette('interval-stats')} for
-  examples.
+Interval statistics can be used in combination with
+\code{\link[dplyr:group_by]{dplyr::group_by()}} and \code{\link[dplyr:do]{dplyr::do()}} to calculate
+statistics for subsets of data. See \code{vignette('interval-stats')} for
+examples.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   "chr1", 10,     20,
   "chr1", 30,     40,
   "chr1", 51,     52
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   "chr1", 15,     25,
   "chr1", 51,     52
 )
 
-genome <- tibble::tribble(
+genome <- trbl_genome(
   ~chrom, ~size,
   "chr1", 500
 )
@@ -50,7 +50,7 @@ bed_fisher(x, y, genome)
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 
-Other interval-stats: \code{\link{bed_absdist}},
+Other interval statistics: \code{\link{bed_absdist}},
   \code{\link{bed_jaccard}}, \code{\link{bed_projection}},
   \code{\link{bed_reldist}}
 }

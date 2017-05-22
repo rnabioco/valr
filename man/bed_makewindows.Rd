@@ -8,9 +8,9 @@ bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
   reverse = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{genome file with chromosome sizes}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{win_size}{divide intervals into fixed-size windows}
 
@@ -21,31 +21,31 @@ bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
 \item{reverse}{reverse window numbers}
 }
 \value{
-\code{data_frame} with \code{.win_id} column that contains a numeric 
-  identifier for the window.
+\code{\link[=tbl_interval]{tbl_interval()}} with \code{.win_id} column that contains a numeric
+identifier for the window.
 }
 \description{
 Divide intervals into new sub-intervals ("windows").
 }
 \note{
-The \code{name} and \code{.win_id} columns can be used to create new 
-  interval names (see 'namenum' example below) or in subsequent 
-  \code{group_by} operations (see vignette).
+The \code{name} and \code{.win_id} columns can be used to create new
+interval names (see 'namenum' example below) or in subsequent
+\code{group_by} operations (see vignette).
 }
 \examples{
-genome <- tibble::tribble(
+genome <- trbl_genome(
  ~chrom, ~size,
  "chr1", 200
 )
 
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100,    200,  'A',   '.',    '+'
 )
 
-bed_glyph(bed_makewindows(x, genome, num_win = 10), label = '.win_id') 
+bed_glyph(bed_makewindows(x, genome, num_win = 10), label = '.win_id')
 
-# Fixed number of windows 
+# Fixed number of windows
 bed_makewindows(x, genome, num_win = 10)
 
 # Fixed window size
@@ -63,5 +63,5 @@ dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
 
 }
 \seealso{
-Other utils: \code{\link{bed12_to_exons}}
+Other utilities: \code{\link{bed12_to_exons}}
 }

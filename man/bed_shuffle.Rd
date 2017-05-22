@@ -8,13 +8,13 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
   within = FALSE, seed = 0)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{genome}{chrom sizes}
+\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
-\item{incl}{tbl of included intervals}
+\item{incl}{\code{\link[=tbl_interval]{tbl_interval()}} of included intervals}
 
-\item{excl}{tbl of excluded intervals}
+\item{excl}{\code{\link[=tbl_interval]{tbl_interval()}} of excluded intervals}
 
 \item{max_tries}{maximum tries to identify a bounded interval}
 
@@ -23,13 +23,13 @@ bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
 \item{seed}{seed for reproducible intervals}
 }
 \value{
-\code{data_frame}
+\code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
 Shuffle input intervals.
 }
 \examples{
-genome <- tibble::tribble(
+genome <- trbl_genome(
  ~chrom, ~size,
  "chr1", 1e6,
  "chr2", 2e6,
@@ -43,8 +43,5 @@ bed_shuffle(x, genome)
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 
-Other single-set-ops: \code{\link{bed_cluster}},
-  \code{\link{bed_complement}}, \code{\link{bed_flank}},
-  \code{\link{bed_merge}}, \code{\link{bed_random}},
-  \code{\link{bed_shift}}, \code{\link{bed_slop}}
+Other randomizing operations: \code{\link{bed_random}}
 }

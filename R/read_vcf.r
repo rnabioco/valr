@@ -2,10 +2,10 @@
 #' 
 #' @param vcf vcf filename
 #'   
-#' @family read-funcs
-#' @return \code{data_frame}
+#' @family read functions
+#' @return `data_frame`
 #'   
-#' @note return value has \code{chrom}, \code{start} and \code{end} columns.
+#' @note return value has `chrom`, `start` and `end` columns.
 #'   Interval lengths are the size of the 'REF' field.
 #'   
 #' @examples

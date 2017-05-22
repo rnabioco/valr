@@ -7,12 +7,12 @@
 bed_cluster(x, max_dist = 0)
 }
 \arguments{
-\item{x}{tbl of interval}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{max_dist}{maximum distance between clustered intervals.}
 }
 \value{
-\code{data_frame} with \code{.id} column for clustered intervals.
+\code{\link[=tbl_interval]{tbl_interval()}} with \code{.id} column for clustered intervals.
 }
 \description{
 Output contains an \code{.id} column that can be used in downstream grouping
@@ -21,13 +21,13 @@ book-ended intervals will be clustered.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
  "chr1", 100,  200,
  "chr1", 180,  250,
@@ -40,7 +40,7 @@ x <- tibble::tribble(
 bed_cluster(x)
 
 # glyph illustrating clustering of overlapping and book-ended intervals
-x <- tibble::tribble(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 1,      10,
   'chr1', 5,      20,
@@ -55,8 +55,7 @@ bed_glyph(bed_cluster(x), label = '.id')
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
 
-Other single-set-ops: \code{\link{bed_complement}},
+Other single set operations: \code{\link{bed_complement}},
   \code{\link{bed_flank}}, \code{\link{bed_merge}},
-  \code{\link{bed_random}}, \code{\link{bed_shift}},
-  \code{\link{bed_shuffle}}, \code{\link{bed_slop}}
+  \code{\link{bed_shift}}, \code{\link{bed_slop}}
 }

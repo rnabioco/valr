@@ -17,7 +17,7 @@ Read a VCF file.
 }
 \note{
 return value has \code{chrom}, \code{start} and \code{end} columns.
-  Interval lengths are the size of the 'REF' field.
+Interval lengths are the size of the 'REF' field.
 }
 \examples{
 vcf_file <- valr_example('test.vcf.gz')
@@ -25,6 +25,6 @@ read_vcf(vcf_file)
 
 }
 \seealso{
-Other read-funcs: \code{\link{read_bed}},
+Other read functions: \code{\link{read_bed}},
   \code{\link{read_genome}}
 }

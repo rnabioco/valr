@@ -7,9 +7,9 @@
 bed_subtract(x, y, any = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{y}{tbl of intervals}
+\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{any}{remove any \code{x} intervals that overlap \code{y}}
 }
@@ -18,25 +18,25 @@ Subtract \code{y} intervals from \code{x} intervals.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
-  groups can be added using \code{\link[dplyr]{group_by}}. For example,
-  grouping by \code{strand} will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the \code{y} tbl can
-  first be inverted using \code{\link{flip_strands}}.
+groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
+grouping by \code{strand} will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the \code{y} tbl can
+first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- tibble::tribble(
-~chrom, ~start, ~end,
-'chr1', 1,      100
+x <- trbl_interval(
+  ~chrom, ~start, ~end,
+  'chr1', 1,      100
 )
- 
-y <- tibble::tribble(
+
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 50,     75
 )
- 
+
 bed_glyph(bed_subtract(x, y))
 
-x <- tibble::tribble(
+x <- trbl_interval(
  ~chrom, ~start, ~end,
  "chr1", 100,    200,
  "chr1", 250,    400,
@@ -45,7 +45,7 @@ x <- tibble::tribble(
  "chr1", 1300,   1500
 )
 
-y <- tibble::tribble(
+y <- trbl_interval(
  ~chrom, ~start, ~end,
  "chr1", 150,    175,
  "chr1", 510,    525,
@@ -58,12 +58,12 @@ y <- tibble::tribble(
 bed_subtract(x, y)
 
 bed_subtract(x, y, any = TRUE)
- 
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 
-Other multi-set-ops: \code{\link{bed_closest}},
+Other multiple set operations: \code{\link{bed_closest}},
   \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
   \code{\link{bed_map}}, \code{\link{bed_window}}
 }

@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -93,46 +95,52 @@
     </div>
 
     
-    <p>Operations can be performed on merged intervals by specifying name-value 
+    <p>Operations can be performed on merged intervals by specifying name-value
 pairs. Default <code>max_dist</code> of <code>0</code> means book-ended intervals are
 merged.</p>
     
 
-    <pre><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>tbl of intervals</dd>
-      <dt>max_dist</dt>
-      <dd>maximum distance between intervals to merge</dd>
-      <dt>...</dt>
-      <dd>name-value pairs that specify operations on merged intervals</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>max_dist</th>
+      <td><p>maximum distance between intervals to merge</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>name-value pairs that specify operations on merged intervals</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data_frame</code></p>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-  groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>group_by</a></code>. For example,
-  grouping by <code>strand</code> will constrain analyses to the same strand. To
-  compare opposing strands across two tbls, strands on the <code>y</code> tbl can
-  first be inverted using <code><a href='flip_strands.html'>flip_strands</a></code>.</p>
+groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code>. For example,
+grouping by <code>strand</code> will constrain analyses to the same strand. To
+compare opposing strands across two tbls, strands on the <code>y</code> tbl can
+first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/merge.html'>http://bedtools.readthedocs.org/en/latest/content/tools/merge.html</a></p>
-    <p>Other single-set-ops: <code><a href='bed_cluster.html'>bed_cluster</a></code>,
+<p>Other single set operations: <code><a href='bed_cluster.html'>bed_cluster</a></code>,
   <code><a href='bed_complement.html'>bed_complement</a></code>, <code><a href='bed_flank.html'>bed_flank</a></code>,
-  <code><a href='bed_random.html'>bed_random</a></code>, <code><a href='bed_shift.html'>bed_shift</a></code>,
-  <code><a href='bed_shuffle.html'>bed_shuffle</a></code>, <code><a href='bed_slop.html'>bed_slop</a></code></p>
+  <code><a href='bed_shift.html'>bed_shift</a></code>, <code><a href='bed_slop.html'>bed_slop</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>,  <span class='fl'>1</span>,      <span class='fl'>50</span>,
   <span class='st'>'chr1'</span>,  <span class='fl'>10</span>,     <span class='fl'>75</span>,
@@ -140,7 +148,7 @@ merged.</p>
 )
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_merge</span>(<span class='no'>x</span>))</div><img src='bed_merge-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>tibble</span><span class='kw'>::</span><span class='fu'>tribble</span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>1</span>,      <span class='fl'>50</span>,   <span class='fl'>1</span>,      <span class='st'>'+'</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,  <span class='fl'>2</span>,      <span class='st'>'+'</span>,
@@ -168,6 +176,7 @@ merged.</p>
 <span class='fu'>bed_merge</span>(<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>group_by</span>(<span class='no'>x</span>, <span class='no'>strand</span>))</div><div class='output co'>#&gt; Source: local data frame [6 x 4]
 #&gt; Groups: strand [2]
 #&gt; 
+#&gt; # A tibble: 6 × 4
 #&gt;   chrom start   end strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;
 #&gt; 1  chr1   150   250      -
