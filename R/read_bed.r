@@ -26,8 +26,10 @@
 #' read_bed(valr_example('3fields.bed.gz'), sort = FALSE)
 #'
 #' @export
-read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
+read_bed <- function(filename, n_fields = NULL, col_types = bed12_coltypes,
                      sort = TRUE, ...) {
+
+  if (missing(n_fields)) n_fields <- ncol(read.table(filename, nrows = 5,sep="\t"))
 
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
