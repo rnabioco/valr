@@ -21,8 +21,12 @@ intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
     .Call('valr_intersect_impl', PACKAGE = 'valr', x, y, suffix_x, suffix_y)
 }
 
-merge_impl <- function(gdf, max_dist = 0L) {
-    .Call('valr_merge_impl', PACKAGE = 'valr', gdf, max_dist)
+timesTwo <- function(x) {
+    .Call('valr_timesTwo', PACKAGE = 'valr', x)
+}
+
+merge_impl <- function(gdf, max_dist = 0L, dots = FALSE) {
+    .Call('valr_merge_impl', PACKAGE = 'valr', gdf, max_dist, dots)
 }
 
 random_impl <- function(genome, length, n, seed = 0L, col_chrom = "chrom", col_size = "size") {

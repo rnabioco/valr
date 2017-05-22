@@ -70,15 +70,27 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// timesTwo
+NumericVector timesTwo(NumericVector x);
+RcppExport SEXP valr_timesTwo(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(timesTwo(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // merge_impl
-DataFrame merge_impl(GroupedDataFrame gdf, int max_dist);
-RcppExport SEXP valr_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP) {
+DataFrame merge_impl(GroupedDataFrame gdf, int max_dist, bool dots);
+RcppExport SEXP valr_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP, SEXP dotsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< GroupedDataFrame >::type gdf(gdfSEXP);
     Rcpp::traits::input_parameter< int >::type max_dist(max_distSEXP);
-    rcpp_result_gen = Rcpp::wrap(merge_impl(gdf, max_dist));
+    Rcpp::traits::input_parameter< bool >::type dots(dotsSEXP);
+    rcpp_result_gen = Rcpp::wrap(merge_impl(gdf, max_dist, dots));
     return rcpp_result_gen;
 END_RCPP
 }
