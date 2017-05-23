@@ -64,8 +64,8 @@ bed_merge <- function(x, max_dist = 0, ...) {
   dots <- list(.start = ~min(start), .end = ~max(end))
 
   # if no dots are passed then use fast internal merge
-   if (length(list(...)) > 0) {
-     res <- merge_impl(res, max_dist, dots = TRUE)
+  if (!is.null(substitute(...))) {
+     res <- merge_impl(res, max_dist, collapse = FALSE)
      dots <- c(dots, lazyeval::lazy_dots(...))
      res <- group_by_(res, .dots = c("chrom", ".id_merge", x_groups), add = TRUE)
      res <- summarize_(res, .dots = dots)
@@ -73,7 +73,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
      res <- ungroup(res)
      res <- select(res, -.id_merge)
    } else {
-     res <- merge_impl(res, max_dist, dots = FALSE)
+     res <- merge_impl(res, max_dist, collapse = TRUE)
      res <- select_(res, .dots = c("chrom", "start", "end", x_groups))
   }
 

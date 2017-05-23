@@ -12,7 +12,6 @@
 
 #include <random>
 #include <functional>
-#include <stack>
 
 // [[Rcpp::plugins(cpp11)]]
 

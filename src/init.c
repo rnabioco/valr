@@ -18,7 +18,6 @@ extern SEXP valr_random_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP valr_reldist_impl(SEXP, SEXP);
 extern SEXP valr_shuffle_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP valr_subtract_impl(SEXP, SEXP);
-extern SEXP valr_timesTwo(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
   {"valr_absdist_impl",    (DL_FUNC) &valr_absdist_impl,    2},
@@ -31,7 +30,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"valr_reldist_impl",    (DL_FUNC) &valr_reldist_impl,    2},
   {"valr_shuffle_impl",    (DL_FUNC) &valr_shuffle_impl,    5},
   {"valr_subtract_impl",   (DL_FUNC) &valr_subtract_impl,   2},
-  {"valr_timesTwo",        (DL_FUNC) &valr_timesTwo,        1},
   {NULL, NULL, 0}
 };
 
