@@ -1,0 +1,139 @@
+---
+title: "valr_benchmark"
+output: html_document
+---
+
+```{r, message=FALSE}
+# Benchmark from Jay
+library(valr)
+library(tidyverse)
+library(scales)
+library(microbenchmark)
+library(reshape2)
+
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+write_tsv(genome, "genome.txt", col_names=FALSE)
+
+# number of intervals
+n <- 1e6
+# number of timing reps
+nrep <- 10
+
+seed_x <- 1010486
+x <- bed_random(genome, n = n, seed = seed_x)
+write_tsv(x, "x.bed", col_names=FALSE)
+seed_y <- 9283019
+y <- bed_random(genome, n = n, seed = seed_y)
+write_tsv(y, "y.bed", col_names=FALSE)
+
+genome1 = read_tsv("genome.txt", col_names=FALSE)
+
+res <- microbenchmark(
+  # randomizing functions
+  bed_random(genome, n = n, seed = seed_x),
+  bed_shuffle(x, genome, seed = seed_x),
+  # # single tbl functions
+  bed_slop(x, genome, both = 1000),
+  bed_flank(x, genome, both = 1000),
+  bed_merge(x),
+  bed_cluster(x),
+  bed_complement(x, genome),
+  # multi tbl functions
+  bed_closest(x, y),
+  bed_intersect(x, y),
+  bed_map(x, y, .n = n()),
+  bed_subtract(x, y),
+  # stats
+  bed_absdist(x, y, genome),
+  bed_reldist(x, y),
+  bed_jaccard(x, y),
+  bed_fisher(x, y, genome),
+  bed_projection(x, y, genome),
+  # utilities
+  # don't test makewindows ... too slooow
+  # bed_makewindows(x, genome, win_size = 10),
+  times = nrep,
+  unit = 's')
+
+# covert nanoseconds to seconds
+res <- res %>%
+  as_tibble() %>%
+  mutate(time = time / 1e9)
+
+# futz with the x-axis
+sts <- boxplot.stats(res$time)$stats
+# filter out outliers
+res <- filter(res, time <= max(sts) * 1.05)
+
+ggplot(res, aes(x=reorder(expr, time), y=time)) +
+  geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="valr benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+```
+
+```{r}
+# valr
+```
+
+```{bash}
+# bedtools time
+# set-up files for bedtools function
+bedtools sort -i y.bed > y1.bed
+bedtools sort -i x.bed > x1.bed
+sort -k1,1 genome.txt > genome1.txt
+
+## Run timing test
+bench_tests "bedtools random -g genome.txt -n 1000000 -seed 1010486" "aa_1.txt" "bedtools random"
+bench_tests "bedtools shuffle -i x.bed -g genome.txt -seed 1010486" "bb_1.txt" "bedtools shuffle"
+# single tbl function
+bench_tests "bedtools slop -i x1.bed -g genome1.txt -b 1000" "cc_1.txt" "bedtools slop"
+bench_tests "bedtools flank -i x1.bed -g genome1.txt -b 1000" "dd_1.txt" "bedtools flank"
+bench_tests "bedtools merge -i x1.bed" "ee_1.txt" "bedtools merge"
+bench_tests "bedtools cluster -i x1.bed" "ff_1.txt" "bedtools cluster"
+bench_tests "bedtools complement -i x1.bed -g genome1.txt" "gg_1.txt" "bedtools complement"
+# multi tbl functions
+bench_tests "bedtools closest -a x1.bed -b y1.bed" "hh_1.txt" "bedtools closest"
+bench_tests "bedtools intersect -a x1.bed -b y1.bed" "ii_1.txt" "bedtools intersect"
+bench_tests "bedtools map -a x1.bed -b y1.bed -c 1 -o count" "jj_1.txt" "bedtools map"
+bench_tests "bedtools subtract -a x1.bed -b y1.bed" "kk_1.txt" "bedtools subract"
+# stats
+bench_tests "bedtools reldist -a x1.bed -b y1.bed" "ll_1.txt" "bedtools reldist"
+bench_tests "bedtools jaccard -a x1.bed -b y1.bed" "mm_1.txt" "bedtools jaccard"
+bench_tests "bedtools fisher -a x1.bed -b y1.bed -g genome1.txt" "oo_1.txt" "bedtools fisher"
+
+paste *_1.txt > time.txt
+
+
+```
+
+```{r}
+# Code to process data from bash chunk (above)
+# This is to import the data and graph it
+
+time <- read_tsv("~/Documents/valr/test_time/time.txt")
+time <- gather(time, expr, time)
+resb <- time
+
+ggplot(resb, aes(x=reorder(expr, time), y=time)) +
+  geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="bedtools benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+```
+
+
+```{python}
+# pybedtools
+```
+
