@@ -70,6 +70,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// makewindows_impl
+DataFrame makewindows_impl(DataFrame df, int step_size, bool reverse, std::string col_start, std::string col_end, std::string col_win_size);
+RcppExport SEXP valr_makewindows_impl(SEXP dfSEXP, SEXP step_sizeSEXP, SEXP reverseSEXP, SEXP col_startSEXP, SEXP col_endSEXP, SEXP col_win_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< int >::type step_size(step_sizeSEXP);
+    Rcpp::traits::input_parameter< bool >::type reverse(reverseSEXP);
+    Rcpp::traits::input_parameter< std::string >::type col_start(col_startSEXP);
+    Rcpp::traits::input_parameter< std::string >::type col_end(col_endSEXP);
+    Rcpp::traits::input_parameter< std::string >::type col_win_size(col_win_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(makewindows_impl(df, step_size, reverse, col_start, col_end, col_win_size));
+    return rcpp_result_gen;
+END_RCPP
+}
 // merge_impl
 DataFrame merge_impl(GroupedDataFrame gdf, int max_dist, bool collapse);
 RcppExport SEXP valr_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP, SEXP collapseSEXP) {

@@ -21,6 +21,10 @@ intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
     .Call(valr_intersect_impl, x, y, suffix_x, suffix_y)
 }
 
+makewindows_impl <- function(df, step_size = 0L, reverse = FALSE, col_start = "start", col_end = "end", col_win_size = ".win_size") {
+    .Call(valr_makewindows_impl, df, step_size, reverse, col_start, col_end, col_win_size)
+}
+
 merge_impl <- function(gdf, max_dist = 0L, collapse = TRUE) {
     .Call(valr_merge_impl, gdf, max_dist, collapse)
 }

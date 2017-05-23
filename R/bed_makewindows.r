@@ -56,7 +56,7 @@ bed_makewindows <- function(x, genome, win_size = 0,
     stop('specify either `win_size` or `num_win`', call. = FALSE)
 
   x <- ungroup(x)
-  x <- mutate(x, .row_id = row_number())
+
   x <- rowwise(x)
   if (num_win > 0) {
     x <- mutate(x,
@@ -65,27 +65,12 @@ bed_makewindows <- function(x, genome, win_size = 0,
     x <- mutate(x, .win_size = win_size)
   }
 
-  res <- mutate(x, .start = list(seq(start, end,
-                                     by = .win_size - step_size)),
-                .win_num = list(seq(1, length(.start))))
-  # can't unnest if grouped by row
-  res <- ungroup(res)
-  res <- tidyr::unnest(res)
-  res <- mutate(res, .end = ifelse(.start + .win_size < end,
-                                   .start + .win_size, end))
-  res <- filter(res, .start != .end )
-  res <- mutate(res, start = .start, end = .end)
-  res <- select(res, -.start, -.end, -.win_size)
+  # make .win_id column  for cpp output, easier than coding on rcpp side
+  x <- mutate(x, .win_id = 0)
 
-  # add .win_id column
-  res <- group_by(res, .row_id)
-  if (reverse) {
-    res <- mutate(res, .win_id = rank(-.win_num))
-  } else {
-    res <- mutate(res, .win_id = rank(.win_num))
-  }
+  res <- makewindows_impl(x, step_size = step_size, reverse = reverse)
+  res <- tbl_df(res)
+  res <- select(res, -.win_size)
 
-  res <- ungroup(res)
-  res <- select(res, -.win_num, -.row_id)
   res
 }
