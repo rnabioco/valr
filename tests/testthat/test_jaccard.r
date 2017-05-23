@@ -3,7 +3,7 @@ context("bed_jaccard")
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 10,     20,
-  "chr1", 30,     40
+  "chr2", 30,     40
 )
 
 y <- tibble::tribble(
@@ -15,6 +15,12 @@ test_that("jaccard coeff is calculated correctly", {
   res <- bed_jaccard(x, y)
   expect_equal(res$jaccard, 0.25)
 })
+
+test_that("jaccard coeff is calculated correctly for grouped inputs", {
+  res <- bed_jaccard(group_by(x, chrom), group_by(y, chrom))
+  expect_equal(res$jaccard, c(0.5,0))
+})
+
 
 test_that("jaccard coeff is calc'd for large data sets", {
   genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
