@@ -19,21 +19,21 @@ void closest_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
   // initiatialize maximum left and right distances to minimize for closest
   int max_end = std::max(vx.back().stop, vy.back().stop) ;
 
-  for (auto vx_it : vx) {
+  for (auto const &vx_it : vx) {
     ivl_vector_t closest ;
     ivl_vector_t closest_ivls ;
 
     min_dist = std::make_pair(max_end, closest_ivls) ;
     tree_y.findClosest(vx_it.start, vx_it.stop, closest, min_dist) ;
 
-    for (auto ov_it : closest) {
+    for (auto const &ov_it : closest) {
 
       auto overlap = intervalOverlap(vx_it, ov_it) ;
 
       if (overlap > 0) {
         indices_x.push_back(vx_it.value) ;
         indices_y.push_back(ov_it.value) ;
-        overlap_sizes.push_back(overlap) ;
+        overlap_sizes.push_back(overlap < 0 ? -overlap : overlap) ;
         distance_sizes.push_back(0);
       } else if (ov_it.start > vx_it.stop) {
         indices_x.push_back(vx_it.value) ;
@@ -64,6 +64,12 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   std::vector<int> indices_y ;
   std::vector<int> overlap_sizes ;
   std::vector<int> distance_sizes ;
+
+  // preallocate vector to save some time
+  indices_x.reserve(2e6) ;
+  indices_y.reserve(2e6) ;
+  overlap_sizes.reserve(2e6) ;
+  distance_sizes.reserve(2e6) ;
 
   // set up interval trees for each chromosome and apply closest_grouped
   GroupApply(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y),
