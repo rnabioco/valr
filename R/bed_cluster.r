@@ -48,7 +48,7 @@ bed_cluster <- function(x, max_dist = 0) {
   res <- group_by(x, chrom, add = TRUE)
   res <- arrange(res, chrom, start)
 
-  res <- merge_impl(res, max_dist)
+  res <- merge_impl(res, max_dist, collapse = FALSE)
 
   res <- mutate(res, .id = .id_merge)
   res <- select(res, -.id_merge, -.overlap_merge)
