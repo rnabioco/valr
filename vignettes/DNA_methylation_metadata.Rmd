@@ -1,0 +1,91 @@
+---
+title: "using ValR for DNA methylation datasets"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+library(dplyr)
+library(valr)
+library(R.utils)
+library(curl)
+library(ggplot2)
+```
+
+## Get the public datasets from UCSC
+
+Using read_bed() to retrive the .bed.gz data set. Currently users need to specify the number of columns (n_fields) or read_bed() will default to importing only 3 columns
+
+```{r, include=TRUE}
+DMSO_treated<-read_bed('http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeHaibMethylRrbs/wgEncodeHaibMethylRrbsA549Dm002p7dHaibSitesRep1.bed.gz', n_fields=6)
+
+```
+
+```{r}
+untreated<-read_bed('http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeHaibMethylRrbs/wgEncodeHaibMethylRrbsAg04449UwSitesRep1.bed.gz', n_fields=6)
+```
+To view the data
+
+```{r}
+head(untreated)
+```
+
+## Differentially methylated regions in the treated sample can be found using bed_subtract()
+```{r}
+differential<-bed_subtract(DMSO_treated,untreated, any=FALSE)
+dim(differential)
+```
+
+Filter the differential data based on ertain threshold of score. 
+convert the character score column to numeric otherwise it won't work properly
+
+```{r}
+region<-filter(differential, as.numeric(score) > 5)
+```
+
+Note:NOTE, if any was set to TRUE in previous bed_subtract(),then tbl_df is required to ensure correct format
+
+region<-filter(tbl_df(differential), as.numeric(score) > 10)
+```{r}
+head(region)
+```
+
+##count the distribution of differential methylation region across chromosomes
+```{r}
+ggplot(region, aes(x=chrom))+geom_histogram(stat='count', aes(factor(chrom), fill=factor(chrom)))+theme_minimal()+ggtitle('Distribution of differential methylation across chromosomes')+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+##import  genome file for meta analysis
+Load genome file, and chromosome ref. seq files
+
+```{r}
+genomefile <- valr_example('hg19.chrom.sizes.gz')
+genome<-read_genome(genomefile)
+```
+```{r}
+genes<-read_bed('https://sourceforge.net/projects/rseqc/files/BED/Human_Homo_sapiens/hg19_UCSC_knownGene.bed.gz', n_fields=6)
+```
+
+Select chromosome 19
+```{r}
+chrom19<-filter(genes, chrom == 'chr19' & strand=='+')
+```
+
+##check out coverage of the differential methylation sites
+
+```{r}
+x<-filter(region, strand=='+')
+coverage<- bed_coverage(x, chrom19)
+head(coverage)
+```
+```{r}
+region_size<-filter(genome, chrom =='chr19')
+region_size<-region_size[2]
+
+```
+
+```{r}
+ggplot(coverage, aes(x = start, y=as.numeric(score))) +
+  geom_point()  +
+  xlab('Position along chromosome 19') + ylab('Methylation Signal')+theme_classic()
+
+```
+
