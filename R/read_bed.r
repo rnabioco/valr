@@ -34,7 +34,6 @@ read_bed <- function(filename, n_fields = NULL, col_types = bed12_coltypes,
     print(glue::glue("n_fields set automatically to {n_fields}"))
   }
 
-
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
 
