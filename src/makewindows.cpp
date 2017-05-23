@@ -88,6 +88,10 @@ DataFrame makewindows_impl(DataFrame df,
 }
 
 /*** R
+x <- trbl_interval(
+  ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.row_id, ~.win_size,
+  "chr1", 100,    200,  'A',   '.',    '+', 1, 10
+)
 
-print("temp")
+makewindows_impl(x) %>% as_data_frame()
 */
