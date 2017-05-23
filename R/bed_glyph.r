@@ -44,8 +44,11 @@ bed_glyph <- function(expr, label = NULL) {
   # get required args i.e. those without defaults
   args_req <- names(args_all[sapply(args_all, is.name)])
 
-  # for bed_intersect replace ... with y
-  if (expr[[1]] == "bed_intersect") args_req <- as.character(c(expr[[2]],expr[[3]]))
+  # for bed_intersect restrict to two-set comparisons
+  if (expr[[1]] == "bed_intersect") {
+    if (length(expr) > 3) {stop("bed_glyph can only display two-group bed_intersect results")}
+    args_req <- as.character(c(expr[[2]],expr[[3]]))
+  }
 
   args_excl <- c('genome', "...")
   args_req <- args_req[!args_req %in% args_excl]
@@ -160,13 +163,13 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
 glyph_theme <- function(base_size = 12, base_family = "Helvetica") {
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(
-    axis.line.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.text.y = element_blank(),
-    legend.position = "none",
-    panel.grid = element_blank(),
-    panel.background = element_blank(),
-    plot.background = element_blank(),
-    panel.border = element_blank()
-  )
+      axis.line.y = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.text.y = element_blank(),
+      legend.position = "none",
+      panel.grid = element_blank(),
+      panel.background = element_blank(),
+      plot.background = element_blank(),
+      panel.border = element_blank()
+    )
 }
