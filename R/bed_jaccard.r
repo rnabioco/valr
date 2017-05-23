@@ -15,6 +15,7 @@
 #'
 #' @family interval statistics
 #' @return [tbl_interval()] with the following columns:
+#'   - `group` grouping variable (optional)
 #'   - `len_i` length of the intersection
 #'   - `len_u` length of the union
 #'   - `jaccard` jaccard statistic
@@ -40,6 +41,8 @@
 #' @export
 bed_jaccard <- function(x, y) {
 
+  if (!identical(groups(x),groups(y))) {stop("Input files are not grouped on the same column")}
+
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_interval(y)) y <- tbl_interval(y)
 
@@ -47,9 +50,17 @@ bed_jaccard <- function(x, y) {
   y <- bed_merge(y)
 
   res_intersect <- bed_intersect(x, y)
-  res_intersect <- summarize(res_intersect,
-                             sum_overlap = sum(as.numeric(.overlap)),
-                             n_int = as.numeric(n()))
+
+  if (!is.null(groups(x))){
+    groups_x <- as.character(groups(x))
+    res_intersect <- summarize(group_by_(res_intersect, groups_x),
+                               sum_overlap = sum(as.numeric(.overlap)),
+                               n_int = as.numeric(n()))
+  } else {
+    res_intersect <- summarize(res_intersect,
+                               sum_overlap = sum(as.numeric(.overlap)),
+                               n_int = as.numeric(n()))
+    }
 
   res_x <- mutate(x, .size = end - start)
   res_x <- summarize(res_x, sum_x = sum(as.numeric(.size)))
@@ -67,10 +78,16 @@ bed_jaccard <- function(x, y) {
 
   jaccard <- n_i / (n_u - n_i)
 
-  res <- tibble::tribble(
-    ~len_i, ~len_u, ~jaccard, ~n,
-    n_i,    n_u,    jaccard,  n
-  )
+#  res <- tibble::tribble(
+#    ~len_i, ~len_u, ~jaccard, ~n,
+#    n_i,    n_u,    jaccard,  n
+#  )
+
+  if (!is.null(groups(x))){
+    res <- tibble(group=res_intersect[[groups_x]], len_i=n_i, len_u=n_u, jaccard=jaccard, n=n)
+  } else {
+    res <- tibble(len_i=n_i, len_u=n_u, jaccard=jaccard, n=n)
+  }
 
   res
 }
