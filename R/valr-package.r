@@ -31,4 +31,5 @@
 #' @importFrom utils head tail
 #' @import ggplot2
 #' @import dplyr
+#' @import glue
 "_PACKAGE"
