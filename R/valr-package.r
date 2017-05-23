@@ -28,7 +28,7 @@
 #' @importFrom tidyr unnest
 #' @importFrom lazyeval lazy_dots
 #' @importFrom stats fisher.test
-#' @importFrom utils head tail
+#' @importFrom utils head tail read.table
 #' @import ggplot2
 #' @import dplyr
 #' @import glue

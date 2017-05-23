@@ -8,7 +8,7 @@
 \alias{read_broadpeak}
 \title{Read BED and related files.}
 \usage{
-read_bed(filename, n_fields = 3, col_types = bed12_coltypes, sort = TRUE,
+read_bed(filename, n_fields = NULL, col_types = bed12_coltypes, sort = TRUE,
   ...)
 
 read_bed12(filename, ...)
@@ -22,7 +22,7 @@ read_broadpeak(filename, ...)
 \arguments{
 \item{filename}{file or URL}
 
-\item{n_fields}{number fields in the BED file}
+\item{n_fields}{number fields in the BED file (auto-detected by default)}
 
 \item{col_types}{column type spec for \code{\link[readr:read_tsv]{readr::read_tsv()}}}
 
