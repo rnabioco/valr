@@ -71,14 +71,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // merge_impl
-DataFrame merge_impl(GroupedDataFrame gdf, int max_dist);
-RcppExport SEXP valr_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP) {
+DataFrame merge_impl(GroupedDataFrame gdf, int max_dist, bool collapse);
+RcppExport SEXP valr_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP, SEXP collapseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< GroupedDataFrame >::type gdf(gdfSEXP);
     Rcpp::traits::input_parameter< int >::type max_dist(max_distSEXP);
-    rcpp_result_gen = Rcpp::wrap(merge_impl(gdf, max_dist));
+    Rcpp::traits::input_parameter< bool >::type collapse(collapseSEXP);
+    rcpp_result_gen = Rcpp::wrap(merge_impl(gdf, max_dist, collapse));
     return rcpp_result_gen;
 END_RCPP
 }

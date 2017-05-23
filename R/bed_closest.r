@@ -87,10 +87,6 @@ bed_closest <- function(x, y, overlap = TRUE,
 
   res <- closest_impl(x, y, suffix$x, suffix$y)
 
-  # remove negative overlap information
-  # not necessary to keep, due to distance column
-  res$.overlap <- ifelse(res$.overlap < 0, 0, res$.overlap )
-
   if (!overlap){
     res <- filter(res, .overlap < 1)
     res <- select(res, -.overlap)
