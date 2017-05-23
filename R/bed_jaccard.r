@@ -78,11 +78,6 @@ bed_jaccard <- function(x, y) {
 
   jaccard <- n_i / (n_u - n_i)
 
-#  res <- tibble::tribble(
-#    ~len_i, ~len_u, ~jaccard, ~n,
-#    n_i,    n_u,    jaccard,  n
-#  )
-
   if (!is.null(groups(x))){
     res <- tibble(group=res_intersect[[groups_x]], len_i=n_i, len_u=n_u, jaccard=jaccard, n=n)
   } else {
