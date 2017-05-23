@@ -31,7 +31,7 @@ read_bed <- function(filename, n_fields = NULL, col_types = bed12_coltypes,
 
   if (missing(n_fields)) {
     n_fields <- ncol(read.table(filename, nrows = 5, sep="\t"))
-    print(glue::glue("n_fields set automatically to {n_fields}"))
+    message(glue::glue("n_fields set automatically to {n_fields}"))
   }
 
   coltypes <- col_types[1:n_fields]
