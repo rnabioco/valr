@@ -15,7 +15,7 @@
 #'
 #' @family interval statistics
 #' @return [tbl_interval()] with the following columns:
-#'   - `group` grouping variable (optional)
+#'   - `group` grouping variable (for grouped inputs only)
 #'   - `len_i` length of the intersection
 #'   - `len_u` length of the union
 #'   - `jaccard` jaccard statistic
