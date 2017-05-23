@@ -26,17 +26,9 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0, bool dots = false )
 
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
 
-  std::vector<int> indices_x ;
-  std::vector<int> group_starts ;
-  std::vector<int> group_ends ;
+  // approach from http://www.geeksforgeeks.org/merging-intervals/
 
-  SlicingIndex indices = *git ;
-
-  ivl_vector_t intervals = makeIntervalVector(df, indices);
-  // set up initial conditions
-  indices_x.push_back(intervals.begin()->value) ;
-  group_starts.push_back(intervals.begin()->start) ;
-  group_ends.push_back(intervals.begin()->stop) ;
+  std::stack<ivl_t> s ;
 
   for (int i = 0; i < ng; i++, ++git) {
 
@@ -46,11 +38,8 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0, bool dots = false )
 
     ivl_t last_interval = ivl_t(0, 0, 0) ;
 
-    // approach from http://www.geeksforgeeks.org/merging-intervals/
-
-    std::stack<ivl_t> s ;
-    s.push(last_interval) ;
-
+    s.push(intervals[0]) ;
+    intervals.erase(intervals.begin()) ;
     for (auto it : intervals) {
 
       auto idx = it.value ;
@@ -63,10 +52,7 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0, bool dots = false )
       if (top.stop + max_dist < it.start) {
         // no overlap push to stack and get new id
         s.push(it) ;
-        group_ends.push_back(last_interval.stop) ;
-        indices_x.push_back(last_interval.value) ;
         cluster_id++ ;
-        group_starts.push_back(last_interval.start) ;
         ids[idx] = cluster_id ;
       }
 
@@ -89,6 +75,17 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0, bool dots = false )
 
   // store indices to keep if internal merge
   if(!dots){
+    std::vector<int> indices_x ;
+    std::vector<int> group_starts ;
+    std::vector<int> group_ends ;
+    while (!s.empty())
+    {
+      ivl_t t = s.top();
+      indices_x.push_back(t.value) ;
+      group_starts.push_back(t.start) ;
+      group_ends.push_back(t.stop) ;
+      s.pop();
+    }
     DataFrame subset_x = DataFrameSubsetVisitors(df, names(df)).subset(indices_x, "data.frame");
     subset_x["start"] = group_starts ;
     subset_x["end"] = group_ends ;
