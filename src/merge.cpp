@@ -9,11 +9,60 @@
 
 #include "valr.h"
 
-//[[Rcpp::export]]
-DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
+DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0 ) {
 
   auto ng = gdf.ngroups() ;
+  DataFrame df = gdf.data() ;
 
+  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+  // approach from http://www.geeksforgeeks.org/merging-intervals/
+
+  std::vector<ivl_t> s ;
+  for (int i = 0; i < ng; i++, ++git) {
+
+    SlicingIndex indices = *git ;
+
+    ivl_vector_t intervals = makeIntervalVector(df, indices);
+
+    // set first interval
+    s.push_back(intervals[0]) ;
+    intervals.erase(intervals.begin()) ;
+    for (auto it : intervals) {
+
+      auto top = s.back() ;
+      if (top.stop + max_dist < it.start) {
+        // no overlap push to stack and get new id
+        s.push_back(it) ;
+      }
+
+      else if (top.stop + max_dist < it.stop) {
+        // overlaps and need to update stack top position
+        // do not update id
+        top.stop = it.stop ;
+        s.pop_back() ;
+        s.push_back(top) ;
+      }
+    }
+  }
+
+  std::vector<int> indices_x ;
+  std::vector<int> group_starts ;
+  std::vector<int> group_ends ;
+  // interate through vector of merged intervals and write to dataframe
+  for (auto it:s) {
+    indices_x.push_back(it.value) ;
+    group_starts.push_back(it.start) ;
+    group_ends.push_back(it.stop) ;
+  }
+  DataFrame subset_x = DataFrameSubsetVisitors(df, names(df)).subset(indices_x, "data.frame");
+  subset_x["start"] = group_starts ;
+  subset_x["end"] = group_ends ;
+  return subset_x ;
+  }
+
+DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0){
+
+  auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
 
   auto nr = df.nrows() ;
@@ -25,42 +74,43 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   std::size_t cluster_id = 0;  //store counter for cluster id
 
   GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+
+  // approach from http://www.geeksforgeeks.org/merging-intervals/
+
+  std::vector<ivl_t> s ;
+
   for (int i = 0; i < ng; i++, ++git) {
 
     SlicingIndex indices = *git ;
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
-
+    // set dummy first interval to ensure first interval maintained
     ivl_t last_interval = ivl_t(0, 0, 0) ;
-
-    // approach from http://www.geeksforgeeks.org/merging-intervals/
-
-    std::stack<ivl_t> s ;
-    s.push(last_interval) ;
-
+    s.push_back(last_interval) ;
     for (auto it : intervals) {
-
+      // get index to store cluster ids in vector
       auto idx = it.value ;
 
+      // get overlap distances and assign at proper index
       int overlap = intervalOverlap(it, last_interval) ;
       overlaps[idx] = overlap ;
-      last_interval = it ;
 
-      auto top = s.top() ;
+      last_interval = it ; // set interval to compare
+      auto top = s.back() ; // last good interval
       if (top.stop + max_dist < it.start) {
-        // no overlap push to stack and get new id
-        s.push(it) ;
+        // no overlap push to end of vector and get new id
+        s.push_back(it) ;
         cluster_id++ ;
-        ids[idx] = cluster_id ;
+        ids[idx] = cluster_id ; // assign cluster id at proper index
       }
 
       else if (top.stop + max_dist < it.stop) {
         // overlaps and need to update stack top position
         // do not update id
-        top.stop = it.stop ;
-        s.pop() ;
-        s.push(top) ;
-        ids[idx] = cluster_id ;
+        top.stop = it.stop ; // update end position
+        s.pop_back() ; // remove best end
+        s.push_back(top) ; // update end interval
+        ids[idx] = cluster_id ; // assign cluster id at proper inde
       }
 
       else {
@@ -96,6 +146,22 @@ DataFrame merge_impl(GroupedDataFrame gdf, int max_dist = 0) {
   out.attr("names") = names ;
 
   return out ;
+}
+
+//[[Rcpp::export]]
+DataFrame merge_impl(GroupedDataFrame gdf,
+                     int max_dist = 0,
+                     bool collapse = true ) {
+
+  if(!collapse) {
+    // return a cluster id per input interval
+    DataFrame out = clusterMergedIntervals(gdf, max_dist) ;
+    return out ;
+  } else {
+    // return only merged intervals
+    DataFrame out = collapseMergedIntervals(gdf, max_dist) ;
+    return out ;
+  }
 }
 
 /*** R
