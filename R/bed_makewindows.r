@@ -55,37 +55,10 @@ bed_makewindows <- function(x, genome, win_size = 0,
   if (win_size == 0 && num_win == 0)
     stop('specify either `win_size` or `num_win`', call. = FALSE)
 
-  x <- ungroup(x)
-  x <- mutate(x, .row_id = row_number())
-  x <- rowwise(x)
-  if (num_win > 0) {
-    x <- mutate(x,
-                 .win_size = round((end - start) / num_win))
-  } else {
-    x <- mutate(x, .win_size = win_size)
-  }
+  # dummy win_ids
+  x <- mutate(x, .win_id = 0)
+  res <- makewindows_impl(x, win_size, num_win, step_size, reverse)
+  res <- tibble::as_tibble(res)
 
-  res <- mutate(x, .start = list(seq(start, end,
-                                     by = .win_size - step_size)),
-                .win_num = list(seq(1, length(.start))))
-  # can't unnest if grouped by row
-  res <- ungroup(res)
-  res <- tidyr::unnest(res)
-  res <- mutate(res, .end = ifelse(.start + .win_size < end,
-                                   .start + .win_size, end))
-  res <- filter(res, .start != .end )
-  res <- mutate(res, start = .start, end = .end)
-  res <- select(res, -.start, -.end, -.win_size)
-
-  # add .win_id column
-  res <- group_by(res, .row_id)
-  if (reverse) {
-    res <- mutate(res, .win_id = rank(-.win_num))
-  } else {
-    res <- mutate(res, .win_id = rank(.win_num))
-  }
-
-  res <- ungroup(res)
-  res <- select(res, -.win_num, -.row_id)
   res
 }
