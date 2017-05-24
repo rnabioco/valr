@@ -11,12 +11,7 @@
 
 std::vector<int> seq_by(int from, int to, int by, int win_size) {
 
-  std::size_t n = ((to - from) / by) + 1 ;
-
-  // generate output vector
-  IntegerVector res = Rcpp::rep(from, n) ;
   std::vector<int> out ;
-
   // iterate through from to to by step size
   for (int i = from; i < to && i + win_size - by <= to; i += by) {
     out.push_back(i) ;
