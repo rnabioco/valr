@@ -56,9 +56,10 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE, ...) {
 
-  flank_impl(x, genome, both, left,
-             right, fraction, strand, trim)
+  res <- flank_impl(x, genome, both, left,
+                    right, fraction, strand, trim)
+
+  arrange(res, chrom, start)
+
 }
-
-
 

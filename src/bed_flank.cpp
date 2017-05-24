@@ -14,6 +14,7 @@ DataFrame flank_impl(DataFrame inputTable, DataFrame genome,
                      double both = 0, double left = 0, double right = 0,
                      bool fraction = false, bool strand = false, bool trim = false) {
 
+  // Warnings
   if (both == 0 & left == 0 & right == 0)
     stop("specify one of both, left, right");
 
@@ -25,17 +26,22 @@ DataFrame flank_impl(DataFrame inputTable, DataFrame genome,
 
   bool strandTest = false;
 
-  for (int i = 0; i < TableLen; i++) {
+  for (int i = 0; i < TableLen; i++)
     if (TableNames[i] == "strand")
       strandTest = true;
-  }
+
   if (strand == true & strandTest == false)
     stop("expected strand column");
 
 
+  // Set both
+  if (both > 0) left = right = both;
+
+
+  // Set input and output vectors
   std::vector<std::string> chroms = inputTable["chrom"];
-  std::vector<int> startCoords = inputTable["start"];
-  std::vector<int> endCoords   = inputTable["end"];
+  std::vector<int> startCoords    = inputTable["start"];
+  std::vector<int> endCoords      = inputTable["end"];
 
   int N = startCoords.size();
   std::vector<int> coordSize(N);
@@ -44,23 +50,27 @@ DataFrame flank_impl(DataFrame inputTable, DataFrame genome,
   std::vector<double> startOut;
   std::vector<double> endOut;
 
+
+  // Create unordered map for chrom sizes
   genome_map_t chroMap = makeChromSizes(genome);
 
-  if (both > 0) both = left = right;
+
 
   for (int i = 0; i < N; i++) {
-
-    coordSize[i] = endCoords[i] - startCoords[i];
 
     int leftstart;
     int leftend;
     int rightstart;
     int rightend;
 
+    // strand
     if (strand == true) {
-      StringVector strands = inputTable["strand"];
+      std::vector<std::string> strands = inputTable["strand"];
 
+      // strand, fraction
       if (fraction == true) {
+        coordSize[i] = endCoords[i] - startCoords[i];
+
         if (strands[i] == "+") {
           leftstart  = startCoords[i] - coordSize[i] * left;
           leftend    = startCoords[i];
@@ -74,6 +84,7 @@ DataFrame flank_impl(DataFrame inputTable, DataFrame genome,
           rightend   = startCoords[i];
         }
 
+      // strand, no fraction
       } else {
 
         if (strands[i] == "+") {
@@ -90,14 +101,19 @@ DataFrame flank_impl(DataFrame inputTable, DataFrame genome,
         }
       }
 
+    // no strand
     } else {
 
+      // no strand, fraction
       if (fraction == true) {
+        coordSize[i] = endCoords[i] - startCoords[i];
+
         leftstart  = startCoords[i] - coordSize[i] * left;
         leftend    = startCoords[i];
         rightstart = endCoords[i];
         rightend   = endCoords[i] + coordSize[i] * right;
 
+      // no strand, no fraction
       } else {
         leftstart  = startCoords[i] - left;
         leftend    = startCoords[i];
@@ -106,54 +122,57 @@ DataFrame flank_impl(DataFrame inputTable, DataFrame genome,
       }
     }
 
+
     // Compare new intervals to chrom sizes
     std::string chrom = chroms[i];
     int chrSize = chroMap[chrom];
 
     if (left > 0 & leftstart > 0 & leftend <= chrSize) {
       startOut.push_back (leftstart);
-      endOut.push_back (leftend);
-      idxOut.push_back (i);
+      endOut.push_back   (leftend);
+      idxOut.push_back   (i);
 
     } else if (trim == true & leftstart > 0 & leftend > chrSize) {
       startOut.push_back (leftstart);
-      endOut.push_back (chrSize);
-      idxOut.push_back (i);
+      endOut.push_back   (chrSize);
+      idxOut.push_back   (i);
 
     } else if (trim == true & leftstart <= 0 & leftend <= chrSize) {
       startOut.push_back (1);
-      endOut.push_back (leftend);
-      idxOut.push_back (i);
+      endOut.push_back   (leftend);
+      idxOut.push_back   (i);
 
     } else if (trim == true & leftstart <= 0 & leftend > chrSize) {
-      startOut.push_back (0);
-      endOut.push_back (chrSize);
-      idxOut.push_back (i);
+      startOut.push_back (1);
+      endOut.push_back   (chrSize);
+      idxOut.push_back   (i);
     }
 
 
     if (right > 0 & rightstart > 0 & rightend <= chrSize) {
       startOut.push_back (rightstart);
-      endOut.push_back (rightend);
-      idxOut.push_back (i);
+      endOut.push_back   (rightend);
+      idxOut.push_back   (i);
 
     } else if (trim == true & rightstart > 0 & rightend > chrSize) {
       startOut.push_back (rightstart);
-      endOut.push_back (chrSize);
-      idxOut.push_back (i);
+      endOut.push_back   (chrSize);
+      idxOut.push_back   (i);
 
     } else if (trim == true & rightstart <= 0 & rightend <= chrSize) {
       startOut.push_back (1);
-      endOut.push_back (rightend);
-      idxOut.push_back (i);
+      endOut.push_back   (rightend);
+      idxOut.push_back   (i);
 
     } else if (trim == true & rightstart <= 0 & rightend > chrSize) {
-      startOut.push_back (0);
-      endOut.push_back (chrSize);
-      idxOut.push_back (i);
+      startOut.push_back (1);
+      endOut.push_back   (chrSize);
+      idxOut.push_back   (i);
     }
   }
 
+
+  // Write new DataFrame
   DataFrame outTable = DataFrameSubsetVisitors(inputTable, names(inputTable)).subset(idxOut, "data.frame");
 
   outTable["start"] = startOut;
@@ -172,10 +191,11 @@ library(dplyr)
 genome <- read_genome('~/Documents/GitHub/valr/inst/extdata/genome.txt.gz')
 x <- bed_random(n = 10000000, genome)
 
+x <- read_bed('1k_hg19_gene_names.bed', n_fields = 6)
+
 system.time(bed_flank(x, genome, right = 1000, left = 5000, strand = F, trim = T, fraction = T))
 
-y <- bed_flank(x, genome, right = 1000, left = 5000, strand = F, trim = T, fraction = T)
+y <- bed_flank(x, genome, right = 300, left = 200, strand = T, trim = T, fraction = F)
 
 */
-
 
