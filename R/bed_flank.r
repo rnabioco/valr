@@ -56,6 +56,8 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE, ...) {
 
+  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+
   res <- flank_impl(x, genome, both, left,
                     right, fraction, strand, trim)
 
