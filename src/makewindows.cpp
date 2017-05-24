@@ -11,7 +11,6 @@
 
 std::vector<int> seq_by(int from, int to, int by, int win_size) {
 
-  // determine output size
   std::size_t n = ((to - from) / by) + 1 ;
 
   // generate output vector
@@ -19,8 +18,7 @@ std::vector<int> seq_by(int from, int to, int by, int win_size) {
   std::vector<int> out ;
 
   // iterate through from to to by step size
-  int idx = 0 ;
-  for (int i = from; i < to && i + win_size <= to; i += by) {
+  for (int i = from; i < to && i + win_size - by <= to; i += by) {
     out.push_back(i) ;
   }
 
@@ -60,18 +58,13 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
     for (int j = 0; j < starts_by.size(); ++j) {
 
       auto start_by = starts_by[j] ;
-      auto end_by = start + win_size ;
 
-      if (end_by < end) {
-
-        if (end_by + win_size > end) {
-          ends_by.push_back(end) ;
-        } else {
-          ends_by.push_back(start_by + win_size) ;
-        }
-
-        ids.push_back(j + 1) ;
+      if (start_by + win_size < end) {
+        ends_by.push_back(start_by + win_size) ;
+      } else {
+        ends_by.push_back(end) ;
       }
+      ids.push_back(j + 1) ;
     }
 
     if (reverse) {
