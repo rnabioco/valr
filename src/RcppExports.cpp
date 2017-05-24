@@ -71,18 +71,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // makewindows_impl
-DataFrame makewindows_impl(DataFrame df, int step_size, bool reverse, std::string col_start, std::string col_end, std::string col_win_size);
-RcppExport SEXP valr_makewindows_impl(SEXP dfSEXP, SEXP step_sizeSEXP, SEXP reverseSEXP, SEXP col_startSEXP, SEXP col_endSEXP, SEXP col_win_sizeSEXP) {
+DataFrame makewindows_impl(DataFrame df, int win_size, int num_win, int step_size, bool reverse);
+RcppExport SEXP valr_makewindows_impl(SEXP dfSEXP, SEXP win_sizeSEXP, SEXP num_winSEXP, SEXP step_sizeSEXP, SEXP reverseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< int >::type win_size(win_sizeSEXP);
+    Rcpp::traits::input_parameter< int >::type num_win(num_winSEXP);
     Rcpp::traits::input_parameter< int >::type step_size(step_sizeSEXP);
     Rcpp::traits::input_parameter< bool >::type reverse(reverseSEXP);
-    Rcpp::traits::input_parameter< std::string >::type col_start(col_startSEXP);
-    Rcpp::traits::input_parameter< std::string >::type col_end(col_endSEXP);
-    Rcpp::traits::input_parameter< std::string >::type col_win_size(col_win_sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(makewindows_impl(df, step_size, reverse, col_start, col_end, col_win_size));
+    rcpp_result_gen = Rcpp::wrap(makewindows_impl(df, win_size, num_win, step_size, reverse));
     return rcpp_result_gen;
 END_RCPP
 }

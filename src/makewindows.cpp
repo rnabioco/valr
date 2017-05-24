@@ -1,97 +1,103 @@
+// makewindows.cpp
+//
+// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
-IntegerVector rcppSeq(int from, int to, int by = 1) {
-  //determine output size
-  std::size_t n = ((to - from) / by) + 1 ;
-  //generate output vector
-  IntegerVector res = Rcpp::rep(from, n) ;
+std::vector<int> seq_by(int from, int to, int by, int win_size) {
+
+  std::vector<int> out ;
   // iterate through from to to by step size
-  int idx = 0 ;
-  for (int i = from; i <= to; i += by ){
-    res[idx] = i ;
-    ++idx ;
+  for (int i = from; i < to && i + win_size - by <= to; i += by) {
+    out.push_back(i) ;
   }
-  return res ;
+
+  return out ;
 }
 
 //[[Rcpp::export]]
-DataFrame makewindows_impl(DataFrame df,
-                           int step_size = 0,
-                           bool reverse = false,
-                           std::string col_start = "start",
-                           std::string col_end = "end",
-                           std::string col_win_size = ".win_size") {
+DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
+                           int step_size = 0, bool reverse = false) {
 
-  NumericVector starts = df[col_start] ;
-  NumericVector ends = df[col_end] ;
-  NumericVector win_sizes = df[col_win_size] ;
-
-  // all vectors are the same size, take size from starts
-  size_t n = starts.size() ;
+  NumericVector starts = df["start"] ;
+  NumericVector ends = df["end"] ;
 
   std::vector<int> starts_out ;
   std::vector<int> ends_out ;
   std::vector<int> df_idxs ;
-  std::vector<int> window_ids;
+  std::vector<int> win_ids;
 
-  for(int i = 0; i < n ; ++i){
+  // used in loops
+  std::vector<int> ends_by ;
+  std::vector<int> ids ;
+
+  for (int i = 0; i < starts.size(); ++i) {
+
     auto start = starts[i] ;
     auto end = ends[i] ;
-    auto win_size = win_sizes[i] ;
+
+    if (num_win > 0) {
+      win_size = round((end - start) / num_win) ;
+    }
+
     int by = win_size - step_size ;
 
-    // iterate by step_size
-    auto ivl_starts_out = rcppSeq(start, end, by) ;
+    // create candidate starts
+    std::vector<int> starts_by = seq_by(start, end, by, win_size) ;
 
-    // allocate new ends bases on new starts
-    int out_size = ivl_starts_out.size() ;
+    for (int j = 0; j < starts_by.size(); ++j) {
 
-    IntegerVector x_idxs = Rcpp::rep(i, out_size) ;
-    IntegerVector ivl_ends_out(out_size) ;
+      auto start_by = starts_by[j] ;
 
-    // make window ids
-    std::vector<int> ids ;
-
-    for(int i = 0; i < out_size ; ++i){
-      // make end equal to end if past end
-      ivl_ends_out[i] = ivl_starts_out[i] + win_size < end ? \
-                        ivl_starts_out[i] + win_size : end ;
-      ids.push_back(i + 1) ;
-    }
-
-    // remove  ivls if start == end
-    for(int i = 0; i < out_size ; ++i){
-      if(ivl_starts_out[i] == ivl_ends_out[i]){
-        x_idxs.erase(x_idxs.begin() + i) ;
-        ids.erase(ids.begin() + i) ;
-        ivl_starts_out.erase(ivl_starts_out.begin() + i) ;
-        ivl_ends_out.erase(ivl_ends_out.begin() + i) ;
+      if (start_by + win_size < end) {
+        ends_by.push_back(start_by + win_size) ;
+      } else {
+        ends_by.push_back(end) ;
       }
+      ids.push_back(j + 1) ;
     }
-    if(reverse){
+
+    if (reverse) {
       std::reverse(ids.begin(), ids.end());
     }
 
+    // nums of reps of current x idx
+    IntegerVector x_idxs = Rcpp::rep(i, starts_by.size()) ;
+
     // add new ivls
-    starts_out.insert(starts_out.end(), ivl_starts_out.begin(), ivl_starts_out.end());
-    ends_out.insert(ends_out.end(), ivl_ends_out.begin(), ivl_ends_out.end());
+    starts_out.insert(starts_out.end(), starts_by.begin(), starts_by.end());
+    ends_out.insert(ends_out.end(), ends_by.begin(), ends_by.end());
+    win_ids.insert(win_ids.end(), ids.begin(), ids.end());
+
     df_idxs.insert(df_idxs.end(), x_idxs.begin(), x_idxs.end());
-    window_ids.insert(window_ids.end(), ids.begin(), ids.end());
+
+    // reset
+    ends_by.clear() ;
+    ids.clear() ;
   }
 
   DataFrame out = DataFrameSubsetVisitors(df, names(df)).subset(df_idxs, "data.frame");
-  out[col_start] = starts_out ;
-  out[col_end] = ends_out ;
-  out[".win_id"] = window_ids ;
+
+  // replace original starts, ends, and .win_id
+  out["start"] = starts_out ;
+  out["end"] = ends_out ;
+  out[".win_id"] = win_ids ;
 
   return out ;
 }
 
 /*** R
+library(dplyr)
 x <- trbl_interval(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.row_id, ~.win_size,
-  "chr1", 100,    200,  'A',   '.',    '+', 1, 10
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  "chr1", 100,    200,  'A',   '.',    '+'
 )
 
-makewindows_impl(x) %>% as_data_frame()
+devtools::load_all()
+makewindows_impl(x, win_size = 10) %>% as_data_frame()
 */

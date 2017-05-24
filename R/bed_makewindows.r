@@ -55,22 +55,10 @@ bed_makewindows <- function(x, genome, win_size = 0,
   if (win_size == 0 && num_win == 0)
     stop('specify either `win_size` or `num_win`', call. = FALSE)
 
-  x <- ungroup(x)
-
-  x <- rowwise(x)
-  if (num_win > 0) {
-    x <- mutate(x,
-                 .win_size = round((end - start) / num_win))
-  } else {
-    x <- mutate(x, .win_size = win_size)
-  }
-
-  # make .win_id column  for cpp output, easier than coding on rcpp side
+  # dummy win_ids
   x <- mutate(x, .win_id = 0)
-
-  res <- makewindows_impl(x, step_size = step_size, reverse = reverse)
-  res <- tbl_df(res)
-  res <- select(res, -.win_size)
+  res <- makewindows_impl(x, win_size, num_win, step_size, reverse)
+  res <- tibble::as_tibble(res)
 
   res
 }
