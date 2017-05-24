@@ -1,0 +1,282 @@
+---
+title: "valr_benchmark"
+output: html_document
+---
+```{r}
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+```{r, message=FALSE}
+# Load required packages
+library(valr)
+library(tidyverse)
+library(scales)
+library(microbenchmark)
+library(stringr)
+library(cowplot)
+
+# Set-up test genome
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+write_tsv(genome, "genome.txt", col_names=FALSE)
+
+# number of intervals
+n <- 1e6
+# number of timing reps
+nrep <- 10
+
+seed_x <- 1010486
+x <- bed_random(genome, n = n, seed = seed_x)
+write_tsv(x, "x.bed", col_names=FALSE)
+seed_y <- 9283019
+y <- bed_random(genome, n = n, seed = seed_y)
+write_tsv(y, "y.bed", col_names=FALSE)
+
+# genome1 = read_tsv("genome.txt", col_names=FALSE)
+
+res <- microbenchmark(
+  # randomizing functions
+  bed_random(genome, n = n, seed = seed_x),
+  bed_shuffle(x, genome, seed = seed_x),
+  # # single tbl functions
+  bed_slop(x, genome, both = 1000),
+  bed_flank(x, genome, both = 1000),
+  bed_merge(x),
+  bed_cluster(x),
+  bed_complement(x, genome),
+  # multi tbl functions
+  bed_closest(x, y),
+  bed_intersect(x, y),
+  bed_map(x, y, .n = n()),
+  bed_subtract(x, y),
+  # stats
+  bed_reldist(x, y),
+  bed_jaccard(x, y),
+  bed_fisher(x, y, genome),
+  times = nrep,
+  unit = 's')
+
+hardload <- function(xa,ya) {
+  read_tsv(xa, col_names = ya)}
+y_genome <- c("chrom","size")
+y_bed <- c("chrom","start","end")
+x_genome <- "~/Documents/valr/valr/genome.txt"
+x_x <- "~/Documents/valr/valr/x.bed"
+x_y  <- "~/Documents/valr/valr/y.bed"
+
+res_hard <- microbenchmark(
+  # randomizing functions
+  bed_random(hardload(x_genome, y_genome), n = n, seed = seed_x),
+  bed_shuffle(hardload(x_x, y_bed), hardload(x_genome, y_genome), seed = seed_x),
+  # # single tbl functions
+  bed_slop(hardload(x_x, y_bed), hardload(x_genome, y_genome), both = 1000),
+  bed_flank(hardload(x_x, y_bed), hardload(x_genome, y_genome), both = 1000),
+  bed_merge(hardload(x_x, y_bed)),
+  bed_cluster(hardload(x_x, y_bed)),
+  bed_complement(hardload(x_x, y_bed), hardload(x_genome, y_genome)),
+  # multi tbl functions
+  bed_closest(hardload(x_x, y_bed), hardload(x_y, y_bed)),
+  bed_intersect(hardload(x_x, y_bed), hardload(x_y, y_bed)),
+  bed_map(hardload(x_x, y_bed), hardload(x_y, y_bed), .n = n()),
+  bed_subtract(hardload(x_x, y_bed), hardload(x_y, y_bed)),
+  # stats
+  bed_reldist(hardload(x_x, y_bed), hardload(x_y, y_bed)),
+  bed_jaccard(hardload(x_x, y_bed), hardload(x_y, y_bed)),
+  bed_fisher(hardload(x_x, y_bed), hardload(x_y, y_bed), hardload(x_genome, y_genome)),
+  times = nrep,
+  unit = 's')
+
+# covert nanoseconds to seconds
+res <- res %>%
+  as_tibble() %>%
+  mutate(time = time / 1e9)
+
+res_hard <- res_hard %>%
+  as_tibble() %>%
+  mutate(time = time / 1e9)
+
+# futz with the x-axis
+sts <- boxplot.stats(res$time)$stats
+# filter out outliers (currently filtering fisher and map)
+# res <- filter(res, time <= max(sts) * 1.05)
+
+```
+
+```{bash}
+# Function to benchmark any bash command
+repeats=10
+
+bench_tests() {
+    # --------------------------------------------------------------------------
+    # Benchmark loop
+    # --------------------------------------------------------------------------
+    echo 'Benchmarking ' $1'...';
+    # Indicate the command we just ran in the csv file
+    echo $3 > $2;
+
+    # Run the given command [repeats] times
+    for (( i = 1; i <= $repeats ; i++ ))
+    do
+
+        # runs time function for the called script, output in a comma seperated
+        # format output file specified with -o command and -a specifies append
+        /usr/bin/time -f %e -o ${2} -a ${1} > /dev/null 2>&1
+    done;
+
+}
+
+# bedtools time
+# set-up files for bedtools function
+bedtools sort -i y.bed > y1.bed
+bedtools sort -i x.bed > x1.bed
+sort -k1,1 genome.txt > genome1.txt
+
+## Run timing test
+bench_tests "bedtools random -g genome.txt -n 1000000 -seed 1010486" "aa_1.txt" "random"
+bench_tests "bedtools shuffle -i x.bed -g genome.txt -seed 1010486" "bb_1.txt" "shuffle"
+# single tbl function
+bench_tests "bedtools slop -i x1.bed -g genome1.txt -b 1000" "cc_1.txt" "slop"
+bench_tests "bedtools flank -i x1.bed -g genome1.txt -b 1000" "dd_1.txt" "flank"
+bench_tests "bedtools merge -i x1.bed" "ee_1.txt" "merge"
+bench_tests "bedtools cluster -i x1.bed" "ff_1.txt" "cluster"
+bench_tests "bedtools complement -i x1.bed -g genome1.txt" "gg_1.txt" "complement"
+# multi tbl functions
+bench_tests "bedtools closest -a x1.bed -b y1.bed" "hh_1.txt" "closest"
+bench_tests "bedtools intersect -a x1.bed -b y1.bed" "ii_1.txt" "intersect"
+bench_tests "bedtools map -a x1.bed -b y1.bed -c 1 -o count" "jj_1.txt" "map"
+bench_tests "bedtools subtract -a x1.bed -b y1.bed" "kk_1.txt" "subtract"
+# stats
+bench_tests "bedtools reldist -a x1.bed -b y1.bed" "ll_1.txt" "reldist"
+bench_tests "bedtools jaccard -a x1.bed -b y1.bed" "mm_1.txt" "jaccard"
+bench_tests "bedtools fisher -a x1.bed -b y1.bed -g genome1.txt" "oo_1.txt" "fisher"
+
+paste *_1.txt > time.txt
+
+
+```
+
+```{r}
+# Code to process data from previous chunks (above)
+
+# This is to import the data from bedtools (bash) and graph it
+time <- read_tsv("~/Documents/valr/valr/time.txt")
+time <- gather(time, expr, time)
+resb <- time
+resv <- res
+resvh <- res_hard
+
+# bedtools plot
+ggplot(resb, aes(x=reorder(expr, time), y=time)) +
+  geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="bedtools benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+# for valr
+# for a dataframe named a with a column named software
+resv$expr <- str_split(resv$expr, "\\(",  simplify = T)[, 1] %>% 
+  str_split(., "_", simplify = T) %>% 
+  .[,2]
+
+resvh$expr <- str_split(resvh$expr, "\\(",  simplify = T)[, 1] %>% 
+  str_split(., "_", simplify = T) %>% 
+  .[,2]
+
+# valr r loaded data
+ggplot(resv, aes(x=reorder(expr, time), y=time)) +
+  geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="valr benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+# valr hard loaded data
+ggplot(resvh, aes(x=reorder(expr, time), y=time)) +
+  geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="valr hard load benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+
+# bedtools vs valr R loaded
+resv$package <- "valr_rload"
+resb$package <- "bedtools"
+resbind <- bind_rows(resv, resb)
+
+ggplot(resbind, aes(x=reorder(package, time), y=time)) +
+  geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="Package Benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+ggplot(resbind, aes(x=reorder(expr, time), y=time)) +
+  geom_boxplot(aes(fill = package), outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="Expression vs Package Benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+ggplot(resbind, aes(x=reorder(expr, time), y=time)) +
+  geom_col(aes(fill = package), position = "dodge", alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="Expression vs Package Benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+# bedtools vs valr hard loaded
+resvh$package <- "valr_hardload"
+resbinda <- bind_rows(resvh, resb)
+
+ggplot(resbinda, aes(x=reorder(package, time), y=time)) +
+  geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="Package Benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+ggplot(resbinda, aes(x=reorder(expr, time), y=time)) +
+  geom_boxplot(aes(fill = package), outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="Expression vs Package Benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+ggplot(resbinda, aes(x=reorder(expr, time), y=time)) +
+  geom_col(aes(fill = package), position = "dodge", alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="Expression vs Package Benchmarks",
+    subtitle=paste(comma(n), "random intervals,", comma(nrep), "repititions"))
+
+```
+
+We benchmarked the speed of a set of bedtools functions present in valr versus the speed of valr (Figure X). On a whole valr
