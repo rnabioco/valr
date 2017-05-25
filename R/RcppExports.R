@@ -5,10 +5,6 @@ absdist_impl <- function(x, y) {
     .Call(valr_absdist_impl, x, y)
 }
 
-flank_impl <- function(inputTable, genome, both = 0, left = 0, right = 0, fraction = FALSE, strand = FALSE, trim = FALSE) {
-    .Call('valr_flank_impl', PACKAGE = 'valr', inputTable, genome, both, left, right, fraction, strand, trim)
-}
-
 closest_impl <- function(x, y, suffix_x, suffix_y) {
     .Call(valr_closest_impl, x, y, suffix_x, suffix_y)
 }
@@ -19,6 +15,10 @@ complement_impl <- function(gdf, genome) {
 
 coverage_impl <- function(x, y) {
     .Call(valr_coverage_impl, x, y)
+}
+
+flank_impl <- function(df, genome, both = 0, left = 0, right = 0, fraction = FALSE, strand = FALSE, trim = FALSE) {
+    .Call(valr_flank_impl, df, genome, both, left, right, fraction, strand, trim)
 }
 
 intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
