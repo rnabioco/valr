@@ -12,6 +12,7 @@ extern SEXP valr_absdist_impl(SEXP, SEXP);
 extern SEXP valr_closest_impl(SEXP, SEXP, SEXP, SEXP);
 extern SEXP valr_complement_impl(SEXP, SEXP);
 extern SEXP valr_coverage_impl(SEXP, SEXP);
+extern SEXP valr_flank_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP valr_intersect_impl(SEXP, SEXP, SEXP, SEXP);
 extern SEXP valr_merge_impl(SEXP, SEXP, SEXP);
 extern SEXP valr_makewindows_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -25,6 +26,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"valr_closest_impl",    (DL_FUNC) &valr_closest_impl,    4},
   {"valr_complement_impl", (DL_FUNC) &valr_complement_impl, 2},
   {"valr_coverage_impl",   (DL_FUNC) &valr_coverage_impl,   2},
+  {"valr_flank_impl",      (DL_FUNC) &valr_flank_impl,   8},
   {"valr_intersect_impl",  (DL_FUNC) &valr_intersect_impl,  4},
   {"valr_merge_impl",      (DL_FUNC) &valr_merge_impl,      3},
   {"valr_makewindows_impl",(DL_FUNC) &valr_makewindows_impl,5},

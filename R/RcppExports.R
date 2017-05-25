@@ -5,6 +5,10 @@ absdist_impl <- function(x, y) {
     .Call(valr_absdist_impl, x, y)
 }
 
+flank_impl <- function(inputTable, genome, both = 0, left = 0, right = 0, fraction = FALSE, strand = FALSE, trim = FALSE) {
+    .Call('valr_flank_impl', PACKAGE = 'valr', inputTable, genome, both, left, right, fraction, strand, trim)
+}
+
 closest_impl <- function(x, y, suffix_x, suffix_y) {
     .Call(valr_closest_impl, x, y, suffix_x, suffix_y)
 }
