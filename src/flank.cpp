@@ -75,7 +75,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
           rightend   = start ;
         }
 
-      // strand, no fraction
+        // strand, no fraction
       } else {
 
         if (strands[i] == "+") {
@@ -92,7 +92,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
         }
       }
 
-    // no strand
+      // no strand
     } else {
 
       // no strand, fraction
@@ -103,7 +103,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
         rightstart = end;
         rightend   = end + size * right;
 
-      // no strand, no fraction
+        // no strand, no fraction
       } else {
         leftstart  = start - left;
         leftend    = start;
@@ -117,7 +117,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
     int chrom_size = chrom_sizes[chrom];
 
     if (left > 0 && leftstart > 0 && leftend <= chrom_size) {
-      starts_out.push_back (leftstart);
+      starts_out.push_back(leftstart);
       ends_out.push_back(leftend);
       df_idx.push_back(i);
 
