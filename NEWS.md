@@ -1,10 +1,10 @@
 # valr 0.2.0.9000
 
-## Bug fixes
+## Enhancements
 
-* minor vignette fixes and changes to `bed_makewindows()` and `bed_random()` for dplyr0.6.0 compatibilty (fixes #242)
+* Speed-ups in `bed_makewindows()` (~50x), `bed_merge()` (~4x), and `bed_flank()` (~4x) (thanks to @kriemo and @sheridar). Thanks to the sponsors of the [Biofrontiers Hackathon](https://hackathon.colorado.edu/) for the caffeine underlying these improvements.
 
-* quote `dplyr::everything()` when called in SE variant of `dplyr::select()` (fixes #240)
+## Minor changes
 
 * provide `broom::tidy` compatibility functions to remove broom dependency.
 
