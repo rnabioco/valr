@@ -18,24 +18,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// flank_impl
-DataFrame flank_impl(DataFrame inputTable, DataFrame genome, double both, double left, double right, bool fraction, bool strand, bool trim);
-RcppExport SEXP valr_flank_impl(SEXP inputTableSEXP, SEXP genomeSEXP, SEXP bothSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP fractionSEXP, SEXP strandSEXP, SEXP trimSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame >::type inputTable(inputTableSEXP);
-    Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
-    Rcpp::traits::input_parameter< double >::type both(bothSEXP);
-    Rcpp::traits::input_parameter< double >::type left(leftSEXP);
-    Rcpp::traits::input_parameter< double >::type right(rightSEXP);
-    Rcpp::traits::input_parameter< bool >::type fraction(fractionSEXP);
-    Rcpp::traits::input_parameter< bool >::type strand(strandSEXP);
-    Rcpp::traits::input_parameter< bool >::type trim(trimSEXP);
-    rcpp_result_gen = Rcpp::wrap(flank_impl(inputTable, genome, both, left, right, fraction, strand, trim));
-    return rcpp_result_gen;
-END_RCPP
-}
 // closest_impl
 DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y);
 RcppExport SEXP valr_closest_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
@@ -71,6 +53,24 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
     Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
     rcpp_result_gen = Rcpp::wrap(coverage_impl(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// flank_impl
+DataFrame flank_impl(DataFrame df, DataFrame genome, double both, double left, double right, bool fraction, bool strand, bool trim);
+RcppExport SEXP valr_flank_impl(SEXP dfSEXP, SEXP genomeSEXP, SEXP bothSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP fractionSEXP, SEXP strandSEXP, SEXP trimSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
+    Rcpp::traits::input_parameter< double >::type both(bothSEXP);
+    Rcpp::traits::input_parameter< double >::type left(leftSEXP);
+    Rcpp::traits::input_parameter< double >::type right(rightSEXP);
+    Rcpp::traits::input_parameter< bool >::type fraction(fractionSEXP);
+    Rcpp::traits::input_parameter< bool >::type strand(strandSEXP);
+    Rcpp::traits::input_parameter< bool >::type trim(trimSEXP);
+    rcpp_result_gen = Rcpp::wrap(flank_impl(df, genome, both, left, right, fraction, strand, trim));
     return rcpp_result_gen;
 END_RCPP
 }
