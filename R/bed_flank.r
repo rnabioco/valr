@@ -64,5 +64,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
 
   res <- arrange(res, chrom, start)
   res <- tibble::as_tibble(res)
+
+  res
 }
 
