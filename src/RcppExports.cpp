@@ -57,8 +57,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // flank_impl
-DataFrame flank_impl(DataFrame df, DataFrame genome, double both, double left, double right, bool fraction, bool strand, bool trim);
-RcppExport SEXP valr_flank_impl(SEXP dfSEXP, SEXP genomeSEXP, SEXP bothSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP fractionSEXP, SEXP strandSEXP, SEXP trimSEXP) {
+DataFrame flank_impl(DataFrame df, DataFrame genome, double both, double left, double right, bool fraction, bool stranded, bool trim);
+RcppExport SEXP valr_flank_impl(SEXP dfSEXP, SEXP genomeSEXP, SEXP bothSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP fractionSEXP, SEXP strandedSEXP, SEXP trimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -68,9 +68,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type left(leftSEXP);
     Rcpp::traits::input_parameter< double >::type right(rightSEXP);
     Rcpp::traits::input_parameter< bool >::type fraction(fractionSEXP);
-    Rcpp::traits::input_parameter< bool >::type strand(strandSEXP);
+    Rcpp::traits::input_parameter< bool >::type stranded(strandedSEXP);
     Rcpp::traits::input_parameter< bool >::type trim(trimSEXP);
-    rcpp_result_gen = Rcpp::wrap(flank_impl(df, genome, both, left, right, fraction, strand, trim));
+    rcpp_result_gen = Rcpp::wrap(flank_impl(df, genome, both, left, right, fraction, stranded, trim));
     return rcpp_result_gen;
 END_RCPP
 }
