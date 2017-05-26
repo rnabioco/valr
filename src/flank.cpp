@@ -15,6 +15,8 @@ void check_coords(int start, int end,
                   std::vector<int>& ends_out,
                   std::vector<int>& df_idx) {
 
+  if (start == end) return ;
+
   if (start > 0 && end <= chrom_size) {
 
     starts_out.push_back(start);
@@ -23,7 +25,7 @@ void check_coords(int start, int end,
 
   } else if (trim) {
 
-    if (start <= 0) {
+    if (start < 1) {
       starts_out.push_back(1) ;
     } else {
       starts_out.push_back(start) ;
@@ -42,7 +44,7 @@ void check_coords(int start, int end,
 
 //[[Rcpp::export]]
 DataFrame flank_impl(DataFrame df, DataFrame genome,
-                     int both = 0, int left = 0, int right = 0,
+                     double both = 0, double left = 0, double right = 0,
                      bool fraction = false, bool stranded = false, bool trim = false) {
 
   std::vector<std::string> chroms = df["chrom"];
@@ -65,7 +67,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
 
       int start = starts[i] ;
       int end = ends[i] ;
-      int size = end - start;
+      double size = end - start;
 
       if (fraction) {
         if (strands[i] == "+") {
@@ -109,7 +111,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
 
       int start = starts[i] ;
       int end = ends[i] ;
-      int size = end - start;
+      double size = end - start;
 
       if (fraction) {
         lstart = start - size * left;

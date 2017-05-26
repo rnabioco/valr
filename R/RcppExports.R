@@ -17,7 +17,7 @@ coverage_impl <- function(x, y) {
     .Call(valr_coverage_impl, x, y)
 }
 
-flank_impl <- function(df, genome, both = 0L, left = 0L, right = 0L, fraction = FALSE, stranded = FALSE, trim = FALSE) {
+flank_impl <- function(df, genome, both = 0, left = 0, right = 0, fraction = FALSE, stranded = FALSE, trim = FALSE) {
     .Call(valr_flank_impl, df, genome, both, left, right, fraction, stranded, trim)
 }
 
