@@ -59,6 +59,17 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
+  if (!any(c(both, left, right) > 0))
+    stop('specify one of both, left, right', call. = FALSE)
+
+  if (strand && !'strand' %in% colnames(x))
+    stop('expected `strand` column in `x`', call. = FALSE)
+
+  if (both != 0 && (left != 0 || right != 0))
+    stop('ambiguous side spec for bed_flank', call. = FALSE)
+
+  if (both) left <- right <- both
+
   res <- flank_impl(x, genome, both, left,
                     right, fraction, strand, trim)
 

@@ -9,157 +9,131 @@
 
 #include "valr.h"
 
+void check_coords(int start, int end,
+                  int chrom_size, int idx, bool trim,
+                  std::vector<int>& starts_out,
+                  std::vector<int>& ends_out,
+                  std::vector<int>& df_idx) {
+
+  if (start > 0 && end <= chrom_size) {
+
+    starts_out.push_back(start);
+    ends_out.push_back(end);
+    df_idx.push_back(idx);
+
+  } else if (trim) {
+
+    if (start <= 0) {
+      starts_out.push_back(1) ;
+    } else {
+      starts_out.push_back(start) ;
+    }
+
+    if (end > chrom_size) {
+      ends_out.push_back(chrom_size) ;
+    } else {
+      ends_out.push_back(end) ;
+    }
+
+    df_idx.push_back(idx);
+
+  } // else trim
+}
+
 //[[Rcpp::export]]
 DataFrame flank_impl(DataFrame df, DataFrame genome,
-                     double both = 0, double left = 0, double right = 0,
-                     bool fraction = false, bool strand = false, bool trim = false) {
+                     int both = 0, int left = 0, int right = 0,
+                     bool fraction = false, bool stranded = false, bool trim = false) {
 
-  // Warnings
-  if (both == 0 && left == 0 && right == 0)
-    stop("specify one of both, left, right");
-
-  if (both != 0 && (left != 0 || right != 0))
-    stop("ambiguous side spec for bed_flank");
-
-  std::vector<std::string> df_names = df.names();
-  bool stranded = false;
-
-  for (int i = 0; i < df_names.size(); i++)
-    if (df_names[i] == "strand")
-      stranded = true;
-
-  if (strand == true && stranded == false)
-    stop("expected strand column");
-
-  // Set both
-  if (both > 0) left = right = both;
-
-  // Set input and output vectors
   std::vector<std::string> chroms = df["chrom"];
-  std::vector<int> starts = df["start"];
-  std::vector<int> ends = df["end"];
+  IntegerVector starts = df["start"];
+  IntegerVector ends = df["end"];
 
-  std::vector<int> df_idx;
-
+  // storage for outputs
   std::vector<int> starts_out;
   std::vector<int> ends_out;
+  std::vector<int> df_idx;
 
-  // Create unordered map for chrom sizes
   genome_map_t chrom_sizes = makeChromSizes(genome);
+  int lstart, lend, rstart, rend ;
 
-  for (int i = 0; i < starts.size(); i++) {
+  if (stranded) {
 
-    int leftstart, leftend, rightstart, rightend ;
+    std::vector<std::string> strands = df["strand"];
 
-    int start = starts[i] ;
-    int end = ends[i] ;
-    int size = end - start;
+    for (int i = 0; i < starts.size(); i++) {
 
-    // strand
-    if (strand == true) {
-      std::vector<std::string> strands = df["strand"];
+      int start = starts[i] ;
+      int end = ends[i] ;
+      int size = end - start;
 
-      // strand, fraction
-      if (fraction == true) {
-
+      if (fraction) {
         if (strands[i] == "+") {
-          leftstart  = start - size * left;
-          leftend    = start;
-          rightstart = end;
-          rightend   = end + size * right;
-
+          lstart = start - size * left;
+          lend = start;
+          rstart = end;
+          rend = end + size * right;
         } else {
-          leftstart  = end;
-          leftend    = end + size * left ;
-          rightstart = start - size * right ;
-          rightend   = start ;
+          lstart = end;
+          lend = end + size * left ;
+          rstart = start - size * right ;
+          rend = start ;
         }
-
-        // strand, no fraction
       } else {
-
         if (strands[i] == "+") {
-          leftstart  = start - left;
-          leftend    = start;
-          rightstart = end;
-          rightend   = end + right;
-
+          lstart = start - left;
+          lend = start;
+          rstart = end;
+          rend = end + right;
         } else {
-          leftstart  = end;
-          leftend    = end + left;
-          rightstart = start - right;
-          rightend   = start;
+          lstart = end;
+          lend = end + left;
+          rstart = start - right;
+          rend = start;
         }
       }
 
-      // no strand
-    } else {
+      std::string chrom = chroms[i];
+      int chrom_size = chrom_sizes[chrom];
 
-      // no strand, fraction
-      if (fraction == true) {
+      // check and save coordinates
+      check_coords(lstart, lend, chrom_size, i, trim,
+                   starts_out, ends_out, df_idx) ;
+      check_coords(rstart, rend, chrom_size, i, trim,
+                   starts_out, ends_out, df_idx) ;
+    }
 
-        leftstart  = start - size * left;
-        leftend    = start;
-        rightstart = end;
-        rightend   = end + size * right;
+  } else { // no strand
 
-        // no strand, no fraction
+    for (int i = 0; i < starts.size(); i++) {
+
+      int start = starts[i] ;
+      int end = ends[i] ;
+      int size = end - start;
+
+      if (fraction) {
+        lstart = start - size * left;
+        lend = start;
+        rstart = end;
+        rend = end + size * right;
       } else {
-        leftstart  = start - left;
-        leftend    = start;
-        rightstart = end;
-        rightend   = end + right;
+        lstart = start - left;
+        lend = start;
+        rstart = end;
+        rend = end + right;
       }
-    }
 
-    // Compare new intervals to chrom sizes
-    std::string chrom = chroms[i];
-    int chrom_size = chrom_sizes[chrom];
+      std::string chrom = chroms[i];
+      int chrom_size = chrom_sizes[chrom];
 
-    if (left > 0 && leftstart > 0 && leftend <= chrom_size) {
-      starts_out.push_back(leftstart);
-      ends_out.push_back(leftend);
-      df_idx.push_back(i);
-
-    } else if (trim == true && leftstart > 0 && leftend > chrom_size) {
-      starts_out.push_back(leftstart);
-      ends_out.push_back(chrom_size);
-      df_idx.push_back(i);
-
-    } else if (trim == true && leftstart <= 0 && leftend <= chrom_size) {
-      starts_out.push_back(1);
-      ends_out.push_back(leftend);
-      df_idx.push_back(i);
-
-    } else if (trim == true && leftstart <= 0 && leftend > chrom_size) {
-      starts_out.push_back(1);
-      ends_out.push_back(chrom_size);
-      df_idx.push_back(i);
-    }
-
-    if (right > 0 && rightstart > 0 && rightend <= chrom_size) {
-      starts_out.push_back(rightstart);
-      ends_out.push_back(rightend);
-      df_idx.push_back(i);
-
-    } else if (trim == true && rightstart > 0 && rightend > chrom_size) {
-      starts_out.push_back(rightstart);
-      ends_out.push_back(chrom_size);
-      df_idx.push_back(i);
-
-    } else if (trim == true && rightstart <= 0 && rightend <= chrom_size) {
-      starts_out.push_back(1);
-      ends_out.push_back(rightend);
-      df_idx.push_back(i);
-
-    } else if (trim == true && rightstart <= 0 && rightend > chrom_size) {
-      starts_out.push_back(1);
-      ends_out.push_back(chrom_size);
-      df_idx.push_back(i);
+      // check and save coordinates
+      check_coords(lstart, lend, chrom_size, i, trim,
+                   starts_out, ends_out, df_idx) ;
+      check_coords(rstart, rend, chrom_size, i, trim,
+                   starts_out, ends_out, df_idx) ;
     }
   }
 
-  // Write new DataFrame
   DataFrame out = DataFrameSubsetVisitors(df, names(df)).subset(df_idx, "data.frame");
 
   out["start"] = starts_out;
@@ -169,20 +143,14 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
 }
 
 
-
 /*** R
-setwd('~/Downloads/')
 library(valr)
 library(dplyr)
 
-genome <- read_genome('~/Documents/GitHub/valr/inst/extdata/genome.txt.gz')
-x <- bed_random(n = 10000000, genome)
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+x <- bed_random(genome)
 
-x <- read_bed('1k_hg19_gene_names.bed', n_fields = 6)
-
-system.time(bed_flank(x, genome, right = 1000, left = 5000, strand = F, trim = T, fraction = T))
-
-y <- bed_flank(x, genome, right = 300, left = 200, strand = T, trim = T, fraction = F)
-
+devtools::load_all()
+flank_impl(x, genome, both = 100) %>% as_data_frame()
 */
 
