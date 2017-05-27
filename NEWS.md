@@ -8,6 +8,10 @@
 
 * provide `broom::tidy` compatibility functions to remove broom dependency.
 
+## Bug fixes
+
+* intervals from `bed_random()` are now sorted properly.
+
 # valr 0.2.0
 
 ## Major changes
