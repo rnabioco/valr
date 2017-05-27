@@ -51,6 +51,7 @@
 #' bed_flank(x, genome, both = 0.5, fraction = TRUE)
 #'
 #' @export
+
 bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE, ...) {
@@ -69,82 +70,11 @@ bed_flank <- function(x, genome, both = 0, left = 0,
 
   if (both) left <- right <- both
 
-  if (strand) {
-    if (fraction) {
-      res <- mutate(x, .size = end - start,
-               left_start = ifelse(strand == '+',
-                                start - round( left * .size ),
-                                end),
-               left_end = ifelse(strand == '+',
-                              start,
-                              end + round( left * .size )),
-               right_start = ifelse(strand == '+',
-                                end,
-                                start - round( right * .size )),
-               right_end = ifelse(strand == '+',
-                              end + round( right * .size ),
-                              start))
+  res <- flank_impl(x, genome, both, left,
+                    right, fraction, strand, trim)
 
-     res <- select(res, -start, -end, -.size)
-
-    } else {
-      res <- mutate(x, left_start = ifelse(strand == '+',
-                                start - left,
-                                end),
-               left_end = ifelse(strand == '+',
-                              start,
-                              end + left),
-               right_start = ifelse(strand == '+',
-                                end,
-                                start - right),
-               right_end = ifelse(strand == '+',
-                              end + right,
-                              start))
-      res <- select(res, -start, -end)
-    }
-
-  } else {
-    if (fraction) {
-      res <- mutate(x, .size = end - start,
-               left_start =  start - round( left * .size ),
-               left_end = start,
-               right_start = end,
-               right_end = end + round( right * .size ))
-      res <- select(res, -start, -end, -.size)
-
-    } else {
-      res <- mutate(x, left_start = start - left,
-               left_end = start,
-               right_start = end,
-               right_end = end + right)
-      res <- select(res, -start, -end)
-    }
-  }
-
-  if (right && !left) {
-    res <- mutate(res,
-                  start = right_start,
-                  end = right_end)
-    res <- select(res, chrom, start, end, everything(),
-                  -left_start, -left_end, -right_start, -right_end)
-
-  } else if (left && !right) {
-    res <- mutate(res,
-                  start = left_start,
-                  end = left_end)
-    res <- select(res, chrom, start, end, everything(),
-                  -left_start, -left_end, -right_start, -right_end)
-
-  } else {
-    res_left <- select(res, chrom,  left_start,   left_end, everything(), -right_start, -right_end)
-    res_right <- select(res, chrom,  right_start,   right_end, everything(), -left_start, -left_end)
-    res_left <- rename(res_left, start = left_start, end = left_end)
-    res_right<- rename(res_right, start = right_start, end = right_end)
-    res <- bind_rows(res_left, res_right)
-  }
-
-  res <- bound_intervals(res, genome, trim)
   res <- arrange(res, chrom, start)
+  res <- tibble::as_tibble(res)
 
   res
 }
