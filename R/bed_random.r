@@ -41,7 +41,7 @@ bed_random <- function(genome, length = 1000, n = 1e6, sort_by = c('chrom', 'sta
   out <- random_impl(genome, length, n, seed)
 
   if (!is.null(sort_by) && length(sort_by) > 0)
-    out <- arrange_(out, sort_by)
+    out <- arrange_(out, .dots = sort_by)
 
   out <- tibble::as_tibble(out)
   out
