@@ -36,6 +36,7 @@ Suggests:
     broom,
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
+Remotes: tidyverse/dplyr
 URL: http://github.com/rnabioco/valr/
 BugReports: https://github.com/rnabioco/valr/issues
 Roxygen: list(markdown = TRUE)
