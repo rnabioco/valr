@@ -15,7 +15,6 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
 
   ivl_tree_t tree_y(vy) ;
   ivl_vector_t overlaps ;
-  IntervalStartSorter<int, int> intervalStartSorter ;
 
   for (auto it : vx) {
 
@@ -34,10 +33,8 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
       ends_out.push_back(it.stop) ;
       continue;
     }
-    // sort overlaps by start not sure if necessary
-    std::sort(overlaps.begin(), overlaps.end(), intervalStartSorter) ;
 
-    //iterate through overlaps with current x  interval
+    // iterate through overlaps with current x  interval
     // modifying start and stop as necessary
     for (auto oit : overlaps) {
 
