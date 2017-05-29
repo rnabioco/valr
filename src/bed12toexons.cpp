@@ -18,6 +18,9 @@ std::vector<int> csv_values(std::string csv) {
   while (ss.good()) {
     std::string substr ;
     getline(ss, substr, ',') ;
+
+    if (substr.empty()) break ;
+
     values.push_back(atoi(substr.c_str())) ;
   }
 
@@ -58,7 +61,7 @@ DataFrame bed12toexons_impl(DataFrame x) {
     }
 
     // define range of exon numbers and reverse for `-` strand
-    for (int k = 1; k < exon_start.size(); k++) {
+    for (int k = 1; k < exon_start.size() + 1; k++) {
       nums_exon.push_back(k) ;
     }
 
@@ -91,6 +94,5 @@ DataFrame bed12toexons_impl(DataFrame x) {
 library(valr)
 library(dplyr)
 x <- read_bed12(valr_example('mm9.bed12.gz'))
-devtools::load_all()
-bed12toexons_impl(x) %>% as_data_frame()
+bed12_to_exons(x)
 */
