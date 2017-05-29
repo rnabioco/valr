@@ -42,11 +42,6 @@ DataFrame bed12toexons_impl(DataFrame x) {
   std::vector<int> nums_out ; // exon numbers
   std::vector<int> df_idx ;
 
-  // for looping
-  std::vector<int> starts_exon ;
-  std::vector<int> ends_exon ;
-  std::vector<int> nums_exon ;
-
   for (int i = 0; i < starts.size(); i++) {
 
     std::vector<int> exon_start = csv_values(exon_starts[i]) ;
@@ -54,30 +49,21 @@ DataFrame bed12toexons_impl(DataFrame x) {
 
     // calculate starts and ends for each exon
     int start = starts[i] ;
-    for (int j = 0; j < exon_start.size(); j++) {
-      starts_exon.push_back(start + exon_start[j]) ;
-      ends_exon.push_back(start + exon_start[j] + exon_size[j]) ;
+    int n = exon_start.size() ;
+
+    for (int j = 0; j < n; j++) {
+
+      starts_out.push_back(start + exon_start[j]) ;
+      ends_out.push_back(start + exon_start[j] + exon_size[j]) ;
+
+      if (strands[i] == "-") {
+        nums_out.push_back(n - j) ;
+      } else {
+        nums_out.push_back(j + 1) ;
+      }
+
       df_idx.push_back(i) ;
     }
-
-    // define range of exon numbers and reverse for `-` strand
-    for (int k = 1; k < exon_start.size() + 1; k++) {
-      nums_exon.push_back(k) ;
-    }
-
-    if (strands[i] == "-") {
-      std::reverse(nums_exon.begin(), nums_exon.end()) ;
-    }
-
-    // accumulate values
-    starts_out.insert(starts_out.end(), starts_exon.begin(), starts_exon.end()) ;
-    ends_out.insert(ends_out.end(), ends_exon.begin(), ends_exon.end()) ;
-    nums_out.insert(nums_out.end(), nums_exon.begin(), nums_exon.end()) ;
-
-    // reset local values
-    starts_exon.clear() ;
-    ends_exon.clear() ;
-    nums_exon.clear() ;
   }
 
   CharacterVector dfnames = CharacterVector::create("chrom", "start", "end", "name", "score", "strand") ;
