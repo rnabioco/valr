@@ -5,6 +5,10 @@ absdist_impl <- function(x, y) {
     .Call(valr_absdist_impl, x, y)
 }
 
+bed12toexons_impl <- function(x) {
+    .Call(valr_bed12toexons_impl, x)
+}
+
 closest_impl <- function(x, y, suffix_x, suffix_y) {
     .Call(valr_closest_impl, x, y, suffix_x, suffix_y)
 }
