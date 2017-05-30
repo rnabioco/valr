@@ -78,8 +78,7 @@ obs_stats
 And the same is done for a set of  shuffled group of data. `bed_shuffle()` is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)
 
 ```{r compute_shf}
-seed <- 1010486
-shfs <- bed_shuffle(rpts, genome, within = TRUE, seed = seed)
+shfs <- bed_shuffle(rpts, genome, within = TRUE)
 shf_stats <- distance_stats(shfs, tss, genome, 'name', 'shuf')
 ```
 
@@ -104,15 +103,12 @@ res
 
 Now that the data are formatted, we can use `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group. `broom::tidy()` is used to reformat the results of each test into a `data_frame`, and the results of each test are `gather`ed to into a `type` column for each test type.
 
-```{r pvalues}
+```{r pvalues, warning=FALSE}
 library(broom)
 
-# silence the tests with ties ...
-ks.test.quiet <- function(...) {suppressWarnings(ks.test(...))}
-
-pvals <- res %>% do(twosided = broom::tidy(ks.test.quiet(.$obs, .$shuf)),
-                    less = broom::tidy(ks.test.quiet(.$obs, .$shuf, alternative = 'less')),
-                    greater = broom::tidy(ks.test.quiet(.$obs, .$shuf, alternative = 'greater'))) %>%
+pvals <- res %>% do(twosided = tidy(ks.test(.$obs, .$shuf)),
+                    less = tidy(ks.test(.$obs, .$shuf, alternative = 'less')),
+                    greater = tidy(ks.test(.$obs, .$shuf, alternative = 'greater'))) %>%
   tidyr::gather(alt, type, -name, -stat) %>%
   unnest(type) %>%
   select(name:p.value) %>%
