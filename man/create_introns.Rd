@@ -10,7 +10,7 @@ create_introns(x)
 \item{x}{\link{tbl_interval} in BED12 format}
 }
 \description{
-Numbers in the \code{score} column are intron numbers from 5´ to 3´ independent of
+Numbers in the \code{score} column are intron numbers from 5' to 3' independent of
 strand. I.e., the first introns for \code{+} and \code{-} strand genes both have \code{score}
 values of \code{1}.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/features.r
 \name{create_utrs5}
 \alias{create_utrs5}
-\title{Create 5´ UTR features.}
+\title{Create 5' UTR features.}
 \usage{
 create_utrs5(x)
 }
@@ -10,7 +10,7 @@ create_utrs5(x)
 \item{x}{\link{tbl_interval} in BED12 format}
 }
 \description{
-Create 5´ UTR features.
+Create 5' UTR features.
 }
 \examples{
 x <- read_bed12(valr_example('mm9.refGene.bed.gz'))

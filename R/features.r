@@ -1,6 +1,6 @@
 #' Create intron features.
 #'
-#' Numbers in the `score` column are intron numbers from 5´ to 3´ independent of
+#' Numbers in the `score` column are intron numbers from 5' to 3' independent of
 #' strand. I.e., the first introns for `+` and `-` strand genes both have `score`
 #' values of `1`.
 #'
@@ -30,7 +30,7 @@ create_introns <- function(x) {
   res
 }
 
-#' Create 5´ UTR features.
+#' Create 5' UTR features.
 #'
 #' @param x [tbl_interval] in BED12 format
 #'
@@ -54,7 +54,7 @@ create_utrs5 <- function(x) {
   res
 }
 
-#' Create 3´ UTR features.
+#' Create 3' UTR features.
 #'
 #' @param x [tbl_interval] in BED12 format
 #'
