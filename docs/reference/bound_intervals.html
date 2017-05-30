@@ -134,12 +134,12 @@
 <span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_genome.html'>read_genome</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'hg19.chrom.sizes.gz'</span>))
 
 <span class='co'># out-of-bounds are removed by default ...</span>
-<span class='fu'>bound_intervals</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 1 × 3
+<span class='fu'>bound_intervals</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1   500  1000</div><div class='input'>
 <span class='co'># ... or can be trimmed within the bounds of a genome</span>
-<span class='fu'>bound_intervals</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 3 × 3
+<span class='fu'>bound_intervals</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 3
 #&gt;   chrom start       end
 #&gt;   &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;
 #&gt; 1  chr1     1       500
