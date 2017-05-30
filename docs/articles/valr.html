@@ -71,7 +71,7 @@
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
             
-            <h4 class="date">2017-05-05</h4>
+            <h4 class="date">2017-05-30</h4>
           </div>
 
     
@@ -108,7 +108,7 @@ nearby &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_
 nearby <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>)
-<span class="co">#&gt; # A tibble: 285 × 4</span>
+<span class="co">#&gt; # A tibble: 285 x 4</span>
 <span class="co">#&gt;         name.x            name.y .overlap .dist</span>
 <span class="co">#&gt;          &lt;chr&gt;             &lt;chr&gt;    &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt;  1   rs2261631             P704P        0  -267</span>
@@ -136,8 +136,7 @@ nearby <span class="op">%&gt;%</span>
 <span class="cf">if</span>(<span class="kw">require</span>(RMySQL)) {
   ucsc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
   <span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)
-}
-<span class="co">#&gt; Loading required package: RMySQL</span></code></pre></div>
+}</code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor">
@@ -196,7 +195,7 @@ x &lt;-<span class="st"> </span><span class="kw">group_by</span>(x, strand)
 y &lt;-<span class="st"> </span><span class="kw">group_by</span>(y, strand)
 
 <span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)
-<span class="co">#&gt; # A tibble: 2 × 8</span>
+<span class="co">#&gt; # A tibble: 2 x 8</span>
 <span class="co">#&gt;   chrom start.x end.x strand.x start.y end.y strand.y .overlap</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;chr&gt;    &lt;int&gt;</span>
 <span class="co">#&gt; 1  chr1       1   100        +      50   125        +       50</span>
@@ -208,7 +207,7 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flip_stra
 y &lt;-<span class="st"> </span><span class="kw">group_by</span>(y, strand)
 
 <span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)
-<span class="co">#&gt; # A tibble: 3 × 8</span>
+<span class="co">#&gt; # A tibble: 3 x 8</span>
 <span class="co">#&gt;   chrom start.x end.x strand.x start.y end.y strand.y .overlap</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;chr&gt;    &lt;int&gt;</span>
 <span class="co">#&gt; 1  chr2     100   200        -      50   150        -       50</span>
@@ -263,9 +262,9 @@ x &lt;-<span class="st"> </span>tss <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="../reference/bed_makewindows.html">bed_makewindows</a></span>(genome, win_size)
 
 x
-<span class="co">#&gt; # A tibble: 13,530 × 7</span>
+<span class="co">#&gt; # A tibble: 13,530 x 7</span>
 <span class="co">#&gt;    chrom    start      end      name score strand .win_id</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;</span>
 <span class="co">#&gt;  1 chr22 16161065 16161115 LINC00516     3      +       1</span>
 <span class="co">#&gt;  2 chr22 16161115 16161165 LINC00516     3      +       2</span>
 <span class="co">#&gt;  3 chr22 16161165 16161215 LINC00516     3      +       3</span>
@@ -285,9 +284,9 @@ res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_map
             <span class="dt">win_sd =</span> <span class="kw">sd</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 
 res
-<span class="co">#&gt; # A tibble: 41 × 3</span>
+<span class="co">#&gt; # A tibble: 41 x 3</span>
 <span class="co">#&gt;    .win_id win_mean    win_sd</span>
-<span class="co">#&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt;      &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span>
 <span class="co">#&gt;  1       1 100.8974  85.83423</span>
 <span class="co">#&gt;  2       2 110.6829  81.13521</span>
 <span class="co">#&gt;  3       3 122.9070  99.09635</span>
@@ -339,19 +338,19 @@ shuffled &lt;-<span class="st"> </span><span class="kw">shuffle_intervals</span>
 <span class="st">           </span><span class="kw">map_dbl</span>(<span class="st">"jaccard"</span>))
   
 shuffled
-<span class="co">#&gt; # A tibble: 100 × 3</span>
+<span class="co">#&gt; # A tibble: 100 x 3</span>
 <span class="co">#&gt;      rep                  data      jaccard</span>
 <span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt;  1     1 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  2     2 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  3     3 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  4     4 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  5     5 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  6     6 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  7     7 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  8     8 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  9     9 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 × 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  1     1 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  2     2 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  3     3 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  4     4 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  5     5 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  6     6 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  7     7 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  8     8 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt;  9     9 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
+<span class="co">#&gt; 10    10 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
 <span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
 </div>
 </div>

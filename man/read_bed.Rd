@@ -59,7 +59,7 @@ read_bed(valr_example('6fields.bed.gz'), n_fields = 6)
 read_bed(valr_example('3fields.bed.gz'), sort = FALSE)
 
 
-read_bed12(valr_example('mm9.bed12.gz'))
+read_bed12(valr_example('mm9.refGene.bed.gz'))
 
 
 read_bedgraph(valr_example('test.bg.gz'))

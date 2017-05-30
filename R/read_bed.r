@@ -51,7 +51,7 @@ read_bed <- function(filename, n_fields = NULL, col_types = bed12_coltypes,
 #'
 #' @examples
 #'
-#' read_bed12(valr_example('mm9.bed12.gz'))
+#' read_bed12(valr_example('mm9.refGene.bed.gz'))
 #'
 #' @export
 read_bed12 <- function(filename, ...) {

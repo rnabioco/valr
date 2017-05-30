@@ -99,13 +99,26 @@
     <div id="valr-0-2-0-9000" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-2-0-9000" class="anchor"></a>valr 0.2.0.9000</h1>
+<div id="enhancements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enhancements" class="anchor"></a>Enhancements</h2>
+<ul>
+<li><p>New <code><a href="../reference/create_introns.html">create_introns()</a></code>, <code><a href="../reference/create_utrs5.html">create_utrs5()</a></code> and <code><a href="../reference/create_utrs3.html">create_utrs3()</a></code> functions for generating features from BED12 files.</p></li>
+<li><p>Speed-ups in <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> (~50x), <code><a href="../reference/bed_merge.html">bed_merge()</a></code> (~4x), and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> (~4x) (thanks to @kriemo and @sheridar). Thanks to the sponsors of the <a href="https://hackathon.colorado.edu/">Biofrontiers Hackathon</a> for the caffeine underlying these improvements.</p></li>
+</ul>
+</div>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li>provide <code>broom::tidy</code> compatibility functions to remove broom dependency.</li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li><p>minor vignette fixes and changes to <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> and <code><a href="../reference/bed_random.html">bed_random()</a></code> for dplyr0.6.0 compatibilty (fixes #242)</p></li>
-<li><p>quote <code>dplyr::everything()</code> when called in SE variant of <code>dplyr::select()</code> (fixes #240)</p></li>
-<li><p>provide <code>broom::tidy</code> compatibility functions to remove broom dependency.</p></li>
+<li>intervals from <code><a href="../reference/bed_random.html">bed_random()</a></code> are now sorted properly.</li>
 </ul>
 </div>
 </div>
@@ -121,9 +134,9 @@
 <li><p>new <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code> that wrap tibbles and enforce strict column naming. <code><a href="../reference/trbl_interval.html">trbl_interval()</a></code> and <code><a href="../reference/trbl_genome.html">trbl_genome()</a></code> are constructors that take <code>tibble::tribble()</code> formatting and <code><a href="../reference/is.tbl_interval.html">is.tbl_interval()</a></code> and <code><a href="../reference/is.tbl_genome.html">is.tbl_genome()</a></code> are used to check for valid classes.</p></li>
 </ul>
 </div>
-<div id="minor-changes" class="section level2">
+<div id="minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>intervals returned from <code><a href="../reference/bed_random.html">bed_random()</a></code> are sorted by <code>chrom</code> and <code>start</code> by default.</li>
 </ul>
@@ -146,9 +159,9 @@
 <li>Deprecate <code><a href="../reference/bed_sort.html">bed_sort()</a></code> in favor of using <code>dplyr::arrange()</code> explicitly (fixes #134).</li>
 </ul>
 </div>
-<div id="minor-changes-1" class="section level2">
+<div id="minor-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>add <code>src/init.c</code> that calls <code>R_registerRoutines</code> and <code>R_useDynamicSymbols</code> to address NOTE in r-devel</p></li>
 <li><p>Deprecate <code>dist</code> parameter in <code><a href="../reference/bed_closest.html">bed_closest()</a></code> in favor of using user supplied functions (#182 @kriemo)</p></li>
@@ -170,9 +183,9 @@
     <div id="valr-0-1-1" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-1-1" class="anchor"></a>valr 0.1.1</h1>
-<div id="minor-changes-2" class="section level2">
+<div id="minor-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-3" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>test / vignette guards for Suggested RMySQL</p></li>
 <li><p>fixed memory leak in absdist.cpp</p></li>

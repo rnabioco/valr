@@ -159,9 +159,9 @@ interval names (see 'namenum' example below) or in subsequent
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>10</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.win_id'</span>)</div><img src='bed_makewindows-2.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># Fixed number of windows</span>
-<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
+<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 7
 #&gt;    chrom start   end  name score strand .win_id
-#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;
 #&gt;  1  chr1   100   110     A     .      +       1
 #&gt;  2  chr1   110   120     A     .      +       2
 #&gt;  3  chr1   120   130     A     .      +       3
@@ -173,9 +173,9 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt;  9  chr1   180   190     A     .      +       9
 #&gt; 10  chr1   190   200     A     .      +      10</div><div class='input'>
 <span class='co'># Fixed window size</span>
-<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
+<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 7
 #&gt;    chrom start   end  name score strand .win_id
-#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;
 #&gt;  1  chr1   100   110     A     .      +       1
 #&gt;  2  chr1   110   120     A     .      +       2
 #&gt;  3  chr1   120   130     A     .      +       3
@@ -187,9 +187,9 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt;  9  chr1   180   190     A     .      +       9
 #&gt; 10  chr1   190   200     A     .      +      10</div><div class='input'>
 <span class='co'># Fixed window size with overlaps</span>
-<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; # A tibble: 20 × 7
+<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; # A tibble: 20 x 7
 #&gt;    chrom start   end  name score strand .win_id
-#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;
 #&gt;  1  chr1   100   110     A     .      +       1
 #&gt;  2  chr1   105   115     A     .      +       2
 #&gt;  3  chr1   110   120     A     .      +       3
@@ -211,9 +211,9 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt; 19  chr1   190   200     A     .      +      19
 #&gt; 20  chr1   195   200     A     .      +      20</div><div class='input'>
 <span class='co'># reverse win_id</span>
-<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 10 × 7
+<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 7
 #&gt;    chrom start   end  name score strand .win_id
-#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;
 #&gt;  1  chr1   100   110     A     .      +      10
 #&gt;  2  chr1   110   120     A     .      +       9
 #&gt;  3  chr1   120   130     A     .      +       8
@@ -226,9 +226,9 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt; 10  chr1   190   200     A     .      +       1</div><div class='input'>
 <span class='co'># bedtools 'namenum'</span>
 <span class='no'>wins</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>mutate</span>(<span class='no'>wins</span>, <span class='kw'>namenum</span> <span class='kw'>=</span> <span class='kw'>stringr</span><span class='kw'>::</span><span class='fu'>str_c</span>(<span class='no'>name</span>, <span class='st'>'_'</span>, <span class='no'>.win_id</span>))</div><div class='output co'>#&gt; # A tibble: 10 × 8
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>mutate</span>(<span class='no'>wins</span>, <span class='kw'>namenum</span> <span class='kw'>=</span> <span class='kw'>stringr</span><span class='kw'>::</span><span class='fu'>str_c</span>(<span class='no'>name</span>, <span class='st'>'_'</span>, <span class='no'>.win_id</span>))</div><div class='output co'>#&gt; # A tibble: 10 x 8
 #&gt;    chrom start   end  name score strand .win_id namenum
-#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;   &lt;chr&gt;
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt;   &lt;chr&gt;
 #&gt;  1  chr1   100   110     A     .      +       1     A_1
 #&gt;  2  chr1   110   120     A     .      +       2     A_2
 #&gt;  3  chr1   120   130     A     .      +       3     A_3

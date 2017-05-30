@@ -2,42 +2,54 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 absdist_impl <- function(x, y) {
-    .Call('valr_absdist_impl', PACKAGE = 'valr', x, y)
+    .Call(valr_absdist_impl, x, y)
+}
+
+bed12toexons_impl <- function(x) {
+    .Call(valr_bed12toexons_impl, x)
 }
 
 closest_impl <- function(x, y, suffix_x, suffix_y) {
-    .Call('valr_closest_impl', PACKAGE = 'valr', x, y, suffix_x, suffix_y)
+    .Call(valr_closest_impl, x, y, suffix_x, suffix_y)
 }
 
 complement_impl <- function(gdf, genome) {
-    .Call('valr_complement_impl', PACKAGE = 'valr', gdf, genome)
+    .Call(valr_complement_impl, gdf, genome)
 }
 
 coverage_impl <- function(x, y) {
-    .Call('valr_coverage_impl', PACKAGE = 'valr', x, y)
+    .Call(valr_coverage_impl, x, y)
+}
+
+flank_impl <- function(df, genome, both = 0, left = 0, right = 0, fraction = FALSE, stranded = FALSE, trim = FALSE) {
+    .Call(valr_flank_impl, df, genome, both, left, right, fraction, stranded, trim)
 }
 
 intersect_impl <- function(x, y, suffix_x = ".x", suffix_y = ".y") {
-    .Call('valr_intersect_impl', PACKAGE = 'valr', x, y, suffix_x, suffix_y)
+    .Call(valr_intersect_impl, x, y, suffix_x, suffix_y)
 }
 
-merge_impl <- function(gdf, max_dist = 0L) {
-    .Call('valr_merge_impl', PACKAGE = 'valr', gdf, max_dist)
+makewindows_impl <- function(df, win_size = 0L, num_win = 0L, step_size = 0L, reverse = FALSE) {
+    .Call(valr_makewindows_impl, df, win_size, num_win, step_size, reverse)
+}
+
+merge_impl <- function(gdf, max_dist = 0L, collapse = TRUE) {
+    .Call(valr_merge_impl, gdf, max_dist, collapse)
 }
 
 random_impl <- function(genome, length, n, seed = 0L, col_chrom = "chrom", col_size = "size") {
-    .Call('valr_random_impl', PACKAGE = 'valr', genome, length, n, seed, col_chrom, col_size)
+    .Call(valr_random_impl, genome, length, n, seed, col_chrom, col_size)
 }
 
 reldist_impl <- function(x, y) {
-    .Call('valr_reldist_impl', PACKAGE = 'valr', x, y)
+    .Call(valr_reldist_impl, x, y)
 }
 
 shuffle_impl <- function(df, incl, within = FALSE, max_tries = 1000L, seed = 0L) {
-    .Call('valr_shuffle_impl', PACKAGE = 'valr', df, incl, within, max_tries, seed)
+    .Call(valr_shuffle_impl, df, incl, within, max_tries, seed)
 }
 
 subtract_impl <- function(gdf_x, gdf_y) {
-    .Call('valr_subtract_impl', PACKAGE = 'valr', gdf_x, gdf_y)
+    .Call(valr_subtract_impl, gdf_x, gdf_y)
 }
 

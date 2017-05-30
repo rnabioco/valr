@@ -114,7 +114,7 @@ for sorting by chrom and start, and by size using
 )
 
 <span class='co'># sort by start</span>
-<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>start</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 3
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>start</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1     1   100
@@ -122,7 +122,7 @@ for sorting by chrom and start, and by size using
 #&gt; 3  chr1   150   500
 #&gt; 4  chr2   500  1000</div><div class='input'>
 <span class='co'># sort by descending start</span>
-<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='fu'>desc</span>(<span class='no'>start</span>))</div><div class='output co'>#&gt; # A tibble: 4 × 3
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='fu'>desc</span>(<span class='no'>start</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr2   500  1000
@@ -130,7 +130,7 @@ for sorting by chrom and start, and by size using
 #&gt; 3  chr2   100   300
 #&gt; 4  chr1     1   100</div><div class='input'>
 <span class='co'># sort by chrom and start</span>
-<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>chrom</span>, <span class='no'>start</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 3
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>chrom</span>, <span class='no'>start</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1     1   100
@@ -139,7 +139,7 @@ for sorting by chrom and start, and by size using
 #&gt; 4  chr2   500  1000</div><div class='input'>
 <span class='co'># sort by size</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>mutate</span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='no'>end</span> - <span class='no'>start</span>)
-<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>.size</span>)</div><div class='output co'>#&gt; # A tibble: 4 × 4
+<span class='kw'>dplyr</span><span class='kw'>::</span><span class='fu'>arrange</span>(<span class='no'>x</span>, <span class='no'>.size</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 4
 #&gt;   chrom start   end .size
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1     1   100    99

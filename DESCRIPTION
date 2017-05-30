@@ -19,7 +19,6 @@ Imports:
     readr,
     stringr,
     tibble,
-    tidyr,
     ggplot2,
     glue,
 SystemRequirements: C++11
@@ -35,6 +34,7 @@ Suggests:
     RMySQL,
     purrr,
     broom,
+    tidyr,
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 URL: http://github.com/rnabioco/valr/
