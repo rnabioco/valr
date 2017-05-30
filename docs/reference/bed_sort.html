@@ -147,7 +147,7 @@ use <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>
 )
 
 <span class='co'># sort by chrom and start</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 × 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1   100   300
@@ -156,7 +156,7 @@ use <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>
 #&gt; 4  chr8   500  1000
 #&gt; 5  chr8  1000  5000</div><div class='input'>
 <span class='co'># reverse sort order</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 × 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1   100   300
@@ -165,7 +165,7 @@ use <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>
 #&gt; 4  chr8   500  1000
 #&gt; 5  chr8   100   200</div><div class='input'>
 <span class='co'># sort by interval size</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 × 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr8   100   200
@@ -174,7 +174,7 @@ use <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>
 #&gt; 4  chr8   500  1000
 #&gt; 5  chr8  1000  5000</div><div class='input'>
 <span class='co'># sort by decreasing interval size</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 × 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr8  1000  5000
@@ -183,10 +183,8 @@ use <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/arrange'>
 #&gt; 4  chr8   100   200
 #&gt; 5  chr1   100   200</div><div class='input'>
 <span class='co'># sort by interval size within chrom</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; Source: local data frame [5 x 3]
-#&gt; Groups: chrom [2]
-#&gt; 
-#&gt; # A tibble: 5 × 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt; # Groups:   chrom [2]
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr8   100   200

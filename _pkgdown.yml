@@ -54,6 +54,7 @@ reference:
 
   - title: Utilities
     contents:
+    - starts_with("create_")
     - bed_makewindows
     - bed12_to_exons
     - bed_glyph

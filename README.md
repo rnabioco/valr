@@ -132,6 +132,8 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 
 ### Utilities
 
+-   Create features from BED12 files with `create_introns()`, `create_utrs5()`, and `create_utrs3()`.
+
 -   Visualize the actions of valr functions with `bed_glyph()`.
 
 -   Constrain intervals to a genome reference with `bound_intervals()`.
