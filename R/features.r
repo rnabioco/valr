@@ -24,6 +24,9 @@ create_introns <- function(x) {
   res <- ungroup(res)
   res <- na.omit(res)
 
+  # remove zero length intervals
+  res <- filter(res, start < end)
+
   res
 }
 
@@ -45,6 +48,9 @@ create_utrs5 <- function(x) {
   res <- ungroup(res)
   res <- select(res, chrom:strand)
 
+  # remove zero length intervals
+  res <- filter(res, start < end)
+
   res
 }
 
@@ -65,6 +71,9 @@ create_utrs3 <- function(x) {
                 end   = ifelse(strand == '+', end, cds_start))
   res <- ungroup(res)
   res <- select(res, chrom:strand)
+
+  # remove zero length intervals
+  res <- filter(res, start < end)
 
   res
 }
