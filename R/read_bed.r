@@ -5,7 +5,7 @@
 #'   `chrom`, `start` and `end` colnames.
 #'
 #' @param filename file or URL
-#' @param n_fields number fields in the BED file
+#' @param n_fields number fields in the BED file (auto-detected by default)
 #' @param col_types column type spec for [readr::read_tsv()]
 #' @param sort sort the tbl by chrom and start
 #' @param ... options to pass to [readr::read_tsv()]
@@ -26,8 +26,13 @@
 #' read_bed(valr_example('3fields.bed.gz'), sort = FALSE)
 #'
 #' @export
-read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
+read_bed <- function(filename, n_fields = NULL, col_types = bed12_coltypes,
                      sort = TRUE, ...) {
+
+  if (missing(n_fields)) {
+    n_fields <- ncol(read.table(filename, nrows = 5, sep="\t"))
+    message(glue::glue("n_fields set automatically to {n_fields}"))
+  }
 
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)

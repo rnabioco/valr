@@ -20,6 +20,7 @@ Imports:
     stringr,
     tibble,
     ggplot2,
+    glue,
 SystemRequirements: C++11
 LinkingTo:
     Rcpp (>= 0.12.8),
