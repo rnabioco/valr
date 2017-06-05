@@ -52,16 +52,16 @@ bed_jaccard <- function(x, y) {
                              n_int = as.numeric(n()))
 
   res_x <- mutate(x, .size = end - start)
-  res_x <- summarize(res_x, sum_x = sum(as.numeric(.size)))
+  res_x <- sum(res_x$.size)
 
   res_y <- mutate(y, .size = end - start)
-  res_y <- summarize(res_y, sum_y = sum(as.numeric(.size)))
+  res_y <- sum(res_y$.size)
 
   n_i <- res_intersect$sum_overlap
   n <- res_intersect$n_int
 
-  n_x <- res_x$sum_x
-  n_y <- res_y$sum_y
+  n_x <- res_x
+  n_y <- res_y
 
   n_u <- n_x + n_y
 
