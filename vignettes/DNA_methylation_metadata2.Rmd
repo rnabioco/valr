@@ -1,0 +1,61 @@
+---
+title: "using ValR for DNA methylation datasets"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=TRUE}
+library(dplyr)
+library(valr)
+library(R.utils)
+library(curl)
+library(ggplot2)
+library(gridExtra)
+```
+
+## Get the public datasets from UCSC
+
+Using read_bed() to retrive the .bed.gz data set. Currently users need to specify the number of columns (n_fields) or read_bed() will default to importing only 3 columns
+
+```{r, include=TRUE}
+DMSO_treated<-read_bed('http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeHaibMethylRrbs/wgEncodeHaibMethylRrbsA549Dm002p7dHaibSitesRep1.bed.gz', n_fields=6, skip=1)
+
+```
+
+```{r}
+untreated<-read_bed('http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeHaibMethylRrbs/wgEncodeHaibMethylRrbsAg04449UwSitesRep1.bed.gz', n_fields=6, skip=1)
+```
+To view the data
+
+```{r}
+head(untreated)
+```
+
+## Examine regions that are different and regions that intersect
+```{r}
+different_region<-bed_subtract(DMSO_treated,untreated, any=FALSE)
+dim(different_region)
+```
+
+
+```{r}
+intersect_region<-bed_intersect(DMSO_treated,untreated, suffix=c('.treated','.untreated'))
+dim(intersect_region)
+```
+
+
+
+##Plot the distribution of different regions and intersected regions across chromosomes
+```{r}
+p1<-ggplot(data=different_region, aes(x=chrom))+geom_histogram(stat='count', aes(factor(chrom), fill='differential methylation'))+scale_fill_brewer(palette = 'Set2')+theme_minimal()+ggtitle('Distribution of differential methylation across chromosomes')+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+p2<-ggplot(data=intersect_region, aes(x=chrom))+geom_histogram(stat='count', aes(factor(chrom), fill='overlap methylation'))+scale_fill_brewer(palette = 'Spectral')+theme_minimal()+ggtitle('Distribution of overlapping methylation across chromosomes')+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+grid.arrange(p1, p2, ncol = 1, nrow =2)
+
+```
+

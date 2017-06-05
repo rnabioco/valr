@@ -1,0 +1,66 @@
+---
+title: "Tutorial"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Topic 1
+
+### Exercise 
+
+Load the libraries needed for ValR
+
+```{r import, exercise=TRUE}
+library(dplyr)
+library(valr)
+library(R.utils)
+library(curl)
+library(ggplot2)
+library(gridExtra)
+```
+
+### Exercise with Code
+
+
+Import file using read_bed() and display first 5 columns
+
+```{r dataimport, exercise=TRUE}
+treated<-read_bed('http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeHaibMethylRrbs/wgEncodeHaibMethylRrbsA549Dm002p7dHaibSitesRep1.bed.gz', n_fields=5)
+untreated<-read_bed('http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeHaibMethylRrbs/wgEncodeHaibMethylRrbsAg04449UwSitesRep1.bed.gz', n_fields=5)
+
+```
+
+using read_genome() to recognize reference genome data files
+```{r genome, exercise=TRUE}
+genomefile <- valr_example('hg19.chrom.sizes.gz')
+genome<-read_genome(genomefile)
+
+```
+
+
+## Topic 2
+
+### Exercise with ValR tool
+group the data table by the column 'chrom', or by strand (dplyr)
+```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
+group_by(untreated, chrom)
+
+```
+
+Identify differential methylation sites, then filter anything with score >5
+```{r bed_subtract, exercise=TRUE, exercise.eval=TRUE}
+differential<-bed_subtract(treated,untreated, any=FALSE)
+region<-filter(differential, as.numeric(score) > 25)
+```
+
+Visualize the diffent methylation sites across chromosomes
+```{r ggplot, exercise=TRUE, exercise.eval=TRUE}
+ggplot(region, aes(x=chrom))+geom_histogram(stat='count')+theme_minimal()+ggtitle('Distribution of differential methylation across chromosomes')+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
