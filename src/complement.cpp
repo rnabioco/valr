@@ -43,12 +43,12 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
       end = ends[indices[j]] ;
 
       if (j == 0) {
-        if (start == 1) {
+        if (start == 0) {
           last_end = end ;
           continue ;
         } else {
           chroms_out.push_back(chrom) ;
-          starts_out.push_back(1) ;
+          starts_out.push_back(0) ;
           ends_out.push_back(start) ;
         }
       } else {

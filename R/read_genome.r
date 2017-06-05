@@ -65,11 +65,11 @@ bound_intervals <- function(x, genome, trim = FALSE) {
   res <- left_join(x, genome, by = "chrom")
   if (trim) {
     res <- mutate(res,
-                  start = ifelse(start < 1, 1, start),
+                  start = ifelse(start < 0, 0, start),
                   end = ifelse(end > size, size, end))
     res <- select(res, -size)
   } else {
-    res <- filter(res, start >= 1 & end <= size)
+    res <- filter(res, start >= 0 & end <= size)
     res <- select(res, -size)
   }
 
