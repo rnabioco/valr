@@ -29,10 +29,10 @@
 read_bed <- function(filename, n_fields = NULL, col_types = bed12_coltypes,
                      sort = TRUE, ...) {
 
-  bed_raw <- read_file(filename)
+  bed_raw <- readr::read_file(filename)
 
   if (missing(n_fields)) {
-    n_fields <- ncol(readr::read_tsv(bed_raw,n_max = 5))
+    n_fields <- ncol(readr::read_tsv(bed_raw, n_max = 5))
     message(glue::glue("n_fields set automatically to {n_fields}"))
   }
 

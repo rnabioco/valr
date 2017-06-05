@@ -23,7 +23,7 @@
 #'
 #' @useDynLib valr, .registration = TRUE
 #' @importFrom tibble tribble as_tibble
-#' @importFrom readr read_tsv col_integer col_character col_double
+#' @importFrom readr read_tsv col_integer col_character col_double read_file
 #' @importFrom stringr str_replace str_split str_c str_length
 #' @importFrom lazyeval lazy_dots
 #' @importFrom stats fisher.test na.omit
