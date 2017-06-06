@@ -10,9 +10,6 @@
 #ifndef valr__valr_H
 #define valr__valr_H
 
-#include <random>
-#include <functional>
-
 // [[Rcpp::plugins(cpp11)]]
 
 #include <Rcpp.h>

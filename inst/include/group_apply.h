@@ -10,6 +10,8 @@
 #ifndef valr__group_apply_H
 #define valr__group_apply_H
 
+#include <functional>
+
 #include "valr.h"
 
 inline bool compare_rows(DataFrame df_x, DataFrame df_y,
