@@ -1,25 +1,25 @@
 context('bed_complement')
 
 test_that("complement with covering interval", {
- 
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",    1,       500
   )
   res <- bed_complement(bed, genome)
-  expect_equal(nrow(res), 0)   
+  expect_equal(nrow(res), 0)
 })
 
 test_that("complement with middle interval", {
- 
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",    100,       200
@@ -34,11 +34,11 @@ test_that("complement with middle interval", {
 })
 
 test_that("complement adds final interval", {
-  
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",    1,        50,
@@ -54,12 +54,12 @@ test_that("complement adds final interval", {
 })
 
 test_that("multiple chroms", {
-  
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500,
     "chr2", 500
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",      100,     500,
@@ -75,12 +75,12 @@ test_that("multiple chroms", {
 })
 
 test_that("multiple chroms, chr1 is covered", {
-  
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500,
     "chr2", 500
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",        1,     500,
@@ -95,11 +95,11 @@ test_that("multiple chroms, chr1 is covered", {
 })
 
 test_that("record exceeds chrom length", {
-  
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 100
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",       90,     110
@@ -113,11 +113,11 @@ test_that("record exceeds chrom length", {
 })
 
 test_that("test complement only on left side", {
-  
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 100
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",        90,      100
@@ -130,12 +130,12 @@ test_that("test complement only on left side", {
   expect_true(all(res == expect))
 })
 
-test_that("overlapping intervals", {  
-  
+test_that("overlapping intervals", {
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1",   100
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",       10,     100,
@@ -153,7 +153,7 @@ test_that("starting intervals are complemented (#78)", {
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 100
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",        1,      20
@@ -169,7 +169,7 @@ test_that("non-overlapping genome chroms are in output (#78)", {
     ~chrom, ~size,
     "chr1", 100,
     "chr2", 100
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1",       10,     100
@@ -187,10 +187,10 @@ test_that("`x` intervals not in genome are ignored (#78)", {
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 500
-  ) 
+  )
   bed <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr2",       10,     100   
+    "chr2",       10,     100
   )
   expected <- tibble::tribble(
     ~chrom, ~start, ~end,

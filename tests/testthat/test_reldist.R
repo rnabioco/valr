@@ -13,12 +13,12 @@ y <- tibble::tribble(
 
 test_that("reldist calculation is correct", {
   res <- bed_reldist(x, y)
-  expect_true(res$.reldist == 0.5)   
+  expect_true(res$.reldist == 0.5)
 })
 
 test_that("self reldist is 0", {
   res <- bed_reldist(y, y)
-  expect_true(res$.reldist == 0)   
+  expect_true(res$.reldist == 0)
 })
 
 test_that("detail argument works", {
@@ -45,20 +45,20 @@ test_that("reldist respects groups (#108)", {
     'chr2', 350,    500,  'A',
     'chr3', 500,    600,  'A'
   )
-  
+
   genome <- tibble::tribble(
     ~chrom, ~size,
     'chr1', 10000,
     'chr2', 10000
   )
-  
+
   x <- arrange(x, chrom, start)
   x <- group_by(x, group, chrom)
-  y <- arrange(y, chrom, start) 
+  y <- arrange(y, chrom, start)
   y <- group_by(y, group, chrom)
-  
+
   res <- bed_reldist(x, y, detail = TRUE)
   expect_true(nrow(res) == 1)
-  
+
 })
 
