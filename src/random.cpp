@@ -39,7 +39,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0,
 
     auto size = sizes[i] ;
     // sub length to avoid off-chrom coordinates
-    UINT_DIST size_dist(1, size - length) ;
+    UINT_DIST size_dist(0, size - length) ;
     size_rngs.push_back(size_dist) ;
   }
 
