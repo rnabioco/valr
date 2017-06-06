@@ -20,7 +20,7 @@ Identify intervals in a genome not covered by a query.
 \examples{
 x <- trbl_interval(
   ~chrom, ~start, ~end,
-  'chr1',      1,      10,
+  'chr1',      0,      10,
   'chr1',      75,    100
 )
 
@@ -42,7 +42,7 @@ x <- trbl_interval(
    ~chrom, ~start, ~end,
    "chr1", 100,    300,
    "chr1", 200,    400,
-   "chr2", 1,      100,
+   "chr2",  0,      100,
    "chr2", 200,    400,
    "chr3", 500,    600
 )
