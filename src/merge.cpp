@@ -9,7 +9,7 @@
 
 #include "valr.h"
 
-DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0 ) {
+DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) {
 
   auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
@@ -49,7 +49,7 @@ DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0 
   std::vector<int> group_starts ;
   std::vector<int> group_ends ;
   // interate through vector of merged intervals and write to dataframe
-  for (auto it:s) {
+  for (auto it : s) {
     indices_x.push_back(it.value) ;
     group_starts.push_back(it.start) ;
     group_ends.push_back(it.stop) ;
@@ -58,9 +58,9 @@ DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0 
   subset_x["start"] = group_starts ;
   subset_x["end"] = group_ends ;
   return subset_x ;
-  }
+}
 
-DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0){
+DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) {
 
   auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
@@ -151,9 +151,9 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0){
 //[[Rcpp::export]]
 DataFrame merge_impl(GroupedDataFrame gdf,
                      int max_dist = 0,
-                     bool collapse = true ) {
+                     bool collapse = true) {
 
-  if(!collapse) {
+  if (!collapse) {
     // return a cluster id per input interval
     DataFrame out = clusterMergedIntervals(gdf, max_dist) ;
     return out ;

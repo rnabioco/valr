@@ -19,7 +19,6 @@ Imports:
     readr,
     stringr,
     tibble,
-    tidyr,
     ggplot2,
 SystemRequirements: C++11
 LinkingTo:
@@ -34,6 +33,7 @@ Suggests:
     RMySQL,
     purrr,
     broom,
+    tidyr,
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 Remotes: tidyverse/dplyr

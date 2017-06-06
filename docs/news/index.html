@@ -103,7 +103,8 @@
 <h2 class="hasAnchor">
 <a href="#enhancements" class="anchor"></a>Enhancements</h2>
 <ul>
-<li>Speed-ups in <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> (~50x), <code><a href="../reference/bed_merge.html">bed_merge()</a></code> (~4x), and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> (~4x) (thanks to @kriemo and @sheridar). Thanks to the sponsors of the <a href="https://hackathon.colorado.edu/">Biofrontiers Hackathon</a> for the caffeine underlying these improvements.</li>
+<li><p>New <code><a href="../reference/create_introns.html">create_introns()</a></code>, <code><a href="../reference/create_utrs5.html">create_utrs5()</a></code> and <code><a href="../reference/create_utrs3.html">create_utrs3()</a></code> functions for generating features from BED12 files.</p></li>
+<li><p>Speed-ups in <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> (~50x), <code><a href="../reference/bed_merge.html">bed_merge()</a></code> (~4x), and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> (~4x) (thanks to @kriemo and @sheridar). Thanks to the sponsors of the <a href="https://hackathon.colorado.edu/">Biofrontiers Hackathon</a> for the caffeine underlying these improvements.</p></li>
 </ul>
 </div>
 <div id="minor-changes" class="section level2">
@@ -111,6 +112,13 @@
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>provide <code>broom::tidy</code> compatibility functions to remove broom dependency.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>intervals from <code><a href="../reference/bed_random.html">bed_random()</a></code> are now sorted properly.</li>
 </ul>
 </div>
 </div>
@@ -133,9 +141,9 @@
 <li>intervals returned from <code><a href="../reference/bed_random.html">bed_random()</a></code> are sorted by <code>chrom</code> and <code>start</code> by default.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Merge intervals in <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> and use numeric values for calculation (fixes #204).</li>
 </ul>
@@ -163,9 +171,9 @@
 <li><p>Add Kent Riemondy to LICENSE file.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code><a href="../reference/bed_merge.html">bed_merge()</a></code> now merges contained intervals (#177)</li>
