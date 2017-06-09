@@ -29,7 +29,7 @@ interval_spacing <- function(x) {
   res <- group_by(res, chrom)
   res <- mutate(res, .spacing = start - lag(end))
 
-  res <- group_by_(res, .dots = groups_x)
+  res <- group_by(res, !!! groups_x)
 
   res
 }

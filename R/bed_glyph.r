@@ -66,7 +66,8 @@ bed_glyph <- function(expr, label = NULL) {
   if ('start' %in% names(res)) cols_default <- c(cols_default, 'start')
   if ('end' %in% names(res)) cols_default <- c(cols_default, 'end')
 
-  cols_out <- select_(res, .dots = cols_default)
+  cols_vars <- rlang::syms(cols_default)
+  cols_out <- select(res, !!! cols_vars)
 
   # get cols that are now suffixed in the result. This is a reasonable default
   # for bed_intersect and functions that call bed_intersect.
