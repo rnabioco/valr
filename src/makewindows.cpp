@@ -9,17 +9,6 @@
 
 #include "valr.h"
 
-std::vector<int> seq_by(int from, int to, int by, int win_size) {
-
-  std::vector<int> out ;
-  // iterate through from to to by step size
-  for (int i = from; i < to && i + win_size - by <= to; i += by) {
-    out.push_back(i) ;
-  }
-
-  return out ;
-}
-
 //[[Rcpp::export]]
 DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
                            int step_size = 0, bool reverse = false) {
@@ -31,10 +20,6 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
   std::vector<int> ends_out ;
   std::vector<int> df_idxs ;
   std::vector<int> win_ids;
-
-  // used in loops
-  std::vector<int> ends_by ;
-  std::vector<int> ids ;
 
   for (int i = 0; i < starts.size(); ++i) {
 
@@ -48,37 +33,31 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
     int by = win_size - step_size ;
 
     // create candidate starts
-    std::vector<int> starts_by = seq_by(start, end, by, win_size) ;
+    std::vector<int> starts_by ;
+    for (int j = start; j < end && j + win_size - by <= end; j += by) {
+      starts_by.push_back(j) ;
+    }
 
-    for (int j = 0; j < starts_by.size(); ++j) {
+    int nstarts = starts_by.size() ;
+    for (int k = 0; k < nstarts; ++k) {
 
-      auto start_by = starts_by[j] ;
+      auto start_by = starts_by[k] ;
+      starts_out.push_back(start_by) ;
 
       if (start_by + win_size < end) {
-        ends_by.push_back(start_by + win_size) ;
+        ends_out.push_back(start_by + win_size) ;
       } else {
-        ends_by.push_back(end) ;
+        ends_out.push_back(end) ;
       }
-      ids.push_back(j + 1) ;
+
+      if (reverse) {
+        win_ids.push_back(nstarts - k) ;
+      } else {
+        win_ids.push_back(k + 1) ;
+      }
+
+      df_idxs.push_back(i) ;
     }
-
-    if (reverse) {
-      std::reverse(ids.begin(), ids.end());
-    }
-
-    // nums of reps of current x idx
-    IntegerVector x_idxs = Rcpp::rep(i, starts_by.size()) ;
-
-    // add new ivls
-    starts_out.insert(starts_out.end(), starts_by.begin(), starts_by.end());
-    ends_out.insert(ends_out.end(), ends_by.begin(), ends_by.end());
-    win_ids.insert(win_ids.end(), ids.begin(), ids.end());
-
-    df_idxs.insert(df_idxs.end(), x_idxs.begin(), x_idxs.end());
-
-    // reset
-    ends_by.clear() ;
-    ids.clear() ;
   }
 
   DataFrame out = DataFrameSubsetVisitors(df, names(df)).subset(df_idxs, "data.frame");
@@ -92,12 +71,19 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
 }
 
 /*** R
+library(valr)
 library(dplyr)
+
 x <- trbl_interval(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 100,    200,  'A',   '.',    '+'
+  ~chrom, ~start, ~end,
+  "chr1", 100,    200
 )
 
-devtools::load_all()
-makewindows_impl(x, win_size = 10) %>% as_data_frame()
+genome <- trbl_genome(
+  ~chrom, ~size,
+  "chr1", 500
+)
+
+bed_makewindows(x, genome, win_size = 10)
+bed_makewindows(x, genome, win_size = 10, reverse = TRUE)
 */

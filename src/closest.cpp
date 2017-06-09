@@ -19,14 +19,14 @@ void closest_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
   // initiatialize maximum left and right distances to minimize for closest
   int max_end = std::max(vx.back().stop, vy.back().stop) ;
 
-  for (auto const &vx_it : vx) {
+  for (auto const& vx_it : vx) {
     ivl_vector_t closest ;
     ivl_vector_t closest_ivls ;
 
     min_dist = std::make_pair(max_end, closest_ivls) ;
     tree_y.findClosest(vx_it.start, vx_it.stop, closest, min_dist) ;
 
-    for (auto const &ov_it : closest) {
+    for (auto const& ov_it : closest) {
 
       auto overlap = intervalOverlap(vx_it, ov_it) ;
 

@@ -15,8 +15,7 @@ number, with respect to strand (i.e., the first exon for \code{-} strand
 genes will have larger start and end coordinates).
 }
 \examples{
-bed12_path <- valr_example('mm9.bed12.gz')
-x <- read_bed12(bed12_path)
+x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
 bed12_to_exons(x)
 
 }

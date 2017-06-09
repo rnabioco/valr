@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read a VCF file. — read_vcf • valr</title>
+<title>Create intron features. — create_introns • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -91,70 +91,51 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read a VCF file.</h1>
+    <h1>Create intron features.</h1>
     </div>
 
     
-    <p>Read a VCF file.</p>
+    <p>Numbers in the <code>score</code> column are intron numbers from 5' to 3' independent of
+strand. I.e., the first introns for <code>+</code> and <code>-</code> strand genes both have <code>score</code>
+values of <code>1</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>read_vcf</span>(<span class='no'>vcf</span>)</pre>
+    <pre class="usage"><span class='fu'>create_introns</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>vcf</th>
-      <td><p>vcf filename</p></td>
+      <th>x</th>
+      <td><p><a href='tbl_interval.html'>tbl_interval</a> in BED12 format</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>data_frame</code></p>
-    
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>return value has <code>chrom</code>, <code>start</code> and <code>end</code> columns.
-Interval lengths are the size of the 'REF' field.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <p>Other read functions: <code><a href='read_bed.html'>read_bed</a></code>,
-  <code><a href='read_genome.html'>read_genome</a></code></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>vcf_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.vcf.gz'</span>)
-<span class='fu'>read_vcf</span>(<span class='no'>vcf_file</span>)</div><div class='output co'>#&gt; # A tibble: 11 x 18
-#&gt;    CHROM   POS      ID   REF   ALT  QUAL FILTER                         INFO
-#&gt;    &lt;chr&gt; &lt;int&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;                        &lt;chr&gt;
-#&gt;  1     1    10    1:10     A     T   100   PASS  NS=5;AC=0;AN=10;AF=0.000000
-#&gt;  2     1    20    1:20     G     C   100   PASS               NS=0;AC=0;AN=0
-#&gt;  3     1    30    1:30     C     A   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
-#&gt;  4     1    40    1:40     A     C   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
-#&gt;  5     1 10000 1:10000     G     C   100   PASS  NS=6;AC=0;AN=12;AF=0.000000
-#&gt;  6     1 20000 1:20000     T     A   100   PASS NS=6;AC=12;AN=12;AF=1.000000
-#&gt;  7     4  5000  4:5000     A     T   100   PASS NS=6;AC=12;AN=12;AF=1.000000
-#&gt;  8     4  6000  4:6000     C     T   100   PASS NS=6;AC=11;AN=12;AF=0.916667
-#&gt;  9     X   800   X:800     A     C   100   PASS NS=6;AC=12;AN=12;AF=1.000000
-#&gt; 10     X   900   X:900     A     T   100   PASS NS=6;AC=12;AN=12;AF=1.000000
-#&gt; 11     X  1000  X:1000     T     G   100   PASS NS=5;AC=10;AN=10;AF=1.000000
-#&gt; # ... with 10 more variables: FORMAT &lt;chr&gt;, X1 &lt;chr&gt;, X2 &lt;chr&gt;, X3 &lt;chr&gt;,
-#&gt; #   X4 &lt;chr&gt;, X5 &lt;chr&gt;, X6 &lt;chr&gt;, chrom &lt;chr&gt;, start &lt;int&gt;, end &lt;int&gt;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_bed.html'>read_bed12</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))
+
+<span class='fu'>create_introns</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 1,583 x 6
+#&gt;    chrom   start     end         name score strand
+#&gt;    &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;        &lt;chr&gt; &lt;dbl&gt;  &lt;chr&gt;
+#&gt;  1  chr1 3207049 3411782 NM_001011874     2      -
+#&gt;  2  chr1 3411982 3660632 NM_001011874     1      -
+#&gt;  3  chr1 4283093 4341990 NM_001195662     3      -
+#&gt;  4  chr1 4342162 4342282 NM_001195662     2      -
+#&gt;  5  chr1 4342918 4399250 NM_001195662     1      -
+#&gt;  6  chr1 4848057 4857550 NM_001159750     1      +
+#&gt;  7  chr1 4848057 4857550    NM_011541     1      +
+#&gt;  8  chr1 4848584 4857550 NM_001159751     1      +
+#&gt;  9  chr1 4857613 4868107 NM_001159750     1      +
+#&gt; 10  chr1 4857613 4868107    NM_011541     1      +
+#&gt; # ... with 1,573 more rows</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

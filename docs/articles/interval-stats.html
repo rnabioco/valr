@@ -71,7 +71,7 @@
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">May 05 2017</h4>
+            <h4 class="date">May 30 2017</h4>
           </div>
 
     
@@ -102,7 +102,7 @@ tss &lt;-
 <span class="st">  </span><span class="kw">select</span>(chrom, <span class="dt">start =</span> .start, <span class="dt">end =</span> .end, name)
 
 tss
-<span class="co">#&gt; # A tibble: 1,267 × 4</span>
+<span class="co">#&gt; # A tibble: 1,267 x 4</span>
 <span class="co">#&gt;    chrom    start      end         name</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;dbl&gt;        &lt;chr&gt;</span>
 <span class="co">#&gt;  1 chr22 16193009 16193010    NR_122113</span>
@@ -135,23 +135,22 @@ tss
 <p>We use the <code>distance_stats()</code> function to apply the <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code> function to each group of data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obs_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(rpts, tss, genome, <span class="st">'name'</span>, <span class="st">'obs'</span>)
 obs_stats
-<span class="co">#&gt; # A tibble: 2,106 × 4</span>
+<span class="co">#&gt; # A tibble: 2,106 x 4</span>
 <span class="co">#&gt;          name    stat             value  type</span>
 <span class="co">#&gt;         &lt;chr&gt;   &lt;chr&gt;            &lt;list&gt; &lt;chr&gt;</span>
-<span class="co">#&gt;  1       (A)n reldist &lt;tibble [27 × 1]&gt;   obs</span>
-<span class="co">#&gt;  2 (AAAAACA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
-<span class="co">#&gt;  3   (AAAAC)n reldist  &lt;tibble [6 × 1]&gt;   obs</span>
-<span class="co">#&gt;  4   (AAAAG)n reldist  &lt;tibble [2 × 1]&gt;   obs</span>
-<span class="co">#&gt;  5   (AAAAT)n reldist  &lt;tibble [3 × 1]&gt;   obs</span>
-<span class="co">#&gt;  6  (AAAATA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
-<span class="co">#&gt;  7 (AAAATAA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
-<span class="co">#&gt;  8    (AAAC)n reldist  &lt;tibble [2 × 1]&gt;   obs</span>
-<span class="co">#&gt;  9   (AAACA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
-<span class="co">#&gt; 10  (AAACAA)n reldist  &lt;tibble [1 × 1]&gt;   obs</span>
+<span class="co">#&gt;  1       (A)n reldist &lt;tibble [27 x 1]&gt;   obs</span>
+<span class="co">#&gt;  2 (AAAAACA)n reldist  &lt;tibble [1 x 1]&gt;   obs</span>
+<span class="co">#&gt;  3   (AAAAC)n reldist  &lt;tibble [6 x 1]&gt;   obs</span>
+<span class="co">#&gt;  4   (AAAAG)n reldist  &lt;tibble [2 x 1]&gt;   obs</span>
+<span class="co">#&gt;  5   (AAAAT)n reldist  &lt;tibble [3 x 1]&gt;   obs</span>
+<span class="co">#&gt;  6  (AAAATA)n reldist  &lt;tibble [1 x 1]&gt;   obs</span>
+<span class="co">#&gt;  7 (AAAATAA)n reldist  &lt;tibble [1 x 1]&gt;   obs</span>
+<span class="co">#&gt;  8    (AAAC)n reldist  &lt;tibble [2 x 1]&gt;   obs</span>
+<span class="co">#&gt;  9   (AAACA)n reldist  &lt;tibble [1 x 1]&gt;   obs</span>
+<span class="co">#&gt; 10  (AAACAA)n reldist  &lt;tibble [1 x 1]&gt;   obs</span>
 <span class="co">#&gt; # ... with 2,096 more rows</span></code></pre></div>
 <p>And the same is done for a set of shuffled group of data. <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code> is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seed &lt;-<span class="st"> </span><span class="dv">1010486</span>
-shfs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(rpts, genome, <span class="dt">within =</span> <span class="ot">TRUE</span>, <span class="dt">seed =</span> seed)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shfs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(rpts, genome, <span class="dt">within =</span> <span class="ot">TRUE</span>)
 shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(shfs, tss, genome, <span class="st">'name'</span>, <span class="st">'shuf'</span>)</code></pre></div>
 <p>Now we can bind the observed and shuffled data together, and do some tidying to put the data into a format appropriate for a statistical test. This involves:</p>
 <ol style="list-style-type: decimal">
@@ -170,37 +169,31 @@ shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(s
 <span class="st">  </span><span class="kw">na.omit</span>()
 
 res
-<span class="co">#&gt; Source: local data frame [16,659 x 5]</span>
-<span class="co">#&gt; Groups: name, stat [1,903]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; # A tibble: 16,659 × 5</span>
+<span class="co">#&gt; # A tibble: 16,681 x 5</span>
+<span class="co">#&gt; # Groups:   name, stat [1,906]</span>
 <span class="co">#&gt;     name    stat   .id     obs     shuf</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  (A)n absdist     1 5120782 12846274</span>
-<span class="co">#&gt;  2  (A)n absdist     2  226476 12729092</span>
-<span class="co">#&gt;  3  (A)n absdist     3   31241  8239065</span>
-<span class="co">#&gt;  4  (A)n absdist     4    8931  6929891</span>
-<span class="co">#&gt;  5  (A)n absdist     5   41316  5407516</span>
-<span class="co">#&gt;  6  (A)n absdist     6   22519  4173195</span>
-<span class="co">#&gt;  7  (A)n absdist     7   15173  3611447</span>
-<span class="co">#&gt;  8  (A)n absdist     8   21985  3233777</span>
-<span class="co">#&gt;  9  (A)n absdist     9   13457   130009</span>
-<span class="co">#&gt; 10  (A)n absdist    10  134007     3775</span>
-<span class="co">#&gt; # ... with 16,649 more rows</span></code></pre></div>
+<span class="co">#&gt;  1  (A)n absdist     1 5120782 15543320</span>
+<span class="co">#&gt;  2  (A)n absdist     2  226476 11260783</span>
+<span class="co">#&gt;  3  (A)n absdist     3   31241  7823902</span>
+<span class="co">#&gt;  4  (A)n absdist     4    8931  6280428</span>
+<span class="co">#&gt;  5  (A)n absdist     5   41316  5741843</span>
+<span class="co">#&gt;  6  (A)n absdist     6   22519  2568034</span>
+<span class="co">#&gt;  7  (A)n absdist     7   15173  2434224</span>
+<span class="co">#&gt;  8  (A)n absdist     8   21985  2346246</span>
+<span class="co">#&gt;  9  (A)n absdist     9   13457  1765667</span>
+<span class="co">#&gt; 10  (A)n absdist    10  134007    25500</span>
+<span class="co">#&gt; # ... with 16,671 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code>broom::tidy()</code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
 
-<span class="co"># silence the tests with ties ...</span>
-ks.test.quiet &lt;-<span class="st"> </span><span class="cf">function</span>(...) {<span class="kw">suppressWarnings</span>(<span class="kw">ks.test</span>(...))}
-
-pvals &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">do</span>(<span class="dt">twosided =</span> broom<span class="op">::</span><span class="kw">tidy</span>(<span class="kw">ks.test.quiet</span>(.<span class="op">$</span>obs, .<span class="op">$</span>shuf)),
-                    <span class="dt">less =</span> broom<span class="op">::</span><span class="kw">tidy</span>(<span class="kw">ks.test.quiet</span>(.<span class="op">$</span>obs, .<span class="op">$</span>shuf, <span class="dt">alternative =</span> <span class="st">'less'</span>)),
-                    <span class="dt">greater =</span> broom<span class="op">::</span><span class="kw">tidy</span>(<span class="kw">ks.test.quiet</span>(.<span class="op">$</span>obs, .<span class="op">$</span>shuf, <span class="dt">alternative =</span> <span class="st">'greater'</span>))) <span class="op">%&gt;%</span>
+pvals &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">do</span>(<span class="dt">twosided =</span> <span class="kw">tidy</span>(<span class="kw">ks.test</span>(.<span class="op">$</span>obs, .<span class="op">$</span>shuf)),
+                    <span class="dt">less =</span> <span class="kw">tidy</span>(<span class="kw">ks.test</span>(.<span class="op">$</span>obs, .<span class="op">$</span>shuf, <span class="dt">alternative =</span> <span class="st">'less'</span>)),
+                    <span class="dt">greater =</span> <span class="kw">tidy</span>(<span class="kw">ks.test</span>(.<span class="op">$</span>obs, .<span class="op">$</span>shuf, <span class="dt">alternative =</span> <span class="st">'greater'</span>))) <span class="op">%&gt;%</span>
 <span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(alt, type, <span class="op">-</span>name, <span class="op">-</span>stat) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">unnest</span>(type) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(name<span class="op">:</span>p.value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(p.value)
-<span class="co">#&gt; Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character</span></code></pre></div>
+<span class="st">  </span><span class="kw">arrange</span>(p.value)</code></pre></div>
 <p>Histgrams of the different stats help visulaize the distribution of p.values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pvals, <span class="kw">aes</span>(p.value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) <span class="op">+</span>
@@ -242,9 +235,9 @@ promoters_coding &lt;-<span class="st"> </span><span class="kw">filter</span>(pr
 promoters_ncoding &lt;-<span class="st"> </span><span class="kw">filter</span>(promoters, name <span class="op">==</span><span class="st"> 'non-coding'</span>)
 
 promoters_coding
-<span class="co">#&gt; # A tibble: 973 × 6</span>
+<span class="co">#&gt; # A tibble: 973 x 6</span>
 <span class="co">#&gt;    chrom    start      end   name score strand</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
 <span class="co">#&gt;  1 chr22 16287937 16292937 coding     0      -</span>
 <span class="co">#&gt;  2 chr22 16449804 16454804 coding     0      -</span>
 <span class="co">#&gt;  3 chr22 17073700 17078700 coding     0      -</span>
@@ -258,9 +251,9 @@ promoters_coding
 <span class="co">#&gt; # ... with 963 more rows</span>
 
 promoters_ncoding
-<span class="co">#&gt; # A tibble: 294 × 6</span>
+<span class="co">#&gt; # A tibble: 294 x 6</span>
 <span class="co">#&gt;    chrom    start      end       name score strand</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
 <span class="co">#&gt;  1 chr22 16152078 16157078 non-coding     0      +</span>
 <span class="co">#&gt;  2 chr22 16157065 16162065 non-coding     0      +</span>
 <span class="co">#&gt;  3 chr22 16157065 16162065 non-coding     0      +</span>
@@ -286,7 +279,8 @@ pvals_coding &lt;-<span class="st"> </span><span class="kw">projection_stats</sp
 pvals_ncoding &lt;-<span class="st"> </span><span class="kw">projection_stats</span>(rpts, promoters_ncoding, genome, <span class="st">'name'</span>, <span class="st">'non_coding'</span>)
 
 pvals &lt;-
-<span class="st">  </span><span class="kw">bind_rows</span>(pvals_ncoding, pvals_coding) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">bind_rows</span>(pvals_ncoding, pvals_coding) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>tidyr<span class="op">::</span><span class="kw">unnest</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>chrom)
 
@@ -298,7 +292,7 @@ pvals &lt;-<span class="st"> </span><span class="kw">filter</span>(pvals, n_repe
 pvals &lt;-<span class="st"> </span><span class="kw">mutate</span>(pvals, <span class="dt">q.value =</span> <span class="kw">p.adjust</span>(p.value))
 
 pvals
-<span class="co">#&gt; # A tibble: 179 × 7</span>
+<span class="co">#&gt; # A tibble: 179 x 7</span>
 <span class="co">#&gt;      name       type n_repeats     p.value obs_exp_ratio lower_tail</span>
 <span class="co">#&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;</span>
 <span class="co">#&gt;  1   (A)n non_coding        28 0.003529188     4.7150373      FALSE</span>
