@@ -1,10 +1,8 @@
 ## New minor version
 
-* This is a new minor version with a few API changes (see NEWS.md).
+* This is a new minor version (see NEWS.md).
 
-* A major change is the packaging of dplyr headers in valr, which removes the
-  dplyr LinkingTo dependency and eliminates errors associated with linking
-  errors against the forthcoming dplyr v0.6.0 release.
+* This version incorporates changes to be compatible with the new version of dplyr (v0.7.0).
 
 ## Test environments
 
