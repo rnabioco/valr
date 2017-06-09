@@ -14,7 +14,7 @@ License: MIT + file LICENSE
 Depends:
     R (>= 3.1.2)
 Imports:
-    dplyr (>= 0.6.0),
+    dplyr (>= 0.7.0),
     rlang,
     readr,
     stringr,
@@ -36,7 +36,6 @@ Suggests:
     tidyr,
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-Remotes: tidyverse/dplyr
 URL: http://github.com/rnabioco/valr/
 BugReports: https://github.com/rnabioco/valr/issues
 Roxygen: list(markdown = TRUE)
