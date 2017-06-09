@@ -28,6 +28,7 @@
 #' @importFrom rlang quos sym syms
 #' @importFrom stats fisher.test na.omit
 #' @importFrom utils head tail
+#' @importFrom broom tidy
 #' @import ggplot2
 #' @import dplyr
 "_PACKAGE"

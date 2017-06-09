@@ -81,7 +81,7 @@ bed_fisher <- function(x, y, genome) {
                                        'in x?' = c('yes', 'no')))
 
   stat <- stats::fisher.test(fisher_mat)
-  tidy(stat)
+  broom::tidy(stat)
 
 }
 

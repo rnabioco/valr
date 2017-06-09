@@ -1,7 +1,7 @@
 Package: valr
 Type: Package
 Title: Genome Interval Arithmetic in R
-Version: 0.2.0.9001
+Version: 0.3.0
 Authors@R: c(
     person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com'),
     person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
@@ -19,6 +19,7 @@ Imports:
     readr,
     stringr,
     tibble,
+    broom,
     ggplot2,
 SystemRequirements: C++11
 LinkingTo:
@@ -32,7 +33,6 @@ Suggests:
     covr,
     RMySQL,
     purrr,
-    broom,
     tidyr,
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

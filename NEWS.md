@@ -6,10 +6,6 @@
 
 * Speed-ups in `bed_makewindows()` (~50x), `bed_merge()` (~4x), and `bed_flank()` (~4x) (thanks to @kriemo and @sheridar). Thanks to the sponsors of the [Biofrontiers Hackathon](https://hackathon.colorado.edu/) for the caffeine underlying these improvements.
 
-## Minor changes
-
-* provide `broom::tidy` compatibility functions to remove broom dependency.
-
 ## Bug fixes
 
 * intervals from `bed_random()` are now sorted properly.
