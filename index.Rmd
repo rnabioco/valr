@@ -17,8 +17,8 @@ knitr::opts_chunk$set(
 [![Build Status](https://travis-ci.org/rnabioco/valr.svg?branch=master)](https://travis-ci.org/rnabioco/valr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rnabioco/valr?branch=master&svg=true)](https://ci.appveyor.com/project/jayhesselberth/valr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg)](https://codecov.io/github/rnabioco/valr?branch=master)
-[![](http://www.r-pkg.org/badges/version/valr)](http://www.r-pkg.org/pkg/valr)
-[![](http://cranlogs.r-pkg.org/badges/valr?color=FFD700)](https://CRAN.R-project.org/package=valr)
+[![](http://www.r-pkg.org/badges/version/valr)](https://CRAN.R-project.org/package=valr)
+[![](http://cranlogs.r-pkg.org/badges/valr?color=FFD700)](http://www.r-pkg.org/pkg/valr)
 
 **`valr` provides tools to read and manipulate genome intervals and signals**, similar to the [`BEDtools`][1] suite. `valr` enables analysis in the R/RStudio environment, leveraging modern R tools in the [`tidyverse`][14] for a terse, expressive syntax. Compute-intensive algorithms are implemented in [`Rcpp`][3]/C++, and many methods take advantage of the speed and grouping capability provided by [`dplyr`][2].
 
@@ -26,13 +26,13 @@ knitr::opts_chunk$set(
 
 The latest stable version can be installed from CRAN:
 
-```r
+``` r
 install.packages('valr')
 ```
 
 The latest development version can be installed from github:
 
-```r
+``` r
 # install.packages("devtools")
 devtools::install_github('rnabioco/valr')
 ```
@@ -43,11 +43,11 @@ devtools::install_github('rnabioco/valr')
 
 **Note:** `valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
-### Familiar tools, all within R
+### Familiar tools, natively in R
 
-The functions in `valr` have similar names to their `BEDtools` counterparts, and so will be familiar to users coming from the `BEDtools` suite. Similar to [`pybedtools`](https://daler.github.io/pybedtools/#why-pybedtools), `valr` has a terse syntax:
+The functions in `valr` have similar names to their `BEDtools` counterparts, and so will be familiar to users coming from the `BEDtools` suite. Unlike other tools that wrap `BEDtools` and write temporary files to disk, `valr` tools run natively in memory. Similar to [`pybedtools`](https://daler.github.io/pybedtools/#why-pybedtools), `valr` has a terse syntax:
 
-```{r syntax_demo, message = FALSE, eval = FALSE}
+```{r syntax_demo, message = FALSE}
 library(valr)
 library(dplyr)
 
@@ -68,7 +68,7 @@ nearby %>%
 
 `valr` includes helpful glyphs to illustrate the results of specific operations, similar to those found in the `BEDtools` documentation. For example, `bed_glyph()` illustrates the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
-```{r intersect_glyph, echo = FALSE}
+```{r intersect_glyph}
 library(valr)
 
 x <- valr::trbl_interval(
@@ -182,7 +182,7 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 [1]: http://bedtools.readthedocs.org/en/latest/
 [2]: https://github.com/hadley/dplyr
 [3]: http://www.rcpp.org/
-[4]: https://pythonhosted.org/pybedtools/
+[4]: https://daler.github.io/pybedtools/
 [5]: http://bedops.readthedocs.org/en/latest/index.html
 [6]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
 [7]: https://CRAN.R-project.org/package=bedr 
