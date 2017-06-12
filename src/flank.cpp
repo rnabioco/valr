@@ -17,7 +17,7 @@ void check_coords(int start, int end,
 
   if (start == end) return ;
 
-  if (start > 0 && end <= chrom_size) {
+  if (start >= 0 && end <= chrom_size) {
 
     starts_out.push_back(start);
     ends_out.push_back(end);
@@ -25,8 +25,8 @@ void check_coords(int start, int end,
 
   } else if (trim) {
 
-    if (start < 1) {
-      starts_out.push_back(1) ;
+    if (start < 0) {
+      starts_out.push_back(0) ;
     } else {
       starts_out.push_back(start) ;
     }
