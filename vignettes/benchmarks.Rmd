@@ -1,0 +1,103 @@
+---
+title: "Benchmarks"
+date: '`r format(Sys.Date(), "%B %d %Y")`'
+output:
+  rmarkdown::html_vignette:
+  toc: true
+  toc_depth: 2
+  vignette: >
+    %\VignetteIndexEntry{valr-benchmarks}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "img/benchmarks-",
+  fig.height = 4,
+  fig.align = "center",
+  fig.width = 8
+)
+```
+
+# Current benchmarks
+
+```{r benchmarks, echo = FALSE, message = FALSE, warning = FALSE}
+library(valr)
+library(dplyr)
+library(ggplot2)
+library(tibble)
+library(scales)
+library(microbenchmark)
+
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+
+# number of intervals
+n <- 1e6
+# number of timing reps
+nrep <- 20
+
+seed_x <- 1010486
+x <- bed_random(genome, n = n, seed = seed_x)
+seed_y <- 9283019
+y <- bed_random(genome, n = n, seed = seed_y)
+
+res <- microbenchmark(
+  # randomizing functions
+  bed_random(genome, n = n, seed = seed_x),
+  bed_shuffle(x, genome, seed = seed_x),
+  # # single tbl functions
+  bed_slop(x, genome, both = 1000),
+  bed_flank(x, genome, both = 1000),
+  bed_shift(x, genome),
+  bed_merge(x),
+  bed_cluster(x),
+  bed_complement(x, genome),
+  # multi tbl functions
+  bed_closest(x, y),
+  bed_intersect(x, y),
+  bed_map(x, y, .n = n()),
+  bed_subtract(x, y),
+  bed_window(x, y, genome),
+  # stats
+  bed_absdist(x, y, genome),
+  bed_reldist(x, y),
+  bed_jaccard(x, y),
+  bed_fisher(x, y, genome),
+  bed_projection(x, y, genome),
+  # utilities
+  bed_makewindows(x, genome, win_size = 100),
+  times = nrep,
+  unit = 's')
+
+# covert nanoseconds to seconds
+res <- res %>%
+  as_tibble() %>%
+  mutate(time = time / 1e9) %>%
+  arrange(time)
+
+# futz with the x-axis
+maxs <- res %>%
+  group_by(expr) %>%
+  summarize(max.time = max(boxplot.stats(time)$stats))
+
+# filter out outliers
+res <- res %>%
+  left_join(maxs) %>%
+  filter(time <= max.time * 1.05)
+
+ggplot(res, aes(x=reorder(expr, time), y=time)) +
+  geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="valr benchmarks",
+    subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repititions"))
+
+library(devtools)
+devtools::session_info()
+```

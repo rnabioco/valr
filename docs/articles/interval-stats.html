@@ -41,6 +41,9 @@
     <li>
       <a href="../articles/interval-stats.html">Interval Statistics</a>
     </li>
+    <li>
+      <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -71,7 +74,7 @@
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">June 07 2017</h4>
+            <h4 class="date">June 12 2017</h4>
           </div>
 
     
@@ -169,21 +172,21 @@ shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(s
 <span class="st">  </span><span class="kw">na.omit</span>()
 
 res
-<span class="co">#&gt; # A tibble: 16,725 x 5</span>
+<span class="co">#&gt; # A tibble: 16,756 x 5</span>
 <span class="co">#&gt; # Groups:   name, stat [1,901]</span>
 <span class="co">#&gt;     name    stat   .id     obs     shuf</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  (A)n absdist     1 5120782 15441955</span>
-<span class="co">#&gt;  2  (A)n absdist     2  226476 14007939</span>
-<span class="co">#&gt;  3  (A)n absdist     3   31241 13550738</span>
-<span class="co">#&gt;  4  (A)n absdist     4    8931 12874389</span>
-<span class="co">#&gt;  5  (A)n absdist     5   41316 12081373</span>
-<span class="co">#&gt;  6  (A)n absdist     6   22519  8172241</span>
-<span class="co">#&gt;  7  (A)n absdist     7   15173  7825056</span>
-<span class="co">#&gt;  8  (A)n absdist     8   21985  5440688</span>
-<span class="co">#&gt;  9  (A)n absdist     9   13457  3806590</span>
-<span class="co">#&gt; 10  (A)n absdist    10  134007   732375</span>
-<span class="co">#&gt; # ... with 16,715 more rows</span></code></pre></div>
+<span class="co">#&gt;  1  (A)n absdist     1 5120782 15040461</span>
+<span class="co">#&gt;  2  (A)n absdist     2  226476 13462846</span>
+<span class="co">#&gt;  3  (A)n absdist     3   31241  8274853</span>
+<span class="co">#&gt;  4  (A)n absdist     4    8931  8040570</span>
+<span class="co">#&gt;  5  (A)n absdist     5   41316  7274422</span>
+<span class="co">#&gt;  6  (A)n absdist     6   22519  6327201</span>
+<span class="co">#&gt;  7  (A)n absdist     7   15173   608852</span>
+<span class="co">#&gt;  8  (A)n absdist     8   21985    55142</span>
+<span class="co">#&gt;  9  (A)n absdist     9   13457    80976</span>
+<span class="co">#&gt; 10  (A)n absdist    10  134007     9197</span>
+<span class="co">#&gt; # ... with 16,746 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code>broom::tidy()</code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
 
@@ -427,7 +430,8 @@ knitr<span class="op">::</span><span class="kw">kable</span>(signif_tests)</code
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#overview">Overview</a></li>
       <li><a href="#distance-metrics">Distance metrics</a></li>

@@ -41,7 +41,7 @@ library(tibble)
 
 `valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
-### Familiar tools, all within R
+### Familiar tools, natively in R
 
 The functions in `valr` have similar names to their `BEDtools` counterparts, and so will be familiar to users coming from the `BEDtools` suite. Similar to [`pybedtools`](https://daler.github.io/pybedtools/#why-pybedtools), `valr` has a terse syntax:
 
@@ -71,43 +71,47 @@ bed_file <- valr_example("3fields.bed.gz")
 read_bed(bed_file) # accepts filepaths or URLs
 ```
 
-`valr` can also operate on BED-like data.frames already constructed in R, provided that columns `chrom`, `start` and `end` are present. Additionally tbls can also be hand-contructed using `trbl_intervals()`.
+`valr` can also operate on BED-like data.frames already constructed in R, provided that columns named `chrom`, `start` and `end` are present. New tbls can also be contructed using `trbl_interval()`.
 
 ```{r trbl_ivls}
 bed <- trbl_interval(
-  ~chrom, ~start, ~end, 
+  ~chrom, ~start,  ~end, 
   "chr1", 1657492, 2657492, 
   "chr2", 2501324, 3094650
 )
+
 bed
 ```
 
-### BED format
-`valr` adheres to the BED [format](http://genome.ucsc.edu/FAQ/FAQformat#format1) which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:
+### Interval coordinates
+
+`valr` adheres to the [BED format](http://genome.ucsc.edu/FAQ/FAQformat#format1), which specifies that the start position for an interval is zero-based and the end position is one-based. I.e. the first position in a chromosome is `0` and the end position for a chromosome is one position past the last base, but is not included in the interval. For example:
 
 ```{r zero-based}
-# for a chromosome 100 basepairs in length
-whole_chrom <- trbl_interval(
+# a chromosome 100 basepairs in length
+chrom <- trbl_interval(
   ~chrom, ~start, ~end, 
-  "chr1", 0, 100
+  "chr1", 0,      100
 )
-whole_chrom
 
-# for single basepair intervals
-single_bases <- trbl_interval(
+chrom
+
+# single base-pair intervals
+bases <- trbl_interval(
   ~chrom, ~start, ~end, 
-  "chr1", 0, 1, # first base of chromosome
-  "chr1", 1, 2,  # second base of chromosome
-  "chr1", 99, 100 # last base of chromosome
-  )
-single_bases
+  "chr1", 0,      1,  # first base of the chrom
+  "chr1", 1,      2,  # second base of the chrom
+  "chr1", 99,     100 # last base of chrom
+)
+
+bases
 ```
 
 ### Remote databases
 
 Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
 
-```{r db, warning = F, eval = F}
+```{r db, warning = FALSE, eval = FALSE}
 # access the `refGene` tbl on the `hg38` assembly.
 if(require(RMySQL)) {
   ucsc <- db_ucsc('hg38')
@@ -283,66 +287,12 @@ ggplot(res, aes(x = .win_id, y = win_mean)) +
 
 ### Interval statistics
 
-Estimates of significance for interval overlaps can be obtained by combining `bed_shuffle()`, `bed_random()` and the `sample_` functions from `dplyr` with interval statistics in `valr`.
-
-Here we examine the overlap of repeat classes in the human genome (on `chr22` only, for simplicity) using `bed_jaccard()`.
-
-```{r reldist_shuffle, message = FALSE, warning = FALSE}
-library(purrr)
-library(tidyr)
-
-repeats <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
-genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
-
-
-shuffle_intervals <- function(n, .data, genome) {
-  replicate(n, bed_shuffle(.data, genome, seed = 1010486), simplify = FALSE) %>%
-    bind_rows(.id = 'rep') %>%
-    group_by(rep) %>% nest()
-}
-
-shuffled <- shuffle_intervals(n = 100, repeats, genome) %>%
-  mutate(jaccard = data %>%
-           map(bed_jaccard, repeats) %>%
-           map_dbl("jaccard"))
-  
-shuffled
-```
+Examples of interval statistics are available in `vignette('interval-statistics')`.
 
 ## Benchmarks
 
-Certain algorithms in `valr` were implemented in `Rcpp` to enable fluid interactive analysis.  This graph illustrates the timing of functions in `valr` for two sets of 1 million random 1 kilobase intervals from the hg19 genome.
+Current benchmarks are available in `vignette('benchmarks')`.
 
-```{r benchmarks, echo = FALSE, message = FALSE, fig.width=6}
-if(require(microbenchmark)) {
-
-    genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
-
-    seed <- 1010486
-    
-    x <- bed_random(genome, n = 1e6, seed = seed)
-    y <- bed_random(genome, n = 1e6, seed = seed)
-
-    res <- microbenchmark(
-      bed_random(genome, seed = seed), bed_closest(x, y),
-      bed_intersect(x, y), bed_merge(x),
-      bed_subtract(x, y), bed_complement(x, genome),
-      bed_shuffle(x, genome, seed = seed),
-      bed_absdist(x, y, genome), bed_reldist(x, y),
-      bed_jaccard(x, y), bed_fisher(x, y, genome),
-      times = 1,
-      unit = 's')
-
-    # from unexported microbenchmark::convert_to_unit
-    res$ntime <- res$time / 1e9 
-
-    ggplot(res, aes(y=reorder(expr, ntime), x=ntime)) +
-      geom_point(color='red', size=4) +
-      xlab('execution time (seconds)') + ylab('') +
-      theme_bw()
-}
-```
- 
 ## API
 
 Function names are similar to their their [BEDtools][1] counterparts, with some additions.
