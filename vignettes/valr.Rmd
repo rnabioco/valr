@@ -285,14 +285,6 @@ ggplot(res, aes(x = .win_id, y = win_mean)) +
   theme_classic()
 ```
 
-### Interval statistics
-
-Examples of interval statistics are available in `vignette('interval-statistics')`.
-
-## Benchmarks
-
-Current benchmarks are available in `vignette('benchmarks')`.
-
 ## API
 
 Function names are similar to their their [BEDtools][1] counterparts, with some additions.

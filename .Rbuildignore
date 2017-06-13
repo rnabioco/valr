@@ -15,3 +15,6 @@
 ^_pkgdown\.yml$
 ^man-roxygen$
 ^.github$
+# ignore long-running vignettes
+^vignettes\/interval-statistics\.Rmd$
+^vignettes\/benchmarks\.Rmd$
