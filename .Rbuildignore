@@ -16,5 +16,5 @@
 ^man-roxygen$
 ^.github$
 # ignore long-running vignettes
-^vignettes\/interval-statistics\.Rmd$
-^vignettes\/benchmarks\.Rmd$
+^vignettes/benchmarks\.Rmd$
+^vignettes/interval-stats\.Rmd$
