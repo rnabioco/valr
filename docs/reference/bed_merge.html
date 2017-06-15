@@ -63,6 +63,9 @@
     <li>
       <a href="../articles/interval-stats.html">Interval Statistics</a>
     </li>
+    <li>
+      <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -183,13 +186,13 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; 4  chr1   100   200      +
 #&gt; 5  chr2     1    25      +
 #&gt; 6  chr2   400   550      +</div><div class='input'>
-<span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 4
-#&gt;   chrom start   end .value
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1  chr1     1    50      1
-#&gt; 2  chr1   100   250      5
-#&gt; 3  chr2     1    25      4
-#&gt; 4  chr2   200   550     18</div><div class='input'>
+<span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;   chrom .value
+#&gt;   &lt;chr&gt;  &lt;dbl&gt;
+#&gt; 1  chr1      1
+#&gt; 2  chr1      5
+#&gt; 3  chr2      4
+#&gt; 4  chr2     18</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
