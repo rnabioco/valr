@@ -21,13 +21,22 @@
  
 * on win-builder
 
-  Status: OK
-  0 errors | 0 warnings | 0 notes
+  Status: 1 WARNING
+  0 errors | 1 warnings | 0 notes
+  
+  This WARNING is caused by an issue with pandoc, which I understand CRAN is already addressing.
+  
+  * checking top-level files ... WARNING
+    Conversion of 'README.md' failed:
+    pandoc.exe: Could not fetch https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg
+    TlsExceptionHostPort (HandshakeFailed Error_EOF) "img.shields.io" 443
   
 * on OS X 
 
   Status: OK
   0 errors | 0 warnings | 0 notes
+  
+  The build on OS X fails on travis-ci, because the dplyr 0.7.0 binary is not available due to an ERROR in the CRAN binary build. This will be fixed in forthcoming patch release of dplyr (https://github.com/tidyverse/dplyr/commit/0b40356fe22bc33fc9ba38bac22aa898c1c40480)
   
 * on ubuntu
 
