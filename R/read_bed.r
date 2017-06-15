@@ -17,10 +17,10 @@
 #' @details \url{https://genome.ucsc.edu/FAQ/FAQformat.html#format1}
 #'
 #' @examples
-#' # read_bed assumes 3 field BED format.
+#' # read_bed autodetects column number and assigns column names and types
+#'   based on BED12 format.
 #' read_bed(valr_example('3fields.bed.gz'))
-#'
-#' read_bed(valr_example('6fields.bed.gz'), n_fields = 6)
+#' read_bed(valr_example('6fields.bed.gz'))
 #'
 #' # result is sorted by chrom and start unless `sort = FALSE`
 #' read_bed(valr_example('3fields.bed.gz'), sort = FALSE)
@@ -32,7 +32,7 @@ read_bed <- function(filename, n_fields = NULL, col_types = bed12_coltypes,
   bed_raw <- readr::read_file(filename)
 
   if (missing(n_fields)) {
-    n_fields <- ncol(readr::read_tsv(bed_raw, n_max = 5))
+    n_fields <- ncol(readr::read_tsv(bed_raw, n_max = 5, col_names = F))
     message(glue::glue("n_fields set automatically to {n_fields}"))
   }
 
