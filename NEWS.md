@@ -1,4 +1,4 @@
-# valr 0.2.0.9000
+# valr 0.3.0
 
 ## Enhancements
 
