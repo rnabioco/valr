@@ -98,8 +98,8 @@ bed_map <- function(x, y, ..., invert = FALSE,
   res <- filter(res, .overlap >= min_overlap)
 
   ##  map supplied functions to each set of intervals
-  res <- group_by_(res, .dots = c("chrom", x_names_suffix))
-  res <- summarize_(res, .dots = lazyeval::lazy_dots(...))
+  res <- group_by(res, !!! rlang::syms(c("chrom", x_names_suffix)))
+  res <- summarize(res, !!! rlang::quos(...))
   res <- ungroup(res)
   ## remove x suffix, but don't pattern match with '.' regex
   names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), '')
@@ -112,7 +112,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   res <- arrange(res, chrom, start)
 
   # reassign original `x` groups. `y` groups are gone at this point
-  res <- group_by_(res, .dots = c(groups_x))
+  res <- group_by(res, !!! rlang::syms(c(groups_x)))
 
   res
 }

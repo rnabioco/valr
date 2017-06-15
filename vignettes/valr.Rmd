@@ -66,6 +66,43 @@ nearby %>%
 
 `valr` assigns common column names to facilitate comparisons between tbls. All tbls will have `chrom`, `start`, and `end` columns, and some tbls from multi-column formats will have additional pre-determined column names. See the `read_bed()` documentation for details.
 
+```{r file_io}
+bed_file <- valr_example("3fields.bed.gz")
+read_bed(bed_file) # accepts filepaths or URLs
+```
+
+`valr` can also operate on BED-like data.frames already constructed in R, provided that columns `chrom`, `start` and `end` are present. Additionally tbls can also be hand-contructed using `trbl_intervals()`.
+
+```{r trbl_ivls}
+bed <- trbl_interval(
+  ~chrom, ~start, ~end, 
+  "chr1", 1657492, 2657492, 
+  "chr2", 2501324, 3094650
+)
+bed
+```
+
+### BED format
+`valr` adheres to the BED [format](http://genome.ucsc.edu/FAQ/FAQformat#format1) which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:
+
+```{r zero-based}
+# for a chromosome 100 basepairs in length
+whole_chrom <- trbl_interval(
+  ~chrom, ~start, ~end, 
+  "chr1", 0, 100
+)
+whole_chrom
+
+# for single basepair intervals
+single_bases <- trbl_interval(
+  ~chrom, ~start, ~end, 
+  "chr1", 0, 1, # first base of chromosome
+  "chr1", 1, 2,  # second base of chromosome
+  "chr1", 99, 100 # last base of chromosome
+  )
+single_bases
+```
+
 ### Remote databases
 
 Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).

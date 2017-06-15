@@ -69,5 +69,5 @@ test_that('intervals can be reverse sorted by start and chrom', {
     'chr3', 400,    700
     )
   expect_warning(res <- bed_sort(x, by_chrom = TRUE, reverse = TRUE))
-  expect_equal(res$start, c(1000,200,100,400)) 
+  expect_equal(res$start, c(1000,200,100,400))
 })

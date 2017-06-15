@@ -63,7 +63,7 @@ test_that("default coverage works", {
     "chr2",	180,	230,	2,	25,	"-",	6,	50,	50,	1.0000000
   )
   res <- bed_coverage(a, b)
-  expect_true(all(res == pred))   
+  expect_true(all(res == pred))
 })
 
  test_that("coverage of stranded tbls can be calc", {
@@ -78,9 +78,9 @@ test_that("default coverage works", {
    )
    res <- bed_coverage(group_by(a, strand), group_by(b, strand)) %>%
      arrange(chrom, start)
-   expect_true(all(res == pred))   
+   expect_true(all(res == pred))
  })
- 
+
  test_that(" strand_opp coverage works (strand_opp = TRUE)", {
    pred <- tibble::tribble(
      ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints,  ~.cov,  ~.len,  ~.frac,
@@ -92,11 +92,11 @@ test_that("default coverage works", {
      "chr2",	180,	230,	2,	25,	"-",	2,	50,	50,	1.0000000
    )
    res <- bed_coverage(group_by(a, strand), group_by(flip_strands(b), strand)) %>% arrange(chrom, start)
-   expect_true(all(res == pred))   
+   expect_true(all(res == pred))
  })
 
 test_that("ensure that coverage is calculated with respect to input tbls issue#108",{
-  
+
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     'chr1', 100,    200,  'B',
@@ -118,10 +118,10 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
 
   x <- arrange(x, chrom, start)
   x <- group_by(x, group, chrom)
-  y <- arrange(y, chrom, start) 
+  y <- arrange(y, chrom, start)
   y <- group_by(y, group, chrom)
-  
+
   res <- bed_coverage(x, y)
   expect_true(res[1, ".ints"] == 0)
 })
-  
+

@@ -17,7 +17,7 @@ void check_coords(int start, int end,
 
   if (start == end) return ;
 
-  if (start > 0 && end <= chrom_size) {
+  if (start >= 0 && end <= chrom_size) {
 
     starts_out.push_back(start);
     ends_out.push_back(end);
@@ -25,8 +25,8 @@ void check_coords(int start, int end,
 
   } else if (trim) {
 
-    if (start < 1) {
-      starts_out.push_back(1) ;
+    if (start < 0) {
+      starts_out.push_back(0) ;
     } else {
       starts_out.push_back(start) ;
     }
@@ -71,14 +71,14 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
 
       if (fraction) {
         if (strands[i] == "+") {
-          lstart = start - size * left;
+          lstart = start - std::round(size * left);
           lend = start;
           rstart = end;
-          rend = end + size * right;
+          rend = end + std::round(size * right);
         } else {
           lstart = end;
-          lend = end + size * left ;
-          rstart = start - size * right ;
+          lend = end + std::round(size * left) ;
+          rstart = start - std::round(size * right) ;
           rend = start ;
         }
       } else {
@@ -114,10 +114,10 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
       double size = end - start;
 
       if (fraction) {
-        lstart = start - size * left;
+        lstart = start - std::round(size * left);
         lend = start;
         rstart = end;
-        rend = end + size * right;
+        rend = end + std::round(size * right);
       } else {
         lstart = start - left;
         lend = start;

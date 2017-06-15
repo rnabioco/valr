@@ -1,10 +1,8 @@
 ## New minor version
 
-* This is a new minor version with a few API changes (see NEWS.md).
+* This is a new minor version (see NEWS.md).
 
-* A major change is the packaging of dplyr headers in valr, which removes the
-  dplyr LinkingTo dependency and eliminates errors associated with linking
-  errors against the forthcoming dplyr v0.6.0 release.
+* This version incorporates changes to be compatible with the new version of dplyr (v0.7.0).
 
 ## Test environments
 
@@ -23,13 +21,22 @@
  
 * on win-builder
 
-  Status: OK
-  0 errors | 0 warnings | 0 notes
+  Status: WARNING
+  0 errors | 1 warnings | 0 notes
   
+  This warning is caused by an issue with pandoc, which I understand CRAN is already aware of.
+  
+  * checking top-level files ... WARNING
+Conversion of 'README.md' failed:
+pandoc.exe: Could not fetch https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg
+TlsExceptionHostPort (HandshakeFailed Error_EOF) "img.shields.io" 443
+
 * on OS X 
 
   Status: OK
   0 errors | 0 warnings | 0 notes
+  
+  valr builds cleanly on my local machine. valr fails on travis-ci because the binary dplyr v0.7.0 is not available on CRAN due to an ERROR with its build. This will be fixed in a forthcoming patch release of dplyr (https://github.com/tidyverse/dplyr/commit/0b40356fe22bc33fc9ba38bac22aa898c1c40480).
   
 * on ubuntu
 

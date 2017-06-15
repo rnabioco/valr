@@ -58,9 +58,10 @@ bed_absdist <- function(x, y, genome) {
 
   # find minimum shared groups
   groups_xy <- shared_groups(y, x)
+  groups_vars <- rlang::syms(c('chrom', groups_xy))
 
-  x <- group_by_(x, .dots = c("chrom", groups_xy))
-  y <- group_by_(y, .dots = c("chrom", groups_xy))
+  x <- group_by(x, !!! groups_vars)
+  y <- group_by(y, !!! groups_vars)
 
   res <- absdist_impl(x, y)
 

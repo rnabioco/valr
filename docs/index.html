@@ -93,10 +93,10 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <a href="#why-valr" class="anchor"></a>Why <code>valr</code>?</h2>
 <p><strong>Why another tool set for interval manipulations?</strong> Based on our experience teaching genome analysis, we were motivated to develop interval arithmetic software that faciliates genome analysis in a single environment (RStudio), eliminating the need to master both command-line and exploratory analysis tools.</p>
 <p><strong>Note:</strong> <code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
-<div id="familiar-tools-all-within-r" class="section level3">
+<div id="familiar-tools-natively-in-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#familiar-tools-all-within-r" class="anchor"></a>Familiar tools, all within R</h3>
-<p>The functions in <code>valr</code> have similar names to their <code>BEDtools</code> counterparts, and so will be familiar to users coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools"><code>pybedtools</code></a>, <code>valr</code> has a terse syntax:</p>
+<a href="#familiar-tools-natively-in-r" class="anchor"></a>Familiar tools, natively in R</h3>
+<p>The functions in <code>valr</code> have similar names to their <code>BEDtools</code> counterparts, and so will be familiar to users coming from the <code>BEDtools</code> suite. Unlike other tools that wrap <code>BEDtools</code> and write temporary files to disk, <code>valr</code> tools run natively in memory. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools"><code>pybedtools</code></a>, <code>valr</code> has a terse syntax:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
 <span class="kw">library</span>(dplyr)
 
@@ -110,12 +110,40 @@ nearby &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_clo
 
 nearby <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)
+<span class="co">#&gt; # A tibble: 1,047 x 4</span>
+<span class="co">#&gt;         name.x   name.y .overlap .dist</span>
+<span class="co">#&gt;          &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1 rs530458610    P704P        0  2578</span>
+<span class="co">#&gt;  2   rs2261631    P704P        0  -267</span>
+<span class="co">#&gt;  3 rs570770556    POTEH        0  -912</span>
+<span class="co">#&gt;  4 rs538163832    POTEH        0  -952</span>
+<span class="co">#&gt;  5 rs190224195    POTEH        0 -1398</span>
+<span class="co">#&gt;  6   rs2379966 DQ571479        0  4749</span>
+<span class="co">#&gt;  7 rs142687051 DQ571479        0  3557</span>
+<span class="co">#&gt;  8 rs528403095 DQ571479        0  3308</span>
+<span class="co">#&gt;  9 rs555126291 DQ571479        0  2744</span>
+<span class="co">#&gt; 10   rs5747567 DQ571479        0 -1777</span>
+<span class="co">#&gt; # ... with 1,037 more rows</span></code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#visual-documentation" class="anchor"></a>Visual documentation</h3>
 <p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. For example, <code><a href="reference/bed_glyph.html">bed_glyph()</a></code> illustrates the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
+
+x &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><a href="reference/trbl_interval.html">trbl_interval</a></span>(
+  <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
+  <span class="st">'chr1'</span>, <span class="dv">25</span>,     <span class="dv">50</span>,
+  <span class="st">'chr1'</span>, <span class="dv">100</span>,    <span class="dv">125</span>
+)
+
+y &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><a href="reference/trbl_interval.html">trbl_interval</a></span>(
+  <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
+  <span class="st">'chr1'</span>, <span class="dv">30</span>,     <span class="dv">75</span>
+)
+
+<span class="kw"><a href="reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="reference/bed_intersect.html">bed_intersect</a></span>(x, y))</code></pre></div>
 <p><img src="img/README-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div id="reproducible-reports" class="section level3">
@@ -212,7 +240,7 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
 <a href="#related-work" class="anchor"></a>Related work</h2>
 <ul>
 <li><p>Command-line tools <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a> and <a href="http://bedops.readthedocs.org/en/latest/index.html">bedops</a>.</p></li>
-<li><p>The Python library <a href="https://pythonhosted.org/pybedtools/">pybedtools</a> wraps BEDtools.</p></li>
+<li><p>The Python library <a href="https://daler.github.io/pybedtools/">pybedtools</a> wraps BEDtools.</p></li>
 <li><p>The R packages <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a>, <a href="https://CRAN.R-project.org/package=bedr">bedr</a>, <a href="https://bioconductor.org/packages/release/bioc/html/IRanges.html">IRanges</a> and <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">GenometriCorr</a> provide similar capability with a different philosophy.</p></li>
 </ul>
 </div>
@@ -221,7 +249,8 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Links</h2>
+    <h2 class="hasAnchor">
+<a href="#sidebar" class="anchor"></a>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cran.r-project.org/package=valr">https://​cran.r-project.org/​package=valr</a>
 </li>
@@ -233,7 +262,11 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
 </li>
 </ul>
 <h2>License</h2>
-<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE">LICENSE</a></p>
+<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing valr</a></li>
+</ul>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Jay Hesselberth <br><small class="roles"> Author, maintainer </small> </li>
@@ -245,8 +278,8 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
 <li><a href="https://travis-ci.org/rnabioco/valr"><img src="https://travis-ci.org/rnabioco/valr.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/jayhesselberth/valr"><img src="https://ci.appveyor.com/api/projects/status/github/rnabioco/valr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/rnabioco/valr?branch=master"><img src="https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg" alt="Coverage Status"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/valr"><img src="http://www.r-pkg.org/badges/version/valr"></a></li>
-<li><a href="https://CRAN.R-project.org/package=valr"><img src="http://cranlogs.r-pkg.org/badges/valr?color=FFD700"></a></li>
+<li><a href="https://CRAN.R-project.org/package=valr"><img src="http://www.r-pkg.org/badges/version/valr"></a></li>
+<li><a href="http://www.r-pkg.org/pkg/valr"><img src="http://cranlogs.r-pkg.org/badges/valr?color=FFD700"></a></li>
 </ul>
 </div>
 

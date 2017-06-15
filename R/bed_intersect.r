@@ -109,11 +109,13 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c('.x', '.y')) {
   }
 
   multiple_tbls <- FALSE
+
   if (length(y_tbl) > 1){
     multiple_tbls <- TRUE
-    #bind_rows preserves grouping
+    # bind_rows preserves grouping
     y <- bind_rows(y_tbl, .id = ".source")
-    y <- select_(y, "-.source", ~everything(), ".source")
+    select_vars <- list(quo(-one_of('.source')), quo(everything()), '.source')
+    y <- select(y, !!! select_vars)
   } else {
     # only one tbl supplied, so extract out single tbl from list
     y <- y_tbl[[1]]

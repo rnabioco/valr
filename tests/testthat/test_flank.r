@@ -39,7 +39,7 @@ test_that("args with left and right works", {
   # test right side
   expect_true(out$end[3] - x$end[1] == 50)
 })
-  
+
 test_that("all left and right intervals are reported with both arg", {
   dist <- 100
   out_left <- bed_flank(x, genome, left = dist)
@@ -76,7 +76,7 @@ test_that("strand arg with left works", {
   expect_true(minus_in$start < minus_out$start)
 })
 
-test_that("strand arg with right works", {  
+test_that("strand arg with right works", {
   dist <- 100
   out <- bed_flank(x, genome, right = dist, strand = TRUE)
   expect_true(nrow(out) == 2)
@@ -121,7 +121,7 @@ test_that("strand arg with left and fraction works", {
   expect_true(out$end[2] - x$end[2] == 100)
 })
 
-test_that("strand arg with right and fraction works", { 
+test_that("strand arg with right and fraction works", {
   dist <- 0.2
   out <- bed_flank(x, genome, right = dist, strand = TRUE, fraction = TRUE)
   out <- dplyr::arrange(out, desc(start))

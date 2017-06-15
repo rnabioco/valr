@@ -10,7 +10,7 @@
 #' @examples
 #' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',      1,      10,
+#'   'chr1',      0,      10,
 #'   'chr1',      75,    100
 #' )
 #'
@@ -32,7 +32,7 @@
 #'    ~chrom, ~start, ~end,
 #'    "chr1", 100,    300,
 #'    "chr1", 200,    400,
-#'    "chr2", 1,      100,
+#'    "chr2",  0,      100,
 #'    "chr2", 200,    400,
 #'    "chr3", 500,    600
 #' )
@@ -50,7 +50,7 @@ bed_complement <- function(x, genome) {
 
   # non-overlapping chroms
   chroms_no_overlaps <- anti_join(genome, res, by = 'chrom')
-  chroms_no_overlaps <- mutate(chroms_no_overlaps, start = 1)
+  chroms_no_overlaps <- mutate(chroms_no_overlaps, start = 0)
   chroms_no_overlaps <- select(chroms_no_overlaps, chrom, start, end = size)
 
   # remove rows from x that are not in genome
@@ -59,7 +59,7 @@ bed_complement <- function(x, genome) {
   res <- group_by(res, chrom)
 
   res <- complement_impl(res, genome)
-  res <- as_data_frame(res)
+  res <- as_tibble(res)
 
   res <- bind_rows(res, chroms_no_overlaps)
   res <- arrange(res, chrom, start)
