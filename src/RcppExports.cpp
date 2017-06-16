@@ -6,18 +6,6 @@
 
 using namespace Rcpp;
 
-// absdist_impl
-DataFrame absdist_impl(GroupedDataFrame x, GroupedDataFrame y);
-RcppExport SEXP valr_absdist_impl(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(absdist_impl(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
 // bed12toexons_impl
 DataFrame bed12toexons_impl(DataFrame x);
 RcppExport SEXP valr_bed12toexons_impl(SEXP xSEXP) {
@@ -64,6 +52,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
     Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
     rcpp_result_gen = Rcpp::wrap(coverage_impl(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// dist_impl
+DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc);
+RcppExport SEXP valr_dist_impl(SEXP xSEXP, SEXP ySEXP, SEXP distcalcSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    Rcpp::traits::input_parameter< std::string >::type distcalc(distcalcSEXP);
+    rcpp_result_gen = Rcpp::wrap(dist_impl(x, y, distcalc));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -140,18 +141,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type col_chrom(col_chromSEXP);
     Rcpp::traits::input_parameter< std::string >::type col_size(col_sizeSEXP);
     rcpp_result_gen = Rcpp::wrap(random_impl(genome, length, n, seed, col_chrom, col_size));
-    return rcpp_result_gen;
-END_RCPP
-}
-// reldist_impl
-DataFrame reldist_impl(GroupedDataFrame x, GroupedDataFrame y);
-RcppExport SEXP valr_reldist_impl(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(reldist_impl(x, y));
     return rcpp_result_gen;
 END_RCPP
 }

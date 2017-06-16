@@ -45,7 +45,7 @@ bed_reldist <- function(x, y, detail = FALSE) {
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 
-  res <- reldist_impl(x, y)
+  res <- dist_impl(x, y, distcalc = "reldist")
 
   if (detail) return(res)
 
