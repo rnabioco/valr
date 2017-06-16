@@ -1,4 +1,4 @@
-// absdist.cpp
+// dist.cpp
 //
 // Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
 //
