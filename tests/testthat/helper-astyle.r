@@ -5,7 +5,7 @@ vcapply <- function(X, FUN, ..., USE.NAMES = TRUE) {
 astyle <- function(extra_args = character()) {
   astyle_cmd <- "astyle"
   if (Sys.which(astyle_cmd) == "") {
-    skip("astyle not found")
+    testthat::skip("astyle not found")
   }
 
   astyle_args <- c(

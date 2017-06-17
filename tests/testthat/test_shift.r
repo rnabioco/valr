@@ -45,24 +45,24 @@ test_that("fraction increment works", {
   fraction <- 0.5
   interval <- bed_tbl$end - bed_tbl$start
   out <- bed_shift(bed_tbl, genome, fraction = fraction)
-  expect_true(all(out$start - bed_tbl$start == fraction*interval,
-              all(out$end - bed_tbl$end == fraction*interval)))
+  expect_true(all(out$start - bed_tbl$start == fraction * interval,
+              all(out$end - bed_tbl$end == fraction * interval)))
 })
 
 test_that("negative fraction increment works", {
   fraction <- -0.5
   interval <- bed_tbl$end - bed_tbl$start
   out <- bed_shift(bed_tbl, genome, fraction = fraction)
-  expect_true(all(out$start - bed_tbl$start == fraction*interval,
-              all(out$end - bed_tbl$end == fraction*interval)))
+  expect_true(all(out$start - bed_tbl$start == fraction * interval,
+              all(out$end - bed_tbl$end == fraction * interval)))
 })
 
 test_that("rounding fraction increment works", {
   fraction <- 0.51234
   interval <- bed_tbl$end - bed_tbl$start
   out <- bed_shift(bed_tbl, genome, fraction = fraction)
-  expect_true(all(out$start - bed_tbl$start == round(fraction*interval),
-              all(out$end - bed_tbl$end == round(fraction*interval))))
+  expect_true(all(out$start - bed_tbl$start == round(fraction * interval),
+              all(out$end - bed_tbl$end == round(fraction * interval))))
 })
 
 test_that("shift by strand works", {

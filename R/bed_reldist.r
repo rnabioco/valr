@@ -58,5 +58,3 @@ bed_reldist <- function(x, y, detail = FALSE) {
                    .freq = .counts / .total)
   res
 }
-
-

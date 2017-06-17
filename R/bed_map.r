@@ -92,7 +92,8 @@ bed_map <- function(x, y, ..., invert = FALSE,
   x_names <- colnames(x)[!colnames(x) %in% "chrom"]
   x_names_suffix <- stringr::str_c(x_names, suffix$x)
 
-  # note that `y` columns have no suffix so can be referred to by the original names
+  # note that `y` columns have no suffix so can be referred to by the original
+  # names
   res <- bed_intersect(x, y, invert = invert, suffix = c(suffix$x, ''))
 
   res <- filter(res, .overlap >= min_overlap)

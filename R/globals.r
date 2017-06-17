@@ -1,5 +1,6 @@
 globalVariables(c("chrom", "start", "end", "strand",
-                  ".exon_num", ".exon_size", ".exon_start", "name", ".prev_end", "size",
+                  ".exon_num", ".exon_size", ".exon_start",
+                  "name", ".prev_end", "size",
                   "max.end", "size_mean", "int_est", ".starts", ".ends", ".row",
                   ".start", ".end", ".size", '.strand',
                   "start.x", "end.x", "strand.x",

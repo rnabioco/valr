@@ -47,7 +47,7 @@ bed_glyph <- function(expr, label = NULL) {
   # for bed_intersect replace ... with y
   if (expr[[1]] == "bed_intersect") args_req[args_req == "..."] <- "y"
 
-  args_excl <- c('genome', "...")
+  args_excl <- c("genome", "...")
   args_req <- args_req[!args_req %in% args_excl]
 
   nargs <- length(args_req)
@@ -147,7 +147,7 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
 
   if (!is.null(label)) {
     label <- as.name(label)
-    aes_label <- aes_(x = quote((end - start) / 2 + start),
+    aes_label <- aes_(x = quote( (end - start) / 2 + start),
                       y = quote(.y + 0.25),
                       label = substitute(label))
     glyph <- glyph + geom_label(aes_label, na.rm = TRUE)
