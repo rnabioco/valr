@@ -81,11 +81,11 @@ bed_window <- function(x, y, genome, ...) {
   res <- do.call(bed_intersect,
                  c(list("x" = slop_x, "y" = y), intersect_args))
 
-  res <- mutate(res, start.x = .start_x, end.x = .end_x)
+  res <- mutate(res, start.x = .start.x, end.x = .end.x)
 
   res <- ungroup(res)
 
-  res <- select(res, -.start_x, -.end_x)
+  res <- select(res, -.start.x, -.end.x)
 
   res
 }
