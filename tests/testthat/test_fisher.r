@@ -1,4 +1,4 @@
-context('bed_fisher')
+context("bed_fisher")
 
 x <- tibble::tribble(
   ~chrom, ~start, ~end,

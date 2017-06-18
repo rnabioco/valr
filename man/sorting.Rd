@@ -17,7 +17,7 @@ x <- trbl_interval(
   'chr1', 1,      100,
   'chr2', 500,    1000,
   'chr2', 100,    300
-) 
+)
 
 # sort by start
 dplyr::arrange(x, start)

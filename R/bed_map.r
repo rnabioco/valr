@@ -77,7 +77,7 @@
 #'
 #' @export
 bed_map <- function(x, y, ..., invert = FALSE,
-                    suffix = c('.x', '.y'),
+                    suffix = c(".x", ".y"),
                     min_overlap = 1) {
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
@@ -92,8 +92,9 @@ bed_map <- function(x, y, ..., invert = FALSE,
   x_names <- colnames(x)[!colnames(x) %in% "chrom"]
   x_names_suffix <- stringr::str_c(x_names, suffix$x)
 
-  # note that `y` columns have no suffix so can be referred to by the original names
-  res <- bed_intersect(x, y, invert = invert, suffix = c(suffix$x, ''))
+  # note that `y` columns have no suffix so can be referred to by the original
+  # names
+  res <- bed_intersect(x, y, invert = invert, suffix = c(suffix$x, ""))
 
   res <- filter(res, .overlap >= min_overlap)
 
@@ -102,7 +103,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   res <- summarize(res, !!! rlang::quos(...))
   res <- ungroup(res)
   ## remove x suffix, but don't pattern match with '.' regex
-  names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), '')
+  names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), "")
   names(res) <- names_no_x
 
   # find rows of `x` that did not intersect
@@ -123,18 +124,18 @@ bed_map <- function(x, y, ..., invert = FALSE,
 #' @param sep separator character
 #'
 #' @rdname bed_map
-concat <- function(.data, sep = ',') {
+concat <- function(.data, sep = ",") {
   paste0(.data, collapse = sep)
 }
 
 #' @export
 #' @rdname bed_map
-values_unique <- function(.data, sep = ',') {
+values_unique <- function(.data, sep = ",") {
   concat(unique(.data), sep = sep)
 }
 
 #' @export
 #' @rdname bed_map
-values <- function(.data, sep = ',') {
+values <- function(.data, sep = ",") {
   concat(rle(.data)$values, sep = sep)
 }

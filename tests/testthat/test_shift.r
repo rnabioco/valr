@@ -1,4 +1,4 @@
-context('bed_shift')
+context("bed_shift")
 
 bed_tbl <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
@@ -45,34 +45,34 @@ test_that("fraction increment works", {
   fraction <- 0.5
   interval <- bed_tbl$end - bed_tbl$start
   out <- bed_shift(bed_tbl, genome, fraction = fraction)
-  expect_true(all(out$start - bed_tbl$start == fraction*interval,
-              all(out$end - bed_tbl$end == fraction*interval)))
+  expect_true(all(out$start - bed_tbl$start == fraction * interval,
+              all(out$end - bed_tbl$end == fraction * interval)))
 })
 
 test_that("negative fraction increment works", {
   fraction <- -0.5
   interval <- bed_tbl$end - bed_tbl$start
   out <- bed_shift(bed_tbl, genome, fraction = fraction)
-  expect_true(all(out$start - bed_tbl$start == fraction*interval,
-              all(out$end - bed_tbl$end == fraction*interval)))
+  expect_true(all(out$start - bed_tbl$start == fraction * interval,
+              all(out$end - bed_tbl$end == fraction * interval)))
 })
 
 test_that("rounding fraction increment works", {
   fraction <- 0.51234
   interval <- bed_tbl$end - bed_tbl$start
   out <- bed_shift(bed_tbl, genome, fraction = fraction)
-  expect_true(all(out$start - bed_tbl$start == round(fraction*interval),
-              all(out$end - bed_tbl$end == round(fraction*interval))))
+  expect_true(all(out$start - bed_tbl$start == round(fraction * interval),
+              all(out$end - bed_tbl$end == round(fraction * interval))))
 })
 
 test_that("shift by strand works", {
   size <- 100
   x <- group_by(bed_tbl, strand)
   out <- bed_shift(x, genome, size)
-  expect_true(all(ifelse(out$strand == '+',
+  expect_true(all(ifelse(out$strand == "+",
                          out$start - bed_tbl$start == size,
                          out$start - bed_tbl$start == -size),
-                  ifelse(out$strand == '+',
+                  ifelse(out$strand == "+",
                          out$end - bed_tbl$end == size,
                          out$end - bed_tbl$end == -size)))
 })
@@ -82,10 +82,10 @@ test_that("shift by strand and fraction works", {
   x <- group_by(bed_tbl, strand)
   sizes <- bed_tbl$end - bed_tbl$start
   out <- bed_shift(x, genome, fraction = fraction)
-  expect_true(all(ifelse(out$strand == '+',
+  expect_true(all(ifelse(out$strand == "+",
                          out$start - bed_tbl$start == sizes * fraction,
                          out$start - bed_tbl$start == -sizes * fraction),
-                  ifelse(out$strand == '+',
+                  ifelse(out$strand == "+",
                          out$end - bed_tbl$end == sizes * fraction,
                          out$end - bed_tbl$end == -sizes * fraction)))
 })

@@ -1,4 +1,4 @@
-context('bed_complement')
+context("bed_complement")
 
 test_that("complement with covering interval", {
 
@@ -176,8 +176,8 @@ test_that("non-overlapping genome chroms are in output (#78)", {
   )
   expected <- tibble::tribble(
     ~chrom, ~start, ~end,
-    'chr1', 0,      10,
-    'chr2', 0,      100
+    "chr1", 0,      10,
+    "chr2", 0,      100
   )
   res <- bed_complement(bed, genome)
   expect_true(all(res == expected))
@@ -194,7 +194,7 @@ test_that("`x` intervals not in genome are ignored (#78)", {
   )
   expected <- tibble::tribble(
     ~chrom, ~start, ~end,
-    'chr1', 0,      500
+    "chr1", 0,      500
   )
   res <- bed_complement(bed, genome)
   expect_true(all(res == expected))

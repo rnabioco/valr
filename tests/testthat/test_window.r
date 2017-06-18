@@ -1,4 +1,4 @@
-context('bed_window')
+context("bed_window")
 
 genome <- tibble::tribble(
   ~chrom, ~size,
@@ -8,17 +8,17 @@ genome <- tibble::tribble(
 
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 500,    1000, '.',   '.',     '+',
-  "chr1", 1000,   1500, '.',   '.',     '-',
-  "chr2", 1000,   1200, '.',   '.',     '-'
+  "chr1", 500,    1000, ".",   ".",     "+",
+  "chr1", 1000,   1500, ".",   ".",     "-",
+  "chr2", 1000,   1200, ".",   ".",     "-"
 )
 
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 400,    450, '.',   '.',     '+',
-  "chr1", 1000,   1200, '.',   '.',     '-',
-  "chr1", 1100,    1500, '.',   '.',     '+',
-  "chr2", 1300,   1500, '.',   '.',     '-'
+  "chr1", 400,    450, ".",   ".",     "+",
+  "chr1", 1000,   1200, ".",   ".",     "-",
+  "chr1", 1100,    1500, ".",   ".",     "+",
+  "chr2", 1300,   1500, ".",   ".",     "-"
 )
 
 test_that("both arg works", {

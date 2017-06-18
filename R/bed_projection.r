@@ -60,7 +60,7 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   #find midpoints
-  x <- mutate(x, .midpoint = round((end + start) / 2),
+  x <- mutate(x, .midpoint = round( (end + start) / 2),
               start = .midpoint,
               end = .midpoint + 1)
   x <- select(x, -.midpoint)
@@ -79,8 +79,10 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   total_counts <- group_by(x, chrom)
   total_counts <- summarize(total_counts, .total_trials = n())
   obs_counts <- full_join(obs_counts, total_counts, by = "chrom")
-  obs_counts <- mutate(obs_counts, .obs_counts = if_else(is.na(.obs_counts),
-                                                         as.integer(0), .obs_counts))
+  obs_counts <- mutate(obs_counts,
+                       .obs_counts = if_else(is.na(.obs_counts),
+                                             as.integer(0),
+                                             .obs_counts))
 
   # calculate probabilty of overlap by chance
   y <- mutate(y, .length = end - start)
@@ -108,7 +110,8 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
     res <- summarize(res,
                      .obs_counts = sum(.obs_counts),
                      .total_trials = sum(.total_trials),
-                     .exp_prob = sum(.reference_coverage) / sum(as.numeric(size)))
+                     .exp_prob = sum(.reference_coverage) /
+                       sum(as.numeric(size)))
 
     res <- summarize(res,
                      chrom = "whole_genome",

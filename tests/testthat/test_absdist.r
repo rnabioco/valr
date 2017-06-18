@@ -1,4 +1,4 @@
-context('bed_absdist')
+context("bed_absdist")
 
 genome <- tibble::frame_data(
   ~chrom, ~size,
@@ -64,25 +64,25 @@ test_that("x ivls without matching y-ivls chroms are reported with absdist = NA"
 test_that("ensure that absdist is calculated with respect to input tbls issue#108", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
-    'chr1', 100,    200,  'A',
-    'chr1', 200,    400,  'B',
-    'chr1', 300,    500,  'C',
-    'chr2', 125,    175,  'C',
-    'chr2', 150,    200,  'A'
+    "chr1", 100,    200,  "A",
+    "chr1", 200,    400,  "B",
+    "chr1", 300,    500,  "C",
+    "chr2", 125,    175,  "C",
+    "chr2", 150,    200,  "A"
   )
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
-    'chr1', 100,    200,  'C',
-    'chr1', 200,    400,  'B',
-    'chr1', 300,    500,  'A',
-    'chr2', 125,    175,  'C',
-    'chr2', 350,    500,  'A'
+    "chr1", 100,    200,  "C",
+    "chr1", 200,    400,  "B",
+    "chr1", 300,    500,  "A",
+    "chr2", 125,    175,  "C",
+    "chr2", 350,    500,  "A"
   )
 
   genome <- tibble::tribble(
     ~chrom, ~size,
-    'chr1', 10000,
-    'chr2', 10000
+    "chr1", 10000,
+    "chr2", 10000
   )
 
   orig <- bed_absdist(x, y, genome)

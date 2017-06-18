@@ -43,8 +43,8 @@ create_introns <- function(x) {
 create_utrs5 <- function(x) {
   res <- group_by(x, name)
   res <- mutate(res,
-                start = ifelse(strand == '+', start, cds_end),
-                end   = ifelse(strand == '+', cds_start, end))
+                start = ifelse(strand == "+", start, cds_end),
+                end   = ifelse(strand == "+", cds_start, end))
   res <- ungroup(res)
   res <- select(res, chrom:strand)
 
@@ -67,8 +67,8 @@ create_utrs5 <- function(x) {
 create_utrs3 <- function(x) {
   res <- group_by(x, name)
   res <- mutate(res,
-                start = ifelse(strand == '+', cds_end, start),
-                end   = ifelse(strand == '+', end, cds_start))
+                start = ifelse(strand == "+", cds_end, start),
+                end   = ifelse(strand == "+", end, cds_start))
   res <- ungroup(res)
   res <- select(res, chrom:strand)
 
