@@ -116,4 +116,3 @@ bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
 
   res
 }
-

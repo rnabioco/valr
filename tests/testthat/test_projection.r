@@ -27,7 +27,7 @@ test_that("basic projection test works", {
   # 2 of 3 hits, 7 of 10 chance
   # 1- pbinom because pval > .5
 
-  exp <- 1 - pbinom(2, 3, 7/10)
+  exp <- 1 - pbinom(2, 3, 7 / 10)
   res <- bed_projection(x, y, genome)
   expect_equal(res$p.value, exp)
 })

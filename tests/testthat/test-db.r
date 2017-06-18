@@ -9,7 +9,7 @@ test_that("ucsc connection works", {
   skip_if_not_installed("curl")
   skip_if_not_installed("RMySQL")
 
-  if(!has_internet()) skip("no internet connection")
+  if (!has_internet()) skip("no internet connection")
 
   skip_on_cran()
   skip_on_travis()

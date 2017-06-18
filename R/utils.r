@@ -40,7 +40,7 @@ reorder_names <- function(x, y) {
   names_x <- names(x)
   names_y <- names(y)
 
-  names_x <- names_x[order(match(names_x,names_y))]
+  names_x <- names_x[order(match(names_x, names_y))]
 
   x <- select(x, one_of(names_x))
   x

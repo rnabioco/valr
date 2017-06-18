@@ -113,6 +113,3 @@ test_that("all supplied x interval columns are passed to the result", {
   res <- bed_shuffle(x, genome, seed = seed)
   expect_true(all(c("strand", "score", "name", "start") %in% colnames(res)))
 })
-
-
-

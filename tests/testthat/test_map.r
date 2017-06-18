@@ -158,4 +158,3 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
   res <- bed_map(x, y, total = sum(value))
   expect_true(all(pred == res, na.rm = T))
 })
-

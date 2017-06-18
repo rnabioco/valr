@@ -61,4 +61,3 @@ test_that("reldist respects groups (#108)", {
   expect_true(nrow(res) == 1)
 
 })
-

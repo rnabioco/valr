@@ -159,4 +159,3 @@ test_that("intervals are not reported off of chromosomes", {
     expect_true(nrow(out) == 1)
     expect_true(out$end[1] == 4501)
   })
-

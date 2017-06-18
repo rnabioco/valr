@@ -12,4 +12,3 @@ test_that("colnames are set in vcf df", {
 test_that("chrom names are set correctly", {
   expect_true(all(stringr::str_detect(x$chrom, "^chr")))
 })
-

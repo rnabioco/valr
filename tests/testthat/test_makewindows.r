@@ -87,6 +87,3 @@ test_that("num_win rev", {
   expect_true(all(res[1:10, "end"] - res[1:10, "start"] == 10))
   expect_true(all(res[11:20, "end"] - res[11:20, "start"] == 5))
 })
-
-
-

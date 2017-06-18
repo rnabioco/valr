@@ -69,7 +69,7 @@ test_that("max_dist is a positive value", {
   expect_error(bed_merge(bed_df, max_dist = -1))
 })
 
-test_that("input groups are maintained in the output tbl issue #108",{
+test_that("input groups are maintained in the output tbl issue #108", {
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
@@ -86,7 +86,7 @@ test_that("input groups are maintained in the output tbl issue #108",{
   expect_true(all(x$group %in% res$group))
 })
 
-test_that("intervals can be merged by strand",{
+test_that("intervals can be merged by strand", {
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand,
