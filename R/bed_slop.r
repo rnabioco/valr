@@ -55,8 +55,7 @@ bed_slop <- function(x, genome, both = 0, left = 0,
   if (both != 0 && (left != 0 || right != 0))
     stop("ambiguous side spec for bed_slop", call. = FALSE)
 
-  if (fraction)
-    x <- mutate(x, .size = end - start)
+  if (fraction) x <- mutate(x, .size = end - start)
 
   if (both != 0) {
     if (fraction) {

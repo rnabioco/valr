@@ -1,4 +1,4 @@
-context('bed_merge')
+context("bed_merge")
 
 test_that("merge on 1 chrom", {
   bed_df <- tibble::tribble(
@@ -73,11 +73,11 @@ test_that("input groups are maintained in the output tbl issue #108",{
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
-    'chr1', 100,    200,  'A',
-    'chr1', 200,    400,  'A',
-    'chr1', 300,    500,  'A',
-    'chr1', 125,    175,  'C',
-    'chr1', 150,    200,  'B'
+    "chr1", 100,    200,  "A",
+    "chr1", 200,    400,  "A",
+    "chr1", 300,    500,  "A",
+    "chr1", 125,    175,  "C",
+    "chr1", 150,    200,  "B"
   )
 
   x <- arrange(x, chrom, start)
@@ -90,11 +90,11 @@ test_that("intervals can be merged by strand",{
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand,
-    'chr1', 100,    200,  '+',
-    'chr1', 200,    400,  '+',
-    'chr1', 300,    500,  '+',
-    'chr1', 125,    175,  '-',
-    'chr1', 150,    200,  '-'
+    "chr1", 100,    200,  "+",
+    "chr1", 200,    400,  "+",
+    "chr1", 300,    500,  "+",
+    "chr1", 125,    175,  "-",
+    "chr1", 150,    200,  "-"
   )
 
   x <- group_by(x, strand)
@@ -106,13 +106,13 @@ test_that("summaries can be computed issue #132",{
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~strand,
-    "chr1", 1,      50,   1,      '+',
-    "chr1", 100,    200,  2,      '+',
-    "chr1", 150,    250,  3,      '-',
-    "chr2", 1,      25,   4,      '+',
-    "chr2", 200,    400,  5,      '-',
-    "chr2", 400,    500,  6,      '+',
-    "chr2", 450,    550,  7,      '+'
+    "chr1", 1,      50,   1,      "+",
+    "chr1", 100,    200,  2,      "+",
+    "chr1", 150,    250,  3,      "-",
+    "chr2", 1,      25,   4,      "+",
+    "chr2", 200,    400,  5,      "-",
+    "chr2", 400,    500,  6,      "+",
+    "chr2", 450,    550,  7,      "+"
   )
 
   res <- bed_merge(x, .value = sum(value))
@@ -124,13 +124,13 @@ test_that("multiple summaries can be computed issue #132",{
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~strand,
-    "chr1", 1,      50,   1,      '+',
-    "chr1", 100,    200,  2,      '+',
-    "chr1", 150,    250,  3,      '-',
-    "chr2", 1,      25,   4,      '+',
-    "chr2", 200,    400,  5,      '-',
-    "chr2", 400,    500,  6,      '+',
-    "chr2", 450,    550,  7,      '+'
+    "chr1", 1,      50,   1,      "+",
+    "chr1", 100,    200,  2,      "+",
+    "chr1", 150,    250,  3,      "-",
+    "chr2", 1,      25,   4,      "+",
+    "chr2", 200,    400,  5,      "-",
+    "chr2", 400,    500,  6,      "+",
+    "chr2", 450,    550,  7,      "+"
   )
 
   res <- bed_merge(x, .value = sum(value), .min = min(value))
@@ -142,9 +142,9 @@ test_that("multiple summaries can be computed issue #132",{
 test_that("contained intervals are merged issue #176", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
-    'chr1',  1,     10,
-    'chr1',  2,     5,
-    'chr1',  7,     9
+    "chr1",  1,     10,
+    "chr1",  2,     5,
+    "chr1",  7,     9
   )
 
   res <- bed_merge(x)
@@ -154,9 +154,9 @@ test_that("contained intervals are merged issue #176", {
 test_that("is_merged identifies previously merged tbls", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
-    'chr1',  1,     10,
-    'chr1',  2,     5,
-    'chr1',  7,     9
+    "chr1",  1,     10,
+    "chr1",  2,     5,
+    "chr1",  7,     9
   )
   expect_false(is_merged(x))
   res <- bed_merge(x)

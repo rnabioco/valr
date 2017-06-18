@@ -1,4 +1,4 @@
-context('bed_coverage')
+context("bed_coverage")
 
 x <- tibble::tribble(
   ~chrom,   ~start,    ~end,
@@ -99,21 +99,21 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
-    'chr1', 100,    200,  'B',
-    'chr1', 200,    400,  'A',
-    'chr1', 500,    600,  'C',
-    'chr2', 125,    175,  'C',
-    'chr2', 150,    200,  'A',
-    'chr3', 100,    300,  'A'
+    "chr1", 100,    200,  "B",
+    "chr1", 200,    400,  "A",
+    "chr1", 500,    600,  "C",
+    "chr2", 125,    175,  "C",
+    "chr2", 150,    200,  "A",
+    "chr3", 100,    300,  "A"
   )
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
-    'chr1', 100,    199,  'A',
-    'chr1', 200,    400,  'B',
-    'chr1', 500,    600,  'A',
-    'chr2', 125,    175,  'C',
-    'chr2', 350,    500,  'A',
-    'chr3', 500,    600,  'A'
+    "chr1", 100,    199,  "A",
+    "chr1", 200,    400,  "B",
+    "chr1", 500,    600,  "A",
+    "chr2", 125,    175,  "C",
+    "chr2", 350,    500,  "A",
+    "chr3", 500,    600,  "A"
   )
 
   x <- arrange(x, chrom, start)

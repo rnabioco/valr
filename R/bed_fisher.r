@@ -77,7 +77,7 @@ bed_fisher <- function(x, y, genome) {
 
   fisher_mat <- matrix(c(n_i, n_x_only, n_y_only, not_est),
                        nrow = 2,
-                       dimnames = list("in y?" = c("yes", 'no'),
+                       dimnames = list("in y?" = c("yes", "no"),
                                        "in x?" = c("yes", "no")))
 
   stat <- stats::fisher.test(fisher_mat)

@@ -32,7 +32,7 @@
 #'
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6,
-                       sort_by = c('chrom', 'start'), seed = 0) {
+                       sort_by = c("chrom", "start"), seed = 0) {
 
   if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 

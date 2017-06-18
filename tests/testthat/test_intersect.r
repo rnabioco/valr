@@ -1,4 +1,4 @@
-context('bed_intersect')
+context("bed_intersect")
 
 x <- tibble::tribble(
   ~chrom,   ~start,    ~end,
@@ -23,7 +23,7 @@ test_that("invert param works", {
   expect_equal(nrow(res), 1)
 })
 
-test_that("multple a's", {
+test_that("multple as", {
    x <- tibble::tribble(
     ~chrom,    ~start,    ~end,
     "chr1",    100,       200,
@@ -42,7 +42,7 @@ test_that("multple a's", {
   expect_equal(nrow(res), 5)
 })
 
-test_that("multple b's", {
+test_that("multple bs", {
    x <- tibble::tribble(
     ~chrom,    ~start,    ~end,
     "chr1",    100,       200
@@ -95,12 +95,12 @@ test_that("duplicate intervals are removed (#23)", {
 test_that("suffixes disambiguate x/y columns (#28)", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1500, '.',   '.',     '-'
+    "chr1", 1000,   1500, ".",   ".",     "-"
   )
 
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1200, '.',   '.',     '-'
+    "chr1", 1000,   1200, ".",   ".",     "-"
   )
 
   res <- bed_intersect(x, y)
@@ -110,15 +110,15 @@ test_that("suffixes disambiguate x/y columns (#28)", {
 test_that("incorrect `suffix` args throw errors", {
    x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score,
-    "chr1", 1000,   1500, '.',   '.'
+    "chr1", 1000,   1500, ".",   "."
   )
 
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score,
-    "chr1", 1000,   1200, '.',   '.'
+    "chr1", 1000,   1200, ".",   "."
   )
 
-  expect_error(bed_intersect(x, y, suffix = 'TESTING'))
+  expect_error(bed_intersect(x, y, suffix = "TESTING"))
 })
 
 test_that("intersections from x bed_tbl with more chroms than y are captured", {
@@ -154,11 +154,11 @@ test_that("intersections from y bed_tbl with more chroms are captured", {
 test_that("input x groups are used for comparing intervals issue #108",{
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
-    'chr1', 100,    200,  'A',
-    'chr1', 200,    400,  'A',
-    'chr1', 300,    500,  'A',
-    'chr1', 125,    175,  'B',
-    'chr1', 150,    200,  'B'
+    "chr1", 100,    200,  "A",
+    "chr1", 200,    400,  "A",
+    "chr1", 300,    500,  "A",
+    "chr1", 125,    175,  "B",
+    "chr1", 150,    200,  "B"
   )
   x <- arrange(x, chrom, start)
   x <- group_by(x, group)
@@ -170,12 +170,12 @@ test_that("input x groups are used for comparing intervals issue #108",{
 test_that("tbls grouped by strand are processed", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1500, '.',   '.',     '+'
+    "chr1", 1000,   1500, ".",   ".",     "+"
   )
 
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1200, '.',   '.',     '-'
+    "chr1", 1000,   1200, ".",   ".",     "-"
   )
 
   res <- bed_intersect(group_by(x, strand), group_by(y, strand))
@@ -186,7 +186,7 @@ test_that("tbls grouped by strand are processed", {
   expect_equal(nrow(res), 1)
 })
 
-test_that("invert = T, and custom suffixes don't result in failed anti_join()",{
+test_that("invert = T, and custom suffixes dont result in failed anti_join()",{
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr3",    500,       600
@@ -247,17 +247,17 @@ test_that("multiple y tbl_intervals can be passed to bed_intersect (#220)",{
 test_that("groups are respected when passing multiple y tbl_intervals ",{
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1500, '.',   '.',     '+'
+    "chr1", 1000,   1500, ".",   ".",     "+"
   )
 
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1200, '.',   '.',     '-'
+    "chr1", 1000,   1200, ".",   ".",     "-"
   )
 
   z <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000,   1200, '.',   '.',     '+'
+    "chr1", 1000,   1200, ".",   ".",     "+"
   )
   x <- group_by(x, strand)
   y <- group_by(y, strand)

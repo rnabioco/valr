@@ -62,7 +62,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   if (!any(c(both, left, right) > 0))
     stop("specify one of both, left, right", call. = FALSE)
 
-  if (strand && !'strand' %in% colnames(x))
+  if (strand && !"strand" %in% colnames(x))
     stop("expected `strand` column in `x`", call. = FALSE)
 
   if (both != 0 && (left != 0 || right != 0))

@@ -29,7 +29,7 @@ NULL
 #' }
 #'
 #' @export
-db_ucsc <- function(dbname, host = 'genome-mysql.cse.ucsc.edu',
+db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
                     user = "genomep", password = "password",
                     port = 3306, ...) {
   src_mysql(dbname, host, port, user, password, ...) # nocov
@@ -49,7 +49,7 @@ db_ucsc <- function(dbname, host = 'genome-mysql.cse.ucsc.edu',
 #' }
 #'
 #' @export
-db_ensembl <- function(dbname, host = 'ensembldb.ensembl.org',
+db_ensembl <- function(dbname, host = "ensembldb.ensembl.org",
                        user = "anonymous", password = "",
                        port = 3306, ...) {
   src_mysql(dbname, host, port, user, password, ...) # nocov

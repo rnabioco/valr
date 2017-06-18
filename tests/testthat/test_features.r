@@ -1,6 +1,6 @@
 context("feature functions")
 
-x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
+x <- read_bed12(valr_example("mm9.refGene.bed.gz"))
 
 introns <- create_introns(x)
 utrs5 <- create_utrs5(x)

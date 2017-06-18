@@ -1,4 +1,4 @@
-context('bed_projection')
+context("bed_projection")
 
 genome <- tibble::tribble(
   ~chrom, ~size,
