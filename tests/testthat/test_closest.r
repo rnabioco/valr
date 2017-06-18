@@ -5,14 +5,14 @@ context("bed_closest")
 test_that("1bp closer, check for off-by-one errors", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr1",	10,	20
+    "chr1",     10,     20
   )
 
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 9,      10,
     "chr1", 19,     20,
-    "chr1",	20,     21
+    "chr1",     20,     21
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
@@ -21,14 +21,14 @@ test_that("1bp closer, check for off-by-one errors", {
 test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr1",	10,	20
+    "chr1",     10,     20
   )
 
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
     "chr1", 19, 20,
-    "chr1",	20, 21
+    "chr1",     20, 21
   )
   res <- bed_closest(y, x)
   expect_equal(nrow(res), 3)
@@ -37,14 +37,14 @@ test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
 test_that("0bp apart closer, check for off-by-one errors", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr1",	10,	20
+    "chr1",     10,     20
   )
 
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
     "chr1", 19, 21,
-    "chr1",	20, 21
+    "chr1",     20, 21
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
@@ -53,14 +53,14 @@ test_that("0bp apart closer, check for off-by-one errors", {
 test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr1",	10,	20
+    "chr1",     10,     20
   )
 
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
     "chr1", 19, 21,
-    "chr1",	20, 21
+    "chr1",     20, 21
   )
   res <- bed_closest(y, x)
   expect_equal(nrow(res), 3)
@@ -69,7 +69,7 @@ test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
 test_that("check that first left interval at index 0 is not lost", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr1",	10,	20
+    "chr1",     10,     20
   )
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
@@ -83,7 +83,7 @@ test_that("check that first left interval at index 0 is not lost", {
 test_that("check that first right interval at index 0 is not lost", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr1",	10,	20
+    "chr1",     10,     20
   )
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
@@ -97,11 +97,11 @@ test_that("check that first right interval at index 0 is not lost", {
 test_that("check that strand closest works (strand = TRUE)", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1", 100, 200, "a", 10,	"+")
+    "chr1", 100, 200, "a", 10,  "+")
 
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1", 90, 120, "b", 1,	"-")
+    "chr1", 90, 120, "b", 1,    "-")
 
   res <- bed_closest(group_by(x, strand), group_by(y, strand))
   expect_equal(nrow(res), 0)
@@ -111,19 +111,19 @@ test_that("check that strand closest works (strand = TRUE)", {
 test_that("check that same strand is reported (strand = TRUE", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1",	80,	100,	"q1",	1,	"+"
+    "chr1",     80,     100,    "q1",   1,      "+"
   )
 
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1",	5,	  15,	"d1.1",	1,	"+",
-    "chr1",	20,	  60,	"d1.2",	2,	"-",
-    "chr1",	200,	220,	"d1.3",	3,	"-"
+    "chr1",     5,        15,   "d1.1", 1,      "+",
+    "chr1",     20,       60,   "d1.2", 2,      "-",
+    "chr1",     200,    220,    "d1.3", 3,      "-"
   )
 
   pred <- tibble::tribble(
     ~chrom,   ~start.x,    ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y,    ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.distance,
-    "chr1",	 80,	100,	"q1",	1,	"+",	5, 	15, 	"d1.1",	1,	"+", 0, -65
+    "chr1",      80,    100,    "q1",   1,      "+",    5,      15,     "d1.1", 1,      "+", 0, -65
   )
 
   res <- bed_closest(group_by(x, strand), group_by(y, strand))
@@ -134,19 +134,19 @@ test_that("check that same strand is reported (strand = TRUE", {
 test_that("check that different strand is reported (strand_opp = TRUE", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1",	80,	100,	"q1",	1,	"+"
+    "chr1",     80,     100,    "q1",   1,      "+"
   )
 
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1",	5,	  15,	"d1.1",	1,	"+",
-    "chr1",	20,	  60,	"d1.2",	2,	"-",
-    "chr1",	200,	220,	"d1.3",	3,	"-"
+    "chr1",     5,        15,   "d1.1", 1,      "+",
+    "chr1",     20,       60,   "d1.2", 2,      "-",
+    "chr1",     200,    220,    "d1.3", 3,      "-"
   )
 
   pred <- tibble::tribble(
     ~chrom,   ~start.x,    ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1",	 80,	100,	"q1",	1,	"+",	20, 	60, 	"d1.2",	2,	"+", 0, -20
+    "chr1",      80,    100,    "q1",   1,      "+",    20,     60,     "d1.2", 2,      "+", 0, -20
   )
 
   res <- bed_closest(group_by(x, strand), group_by(flip_strands(y), strand))
@@ -157,11 +157,11 @@ test_that("check that different strand is reported (strand_opp = TRUE", {
 test_that("check that reciprocal strand closest works (strand_opp = TRUE) ", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1", 100, 200, "a", 10,	"+")
+    "chr1", 100, 200, "a", 10,  "+")
 
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-    "chr1", 80, 90, "b", 1,	"-")
+    "chr1", 80, 90, "b", 1,     "-")
 
   res <- bed_closest(group_by(x, strand), group_by(flip_strands(y), strand))
   expect_equal(nrow(res), 1)
@@ -171,14 +171,14 @@ test_that("check that reciprocal strand closest works (strand_opp = TRUE) ", {
 test_that("overlapping intervals are removed (overlap = F)", {
   x <- tibble::tribble(
     ~chrom,   ~start,    ~end,
-    "chr1",	10,	20
+    "chr1",     10,     20
   )
 
   y <- tibble::tribble(
     ~chrom,   ~start,    ~end,
     "chr1", 9, 10,
     "chr1", 19, 21,
-    "chr1",	20, 21
+    "chr1",     20, 21
   )
 
   res <- bed_closest(x, y, overlap = FALSE)
@@ -231,27 +231,27 @@ test_that("test reporting of first overlapping feature and
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
-    "chr1",	100,	101,
-    "chr1",	200,	201,
-    "chr1",	300,	301,
-    "chr1",	100000,	100010,
-    "chr1",	100020,	100040,
-    "chr2",	1,	10,
-    "chr2",	20,	30)
+    "chr1",     100,    101,
+    "chr1",     200,    201,
+    "chr1",     300,    301,
+    "chr1",     100000, 100010,
+    "chr1",     100020, 100040,
+    "chr2",     1,      10,
+    "chr2",     20,     30)
 
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
-    "chr1",	100,	101,
-    "chr1",	150,	201,
-    "chr1",	175,	375
+    "chr1",     100,    101,
+    "chr1",     150,    201,
+    "chr1",     175,    375
 )
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~start.y, ~end.y, ~.dist,
-    "chr1",	100,	101,  150,  201,  49,
-    "chr1",	200,	201,  100,  101, -99,
-    "chr1",	300,	301,  150,  201, -99,
-    "chr1",	100000,  100010,	175,  375, -99625,
-    "chr1",	100020,  100040,  175,  375, -99645
+    "chr1",     100,    101,  150,  201,  49,
+    "chr1",     200,    201,  100,  101, -99,
+    "chr1",     300,    301,  150,  201, -99,
+    "chr1",     100000,  100010,        175,  375, -99625,
+    "chr1",     100020,  100040,  175,  375, -99645
 )
   res <- bed_closest(x, y, overlap = F)
   expect_true(all(pred == res))
@@ -263,32 +263,32 @@ test_that("test reporting of first overlapping feature and
 ### tbls to test
 d_q1 <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	80,	100,	"d_q1.1",	5,	"+"
+  "chr1",       80,     100,    "d_q1.1",       5,      "+"
 )
 
 d_q2 <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	80,	100,	"d_q2.1",	5,	"-"
+  "chr1",       80,     100,    "d_q2.1",       5,      "-"
 )
 
 d_d1F <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	40,	60,	"d1F.1",	10,	"+"
+  "chr1",       40,     60,     "d1F.1",        10,     "+"
 )
 
 d_d1R <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	40,	60,	"d1R.1",	10,	"-"
+  "chr1",       40,     60,     "d1R.1",        10,     "-"
 )
 
 d_d2F <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	140,	160,	"d2F.1",	10,	"+"
+  "chr1",       140,    160,    "d2F.1",        10,     "+"
 )
 
 d_d2R <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	140,	160,	"d2R.1",	10,	"-"
+  "chr1",       140,    160,    "d2R.1",        10,     "-"
 )
 
 test_that("default distance reporting works for forward hit on left, forward query", {
@@ -374,13 +374,13 @@ test_that("default distance reporting works for reverse hit on right, reverse qu
 ### additional tbls for tests ###
 a2 <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	10,	20,	"a1",	1,	"-"
+  "chr1",       10,     20,     "a1",   1,      "-"
 )
 
 b2 <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	8,	9,	"b1",	1,	"+",
-  "chr1",	21,	22,	"b2",	1, "-"
+  "chr1",       8,      9,      "b1",   1,      "+",
+  "chr1",       21,     22,     "b2",   1, "-"
 )
 
 test_that("Make sure non-overlapping ties are reported ", {
