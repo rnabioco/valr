@@ -4,9 +4,6 @@ language: r
 warnings_are_errors: false
 cache: packages
 
-r_github_packages:
-  - jimhester/lintr
-
 matrix:
   allow_failures:
     - os: osx
@@ -44,5 +41,4 @@ matrix:
 
 after_success:
   - Rscript -e 'covr::codecov()'
-  - Rscript -e 'lintr::lint_package()'
 
