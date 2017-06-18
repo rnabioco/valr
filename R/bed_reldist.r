@@ -49,7 +49,7 @@ bed_reldist <- function(x, y, detail = FALSE) {
 
   if (detail) return(res)
 
-  res[['.reldist']] <- floor(res[['.reldist']] * 100) / 100
+  res[[".reldist"]] <- floor(res[[".reldist"]] * 100) / 100
   nr <- nrow(res)
   res <- group_by(res, .reldist)
   res <- summarize(res,

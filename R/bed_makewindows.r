@@ -53,7 +53,7 @@ bed_makewindows <- function(x, genome, win_size = 0,
   if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
   if (win_size == 0 && num_win == 0)
-    stop('specify either `win_size` or `num_win`', call. = FALSE)
+    stop("specify either `win_size` or `num_win`", call. = FALSE)
 
   # dummy win_ids
   x <- mutate(x, .win_id = 0)

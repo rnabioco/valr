@@ -9,10 +9,10 @@ test_that("1bp closer, check for off-by-one errors", {
   )
 
   y <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1", 9, 10,
-    "chr1", 19, 20,
-    "chr1",	20, 21
+    ~chrom, ~start, ~end,
+    "chr1", 9,      10,
+    "chr1", 19,     20,
+    "chr1",	20,     21
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)

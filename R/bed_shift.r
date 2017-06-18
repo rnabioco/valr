@@ -58,7 +58,7 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
 
-  stranded <- 'strand' %in% groups(x)
+  stranded <- "strand" %in% groups(x)
 
   # shift invervals
   if (!stranded && !fraction) {
@@ -76,10 +76,10 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
 
   # shift by strand
   if (stranded && !fraction){
-    res <- mutate(x, start = ifelse(strand == '+',
+    res <- mutate(x, start = ifelse(strand == "+",
                        start + size,
                        start - size),
-                     end = ifelse(strand == '+',
+                     end = ifelse(strand == "+",
                        end + size,
                        end - size))
   }

@@ -64,7 +64,7 @@ bed_subtract <- function(x, y, any = FALSE) {
   if (any) {
     # collect and return x intervals without overlaps
     res <- bed_intersect(x, y)
-    colspec <- c('chrom', 'start' = 'start.x', 'end' = 'end.x')
+    colspec <- c("chrom", "start" = "start.x", "end" = "end.x")
     anti <- anti_join(x, res, by = colspec)
 
     return(anti)

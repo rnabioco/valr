@@ -59,24 +59,24 @@ bed_glyph <- function(expr, label = NULL) {
   # bail if the result is too big
   max_rows <- 100
   if (nrow(res) > max_rows)
-    stop('max_rows exceeded in bed_glyph.', call. = FALSE)
+    stop("max_rows exceeded in bed_glyph.", call. = FALSE)
 
   # get default columns
-  cols_default <- c('chrom')
-  if ('start' %in% names(res)) cols_default <- c(cols_default, 'start')
-  if ('end' %in% names(res)) cols_default <- c(cols_default, 'end')
+  cols_default <- c("chrom")
+  if ("start" %in% names(res)) cols_default <- c(cols_default, "start")
+  if ("end" %in% names(res)) cols_default <- c(cols_default, "end")
 
   cols_vars <- rlang::syms(cols_default)
   cols_out <- select(res, !!! cols_vars)
 
   # get cols that are now suffixed in the result. This is a reasonable default
   # for bed_intersect and functions that call bed_intersect.
-  suffix_default <- stringr::fixed('.x')
+  suffix_default <- stringr::fixed(".x")
   cols_out <- bind_cols(cols_out, select(res, ends_with(suffix_default)))
 
   # get any named columns from the expr
   expr_names <- names(expr)
-  expr_names <- expr_names[expr_names != '']
+  expr_names <- expr_names[expr_names != ""]
   expr_names <- intersect(expr_names, names(res))
 
   if (length(expr_names) > 0) {
@@ -84,15 +84,15 @@ bed_glyph <- function(expr, label = NULL) {
   }
 
   # get dot cols from result, e.g. `.overlap`
-  dot_fixed <- stringr::fixed('.')
+  dot_fixed <- stringr::fixed(".")
   cols_out <- bind_cols(cols_out, select(res, starts_with(dot_fixed)))
 
   # strip suffixes from names, assumes suffixes are dot-character, e.g. `.x`
-  names_strip <- stringr::str_replace(names(cols_out), '\\.[:alnum:]$', '')
+  names_strip <- stringr::str_replace(names(cols_out), "\\.[:alnum:]$", "")
   names(cols_out) <- names_strip
 
   res <- cols_out
-  name_result <- 'result'
+  name_result <- "result"
   res <- mutate(res, .facet = name_result)
 
   # these are the equivalent of the `x` and `y` formals, except are the names
@@ -136,9 +136,9 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
   fill_colors <- c("#f0f0f0", "#bdbdbd", "#636363")
 
   glyph <- ggplot(.data) +
-    geom_rect(aes_string(xmin = 'start', xmax = 'end',
-                         ymin = '.y', ymax = '.y + 0.5',
-                         fill = '.facet'),
+    geom_rect(aes_string(xmin = "start", xmax = "end",
+                         ymin = ".y", ymax = ".y + 0.5",
+                         fill = ".facet"),
               color = "black", alpha = 0.75) +
     facet_grid(.facet ~ ., switch = "y",
                scales = "free_y", space = "free_y") +

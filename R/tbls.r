@@ -24,7 +24,7 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
   if (.validate) {
     out <- check_interval(out)
   }
-  class(out) <- union('tbl_ivl', class(out))
+  class(out) <- union("tbl_ivl", class(out))
   out
 }
 
@@ -84,7 +84,7 @@ tbl_genome <- function(x, ..., .validate = TRUE) {
   if (.validate) {
     out <- check_genome(out)
   }
-  class(out) <- union('tbl_gnm', class(out))
+  class(out) <- union("tbl_gnm", class(out))
   out
 }
 
@@ -120,22 +120,22 @@ is.tbl_genome <- function(x) {
 # Validity checks ---------------------------------------------------
 
 check_interval <- function(x) {
-  expect_names <- c('chrom', 'start', 'end')
+  expect_names <- c("chrom", "start", "end")
   check_names(x, expect_names)
   x
 }
 
 check_genome <- function(x) {
-  expect_names <- c('chrom', 'size')
+  expect_names <- c("chrom", "size")
   check_names(x, expect_names)
 
   # check for unique refs
-  chroms <- x[['chrom']]
+  chroms <- x[["chrom"]]
   dups <- duplicated(chroms)
 
   if (any(dups)) {
     stop(sprintf("duplicate chroms in genome: %s",
-                 paste0(chroms[dups], collapse = ', ')))
+                 paste0(chroms[dups], collapse = ", ")))
   }
   x
 }

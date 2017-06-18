@@ -51,7 +51,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
 
   if (max_dist < 0)
-    stop('max_dist must be positive', call. = FALSE)
+    stop("max_dist must be positive", call. = FALSE)
 
   if (is_merged(x)) return(x)
 
@@ -64,13 +64,12 @@ bed_merge <- function(x, max_dist = 0, ...) {
   # if no dots are passed then use fast internal merge
   if (!is.null(substitute(...))) {
      res <- merge_impl(res, max_dist, collapse = FALSE)
-     res <- group_by(res,
-                     !!! rlang::syms(c("chrom", ".id_merge", x_groups)),
-                     add = TRUE)
+     group_vars <- rlang::syms(c("chrom", ".id_merge", xgroups))
+     res <- group_by(res, !!! group_vars, add = TRUE)
      res <- summarize(res, !!! rlang::quos(...))
 
      res <- ungroup(res)
-     res <- select(res, !! quo(-one_of('.id_merge')))
+     res <- select(res, !! quo(-one_of(".id_merge")))
    } else {
      res <- merge_impl(res, max_dist, collapse = TRUE)
      res <- select(res, !!! rlang::syms(c("chrom", "start", "end", x_groups)))
@@ -80,7 +79,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
   res <- group_by(res, !!! rlang::syms(x_groups))
   res <- reorder_names(res, x)
 
-  attr(res, 'merged') <- TRUE
+  attr(res, "merged") <- TRUE
 
   res
 }
