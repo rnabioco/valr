@@ -34,7 +34,7 @@ void dist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
 
     low_idx = low_it - ref_midpoints.begin() ;
 
-    if (dist_fxn == "absdist"){
+    if (dist_fxn == "absdist") {
       // set up indexes for closest element, handling edge cases at start and end of x ivl vector
       if (low_idx == 0) {
         // no need to continue return absdist

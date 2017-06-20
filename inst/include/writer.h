@@ -16,7 +16,7 @@ class DataFrameBuilder {
 public:
   std::vector<std::string> names ;
   std::vector<SEXP> data ; // set to SEXP to handle any R type vector
-  DataFrameBuilder(){} ;
+  DataFrameBuilder() {} ;
 
   // output List with:  List out = DataFrameBuilder
   inline operator List() const {
@@ -30,7 +30,7 @@ public:
 
   // add vector to DataFrameBuilder
   // non-SEXP objects should be passed with Rcpp::wrap(obj)
-  inline void add_vec(std::string name, SEXP x){
+  inline void add_vec(std::string name, SEXP x) {
     names.push_back(name) ;
     data.push_back(x) ;
   }
@@ -38,7 +38,7 @@ public:
   // add dataframe to DataFrameBuilder with suffix
   inline void add_df(const DataFrame& df,
                      std::string suffix = "",
-                     bool drop_chrom = true){
+                     bool drop_chrom = true) {
 
     auto ncol = df.size() ;
     CharacterVector names = df.attr("names") ;
@@ -47,7 +47,7 @@ public:
       auto name = as<std::string>(names[i]) ;
       if (name != "chrom") {
         name += suffix ;
-      } else if (drop_chrom){
+      } else if (drop_chrom) {
         continue ;
       }
 
@@ -58,7 +58,7 @@ public:
   // add dataframe to DataFrameBuilder without suffix
   // note overloading add_df definition
   inline void add_df(const DataFrame& df,
-                     bool drop_chrom = true){
+                     bool drop_chrom = true) {
 
     auto ncol = df.size() ;
 
@@ -74,10 +74,10 @@ public:
   }
 
   // apply common  attributes to output dataframe
-  inline List format_df(int nrow){
+  inline List format_df(int nrow) {
     List res = *this ;
     auto names = this->names ;
-    set_rownames(res, nrow ) ;
+    set_rownames(res, nrow) ;
     res.attr("names") = names ;
     res.attr("class") = classes_not_grouped() ;
     return res ;
