@@ -15,16 +15,10 @@
 class DataFrameBuilder {
 public:
   std::vector<std::string> names ;
-  std::vector<SEXP> data ; // set to SEXP so that it can handle any R type vector
+  std::vector<SEXP> data ; // set to SEXP to handle any R type vector
   DataFrameBuilder(){} ;
 
-  // add vector to DataFrameBuilder
-  // non-SEXP objects should be pass with Rcpp::wrap(obj)
-  inline void add_vec(std::string name, SEXP x){
-    names.push_back(name) ;
-    data.push_back(x) ;
-  }
-
+  // output List with:  List out = DataFrameBuilder
   inline operator List() const {
     List out = wrap(data) ;
     return out ;
@@ -34,17 +28,21 @@ public:
     return data.size() ;
   }
 
-  // add dataframe to DataFrameBuilder
+  // add vector to DataFrameBuilder
+  // non-SEXP objects should be passed with Rcpp::wrap(obj)
+  inline void add_vec(std::string name, SEXP x){
+    names.push_back(name) ;
+    data.push_back(x) ;
+  }
+
+  // add dataframe to DataFrameBuilder with suffix
   inline void add_df(const DataFrame& df,
-                     std::string suffix,
+                     std::string suffix = "",
                      bool drop_chrom = true){
 
     auto ncol = df.size() ;
-
-    //  CharacterVector names
     CharacterVector names = df.attr("names") ;
 
-    // names, data
     for (int i = 0; i < ncol; i++) {
       auto name = as<std::string>(names[i]) ;
       if (name != "chrom") {
@@ -53,6 +51,24 @@ public:
         continue ;
       }
 
+      this->add_vec(name, df[i]) ;
+    }
+  }
+
+  // add dataframe to DataFrameBuilder without suffix
+  // note overloading add_df definition
+  inline void add_df(const DataFrame& df,
+                     bool drop_chrom = true){
+
+    auto ncol = df.size() ;
+
+    CharacterVector names = df.attr("names") ;
+
+    for (int i = 0; i < ncol; i++) {
+      auto name = as<std::string>(names[i]) ;
+      if (name == "chrom" && drop_chrom) {
+        continue ;
+      }
       this->add_vec(name, df[i]) ;
     }
   }
@@ -67,9 +83,5 @@ public:
     return res ;
   }
 };
-
-
-
-
 
 #endif

@@ -123,7 +123,7 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) 
 
   DataFrameBuilder out;
   // x names, data
-  out.add_df(df, std::string(""), false) ;
+  out.add_df(df, false) ;
 
   // ids and overlaps
   out.add_vec(".id_merge", wrap(ids)) ;

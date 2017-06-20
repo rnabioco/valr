@@ -108,7 +108,7 @@ DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc
 
   DataFrameBuilder out;
   // x names, data
-  out.add_df(subset_x, std::string(""), false) ;
+  out.add_df(subset_x, false) ;
 
   // distances
   std::string distname = distcalc == "absdist" ? ".absdist" : ".reldist" ;

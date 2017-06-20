@@ -153,7 +153,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
 
   DataFrameBuilder out;
   // x names, data
-  out.add_df(subset_x, std::string(""), false) ;
+  out.add_df(subset_x, false) ;
 
   // additional columns
   out.add_vec(".ints", wrap(overlap_counts)) ;
