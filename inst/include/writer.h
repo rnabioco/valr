@@ -18,7 +18,8 @@ public:
   std::vector<SEXP> data ; // set to SEXP so that it can handle any R type vector
   DataFrameBuilder(){} ;
 
-  // non-SEXP objects should be pass with wrap(obj)
+  // add vector to DataFrameBuilder
+  // non-SEXP objects should be pass with Rcpp::wrap(obj)
   inline void add_vec(std::string name, SEXP x){
     names.push_back(name) ;
     data.push_back(x) ;
@@ -33,6 +34,7 @@ public:
     return data.size() ;
   }
 
+  // add dataframe to DataFrameBuilder
   inline void add_df(const DataFrame& df,
                      std::string suffix,
                      bool drop_chrom = true){
@@ -54,17 +56,19 @@ public:
       this->add_vec(name, df[i]) ;
     }
   }
+
+  // apply common  attributes to output dataframe
+  inline List format_df(int nrow){
+    List res = *this ;
+    auto names = this->names ;
+    set_rownames(res, nrow ) ;
+    res.attr("names") = names ;
+    res.attr("class") = classes_not_grouped() ;
+    return res ;
+  }
 };
 
-inline List structure_df(const DataFrameBuilder& out,
-                  int nrow){
-  List res = out ;
-  auto names = out.names ;
-  set_rownames(res, nrow ) ;
-  res.attr("names") = names ;
-  res.attr("class") = classes_not_grouped() ;
-  return res ;
-}
+
 
 
 

@@ -68,7 +68,7 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   out.add_vec(".overlap", wrap(overlap_sizes)) ;
 
   auto nrows = subset_x.nrows() ;
-  DataFrame res = structure_df(out, nrows) ;
+  auto res = out.format_df(nrows) ;
   return res ;
 
 }

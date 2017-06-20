@@ -78,52 +78,20 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(indices_y, "data.frame");
 
-  auto ncol_x = subset_x.size() ;
-  auto ncol_y = subset_y.size() ;
-
-  CharacterVector names(ncol_x + ncol_y + 1) ;
-  CharacterVector names_x = subset_x.attr("names") ;
-  CharacterVector names_y = subset_y.attr("names") ;
-
-  // replacing y chrom with overlap, and adding distance col
-  List out(ncol_x + ncol_y + 1) ;
-
+  DataFrameBuilder out;
   // x names, data
-  for (int i = 0; i < ncol_x; i++) {
-    auto name_x = as<std::string>(names_x[i]) ;
-    if (name_x != "chrom") {
-      name_x += suffix_x ;
-    }
-    names[i] = name_x ;
-    out[i] = subset_x[i] ;
-  }
+  out.add_df(subset_x, suffix_x, false) ;
 
   // y names, data
-  for (int i = 0; i < ncol_y; i++) {
-    auto name_y = as<std::string>(names_y[i]) ;
+  out.add_df(subset_y, suffix_y, true) ;
 
-    if (name_y == "chrom") continue ;
+  // overlaps and distances
+  out.add_vec(".overlap", wrap(overlap_sizes)) ;
+  out.add_vec(".dist", wrap(distance_sizes)) ;
 
-    name_y += suffix_y ;
-
-    names[i + ncol_x - 1] = name_y ;
-    out[i + ncol_x - 1] = subset_y[i] ;
-  }
-
-  // overlaps
-  out[ncol_x + ncol_y - 1] = overlap_sizes ;
-  names[ncol_x + ncol_y - 1] = ".overlap" ;
-
-  //distances
-  out[ncol_x + ncol_y] = distance_sizes ;
-  names[ncol_x + ncol_y] = ".dist";
-
-  out.attr("names") = names ;
-  out.attr("class") = classes_not_grouped() ;
   auto nrows = subset_x.nrows() ;
-  set_rownames(out, nrows) ;
-
-  return out ;
+  auto res = out.format_df(nrows) ;
+  return res ;
 
 }
 

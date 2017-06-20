@@ -106,29 +106,17 @@ DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc
 
   DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
 
-  auto ncol_x = subset_x.size() ;
-
-  CharacterVector names(ncol_x + 1) ;
-  CharacterVector names_x = subset_x.attr("names") ;
-
-  List out(ncol_x + 1) ;
-
+  DataFrameBuilder out;
   // x names, data
-  for (int i = 0; i < ncol_x; i++) {
-    names[i] = names_x[i] ;
-    out[i] = subset_x[i] ;
-  }
-  out[ncol_x] = distances ;
+  out.add_df(subset_x, std::string(""), false) ;
 
+  // distances
   std::string distname = distcalc == "absdist" ? ".absdist" : ".reldist" ;
-  names[ncol_x] = distname ;
+  out.add_vec(distname, wrap(distances)) ;
 
-  out.attr("names") = names ;
-  out.attr("class") = classes_not_grouped() ;
   auto nrows = subset_x.nrows() ;
-  set_rownames(out, nrows) ;
-
-  return out ;
+  auto res = out.format_df(nrows) ;
+  return res ;
 
 }
 
