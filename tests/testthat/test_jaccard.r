@@ -17,7 +17,7 @@ test_that("jaccard coeff is calculated correctly", {
 })
 
 test_that("jaccard coeff is calc'd for large data sets", {
-  genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+  genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 
   x <- bed_random(genome, n = 1e5, seed = 10000)
   y <- bed_random(genome, n = 1e5, seed = 20000)

@@ -75,11 +75,11 @@ bed_window <- function(x, y, genome, ...) {
 
   # pass new list of args to bed_slop
   slop_x <- do.call(bed_slop,
-                    c(list("x" = x, "genome" = genome) , slop_args))
+                    c(list("x" = x, "genome" = genome), slop_args))
 
   # pass new list of args to bed_intersect
   res <- do.call(bed_intersect,
-                 c(list("x" = slop_x, "y" = y) , intersect_args))
+                 c(list("x" = slop_x, "y" = y), intersect_args))
 
   res <- mutate(res, start.x = .start.x, end.x = .end.x)
 

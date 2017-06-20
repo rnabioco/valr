@@ -8,7 +8,7 @@
 #' @export
 valr_example <- function(path) {
   # https://twitter.com/JennyBryan/status/780150538654527488
-  system.file("extdata", path, package = 'valr', mustWork = TRUE)
+  system.file("extdata", path, package = "valr", mustWork = TRUE)
 }
 
 #' reformat tbl column ordering based upon another tbl
@@ -40,7 +40,7 @@ reorder_names <- function(x, y) {
   names_x <- names(x)
   names_y <- names(y)
 
-  names_x <- names_x[order(match(names_x,names_y))]
+  names_x <- names_x[order(match(names_x, names_y))]
 
   x <- select(x, one_of(names_x))
   x

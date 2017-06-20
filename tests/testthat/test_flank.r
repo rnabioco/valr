@@ -1,4 +1,4 @@
-context('bed_flank')
+context("bed_flank")
 
 genome <- tibble::tribble(
  ~chrom, ~size,
@@ -7,8 +7,8 @@ genome <- tibble::tribble(
 
 x <- tibble::tribble(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
- "chr1", 500,    1000, '.',   '.',     '+',
- "chr1", 1000,   1500, '.',   '.',     '-'
+ "chr1", 500,    1000, ".",   ".",     "+",
+ "chr1", 1000,   1500, ".",   ".",     "-"
 )
 
 test_that("left arg works", {
@@ -159,4 +159,3 @@ test_that("intervals are not reported off of chromosomes", {
     expect_true(nrow(out) == 1)
     expect_true(out$end[1] == 4501)
   })
-

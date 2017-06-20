@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 language: r
 warnings_are_errors: false
-# cache: packages
+cache: packages
 
 matrix:
   allow_failures:
@@ -41,3 +41,4 @@ matrix:
 
 after_success:
   - Rscript -e 'covr::codecov()'
+

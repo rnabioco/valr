@@ -66,7 +66,7 @@ bed_fisher <- function(x, y, genome) {
   # y, not x (`n21` in fisher.cpp)
   n_y_only <- max(0, n_y - n_i)
 
-  genome_size = sum(as.numeric(genome$size))
+  genome_size <- sum(as.numeric(genome$size))
 
   # estimated total intervals (`n22_full`)
   total_est <- round(max(n_i + n_x_only + n_y_only,
@@ -77,8 +77,8 @@ bed_fisher <- function(x, y, genome) {
 
   fisher_mat <- matrix(c(n_i, n_x_only, n_y_only, not_est),
                        nrow = 2,
-                       dimnames = list('in y?' = c('yes', 'no'),
-                                       'in x?' = c('yes', 'no')))
+                       dimnames = list("in y?" = c("yes", "no"),
+                                       "in x?" = c("yes", "no")))
 
   stat <- stats::fisher.test(fisher_mat)
   broom::tidy(stat)
@@ -92,4 +92,3 @@ interval_union <- function(x) {
 
   sum(res$.size)
 }
-

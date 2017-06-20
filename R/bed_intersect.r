@@ -85,7 +85,7 @@
 #'
 #'
 #' @export
-bed_intersect <- function(x, ..., invert = FALSE, suffix = c('.x', '.y')) {
+bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
   #determine if list supplied to ... or series of variables
   if (typeof(substitute(...)) == "symbol") {
@@ -114,7 +114,7 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c('.x', '.y')) {
     multiple_tbls <- TRUE
     # bind_rows preserves grouping
     y <- bind_rows(y_tbl, .id = ".source")
-    select_vars <- list(quo(-one_of('.source')), quo(everything()), '.source')
+    select_vars <- list(quo(-one_of(".source")), quo(everything()), ".source")
     y <- select(y, !!! select_vars)
   } else {
     # only one tbl supplied, so extract out single tbl from list
@@ -134,9 +134,9 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c('.x', '.y')) {
   res <- intersect_impl(x, y, suffix$x, suffix$y)
 
   if (invert) {
-    colspec <- c('chrom' = 'chrom',
-                 'start' = paste0('start', suffix$x),
-                 'end' = paste0('end', suffix$x))
+    colspec <- c("chrom" = "chrom",
+                 "start" = paste0("start", suffix$x),
+                 "end" = paste0("end", suffix$x))
     res <- anti_join(x, res, by = colspec)
     res <- ungroup(res)
   }

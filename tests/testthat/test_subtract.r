@@ -104,14 +104,14 @@ test_that("non-overlapping intervals from different chrom are not dropped", {
 
 a <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	10,	20,	"a1",	1,	"+",
-  "chr1",	50,	70,	"a2",	2,	"-"
+  "chr1",       10,     20,     "a1",   1,      "+",
+  "chr1",       50,     70,     "a2",   2,      "-"
 )
 
 b <- tibble::tribble(
   ~chrom,   ~start,    ~end, ~name, ~score, ~strand,
-  "chr1",	18,	25,	"b1",	1,	"-",
-  "chr1",	80,	90,	"b2",	2, "+"
+  "chr1",       18,     25,     "b1",   1,      "-",
+  "chr1",       80,     90,     "b2",   2, "+"
 )
 
 test_that("tbls grouped by strand are processed", {

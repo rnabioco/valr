@@ -1,4 +1,4 @@
-context('bed_map')
+context("bed_map")
 
 #test_that("`chrom` grouping throws an error", {
 #  x <- tibble::tribble(
@@ -77,13 +77,13 @@ y <- tibble::tribble(
 
 test_that("concat works correctly", {
   res <- bed_map(x, y, vals = concat(value))
-  expected <- c('10,30,20,40', NA, NA)
+  expected <- c("10,30,20,40", NA, NA)
   expect_equal(res$vals, expected)
 })
 
 test_that("values works correctly", {
   res <- bed_map(x, y, vals = values(value))
-  expected <- c('10,30,20,40', NA, NA)
+  expected <- c("10,30,20,40", NA, NA)
   expect_equal(res$vals, expected)
 })
 
@@ -113,7 +113,7 @@ test_that("book-ended intervals are not reported", {
 
   expected <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
-    'chr1',  100,    200,   10
+    "chr1",  100,    200,   10
   )
   res <- bed_map(x, y, value = sum(value))
   expect_equal(res, expected)
@@ -123,31 +123,31 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
 
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
-    'chr1', 100,    200,  'B',
-    'chr1', 200,    400,  'A',
-    'chr1', 500,    600,  'C',
-    'chr2', 125,    175,  'C',
-    'chr2', 150,    200,  'A',
-    'chr3', 100,    300,  'A'
+    "chr1", 100,    200,  "B",
+    "chr1", 200,    400,  "A",
+    "chr1", 500,    600,  "C",
+    "chr2", 125,    175,  "C",
+    "chr2", 150,    200,  "A",
+    "chr3", 100,    300,  "A"
   )
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~value,
-    'chr1', 100,    199,  'A',  10,
-    'chr1', 200,    400,  'B', 20,
-    'chr1', 500,    600,  'A', 30,
-    'chr2', 125,    175,  'C', 40,
-    'chr2', 350,    500,  'A', 50,
-    'chr3', 500,    600,  'A', 100
+    "chr1", 100,    199,  "A",  10,
+    "chr1", 200,    400,  "B", 20,
+    "chr1", 500,    600,  "A", 30,
+    "chr2", 125,    175,  "C", 40,
+    "chr2", 350,    500,  "A", 50,
+    "chr3", 500,    600,  "A", 100
   )
 
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~total,
-    'chr1', 100,    200,  'B', NA,
-    'chr1', 200,    400,  'A', NA,
-    'chr1', 500,    600,  'C', NA,
-    'chr2', 125,    175,  'C', 40,
-    'chr2', 150,    200,  'A', NA,
-    'chr3', 100,    300,  'A', NA
+    "chr1", 100,    200,  "B", NA,
+    "chr1", 200,    400,  "A", NA,
+    "chr1", 500,    600,  "C", NA,
+    "chr2", 125,    175,  "C", 40,
+    "chr2", 150,    200,  "A", NA,
+    "chr3", 100,    300,  "A", NA
   )
 
   x <- arrange(x, chrom, start)
@@ -158,4 +158,3 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
   res <- bed_map(x, y, total = sum(value))
   expect_true(all(pred == res, na.rm = T))
 })
-

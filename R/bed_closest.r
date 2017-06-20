@@ -70,7 +70,7 @@
 #'
 #' @export
 bed_closest <- function(x, y, overlap = TRUE,
-                        suffix = c('.x', '.y')){
+                        suffix = c(".x", ".y")){
 
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_interval(y)) y <- tbl_interval(y)
