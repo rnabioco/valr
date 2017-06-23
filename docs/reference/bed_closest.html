@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -132,14 +133,14 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code>. For example,
+groups can be added using <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. For example,
 grouping by <code>strand</code> will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the <code>y</code> tbl can
 first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href = 'http://bedtools.readthedocs.io/en/latest/content/tools/closest.html'>http://bedtools.readthedocs.io/en/latest/content/tools/closest.html</a></p>
+    <p><a href='http://bedtools.readthedocs.io/en/latest/content/tools/closest.html'>http://bedtools.readthedocs.io/en/latest/content/tools/closest.html</a></p>
 <p>Other multiple set operations: <code><a href='bed_coverage.html'>bed_coverage</a></code>,
   <code><a href='bed_intersect.html'>bed_intersect</a></code>, <code><a href='bed_map.html'>bed_map</a></code>,
   <code><a href='bed_subtract.html'>bed_subtract</a></code>, <code><a href='bed_window.html'>bed_window</a></code></p>
@@ -157,7 +158,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
   <span class='st'>'chr1'</span>,     <span class='fl'>140</span>,     <span class='fl'>175</span>
 )
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><img src='bed_closest-2.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><div class='img'><img src='bed_closest-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>600</span>,

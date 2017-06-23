@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -135,31 +136,31 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href = 'https://genome.ucsc.edu/goldenpath/help/mysql.html'>https://genome.ucsc.edu/goldenpath/help/mysql.html</a>
-    <a href = 'http://www.ensembl.org/info/data/mysql.html'>http://www.ensembl.org/info/data/mysql.html</a></p>
+    <p><a href='https://genome.ucsc.edu/goldenpath/help/mysql.html'>https://genome.ucsc.edu/goldenpath/help/mysql.html</a>
+    <a href='http://www.ensembl.org/info/data/mysql.html'>http://www.ensembl.org/info/data/mysql.html</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
-  <span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>RMySQL</span>)) {
-    <span class='no'>ucsc</span> <span class='kw'>&lt;-</span> <span class='fu'>db_ucsc</span>(<span class='st'>'hg38'</span>)
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>RMySQL</span>)) {
+  <span class='no'>ucsc</span> <span class='kw'>&lt;-</span> <span class='fu'>db_ucsc</span>(<span class='st'>'hg38'</span>)
 
-    <span class='co'># fetch the `refGene` tbl</span>
-    <span class='fu'>tbl</span>(<span class='no'>ucsc</span>, <span class='st'>"refGene"</span>)
+  <span class='co'># fetch the `refGene` tbl</span>
+  <span class='fu'>tbl</span>(<span class='no'>ucsc</span>, <span class='st'>"refGene"</span>)
 
-    <span class='co'># the `chromInfo` tbls have size information</span>
-    <span class='fu'>tbl</span>(<span class='no'>ucsc</span>, <span class='st'>"chromInfo"</span>)
-  }
-})
+  <span class='co'># the `chromInfo` tbls have size information</span>
+  <span class='fu'>tbl</span>(<span class='no'>ucsc</span>, <span class='st'>"chromInfo"</span>)
+}
+<span class='co'># }</span><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>RMySQL</span>)) {
+  <span class='co'># squirrel genome</span>
+  <span class='no'>ensembl</span> <span class='kw'>&lt;-</span> <span class='fu'>db_ensembl</span>(<span class='st'>'spermophilus_tridecemlineatus_core_67_2'</span>)
 
-<span class='fu'>not_run</span>({
-  <span class='kw'>if</span>(<span class='fu'>require</span>(<span class='no'>RMySQL</span>)) {
-    <span class='co'># squirrel genome</span>
-    <span class='no'>ensembl</span> <span class='kw'>&lt;-</span> <span class='fu'>db_ensembl</span>(<span class='st'>'spermophilus_tridecemlineatus_core_67_2'</span>)
-
-    <span class='fu'>tbl</span>(<span class='no'>ensembl</span>, <span class='st'>"gene"</span>)
-  }
-})</div></pre>
+  <span class='fu'>tbl</span>(<span class='no'>ensembl</span>, <span class='st'>"gene"</span>)
+}
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

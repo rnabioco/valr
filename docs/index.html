@@ -86,7 +86,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'valr'</span>)</code></pre></div>
 <p>The latest development version can be installed from github:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'rnabioco/valr'</span>)</code></pre></div>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">'rnabioco/valr'</span>)</code></pre></div>
 </div>
 <div id="why-valr" class="section level2">
 <h2 class="hasAnchor">
@@ -109,8 +109,8 @@ intergenic &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed
 nearby &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)
 
 nearby <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/select_helpers.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)
 <span class="co">#&gt; # A tibble: 1,047 x 4</span>
 <span class="co">#&gt;         name.x   name.y .overlap .dist</span>
 <span class="co">#&gt;          &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt; &lt;int&gt;</span>
@@ -132,13 +132,13 @@ nearby <span class="op">%&gt;%</span>
 <p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. For example, <code><a href="reference/bed_glyph.html">bed_glyph()</a></code> illustrates the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
 
-x &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><a href="reference/trbl_interval.html">trbl_interval</a></span>(
+x &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/valr/topics/trbl_interval">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
   <span class="st">'chr1'</span>, <span class="dv">25</span>,     <span class="dv">50</span>,
   <span class="st">'chr1'</span>, <span class="dv">100</span>,    <span class="dv">125</span>
 )
 
-y &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><a href="reference/trbl_interval.html">trbl_interval</a></span>(
+y &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/valr/topics/trbl_interval">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
   <span class="st">'chr1'</span>, <span class="dv">30</span>,     <span class="dv">75</span>
 )
@@ -157,7 +157,7 @@ y &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><
 <p>Remote databases can be accessed with <code><a href="reference/db.html">db_ucsc()</a></code> (to access the UCSC Browser) and <code><a href="reference/db.html">db_ensembl()</a></code> (to access Ensembl databases).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access the `refGene` tbl on the `hg38` assembly</span>
 ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
-<span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)</code></pre></div>
+<span class="kw"><a href="http://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span>(ucsc, <span class="st">'refGene'</span>)</code></pre></div>
 </div>
 </div>
 <div id="api" class="section level2">
@@ -168,57 +168,56 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
 <h3 class="hasAnchor">
 <a href="#data-types" class="anchor"></a>Data types</h3>
 <ul>
-<li>
-<code><a href="reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="reference/tbl_genome.html">tbl_genome()</a></code> wrap tibbles and enforce strict column naming. <code><a href="reference/trbl_interval.html">trbl_interval()</a></code> and <code><a href="reference/trbl_genome.html">trbl_genome()</a></code> are constructors that take <code>tibble::tribble()</code> formatting.</li>
+<li>Create interval sets with <code><a href="reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="reference/tbl_genome.html">tbl_genome()</a></code>, which enforce strict column naming.</li>
 </ul>
 </div>
 <div id="reading-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#reading-data" class="anchor"></a>Reading data</h3>
 <ul>
-<li><p>BED and related files are read with <code><a href="reference/read_bed.html">read_bed()</a></code>, <code><a href="reference/read_bed.html">read_bed12()</a></code>, <code><a href="reference/read_bed.html">read_bedgraph()</a></code>, <code><a href="reference/read_bed.html">read_narrowpeak()</a></code> and <code><a href="reference/read_bed.html">read_broadpeak()</a></code>.</p></li>
-<li><p>Genome files containing chromosome name and size information are loaded with <code><a href="reference/read_genome.html">read_genome()</a></code>.</p></li>
-<li><p>VCF files are loaded with <code><a href="reference/read_vcf.html">read_vcf()</a></code>.</p></li>
-<li><p>Remote databases can be accessed with <code><a href="reference/db.html">db_ucsc()</a></code> and <code><a href="reference/db.html">db_ensembl()</a></code>.</p></li>
+<li><p>Read BED and related files with <code><a href="reference/read_bed.html">read_bed()</a></code>, <code><a href="reference/read_bed.html">read_bed12()</a></code>, <code><a href="reference/read_bed.html">read_bedgraph()</a></code>, <code><a href="reference/read_bed.html">read_narrowpeak()</a></code> and <code><a href="reference/read_bed.html">read_broadpeak()</a></code>.</p></li>
+<li><p>Read genome files containing chromosome name and size information with <code><a href="reference/read_genome.html">read_genome()</a></code>.</p></li>
+<li><p>Load VCF files with <code><a href="reference/read_vcf.html">read_vcf()</a></code>.</p></li>
+<li><p>Access remote databases with <code><a href="reference/db.html">db_ucsc()</a></code> and <code><a href="reference/db.html">db_ensembl()</a></code>.</p></li>
 </ul>
 </div>
 <div id="transforming-single-interval-sets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#transforming-single-interval-sets" class="anchor"></a>Transforming single interval sets</h3>
 <ul>
-<li><p>Interval coordinates are adjusted with <code><a href="reference/bed_slop.html">bed_slop()</a></code> and <code><a href="reference/bed_shift.html">bed_shift()</a></code>, and new flanking intervals are created with <code><a href="reference/bed_flank.html">bed_flank()</a></code>.</p></li>
-<li><p>Nearby intervals are combined with <code><a href="reference/bed_merge.html">bed_merge()</a></code> and identified (but not merged) with <code><a href="reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
-<li><p>Intervals not covered by a query are created with <code><a href="reference/bed_complement.html">bed_complement()</a></code>.</p></li>
-<li><p>Intervals can be ordered with <code>dplyr::arrange()</code>.</p></li>
+<li><p>Adjust interval coordinates with <code><a href="reference/bed_slop.html">bed_slop()</a></code> and <code><a href="reference/bed_shift.html">bed_shift()</a></code>, and create new flanking intervals with <code><a href="reference/bed_flank.html">bed_flank()</a></code>.</p></li>
+<li><p>Combine nearby intervals with <code><a href="reference/bed_merge.html">bed_merge()</a></code> and identify nearby intervals with <code><a href="reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
+<li><p>Generate intervals not covered by a query with <code><a href="reference/bed_complement.html">bed_complement()</a></code>.</p></li>
+<li><p>Order intervals with <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code>.</p></li>
 </ul>
 </div>
 <div id="comparing-multiple-interval-sets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#comparing-multiple-interval-sets" class="anchor"></a>Comparing multiple interval sets</h3>
 <ul>
-<li><p>Find overlaps between two sets of intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>.</p></li>
-<li><p>Apply functions to selected columns for overlapping intervals with <code><a href="reference/bed_map.html">bed_map()</a></code>.</p></li>
-<li><p>Remove intervals based on overlaps between two files with <code><a href="reference/bed_subtract.html">bed_subtract()</a></code>.</p></li>
+<li><p>Find overlaps between sets of intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>.</p></li>
+<li><p>Apply functions to overlapping sets of intervals with <code><a href="reference/bed_map.html">bed_map()</a></code>.</p></li>
+<li><p>Remove intervals based on overlaps with <code><a href="reference/bed_subtract.html">bed_subtract()</a></code>.</p></li>
 <li><p>Find overlapping intervals within a window with <code><a href="reference/bed_window.html">bed_window()</a></code>.</p></li>
-<li><p>Find the closest intervals independent of overlaps with <code><a href="reference/bed_closest.html">bed_closest()</a></code>.</p></li>
+<li><p>Find closest intervals independent of overlaps with <code><a href="reference/bed_closest.html">bed_closest()</a></code>.</p></li>
 </ul>
 </div>
 <div id="randomizing-intervals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#randomizing-intervals" class="anchor"></a>Randomizing intervals</h3>
 <ul>
-<li><p>Generate random intervals from an input genome with <code><a href="reference/bed_random.html">bed_random()</a></code>.</p></li>
-<li><p>Shuffle the coordinates of input intervals with <code><a href="reference/bed_shuffle.html">bed_shuffle()</a></code>.</p></li>
-<li><p>Random sampling of input intervals is done with the <code>sample_</code> function family in <code>dplyr</code>.</p></li>
+<li><p>Generate random intervals with <code><a href="reference/bed_random.html">bed_random()</a></code>.</p></li>
+<li><p>Shuffle the coordinates of intervals with <code><a href="reference/bed_shuffle.html">bed_shuffle()</a></code>.</p></li>
+<li><p>Sample input intervals with <code><a href="http://dplyr.tidyverse.org/reference/sample.html">dplyr::sample_n()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/sample.html">dplyr::sample_frac()</a></code>.</p></li>
 </ul>
 </div>
 <div id="interval-statistics" class="section level3">
 <h3 class="hasAnchor">
 <a href="#interval-statistics" class="anchor"></a>Interval statistics</h3>
 <ul>
-<li><p>Calculate significance of overlaps between two sets of intervals with <code><a href="reference/bed_fisher.html">bed_fisher()</a></code> and <code><a href="reference/bed_projection.html">bed_projection()</a></code>.</p></li>
+<li><p>Calculate significance of overlaps between sets of intervals with <code><a href="reference/bed_fisher.html">bed_fisher()</a></code> and <code><a href="reference/bed_projection.html">bed_projection()</a></code>.</p></li>
 <li><p>Quantify relative and absolute distances between sets of intervals with <code><a href="reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="reference/bed_absdist.html">bed_absdist()</a></code>.</p></li>
-<li><p>Quantify extent of overlap between two sets of intervals with <code><a href="reference/bed_jaccard.html">bed_jaccard()</a></code>.</p></li>
+<li><p>Quantify extent of overlap between sets of intervals with <code><a href="reference/bed_jaccard.html">bed_jaccard()</a></code>.</p></li>
 </ul>
 </div>
 <div id="utilities" class="section level3">

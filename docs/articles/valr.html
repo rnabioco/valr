@@ -71,7 +71,7 @@
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
             
-            <h4 class="date">2017-06-07</h4>
+            <h4 class="date">2017-06-23</h4>
           </div>
 
     
@@ -106,8 +106,8 @@ intergenic &lt;-<span class="st"> </span><span class="kw"><a href="../reference/
 nearby &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)
 
 nearby <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>)
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/select_helpers.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>)
 <span class="co">#&gt; # A tibble: 285 x 4</span>
 <span class="co">#&gt;         name.x            name.y .overlap .dist</span>
 <span class="co">#&gt;          &lt;chr&gt;             &lt;chr&gt;    &lt;int&gt; &lt;int&gt;</span>
@@ -192,20 +192,20 @@ single_bases
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access the `refGene` tbl on the `hg38` assembly.</span>
 <span class="cf">if</span>(<span class="kw">require</span>(RMySQL)) {
   ucsc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
-  <span class="kw">tbl</span>(ucsc, <span class="st">'refGene'</span>)
+  <span class="kw"><a href="http://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span>(ucsc, <span class="st">'refGene'</span>)
 }</code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#visual-documentation" class="anchor"></a>Visual documentation</h3>
 <p>The <code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> tool illustrates the results of operations in <code>valr</code>, similar to those found in the <code>BEDtools</code> documentation. This glyph shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw">tribble</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
   <span class="st">'chr1'</span>, <span class="dv">25</span>,     <span class="dv">50</span>,
   <span class="st">'chr1'</span>, <span class="dv">100</span>,    <span class="dv">125</span>
 )
 
-y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw">tribble</span>(
+y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
   <span class="st">'chr1'</span>, <span class="dv">30</span>,     <span class="dv">75</span>
 )
@@ -213,7 +213,7 @@ y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"
 <span class="kw"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y))</code></pre></div>
 <p><img src="img/overview-intersect_glyph-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw">tribble</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
   <span class="st">'chr1'</span>,      <span class="dv">1</span>,      <span class="dv">50</span>,
   <span class="st">'chr1'</span>,      <span class="dv">10</span>,     <span class="dv">75</span>,
@@ -233,14 +233,14 @@ y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"
 <h3 class="hasAnchor">
 <a href="#grouping-data" class="anchor"></a>Grouping data</h3>
 <p>The <code>group_by</code> function in dplyr can be used to perform fuctions on subsets of single and multiple <code>data_frame</code>s. Functions in <code>valr</code> leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by <code>strand</code> to perform comparisons among intervals on the same strand.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw">tribble</span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, <span class="op">~</span>strand,
   <span class="st">'chr1'</span>, <span class="dv">1</span>,      <span class="dv">100</span>,  <span class="st">'+'</span>,
   <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">150</span>,  <span class="st">'+'</span>,
   <span class="st">'chr2'</span>, <span class="dv">100</span>,    <span class="dv">200</span>,  <span class="st">'-'</span>
 )
 
-y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw">tribble</span>(
+y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, <span class="op">~</span>strand,
   <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">125</span>,  <span class="st">'+'</span>,
   <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">150</span>,  <span class="st">'-'</span>,
@@ -248,8 +248,8 @@ y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"
 )
 
 <span class="co"># intersect tbls by strand</span>
-x &lt;-<span class="st"> </span><span class="kw">group_by</span>(x, strand)
-y &lt;-<span class="st"> </span><span class="kw">group_by</span>(y, strand)
+x &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(x, strand)
+y &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(y, strand)
 
 <span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)
 <span class="co">#&gt; # A tibble: 2 x 8</span>
@@ -258,10 +258,10 @@ y &lt;-<span class="st"> </span><span class="kw">group_by</span>(y, strand)
 <span class="co">#&gt; 1  chr1       1   100        +      50   125        +       50</span>
 <span class="co">#&gt; 2  chr1      50   150        +      50   125        +       75</span></code></pre></div>
 <p>Comparisons between intervals on opposite strands are done using the <code><a href="../reference/flip_strands.html">flip_strands()</a></code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">group_by</span>(x, strand)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(x, strand)
 
 y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flip_strands.html">flip_strands</a></span>(y)
-y &lt;-<span class="st"> </span><span class="kw">group_by</span>(y, strand)
+y &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(y, strand)
 
 <span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)
 <span class="co">#&gt; # A tibble: 3 x 8</span>
@@ -305,8 +305,8 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.
 <p>Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on <code>+</code> strand genes, but <code>-</code> genes are easily accomodated by filtering them and using <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> with <code>reverse</code>d window numbers.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate 1 bp TSS intervals, `+` strand only</span>
 tss &lt;-<span class="st"> </span>genes <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(strand <span class="op">==</span><span class="st"> '+'</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">end =</span> start <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(strand <span class="op">==</span><span class="st"> '+'</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">end =</span> start <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
 
 <span class="co"># 1000 bp up and downstream</span>
 region_size &lt;-<span class="st"> </span><span class="dv">1000</span>
@@ -336,8 +336,8 @@ x
 <p>Now we use the <code>.win_id</code> group with <code><a href="../reference/bed_map.html">bed_map()</a></code> to caluclate a sum by mapping <code>y</code> signals onto the intervals in <code>x</code>. These data are regrouped by <code>.win_id</code> and a summary with <code>mean</code> and <code>sd</code> values is calculated.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># map signals to TSS regions and calculate summary statistics.</span>
 res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_map.html">bed_map</a></span>(x, y, <span class="dt">win_sum =</span> <span class="kw">sum</span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(.win_id) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">win_mean =</span> <span class="kw">mean</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(.win_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">win_mean =</span> <span class="kw">mean</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
             <span class="dt">win_sd =</span> <span class="kw">sd</span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 
 res
@@ -361,14 +361,14 @@ res
 x_labels &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span>region_size, region_size, <span class="dt">by =</span> win_size <span class="op">*</span><span class="st"> </span><span class="dv">5</span>)
 x_breaks &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">41</span>, <span class="dt">by =</span> <span class="dv">5</span>)
 
-sd_limits &lt;-<span class="st"> </span><span class="kw">aes</span>(<span class="dt">ymax =</span> win_mean <span class="op">+</span><span class="st"> </span>win_sd, <span class="dt">ymin =</span> win_mean <span class="op">-</span><span class="st"> </span>win_sd)
+sd_limits &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">ymax =</span> win_mean <span class="op">+</span><span class="st"> </span>win_sd, <span class="dt">ymin =</span> win_mean <span class="op">-</span><span class="st"> </span>win_sd)
 
-<span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x =</span> .win_id, <span class="dt">y =</span> win_mean)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_pointrange</span>(sd_limits) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> x_labels, <span class="dt">breaks =</span> x_breaks) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">'Position (bp from TSS)'</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">'Signal'</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">'Human H3K4me3 signal near transcription start sites'</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_classic</span>()</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(res, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> .win_id, <span class="dt">y =</span> win_mean)) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_linerange">geom_pointrange</a></span>(sd_limits) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_continuous">scale_x_continuous</a></span>(<span class="dt">labels =</span> x_labels, <span class="dt">breaks =</span> x_breaks) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">xlab</a></span>(<span class="st">'Position (bp from TSS)'</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="st">'Signal'</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">'Human H3K4me3 signal near transcription start sites'</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_classic</a></span>()</code></pre></div>
 <p><img src="img/overview-plot-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="interval-statistics" class="section level3">
@@ -385,14 +385,14 @@ genome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read
 
 shuffle_intervals &lt;-<span class="st"> </span><span class="cf">function</span>(n, .data, genome) {
   <span class="kw">replicate</span>(n, <span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(.data, genome, <span class="dt">seed =</span> <span class="dv">1010486</span>), <span class="dt">simplify =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">bind_rows</span>(<span class="dt">.id =</span> <span class="st">'rep'</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">group_by</span>(rep) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>()
+<span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="dt">.id =</span> <span class="st">'rep'</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(rep) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">nest</a></span>()
 }
 
 shuffled &lt;-<span class="st"> </span><span class="kw">shuffle_intervals</span>(<span class="dt">n =</span> <span class="dv">100</span>, repeats, genome) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">jaccard =</span> data <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw">map</span>(bed_jaccard, repeats) <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw">map_dbl</span>(<span class="st">"jaccard"</span>))
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">jaccard =</span> data <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(bed_jaccard, repeats) <span class="op">%&gt;%</span>
+<span class="st">           </span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_dbl</a></span>(<span class="st">"jaccard"</span>))
   
 shuffled
 <span class="co">#&gt; # A tibble: 100 x 3</span>
@@ -434,7 +434,7 @@ shuffled
 <h3 class="hasAnchor">
 <a href="#transforming-single-interval-sets" class="anchor"></a>Transforming single interval sets</h3>
 <ul>
-<li><p>Intervals are ordered with <code>dplyr::arrange()</code>. See <code><a href="../reference/sorting.html">?sorting</a></code> for examples.</p></li>
+<li><p>Intervals are ordered with <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code>. See <code><a href="../reference/sorting.html">?sorting</a></code> for examples.</p></li>
 <li><p>Interval coordinates are adjusted with <code><a href="../reference/bed_slop.html">bed_slop()</a></code> and <code><a href="../reference/bed_shift.html">bed_shift()</a></code>, and new flanking intervals are created with <code><a href="../reference/bed_flank.html">bed_flank()</a></code>.</p></li>
 <li><p>Nearby intervals are combined with <code><a href="../reference/bed_merge.html">bed_merge()</a></code> and identified (but not merged) with <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
 <li><p>Intervals not covered by a query are created with <code><a href="../reference/bed_complement.html">bed_complement()</a></code>.</p></li>
@@ -495,7 +495,8 @@ shuffled
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#why-valr">Why <code>valr</code>?</a></li>
       <li><a href="#getting-started">Getting started</a></li>

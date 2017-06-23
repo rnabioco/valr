@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -122,14 +123,14 @@ book-ended intervals will be clustered.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-groups can be added using <code><a href='http://www.rdocumentation.org/packages/dplyr/topics/group_by'>dplyr::group_by()</a></code>. For example,
+groups can be added using <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. For example,
 grouping by <code>strand</code> will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the <code>y</code> tbl can
 first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href = 'http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html'>http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html</a></p>
+    <p><a href='http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html'>http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html</a></p>
 <p>Other single set operations: <code><a href='bed_complement.html'>bed_complement</a></code>,
   <code><a href='bed_flank.html'>bed_flank</a></code>, <code><a href='bed_merge.html'>bed_merge</a></code>,
   <code><a href='bed_shift.html'>bed_shift</a></code>, <code><a href='bed_slop.html'>bed_slop</a></code></p>
@@ -165,7 +166,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
   <span class='st'>'chr1'</span>, <span class='fl'>80</span>,     <span class='fl'>90</span>
 )
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_cluster</span>(<span class='no'>x</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.id'</span>)</div><img src='bed_cluster-4.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_cluster</span>(<span class='no'>x</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.id'</span>)</div><div class='img'><img src='bed_cluster-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
