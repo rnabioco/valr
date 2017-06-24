@@ -6,6 +6,8 @@
 #'
 #' @param x [tbl_interval] in BED12 format
 #'
+#' @family feature functions
+#'
 #' @examples
 #' x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
 #'
@@ -34,6 +36,8 @@ create_introns <- function(x) {
 #'
 #' @param x [tbl_interval] in BED12 format
 #'
+#' @family feature functions
+#'
 #' @examples
 #' x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
 #'
@@ -58,6 +62,8 @@ create_utrs5 <- function(x) {
 #'
 #' @param x [tbl_interval] in BED12 format
 #'
+#' @family feature functions
+#'
 #' @examples
 #' x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
 #'
@@ -75,5 +81,27 @@ create_utrs3 <- function(x) {
   # remove zero length intervals
   res <- filter(res, start < end)
 
+  res
+}
+
+#' Create transcription start site features.
+#'
+#' @param x [tbl_interval] in BED format
+#'
+#' @family feature functions
+#'
+#' @examples
+#' x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
+#'
+#' create_tss(x)
+#'
+#' @export
+create_tss <- function(x) {
+  res <- group_by(x, name)
+  res <- mutate(res,
+                start = ifelse(strand == "+", start, end - 1),
+                end   = ifelse(strand == "+", start + 1, end))
+  res <- ungroup(res)
+  res <- select(res, chrom:strand)
   res
 }

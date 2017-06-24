@@ -1,3 +1,9 @@
+# valr 0.3.0.9000
+
+## Enhancements
+
+* New `create_tss()` for creating transcription start sites.
+
 # valr 0.3.0
 
 ## Enhancements

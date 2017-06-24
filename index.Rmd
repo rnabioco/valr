@@ -157,7 +157,7 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 ### Utilities
 
-* Create features from BED12 files with `create_introns()`, `create_utrs5()`, and `create_utrs3()`.
+* Create features from BED12 files with `create_introns()`, `create_tss()`, `create_utrs5()`, and `create_utrs3()`.
 
 * Visualize the actions of valr functions with `bed_glyph()`.
 
@@ -168,8 +168,6 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 * Convert BED12 to BED6 format with `bed12_to_exons()`.
 
 * Calculate spacing between intervals with `interval_spacing()`.
-
-* Access remote databases with `db_ucsc()` and `db_ensembl()`.
 
 ## Related work
 
