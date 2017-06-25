@@ -3,6 +3,8 @@ sudo: required
 language: r
 warnings_are_errors: false
 cache: packages
+r_build_args: '--no-build-vignettes'
+r_check_args: '--as-cran --ignore-vignettes'
 
 matrix:
   allow_failures:
