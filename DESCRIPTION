@@ -4,8 +4,7 @@ Title: Genome Interval Arithmetic in R
 Version: 0.3.0.9000
 Authors@R: c(
     person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com'),
-    person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
-    person('Ryan', 'Sheridan', role = c('ctb'), email = 'ryan.sheridan@ucdenver.edu')
+    person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu')
     )
 Description: Read and manipulate genome intervals and signals. Provides
              functionality similar to command-line tool suites within R,

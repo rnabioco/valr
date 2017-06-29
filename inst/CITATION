@@ -1,12 +1,14 @@
-bibentry(bibtype = "Unpublished",
-         title   = "valr: Genome Interval Arithmetic in R",
+bibentry(bibtype = "Article",
+         title   = "valr: Reproducible Genome Interval Arithmetic in R",
          year    = 2017,
          author  = c(
-             person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu'),
-             person('Ryan', 'Sheridan', role = c('ctb'), email = 'ryan.sheridan@ucdenver.edu'),
-             person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com')
+             person(c('Kent', 'A.'), 'Riemondy', role = c('aut'), email = 'kent.riemondy@gmail.com'),
+             person(c('Ryan', 'M.'), 'Sheridan', role = c('ctb')),
+             person('Austin', 'Gillen', role = c('ctb')),
+             person('Yinni', 'Yu', role = c('ctb')),
+             person(c('Christopher', 'G.'), 'Bennett', role = c('ctb')),
+             person(c('Jay', 'R.'), 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com')
          ),
-         note    = "To be deposited in bioArxiv.",
-         header  = "To cite valr in publications use:",
-         url     = "https://CRAN.R-project.org/package=valr"
+         journal = 'F1000Research',
+         doi = '10.12688/f1000research.11997.1'
 )
