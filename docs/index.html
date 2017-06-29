@@ -132,13 +132,13 @@ nearby <span class="op">%&gt;%</span>
 <p><code>valr</code> includes helpful glyphs to illustrate the results of specific operations, similar to those found in the <code>BEDtools</code> documentation. For example, <code><a href="reference/bed_glyph.html">bed_glyph()</a></code> illustrates the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="reference/bed_intersect.html">bed_intersect()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
 
-x &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/valr/topics/trbl_interval">trbl_interval</a></span>(
+x &lt;-<span class="st"> </span><span class="kw"><a href="reference/trbl_interval.html">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
   <span class="st">'chr1'</span>, <span class="dv">25</span>,     <span class="dv">50</span>,
   <span class="st">'chr1'</span>, <span class="dv">100</span>,    <span class="dv">125</span>
 )
 
-y &lt;-<span class="st"> </span>valr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/valr/topics/trbl_interval">trbl_interval</a></span>(
+y &lt;-<span class="st"> </span><span class="kw"><a href="reference/trbl_interval.html">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,
   <span class="st">'chr1'</span>, <span class="dv">30</span>,     <span class="dv">75</span>
 )

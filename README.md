@@ -71,13 +71,13 @@ nearby %>%
 ``` r
 library(valr)
 
-x <- valr::trbl_interval(
+x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 25,     50,
   'chr1', 100,    125
 )
 
-y <- valr::trbl_interval(
+y <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1', 30,     75
 )
@@ -108,59 +108,59 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 
 ### Data types
 
--   `tbl_interval()` and `tbl_genome()` wrap tibbles and enforce strict column naming. `trbl_interval()` and `trbl_genome()` are constructors that take `tibble::tribble()` formatting.
+-   Create interval sets with `tbl_interval()` and `tbl_genome()`, which enforce strict column naming.
 
 ### Reading data
 
--   BED and related files are read with `read_bed()`, `read_bed12()`, `read_bedgraph()`, `read_narrowpeak()` and `read_broadpeak()`.
+-   Read BED and related files with `read_bed()`, `read_bed12()`, `read_bedgraph()`, `read_narrowpeak()` and `read_broadpeak()`.
 
--   Genome files containing chromosome name and size information are loaded with `read_genome()`.
+-   Read genome files containing chromosome name and size information with `read_genome()`.
 
--   VCF files are loaded with `read_vcf()`.
+-   Load VCF files with `read_vcf()`.
 
--   Remote databases can be accessed with `db_ucsc()` and `db_ensembl()`.
+-   Access remote databases with `db_ucsc()` and `db_ensembl()`.
 
 ### Transforming single interval sets
 
--   Interval coordinates are adjusted with `bed_slop()` and `bed_shift()`, and new flanking intervals are created with `bed_flank()`.
+-   Adjust interval coordinates with `bed_slop()` and `bed_shift()`, and create new flanking intervals with `bed_flank()`.
 
--   Nearby intervals are combined with `bed_merge()` and identified (but not merged) with `bed_cluster()`.
+-   Combine nearby intervals with `bed_merge()` and identify nearby intervals with `bed_cluster()`.
 
--   Intervals not covered by a query are created with `bed_complement()`.
+-   Generate intervals not covered by a query with `bed_complement()`.
 
--   Intervals can be ordered with `dplyr::arrange()`.
+-   Order intervals with `dplyr::arrange()`.
 
 ### Comparing multiple interval sets
 
--   Find overlaps between two sets of intervals with `bed_intersect()`.
+-   Find overlaps between sets of intervals with `bed_intersect()`.
 
--   Apply functions to selected columns for overlapping intervals with `bed_map()`.
+-   Apply functions to overlapping sets of intervals with `bed_map()`.
 
--   Remove intervals based on overlaps between two files with `bed_subtract()`.
+-   Remove intervals based on overlaps with `bed_subtract()`.
 
 -   Find overlapping intervals within a window with `bed_window()`.
 
--   Find the closest intervals independent of overlaps with `bed_closest()`.
+-   Find closest intervals independent of overlaps with `bed_closest()`.
 
 ### Randomizing intervals
 
--   Generate random intervals from an input genome with `bed_random()`.
+-   Generate random intervals with `bed_random()`.
 
--   Shuffle the coordinates of input intervals with `bed_shuffle()`.
+-   Shuffle the coordinates of intervals with `bed_shuffle()`.
 
--   Random sampling of input intervals is done with the `sample_` function family in `dplyr`.
+-   Sample input intervals with `dplyr::sample_n()` and `dplyr::sample_frac()`.
 
 ### Interval statistics
 
--   Calculate significance of overlaps between two sets of intervals with `bed_fisher()` and `bed_projection()`.
+-   Calculate significance of overlaps between sets of intervals with `bed_fisher()` and `bed_projection()`.
 
 -   Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
 
--   Quantify extent of overlap between two sets of intervals with `bed_jaccard()`.
+-   Quantify extent of overlap between sets of intervals with `bed_jaccard()`.
 
 ### Utilities
 
--   Create features from BED12 files with `create_introns()`, `create_utrs5()`, and `create_utrs3()`.
+-   Create features from BED12 files with `create_introns()`, `create_tss()`, `create_utrs5()`, and `create_utrs3()`.
 
 -   Visualize the actions of valr functions with `bed_glyph()`.
 
@@ -171,8 +171,6 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 -   Convert BED12 to BED6 format with `bed12_to_exons()`.
 
 -   Calculate spacing between intervals with `interval_spacing()`.
-
--   Access remote databases with `db_ucsc()` and `db_ensembl()`.
 
 Related work
 ------------
