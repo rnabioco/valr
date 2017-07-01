@@ -33,6 +33,9 @@ Suggests:
     RMySQL,
     purrr,
     tidyr,
+    devtools,
+    DT,
+    cowplot,
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 URL: http://github.com/rnabioco/valr, http://rnabioco.github.io/valr
