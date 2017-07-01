@@ -41,7 +41,7 @@ library(tibble)
 
 `valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
-### Familiar tools, all within R
+### Familiar tools, natively in R
 
 The functions in `valr` have similar names to their `BEDtools` counterparts, and so will be familiar to users coming from the `BEDtools` suite. Similar to [`pybedtools`](https://daler.github.io/pybedtools/#why-pybedtools), `valr` has a terse syntax:
 
@@ -71,43 +71,47 @@ bed_file <- valr_example("3fields.bed.gz")
 read_bed(bed_file) # accepts filepaths or URLs
 ```
 
-`valr` can also operate on BED-like data.frames already constructed in R, provided that columns `chrom`, `start` and `end` are present. Additionally tbls can also be hand-contructed using `trbl_intervals()`.
+`valr` can also operate on BED-like data.frames already constructed in R, provided that columns named `chrom`, `start` and `end` are present. New tbls can also be contructed using `trbl_interval()`.
 
 ```{r trbl_ivls}
 bed <- trbl_interval(
-  ~chrom, ~start, ~end, 
+  ~chrom, ~start,  ~end, 
   "chr1", 1657492, 2657492, 
   "chr2", 2501324, 3094650
 )
+
 bed
 ```
 
-### BED format
+### Interval coordinates
+
 `valr` adheres to the BED [format](http://genome.ucsc.edu/FAQ/FAQformat#format1) which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:
 
 ```{r zero-based}
-# for a chromosome 100 basepairs in length
-whole_chrom <- trbl_interval(
+# a chromosome 100 basepairs in length
+chrom <- trbl_interval(
   ~chrom, ~start, ~end, 
-  "chr1", 0, 100
+  "chr1", 0,      100
 )
-whole_chrom
 
-# for single basepair intervals
-single_bases <- trbl_interval(
+chrom
+
+# single basepair intervals
+bases <- trbl_interval(
   ~chrom, ~start, ~end, 
-  "chr1", 0, 1, # first base of chromosome
-  "chr1", 1, 2,  # second base of chromosome
-  "chr1", 99, 100 # last base of chromosome
-  )
-single_bases
+  "chr1", 0,      1, # first base of chromosome
+  "chr1", 1,      2,  # second base of chromosome
+  "chr1", 99,     100 # last base of chromosome
+)
+
+bases
 ```
 
 ### Remote databases
 
 Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
 
-```{r db, warning = F, eval = F}
+```{r db, warning = FALSE, eval = FALSE}
 # access the `refGene` tbl on the `hg38` assembly.
 if(require(RMySQL)) {
   ucsc <- db_ucsc('hg38')
@@ -281,119 +285,65 @@ ggplot(res, aes(x = .win_id, y = win_mean)) +
   theme_classic()
 ```
 
-### Interval statistics
-
-Estimates of significance for interval overlaps can be obtained by combining `bed_shuffle()`, `bed_random()` and the `sample_` functions from `dplyr` with interval statistics in `valr`.
-
-Here we examine the overlap of repeat classes in the human genome (on `chr22` only, for simplicity) using `bed_jaccard()`.
-
-```{r reldist_shuffle, message = FALSE, warning = FALSE}
-library(purrr)
-library(tidyr)
-
-repeats <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
-genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
-
-
-shuffle_intervals <- function(n, .data, genome) {
-  replicate(n, bed_shuffle(.data, genome, seed = 1010486), simplify = FALSE) %>%
-    bind_rows(.id = 'rep') %>%
-    group_by(rep) %>% nest()
-}
-
-shuffled <- shuffle_intervals(n = 100, repeats, genome) %>%
-  mutate(jaccard = data %>%
-           map(bed_jaccard, repeats) %>%
-           map_dbl("jaccard"))
-  
-shuffled
-```
-
-## Benchmarks
-
-Certain algorithms in `valr` were implemented in `Rcpp` to enable fluid interactive analysis.  This graph illustrates the timing of functions in `valr` for two sets of 1 million random 1 kilobase intervals from the hg19 genome.
-
-```{r benchmarks, echo = FALSE, message = FALSE, fig.width=6}
-if(require(microbenchmark)) {
-
-    genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
-
-    seed <- 1010486
-    
-    x <- bed_random(genome, n = 1e6, seed = seed)
-    y <- bed_random(genome, n = 1e6, seed = seed)
-
-    res <- microbenchmark(
-      bed_random(genome, seed = seed), bed_closest(x, y),
-      bed_intersect(x, y), bed_merge(x),
-      bed_subtract(x, y), bed_complement(x, genome),
-      bed_shuffle(x, genome, seed = seed),
-      bed_absdist(x, y, genome), bed_reldist(x, y),
-      bed_jaccard(x, y), bed_fisher(x, y, genome),
-      times = 1,
-      unit = 's')
-
-    # from unexported microbenchmark::convert_to_unit
-    res$ntime <- res$time / 1e9 
-
-    ggplot(res, aes(y=reorder(expr, ntime), x=ntime)) +
-      geom_point(color='red', size=4) +
-      xlab('execution time (seconds)') + ylab('') +
-      theme_bw()
-}
-```
- 
 ## API
 
 Function names are similar to their their [BEDtools][1] counterparts, with some additions.
 
+### Data types
+
+* Create interval sets with `tbl_interval()` and `tbl_genome()`, which enforce strict column naming.
+
 ### Reading data
 
-* BED and related files are read with `read_bed()`, `read_bed12()`, `read_bedgraph()`, `read_narrowpeak()` and `read_broadpeak()`.
+* Read BED and related files with `read_bed()`, `read_bed12()`, `read_bedgraph()`, `read_narrowpeak()` and `read_broadpeak()`.
   
-* Genome files containing chromosome name and size information are loaded with `read_genome()`.
+* Read genome files containing chromosome name and size information with `read_genome()`.
   
-* VCF files are loaded with `read_vcf()`.
+* Load VCF files with `read_vcf()`.
+
+* Access remote databases with `db_ucsc()` and `db_ensembl()`.
 
 ### Transforming single interval sets
 
-* Intervals are ordered with `dplyr::arrange()`. See `?sorting` for examples.
+* Adjust interval coordinates with `bed_slop()` and `bed_shift()`, and create new flanking intervals with `bed_flank()`.
 
-* Interval coordinates are adjusted with `bed_slop()` and `bed_shift()`, and new flanking intervals are created with `bed_flank()`.
+* Combine nearby intervals with `bed_merge()` and identify nearby intervals with `bed_cluster()`.  
 
-* Nearby intervals are combined with `bed_merge()` and identified (but not merged) with `bed_cluster()`.  
+* Generate intervals not covered by a query with `bed_complement()`.
 
-* Intervals not covered by a query are created with `bed_complement()`.
+* Order intervals with `dplyr::arrange()`.
 
 ### Comparing multiple interval sets
 
-* Find overlaps between two sets of intervals with `bed_intersect()`.
+* Find overlaps between sets of intervals with `bed_intersect()`.
 
-* Apply functions to selected columns for overlapping intervals with `bed_map()`.
+* Apply functions to overlapping sets of intervals with `bed_map()`.
 
-* Remove intervals based on overlaps between two files with `bed_subtract()`.
+* Remove intervals based on overlaps with `bed_subtract()`.
 
 * Find overlapping intervals within a window with `bed_window()`.
 
-* Find the closest intervals independent of overlaps with `bed_closest()`.
+* Find closest intervals independent of overlaps with `bed_closest()`.
 
 ### Randomizing intervals
 
-* Generate random intervals from an input genome with `bed_random()`.
+* Generate random intervals with `bed_random()`.
 
-* Shuffle the coordinates of input intervals with `bed_shuffle()`.
+* Shuffle the coordinates of intervals with `bed_shuffle()`.
 
-* Random sampling of input intervals is done with the `sample_` function family in `dplyr`.
+* Sample input intervals with `dplyr::sample_n()` and `dplyr::sample_frac()`.
 
 ### Interval statistics
 
-* Quantify overlaps between two sets of intervals with `bed_fisher()`.
+* Calculate significance of overlaps between sets of intervals with `bed_fisher()` and  `bed_projection()`.
 
 * Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
 
-* Quantify extent of overlap between two sets of intervals with `bed_jaccard()` or `bed_projection()`.
+* Quantify extent of overlap between sets of intervals with `bed_jaccard()`.
 
 ### Utilities
+
+* Create features from BED12 files with `create_introns()`, `create_tss()`, `create_utrs5()`, and `create_utrs3()`.
 
 * Visualize the actions of valr functions with `bed_glyph()`.
 
@@ -405,7 +355,7 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 * Calculate spacing between intervals with `interval_spacing()`.
 
-## Related work {#related_work}
+## Related work
 
 * Command-line tools [BEDtools][1] and [bedops][5].
 

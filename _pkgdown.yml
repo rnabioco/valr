@@ -73,6 +73,8 @@ navbar:
       href: articles/valr.html
     - text: Interval Statistics
       href: articles/interval-stats.html
+    - text: Benchmarks
+      href: articles/benchmarks.html
 
   - text: Reference
     href: reference/index.html

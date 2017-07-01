@@ -41,6 +41,9 @@
     <li>
       <a href="../articles/interval-stats.html">Interval Statistics</a>
     </li>
+    <li>
+      <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -52,7 +55,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="http://github.com/rnabioco/valr/">
+  <a href="http://github.com/rnabioco/valr">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -66,12 +69,14 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+      </header><script src="interval-stats_files/htmlwidgets-0.8/htmlwidgets.js"></script><script src="interval-stats_files/jquery-1.12.4/jquery.min.js"></script><script src="interval-stats_files/datatables-binding-0.2/datatables.js"></script><link href="interval-stats_files/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="interval-stats_files/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="interval-stats_files/dt-core-1.10.12/js/jquery.dataTables.min.js"></script><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">June 23 2017</h4>
+            <h4 class="date">July 01 2017</h4>
           </div>
 
     
@@ -80,10 +85,17 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p><code>valr</code> can be used to explore relationships between sets of intervals. Here we explore the relationship between transcription start sites and repetitive elements in the human genome.</p>
+<p><code>valr</code> includes several functions for exploring statistical relationships between sets of intervals.</p>
+<ul>
+<li><p>Calculate significance of overlaps between sets of intervals with <code><a href="../reference/bed_fisher.html">bed_fisher()</a></code> and <code><a href="../reference/bed_projection.html">bed_projection()</a></code>.</p></li>
+<li><p>Quantify relative and absolute distances between sets of intervals with <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>.</p></li>
+<li><p>Quantify extent of overlap between sets of intervals with <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code>.</p></li>
+</ul>
+<p>In this vignette we explore the relationship between transcription start sites and repetitive elements in the human genome.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
 <span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(cowplot)
 <span class="kw">library</span>(tidyr)
 
 <span class="co"># load repeats and genes. Data in the valr package is restricted to chr22; the entire</span>
@@ -94,42 +106,38 @@ genes &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_
 <span class="co"># load chrom sizes</span>
 genome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
 
-<span class="co"># create 1bp intervals representing transcription start sites</span>
-tss &lt;-
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(genes,
-         <span class="dt">.start =</span> <span class="kw">ifelse</span>(strand <span class="op">==</span><span class="st"> '+'</span>, start, end),
-         <span class="dt">.end =</span> .start <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(chrom, <span class="dt">start =</span> .start, <span class="dt">end =</span> .end, name)
+<span class="co"># create 1 bp intervals representing transcription start sites</span>
+tss &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_tss.html">create_tss</a></span>(genes)
 
 tss
-<span class="co">#&gt; # A tibble: 1,267 x 4</span>
-<span class="co">#&gt;    chrom    start      end         name</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;dbl&gt;        &lt;chr&gt;</span>
-<span class="co">#&gt;  1 chr22 16193009 16193010    NR_122113</span>
-<span class="co">#&gt;  2 chr22 16157078 16157079    NR_133911</span>
-<span class="co">#&gt;  3 chr22 16162065 16162066    NR_073459</span>
-<span class="co">#&gt;  4 chr22 16162065 16162066    NR_073460</span>
-<span class="co">#&gt;  5 chr22 16231289 16231290    NR_132385</span>
-<span class="co">#&gt;  6 chr22 16287937 16287938 NM_001136213</span>
-<span class="co">#&gt;  7 chr22 16274608 16274609    NR_046571</span>
-<span class="co">#&gt;  8 chr22 16449804 16449805 NM_001005239</span>
-<span class="co">#&gt;  9 chr22 17073700 17073701    NM_014406</span>
-<span class="co">#&gt; 10 chr22 17082800 17082801    NR_001591</span>
+<span class="co">#&gt; # A tibble: 1,267 x 6</span>
+<span class="co">#&gt;    chrom    start      end         name score strand</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;</span>
+<span class="co">#&gt;  1 chr22 16193008 16193009    NR_122113     0      -</span>
+<span class="co">#&gt;  2 chr22 16157078 16157079    NR_133911     0      +</span>
+<span class="co">#&gt;  3 chr22 16162065 16162066    NR_073459     0      +</span>
+<span class="co">#&gt;  4 chr22 16162065 16162066    NR_073460     0      +</span>
+<span class="co">#&gt;  5 chr22 16231288 16231289    NR_132385     0      -</span>
+<span class="co">#&gt;  6 chr22 16287936 16287937 NM_001136213     0      -</span>
+<span class="co">#&gt;  7 chr22 16274608 16274609    NR_046571     0      +</span>
+<span class="co">#&gt;  8 chr22 16449803 16449804 NM_001005239     0      -</span>
+<span class="co">#&gt;  9 chr22 17073699 17073700    NM_014406     0      -</span>
+<span class="co">#&gt; 10 chr22 17082800 17082801    NR_001591     0      +</span>
 <span class="co">#&gt; # ... with 1,257 more rows</span></code></pre></div>
 </div>
 <div id="distance-metrics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distance-metrics" class="anchor"></a>Distance metrics</h2>
 <p>First we define a function that takes <code>x</code> and <code>y</code> intervals and computes distance statistics (using <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>) for specified groups. The value of each statistic is assigned to a <code>.value</code> column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">distance_stats &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, genome, grp, <span class="dt">type =</span> <span class="ot">NA</span>) {
-  <span class="kw"><a href="http://dplyr.tidyverse.org/reference/se-deprecated.html">group_by_</a></span>(x, <span class="dt">.dots =</span> grp) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">distance_stats &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, genome, group_var, <span class="dt">type =</span> <span class="ot">NA</span>) {
+  <span class="kw"><a href="http://dplyr.tidyverse.org/reference/se-deprecated.html">group_by_</a></span>(x, <span class="dt">.dots =</span> group_var) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/do.html">do</a></span>(
        <span class="dt">reldist =</span> <span class="kw"><a href="../reference/bed_reldist.html">bed_reldist</a></span>(., y, <span class="dt">detail =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">         </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="dt">.value =</span> .reldist),
        <span class="dt">absdist =</span> <span class="kw"><a href="../reference/bed_absdist.html">bed_absdist</a></span>(., y, genome) <span class="op">%&gt;%</span>
 <span class="st">         </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="dt">.value =</span> .absdist)
        ) <span class="op">%&gt;%</span>
-<span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather_">gather_</a></span>(<span class="st">'stat'</span>, <span class="st">'value'</span>, <span class="kw"><a href="http://dplyr.tidyverse.org/reference/setops.html">setdiff</a></span>(<span class="kw">names</span>(.), <span class="kw">list</span>(grp))) <span class="op">%&gt;%</span>
+<span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/gather_">gather_</a></span>(<span class="st">'stat'</span>, <span class="st">'value'</span>, <span class="kw"><a href="http://dplyr.tidyverse.org/reference/setops.html">setdiff</a></span>(<span class="kw">names</span>(.), <span class="kw">list</span>(group_var))) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">type =</span> type)
 } </code></pre></div>
 <p>We use the <code>distance_stats()</code> function to apply the <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code> function to each group of data.</p>
@@ -169,22 +177,22 @@ shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(s
 <span class="st">  </span><span class="kw">na.omit</span>()
 
 res
-<span class="co">#&gt; # A tibble: 16,801 x 5</span>
-<span class="co">#&gt; # Groups:   name, stat [1,911]</span>
+<span class="co">#&gt; # A tibble: 16,731 x 5</span>
+<span class="co">#&gt; # Groups:   name, stat [1,910]</span>
 <span class="co">#&gt;     name    stat   .id     obs     shuf</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  (A)n absdist     1 5120782 15816917</span>
-<span class="co">#&gt;  2  (A)n absdist     2  226476 14974822</span>
-<span class="co">#&gt;  3  (A)n absdist     3   31241 14036059</span>
-<span class="co">#&gt;  4  (A)n absdist     4    8931 12111477</span>
-<span class="co">#&gt;  5  (A)n absdist     5   41316 12007347</span>
-<span class="co">#&gt;  6  (A)n absdist     6   22519  9511071</span>
-<span class="co">#&gt;  7  (A)n absdist     7   15173  8662643</span>
-<span class="co">#&gt;  8  (A)n absdist     8   21985  8458439</span>
-<span class="co">#&gt;  9  (A)n absdist     9   13457  3100697</span>
-<span class="co">#&gt; 10  (A)n absdist    10  134007  2257828</span>
-<span class="co">#&gt; # ... with 16,791 more rows</span></code></pre></div>
-<p>Now that the data are formatted, we can use <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">broom::tidy()</a></code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
+<span class="co">#&gt;  1  (A)n absdist     1 5120782 12433747</span>
+<span class="co">#&gt;  2  (A)n absdist     2  226477 12360028</span>
+<span class="co">#&gt;  3  (A)n absdist     3   31242  8969357</span>
+<span class="co">#&gt;  4  (A)n absdist     4    8930  7398003</span>
+<span class="co">#&gt;  5  (A)n absdist     5   41316  6296427</span>
+<span class="co">#&gt;  6  (A)n absdist     6   22519  5707014</span>
+<span class="co">#&gt;  7  (A)n absdist     7   15173  5477673</span>
+<span class="co">#&gt;  8  (A)n absdist     8   21985  3460314</span>
+<span class="co">#&gt;  9  (A)n absdist     9   13458   345078</span>
+<span class="co">#&gt; 10  (A)n absdist    10  134007     9133</span>
+<span class="co">#&gt; # ... with 16,721 more rows</span></code></pre></div>
+<p>Now that the data are formatted, we can use the non-parametric <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">broom::tidy()</a></code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
 
 pvals &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="dt">twosided =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">tidy</a></span>(<span class="kw">ks.test</span>(.<span class="op">$</span>obs, .<span class="op">$</span>shuf)),
@@ -197,8 +205,8 @@ pvals &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span clas
 <p>Histgrams of the different stats help visulaize the distribution of p.values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(pvals, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(p.value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_histogram">geom_histogram</a></span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>alt) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_bw</a></span>()</code></pre></div>
-<p><img src="img/interval-stats-pvalue_viz-1.png" width="384" style="display: block; margin: auto;"></p>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>alt) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/cowplot/topics/theme_cowplot">theme_cowplot</a></span>()</code></pre></div>
+<p><img src="img/interval-stats-pvalue_viz-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>We can also assess false discovery rates (q.values) using <code>p.adjust()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvals &lt;-
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(pvals, stat, alt) <span class="op">%&gt;%</span>
@@ -216,8 +224,9 @@ res_signif &lt;-
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(res_signif, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> value, <span class="dt">color =</span> type)) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/stat_ecdf">stat_ecdf</a></span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>name) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_classic</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_continuous">scale_x_log10</a></span>()</code></pre></div>
-<p><img src="img/interval-stats-ecfs-1.png" width="384" style="display: block; margin: auto;"></p>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>name) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/cowplot/topics/theme_cowplot">theme_cowplot</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_continuous">scale_x_log10</a></span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_brewer">scale_color_brewer</a></span>(<span class="dt">palette =</span> <span class="st">'Set1'</span>)</code></pre></div>
+<p><img src="img/interval-stats-ecfs-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div id="projection-test" class="section level2">
 <h2 class="hasAnchor">
@@ -268,8 +277,8 @@ promoters_ncoding
 <p>Next we’ll apply the <code><a href="../reference/bed_projection.html">bed_projection()</a></code> test for each repeat class for both coding and non-coding regions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="co"># function to apply bed_projection to groups</span>
-projection_stats &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, genome, grp, <span class="dt">type =</span> <span class="ot">NA</span>) {
-  <span class="kw"><a href="http://dplyr.tidyverse.org/reference/se-deprecated.html">group_by_</a></span>(x, <span class="dt">.dots =</span> grp) <span class="op">%&gt;%</span>
+projection_stats &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, genome, group_var, <span class="dt">type =</span> <span class="ot">NA</span>) {
+  <span class="kw"><a href="http://dplyr.tidyverse.org/reference/se-deprecated.html">group_by_</a></span>(x, <span class="dt">.dots =</span> group_var) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="dt">n_repeats =</span> <span class="kw">nrow</span>(.),
        <span class="dt">projection =</span> <span class="kw"><a href="../reference/bed_projection.html">bed_projection</a></span>(., y, genome)) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">type =</span> type)
@@ -285,7 +294,8 @@ pvals &lt;-
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="op">-</span>chrom)
 
 <span class="co"># filter for repeat classes with at least 10 intervals</span>
-pvals &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(pvals, n_repeats <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,
+pvals &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(pvals,
+                n_repeats <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>,
                 obs_exp_ratio <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)
 
 <span class="co"># adjust pvalues </span>
@@ -307,7 +317,7 @@ pvals
 <span class="co">#&gt; 10  AluJo non_coding       208 0.021566061     1.9041497      FALSE</span>
 <span class="co">#&gt; # ... with 169 more rows, and 1 more variables: q.value &lt;dbl&gt;</span></code></pre></div>
 <p>The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of <code>lower_tail = TRUE</code> column indicates that the query intervals are depleted, whereas <code>lower_tail = FALSE</code> indicates that the query intervals are enriched.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DT)
 
 <span class="co"># find and show top 5 most significant repeats</span>
 signif_tests &lt;-
@@ -317,110 +327,9 @@ signif_tests &lt;-
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/top_n.html">top_n</a></span>(<span class="op">-</span><span class="dv">5</span>, q.value) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(type)
 
-knitr<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(signif_tests)</code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">name</th>
-<th align="left">type</th>
-<th align="right">n_repeats</th>
-<th align="right">p.value</th>
-<th align="right">obs_exp_ratio</th>
-<th align="left">lower_tail</th>
-<th align="right">q.value</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">AluSx1</td>
-<td align="left">coding</td>
-<td align="right">364</td>
-<td align="right">0.0000114</td>
-<td align="right">2.106148</td>
-<td align="left">FALSE</td>
-<td align="right">0.0020357</td>
-</tr>
-<tr class="even">
-<td align="left">AluSx3</td>
-<td align="left">coding</td>
-<td align="right">95</td>
-<td align="right">0.0001422</td>
-<td align="right">2.914120</td>
-<td align="left">FALSE</td>
-<td align="right">0.0251780</td>
-</tr>
-<tr class="odd">
-<td align="left">AluJb</td>
-<td align="left">coding</td>
-<td align="right">271</td>
-<td align="right">0.0002220</td>
-<td align="right">2.043110</td>
-<td align="left">FALSE</td>
-<td align="right">0.0384039</td>
-</tr>
-<tr class="even">
-<td align="left">Charlie4z</td>
-<td align="left">coding</td>
-<td align="right">11</td>
-<td align="right">0.0012290</td>
-<td align="right">5.807861</td>
-<td align="left">FALSE</td>
-<td align="right">0.2052397</td>
-</tr>
-<tr class="odd">
-<td align="left">AluSz</td>
-<td align="left">coding</td>
-<td align="right">259</td>
-<td align="right">0.0013182</td>
-<td align="right">1.891105</td>
-<td align="left">FALSE</td>
-<td align="right">0.2188250</td>
-</tr>
-<tr class="even">
-<td align="left">MER3</td>
-<td align="left">non_coding</td>
-<td align="right">27</td>
-<td align="right">0.0000270</td>
-<td align="right">8.149447</td>
-<td align="left">FALSE</td>
-<td align="right">0.0048081</td>
-</tr>
-<tr class="odd">
-<td align="left">L1MC4a</td>
-<td align="left">non_coding</td>
-<td align="right">23</td>
-<td align="right">0.0001448</td>
-<td align="right">7.653394</td>
-<td align="left">FALSE</td>
-<td align="right">0.0254769</td>
-</tr>
-<tr class="even">
-<td align="left">L1ME1</td>
-<td align="left">non_coding</td>
-<td align="right">38</td>
-<td align="right">0.0002034</td>
-<td align="right">5.790397</td>
-<td align="left">FALSE</td>
-<td align="right">0.0355962</td>
-</tr>
-<tr class="odd">
-<td align="left">G-rich</td>
-<td align="left">non_coding</td>
-<td align="right">54</td>
-<td align="right">0.0002172</td>
-<td align="right">4.889668</td>
-<td align="left">FALSE</td>
-<td align="right">0.0377926</td>
-</tr>
-<tr class="even">
-<td align="left">L1MC5</td>
-<td align="left">non_coding</td>
-<td align="right">29</td>
-<td align="right">0.0004561</td>
-<td align="right">6.069933</td>
-<td align="left">FALSE</td>
-<td align="right">0.0784540</td>
-</tr>
-</tbody>
-</table>
+DT<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(signif_tests)</code></pre></div>
+<div id="htmlwidget-4adc3b2a699de49a2a47" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4adc3b2a699de49a2a47">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
   </div>

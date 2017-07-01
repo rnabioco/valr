@@ -18,18 +18,27 @@ knitr::opts_chunk$set(
   fig.path = "img/interval-stats-",
   fig.height = 4,
   fig.align = "center",
-  fig.width = 4
+  fig.width = 8
 )
 ```
 
 ## Overview
 
-`valr` can be used to explore relationships between sets of intervals. Here we explore the relationship between transcription start sites and repetitive elements in the human genome. 
+`valr` includes several functions for exploring statistical relationships between sets of intervals.
+
+* Calculate significance of overlaps between sets of intervals with `bed_fisher()` and  `bed_projection()`.
+
+* Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
+
+* Quantify extent of overlap between sets of intervals with `bed_jaccard()`.
+
+In this vignette we explore the relationship between transcription start sites and repetitive elements in the human genome. 
 
 ```{r load-data, message = FALSE, warning = FALSE}
 library(valr)
 library(dplyr)
 library(ggplot2)
+library(cowplot)
 library(tidyr)
 
 # load repeats and genes. Data in the valr package is restricted to chr22; the entire
@@ -40,12 +49,8 @@ genes <- read_bed(valr_example('hg19.refGene.chr22.bed.gz'), n_fields = 12)
 # load chrom sizes
 genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
-# create 1bp intervals representing transcription start sites
-tss <-
-  mutate(genes,
-         .start = ifelse(strand == '+', start, end),
-         .end = .start + 1) %>%
-  select(chrom, start = .start, end = .end, name)
+# create 1 bp intervals representing transcription start sites
+tss <- create_tss(genes)
 
 tss
 ```
@@ -55,15 +60,15 @@ tss
 First we define a function that takes `x` and `y` intervals and computes distance statistics (using `bed_reldist()` and `bed_absdist()`) for specified groups. The value of each statistic is assigned to a `.value` column.
 
 ```{r stats}
-distance_stats <- function(x, y, genome, grp, type = NA) {
-  group_by_(x, .dots = grp) %>%
+distance_stats <- function(x, y, genome, group_var, type = NA) {
+  group_by_(x, .dots = group_var) %>%
     do(
        reldist = bed_reldist(., y, detail = TRUE) %>%
          select(.value = .reldist),
        absdist = bed_absdist(., y, genome) %>%
          select(.value = .absdist)
        ) %>%
-    tidyr::gather_('stat', 'value', setdiff(names(.), list(grp))) %>%
+    tidyr::gather_('stat', 'value', setdiff(names(.), list(group_var))) %>%
     mutate(type = type)
 } 
 ```
@@ -101,7 +106,7 @@ res <- bind_rows(obs_stats, shf_stats) %>%
 res
 ```
 
-Now that the data are formatted, we can use `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group. `broom::tidy()` is used to reformat the results of each test into a `data_frame`, and the results of each test are `gather`ed to into a `type` column for each test type.
+Now that the data are formatted, we can use the non-parametric `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group. `broom::tidy()` is used to reformat the results of each test into a `data_frame`, and the results of each test are `gather`ed to into a `type` column for each test type.
 
 ```{r pvalues, warning=FALSE}
 library(broom)
@@ -120,7 +125,7 @@ Histgrams of the different stats help visulaize the distribution of p.values.
 ```{r pvalue_viz}
 ggplot(pvals, aes(p.value)) +
   geom_histogram(binwidth = 0.05) +
-  facet_grid(stat ~ alt) + theme_bw()
+  facet_grid(stat ~ alt) + theme_cowplot()
 ```
 
 We can also assess false discovery rates (q.values) using `p.adjust()`.
@@ -146,12 +151,13 @@ res_signif <-
 
 ggplot(res_signif, aes(x = value, color = type)) +
   stat_ecdf() + 
-  facet_grid(stat ~ name) + theme_classic() + scale_x_log10()
+  facet_grid(stat ~ name) + theme_cowplot() + scale_x_log10() +
+  scale_color_brewer(palette = 'Set1')
 ```
 
 ## Projection test
 
-`bed_projection()` is a statistical approach to assess the relationship between two intervals based on the  binomial distribution. Here, we examine the distribution of repetitive elements within the promoters of coding or non-coding genes.
+`bed_projection()` is a statistical approach to assess the relationship between two intervals based on the binomial distribution. Here, we examine the distribution of repetitive elements within the promoters of coding or non-coding genes.
 
 First we'll extract 5 kb regions upstream of the transcription start sites to represent the promoter regions for coding and non-coding genes. 
 
@@ -176,8 +182,8 @@ Next we'll apply the `bed_projection()` test for each repeat class for both codi
 ```{r get_projections}
 
 # function to apply bed_projection to groups
-projection_stats <- function(x, y, genome, grp, type = NA) {
-  group_by_(x, .dots = grp) %>%
+projection_stats <- function(x, y, genome, group_var, type = NA) {
+  group_by_(x, .dots = group_var) %>%
     do(n_repeats = nrow(.),
        projection = bed_projection(., y, genome)) %>%
     mutate(type = type)
@@ -193,7 +199,8 @@ pvals <-
   select(-chrom)
 
 # filter for repeat classes with at least 10 intervals
-pvals <- filter(pvals, n_repeats > 10,
+pvals <- filter(pvals,
+                n_repeats > 10,
                 obs_exp_ratio != 0)
 
 # adjust pvalues 
@@ -205,7 +212,7 @@ pvals
 The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of `lower_tail = TRUE` column indicates that the query intervals are depleted, whereas `lower_tail = FALSE` indicates that the query intervals are enriched. 
 
 ```{r table}
-library(knitr)
+library(DT)
 
 # find and show top 5 most significant repeats
 signif_tests <-
@@ -215,5 +222,5 @@ signif_tests <-
   top_n(-5, q.value) %>%
   arrange(type)
 
-knitr::kable(signif_tests)
+DT::datatable(signif_tests)
 ```

@@ -41,6 +41,9 @@
     <li>
       <a href="../articles/interval-stats.html">Interval Statistics</a>
     </li>
+    <li>
+      <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -52,7 +55,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="http://github.com/rnabioco/valr/">
+  <a href="http://github.com/rnabioco/valr">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -71,7 +74,7 @@
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
             
-            <h4 class="date">2017-06-23</h4>
+            <h4 class="date">2017-07-01</h4>
           </div>
 
     
@@ -90,9 +93,9 @@
 <li>Facilitates interactive visulaizations with <a href="http://shiny.rstudio.com/"><code>shiny</code></a>.</li>
 </ul>
 <p><code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
-<div id="familiar-tools-all-within-r" class="section level3">
+<div id="familiar-tools-natively-in-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#familiar-tools-all-within-r" class="anchor"></a>Familiar tools, all within R</h3>
+<a href="#familiar-tools-natively-in-r" class="anchor"></a>Familiar tools, natively in R</h3>
 <p>The functions in <code>valr</code> have similar names to their <code>BEDtools</code> counterparts, and so will be familiar to users coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools"><code>pybedtools</code></a>, <code>valr</code> has a terse syntax:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(valr)
 <span class="kw">library</span>(dplyr)
@@ -142,12 +145,13 @@ nearby <span class="op">%&gt;%</span>
 <span class="co">#&gt;  8  chr1 321145 321207</span>
 <span class="co">#&gt;  9  chr1 322036 326938</span>
 <span class="co">#&gt; 10  chr1 327545 328439</span></code></pre></div>
-<p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns <code>chrom</code>, <code>start</code> and <code>end</code> are present. Additionally tbls can also be hand-contructed using <code>trbl_intervals()</code>.</p>
+<p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns named <code>chrom</code>, <code>start</code> and <code>end</code> are present. New tbls can also be contructed using <code><a href="../reference/trbl_interval.html">trbl_interval()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bed &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trbl_interval.html">trbl_interval</a></span>(
-  <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, 
+  <span class="op">~</span>chrom, <span class="op">~</span>start,  <span class="op">~</span>end, 
   <span class="st">"chr1"</span>, <span class="dv">1657492</span>, <span class="dv">2657492</span>, 
   <span class="st">"chr2"</span>, <span class="dv">2501324</span>, <span class="dv">3094650</span>
 )
+
 bed
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   chrom   start     end</span>
@@ -155,29 +159,31 @@ bed
 <span class="co">#&gt; 1  chr1 1657492 2657492</span>
 <span class="co">#&gt; 2  chr2 2501324 3094650</span></code></pre></div>
 </div>
-<div id="bed-format" class="section level3">
+<div id="interval-coordinates" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bed-format" class="anchor"></a>BED format</h3>
+<a href="#interval-coordinates" class="anchor"></a>Interval coordinates</h3>
 <p><code>valr</code> adheres to the BED <a href="http://genome.ucsc.edu/FAQ/FAQformat#format1">format</a> which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># for a chromosome 100 basepairs in length</span>
-whole_chrom &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trbl_interval.html">trbl_interval</a></span>(
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a chromosome 100 basepairs in length</span>
+chrom &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trbl_interval.html">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, 
-  <span class="st">"chr1"</span>, <span class="dv">0</span>, <span class="dv">100</span>
+  <span class="st">"chr1"</span>, <span class="dv">0</span>,      <span class="dv">100</span>
 )
-whole_chrom
+
+chrom
 <span class="co">#&gt; # A tibble: 1 x 3</span>
 <span class="co">#&gt;   chrom start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1  chr1     0   100</span>
 
-<span class="co"># for single basepair intervals</span>
-single_bases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trbl_interval.html">trbl_interval</a></span>(
+<span class="co"># single basepair intervals</span>
+bases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trbl_interval.html">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, 
-  <span class="st">"chr1"</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="co"># first base of chromosome</span>
-  <span class="st">"chr1"</span>, <span class="dv">1</span>, <span class="dv">2</span>,  <span class="co"># second base of chromosome</span>
-  <span class="st">"chr1"</span>, <span class="dv">99</span>, <span class="dv">100</span> <span class="co"># last base of chromosome</span>
-  )
-single_bases
+  <span class="st">"chr1"</span>, <span class="dv">0</span>,      <span class="dv">1</span>, <span class="co"># first base of chromosome</span>
+  <span class="st">"chr1"</span>, <span class="dv">1</span>,      <span class="dv">2</span>,  <span class="co"># second base of chromosome</span>
+  <span class="st">"chr1"</span>, <span class="dv">99</span>,     <span class="dv">100</span> <span class="co"># last base of chromosome</span>
+)
+
+bases
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   chrom start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
@@ -371,108 +377,72 @@ sd_limits &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdo
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_classic</a></span>()</code></pre></div>
 <p><img src="img/overview-plot-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
-<div id="interval-statistics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#interval-statistics" class="anchor"></a>Interval statistics</h3>
-<p>Estimates of significance for interval overlaps can be obtained by combining <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code>, <code><a href="../reference/bed_random.html">bed_random()</a></code> and the <code>sample_</code> functions from <code>dplyr</code> with interval statistics in <code>valr</code>.</p>
-<p>Here we examine the overlap of repeat classes in the human genome (on <code>chr22</code> only, for simplicity) using <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(purrr)
-<span class="kw">library</span>(tidyr)
-
-repeats &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.rmsk.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>) 
-genome &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>))
-
-
-shuffle_intervals &lt;-<span class="st"> </span><span class="cf">function</span>(n, .data, genome) {
-  <span class="kw">replicate</span>(n, <span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(.data, genome, <span class="dt">seed =</span> <span class="dv">1010486</span>), <span class="dt">simplify =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="dt">.id =</span> <span class="st">'rep'</span>) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(rep) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">nest</a></span>()
-}
-
-shuffled &lt;-<span class="st"> </span><span class="kw">shuffle_intervals</span>(<span class="dt">n =</span> <span class="dv">100</span>, repeats, genome) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">jaccard =</span> data <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(bed_jaccard, repeats) <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw"><a href="http://www.rdocumentation.org/packages/purrr/topics/map">map_dbl</a></span>(<span class="st">"jaccard"</span>))
-  
-shuffled
-<span class="co">#&gt; # A tibble: 100 x 3</span>
-<span class="co">#&gt;      rep                  data      jaccard</span>
-<span class="co">#&gt;    &lt;chr&gt;                &lt;list&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt;  1     1 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  2     2 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  3     3 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  4     4 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  5     5 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  6     6 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  7     7 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  8     8 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt;  9     9 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; 10    10 &lt;tibble [10,000 x 6]&gt; 0.0004355887</span>
-<span class="co">#&gt; # ... with 90 more rows</span></code></pre></div>
-</div>
-</div>
-<div id="benchmarks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#benchmarks" class="anchor"></a>Benchmarks</h2>
-<p>Certain algorithms in <code>valr</code> were implemented in <code>Rcpp</code> to enable fluid interactive analysis. This graph illustrates the timing of functions in <code>valr</code> for two sets of 1 million random 1 kilobase intervals from the hg19 genome.</p>
-<p><img src="img/overview-benchmarks-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div id="api" class="section level2">
 <h2 class="hasAnchor">
 <a href="#api" class="anchor"></a>API</h2>
 <p>Function names are similar to their their <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a> counterparts, with some additions.</p>
+<div id="data-types" class="section level3">
+<h3 class="hasAnchor">
+<a href="#data-types" class="anchor"></a>Data types</h3>
+<ul>
+<li>Create interval sets with <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code>, which enforce strict column naming.</li>
+</ul>
+</div>
 <div id="reading-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#reading-data" class="anchor"></a>Reading data</h3>
 <ul>
-<li><p>BED and related files are read with <code><a href="../reference/read_bed.html">read_bed()</a></code>, <code><a href="../reference/read_bed.html">read_bed12()</a></code>, <code><a href="../reference/read_bed.html">read_bedgraph()</a></code>, <code><a href="../reference/read_bed.html">read_narrowpeak()</a></code> and <code><a href="../reference/read_bed.html">read_broadpeak()</a></code>.</p></li>
-<li><p>Genome files containing chromosome name and size information are loaded with <code><a href="../reference/read_genome.html">read_genome()</a></code>.</p></li>
-<li><p>VCF files are loaded with <code><a href="../reference/read_vcf.html">read_vcf()</a></code>.</p></li>
+<li><p>Read BED and related files with <code><a href="../reference/read_bed.html">read_bed()</a></code>, <code><a href="../reference/read_bed.html">read_bed12()</a></code>, <code><a href="../reference/read_bed.html">read_bedgraph()</a></code>, <code><a href="../reference/read_bed.html">read_narrowpeak()</a></code> and <code><a href="../reference/read_bed.html">read_broadpeak()</a></code>.</p></li>
+<li><p>Read genome files containing chromosome name and size information with <code><a href="../reference/read_genome.html">read_genome()</a></code>.</p></li>
+<li><p>Load VCF files with <code><a href="../reference/read_vcf.html">read_vcf()</a></code>.</p></li>
+<li><p>Access remote databases with <code><a href="../reference/db.html">db_ucsc()</a></code> and <code><a href="../reference/db.html">db_ensembl()</a></code>.</p></li>
 </ul>
 </div>
 <div id="transforming-single-interval-sets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#transforming-single-interval-sets" class="anchor"></a>Transforming single interval sets</h3>
 <ul>
-<li><p>Intervals are ordered with <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code>. See <code><a href="../reference/sorting.html">?sorting</a></code> for examples.</p></li>
-<li><p>Interval coordinates are adjusted with <code><a href="../reference/bed_slop.html">bed_slop()</a></code> and <code><a href="../reference/bed_shift.html">bed_shift()</a></code>, and new flanking intervals are created with <code><a href="../reference/bed_flank.html">bed_flank()</a></code>.</p></li>
-<li><p>Nearby intervals are combined with <code><a href="../reference/bed_merge.html">bed_merge()</a></code> and identified (but not merged) with <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
-<li><p>Intervals not covered by a query are created with <code><a href="../reference/bed_complement.html">bed_complement()</a></code>.</p></li>
+<li><p>Adjust interval coordinates with <code><a href="../reference/bed_slop.html">bed_slop()</a></code> and <code><a href="../reference/bed_shift.html">bed_shift()</a></code>, and create new flanking intervals with <code><a href="../reference/bed_flank.html">bed_flank()</a></code>.</p></li>
+<li><p>Combine nearby intervals with <code><a href="../reference/bed_merge.html">bed_merge()</a></code> and identify nearby intervals with <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
+<li><p>Generate intervals not covered by a query with <code><a href="../reference/bed_complement.html">bed_complement()</a></code>.</p></li>
+<li><p>Order intervals with <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code>.</p></li>
 </ul>
 </div>
 <div id="comparing-multiple-interval-sets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#comparing-multiple-interval-sets" class="anchor"></a>Comparing multiple interval sets</h3>
 <ul>
-<li><p>Find overlaps between two sets of intervals with <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>.</p></li>
-<li><p>Apply functions to selected columns for overlapping intervals with <code><a href="../reference/bed_map.html">bed_map()</a></code>.</p></li>
-<li><p>Remove intervals based on overlaps between two files with <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code>.</p></li>
+<li><p>Find overlaps between sets of intervals with <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>.</p></li>
+<li><p>Apply functions to overlapping sets of intervals with <code><a href="../reference/bed_map.html">bed_map()</a></code>.</p></li>
+<li><p>Remove intervals based on overlaps with <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code>.</p></li>
 <li><p>Find overlapping intervals within a window with <code><a href="../reference/bed_window.html">bed_window()</a></code>.</p></li>
-<li><p>Find the closest intervals independent of overlaps with <code><a href="../reference/bed_closest.html">bed_closest()</a></code>.</p></li>
+<li><p>Find closest intervals independent of overlaps with <code><a href="../reference/bed_closest.html">bed_closest()</a></code>.</p></li>
 </ul>
 </div>
 <div id="randomizing-intervals" class="section level3">
 <h3 class="hasAnchor">
 <a href="#randomizing-intervals" class="anchor"></a>Randomizing intervals</h3>
 <ul>
-<li><p>Generate random intervals from an input genome with <code><a href="../reference/bed_random.html">bed_random()</a></code>.</p></li>
-<li><p>Shuffle the coordinates of input intervals with <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code>.</p></li>
-<li><p>Random sampling of input intervals is done with the <code>sample_</code> function family in <code>dplyr</code>.</p></li>
+<li><p>Generate random intervals with <code><a href="../reference/bed_random.html">bed_random()</a></code>.</p></li>
+<li><p>Shuffle the coordinates of intervals with <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code>.</p></li>
+<li><p>Sample input intervals with <code><a href="http://dplyr.tidyverse.org/reference/sample.html">dplyr::sample_n()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/sample.html">dplyr::sample_frac()</a></code>.</p></li>
 </ul>
 </div>
-<div id="interval-statistics-1" class="section level3">
+<div id="interval-statistics" class="section level3">
 <h3 class="hasAnchor">
-<a href="#interval-statistics-1" class="anchor"></a>Interval statistics</h3>
+<a href="#interval-statistics" class="anchor"></a>Interval statistics</h3>
 <ul>
-<li><p>Quantify overlaps between two sets of intervals with <code><a href="../reference/bed_fisher.html">bed_fisher()</a></code>.</p></li>
+<li><p>Calculate significance of overlaps between sets of intervals with <code><a href="../reference/bed_fisher.html">bed_fisher()</a></code> and <code><a href="../reference/bed_projection.html">bed_projection()</a></code>.</p></li>
 <li><p>Quantify relative and absolute distances between sets of intervals with <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>.</p></li>
-<li><p>Quantify extent of overlap between two sets of intervals with <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> or <code><a href="../reference/bed_projection.html">bed_projection()</a></code>.</p></li>
+<li><p>Quantify extent of overlap between sets of intervals with <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code>.</p></li>
 </ul>
 </div>
 <div id="utilities" class="section level3">
 <h3 class="hasAnchor">
 <a href="#utilities" class="anchor"></a>Utilities</h3>
 <ul>
+<li><p>Create features from BED12 files with <code><a href="../reference/create_introns.html">create_introns()</a></code>, <code><a href="../reference/create_tss.html">create_tss()</a></code>, <code><a href="../reference/create_utrs5.html">create_utrs5()</a></code>, and <code><a href="../reference/create_utrs3.html">create_utrs3()</a></code>.</p></li>
 <li><p>Visualize the actions of valr functions with <code><a href="../reference/bed_glyph.html">bed_glyph()</a></code>.</p></li>
 <li><p>Constrain intervals to a genome reference with <code><a href="../reference/bound_intervals.html">bound_intervals()</a></code>.</p></li>
 <li><p>Subdivide intervals with <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code>.</p></li>
@@ -481,9 +451,9 @@ shuffled
 </ul>
 </div>
 </div>
-<div id="related_work" class="section level2">
+<div id="related-work" class="section level2">
 <h2 class="hasAnchor">
-<a href="#related_work" class="anchor"></a>Related work</h2>
+<a href="#related-work" class="anchor"></a>Related work</h2>
 <ul>
 <li><p>Command-line tools <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a> and <a href="http://bedops.readthedocs.org/en/latest/index.html">bedops</a>.</p></li>
 <li><p>The Python library <a href="https://pythonhosted.org/pybedtools/">pybedtools</a> wraps BEDtools.</p></li>
@@ -500,9 +470,8 @@ shuffled
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#why-valr">Why <code>valr</code>?</a></li>
       <li><a href="#getting-started">Getting started</a></li>
-      <li><a href="#benchmarks">Benchmarks</a></li>
       <li><a href="#api">API</a></li>
-      <li><a href="#related_work">Related work</a></li>
+      <li><a href="#related-work">Related work</a></li>
       </ul>
 </div>
       </div>
