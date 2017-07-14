@@ -36,16 +36,10 @@ statistics for subsets of data. See \code{vignette('interval-stats')} for
 examples.
 }
 \examples{
-x <- trbl_interval(
-  ~chrom,   ~start,    ~end,
-  "chr1",    75,       125
-)
+genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
-y <- trbl_interval(
-  ~chrom,   ~start,    ~end,
-  "chr1",    50,       100,
-  "chr1",    100,       150
-)
+x <- bed_random(genome, seed = 1010486)
+y <- bed_random(genome, seed = 9203911)
 
 bed_reldist(x, y)
 

@@ -30,22 +30,10 @@
 #' \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #'
 #' @examples
-#' x <- trbl_interval(
-#'   ~chrom,   ~start,    ~end,
-#'   "chr1",    75,       125
-#' )
+#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 #'
-#' y <- trbl_interval(
-#'   ~chrom,   ~start,    ~end,
-#'   "chr1",    50,       100,
-#'   "chr1",    100,       150
-#' )
-#'
-#' genome <- trbl_genome(
-#'   ~chrom, ~size,
-#'   "chr1", 500,
-#'   "chr2", 1000
-#' )
+#' x <- bed_random(genome, seed = 1010486)
+#' y <- bed_random(genome, seed = 9203911)
 #'
 #' bed_absdist(x, y, genome)
 #'

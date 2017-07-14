@@ -149,21 +149,15 @@ examples.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>10</span>,     <span class='fl'>20</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>30</span>,     <span class='fl'>40</span>
-)
+    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_genome.html'>read_genome</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'hg19.chrom.sizes.gz'</span>))
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>15</span>,     <span class='fl'>20</span>
-)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
 <span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;   len_i len_u jaccard     n
-#&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1     5    25    0.25     1</div><div class='input'>
+#&gt;       len_i      len_u   jaccard      n
+#&gt;       &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1 236059495 1709233073 0.1602388 399478</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

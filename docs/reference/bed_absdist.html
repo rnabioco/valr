@@ -152,27 +152,25 @@ examples.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>,    <span class='fl'>75</span>,       <span class='fl'>125</span>
-)
+    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_genome.html'>read_genome</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'hg19.chrom.sizes.gz'</span>))
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>,    <span class='fl'>50</span>,       <span class='fl'>100</span>,
-  <span class='st'>"chr1"</span>,    <span class='fl'>100</span>,       <span class='fl'>150</span>
-)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
-<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_genome.html'>trbl_genome</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
-  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,
-  <span class='st'>"chr2"</span>, <span class='fl'>1000</span>
-)
-
-<span class='fu'>bed_absdist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 5
-#&gt;   chrom start   end .absdist .absdist_scaled
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;           &lt;dbl&gt;
-#&gt; 1  chr1    75   125       25             0.1</div><div class='input'>
+<span class='fu'>bed_absdist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 1,000,000 x 5
+#&gt;    chrom start   end .absdist .absdist_scaled
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;           &lt;dbl&gt;
+#&gt;  1  chr1   323  1323      302      0.09769751
+#&gt;  2  chr1  2032  3032     2011      0.65056192
+#&gt;  3  chr1  2475  3475     2454      0.79387318
+#&gt;  4  chr1  2759  3759     2226      0.72011479
+#&gt;  5  chr1  2766  3766     2219      0.71785028
+#&gt;  6  chr1  3528  4528     1457      0.47134198
+#&gt;  7  chr1  8394  9394      207      0.06696485
+#&gt;  8  chr1  8819  9819      218      0.07052337
+#&gt;  9  chr1 12963 13963      788      0.25491934
+#&gt; 10  chr1 24939 25939      270      0.08734546
+#&gt; # ... with 999,990 more rows</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -12,26 +12,13 @@
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 #'
-#' @return `tbl_interval`
+#' @return [tbl_interval()]
 #'
 #' @examples
-#' x <- trbl_interval(
-#'   ~chrom, ~start, ~end,
-#'   "chr1", 10,     20,
-#'   "chr1", 30,     40,
-#'   "chr1", 51,     52
-#' )
+#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 #'
-#' y <- trbl_interval(
-#'   ~chrom, ~start, ~end,
-#'   "chr1", 15,     25,
-#'   "chr1", 51,     52
-#' )
-#'
-#' genome <- trbl_genome(
-#'   ~chrom, ~size,
-#'   "chr1", 500
-#' )
+#' x <- bed_random(genome, seed = 1010486)
+#' y <- bed_random(genome, seed = 9203911)
 #'
 #' bed_fisher(x, y, genome)
 #'

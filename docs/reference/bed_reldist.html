@@ -150,25 +150,39 @@ examples.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>,    <span class='fl'>75</span>,       <span class='fl'>125</span>
-)
+    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_genome.html'>read_genome</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'hg19.chrom.sizes.gz'</span>))
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>,   ~<span class='no'>start</span>,    ~<span class='no'>end</span>,
-  <span class='st'>"chr1"</span>,    <span class='fl'>50</span>,       <span class='fl'>100</span>,
-  <span class='st'>"chr1"</span>,    <span class='fl'>100</span>,       <span class='fl'>150</span>
-)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
-<span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;   .reldist .counts .total .freq
-#&gt;      &lt;dbl&gt;   &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;
-#&gt; 1      0.5       1      1     1</div><div class='input'>
-<span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>detail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;   chrom start   end .reldist
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-#&gt; 1  chr1    75   125      0.5</div><div class='input'>
+<span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 51 x 4
+#&gt;    .reldist .counts .total      .freq
+#&gt;       &lt;dbl&gt;   &lt;int&gt;  &lt;int&gt;      &lt;dbl&gt;
+#&gt;  1     0.00   20170 999954 0.02017093
+#&gt;  2     0.01   19966 999954 0.01996692
+#&gt;  3     0.02   20135 999954 0.02013593
+#&gt;  4     0.03   20105 999954 0.02010592
+#&gt;  5     0.04   19854 999954 0.01985491
+#&gt;  6     0.05   19848 999954 0.01984891
+#&gt;  7     0.06   20095 999954 0.02009592
+#&gt;  8     0.07   20232 999954 0.02023293
+#&gt;  9     0.08   19889 999954 0.01988991
+#&gt; 10     0.09   19949 999954 0.01994992
+#&gt; # ... with 41 more rows</div><div class='input'>
+<span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>detail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 999,954 x 4
+#&gt;    chrom start   end   .reldist
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;      &lt;dbl&gt;
+#&gt;  1  chr1   323  1323 0.06083803
+#&gt;  2  chr1  2032  3032 0.40511686
+#&gt;  3  chr1  2475  3475 0.49435937
+#&gt;  4  chr1  2759  3759 0.44842869
+#&gt;  5  chr1  2766  3766 0.44701853
+#&gt;  6  chr1  3528  4528 0.29351330
+#&gt;  7  chr1  8394  9394 0.07641196
+#&gt;  8  chr1  8819  9819 0.46088794
+#&gt;  9  chr1 12963 13963 0.49311641
+#&gt; 10  chr1 24939 25939 0.05940594
+#&gt; # ... with 999,944 more rows</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

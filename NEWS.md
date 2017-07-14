@@ -4,6 +4,8 @@
 
 * New `create_tss()` for creating transcription start sites.
 
+* Improve documentation of interval statistics with more complex examples.
+
 # valr 0.3.0
 
 ## Enhancements
