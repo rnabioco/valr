@@ -14,6 +14,7 @@ bed_jaccard(x, y)
 \value{
 \code{\link[=tbl_interval]{tbl_interval()}} with the following columns:
 \itemize{
+\item \code{group} grouping variable (for grouped inputs only)
 \item \code{len_i} length of the intersection
 \item \code{len_u} length of the union
 \item \code{jaccard} jaccard statistic
