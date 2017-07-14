@@ -130,11 +130,6 @@ within a chrom, not by chrom.</p>
 
     <p>Sorting strips groups from the input.</p>
     
-    <h2 class="hasAnchor" id="deprecated-function"><a class="anchor" href="#deprecated-function"></a>Deprecated function</h2>
-
-    <p><code>bed_sort</code> has been deprecated. Instead
-use <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arrange()</a></code>. See <a href='sorting.html'>sorting</a> for details.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href='http://bedtools.readthedocs.org/en/latest/content/tools/sort.html'>http://bedtools.readthedocs.org/en/latest/content/tools/sort.html</a></p>
@@ -151,7 +146,7 @@ use <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arr
 )
 
 <span class='co'># sort by chrom and start</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1   100   300
@@ -160,7 +155,7 @@ use <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arr
 #&gt; 4  chr8   500  1000
 #&gt; 5  chr8  1000  5000</div><div class='input'>
 <span class='co'># reverse sort order</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr1   100   300
@@ -169,7 +164,7 @@ use <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arr
 #&gt; 4  chr8   500  1000
 #&gt; 5  chr8   100   200</div><div class='input'>
 <span class='co'># sort by interval size</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr8   100   200
@@ -178,7 +173,7 @@ use <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arr
 #&gt; 4  chr8   500  1000
 #&gt; 5  chr8  1000  5000</div><div class='input'>
 <span class='co'># sort by decreasing interval size</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1  chr8  1000  5000
@@ -187,7 +182,7 @@ use <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arr
 #&gt; 4  chr8   100   200
 #&gt; 5  chr1   100   200</div><div class='input'>
 <span class='co'># sort by interval size within chrom</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: bed_sort() is deprecated. see examples in `?sorting`.</span></div><div class='output co'>#&gt; # A tibble: 5 x 3
+<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt; # Groups:   chrom [2]
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -196,7 +191,45 @@ use <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arr
 #&gt; 3  chr1   100   300
 #&gt; 4  chr8   500  1000
 #&gt; 5  chr8  1000  5000</div><div class='input'>
-</div></pre>
+<span class='co'># can also use dplyr to sort</span>
+
+<span class='co'># sort by start</span>
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>x</span>, <span class='no'>start</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr8   100   200
+#&gt; 2  chr1   100   300
+#&gt; 3  chr1   100   200
+#&gt; 4  chr8   500  1000
+#&gt; 5  chr8  1000  5000</div><div class='input'>
+<span class='co'># sort by descending start</span>
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>x</span>, <span class='fu'>desc</span>(<span class='no'>start</span>))</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr8  1000  5000
+#&gt; 2  chr8   500  1000
+#&gt; 3  chr8   100   200
+#&gt; 4  chr1   100   300
+#&gt; 5  chr1   100   200</div><div class='input'>
+<span class='co'># sort by chrom and start</span>
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>x</span>, <span class='no'>chrom</span>, <span class='no'>start</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
+#&gt;   chrom start   end
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr1   100   300
+#&gt; 2  chr1   100   200
+#&gt; 3  chr8   100   200
+#&gt; 4  chr8   500  1000
+#&gt; 5  chr8  1000  5000</div><div class='input'>
+<span class='co'># sort by size</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='no'>end</span> - <span class='no'>start</span>)
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='no'>x</span>, <span class='no'>.size</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 4
+#&gt;   chrom start   end .size
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  chr8   100   200   100
+#&gt; 2  chr1   100   200   100
+#&gt; 3  chr1   100   300   200
+#&gt; 4  chr8   500  1000   500
+#&gt; 5  chr8  1000  5000  4000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -204,8 +237,6 @@ use <code><a href='http://dplyr.tidyverse.org/reference/arrange.html'>dplyr::arr
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#deprecated-function">Deprecated function</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

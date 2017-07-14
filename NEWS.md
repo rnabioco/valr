@@ -6,6 +6,10 @@
 
 * Improve documentation of interval statistics with more complex examples.
 
+## Minor
+
+* `bed_sort()` has been de-deprecated to reduce `arrange` calls in library code.
+
 # valr 0.3.0
 
 ## Enhancements
