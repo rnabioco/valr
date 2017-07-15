@@ -7,6 +7,8 @@
 #'
 #' @return [tbl_interval()] with `.spacing` column.
 #'
+#' @family utilities
+#'
 #' @examples
 #' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,

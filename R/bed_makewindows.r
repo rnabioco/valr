@@ -12,6 +12,7 @@
 #'   `group_by` operations (see vignette).
 #'
 #' @family utilities
+#'
 #' @return [tbl_interval()] with `.win_id` column that contains a numeric
 #'   identifier for the window.
 #'

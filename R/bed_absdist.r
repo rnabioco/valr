@@ -1,7 +1,7 @@
 #' Compute absolute distances between intervals.
 #'
-#' Computes the absolute distance between the midpoints of `x` intervals and
-#' the closest midpoints of `y` intervals.
+#' Computes the absolute distance between the midpoint of each `x` interval and
+#' the midpoints of each closest `y` interval.
 #'
 #' @details Absolute distances are scaled by the inter-reference gap for the
 #'   chromosome as follows. For `Q` query points and `R` reference
@@ -19,8 +19,8 @@
 #' @param y [tbl_interval()]
 #' @param genome [tbl_genome()]
 #'
-#' @return [tbl_interval()] with `.absdist` and `.absdist_scaled`
-#'   columns.
+#' @return
+#' [tbl_interval()] with `.absdist` and `.absdist_scaled` columns.
 #'
 #' @template stats
 #'

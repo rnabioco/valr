@@ -99,10 +99,9 @@
     </div>
 
     
-    <p>Used to apply functions like <code>min()</code>, <code>count()</code>,
-<code>concat()</code> to intersecting intervals. Book-ended intervals are
-not reported by default, but can be included by setting <code>min_overlap =
-0</code>.</p>
+    <p>Used to apply functions like <code>min()</code>, <code>count()</code> or <code>concat()</code> to intersecting
+intervals. Book-ended intervals are not reported by default, but can be
+included by setting <code>min_overlap = 0</code>.</p>
     
 
     <pre class="usage"><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>),
@@ -179,23 +178,23 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
-  <span class='st'>'chr1'</span>,      <span class='fl'>1</span>,     <span class='fl'>20</span>,    <span class='fl'>10</span>,
-  <span class='st'>'chr1'</span>,      <span class='fl'>30</span>,    <span class='fl'>50</span>,    <span class='fl'>20</span>,
-  <span class='st'>'chr1'</span>,      <span class='fl'>90</span>,    <span class='fl'>120</span>,   <span class='fl'>30</span>
+  <span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>20</span>,   <span class='fl'>10</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>50</span>,   <span class='fl'>20</span>,
+  <span class='st'>'chr1'</span>, <span class='fl'>90</span>,     <span class='fl'>120</span>,  <span class='fl'>30</span>
 )
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'value'</span>)</div><div class='img'><img src='bed_map-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,
- <span class='st'>"chr2"</span>, <span class='fl'>250</span>,    <span class='fl'>500</span>
+ <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,
+ <span class='st'>'chr2'</span>, <span class='fl'>250</span>,    <span class='fl'>500</span>
 )
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,  <span class='fl'>10</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>250</span>,  <span class='fl'>20</span>,
- <span class='st'>"chr2"</span>, <span class='fl'>250</span>,    <span class='fl'>500</span>,  <span class='fl'>500</span>
+ <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,  <span class='fl'>10</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>250</span>,  <span class='fl'>20</span>,
+ <span class='st'>'chr2'</span>, <span class='fl'>250</span>,    <span class='fl'>500</span>,  <span class='fl'>500</span>
 )
 
 <span class='co'># also mean, median, sd etc</span>
@@ -214,7 +213,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;chr&gt;
 #&gt; 1  chr1   100   250   10,20
 #&gt; 2  chr2   250   500     500</div><div class='input'>
-<span class='co'># can also create a list-col</span>
+<span class='co'># create a list-col</span>
 <span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;   chrom start   end   .values
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;list&gt;

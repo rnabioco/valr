@@ -37,10 +37,9 @@ values(.data, sep = ",")
 \code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
-Used to apply functions like \code{\link[=min]{min()}}, \code{\link[=count]{count()}},
-\code{\link[=concat]{concat()}} to intersecting intervals. Book-ended intervals are
-not reported by default, but can be included by setting \code{min_overlap =
-0}.
+Used to apply functions like \code{\link[=min]{min()}}, \code{\link[=count]{count()}} or \code{\link[=concat]{concat()}} to intersecting
+intervals. Book-ended intervals are not reported by default, but can be
+included by setting \code{min_overlap = 0}.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
@@ -57,24 +56,24 @@ x <- trbl_interval(
 
 y <- trbl_interval(
   ~chrom, ~start, ~end, ~value,
-  'chr1',      1,     20,    10,
-  'chr1',      30,    50,    20,
-  'chr1',      90,    120,   30
+  'chr1', 1,      20,   10,
+  'chr1', 30,     50,   20,
+  'chr1', 90,     120,  30
 )
 
 bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
 
 x <- trbl_interval(
  ~chrom, ~start, ~end,
- "chr1", 100,    250,
- "chr2", 250,    500
+ 'chr1', 100,    250,
+ 'chr2', 250,    500
 )
 
 y <- trbl_interval(
  ~chrom, ~start, ~end, ~value,
- "chr1", 100,    250,  10,
- "chr1", 150,    250,  20,
- "chr2", 250,    500,  500
+ 'chr1', 100,    250,  10,
+ 'chr1', 150,    250,  20,
+ 'chr2', 250,    500,  500
 )
 
 # also mean, median, sd etc
@@ -84,7 +83,7 @@ bed_map(x, y, .min = min(value), .max = max(value))
 
 bed_map(x, y, .concat = concat(value))
 
-# can also create a list-col
+# create a list-col
 bed_map(x, y, .values = list(value))
 
 # can also use `nth` family from dplyr

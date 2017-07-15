@@ -123,12 +123,11 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>x</code> <code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following additional
-columns:</p><ul>
-<li><p><code>.ints</code> number of x intersections</p></li>
-<li><p><code>.cov</code> per-base coverage of x intervals</p></li>
-<li><p><code>.len</code> total length of y intervals covered by x intervals</p></li>
-<li><p><code>.frac</code> <code>.len</code> scaled by total of y intervals</p></li>
+    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following additional columns:</p><ul>
+<li><p><code>.ints</code> number of <code>x</code> intersections</p></li>
+<li><p><code>.cov</code> per-base coverage of <code>x</code> intervals</p></li>
+<li><p><code>.len</code> total length of <code>y</code> intervals covered by <code>x</code> intervals</p></li>
+<li><p><code>.frac</code> <code>.len</code> scaled by the number of <code>y</code> intervals</p></li>
 </ul>
 
     
@@ -142,7 +141,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Book-ended intervals are counted as overlapping.</p>
+    <p>Book-ended intervals are included in coverage calculations.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

@@ -23,7 +23,7 @@ calculated \code{.reldist} values with the following columns:
 \item \code{.freq} frequency of observation
 }
 
-If \code{detail = TRUE}, a new \code{.reldist} column reports the relative
+If \code{detail = TRUE}, the \code{.reldist} column reports the relative
 distance for each input \code{x} interval.
 }
 \description{

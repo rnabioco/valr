@@ -11,7 +11,9 @@
 #' @template groups
 #'
 #' @return [tbl_interval()]
+#'
 #' @family single set operations
+#'
 #' @seealso
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #'

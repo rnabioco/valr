@@ -14,13 +14,12 @@ bed_coverage(x, y, ...)
 \item{...}{extra arguments (not used)}
 }
 \value{
-\code{x} \code{\link[=tbl_interval]{tbl_interval()}} with the following additional
-columns:
+\code{\link[=tbl_interval]{tbl_interval()}} with the following additional columns:
 \itemize{
-\item \code{.ints} number of x intersections
-\item \code{.cov} per-base coverage of x intervals
-\item \code{.len} total length of y intervals covered by x intervals
-\item \code{.frac} \code{.len} scaled by total of y intervals
+\item \code{.ints} number of \code{x} intersections
+\item \code{.cov} per-base coverage of \code{x} intervals
+\item \code{.len} total length of \code{y} intervals covered by \code{x} intervals
+\item \code{.frac} \code{.len} scaled by the number of \code{y} intervals
 }
 }
 \description{
@@ -34,7 +33,7 @@ compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \note{
-Book-ended intervals are counted as overlapping.
+Book-ended intervals are included in coverage calculations.
 }
 \examples{
 x <- trbl_interval(

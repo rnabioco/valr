@@ -18,7 +18,8 @@ bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"))
 \value{
 \code{\link[=tbl_interval]{tbl_interval()}} with additional columns:
 \itemize{
-\item \code{.dist} distance to closest interval, negative distances denote upstream intervals
+\item \code{.dist} distance to closest interval. Negative distances
+denote upstream intervals.
 \item \code{.overlap} overlap with closest interval
 }
 }

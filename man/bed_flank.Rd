@@ -33,7 +33,6 @@ bed_flank(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
 Create flanking intervals from input intervals.
 }
 \examples{
-
 x <- trbl_interval(
   ~chrom, ~start, ~end,
   'chr1',      25,      50,
@@ -49,13 +48,13 @@ bed_glyph(bed_flank(x, genome, both = 20))
 
 x <- trbl_interval(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
- "chr1", 500,    1000, '.',   '.',    '+',
- "chr1", 1000,   1500, '.',   '.',    '-'
+ 'chr1', 500,    1000, '.',   '.',    '+',
+ 'chr1', 1000,   1500, '.',   '.',    '-'
 )
 
 genome <- trbl_genome(
   ~chrom, ~size,
-  "chr1", 5000
+  'chr1', 5000
 )
 
 bed_flank(x, genome, left = 100)

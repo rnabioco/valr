@@ -4,7 +4,7 @@
 #' strand. I.e., the first introns for `+` and `-` strand genes both have `score`
 #' values of `1`.
 #'
-#' @param x [tbl_interval] in BED12 format
+#' @param x [tbl_interval()] in BED12 format
 #'
 #' @family feature functions
 #'

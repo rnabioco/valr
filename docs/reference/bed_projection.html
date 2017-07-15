@@ -129,14 +129,14 @@
 
     <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following columns:</p><ul>
 <li><p><code>chrom</code> the name of chromosome tested if <code>by_chrom = TRUE</code>,
-otherwise has a value of <code>'whole_genome'</code></p></li>
+otherwise has a value of <code>whole_genome</code></p></li>
 <li><p><code>p.value</code> p-value from a binomial test. p-values &gt; 0.5
-will be reported as 1 - p-value and <code>lower_tail</code> will be <code>FALSE</code></p></li>
+are converted to <code>1 - p-value</code> and <code>lower_tail</code> is <code>FALSE</code></p></li>
 <li><p><code>obs_exp_ratio</code> ratio of observed to expected overlap frequency</p></li>
-<li><p><code>lower_tail</code> a boolean column. <code>TRUE</code> indicates the observed overlaps
-is in the lower tail of the distribution (e.g., less overlap than expected); <code>FALSE</code>
-indicates that the observed overlaps are in the upper tail of the distribution
-(e.g., more overlap than expected)</p></li>
+<li><p><code>lower_tail</code> <code>TRUE</code> indicates the observed overlaps are in the lower tail
+of the distribution (e.g., less overlap than expected). <code>FALSE</code> indicates
+that the observed overlaps are in the upper tail of the distribution (e.g.,
+more overlap than expected)</p></li>
 </ul>
 
     

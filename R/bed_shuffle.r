@@ -9,7 +9,9 @@
 #' @param seed seed for reproducible intervals
 #'
 #' @return [tbl_interval()]
+#'
 #' @family randomizing operations
+#'
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 #'
 #' @examples
@@ -20,8 +22,9 @@
 #'  "chr3", 4e6
 #' )
 #'
-#' x <- bed_random(genome)
-#' bed_shuffle(x, genome)
+#' x <- bed_random(genome, seed = 1010486)
+#'
+#' bed_shuffle(x, genome, seed = 9830491)
 #'
 #' @export
 bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fisher's test on number of shared and unique intervals. — bed_fisher • valr</title>
+<title>Fisher's test to measure overlap between two sets of intervals. — bed_fisher • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -95,11 +95,12 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fisher's test on number of shared and unique intervals.</h1>
+    <h1>Fisher's test to measure overlap between two sets of intervals.</h1>
     </div>
 
     
-    <p>Borrows from the <code>BEDtools</code> implementation.</p>
+    <p>Calculate Fisher's test on number of intervals that are shared and unique
+between two sets of <code>x</code> and <code>y</code> intervals.</p>
     
 
     <pre class="usage"><span class='fu'>bed_fisher</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</pre>

@@ -9,16 +9,21 @@
 #'
 #' @family interval statistics
 #'
-#' @return [tbl_interval()] with the following columns:
+#' @return
+#' [tbl_interval()] with the following columns:
+#'
 #'   - `chrom` the name of chromosome tested if `by_chrom = TRUE`,
-#'      otherwise has a value of `'whole_genome'`
+#'      otherwise has a value of `whole_genome`
+#'
 #'   - `p.value` p-value from a binomial test. p-values > 0.5
-#'      will be reported as 1 - p-value and `lower_tail` will be `FALSE`
+#'      are converted to `1 - p-value` and `lower_tail` is `FALSE`
+#'
 #'   - `obs_exp_ratio` ratio of observed to expected overlap frequency
-#'   - `lower_tail` a boolean column. `TRUE` indicates the observed overlaps
-#'      is in the lower tail of the distribution (e.g., less overlap than expected); `FALSE`
-#'      indicates that the observed overlaps are in the upper tail of the distribution
-#'      (e.g., more overlap than expected)
+#'
+#'   - `lower_tail` `TRUE` indicates the observed overlaps are in the lower tail
+#'     of the distribution (e.g., less overlap than expected). `FALSE` indicates
+#'     that the observed overlaps are in the upper tail of the distribution (e.g.,
+#'     more overlap than expected)
 #'
 #' @seealso
 #'   \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}

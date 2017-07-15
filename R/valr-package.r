@@ -13,13 +13,7 @@
 #' @docType package
 #' @name valr
 #'
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/index.html}
-#' @seealso \url{https://pythonhosted.org/pybedtools/}
-#' @seealso \url{http://bedops.readthedocs.org/en/latest/index.html}
-#' @seealso
-#'   \url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
-#'
-#' @seealso \url{https://CRAN.R-project.org/package=bedr}
+#' @seealso Report bugs at \url{https://github.com/rnabioco/valr/issues}
 #'
 #' @useDynLib valr, .registration = TRUE
 #' @importFrom tibble tribble as_tibble

@@ -63,5 +63,7 @@ dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
 
 }
 \seealso{
-Other utilities: \code{\link{bed12_to_exons}}
+Other utilities: \code{\link{bed12_to_exons}},
+  \code{\link{flip_strands}},
+  \code{\link{interval_spacing}}
 }

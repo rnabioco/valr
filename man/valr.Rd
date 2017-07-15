@@ -16,15 +16,7 @@ To learn more about valr, start with the vignette:
 \code{browseVignettes(package = "valr")}
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/index.html}
-
-\url{https://pythonhosted.org/pybedtools/}
-
-\url{http://bedops.readthedocs.org/en/latest/index.html}
-
-\url{https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html}
-
-\url{https://CRAN.R-project.org/package=bedr}
+Report bugs at \url{https://github.com/rnabioco/valr/issues}
 }
 \author{
 Jay Hesselberth \href{mailto:jay.hesselberth@gmail.com}{jay.hesselberth@gmail.com}

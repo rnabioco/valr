@@ -9,29 +9,27 @@ bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"))
 \arguments{
 \item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{...}{single y  \code{\link[=tbl_interval]{tbl_interval()}}, multiple y \code{\link{tbl_interval}s}
-or a list of y  \code{tbl_intervals}}
+\item{...}{one or more (e.g. a list of) \code{y} \code{\link[=tbl_interval]{tbl_interval()}}s}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
 \item{suffix}{colname suffixes in output}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with original columns from \code{x} and \code{y},
-suffixed with \code{.x} and \code{.y}, and a new \code{.overlap} column
-with the extent of overlap for the intersecting intervals.
+\code{\link[=tbl_interval]{tbl_interval()}} with original columns from \code{x} and \code{y} suffixed with \code{.x}
+and \code{.y}, and a new \code{.overlap} column with the extent of overlap for the
+intersecting intervals.
 
-If  multiple \code{y} tbls are supplied, then an additional column \code{.source} will
-be reported that contains the variable names associated with each interval. All original
-columns from the y tbls will be suffixed with \code{.y} in the output.
-If named tbls are supplied to \code{...} (i.e \code{a = y, b = z} or
-\code{list(a = y, b = z)}), then the supplied names will be reported instead
-of the variable names (see examples).
+If  multiple \code{y} tbls are supplied, the \code{.source} contains variable names
+associated with each interval. All original columns from the \code{y} are suffixed
+with \code{.y} in the output.
+
+If \code{...} contains named inputs (i.e \code{a = y, b = z} or \code{list(a = y, b = z)}),
+then \code{.source} will contain supplied names (see examples).
 }
 \description{
-Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended
-intervals (or "touching" intervals) have \code{.overlap} values of \code{0})
-in the output.
+Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended intervals
+have \code{.overlap} values of \code{0} in the output.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
@@ -53,22 +51,23 @@ y <- trbl_interval(
 )
 
 bed_glyph(bed_intersect(x, y))
+
 bed_glyph(bed_intersect(x, y, invert = TRUE))
 
 x <- trbl_interval(
   ~chrom, ~start, ~end,
-  "chr1", 100,    500,
-  "chr2", 200,    400,
-  "chr2", 300,    500,
-  "chr2", 800,    900
+  'chr1', 100,    500,
+  'chr2', 200,    400,
+  'chr2', 300,    500,
+  'chr2', 800,    900
 )
 
 y <- trbl_interval(
   ~chrom, ~start, ~end, ~value,
-  "chr1", 150,    400,  100,
-  "chr1", 500,    550,  100,
-  "chr2", 230,    430,  200,
-  "chr2", 350,    430,  300
+  'chr1', 150,    400,  100,
+  'chr1', 500,    550,  100,
+  'chr2', 230,    430,  200,
+  'chr2', 350,    430,  300
 )
 
 bed_intersect(x, y)
@@ -82,10 +81,10 @@ dplyr::mutate(res, start = pmax(start.x, start.y),
 
 z <- trbl_interval(
   ~chrom, ~start, ~end, ~value,
-  "chr1", 150,    400,  100,
-  "chr1", 500,    550,  100,
-  "chr2", 230,    430,  200,
-  "chr2", 750,    900,  400
+  'chr1', 150,    400,  100,
+  'chr1', 500,    550,  100,
+  'chr2', 230,    430,  200,
+  'chr2', 750,    900,  400
 )
 
 bed_intersect(x, y, z)

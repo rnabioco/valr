@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Subtract intervals. — bed_subtract • valr</title>
+<title>Subtract two sets of intervals. — bed_subtract • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -95,7 +95,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Subtract intervals.</h1>
+    <h1>Subtract two sets of intervals.</h1>
     </div>
 
     
@@ -151,21 +151,21 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_subtract</span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><div class='img'><img src='bed_subtract-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>250</span>,    <span class='fl'>400</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>600</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>1000</span>,   <span class='fl'>1200</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>1300</span>,   <span class='fl'>1500</span>
+ <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>250</span>,    <span class='fl'>400</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>500</span>,    <span class='fl'>600</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>1000</span>,   <span class='fl'>1200</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>1300</span>,   <span class='fl'>1500</span>
 )
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='trbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>175</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>510</span>,    <span class='fl'>525</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>550</span>,    <span class='fl'>575</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>900</span>,    <span class='fl'>1050</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>1150</span>,   <span class='fl'>1250</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>1299</span>,   <span class='fl'>1501</span>
+ <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>175</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>510</span>,    <span class='fl'>525</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>550</span>,    <span class='fl'>575</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>900</span>,    <span class='fl'>1050</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>1150</span>,   <span class='fl'>1250</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>1299</span>,   <span class='fl'>1501</span>
 )
 
 <span class='fu'>bed_subtract</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 3

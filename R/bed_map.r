@@ -1,9 +1,8 @@
 #' Calculate summaries and statistics from overlapping intervals.
 #'
-#' Used to apply functions like [min()], [count()],
-#' [concat()] to intersecting intervals. Book-ended intervals are
-#' not reported by default, but can be included by setting \code{min_overlap =
-#' 0}.
+#' Used to apply functions like [min()], [count()] or [concat()] to intersecting
+#' intervals. Book-ended intervals are not reported by default, but can be
+#' included by setting `min_overlap = 0`.
 #'
 #' @param x [tbl_interval()]
 #' @param y  [tbl_interval()]
@@ -17,6 +16,7 @@
 #' @return [tbl_interval()]
 #'
 #' @family multiple set operations
+#'
 #' @seealso
 #' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #'
@@ -28,24 +28,24 @@
 #'
 #' y <- trbl_interval(
 #'   ~chrom, ~start, ~end, ~value,
-#'   'chr1',      1,     20,    10,
-#'   'chr1',      30,    50,    20,
-#'   'chr1',      90,    120,   30
+#'   'chr1', 1,      20,   10,
+#'   'chr1', 30,     50,   20,
+#'   'chr1', 90,     120,  30
 #' )
 #'
 #' bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
 #'
 #' x <- trbl_interval(
 #'  ~chrom, ~start, ~end,
-#'  "chr1", 100,    250,
-#'  "chr2", 250,    500
+#'  'chr1', 100,    250,
+#'  'chr2', 250,    500
 #' )
 #'
 #' y <- trbl_interval(
 #'  ~chrom, ~start, ~end, ~value,
-#'  "chr1", 100,    250,  10,
-#'  "chr1", 150,    250,  20,
-#'  "chr2", 250,    500,  500
+#'  'chr1', 100,    250,  10,
+#'  'chr1', 150,    250,  20,
+#'  'chr2', 250,    500,  500
 #' )
 #'
 #' # also mean, median, sd etc
@@ -55,7 +55,7 @@
 #'
 #' bed_map(x, y, .concat = concat(value))
 #'
-#' # can also create a list-col
+#' # create a list-col
 #' bed_map(x, y, .values = list(value))
 #'
 #' # can also use `nth` family from dplyr
