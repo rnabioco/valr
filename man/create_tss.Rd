@@ -7,7 +7,7 @@
 create_tss(x)
 }
 \arguments{
-\item{x}{\link{tbl_interval} in BED format}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}} in BED format}
 }
 \description{
 Create transcription start site features.
