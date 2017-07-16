@@ -4,7 +4,7 @@ date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette:
     toc: true
-    toc_depth: 2
+    toc_depth: 3
     vignette: >
       %\VignetteIndexEntry{valr-overview}
       %\VignetteEngine{knitr::rmarkdown}
@@ -16,9 +16,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "img/overview-",
-  fig.height = 4,
-  fig.align = "center",
-  fig.width = 4
+  fig.align = "center"
 )
 ```
 
