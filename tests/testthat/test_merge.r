@@ -162,3 +162,16 @@ test_that("is_merged identifies previously merged tbls", {
   res <- bed_merge(x)
   expect_true(is_merged(res))
 })
+
+test_that("bed_merge with spec returns start/end columns (issue #288)", {
+
+  x <- trbl_interval(
+    ~chrom, ~start, ~end, ~value,
+    "chr1", 100,    200,  100,
+    "chr1", 150,    250,  200
+  )
+
+  res <- bed_merge(x, .value = sum(value))
+  expect_true('start' %in% names(res))
+  expect_true('end' %in% names(res))
+})
