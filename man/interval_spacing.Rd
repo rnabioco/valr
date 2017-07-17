@@ -27,3 +27,8 @@ x <- trbl_interval(
 interval_spacing(x)
 
 }
+\seealso{
+Other utilities: \code{\link{bed12_to_exons}},
+  \code{\link{bed_makewindows}},
+  \code{\link{bound_intervals}}, \code{\link{flip_strands}}
+}

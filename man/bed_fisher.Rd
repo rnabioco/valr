@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_fisher.r
 \name{bed_fisher}
 \alias{bed_fisher}
-\title{Fisher's test on number of shared and unique intervals.}
+\title{Fisher's test to measure overlap between two sets of intervals.}
 \usage{
 bed_fisher(x, y, genome)
 }
@@ -17,7 +17,8 @@ bed_fisher(x, y, genome)
 \code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
-Borrows from the \code{BEDtools} implementation.
+Calculate Fisher's test on number of intervals that are shared and unique
+between two sets of \code{x} and \code{y} intervals.
 }
 \details{
 Interval statistics can be used in combination with

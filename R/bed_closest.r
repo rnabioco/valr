@@ -7,11 +7,14 @@
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()] with additional columns:
-#'   - `.dist` distance to closest interval, negative distances denote upstream intervals
+#' @return
+#' [tbl_interval()] with additional columns:
+#'   - `.dist` distance to closest interval. Negative distances
+#'     denote upstream intervals.
 #'   - `.overlap` overlap with closest interval
 #'
 #' @family multiple set operations
+#'
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 #'
 #' @examples

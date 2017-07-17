@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate jaccard statistics on two sets of intervals. — bed_jaccard • valr</title>
+<title>Calculate the Jaccard statistic for two sets of intervals. — bed_jaccard • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -95,11 +95,12 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate jaccard statistics on two sets of intervals.</h1>
+    <h1>Calculate the Jaccard statistic for two sets of intervals.</h1>
     </div>
 
     
-    <p>Calculate jaccard statistics on two sets of intervals.</p>
+    <p>Quantifies the extent of overlap between to sets of intervals in terms of
+base-pairs.</p>
     
 
     <pre class="usage"><span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
@@ -123,18 +124,18 @@
 <li><p><code>len_i</code> length of the intersection</p></li>
 <li><p><code>len_u</code> length of the union</p></li>
 <li><p><code>jaccard</code> jaccard statistic</p></li>
-<li><p><code>n_int</code> number of intersecting intervals between x and y</p></li>
+<li><p><code>n_int</code> number of intersecting intervals between <code>x</code> and <code>y</code></p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>bed_jaccard()</code> quantifies the extent of overlap between to sets of
-intervals. The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:
+    <p>The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:
     $$ J(x,y) = \frac{\mid x \bigcap y \mid}
                      {\mid x \bigcup y \mid} =
                 \frac{\mid x \bigcap y \mid}
-                     {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} $$</p>
+                     {\mid x \mid + \mid y \mid -
+                      \mid x \bigcap y \mid} $$</p>
 <p>Interval statistics can be used in combination with
 <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code> and <code><a href='http://dplyr.tidyverse.org/reference/do.html'>dplyr::do()</a></code> to calculate
 statistics for subsets of data. See <code><a href='../articles/interval-stats.html'>vignette('interval-stats')</a></code> for

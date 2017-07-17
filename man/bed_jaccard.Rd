@@ -2,7 +2,7 @@
 % Please edit documentation in R/bed_jaccard.r
 \name{bed_jaccard}
 \alias{bed_jaccard}
-\title{Calculate jaccard statistics on two sets of intervals.}
+\title{Calculate the Jaccard statistic for two sets of intervals.}
 \usage{
 bed_jaccard(x, y)
 }
@@ -17,20 +17,21 @@ bed_jaccard(x, y)
 \item \code{len_i} length of the intersection
 \item \code{len_u} length of the union
 \item \code{jaccard} jaccard statistic
-\item \code{n_int} number of intersecting intervals between x and y
+\item \code{n_int} number of intersecting intervals between \code{x} and \code{y}
 }
 }
 \description{
-Calculate jaccard statistics on two sets of intervals.
+Quantifies the extent of overlap between to sets of intervals in terms of
+base-pairs.
 }
 \details{
-\code{bed_jaccard()} quantifies the extent of overlap between to sets of
-intervals. The Jaccard statistic takes values of \code{[0,1]} and is measured as:
+The Jaccard statistic takes values of \code{[0,1]} and is measured as:
 
 \deqn{ J(x,y) = \frac{\mid x \bigcap y \mid}
                      {\mid x \bigcup y \mid} =
                 \frac{\mid x \bigcap y \mid}
-                     {\mid x \mid + \mid y \mid - \mid x \bigcap y \mid} }
+                     {\mid x \mid + \mid y \mid -
+                      \mid x \bigcap y \mid} }
 
 Interval statistics can be used in combination with
 \code{\link[dplyr:group_by]{dplyr::group_by()}} and \code{\link[dplyr:do]{dplyr::do()}} to calculate

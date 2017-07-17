@@ -16,7 +16,7 @@ result of the call.}
 \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}
 }
 \description{
-Used to illustrate the output of valr functions with small input tbls.
+Used to illustrate the output of valr functions with small examples.
 }
 \examples{
 x <- trbl_interval(

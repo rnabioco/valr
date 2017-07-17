@@ -1,6 +1,7 @@
-#' Fisher's test on number of shared and unique intervals.
+#' Fisher's test to measure overlap between two sets of intervals.
 #'
-#' Borrows from the `BEDtools` implementation.
+#' Calculate Fisher's test on number of intervals that are shared and unique
+#' between two sets of `x` and `y` intervals.
 #'
 #' @param x [tbl_interval()]
 #' @param y [tbl_interval()]
@@ -9,6 +10,7 @@
 #' @template stats
 #'
 #' @family interval statistics
+#'
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 #'

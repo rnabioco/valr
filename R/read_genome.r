@@ -41,6 +41,8 @@ read_genome <- function(path) {
 #'
 #' @return [tbl_interval()]
 #'
+#' @family utilities
+#'
 #' @examples
 #' x <- trbl_interval(
 #'  ~chrom, ~start, ~end,

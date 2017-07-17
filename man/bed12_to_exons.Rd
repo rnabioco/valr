@@ -16,9 +16,13 @@ genes will have larger start and end coordinates).
 }
 \examples{
 x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
+
 bed12_to_exons(x)
 
 }
 \seealso{
-Other utilities: \code{\link{bed_makewindows}}
+Other utilities: \code{\link{bed_makewindows}},
+  \code{\link{bound_intervals}},
+  \code{\link{flip_strands}},
+  \code{\link{interval_spacing}}
 }

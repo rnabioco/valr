@@ -11,6 +11,7 @@
 #' @return [tbl_interval()]
 #'
 #' @family randomizing operations
+#'
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 #'
 #' @examples

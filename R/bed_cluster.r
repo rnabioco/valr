@@ -1,29 +1,30 @@
 #' Cluster neighboring intervals.
 #'
-#' Output contains an `.id` column that can be used in downstream grouping
-#' operations. Default `max_dist = 0` means that both overlapping and
-#' book-ended intervals will be clustered.
+#' The ouput `.id` column can be used in downstream grouping operations. Default
+#' `max_dist = 0` means that both overlapping and book-ended intervals will be
+#' clustered.
 #'
 #' @param x [tbl_interval()]
 #' @param max_dist maximum distance between clustered intervals.
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()] with `.id` column for clustered intervals.
+#' @return [tbl_interval()] with `.id` column specifying sets of clustered intervals.
 #'
 #' @family single set operations
+#'
 #' @seealso
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
 #'
 #' @examples
 #' x <- trbl_interval(
-#'  ~chrom, ~start, ~end,
-#'  "chr1", 100,  200,
-#'  "chr1", 180,  250,
-#'  "chr1", 250,  500,
-#'  "chr1", 501,  1000,
-#'  "chr2", 1,    100,
-#'  "chr2", 150,  200
+#'   ~chrom, ~start, ~end,
+#'   'chr1', 100,    200,
+#'   'chr1', 180,    250,
+#'   'chr1', 250,    500,
+#'   'chr1', 501,    1000,
+#'   'chr2', 1,      100,
+#'   'chr2', 150,    200
 #' )
 #'
 #' bed_cluster(x)

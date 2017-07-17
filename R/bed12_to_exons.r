@@ -5,10 +5,12 @@
 #' genes will have larger start and end coordinates).
 #'
 #' @param x [tbl_interval()]
+#'
 #' @family utilities
 #'
 #' @examples
 #' x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
+#'
 #' bed12_to_exons(x)
 #'
 #' @export

@@ -36,8 +36,9 @@ genome <- trbl_genome(
  "chr3", 4e6
 )
 
-x <- bed_random(genome)
-bed_shuffle(x, genome)
+x <- bed_random(genome, seed = 1010486)
+
+bed_shuffle(x, genome, seed = 9830491)
 
 }
 \seealso{

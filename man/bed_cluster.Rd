@@ -12,12 +12,12 @@ bed_cluster(x, max_dist = 0)
 \item{max_dist}{maximum distance between clustered intervals.}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with \code{.id} column for clustered intervals.
+\code{\link[=tbl_interval]{tbl_interval()}} with \code{.id} column specifying sets of clustered intervals.
 }
 \description{
-Output contains an \code{.id} column that can be used in downstream grouping
-operations. Default \code{max_dist = 0} means that both overlapping and
-book-ended intervals will be clustered.
+The ouput \code{.id} column can be used in downstream grouping operations. Default
+\code{max_dist = 0} means that both overlapping and book-ended intervals will be
+clustered.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
@@ -28,13 +28,13 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
 x <- trbl_interval(
- ~chrom, ~start, ~end,
- "chr1", 100,  200,
- "chr1", 180,  250,
- "chr1", 250,  500,
- "chr1", 501,  1000,
- "chr2", 1,    100,
- "chr2", 150,  200
+  ~chrom, ~start, ~end,
+  'chr1', 100,    200,
+  'chr1', 180,    250,
+  'chr1', 250,    500,
+  'chr1', 501,    1000,
+  'chr2', 1,      100,
+  'chr2', 150,    200
 )
 
 bed_cluster(x)

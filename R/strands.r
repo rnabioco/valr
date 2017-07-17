@@ -5,6 +5,8 @@
 #'
 #' @param x [tbl_interval()]
 #'
+#' @family utilities
+#'
 #' @examples
 #' x <- trbl_interval(
 #'   ~chrom, ~start, ~end, ~strand,

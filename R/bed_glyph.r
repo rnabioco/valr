@@ -1,6 +1,6 @@
 #' Create example glyphs for valr functions.
 #'
-#' Used to illustrate the output of valr functions with small input tbls.
+#' Used to illustrate the output of valr functions with small examples.
 #'
 #' @param expr expression to evaluate
 #' @param label column name to use for label values. should be present in the

@@ -14,12 +14,11 @@ bed_absdist(x, y, genome)
 \item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with \code{.absdist} and \code{.absdist_scaled}
-columns.
+\code{\link[=tbl_interval]{tbl_interval()}} with \code{.absdist} and \code{.absdist_scaled} columns.
 }
 \description{
-Computes the absolute distance between the midpoints of \code{x} intervals and
-the closest midpoints of \code{y} intervals.
+Computes the absolute distance between the midpoint of each \code{x} interval and
+the midpoints of each closest \code{y} interval.
 }
 \details{
 Absolute distances are scaled by the inter-reference gap for the

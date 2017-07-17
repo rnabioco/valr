@@ -69,14 +69,14 @@
 <!--/.navbar -->
 
       
-      </header><script src="interval-stats_files/htmlwidgets-0.8/htmlwidgets.js"></script><script src="interval-stats_files/jquery-1.12.4/jquery.min.js"></script><script src="interval-stats_files/datatables-binding-0.2/datatables.js"></script><link href="interval-stats_files/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+      </header><script src="interval-stats_files/htmlwidgets-0.9/htmlwidgets.js"></script><script src="interval-stats_files/jquery-1.12.4/jquery.min.js"></script><script src="interval-stats_files/datatables-binding-0.2/datatables.js"></script><link href="interval-stats_files/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="interval-stats_files/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="interval-stats_files/dt-core-1.10.12/js/jquery.dataTables.min.js"></script><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">July 01 2017</h4>
+            <h4 class="date">July 16 2017</h4>
           </div>
 
     
@@ -177,21 +177,21 @@ shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(s
 <span class="st">  </span><span class="kw">na.omit</span>()
 
 res
-<span class="co">#&gt; # A tibble: 16,731 x 5</span>
-<span class="co">#&gt; # Groups:   name, stat [1,910]</span>
+<span class="co">#&gt; # A tibble: 16,735 x 5</span>
+<span class="co">#&gt; # Groups:   name, stat [1,906]</span>
 <span class="co">#&gt;     name    stat   .id     obs     shuf</span>
 <span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  (A)n absdist     1 5120782 12433747</span>
-<span class="co">#&gt;  2  (A)n absdist     2  226477 12360028</span>
-<span class="co">#&gt;  3  (A)n absdist     3   31242  8969357</span>
-<span class="co">#&gt;  4  (A)n absdist     4    8930  7398003</span>
-<span class="co">#&gt;  5  (A)n absdist     5   41316  6296427</span>
-<span class="co">#&gt;  6  (A)n absdist     6   22519  5707014</span>
-<span class="co">#&gt;  7  (A)n absdist     7   15173  5477673</span>
-<span class="co">#&gt;  8  (A)n absdist     8   21985  3460314</span>
-<span class="co">#&gt;  9  (A)n absdist     9   13458   345078</span>
-<span class="co">#&gt; 10  (A)n absdist    10  134007     9133</span>
-<span class="co">#&gt; # ... with 16,721 more rows</span></code></pre></div>
+<span class="co">#&gt;  1  (A)n absdist     1 5120782 15310823</span>
+<span class="co">#&gt;  2  (A)n absdist     2  226477 10354846</span>
+<span class="co">#&gt;  3  (A)n absdist     3   31242  9697703</span>
+<span class="co">#&gt;  4  (A)n absdist     4    8930  6545477</span>
+<span class="co">#&gt;  5  (A)n absdist     5   41316  6532844</span>
+<span class="co">#&gt;  6  (A)n absdist     6   22519  5857557</span>
+<span class="co">#&gt;  7  (A)n absdist     7   15173  4456084</span>
+<span class="co">#&gt;  8  (A)n absdist     8   21985  1155999</span>
+<span class="co">#&gt;  9  (A)n absdist     9   13458   382887</span>
+<span class="co">#&gt; 10  (A)n absdist    10  134007    31956</span>
+<span class="co">#&gt; # ... with 16,725 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use the non-parametric <code>ks.test()</code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="http://www.rdocumentation.org/packages/broom/topics/tidy">broom::tidy()</a></code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)
 
@@ -206,7 +206,7 @@ pvals &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(pvals, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(p.value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_histogram">geom_histogram</a></span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>alt) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/cowplot/topics/theme_cowplot">theme_cowplot</a></span>()</code></pre></div>
-<p><img src="img/interval-stats-pvalue_viz-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="img/interval-stats-pvalue_viz-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can also assess false discovery rates (q.values) using <code>p.adjust()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pvals &lt;-
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(pvals, stat, alt) <span class="op">%&gt;%</span>
@@ -226,7 +226,7 @@ res_signif &lt;-
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/stat_ecdf">stat_ecdf</a></span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>name) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/cowplot/topics/theme_cowplot">theme_cowplot</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_continuous">scale_x_log10</a></span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_brewer">scale_color_brewer</a></span>(<span class="dt">palette =</span> <span class="st">'Set1'</span>)</code></pre></div>
-<p><img src="img/interval-stats-ecfs-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="img/interval-stats-ecfs-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="projection-test" class="section level2">
 <h2 class="hasAnchor">
@@ -328,8 +328,8 @@ signif_tests &lt;-
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(type)
 
 DT<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(signif_tests)</code></pre></div>
-<div id="htmlwidget-4adc3b2a699de49a2a47" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4adc3b2a699de49a2a47">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-189efbecf12100d7a626" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-189efbecf12100d7a626">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
   </div>

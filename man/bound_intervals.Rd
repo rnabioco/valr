@@ -37,3 +37,9 @@ bound_intervals(x, genome)
 bound_intervals(x, genome, trim = TRUE)
 
 }
+\seealso{
+Other utilities: \code{\link{bed12_to_exons}},
+  \code{\link{bed_makewindows}},
+  \code{\link{flip_strands}},
+  \code{\link{interval_spacing}}
+}

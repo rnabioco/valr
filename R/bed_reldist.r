@@ -6,15 +6,17 @@
 #'
 #' @family interval statistics
 #'
-#' @return If `detail = FALSE`, a [tbl_interval()] that summarizes
-#'  calculated `.reldist` values with the following columns:
+#' @return
+#' If `detail = FALSE`, a [tbl_interval()] that summarizes
+#' calculated `.reldist` values with the following columns:
+#'
 #'   - `.reldist` relative distance metric
 #'   - `.counts` number of metric observations
 #'   - `.total` total observations
 #'   - `.freq` frequency of observation
 #'
-#'   If `detail = TRUE`, a new `.reldist` column reports the relative
-#'   distance for each input `x` interval.
+#' If `detail = TRUE`, the `.reldist` column reports the relative
+#' distance for each input `x` interval.
 #'
 #' @template stats
 #'
