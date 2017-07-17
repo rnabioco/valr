@@ -36,7 +36,7 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
                              col_types = coltypes, ...)
   out <- tbl_interval(bed_raw)
 
-  if (sort) out <- arrange(out, chrom, start)
+  if (sort) out <- bed_sort(out)
 
   out
 }
@@ -69,7 +69,6 @@ read_bedgraph <- function(filename, ...) {
   out <- read_bed(filename, n_fields = 4, sort = FALSE)
   out <- rename(out, value = name)
   out <- mutate(out, value = as.double(value))
-  out <- arrange(out, chrom, start)
   out
 }
 

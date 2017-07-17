@@ -110,7 +110,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   x_not <- anti_join(x, res, by = c("chrom", x_names))
 
   res <- bind_rows(res, x_not)
-  res <- arrange(res, chrom, start)
+  res <- bed_sort(res)
 
   # reassign original `x` groups. `y` groups are gone at this point
   res <- group_by(res, !!! rlang::syms(c(groups_x)))

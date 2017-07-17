@@ -73,7 +73,7 @@ bed_subtract <- function(x, y, any = FALSE) {
 
   res <- subtract_impl(x, y)
   res <- bind_rows(res, res_no_y)
-  res <- arrange(res, chrom, start)
+  res <- bed_sort(res)
 
   res
 }
