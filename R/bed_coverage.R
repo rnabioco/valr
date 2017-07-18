@@ -45,10 +45,10 @@ bed_coverage <- function(x, y, ...) {
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
   if (!is.tbl_interval(y)) y <- tbl_interval(y)
 
-  x <- arrange(x, chrom, start)
+  x <- bed_sort(x)
   x <- group_by(x, chrom, add = TRUE)
 
-  y <- arrange(y, chrom, start)
+  y <- bed_sort(y)
   y <- group_by(y, chrom, add = TRUE)
 
   res <- coverage_impl(x, y)

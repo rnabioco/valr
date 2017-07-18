@@ -128,7 +128,7 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 
 -   Generate intervals not covered by a query with `bed_complement()`.
 
--   Order intervals with `dplyr::arrange()`.
+-   Order intervals with `bed_sort()`.
 
 ### Comparing multiple interval sets
 

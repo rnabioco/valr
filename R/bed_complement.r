@@ -62,7 +62,7 @@ bed_complement <- function(x, genome) {
   res <- as_tibble(res)
 
   res <- bind_rows(res, chroms_no_overlaps)
-  res <- arrange(res, chrom, start)
+  res <- bed_sort(res)
 
   res
 }

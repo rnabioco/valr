@@ -23,7 +23,7 @@ bed12_to_exons <- function(x) {
 
   res <- bed12toexons_impl(x)
   res <- tibble::as_tibble(res)
-  res <- arrange(res, chrom, start)
+  res <- bed_sort(res)
 
   res
 }

@@ -6,6 +6,10 @@
 
 * Improve documentation of interval statistics with more complex examples.
 
+## Minor
+
+* `bed_sort()` has been de-deprecated to reduce `arrange` calls in library code.
+
 ## Bug fixes
 
 * `bed_merge()` now reports start/end columns if spec is provided (#288)
