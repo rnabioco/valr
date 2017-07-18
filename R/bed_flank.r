@@ -73,7 +73,6 @@ bed_flank <- function(x, genome, both = 0, left = 0,
                     right, fraction, strand, trim)
 
   res <- bed_sort(res)
-  res <- tibble::as_tibble(res)
 
   res
 }

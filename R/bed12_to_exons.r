@@ -22,7 +22,6 @@ bed12_to_exons <- function(x) {
     stop("expected 12 column input", call. = FALSE)
 
   res <- bed12toexons_impl(x)
-  res <- tibble::as_tibble(res)
   res <- bed_sort(res)
 
   res

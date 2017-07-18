@@ -59,7 +59,6 @@ bed_complement <- function(x, genome) {
   res <- group_by(res, chrom)
 
   res <- complement_impl(res, genome)
-  res <- as_tibble(res)
 
   res <- bind_rows(res, chroms_no_overlaps)
   res <- bed_sort(res)

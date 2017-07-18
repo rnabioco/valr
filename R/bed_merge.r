@@ -59,7 +59,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   groups_x <- groups(x)
 
-  res <- arrange(x, chrom, start)
+  res <- bed_sort(x)
 
   res <- group_by(res, chrom, add = TRUE)
 
