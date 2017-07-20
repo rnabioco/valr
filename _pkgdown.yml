@@ -13,6 +13,7 @@ reference:
     - starts_with("tbl_")
     - starts_with("trbl_")
     - starts_with("is.")
+    - starts_with("as.")
 
   - title: Load data
     contents:

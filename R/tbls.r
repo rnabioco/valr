@@ -28,24 +28,54 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
   out
 }
 
-#' Construct an tbl_interval using tribble formatting.
+#' Coerce objects to tbl_intervals.
 #'
-#' @param ... data for [tibble::tribble()]
+#' This is an S3 generic. valr includes methods to coerce tbl_df and GRanges
+#' objects.
+#'
+#' @param x object to convert to tbl_interval.
 #'
 #' @return [tbl_interval()]
 #'
 #' @examples
-#' trbl_interval(
-#'   ~chrom, ~start, ~end,
-#'   'chr1',  1,      50,
-#'   'chr1',  10,     75
-#' )
+#' if(require(GenomicRanges, quietly=TRUE)) {
+#'   gr <- GRanges(seqnames = Rle(c("chr1", "chr2", "chr1", "chr3"), c(1, 3, 2, 4)),
+#'                 ranges = IRanges(1:10, end = 7:16, names = head(letters, 10)),
+#'                 strand = Rle(strand(c("-", "+", "*", "+", "-")), c(1, 2, 2, 3, 2)))
+#'
+#'   as.tbl_interval(gr)
+#' }
 #'
 #' @export
-trbl_interval <- function(...) {
+as.tbl_interval <- function(x, ...) {
+  UseMethod("as.tbl_interval")
+}
 
+#' @export
+#' @rdname as.tbl_interval
+as.tbl_interval.tbl_df <- function(x, ...) {
+  tbl_interval(x)
+}
+
+#' @export
+#' @rdname as.tbl_interval
+as.tbl_interval.GRanges <- function(x, ...) {
+  # https://www.biostars.org/p/89341/
+  res <- tibble(chrom  = as.character(seqnames(x)),
+                start  = start(x) - 1,
+                end    = end(x),
+                name   = rep(".", length(x)),
+                score  = rep(".", length(x)),
+                strand = as.character(strand(x)))
+
+  res <- mutate(res, strand = ifelse(strand == '*', '.', strand))
+  tbl_interval(res)
+}
+
+#' @export
+trbl_interval <- function(...) {
   out <- tibble::tribble(...)
-  out <- tbl_interval(out)
+  out <- as.tbl_interval(out)
   out
 }
 

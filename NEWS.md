@@ -2,6 +2,8 @@
 
 ## Enhancements
 
+* New S3 generic `as.tbl_interval()` converts `GenomicRanges::GRanges` objects to `tbl_interval`.
+
 * New `create_tss()` for creating transcription start sites.
 
 * Improve documentation of interval statistics with more complex examples.
