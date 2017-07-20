@@ -6,11 +6,11 @@
 \alias{as.tbl_interval.GRanges}
 \title{Coerce objects to tbl_intervals.}
 \usage{
-as.tbl_interval(x, ...)
+as.tbl_interval(x)
 
-\method{as.tbl_interval}{tbl_df}(x, ...)
+\method{as.tbl_interval}{tbl_df}(x)
 
-\method{as.tbl_interval}{GRanges}(x, ...)
+\method{as.tbl_interval}{GRanges}(x)
 }
 \arguments{
 \item{x}{object to convert to tbl_interval.}
@@ -23,12 +23,19 @@ This is an S3 generic. valr includes methods to coerce tbl_df and GRanges
 objects.
 }
 \examples{
-if(require(GenomicRanges, quietly=TRUE)) {
-  gr <- GRanges(seqnames = Rle(c("chr1", "chr2", "chr1", "chr3"), c(1, 3, 2, 4)),
-                ranges = IRanges(1:10, end = 7:16, names = head(letters, 10)),
-                strand = Rle(strand(c("-", "+", "*", "+", "-")), c(1, 2, 2, 3, 2)))
+gr <- GenomicRanges::GRanges(
+        seqnames = S4Vectors::Rle(
+                     c("chr1", "chr2", "chr1", "chr3"),
+                     c(1, 3, 2, 4)),
+        ranges   = IRanges::IRanges(
+                     start = 1:10,
+                     end = 7:16,
+                     names = head(letters, 10)),
+        strand   = S4Vectors::Rle(
+                     c("-", "+", "*", "+", "-"),
+                     c(1, 2, 2, 3, 2))
+      )
 
-  as.tbl_interval(gr)
-}
+as.tbl_interval(gr)
 
 }

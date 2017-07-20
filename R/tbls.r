@@ -1,20 +1,23 @@
 #' Tibble for intervals.
 #'
-#' Required column names are `chrom`, `start` and `end`
+#' Required column names are `chrom`, `start` and `end`.
 #'
 #' @param x A `data_frame`
 #' @param ... params for [tibble::tibble()]
 #' @param .validate check valid column names
 #'
+#' @rdname tbl_interval
+#'
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',  1,      50,
-#'   'chr1',  10,     75,
-#'   'chr1',  100,    120
+#'   'chr1',  1,     50,
+#'   'chr1',  10,    75,
+#'   'chr1',  100,   120
 #' )
 #'
 #' is.tbl_interval(x)
+#'
 #' x <- tbl_interval(x)
 #' is.tbl_interval(x)
 #'
@@ -38,40 +41,53 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
 #' @return [tbl_interval()]
 #'
 #' @examples
-#' if(require(GenomicRanges, quietly=TRUE)) {
-#'   gr <- GRanges(seqnames = Rle(c("chr1", "chr2", "chr1", "chr3"), c(1, 3, 2, 4)),
-#'                 ranges = IRanges(1:10, end = 7:16, names = head(letters, 10)),
-#'                 strand = Rle(strand(c("-", "+", "*", "+", "-")), c(1, 2, 2, 3, 2)))
+#' gr <- GenomicRanges::GRanges(
+#'         seqnames = S4Vectors::Rle(
+#'                      c("chr1", "chr2", "chr1", "chr3"),
+#'                      c(1, 3, 2, 4)),
+#'         ranges   = IRanges::IRanges(
+#'                      start = 1:10,
+#'                      end = 7:16,
+#'                      names = head(letters, 10)),
+#'         strand   = S4Vectors::Rle(
+#'                      c("-", "+", "*", "+", "-"),
+#'                      c(1, 2, 2, 3, 2))
+#'       )
 #'
-#'   as.tbl_interval(gr)
-#' }
+#' as.tbl_interval(gr)
 #'
 #' @export
-as.tbl_interval <- function(x, ...) {
+as.tbl_interval <- function(x) {
   UseMethod("as.tbl_interval")
 }
 
 #' @export
 #' @rdname as.tbl_interval
-as.tbl_interval.tbl_df <- function(x, ...) {
+as.tbl_interval.tbl_df <- function(x) {
   tbl_interval(x)
 }
 
 #' @export
 #' @rdname as.tbl_interval
-as.tbl_interval.GRanges <- function(x, ...) {
+as.tbl_interval.GRanges <- function(x) {
   # https://www.biostars.org/p/89341/
-  res <- tibble(chrom  = as.character(seqnames(x)),
+  res <- tibble(chrom  = as.character(x@seqnames),
                 start  = start(x) - 1,
                 end    = end(x),
                 name   = rep(".", length(x)),
                 score  = rep(".", length(x)),
-                strand = as.character(strand(x)))
+                strand = as.character(x@strand))
 
   res <- mutate(res, strand = ifelse(strand == '*', '.', strand))
   tbl_interval(res)
 }
 
+#' Construct a tbl_interval using tribble formatting.
+#'
+#' @rdname tbl_interval
+#'
+#' @return [tbl_interval()]
+#
 #' @export
 trbl_interval <- function(...) {
   out <- tibble::tribble(...)
@@ -97,6 +113,8 @@ is.tbl_interval <- function(x) {
 #' @param ... params for [tibble::tibble()]
 #' @param .validate check valid column names
 #'
+#' @rdname tbl_genome
+#'
 #' @examples
 #' genome <- tibble::tribble(
 #'   ~chrom, ~size,
@@ -120,9 +138,9 @@ tbl_genome <- function(x, ..., .validate = TRUE) {
 
 #' Construct a tbl_genome using tribble formatting.
 #'
-#' @param ... for [tibble::tribble()]
-#'
 #' @return [tbl_genome()]
+#'
+#' @rdname tbl_genome
 #'
 #' @examples
 #' trbl_genome(
@@ -132,7 +150,6 @@ tbl_genome <- function(x, ..., .validate = TRUE) {
 #'
 #' @export
 trbl_genome <- function(...) {
-
   out <- tibble::tribble(...)
   out <- tbl_genome(out)
   out

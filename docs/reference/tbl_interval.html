@@ -99,10 +99,13 @@
     </div>
 
     
-    <p>Required column names are <code>chrom</code>, <code>start</code> and <code>end</code></p>
+    <p>Required column names are <code>chrom</code>, <code>start</code> and <code>end</code>.</p>
+<p>Construct a tbl_interval using tribble formatting.</p>
     
 
-    <pre class="usage"><span class='fu'>tbl_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>.validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>tbl_interval</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>.validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>trbl_interval</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -121,6 +124,10 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>tbl_interval()</code></p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span>(
@@ -130,7 +137,8 @@
   <span class='st'>'chr1'</span>,  <span class='fl'>100</span>,    <span class='fl'>120</span>
 )
 
-<span class='fu'><a href='is.tbl_interval.html'>is.tbl_interval</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>tbl_interval</span>(<span class='no'>x</span>)
+<span class='fu'><a href='is.tbl_interval.html'>is.tbl_interval</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>tbl_interval</span>(<span class='no'>x</span>)
 <span class='fu'><a href='is.tbl_interval.html'>is.tbl_interval</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
   </div>
@@ -138,7 +146,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
