@@ -26,8 +26,8 @@ Out-of-bounds intervals are removed by default.
 \examples{
 x <- trbl_interval(
   ~chrom, ~start, ~end,
- 'chr1',      25,      50,
- 'chr1',      100,     125
+ 'chr1',  25,     50,
+ 'chr1',  100,    125
 )
 
 genome <- trbl_genome(
@@ -39,12 +39,12 @@ bed_glyph(bed_shift(x, genome, size = -20))
 
 x <- trbl_interval(
    ~chrom, ~start, ~end, ~strand,
-   "chr1", 100, 150, "+",
-   "chr1", 200, 250, "+",
-   "chr2", 300, 350, "+",
-   "chr2", 400, 450, "-",
-   "chr3", 500, 550, "-",
-   "chr3", 600, 650, "-"
+   "chr1", 100,    150,  "+",
+   "chr1", 200,    250,  "+",
+   "chr2", 300,    350,  "+",
+   "chr2", 400,    450,  "-",
+   "chr3", 500,    550,  "-",
+   "chr3", 600,    650,  "-"
 )
 
 genome <- trbl_genome(

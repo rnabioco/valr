@@ -20,13 +20,13 @@
 #' @examples
 #' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',      100,     125
+#'   'chr1', 100,    125
 #' )
 #'
 #' y <- trbl_interval(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',      25,      50,
-#'   'chr1',     140,     175
+#'   'chr1', 25,     50,
+#'   'chr1', 140,    175
 #' )
 #'
 #' bed_glyph(bed_closest(x, y))
@@ -38,7 +38,7 @@
 #' )
 #'
 #' y <- trbl_interval(
-#' ~chrom, ~start, ~end,
+#'   ~chrom, ~start, ~end,
 #'   "chr1", 100,    200,
 #'   "chr1", 150,    200,
 #'   "chr1", 550,    580,
