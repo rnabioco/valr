@@ -56,9 +56,9 @@
 #' @export
 bed_window <- function(x, y, genome, ...) {
 
-  if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- tbl_interval(y)
-  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
+  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
+  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
   x <- mutate(x, .start = start, .end = end)
 

@@ -67,3 +67,55 @@ test_that("trbl_genome accepts tribble format", {
   expect_true(is.tbl_genome(x))
   expect_error(trbl_genome(1,2,3))
 })
+
+test_that("as.tbl_interval coerces GRanges objects", {
+
+  skip_if_not_installed("GenomicRanges")
+
+  require(GenomicRanges)
+  gr <- GRanges(
+    seqnames = Rle(c("chr1", "chr2", "chr1", "chr3"), c(1, 3, 2, 4)),
+    ranges = IRanges(1:10, end = 7:16, names = head(letters, 10)),
+    strand = Rle(strand(c("-", "+", "*", "+", "-")), c(1, 2, 2, 3, 2)))
+
+  res <- as.tbl_interval(gr)
+  expect_is(res, 'tbl_ivl')
+})
+
+test_that("as.tbl_interval coerces tbl_df", {
+
+  x <- tibble(chrom = c('chr1', 'chr2'),
+              start = c(1, 10),
+              end = c(100, 200))
+
+  res <- as.tbl_interval(x)
+  expect_is(res, 'tbl_ivl')
+})
+
+test_that("as.tbl_interval coerces data.frame", {
+
+  x <- data.frame(chrom = c('chr1', 'chr2'),
+                  start = c(1, 10),
+                  end = c(100, 200))
+
+  res <- as.tbl_interval(x)
+  expect_is(res, 'tbl_ivl')
+})
+
+test_that("as.tbl_genome coerces tbl_df", {
+
+  x <- tibble(chrom = c('chr1', 'chr2'),
+              size = c(100, 200))
+
+  res <- as.tbl_genome(x)
+  expect_is(res, 'tbl_gnm')
+})
+
+test_that("as.tbl_interval coerces data.frame", {
+
+  x <- data.frame(chrom = c('chr1', 'chr2'),
+                  size = c(100, 200))
+
+  res <- as.tbl_genome(x)
+  expect_is(res, 'tbl_gnm')
+})

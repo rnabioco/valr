@@ -30,8 +30,8 @@
 bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
                         max_tries = 1000, within = FALSE, seed = 0) {
 
-  if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
+  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
   # flatten incl and excl
   if (!is.null(incl))

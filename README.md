@@ -108,7 +108,7 @@ Function names are similar to their their [BEDtools](http://bedtools.readthedocs
 
 ### Data types
 
--   Create interval sets with `tbl_interval()` and `tbl_genome()`, which enforce strict column naming.
+-   Create new interval sets with `tbl_interval()` and `tbl_genome()`. Coerce existing `GenomicRanges::GRanges` objects with `as.tbl_interval()`.
 
 ### Reading data
 

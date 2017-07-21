@@ -44,7 +44,7 @@
 #' @export
 bed_cluster <- function(x, max_dist = 0) {
 
-  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
 
   res <- group_by(x, chrom, add = TRUE)
   res <- bed_sort(res)

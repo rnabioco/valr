@@ -2,9 +2,12 @@
 % Please edit documentation in R/tbls.r
 \name{tbl_genome}
 \alias{tbl_genome}
+\alias{trbl_genome}
 \title{Tibble for reference sizes.}
 \usage{
 tbl_genome(x, ..., .validate = TRUE)
+
+trbl_genome(...)
 }
 \arguments{
 \item{x}{A \code{data_frame}}
@@ -13,9 +16,14 @@ tbl_genome(x, ..., .validate = TRUE)
 
 \item{.validate}{check valid column names}
 }
+\value{
+\code{\link[=tbl_genome]{tbl_genome()}}
+}
 \description{
 Equivalent to information in UCSC "chromSizes" files. Required column names are:
 \code{chrom} and \code{size}
+
+Construct a tbl_genome using tribble formatting.
 }
 \examples{
 genome <- tibble::tribble(
@@ -27,5 +35,10 @@ genome <- tibble::tribble(
 is.tbl_genome(genome)
 genome <- tbl_genome(genome)
 is.tbl_genome(genome)
+
+trbl_genome(
+  ~chrom, ~size,
+  'chr1', 1e6
+)
 
 }
