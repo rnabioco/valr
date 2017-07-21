@@ -41,6 +41,7 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
 #' @return [tbl_interval()]
 #'
 #' @examples
+#' \dontrun{
 #' gr <- GenomicRanges::GRanges(
 #'         seqnames = S4Vectors::Rle(
 #'                      c("chr1", "chr2", "chr1", "chr3"),
@@ -54,6 +55,7 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
 #'       )
 #'
 #' as.tbl_interval(gr)
+#' }
 #'
 #' @export
 as.tbl_interval <- function(x) {

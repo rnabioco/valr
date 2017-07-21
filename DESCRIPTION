@@ -20,9 +20,6 @@ Imports:
     tibble,
     broom,
     ggplot2,
-    GenomicRanges,
-    IRanges,
-    S4Vectors,
 SystemRequirements: C++11
 LinkingTo:
     Rcpp (>= 0.12.8),
@@ -40,6 +37,9 @@ Suggests:
     DT,
     cowplot,
     dbplyr,
+    GenomicRanges,
+    IRanges,
+    S4Vectors,
 BiocViews:
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

@@ -23,9 +23,6 @@
 #' @importFrom stats fisher.test na.omit
 #' @importFrom utils head tail
 #' @importFrom broom tidy
-#' @importFrom GenomicRanges GRanges
-#' @importFrom IRanges IRanges
-#' @importFrom S4Vectors Rle
 #' @import ggplot2
 #' @import dplyr
 "_PACKAGE"

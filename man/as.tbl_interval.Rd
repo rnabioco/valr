@@ -23,6 +23,7 @@ This is an S3 generic. valr includes methods to coerce tbl_df and GRanges
 objects.
 }
 \examples{
+\dontrun{
 gr <- GenomicRanges::GRanges(
         seqnames = S4Vectors::Rle(
                      c("chr1", "chr2", "chr1", "chr3"),
@@ -36,5 +37,6 @@ gr <- GenomicRanges::GRanges(
       )
 
 as.tbl_interval(gr)
+}
 
 }

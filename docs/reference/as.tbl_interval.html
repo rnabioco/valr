@@ -126,32 +126,21 @@ objects.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>GenomicRanges</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/GenomicRanges/topics/GRanges-class'>GRanges</a></span>(
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>GenomicRanges</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/GenomicRanges/topics/GRanges-class'>GRanges</a></span>(
         <span class='kw'>seqnames</span> <span class='kw'>=</span> <span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Rle-class'>Rle</a></span>(
                      <span class='fu'>c</span>(<span class='st'>"chr1"</span>, <span class='st'>"chr2"</span>, <span class='st'>"chr1"</span>, <span class='st'>"chr3"</span>),
-                     <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>4</span>)),
-        <span class='kw'>ranges</span> <span class='kw'>=</span> <span class='kw pkg'>IRanges</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/IRanges/topics/IRanges-constructor'>IRanges</a></span>(
-                   <span class='fl'>1</span>:<span class='fl'>10</span>,
-                   <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>7</span>:<span class='fl'>16</span>,
-                   <span class='kw'>names</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='no'>letters</span>, <span class='fl'>10</span>)),
-        <span class='kw'>strand</span> <span class='kw'>=</span> <span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Rle-class'>Rle</a></span>(
-                   <span class='fu'>c</span>(<span class='st'>"-"</span>, <span class='st'>"+"</span>, <span class='st'>"*"</span>, <span class='st'>"+"</span>, <span class='st'>"-"</span>),
-                   <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>))
+                     <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)),
+        <span class='kw'>ranges</span>   <span class='kw'>=</span> <span class='kw pkg'>IRanges</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/IRanges/topics/IRanges-constructor'>IRanges</a></span>(
+                     <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>),
+                     <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>, <span class='fl'>500</span>, <span class='fl'>1000</span>, <span class='fl'>2000</span>),
+                     <span class='kw'>names</span> <span class='kw'>=</span> <span class='fu'>head</span>(<span class='no'>letters</span>, <span class='fl'>4</span>)),
+        <span class='kw'>strand</span>   <span class='kw'>=</span> <span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/S4Vectors/topics/Rle-class'>Rle</a></span>(
+                     <span class='fu'>c</span>(<span class='st'>"-"</span>, <span class='st'>"+"</span>), <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>2</span>))
       )
 
-<span class='fu'>as.tbl_interval</span>(<span class='no'>gr</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 6
-#&gt;    chrom start   end  name score strand
-#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt;  1  chr1     0     7     .     .      -
-#&gt;  2  chr2     1     8     .     .      +
-#&gt;  3  chr2     2     9     .     .      +
-#&gt;  4  chr2     3    10     .     .      .
-#&gt;  5  chr1     4    11     .     .      .
-#&gt;  6  chr1     5    12     .     .      +
-#&gt;  7  chr3     6    13     .     .      +
-#&gt;  8  chr3     7    14     .     .      +
-#&gt;  9  chr3     8    15     .     .      -
-#&gt; 10  chr3     9    16     .     .      -</div><div class='input'>
+<span class='fu'>as.tbl_interval</span>(<span class='no'>gr</span>)
+<span class='co'># }</span><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
