@@ -26,14 +26,13 @@ objects.
 gr <- GenomicRanges::GRanges(
         seqnames = S4Vectors::Rle(
                      c("chr1", "chr2", "chr1", "chr3"),
-                     c(1, 3, 2, 4)),
+                     c(1, 1, 1, 1)),
         ranges   = IRanges::IRanges(
-                     start = 1:10,
-                     end = 7:16,
-                     names = head(letters, 10)),
+                     start = c(1, 10, 50, 100),
+                     end = c(100, 500, 1000, 2000),
+                     names = head(letters, 4)),
         strand   = S4Vectors::Rle(
-                     c("-", "+", "*", "+", "-"),
-                     c(1, 2, 2, 3, 2))
+                     c("-", "+"), c(2, 2))
       )
 
 as.tbl_interval(gr)

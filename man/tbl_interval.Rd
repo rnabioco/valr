@@ -27,9 +27,9 @@ Construct a tbl_interval using tribble formatting.
 \examples{
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1',  1,      50,
-  'chr1',  10,     75,
-  'chr1',  100,    120
+  'chr1',  1,     50,
+  'chr1',  10,    75,
+  'chr1',  100,   120
 )
 
 is.tbl_interval(x)
