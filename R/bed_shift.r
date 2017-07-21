@@ -55,8 +55,8 @@
 #' @export
 bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
 
-  if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_genome(genome)) genome <- tbl_genome(genome)
+  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
   stranded <- "strand" %in% groups(x)
 

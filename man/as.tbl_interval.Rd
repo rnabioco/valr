@@ -3,12 +3,15 @@
 \name{as.tbl_interval}
 \alias{as.tbl_interval}
 \alias{as.tbl_interval.tbl_df}
+\alias{as.tbl_interval.data.frame}
 \alias{as.tbl_interval.GRanges}
 \title{Coerce objects to tbl_intervals.}
 \usage{
 as.tbl_interval(x)
 
 \method{as.tbl_interval}{tbl_df}(x)
+
+\method{as.tbl_interval}{data.frame}(x)
 
 \method{as.tbl_interval}{GRanges}(x)
 }

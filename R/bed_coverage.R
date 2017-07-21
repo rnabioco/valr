@@ -42,8 +42,8 @@
 #' @export
 bed_coverage <- function(x, y, ...) {
 
-  if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- tbl_interval(y)
+  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
   x <- bed_sort(x)
   x <- group_by(x, chrom, add = TRUE)

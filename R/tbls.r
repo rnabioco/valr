@@ -70,6 +70,12 @@ as.tbl_interval.tbl_df <- function(x) {
 
 #' @export
 #' @rdname as.tbl_interval
+as.tbl_interval.data.frame <- function(x) {
+  tbl_interval(x)
+}
+
+#' @export
+#' @rdname as.tbl_interval
 as.tbl_interval.GRanges <- function(x) {
   # https://www.biostars.org/p/89341/
   res <- tibble(chrom  = as.character(x@seqnames),
@@ -135,6 +141,32 @@ tbl_genome <- function(x, ..., .validate = TRUE) {
   }
   class(out) <- union("tbl_gnm", class(out))
   out
+}
+
+#' Coerce objects to tbl_genome.
+#'
+#' This is an S3 generic. valr includes methods to coerce tbl_df and data.frame
+#' objects.
+#'
+#' @param x object to convert to tbl_genome.
+#'
+#' @return [tbl_genome()]
+#'
+#' @export
+as.tbl_genome <- function(x) {
+  UseMethod("as.tbl_genome")
+}
+
+#' @export
+#' @rdname as.tbl_genome
+as.tbl_genome.tbl_df <- function(x) {
+  tbl_genome(x)
+}
+
+#' @export
+#' @rdname as.tbl_genome
+as.tbl_genome.data.frame <- function(x) {
+  tbl_genome(x)
 }
 
 #' Construct a tbl_genome using tribble formatting.

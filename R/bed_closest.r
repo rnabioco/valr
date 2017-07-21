@@ -75,8 +75,8 @@
 bed_closest <- function(x, y, overlap = TRUE,
                         suffix = c(".x", ".y")){
 
-  if (!is.tbl_interval(x)) x <- tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- tbl_interval(y)
+  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
   check_suffix(suffix)
 
