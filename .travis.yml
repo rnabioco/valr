@@ -5,7 +5,6 @@ warnings_are_errors: false
 cache: packages
 r_build_args: '--no-build-vignettes'
 r_check_args: '--as-cran --ignore-vignettes'
-r: bioc-devel
 bioc_required: true
 bioc_use_devel: true
 
@@ -42,6 +41,7 @@ matrix:
         CXX1X=g++-6
         CXX1XSTD=-std=c++11
     - os: osx
+      r: release
       compiler: clang
 
 after_success:
