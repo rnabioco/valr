@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // bed12toexons_impl
 DataFrame bed12toexons_impl(DataFrame x);
-RcppExport SEXP valr_bed12toexons_impl(SEXP xSEXP) {
+RcppExport SEXP _valr_bed12toexons_impl(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // closest_impl
 DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y);
-RcppExport SEXP valr_closest_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
+RcppExport SEXP _valr_closest_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -33,7 +33,7 @@ END_RCPP
 }
 // complement_impl
 DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome);
-RcppExport SEXP valr_complement_impl(SEXP gdfSEXP, SEXP genomeSEXP) {
+RcppExport SEXP _valr_complement_impl(SEXP gdfSEXP, SEXP genomeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -45,7 +45,7 @@ END_RCPP
 }
 // coverage_impl
 DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y);
-RcppExport SEXP valr_coverage_impl(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _valr_coverage_impl(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -57,7 +57,7 @@ END_RCPP
 }
 // dist_impl
 DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc);
-RcppExport SEXP valr_dist_impl(SEXP xSEXP, SEXP ySEXP, SEXP distcalcSEXP) {
+RcppExport SEXP _valr_dist_impl(SEXP xSEXP, SEXP ySEXP, SEXP distcalcSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -70,7 +70,7 @@ END_RCPP
 }
 // flank_impl
 DataFrame flank_impl(DataFrame df, DataFrame genome, double both, double left, double right, bool fraction, bool stranded, bool trim);
-RcppExport SEXP valr_flank_impl(SEXP dfSEXP, SEXP genomeSEXP, SEXP bothSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP fractionSEXP, SEXP strandedSEXP, SEXP trimSEXP) {
+RcppExport SEXP _valr_flank_impl(SEXP dfSEXP, SEXP genomeSEXP, SEXP bothSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP fractionSEXP, SEXP strandedSEXP, SEXP trimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -88,7 +88,7 @@ END_RCPP
 }
 // intersect_impl
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y);
-RcppExport SEXP valr_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
+RcppExport SEXP _valr_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -102,7 +102,7 @@ END_RCPP
 }
 // makewindows_impl
 DataFrame makewindows_impl(DataFrame df, int win_size, int num_win, int step_size, bool reverse);
-RcppExport SEXP valr_makewindows_impl(SEXP dfSEXP, SEXP win_sizeSEXP, SEXP num_winSEXP, SEXP step_sizeSEXP, SEXP reverseSEXP) {
+RcppExport SEXP _valr_makewindows_impl(SEXP dfSEXP, SEXP win_sizeSEXP, SEXP num_winSEXP, SEXP step_sizeSEXP, SEXP reverseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -117,7 +117,7 @@ END_RCPP
 }
 // merge_impl
 DataFrame merge_impl(GroupedDataFrame gdf, int max_dist, bool collapse);
-RcppExport SEXP valr_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP, SEXP collapseSEXP) {
+RcppExport SEXP _valr_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP, SEXP collapseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -130,7 +130,7 @@ END_RCPP
 }
 // random_impl
 DataFrame random_impl(DataFrame genome, int length, int n, int seed, std::string col_chrom, std::string col_size);
-RcppExport SEXP valr_random_impl(SEXP genomeSEXP, SEXP lengthSEXP, SEXP nSEXP, SEXP seedSEXP, SEXP col_chromSEXP, SEXP col_sizeSEXP) {
+RcppExport SEXP _valr_random_impl(SEXP genomeSEXP, SEXP lengthSEXP, SEXP nSEXP, SEXP seedSEXP, SEXP col_chromSEXP, SEXP col_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -146,7 +146,7 @@ END_RCPP
 }
 // shuffle_impl
 DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within, int max_tries, int seed);
-RcppExport SEXP valr_shuffle_impl(SEXP dfSEXP, SEXP inclSEXP, SEXP withinSEXP, SEXP max_triesSEXP, SEXP seedSEXP) {
+RcppExport SEXP _valr_shuffle_impl(SEXP dfSEXP, SEXP inclSEXP, SEXP withinSEXP, SEXP max_triesSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -161,7 +161,7 @@ END_RCPP
 }
 // subtract_impl
 DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y);
-RcppExport SEXP valr_subtract_impl(SEXP gdf_xSEXP, SEXP gdf_ySEXP) {
+RcppExport SEXP _valr_subtract_impl(SEXP gdf_xSEXP, SEXP gdf_ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

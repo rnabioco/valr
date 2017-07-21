@@ -1,4 +1,4 @@
-// writer.h
+// DataFrameBuilder.h
 //
 // Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
 //
@@ -7,8 +7,8 @@
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
-#ifndef valr__writer_H
-#define valr__writer_H
+#ifndef valr__DataFrameBuilder_H
+#define valr__DataFrameBuilder_H
 
 #include "valr.h"
 

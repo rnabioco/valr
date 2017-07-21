@@ -66,7 +66,6 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) 
   DataFrame df = gdf.data() ;
 
   auto nr = df.nrows() ;
-  auto nc = df.size() ;
 
   IntegerVector ids(nr) ;      // store ids
   IntegerVector overlaps(nr) ; // store overlap values
