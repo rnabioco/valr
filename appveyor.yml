@@ -41,10 +41,13 @@ environment:
     R_ARCH: x64
     GCC_PATH: mingw_64
 
-    allow_failures:
+  - R_VERSION: devel
+    R_ARCH: x64
+    GCC_PATH: mingw_64
+
+matrix:
+  allow_failures:
     - R_VERSION: devel
-      R_ARCH: x64
-      GCC_PATH: mingw_64
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
