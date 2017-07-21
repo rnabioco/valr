@@ -71,8 +71,8 @@ as.tbl_interval.tbl_df <- function(x) {
 as.tbl_interval.GRanges <- function(x) {
   # https://www.biostars.org/p/89341/
   res <- tibble(chrom  = as.character(x@seqnames),
-                start  = start(x) - 1,
-                end    = end(x),
+                start  = x@ranges@start - 1,
+                end    = x@ranges@start - 1 + x@ranges@width,
                 name   = rep(".", length(x)),
                 score  = rep(".", length(x)),
                 strand = as.character(x@strand))
