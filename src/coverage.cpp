@@ -151,40 +151,19 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
 
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
 
-  auto ncol_x = subset_x.size() ;
-
-  CharacterVector names(ncol_x + 4) ;
-  CharacterVector names_x = subset_x.attr("names") ;
-  CharacterVector new_cols = CharacterVector::create(".ints", ".cov", ".len", ".frac");
-
-  // add in overlaps, bases covered, ivl length, and fraction
-  List out(ncol_x + 4) ;
-
+  DataFrameBuilder out;
   // x names, data
-  for (int i = 0; i < ncol_x; i++) {
-    auto name_x = as<std::string>(names_x[i]) ;
-    names[i] = name_x ;
-    out[i] = subset_x[i] ;
-  }
-  int n = new_cols.size() ;
+  out.add_df(subset_x, false) ;
 
-  // new names
-  for (int i = 0; i < n ; i++) {
-    names[ncol_x + i] = new_cols[i] ;
-  }
+  // additional columns
+  out.add_vec(".ints", wrap(overlap_counts)) ;
+  out.add_vec(".cov", wrap(ivls_bases_covered)) ;
+  out.add_vec(".len", wrap(x_ivl_lengths)) ;
+  out.add_vec(".frac", wrap(fractions_covered)) ;
 
-  //new data
-  out[ncol_x + 0] = overlap_counts ;
-  out[ncol_x + 1] = ivls_bases_covered ;
-  out[ncol_x + 2] = x_ivl_lengths ;
-  out[ncol_x + 3] = fractions_covered ;
-
-  out.attr("names") = names ;
-  out.attr("class") = classes_not_grouped() ;
   auto nrows = subset_x.nrows() ;
-  set_rownames(out, nrows) ;
-
-  return out ;
+  auto res = out.format_df(nrows) ;
+  return res ;
 
 }
 

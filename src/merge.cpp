@@ -66,7 +66,6 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) 
   DataFrame df = gdf.data() ;
 
   auto nr = df.nrows() ;
-  auto nc = df.size() ;
 
   IntegerVector ids(nr) ;      // store ids
   IntegerVector overlaps(nr) ; // store overlap values
@@ -121,31 +120,18 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) 
     }
   }
 
-  // add two new columns, ids and overlaps
-  List out(nc + 2) ;
-  CharacterVector onames = df.attr("names") ;
-  CharacterVector names(nc + 2) ;
+  DataFrameBuilder out;
+  // x names, data
+  out.add_df(df, false) ;
 
-  for (int i = 0; i < nc; i++) {
-    out[i] = df[i] ;
-    names[i] = onames[i] ;
-  }
+  // ids and overlaps
+  out.add_vec(".id_merge", wrap(ids)) ;
+  out.add_vec(".overlap_merge", wrap(overlaps)) ;
 
-  // add ids
-  out[nc] = ids;
-  std::string id_name = ".id_merge" ;
-  names[nc] = id_name ;
+  auto nrows = df.nrows() ;
+  auto res = out.format_df(nrows) ;
+  return res ;
 
-  // add overlaps
-  out[nc + 1] = overlaps ;
-  std::string overlaps_name = ".overlap_merge" ;
-  names[nc + 1] = overlaps_name;
-
-  out.attr("class") = df.attr("class") ;
-  out.attr("row.names") = df.attr("row.names") ;
-  out.attr("names") = names ;
-
-  return out ;
 }
 
 //[[Rcpp::export]]

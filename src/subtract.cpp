@@ -88,27 +88,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   GroupApply(gdf_x, gdf_y, subtract_group, std::ref(indices_out), std::ref(starts_out), std::ref(ends_out));
 
   // extract out x data, new intervals will be generated as copies of the parent interval
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_out, "data.frame");
-
-  auto ncol_x = subset_x.size() ;
-
-  CharacterVector names(ncol_x) ;
-  CharacterVector names_x = subset_x.attr("names") ;
-
-  // report same number of columns
-  List out(ncol_x) ;
-
-  // build new dataframe with colnames and existing data
-  for (int i = 0; i < ncol_x; i++) {
-    auto name_x = as<std::string>(names_x[i]) ;
-    names[i] = name_x ;
-    out[i] = subset_x[i] ;
-  }
-
-  out.attr("names") = names ;
-  out.attr("class") = classes_not_grouped() ;
-  auto nrows = subset_x.nrows() ;
-  set_rownames(out, nrows) ;
+  DataFrame out = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_out, "data.frame");
 
   // assign new starts and ends
   out["start"] = starts_out ;
