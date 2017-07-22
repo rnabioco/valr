@@ -85,7 +85,7 @@ y <- trbl_interval(
 bed_glyph(bed_intersect(x, y))
 ```
 
-<img src="img/README-intersect_glyph-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-intersect_glyph-1.png" style="display: block; margin: auto;" />
 
 ### Reproducible reports
 

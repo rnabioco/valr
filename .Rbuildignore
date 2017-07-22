@@ -1,9 +1,4 @@
-^index\.md$
-^index\.html$
-^index\.Rmd$
 ^README\.Rmd$
-^img$
-^README-.*\.png$
 ^data-raw$
 ^.*\.Rproj$
 ^\.Rproj\.user$
