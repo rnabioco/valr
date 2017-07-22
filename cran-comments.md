@@ -2,15 +2,13 @@
 
 * This is a new minor version (see NEWS.md).
 
-* This version incorporates changes to be compatible with the new version of dplyr (v0.7.0).
-
 ## Test environments
 
-* Windows Server 2012 R2 x64 (on appveyor), R 3.4.0
+* Windows Server 2012 R2 x64 (on appveyor), R 3.4.1
 * win-builder (devel and release)
-* local OS X install, R 3.4.0
-* OS X (on travis-ci), R 3.4.0
-* ubuntu 14.04 (on travis-ci), R 3.4.0
+* local OS X install, R 3.4.1
+* OS X (on travis-ci), R 3.4.1
+* ubuntu 14.04 (on travis-ci), R 3.4.1
 
 ## R CMD check results
 
@@ -21,22 +19,13 @@
  
 * on win-builder
 
-  Status: WARNING
-  0 errors | 1 warnings | 0 notes
+  Status: OK
+  0 errors | 0 warnings | 0 notes
   
-  This warning is caused by an issue with pandoc, which I understand CRAN is already aware of.
-  
-  * checking top-level files ... WARNING
-Conversion of 'README.md' failed:
-pandoc.exe: Could not fetch https://img.shields.io/codecov/c/github/rnabioco/valr/master.svg
-TlsExceptionHostPort (HandshakeFailed Error_EOF) "img.shields.io" 443
-
 * on OS X 
 
   Status: OK
   0 errors | 0 warnings | 0 notes
-  
-  valr builds cleanly on my local machine. valr fails on travis-ci because the binary dplyr v0.7.0 is not available on CRAN due to an ERROR with its build. This will be fixed in a forthcoming patch release of dplyr (https://github.com/tidyverse/dplyr/commit/0b40356fe22bc33fc9ba38bac22aa898c1c40480).
   
 * on ubuntu
 

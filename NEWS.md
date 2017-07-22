@@ -1,6 +1,8 @@
-# valr 0.3.0.9000
+# valr 0.3.1
 
 ## Enhancements
+
+* A manuscript describing valr has been published in [F1000Research](https://f1000research.com/articles/6-1025/v1).
 
 * New S3 generic `as.tbl_interval()` converts `GenomicRanges::GRanges` objects to `tbl_interval`.
 
