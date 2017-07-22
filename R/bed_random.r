@@ -47,6 +47,6 @@ bed_random <- function(genome, length = 1000, n = 1e6,
     out <- arrange(out, !!! sort_syms)
   }
 
-  out <- tibble::as_tibble(out)
+  out <- as.tbl_interval(out)
   out
 }

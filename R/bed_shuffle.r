@@ -62,7 +62,7 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
   # bind original x column data to result (#81)
   res <- bind_cols(res, x[, !colnames(x) %in% colnames(res)])
 
-  res <- tibble::as_tibble(res)
+  res <- as.tbl_interval(res)
 
   res
 }

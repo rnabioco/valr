@@ -59,7 +59,7 @@ bed_makewindows <- function(x, genome, win_size = 0,
   # dummy win_ids
   x <- mutate(x, .win_id = 0)
   res <- makewindows_impl(x, win_size, num_win, step_size, reverse)
-  res <- tibble::as_tibble(res)
+  res <- as.tbl_interval(res)
 
   res
 }
