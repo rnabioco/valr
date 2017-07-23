@@ -74,7 +74,7 @@
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
             
-            <h4 class="date">2017-07-16</h4>
+            <h4 class="date">2017-07-23</h4>
           </div>
 
     
@@ -145,8 +145,8 @@ nearby <span class="op">%&gt;%</span>
 <span class="co">#&gt;  8  chr1 321145 321207</span>
 <span class="co">#&gt;  9  chr1 322036 326938</span>
 <span class="co">#&gt; 10  chr1 327545 328439</span></code></pre></div>
-<p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns named <code>chrom</code>, <code>start</code> and <code>end</code> are present. New tbls can also be contructed using <code><a href="../reference/trbl_interval.html">trbl_interval()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bed &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trbl_interval.html">trbl_interval</a></span>(
+<p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns named <code>chrom</code>, <code>start</code> and <code>end</code> are present. New tbls can also be contructed using <code><a href="../reference/tbl_interval.html">trbl_interval()</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bed &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tbl_interval.html">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start,  <span class="op">~</span>end, 
   <span class="st">"chr1"</span>, <span class="dv">1657492</span>, <span class="dv">2657492</span>, 
   <span class="st">"chr2"</span>, <span class="dv">2501324</span>, <span class="dv">3094650</span>
@@ -164,7 +164,7 @@ bed
 <a href="#interval-coordinates" class="anchor"></a>Interval coordinates</h3>
 <p><code>valr</code> adheres to the BED <a href="http://genome.ucsc.edu/FAQ/FAQformat#format1">format</a> which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a chromosome 100 basepairs in length</span>
-chrom &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trbl_interval.html">trbl_interval</a></span>(
+chrom &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tbl_interval.html">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, 
   <span class="st">"chr1"</span>, <span class="dv">0</span>,      <span class="dv">100</span>
 )
@@ -176,7 +176,7 @@ chrom
 <span class="co">#&gt; 1  chr1     0   100</span>
 
 <span class="co"># single basepair intervals</span>
-bases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/trbl_interval.html">trbl_interval</a></span>(
+bases &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tbl_interval.html">trbl_interval</a></span>(
   <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, 
   <span class="st">"chr1"</span>, <span class="dv">0</span>,      <span class="dv">1</span>, <span class="co"># first base of chromosome</span>
   <span class="st">"chr1"</span>, <span class="dv">1</span>,      <span class="dv">2</span>,  <span class="co"># second base of chromosome</span>
