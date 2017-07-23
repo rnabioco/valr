@@ -14,11 +14,13 @@ bed_jaccard(x, y)
 \value{
 \code{\link[=tbl_interval]{tbl_interval()}} with the following columns:
 \itemize{
-\item \code{len_i} length of the intersection
-\item \code{len_u} length of the union
-\item \code{jaccard} jaccard statistic
+\item \code{len_i} length of the intersection in base-pairs
+\item \code{len_u} length of the union in base-pairs
+\item \code{jaccard} value of jaccard statistic
 \item \code{n_int} number of intersecting intervals between \code{x} and \code{y}
 }
+
+If inputs are grouped, the return value will contain one set of values per group.
 }
 \description{
 Quantifies the extent of overlap between to sets of intervals in terms of
@@ -45,6 +47,10 @@ x <- bed_random(genome, seed = 1010486)
 y <- bed_random(genome, seed = 9203911)
 
 bed_jaccard(x, y)
+
+# calculate jaccard per chromosome
+bed_jaccard(dplyr::group_by(x, chrom),
+            dplyr::group_by(y, chrom))
 
 }
 \seealso{

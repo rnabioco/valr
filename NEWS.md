@@ -1,3 +1,9 @@
+# valr 0.3.1.9000
+
+## Minor changes
+
+* `bed_jaccard()` now works with grouped inputs (#216)
+
 # valr 0.3.1
 
 ## Enhancements
@@ -10,7 +16,7 @@
 
 * Improve documentation of interval statistics with more complex examples.
 
-## Minor
+## Minor changes
 
 * `bed_sort()` has been de-deprecated to reduce `arrange` calls in library code.
 
