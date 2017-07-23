@@ -40,7 +40,8 @@
 #' bed_jaccard(x, y)
 #'
 #' # calculate jaccard per chromosome
-#' bed_jaccard(group_by(x, chrom), group_by(y, chrom))
+#' bed_jaccard(dplyr::group_by(x, chrom),
+#'             dplyr::group_by(y, chrom))
 #'
 #' @export
 bed_jaccard <- function(x, y) {
