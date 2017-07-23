@@ -121,12 +121,13 @@ base-pairs.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following columns:</p><ul>
-<li><p><code>len_i</code> length of the intersection</p></li>
-<li><p><code>len_u</code> length of the union</p></li>
-<li><p><code>jaccard</code> jaccard statistic</p></li>
+<li><p><code>len_i</code> length of the intersection in base-pairs</p></li>
+<li><p><code>len_u</code> length of the union in base-pairs</p></li>
+<li><p><code>jaccard</code> value of jaccard statistic</p></li>
 <li><p><code>n_int</code> number of intersecting intervals between <code>x</code> and <code>y</code></p></li>
 </ul>
 
+<p>If inputs are grouped, the return value will contain one set of values per group.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -159,6 +160,21 @@ examples.</p>
 #&gt;       len_i      len_u   jaccard      n
 #&gt;       &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
 #&gt; 1 236059495 1709233073 0.1602388 399478</div><div class='input'>
+<span class='co'># calculate jaccard per chromosome</span>
+<span class='fu'>bed_jaccard</span>(<span class='fu'>group_by</span>(<span class='no'>x</span>, <span class='no'>chrom</span>), <span class='fu'>group_by</span>(<span class='no'>y</span>, <span class='no'>chrom</span>))</div><div class='output co'>#&gt; # A tibble: 25 x 5
+#&gt;    chrom    len_i     len_u   jaccard     n
+#&gt;    &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1  chr1 19013821 137669498 0.1602437 32087
+#&gt;  2 chr10 10471352  75102550 0.1620170 17752
+#&gt;  3 chr11 10221596  74407682 0.1592494 17362
+#&gt;  4 chr12 10132944  73478730 0.1599624 17078
+#&gt;  5 chr13  8912455  64140662 0.1613751 15149
+#&gt;  6 chr14  8232867  59341464 0.1610858 13902
+#&gt;  7 chr15  7765611  56428414 0.1595800 13143
+#&gt;  8 chr16  6833852  49562929 0.1599345 11634
+#&gt;  9 chr17  6210996  44901313 0.1605310 10542
+#&gt; 10 chr18  5979095  43289534 0.1602526 10113
+#&gt; # ... with 15 more rows</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
