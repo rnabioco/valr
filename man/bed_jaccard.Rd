@@ -12,7 +12,7 @@ bed_jaccard(x, y)
 \item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with the following columns:
+tibble with the following columns:
 \itemize{
 \item \code{len_i} length of the intersection in base-pairs
 \item \code{len_u} length of the union in base-pairs
@@ -24,7 +24,8 @@ If inputs are grouped, the return value will contain one set of values per group
 }
 \description{
 Quantifies the extent of overlap between to sets of intervals in terms of
-base-pairs.
+base-pairs. Groups that are shared between input are used to calculate the statistic
+for subsets of data.
 }
 \details{
 The Jaccard statistic takes values of \code{[0,1]} and is measured as:

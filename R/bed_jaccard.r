@@ -1,7 +1,8 @@
 #' Calculate the Jaccard statistic for two sets of intervals.
 #'
 #' Quantifies the extent of overlap between to sets of intervals in terms of
-#' base-pairs.
+#' base-pairs. Groups that are shared between input are used to calculate the statistic
+#' for subsets of data.
 #'
 #' @details The Jaccard statistic takes values of `[0,1]` and is measured as:
 #'
@@ -19,7 +20,7 @@
 #' @family interval statistics
 #'
 #' @return
-#' [tbl_interval()] with the following columns:
+#' tibble with the following columns:
 #'
 #'   - `len_i` length of the intersection in base-pairs
 #'   - `len_u` length of the union in base-pairs
@@ -92,19 +93,14 @@ bed_jaccard <- function(x, y) {
   } else {
 
     n_i <- res_intersect$sum_overlap
-    n <- res_intersect$n_int
-
-    n_x <- res_x$sum_x
-    n_y <- res_y$sum_y
-
-    n_u <- n_x + n_y
+    n_u <- res_x$sum_x + res_y$sum_y
 
     jaccard <- n_i / (n_u - n_i)
 
     res <- tibble(len_i = n_i,
                   len_u = n_u,
                   jaccard = jaccard,
-                  n = n)
+                  n = res_intersect$n_int)
   }
 
   res

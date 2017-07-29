@@ -100,7 +100,8 @@
 
     
     <p>Quantifies the extent of overlap between to sets of intervals in terms of
-base-pairs.</p>
+base-pairs. Groups that are shared between input are used to calculate the statistic
+for subsets of data.</p>
     
 
     <pre class="usage"><span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</pre>
@@ -120,7 +121,7 @@ base-pairs.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following columns:</p><ul>
+    <p>tibble with the following columns:</p><ul>
 <li><p><code>len_i</code> length of the intersection in base-pairs</p></li>
 <li><p><code>len_u</code> length of the union in base-pairs</p></li>
 <li><p><code>jaccard</code> value of jaccard statistic</p></li>
