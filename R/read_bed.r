@@ -108,10 +108,10 @@ read_broadpeak <- function(filename, ...) {
 
 peak_coltypes <- list(
   chrom = readr::col_character(),
-  start = readr::col_integer(),
-  end = readr::col_integer(),
+  start = readr::col_double(),
+  end = readr::col_double(),
   name = readr::col_character(),
-  score = readr::col_integer(),
+  score = readr::col_double(),
   strand = readr::col_character(),
   signal = readr::col_double(),
   pvalue = readr::col_double(),
@@ -121,13 +121,13 @@ peak_coltypes <- list(
 
 bed12_coltypes <- list(
   chrom = readr::col_character(),
-  start = readr::col_integer(),
-  end = readr::col_integer(),
+  start = readr::col_double(),
+  end = readr::col_double(),
   name = readr::col_character(),
   score = readr::col_character(),
   strand = readr::col_character(),
-  cds_start = readr::col_integer(),
-  cds_end = readr::col_integer(),
+  cds_start = readr::col_double(),
+  cds_end = readr::col_double(),
   item_rgb = readr::col_character(),
   exon_count = readr::col_integer(),
   exon_sizes = readr::col_character(),

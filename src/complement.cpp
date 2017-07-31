@@ -16,8 +16,8 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
 
   DataFrame df = gdf.data() ;
 
-  IntegerVector starts = df["start"] ;
-  IntegerVector ends = df["end"] ;
+  NumericVector starts = df["start"] ;
+  NumericVector ends = df["end"] ;
   CharacterVector chroms = df["chrom"] ;
 
   std::vector<std::string> chroms_out ;

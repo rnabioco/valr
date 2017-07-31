@@ -27,8 +27,8 @@ inline ivl_vector_t makeIntervalVector(DataFrame df, SlicingIndex si,
 
   ivl_vector_t ivls ;
 
-  IntegerVector starts = df[col_start] ;
-  IntegerVector ends   = df[col_end] ;
+  NumericVector starts = df[col_start] ;
+  NumericVector ends   = df[col_end] ;
 
   int size = si.size() ;
 
