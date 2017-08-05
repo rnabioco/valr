@@ -1,7 +1,7 @@
 #ifndef dplyr_ShrinkableVector_H
 #define dplyr_ShrinkableVector_H
 
-#include <tools/encoding.h>
+#include <tools/Encoding.h>
 #include <tools/utils.h>
 
 namespace Rcpp {

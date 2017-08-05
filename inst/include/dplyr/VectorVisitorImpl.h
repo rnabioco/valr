@@ -7,7 +7,7 @@
 #include <dplyr/CharacterVectorOrderer.h>
 #include <dplyr/comparisons.h>
 #include <dplyr/VectorVisitor.h>
-#include <tools/encoding.h>
+#include <tools/Encoding.h>
 
 namespace dplyr {
 
