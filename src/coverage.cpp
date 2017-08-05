@@ -135,7 +135,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     GroupedDataFrame::group_iterator git_x = x.group_begin() ;
     for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
-      SlicingIndex gi_x = *git_x ;
+      GroupedSlicingIndex gi_x = *git_x ;
       ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
 
       for (auto it : vx) {
@@ -149,7 +149,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     }
   }
 
-  DataFrame subset_x = DataFrameSubsetVisitors(data_x, names(data_x)).subset(indices_x, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(data_x, data_x.names()).subset(indices_x, "data.frame");
 
   DataFrameBuilder out;
   // x names, data

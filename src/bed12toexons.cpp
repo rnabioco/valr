@@ -66,8 +66,9 @@ DataFrame bed12toexons_impl(DataFrame x) {
     }
   }
 
-  CharacterVector dfnames = CharacterVector::create("chrom", "start", "end", "name", "score", "strand") ;
-  DataFrame out = DataFrameSubsetVisitors(x, dfnames).subset(df_idx, "data.frame");
+  CharacterVector cnames = CharacterVector::create("chrom", "start", "end", "name", "score", "strand") ;
+  SymbolVector names = SymbolVector(cnames) ;
+  DataFrame out = DataFrameSubsetVisitors(x, names).subset(df_idx, "data.frame");
 
   out["start"] = starts_out ;
   out["end"] = ends_out ;

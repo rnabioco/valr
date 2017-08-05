@@ -60,7 +60,7 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
     }
   }
 
-  DataFrame out = DataFrameSubsetVisitors(df, names(df)).subset(df_idxs, "data.frame");
+  DataFrame out = DataFrameSubsetVisitors(df, df.names()).subset(df_idxs, "data.frame");
 
   // replace original starts, ends, and .win_id
   out["start"] = starts_out ;

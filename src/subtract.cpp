@@ -88,7 +88,7 @@ DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y) {
   GroupApply(gdf_x, gdf_y, subtract_group, std::ref(indices_out), std::ref(starts_out), std::ref(ends_out));
 
   // extract out x data, new intervals will be generated as copies of the parent interval
-  DataFrame out = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_out, "data.frame");
+  DataFrame out = DataFrameSubsetVisitors(df_x, df_x.names()).subset(indices_out, "data.frame");
 
   // assign new starts and ends
   out["start"] = starts_out ;
