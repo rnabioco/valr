@@ -75,8 +75,8 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   GroupApply(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y),
              std::ref(overlap_sizes), std::ref(distance_sizes));
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(indices_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(indices_y, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(indices_x, "data.frame");
+  DataFrame subset_y = DataFrameSubsetVisitors(df_y, df_y.names()).subset(indices_y, "data.frame");
 
   DataFrameBuilder out;
   // x names, data

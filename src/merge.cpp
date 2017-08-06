@@ -20,7 +20,7 @@ DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0)
   std::vector<ivl_t> s ;
   for (int i = 0; i < ng; i++, ++git) {
 
-    SlicingIndex indices = *git ;
+    GroupedSlicingIndex indices = *git ;
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
 
@@ -54,7 +54,7 @@ DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0)
     group_starts.push_back(it.start) ;
     group_ends.push_back(it.stop) ;
   }
-  DataFrame subset_x = DataFrameSubsetVisitors(df, names(df)).subset(indices_x, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(df, df.names()).subset(indices_x, "data.frame");
   subset_x["start"] = group_starts ;
   subset_x["end"] = group_ends ;
   return subset_x ;
@@ -80,7 +80,7 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) 
 
   for (int i = 0; i < ng; i++, ++git) {
 
-    SlicingIndex indices = *git ;
+    GroupedSlicingIndex indices = *git ;
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
     // set dummy first interval to ensure first interval maintained

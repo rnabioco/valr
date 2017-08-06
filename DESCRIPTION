@@ -24,6 +24,8 @@ SystemRequirements: C++11
 LinkingTo:
     Rcpp (>= 0.12.8),
     BH,
+    plogr,
+    bindrcpp,
 Suggests:
     knitr,
     rmarkdown,

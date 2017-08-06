@@ -136,7 +136,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
     }
   }
 
-  DataFrame out = DataFrameSubsetVisitors(df, names(df)).subset(df_idx, "data.frame");
+  DataFrame out = DataFrameSubsetVisitors(df, df.names()).subset(df_idx, "data.frame");
 
   out["start"] = starts_out;
   out["end"] = ends_out;

@@ -20,8 +20,8 @@ inline bool compare_rows(DataFrame df_x, DataFrame df_y,
   IntegerVector idxs_x = IntegerVector::create(idx_x) ;
   IntegerVector idxs_y = IntegerVector::create(idx_y) ;
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, names(df_x)).subset(idxs_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(df_y, names(df_y)).subset(idxs_y, "data.frame");
+  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(idxs_x, "data.frame");
+  DataFrame subset_y = DataFrameSubsetVisitors(df_y, df_y.names()).subset(idxs_y, "data.frame");
 
   int ncols = df_x.size() ;
   bool cols_equal = false;
@@ -54,12 +54,12 @@ inline void GroupApply(const GroupedDataFrame& x,
   GroupedDataFrame::group_iterator git_x = x.group_begin() ;
   for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
-    SlicingIndex gi_x = *git_x ;
+    GroupedSlicingIndex gi_x = *git_x ;
 
     GroupedDataFrame::group_iterator git_y = y.group_begin() ;
     for (int ny = 0; ny < ng_y; ny++, ++git_y) {
 
-      SlicingIndex gi_y = *git_y ;
+      GroupedSlicingIndex gi_y = *git_y ;
 
       bool same_groups = compare_rows(labels_x, labels_y, nx, ny);
 

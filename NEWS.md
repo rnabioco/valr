@@ -4,6 +4,8 @@
 
 * `bed_jaccard()` now works with grouped inputs (#216)
 
+* Update dplyr header files to v0.7
+
 # valr 0.3.1
 
 ## Enhancements
