@@ -1,13 +1,11 @@
-#' Calculate summaries and statistics from overlapping intervals.
+#' Calculate summaries for intersecting intervals.
 #'
 #' Used to apply functions like [min()], [count()] or [concat()] to intersecting
-#' intervals. Book-ended intervals are not reported by default, but can be
-#' included by setting `min_overlap = 0`.
+#' intervals in `x` and `y`. Book-ended intervals are not reported by default
+#' but can be included by setting `min_overlap = 0`.
 #'
 #' @param x [tbl_interval()]
 #' @param y  [tbl_interval()]
-#' @param invert report `x` intervals not in `y`
-#' @param suffix colname suffixes in output
 #' @param min_overlap minimum overlap for intervals.
 #' @param ... name-value pairs specifying colnames and expressions to apply
 #'
@@ -23,7 +21,7 @@
 #' @examples
 #' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',      1,      100
+#'   'chr1', 1,      100
 #' )
 #'
 #' y <- trbl_interval(
@@ -76,9 +74,7 @@
 #' bed_map(x, y, .vals.unique = values_unique(value))
 #'
 #' @export
-bed_map <- function(x, y, ..., invert = FALSE,
-                    suffix = c(".x", ".y"),
-                    min_overlap = 1) {
+bed_map <- function(x, y, min_overlap = 1, ...) {
 
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
@@ -86,34 +82,35 @@ bed_map <- function(x, y, ..., invert = FALSE,
   groups_x <- groups(x)
 
   # used only to get the `x` suffix; `y` suffix is ignored`
-  suffix <- list(x = suffix[1], y = suffix[2])
+  suffix <- list(x = '.x', y = '')
 
   # `x` names are suffixed to use for grouping later
   x_names <- colnames(x)[!colnames(x) %in% "chrom"]
-  x_names_suffix <- stringr::str_c(x_names, suffix$x)
+  x_names_suffix <- str_c(x_names, suffix$x)
 
-  # note that `y` columns have no suffix so can be referred to by the original
-  # names
-  res <- bed_intersect(x, y, invert = invert, suffix = c(suffix$x, ""))
+  # `y` columns in this result have no suffix so can be referred to by the
+  # original names
+  res <- bed_intersect(x, y, suffix = c(suffix$x, suffix$y))
 
   res <- filter(res, .overlap >= min_overlap)
 
   ##  map supplied functions to each set of intervals
-  res <- group_by(res, !!! rlang::syms(c("chrom", x_names_suffix)))
-  res <- summarize(res, !!! rlang::quos(...))
+  res <- group_by(res, !!! syms(c("chrom", x_names_suffix)))
+  res <- summarize(res, !!! quos(...))
   res <- ungroup(res)
+
   ## remove x suffix, but don't pattern match with '.' regex
-  names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), "")
+  names_no_x <- str_replace(names(res), fixed(suffix$x), "")
   names(res) <- names_no_x
 
-  # find rows of `x` that did not intersect
-  x_not <- anti_join(x, res, by = c("chrom", x_names))
+  ## find rows of `x` that did not intersect
+  x_not <- bed_intersect(x, y, invert = TRUE)
 
   res <- bind_rows(res, x_not)
   res <- bed_sort(res)
 
   # reassign original `x` groups. `y` groups are gone at this point
-  res <- group_by(res, !!! rlang::syms(c(groups_x)))
+  res <- group_by(res, !!! syms(groups_x))
 
   res
 }

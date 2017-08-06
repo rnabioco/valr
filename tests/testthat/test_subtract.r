@@ -17,8 +17,12 @@ y <- tibble::tribble(
 ) %>% group_by(chrom)
 
 test_that("any = TRUE eliminates overlapping intervals", {
+  pred <- trbl_interval(
+    ~chrom, ~start, ~end,
+    'chr1', 250,    400
+  )
   res <- bed_subtract(x, y, any = TRUE)
-  expect_equal(nrow(res), 1)
+  expect_equal(res, pred)
 })
 
 test_that("fully contained y intervals generate new intervals", {

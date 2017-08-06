@@ -131,17 +131,9 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
-  res <- intersect_impl(x, y, suffix$x, suffix$y)
+  res <- intersect_impl(x, y, invert, suffix$x, suffix$y)
 
-  if (invert) {
-    colspec <- c("chrom" = "chrom",
-                 "start" = paste0("start", suffix$x),
-                 "end" = paste0("end", suffix$x))
-    res <- anti_join(x, res, by = colspec)
-    res <- ungroup(res)
-  }
-
-  if (multiple_tbls) {
+  if (multiple_tbls && invert == FALSE) {
     # rename .source.y to .source
     source_col <- paste0(".source", suffix$y)
     replace_col <- stringr::str_replace(source_col,

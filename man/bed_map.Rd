@@ -5,10 +5,9 @@
 \alias{concat}
 \alias{values_unique}
 \alias{values}
-\title{Calculate summaries and statistics from overlapping intervals.}
+\title{Calculate summaries for intersecting intervals.}
 \usage{
-bed_map(x, y, ..., invert = FALSE, suffix = c(".x", ".y"),
-  min_overlap = 1)
+bed_map(x, y, min_overlap = 1, ...)
 
 concat(.data, sep = ",")
 
@@ -21,13 +20,9 @@ values(.data, sep = ",")
 
 \item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{...}{name-value pairs specifying colnames and expressions to apply}
-
-\item{invert}{report \code{x} intervals not in \code{y}}
-
-\item{suffix}{colname suffixes in output}
-
 \item{min_overlap}{minimum overlap for intervals.}
+
+\item{...}{name-value pairs specifying colnames and expressions to apply}
 
 \item{.data}{data}
 
@@ -38,8 +33,8 @@ values(.data, sep = ",")
 }
 \description{
 Used to apply functions like \code{\link[=min]{min()}}, \code{\link[=count]{count()}} or \code{\link[=concat]{concat()}} to intersecting
-intervals. Book-ended intervals are not reported by default, but can be
-included by setting \code{min_overlap = 0}.
+intervals in \code{x} and \code{y}. Book-ended intervals are not reported by default
+but can be included by setting \code{min_overlap = 0}.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional
@@ -51,7 +46,7 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 \examples{
 x <- trbl_interval(
   ~chrom, ~start, ~end,
-  'chr1',      1,      100
+  'chr1', 1,      100
 )
 
 y <- trbl_interval(
