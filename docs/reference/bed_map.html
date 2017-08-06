@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate summaries and statistics from overlapping intervals. — bed_map • valr</title>
+<title>Calculate summaries for intersecting intervals. — bed_map • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -95,17 +95,16 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate summaries and statistics from overlapping intervals.</h1>
+    <h1>Calculate summaries for intersecting intervals.</h1>
     </div>
 
     
     <p>Used to apply functions like <code>min()</code>, <code>count()</code> or <code>concat()</code> to intersecting
-intervals. Book-ended intervals are not reported by default, but can be
-included by setting <code>min_overlap = 0</code>.</p>
+intervals in <code>x</code> and <code>y</code>. Book-ended intervals are not reported by default
+but can be included by setting <code>min_overlap = 0</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>),
-  <span class='kw'>min_overlap</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>min_overlap</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
 
 <span class='fu'>concat</span>(<span class='no'>.data</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>","</span>)
 
@@ -125,20 +124,12 @@ included by setting <code>min_overlap = 0</code>.</p>
       <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>name-value pairs specifying colnames and expressions to apply</p></td>
-    </tr>
-    <tr>
-      <th>invert</th>
-      <td><p>report <code>x</code> intervals not in <code>y</code></p></td>
-    </tr>
-    <tr>
-      <th>suffix</th>
-      <td><p>colname suffixes in output</p></td>
-    </tr>
-    <tr>
       <th>min_overlap</th>
       <td><p>minimum overlap for intervals.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>name-value pairs specifying colnames and expressions to apply</p></td>
     </tr>
     <tr>
       <th>.data</th>
@@ -173,7 +164,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>'chr1'</span>,      <span class='fl'>1</span>,      <span class='fl'>100</span>
+  <span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>
 )
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
