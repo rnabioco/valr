@@ -54,6 +54,7 @@ bed_cluster <- function(x, max_dist = 0) {
   res <- mutate(res, .id = .id_merge)
   res <- select(res, !! quo(-one_of(".id_merge", ".overlap_merge")))
   res <- ungroup(res)
-
+  res <- mutate(res,
+                .id = match(.id, unique(.id)))
   res
 }
