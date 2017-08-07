@@ -27,7 +27,7 @@ test_that("stranded cluster works", {
   res <- bed_cluster(group_by(x, strand))
   # test number of groups in output
   expect_equal(length(unique(res$.id)), 6)
-  expect_equal(res$.id, c(3,3,4,5,1,5,1,1,6,2))
+  expect_equal(res$.id, c(3,3,4,5,5,1,1,1,6,2))
 })
 
 x <- tibble::tribble(
