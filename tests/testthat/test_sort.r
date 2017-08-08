@@ -71,3 +71,20 @@ test_that("intervals can be reverse sorted by start and chrom", {
   res <- bed_sort(x, by_chrom = TRUE, reverse = TRUE)
   expect_equal(res$start, c(1000,200,100,400))
 })
+
+test_that("ties in start are sorted by end", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1000,   2000,
+    "chr1", 1000,    400
+  )
+
+  pred <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1000,    400,
+    "chr1", 1000,   2000
+  )
+
+  res <- bed_sort(x)
+  expect_equal(res, pred)
+})
