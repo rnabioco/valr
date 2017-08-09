@@ -17,7 +17,7 @@ extern SEXP _valr_flank_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_intersect_impl(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_makewindows_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_merge_impl(SEXP, SEXP, SEXP);
-extern SEXP _valr_random_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _valr_random_impl(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_shuffle_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_subtract_impl(SEXP, SEXP);
 
@@ -31,7 +31,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"_valr_intersect_impl",    (DL_FUNC) &_valr_intersect_impl,    4},
   {"_valr_makewindows_impl",  (DL_FUNC) &_valr_makewindows_impl,  5},
   {"_valr_merge_impl",        (DL_FUNC) &_valr_merge_impl,        3},
-  {"_valr_random_impl",       (DL_FUNC) &_valr_random_impl,       6},
+  {"_valr_random_impl",       (DL_FUNC) &_valr_random_impl,       4},
   {"_valr_shuffle_impl",      (DL_FUNC) &_valr_shuffle_impl,      5},
   {"_valr_subtract_impl",     (DL_FUNC) &_valr_subtract_impl,     2},
   {NULL, NULL, 0}

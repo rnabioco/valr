@@ -37,8 +37,8 @@ merge_impl <- function(gdf, max_dist = 0L, collapse = TRUE) {
     .Call(`_valr_merge_impl`, gdf, max_dist, collapse)
 }
 
-random_impl <- function(genome, length, n, seed = 0L, col_chrom = "chrom", col_size = "size") {
-    .Call(`_valr_random_impl`, genome, length, n, seed, col_chrom, col_size)
+random_impl <- function(genome, length, n, seed = 0L) {
+    .Call(`_valr_random_impl`, genome, length, n, seed)
 }
 
 shuffle_impl <- function(df, incl, within = FALSE, max_tries = 1000L, seed = 0L) {

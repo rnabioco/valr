@@ -2,12 +2,12 @@
 % Please edit documentation in R/bed_sort.r
 \name{bed_sort}
 \alias{bed_sort}
-\title{Sort a tbl of intervals.}
+\title{Sort a set of intervals.}
 \usage{
 bed_sort(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 }
 \arguments{
-\item{x}{tbl of intervals}
+\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
 \item{by_size}{sort by interval size}
 
@@ -16,20 +16,16 @@ bed_sort(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 \item{reverse}{reverse sort order}
 }
 \description{
-Multiple sorting parameters can be combined. note that \code{by_chrom} sorts
-within a chrom, not by chrom.
-}
-\details{
-Sorting strips groups from the input.
+Sort a set of intervals.
 }
 \examples{
 x <- trbl_interval(
    ~chrom, ~start, ~end,
-   "chr8", 500, 1000,
-   "chr8", 1000, 5000,
-   "chr8", 100, 200,
-   "chr1", 100, 300,
-   "chr1", 100, 200
+   "chr8", 500,    1000,
+   "chr8", 1000,   5000,
+   "chr8", 100,    200,
+   "chr1", 100,    300,
+   "chr1", 100,    200
 )
 
 # sort by chrom and start
@@ -47,20 +43,6 @@ bed_sort(x, by_size = TRUE, reverse = TRUE)
 # sort by interval size within chrom
 bed_sort(x, by_size = TRUE, by_chrom = TRUE)
 
-# can also use dplyr to sort
-
-# sort by start
-dplyr::arrange(x, start)
-
-# sort by descending start
-dplyr::arrange(x, desc(start))
-
-# sort by chrom and start
-dplyr::arrange(x, chrom, start)
-
-# sort by size
-x <- dplyr::mutate(x, .size = end - start)
-dplyr::arrange(x, .size)
 }
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}

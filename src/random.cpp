@@ -10,12 +10,10 @@
 #include "valr.h"
 
 // [[Rcpp::export]]
-DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0,
-                      std::string col_chrom = "chrom",
-                      std::string col_size = "size") {
+DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
 
-  CharacterVector chroms = genome[col_chrom] ;
-  NumericVector sizes = genome[col_size] ;
+  CharacterVector chroms = genome["chrom"] ;
+  NumericVector sizes = genome["size"] ;
 
   int nchrom = chroms.size() ;
 
