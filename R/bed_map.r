@@ -86,16 +86,21 @@ bed_map <- function(x, y, min_overlap = 1, ...) {
 
   # `x` names are suffixed to use for grouping later
   x_names <- colnames(x)[!colnames(x) %in% "chrom"]
-  x_names_suffix <- str_c(x_names, suffix$x)
+  x_names <- str_c(x_names, suffix$x)
 
   # `y` columns in this result have no suffix so can be referred to by the
   # original names
   res <- bed_intersect(x, y, suffix = c(suffix$x, suffix$y))
 
+  ## store book-ended intervals
+  book_ended <- filter(res, .overlap == 0)
+  book_ended <- select(book_ended, chrom, ends_with(fixed(suffix$x)))
+  names(book_ended) <- str_replace(names(book_ended), fixed(suffix$x), '')
+
   res <- filter(res, .overlap >= min_overlap)
 
   ##  map supplied functions to each set of intervals
-  res <- group_by(res, !!! syms(c("chrom", x_names_suffix)))
+  res <- group_by(res, !!! syms(c("chrom", x_names)))
   res <- summarize(res, !!! quos(...))
   res <- ungroup(res)
 
@@ -107,6 +112,9 @@ bed_map <- function(x, y, min_overlap = 1, ...) {
   x_not <- bed_intersect(x, y, invert = TRUE)
 
   res <- bind_rows(res, x_not)
+  if (min_overlap > 0)
+    res <- bind_rows(res, book_ended)
+
   res <- bed_sort(res)
 
   # reassign original `x` groups. `y` groups are gone at this point
