@@ -10,6 +10,7 @@
 #include "valr.h"
 
 void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
+                     bool invert,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes) {
 
@@ -20,14 +21,21 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
 
     tree_y.findOverlapping(it.start, it.stop, overlaps) ;
 
-    // store current intervals
-    for (auto oit : overlaps) {
+    if (invert) {
 
-      int overlap_size = intervalOverlap(it, oit) ;
-      overlap_sizes.push_back(overlap_size) ;
+      if (overlaps.size() == 0)
+        indices_x.push_back(it.value) ;
 
-      indices_x.push_back(it.value) ;
-      indices_y.push_back(oit.value) ;
+    } else {
+
+      for (auto oit : overlaps) {
+
+        int overlap_size = intervalOverlap(it, oit) ;
+        overlap_sizes.push_back(overlap_size) ;
+
+        indices_x.push_back(it.value) ;
+        indices_y.push_back(oit.value) ;
+      }
     }
 
     overlaps.clear() ;
@@ -35,8 +43,9 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
 }
 
 
-//[[Rcpp::export]]
+// [[Rcpp::export]]
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
+                         bool invert = false,
                          const std::string& suffix_x = ".x",
                          const std::string& suffix_y = ".y") {
 
@@ -50,25 +59,30 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
   auto data_x = x.data() ;
   auto data_y = y.data() ;
 
-  // set up interval trees for each chromosome and apply intersect_group
-  GroupApply(x, y, intersect_group, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes));
+  GroupApply(x, y, intersect_group, invert, std::ref(indices_x), std::ref(indices_y), std::ref(overlap_sizes));
 
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, data_x.names()).subset(indices_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(data_y, data_y.names()).subset(indices_y, "data.frame");
-
 
   DataFrameBuilder out;
+
   // x names, data
-  out.add_df(subset_x, suffix_x, false) ;
+  if (invert) {
+    out.add_df(subset_x, false) ;
+  } else {
+    out.add_df(subset_x, suffix_x, false) ;
+  }
 
-  // y names, data
-  out.add_df(subset_y, suffix_y, true) ;
-
-  // overlaps
-  out.add_vec(".overlap", wrap(overlap_sizes)) ;
+  if (!invert) {
+    DataFrame subset_y = DataFrameSubsetVisitors(data_y, data_y.names()).subset(indices_y, "data.frame");
+    // y names, data
+    out.add_df(subset_y, suffix_y, true) ;
+    // overlaps
+    out.add_vec(".overlap", wrap(overlap_sizes)) ;
+  }
 
   auto nrows = subset_x.nrows() ;
   auto res = out.format_df(nrows) ;
+
   return res ;
 
 }
