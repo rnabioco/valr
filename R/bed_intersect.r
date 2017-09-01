@@ -134,11 +134,11 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   res <- intersect_impl(x, y, suffix$x, suffix$y)
 
   if (invert) {
-    colspec <- c("chrom" = "chrom",
-                 "start" = paste0("start", suffix$x),
-                 "end" = paste0("end", suffix$x))
-    res <- anti_join(x, res, by = colspec)
+    res <- filter(res, is.na(.overlap))
+    res <- select(res, chrom, start = start.x, end = end.x)
     res <- ungroup(res)
+  } else {
+    res <- na.omit(res)
   }
 
   if (multiple_tbls) {

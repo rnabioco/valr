@@ -20,6 +20,13 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
 
     tree_y.findOverlapping(it.start, it.stop, overlaps) ;
 
+    if (overlaps.empty()) {
+      indices_x.push_back(it.value) ;
+      // store empty placeholer
+      indices_y.push_back(NA_INTEGER) ;
+      overlap_sizes.push_back(NA_INTEGER) ;
+    }
+
     // store current intervals
     for (auto oit : overlaps) {
 
@@ -35,7 +42,7 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
 }
 
 
-//[[Rcpp::export]]
+// [[Rcpp::export]]
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
                          const std::string& suffix_x = ".x",
                          const std::string& suffix_y = ".y") {
@@ -55,7 +62,6 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
 
   DataFrame subset_x = DataFrameSubsetVisitors(data_x, data_x.names()).subset(indices_x, "data.frame");
   DataFrame subset_y = DataFrameSubsetVisitors(data_y, data_y.names()).subset(indices_y, "data.frame");
-
 
   DataFrameBuilder out;
   // x names, data
