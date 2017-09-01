@@ -1,15 +1,12 @@
 #' Calculate summaries and statistics from overlapping intervals.
 #'
-#' Used to apply functions like [min()], [count()] or [concat()] to intersecting
-#' intervals. Book-ended intervals are not reported by default, but can be
-#' included by setting `min_overlap = 0`.
+#' Used to apply functions like [min()] and [count()] to intersecting intervals.
+#' Book-ended intervals can be included by setting `min_overlap = 0`.
 #'
 #' @param x [tbl_interval()]
 #' @param y  [tbl_interval()]
-#' @param invert report `x` intervals not in `y`
-#' @param suffix colname suffixes in output
-#' @param min_overlap minimum overlap for intervals.
 #' @param ... name-value pairs specifying colnames and expressions to apply
+#' @param min_overlap minimum overlap for intervals.
 #'
 #' @template groups
 #'
@@ -18,7 +15,7 @@
 #' @family multiple set operations
 #'
 #' @seealso
-#' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
+#'   \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #'
 #' @examples
 #' x <- trbl_interval(
@@ -61,13 +58,7 @@
 #' # can also use `nth` family from dplyr
 #' bed_map(x, y, .first = dplyr::first(value))
 #'
-#' bed_map(x, y, .last = dplyr::last(value))
-#'
 #' bed_map(x, y, .absmax = abs(max(value)))
-#'
-#' bed_map(x, y, .absmin = abs(min(value)))
-#'
-#' bed_map(x, y, .count = length(value))
 #'
 #' bed_map(x, y, .count_distinct = length(unique(value)))
 #'
@@ -76,46 +67,38 @@
 #' bed_map(x, y, .vals.unique = values_unique(value))
 #'
 #' @export
-bed_map <- function(x, y, ..., invert = FALSE,
-                    suffix = c(".x", ".y"),
-                    min_overlap = 1) {
+bed_map <- function(x, y, ..., min_overlap = 1) {
 
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
   groups_x <- groups(x)
 
-  # used only to get the `x` suffix; `y` suffix is ignored`
-  suffix <- list(x = suffix[1], y = suffix[2])
+  suffix <- list(x = ".x", y = ".y")
 
-  # `x` names are suffixed to use for grouping later
-  x_names <- colnames(x)[!colnames(x) %in% "chrom"]
-  x_names_suffix <- stringr::str_c(x_names, suffix$x)
+  res <- intersect_impl(x, y, suffix$x, suffix$y)
 
-  # note that `y` columns have no suffix so can be referred to by the original
-  # names
-  res <- bed_intersect(x, y, invert = invert, suffix = c(suffix$x, ""))
+  res_int <- na.omit(res)
+  res_int <- filter(res_int, .overlap >= min_overlap)
 
-  res <- filter(res, .overlap >= min_overlap)
+  res_int[[".id.x"]] <- unique_ids_impl(res_int, syms('chrom', 'start', 'end'))
 
-  ##  map supplied functions to each set of intervals
-  res <- group_by(res, !!! rlang::syms(c("chrom", x_names_suffix)))
-  res <- summarize(res, !!! rlang::quos(...))
-  res <- ungroup(res)
-  ## remove x suffix, but don't pattern match with '.' regex
-  names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), "")
-  names(res) <- names_no_x
+  ## map supplied functions to each set of intervals
+  res_int <- group_by(res_int, .id.x)
+  res_int <- summarize(res_int, !!! quos(...))
+  res_int <- ungroup(res_int)
 
-  # find rows of `x` that did not intersect
-  x_not <- anti_join(x, res, by = c("chrom", x_names))
+  ## find rows of `x` that did not intersect
+  res_noint <- filter(res, is.na(.overlap))
+  res_noint <- select(res_noint, chrom, start.x, end.x)
 
-  res <- bind_rows(res, x_not)
-  res <- bed_sort(res)
+  res_all <- bind_rows(res_int, res_noint)
+  res_all <- bed_sort(res_all)
 
-  # reassign original `x` groups. `y` groups are gone at this point
-  res <- group_by(res, !!! rlang::syms(c(groups_x)))
+  ## reassign original `x` groups. `y` groups are gone at this point
+  res_all <- group_by(res_all, !!! syms(groups_x))
 
-  res
+  res_all
 }
 
 #' @export
