@@ -87,16 +87,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // intersect_impl
-DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y);
-RcppExport SEXP _valr_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
+DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, bool invert, const std::string& suffix_x, const std::string& suffix_y);
+RcppExport SEXP _valr_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP invertSEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
     Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    Rcpp::traits::input_parameter< bool >::type invert(invertSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type suffix_x(suffix_xSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type suffix_y(suffix_ySEXP);
-    rcpp_result_gen = Rcpp::wrap(intersect_impl(x, y, suffix_x, suffix_y));
+    rcpp_result_gen = Rcpp::wrap(intersect_impl(x, y, invert, suffix_x, suffix_y));
     return rcpp_result_gen;
 END_RCPP
 }
