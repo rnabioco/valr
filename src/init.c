@@ -20,6 +20,7 @@ extern SEXP _valr_merge_impl(SEXP, SEXP, SEXP);
 extern SEXP _valr_random_impl(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_shuffle_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_subtract_impl(SEXP, SEXP);
+extern SEXP _valr_unique_ids_impl(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
   {"_valr_bed12toexons_impl", (DL_FUNC) &_valr_bed12toexons_impl, 1},
@@ -34,6 +35,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"_valr_random_impl",       (DL_FUNC) &_valr_random_impl,       4},
   {"_valr_shuffle_impl",      (DL_FUNC) &_valr_shuffle_impl,      5},
   {"_valr_subtract_impl",     (DL_FUNC) &_valr_subtract_impl,     2},
+  {"_valr_unique_ids_impl",   (DL_FUNC) &_valr_unique_ids_impl,   1},
   {NULL, NULL, 0}
 };
 

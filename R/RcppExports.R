@@ -49,3 +49,7 @@ subtract_impl <- function(gdf_x, gdf_y) {
     .Call(`_valr_subtract_impl`, gdf_x, gdf_y)
 }
 
+unique_ids_impl <- function(x) {
+    .Call(`_valr_unique_ids_impl`, x)
+}
+

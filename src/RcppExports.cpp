@@ -169,3 +169,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// unique_ids_impl
+std::vector<int> unique_ids_impl(DataFrame x);
+RcppExport SEXP _valr_unique_ids_impl(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(unique_ids_impl(x));
+    return rcpp_result_gen;
+END_RCPP
+}
