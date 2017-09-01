@@ -35,7 +35,7 @@ std::vector<int> unique_ids_impl(DataFrame x) {
       group_map.insert({map_id, group_id}) ;
     } else {
       // already seen so use that id
-      auto group_id = it->second ;
+      group_id = it->second ;
     }
 
     ids.push_back(group_id) ;
