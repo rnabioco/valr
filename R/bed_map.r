@@ -1,13 +1,14 @@
-#' Calculate summaries and statistics from overlapping intervals.
+#' Calculate summaries from overlapping intervals.
 #'
 #' Used to apply functions like [min()] and [count()] to intersecting intervals.
 #' Book-ended intervals can be included by setting `min_overlap = 0`.
 #'
-#' Groups are stripped from the result.
+#' Columns present in the `x` and `y` input (excluding `chrom`) are suffixed
+#' with `.x` or `.y`. Groups present in the input are stripped from the result.
 #'
 #' @param x [tbl_interval()]
 #' @param y  [tbl_interval()]
-#' @param ... name-value pairs specifying colnames and expressions to apply
+#' @param ... name-value pairs specifying column names and expressions
 #' @param min_overlap minimum overlap for intervals.
 #'
 #' @template groups
@@ -74,7 +75,8 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
-  x[[".id"]] <- unique_ids_impl(x)
+  ## assign unique ids to x intervals
+  x[[".__id"]] <- unique_ids_impl(x)
 
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
@@ -85,17 +87,19 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   res_int <- filter(res, !is.na(.overlap))
   res_int <- filter(res_int, .overlap >= min_overlap)
 
-  ## find rows of `x` that did not intersect
+  ## find rows of `x` that *did not* intersect
   res_noint <- filter(res, is.na(.overlap))
-  res_noint <- select(res_noint, chrom, start.x, end.x)
+  res_noint <- select(res_noint, chrom, ends_with(stringr::fixed(".x")))
 
   ## map supplied functions to each set of intervals
   res_group <- group_by(res_int, .id.x)
   res_group <- summarize(res_group, !!! quos(...))
-  res_int <- left_join(res_int, res_group, by = '.id.x')
-  res_int <- select(res_int, -.id.x, -start.y, -end.y, -.overlap)
+
+  int_x <- select(res_int, chrom, ends_with(stringr::fixed(".x")))
+  res_int <- unique(left_join(int_x, res_group, by = ".__id.x"))
 
   res_all <- bind_rows(res_int, res_noint)
+  res_all <- select(res_all, -one_of(".__id.x"))
   res_all <- arrange(res_all, chrom, start.x, end.x)
 
   res_all
