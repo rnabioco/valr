@@ -5,10 +5,9 @@
 \alias{concat}
 \alias{values_unique}
 \alias{values}
-\title{Calculate summaries and statistics from overlapping intervals.}
+\title{Calculate summaries from overlapping intervals.}
 \usage{
-bed_map(x, y, ..., invert = FALSE, suffix = c(".x", ".y"),
-  min_overlap = 1)
+bed_map(x, y, ..., min_overlap = 1)
 
 concat(.data, sep = ",")
 
@@ -21,11 +20,7 @@ values(.data, sep = ",")
 
 \item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
 
-\item{...}{name-value pairs specifying colnames and expressions to apply}
-
-\item{invert}{report \code{x} intervals not in \code{y}}
-
-\item{suffix}{colname suffixes in output}
+\item{...}{name-value pairs specifying column names and expressions}
 
 \item{min_overlap}{minimum overlap for intervals.}
 
@@ -37,11 +32,13 @@ values(.data, sep = ",")
 \code{\link[=tbl_interval]{tbl_interval()}}
 }
 \description{
-Used to apply functions like \code{\link[=min]{min()}}, \code{\link[=count]{count()}} or \code{\link[=concat]{concat()}} to intersecting
-intervals. Book-ended intervals are not reported by default, but can be
-included by setting \code{min_overlap = 0}.
+Used to apply functions like \code{\link[=min]{min()}} and \code{\link[=count]{count()}} to intersecting intervals.
+Book-ended intervals can be included by setting \code{min_overlap = 0}.
 }
 \details{
+Columns present in the \code{x} and \code{y} input (excluding \code{chrom}) are suffixed
+with \code{.x} or \code{.y}. Groups present in the input are stripped from the result.
+
 input tbls are grouped by \code{chrom} by default, and additional
 groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,
 grouping by \code{strand} will constrain analyses to the same strand. To
@@ -51,7 +48,7 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 \examples{
 x <- trbl_interval(
   ~chrom, ~start, ~end,
-  'chr1',      1,      100
+  'chr1', 1,      100
 )
 
 y <- trbl_interval(
@@ -61,7 +58,7 @@ y <- trbl_interval(
   'chr1', 90,     120,  30
 )
 
-bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
+bed_glyph(bed_map(x, y, sum = sum(value.y)), label = 'sum')
 
 x <- trbl_interval(
  ~chrom, ~start, ~end,
@@ -89,13 +86,7 @@ bed_map(x, y, .values = list(value))
 # can also use `nth` family from dplyr
 bed_map(x, y, .first = dplyr::first(value))
 
-bed_map(x, y, .last = dplyr::last(value))
-
 bed_map(x, y, .absmax = abs(max(value)))
-
-bed_map(x, y, .absmin = abs(min(value)))
-
-bed_map(x, y, .count = length(value))
 
 bed_map(x, y, .count_distinct = length(unique(value)))
 
