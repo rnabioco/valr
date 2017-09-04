@@ -15,13 +15,14 @@
 #'
 #' @export
 create_introns <- function(x) {
-
   res <- bed12_to_exons(x)
   res <- group_by(res, name)
-  res <- mutate(res,
-                .start = end, .end = lead(start),
-                score = ifelse(score == 1, 1, score - 1),
-                start = .start, end = .end)
+  res <- mutate(
+    res,
+    .start = end, .end = lead(start),
+    score = ifelse(score == 1, 1, score - 1),
+    start = .start, end = .end
+  )
   res <- select(res, -.start, -.end)
   res <- ungroup(res)
   res <- na.omit(res)
@@ -46,9 +47,11 @@ create_introns <- function(x) {
 #' @export
 create_utrs5 <- function(x) {
   res <- group_by(x, name)
-  res <- mutate(res,
-                start = ifelse(strand == "+", start, cds_end),
-                end   = ifelse(strand == "+", cds_start, end))
+  res <- mutate(
+    res,
+    start = ifelse(strand == "+", start, cds_end),
+    end = ifelse(strand == "+", cds_start, end)
+  )
   res <- ungroup(res)
   res <- select(res, chrom:strand)
 
@@ -72,9 +75,11 @@ create_utrs5 <- function(x) {
 #' @export
 create_utrs3 <- function(x) {
   res <- group_by(x, name)
-  res <- mutate(res,
-                start = ifelse(strand == "+", cds_end, start),
-                end   = ifelse(strand == "+", end, cds_start))
+  res <- mutate(
+    res,
+    start = ifelse(strand == "+", cds_end, start),
+    end = ifelse(strand == "+", end, cds_start)
+  )
   res <- ungroup(res)
   res <- select(res, chrom:strand)
 
@@ -98,9 +103,11 @@ create_utrs3 <- function(x) {
 #' @export
 create_tss <- function(x) {
   res <- group_by(x, name)
-  res <- mutate(res,
-                start = ifelse(strand == "+", start, end - 1),
-                end   = ifelse(strand == "+", start + 1, end))
+  res <- mutate(
+    res,
+    start = ifelse(strand == "+", start, end - 1),
+    end = ifelse(strand == "+", start + 1, end)
+  )
   res <- ungroup(res)
   res <- select(res, chrom:strand)
   res

@@ -26,7 +26,6 @@
 #'
 #' @export
 bed_fisher <- function(x, y, genome) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
@@ -58,20 +57,25 @@ bed_fisher <- function(x, y, genome) {
   genome_size <- sum(as.numeric(genome$size))
 
   # estimated total intervals (`n22_full`)
-  total_est <- round(max(n_i + n_x_only + n_y_only,
-                     genome_size / mean_total ))
+  total_est <- round(max(
+    n_i + n_x_only + n_y_only,
+    genome_size / mean_total
+  ))
 
   # estimate n for neither x nor y (`n22`)
   not_est <- total_est - n_i - n_x_only - n_y_only
 
-  fisher_mat <- matrix(c(n_i, n_x_only, n_y_only, not_est),
-                       nrow = 2,
-                       dimnames = list("in y?" = c("yes", "no"),
-                                       "in x?" = c("yes", "no")))
+  fisher_mat <- matrix(
+    c(n_i, n_x_only, n_y_only, not_est),
+    nrow = 2,
+    dimnames = list(
+      "in y?" = c("yes", "no"),
+      "in x?" = c("yes", "no")
+    )
+  )
 
   stat <- stats::fisher.test(fisher_mat)
   broom::tidy(stat)
-
 }
 
 #' @noRd

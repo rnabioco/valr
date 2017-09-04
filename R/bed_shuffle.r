@@ -29,15 +29,14 @@
 #' @export
 bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
                         max_tries = 1000, within = FALSE, seed = 0) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
   # flatten incl and excl
   if (!is.null(incl))
-      incl <- bed_merge(incl)
+    incl <- bed_merge(incl)
   if (!is.null(excl))
-      excl <- bed_merge(excl)
+    excl <- bed_merge(excl)
 
   # make genome into an interval tbl
   genome_incl <- mutate(genome, start = 0, end = size)

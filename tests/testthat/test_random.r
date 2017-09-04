@@ -38,6 +38,7 @@ test_that("intervals are sorted by default", {
   expect_false(all(x == y))
 
   # default sort
-  x_sort <- x %>% arrange(chrom, start)
+  x_sort <- x %>%
+    arrange(chrom, start)
   expect_true(all(x == x_sort))
 })

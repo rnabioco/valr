@@ -21,7 +21,6 @@
 #'
 #' @export
 interval_spacing <- function(x) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
 
   res <- bed_merge(x)

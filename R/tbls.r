@@ -78,14 +78,16 @@ as.tbl_interval.data.frame <- function(x) {
 #' @rdname as.tbl_interval
 as.tbl_interval.GRanges <- function(x) {
   # https://www.biostars.org/p/89341/
-  res <- tibble(chrom  = as.character(x@seqnames),
-                start  = x@ranges@start - 1,
-                end    = x@ranges@start - 1 + x@ranges@width,
-                name   = rep(".", length(x)),
-                score  = rep(".", length(x)),
-                strand = as.character(x@strand))
+  res <- tibble(
+    chrom = as.character(x@seqnames),
+    start = x@ranges@start - 1,
+    end = x@ranges@start - 1 + x@ranges@width,
+    name = rep(".", length(x)),
+    score = rep(".", length(x)),
+    strand = as.character(x@strand)
+  )
 
-  res <- mutate(res, strand = ifelse(strand == '*', '.', strand))
+  res <- mutate(res, strand = ifelse(strand == "*", ".", strand))
   tbl_interval(res)
 }
 
@@ -214,8 +216,10 @@ check_genome <- function(x) {
   dups <- duplicated(chroms)
 
   if (any(dups)) {
-    stop(sprintf("duplicate chroms in genome: %s",
-                 paste0(chroms[dups], collapse = ", ")))
+    stop(sprintf(
+      "duplicate chroms in genome: %s",
+      paste0(chroms[dups], collapse = ", ")
+    ))
   }
   x
 }
@@ -223,8 +227,10 @@ check_genome <- function(x) {
 check_names <- function(x, expected) {
   missing <- setdiff(expected, names(x))
   if (length(missing) != 0) {
-    stop(sprintf("expected %d required names, missing: %s",
-                 length(expected),
-                 paste0(missing, collapse = ", ")))
+    stop(sprintf(
+      "expected %d required names, missing: %s",
+      length(expected),
+      paste0(missing, collapse = ", ")
+    ))
   }
 }

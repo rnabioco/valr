@@ -35,15 +35,13 @@
 #'
 #' @export
 bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
-
   if (!is.tbl_interval(x)) x <- tbl_interval(x)
 
   if (by_size) {
-
     res <- mutate(x, .size = end - start)
 
     if (by_chrom) {
-       res <- group_by(res, chrom)
+      res <- group_by(res, chrom)
     }
 
     if (reverse) {
@@ -54,11 +52,9 @@ bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
 
     # remove .size column and groups in result
     res <- select(res, -.size)
-
   } else {
-
     if (by_chrom) {
-       res <- group_by(x, chrom)
+      res <- group_by(x, chrom)
     }
 
     # sort by coordinate

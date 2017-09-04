@@ -29,4 +29,3 @@ astyle <- function(extra_args = character()) {
     warning(paste(output[!unchanged], collapse = "\n"))
   }
 }
-
