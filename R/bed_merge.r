@@ -49,7 +49,6 @@
 #'
 #' @export
 bed_merge <- function(x, max_dist = 0, ...) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
 
   if (max_dist < 0)
@@ -65,20 +64,22 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   # if no dots are passed then use fast internal merge
   if (!is.null(substitute(...))) {
-     res <- merge_impl(res, max_dist, collapse = FALSE)
-     group_vars <- rlang::syms(c("chrom", ".id_merge", groups_x))
-     res <- group_by(res, !!! group_vars, add = TRUE)
+    res <- merge_impl(res, max_dist, collapse = FALSE)
+    group_vars <- rlang::syms(c("chrom", ".id_merge", groups_x))
+    res <- group_by(res, !!! group_vars, add = TRUE)
 
-     res <- summarize(res, !!! rlang::quos(.start = min(start),
-                                           .end = max(end),
-                                           ...))
-     res <- rename(res, start = .start, end = .end)
+    res <- summarize(res, !!! rlang::quos(
+      .start = min(start),
+      .end = max(end),
+      ...
+    ))
+    res <- rename(res, start = .start, end = .end)
 
-     res <- ungroup(res)
-     res <- select(res, !! quo(-one_of(".id_merge")))
-   } else {
-     res <- merge_impl(res, max_dist, collapse = TRUE)
-     res <- select(res, !!! rlang::syms(c("chrom", "start", "end", groups_x)))
+    res <- ungroup(res)
+    res <- select(res, !! quo(-one_of(".id_merge")))
+  } else {
+    res <- merge_impl(res, max_dist, collapse = TRUE)
+    res <- select(res, !!! rlang::syms(c("chrom", "start", "end", groups_x)))
   }
 
   # restore original grouping
@@ -95,12 +96,11 @@ bed_merge <- function(x, max_dist = 0, ...) {
 #' @param x tbl of intervals
 #' @noRd
 is_merged <- function(x) {
-
   merged_attr <- attr(x, "merged")
 
-  if ( is.null(merged_attr) || ! merged_attr ) {
-    return (FALSE)
+  if (is.null(merged_attr) || !merged_attr) {
+    return(FALSE)
   } else {
-    return (TRUE)
+    return(TRUE)
   }
 }

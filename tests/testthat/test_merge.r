@@ -2,10 +2,10 @@ context("bed_merge")
 
 test_that("merge on 1 chrom", {
   bed_df <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",    100,       200,
-    "chr1",    150,       250,
-    "chr1",    200,       350
+    ~chrom, ~start, ~end,
+    "chr1", 100, 200,
+    "chr1", 150, 250,
+    "chr1", 200, 350
   )
 
   res <- bed_merge(bed_df)
@@ -14,10 +14,10 @@ test_that("merge on 1 chrom", {
 
 test_that("merge with interval at start", {
   bed_df <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",    1,         50,
-    "chr1",    100,       200,
-    "chr1",    150,       250
+    ~chrom, ~start, ~end,
+    "chr1", 1, 50,
+    "chr1", 100, 200,
+    "chr1", 150, 250
   )
 
   res <- bed_merge(bed_df)
@@ -26,11 +26,11 @@ test_that("merge with interval at start", {
 
 test_that("merge with two chroms", {
   bed_df <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",    1,         50,
-    "chr1",    25,        75,
-    "chr2",    100,       200,
-    "chr2",    150,       250
+    ~chrom, ~start, ~end,
+    "chr1", 1, 50,
+    "chr1", 25, 75,
+    "chr2", 100, 200,
+    "chr2", 150, 250
   )
 
   res <- bed_merge(bed_df)
@@ -39,9 +39,9 @@ test_that("merge with two chroms", {
 
 test_that("book-ended intervals are merged", {
   bed_df <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",    1,         50,
-    "chr1",    50,        100
+    ~chrom, ~start, ~end,
+    "chr1", 1, 50,
+    "chr1", 50, 100
   )
 
   res <- bed_merge(bed_df)
@@ -50,9 +50,9 @@ test_that("book-ended intervals are merged", {
 
 test_that("max_dist is enforced", {
   bed_df <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",    1,         50,
-    "chr1",    50,        100
+    ~chrom, ~start, ~end,
+    "chr1", 1, 50,
+    "chr1", 50, 100
   )
 
   res <- bed_merge(bed_df, max_dist = 1)
@@ -61,23 +61,22 @@ test_that("max_dist is enforced", {
 
 test_that("max_dist is a positive value", {
   bed_df <- tibble::tribble(
-    ~chrom,   ~start,    ~end,
-    "chr1",    1,         50,
-    "chr1",    50,        100
+    ~chrom, ~start, ~end,
+    "chr1", 1, 50,
+    "chr1", 50, 100
   )
 
   expect_error(bed_merge(bed_df, max_dist = -1))
 })
 
 test_that("input groups are maintained in the output tbl issue #108", {
-
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
-    "chr1", 100,    200,  "A",
-    "chr1", 200,    400,  "A",
-    "chr1", 300,    500,  "A",
-    "chr1", 125,    175,  "C",
-    "chr1", 150,    200,  "B"
+    "chr1", 100, 200, "A",
+    "chr1", 200, 400, "A",
+    "chr1", 300, 500, "A",
+    "chr1", 125, 175, "C",
+    "chr1", 150, 200, "B"
   )
 
   x <- arrange(x, chrom, start)
@@ -87,14 +86,13 @@ test_that("input groups are maintained in the output tbl issue #108", {
 })
 
 test_that("intervals can be merged by strand", {
-
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand,
-    "chr1", 100,    200,  "+",
-    "chr1", 200,    400,  "+",
-    "chr1", 300,    500,  "+",
-    "chr1", 125,    175,  "-",
-    "chr1", 150,    200,  "-"
+    "chr1", 100, 200, "+",
+    "chr1", 200, 400, "+",
+    "chr1", 300, 500, "+",
+    "chr1", 125, 175, "-",
+    "chr1", 150, 200, "-"
   )
 
   x <- group_by(x, strand)
@@ -102,17 +100,16 @@ test_that("intervals can be merged by strand", {
   expect_equal(nrow(res), 2)
 })
 
-test_that("summaries can be computed issue #132",{
-
+test_that("summaries can be computed issue #132", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~strand,
-    "chr1", 1,      50,   1,      "+",
-    "chr1", 100,    200,  2,      "+",
-    "chr1", 150,    250,  3,      "-",
-    "chr2", 1,      25,   4,      "+",
-    "chr2", 200,    400,  5,      "-",
-    "chr2", 400,    500,  6,      "+",
-    "chr2", 450,    550,  7,      "+"
+    "chr1", 1, 50, 1, "+",
+    "chr1", 100, 200, 2, "+",
+    "chr1", 150, 250, 3, "-",
+    "chr2", 1, 25, 4, "+",
+    "chr2", 200, 400, 5, "-",
+    "chr2", 400, 500, 6, "+",
+    "chr2", 450, 550, 7, "+"
   )
 
   res <- bed_merge(x, .value = sum(value))
@@ -120,17 +117,16 @@ test_that("summaries can be computed issue #132",{
   expect_true(all(res$.value == c(1, 5, 4, 18)))
 })
 
-test_that("multiple summaries can be computed issue #132",{
-
+test_that("multiple summaries can be computed issue #132", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~strand,
-    "chr1", 1,      50,   1,      "+",
-    "chr1", 100,    200,  2,      "+",
-    "chr1", 150,    250,  3,      "-",
-    "chr2", 1,      25,   4,      "+",
-    "chr2", 200,    400,  5,      "-",
-    "chr2", 400,    500,  6,      "+",
-    "chr2", 450,    550,  7,      "+"
+    "chr1", 1, 50, 1, "+",
+    "chr1", 100, 200, 2, "+",
+    "chr1", 150, 250, 3, "-",
+    "chr2", 1, 25, 4, "+",
+    "chr2", 200, 400, 5, "-",
+    "chr2", 400, 500, 6, "+",
+    "chr2", 450, 550, 7, "+"
   )
 
   res <- bed_merge(x, .value = sum(value), .min = min(value))
@@ -142,9 +138,9 @@ test_that("multiple summaries can be computed issue #132",{
 test_that("contained intervals are merged issue #176", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
-    "chr1",  1,     10,
-    "chr1",  2,     5,
-    "chr1",  7,     9
+    "chr1", 1, 10,
+    "chr1", 2, 5,
+    "chr1", 7, 9
   )
 
   res <- bed_merge(x)
@@ -154,9 +150,9 @@ test_that("contained intervals are merged issue #176", {
 test_that("is_merged identifies previously merged tbls", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
-    "chr1",  1,     10,
-    "chr1",  2,     5,
-    "chr1",  7,     9
+    "chr1", 1, 10,
+    "chr1", 2, 5,
+    "chr1", 7, 9
   )
   expect_false(is_merged(x))
   res <- bed_merge(x)
@@ -164,14 +160,13 @@ test_that("is_merged identifies previously merged tbls", {
 })
 
 test_that("bed_merge with spec returns start/end columns (issue #288)", {
-
   x <- trbl_interval(
     ~chrom, ~start, ~end, ~value,
-    "chr1", 100,    200,  100,
-    "chr1", 150,    250,  200
+    "chr1", 100, 200, 100,
+    "chr1", 150, 250, 200
   )
 
   res <- bed_merge(x, .value = sum(value))
-  expect_true('start' %in% names(res))
-  expect_true('end' %in% names(res))
+  expect_true("start" %in% names(res))
+  expect_true("end" %in% names(res))
 })

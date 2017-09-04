@@ -1,7 +1,7 @@
 context("db")
 
 has_internet <- function() {
-  ! is.null(curl::nslookup("r-project.org", error = FALSE))
+  !is.null(curl::nslookup("r-project.org", error = FALSE))
 }
 
 test_that("ucsc connection works", {

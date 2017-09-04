@@ -87,10 +87,10 @@
 #' @export
 bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
-  #determine if list supplied to ... or series of variables
+  # determine if list supplied to ... or series of variables
   if (typeof(substitute(...)) == "symbol") {
     y_tbl <- list(...)
-    if (is.null(names(y_tbl))){
+    if (is.null(names(y_tbl))) {
       # name each tbl based on supplied variable
       dots <- eval(substitute(alist(...)))
       names(y_tbl) <- dots
@@ -98,7 +98,7 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   } else {
     # extract out just a list not a list of lists
     y_tbl <- list(...)[[1]]
-    if (is.null(names(y_tbl))){
+    if (is.null(names(y_tbl))) {
       # name each tbl based on supplied variable
       dots <- eval(substitute(alist(...)))[[1]]
       # extract out variables from language object list(a, b, c)
@@ -110,7 +110,7 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
   multiple_tbls <- FALSE
 
-  if (length(y_tbl) > 1){
+  if (length(y_tbl) > 1) {
     multiple_tbls <- TRUE
     # bind_rows preserves grouping
     y <- bind_rows(y_tbl, .id = ".source")
@@ -131,21 +131,21 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
-  res <- intersect_impl(x, y, suffix$x, suffix$y)
+  res <- intersect_impl(x, y, invert, suffix$x, suffix$y)
 
   if (invert) {
-    colspec <- c("chrom" = "chrom",
-                 "start" = paste0("start", suffix$x),
-                 "end" = paste0("end", suffix$x))
-    res <- anti_join(x, res, by = colspec)
+    res <- filter(res, is.na(.overlap))
+    res <- select(res, chrom, start = start.x, end = end.x)
     res <- ungroup(res)
   }
 
   if (multiple_tbls) {
     # rename .source.y to .source
     source_col <- paste0(".source", suffix$y)
-    replace_col <- stringr::str_replace(source_col,
-                                        stringr::fixed(suffix$y), "")
+    replace_col <- stringr::str_replace(
+      source_col,
+      stringr::fixed(suffix$y), ""
+    )
     cols <- colnames(res)
     colnames(res) <- ifelse(cols == source_col, replace_col, cols)
   }

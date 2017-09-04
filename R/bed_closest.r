@@ -73,8 +73,7 @@
 #'
 #' @export
 bed_closest <- function(x, y, overlap = TRUE,
-                        suffix = c(".x", ".y")){
-
+                        suffix = c(".x", ".y")) {
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
@@ -90,7 +89,7 @@ bed_closest <- function(x, y, overlap = TRUE,
 
   res <- closest_impl(x, y, suffix$x, suffix$y)
 
-  if (!overlap){
+  if (!overlap) {
     res <- filter(res, .overlap < 1)
     res <- select(res, -.overlap)
   }

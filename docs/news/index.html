@@ -103,6 +103,14 @@
     <div id="valr-0-3-1-9000" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-3-1-9000" class="anchor"></a>valr 0.3.1.9000</h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li>
+<code><a href="../reference/bed_map.html">bed_map()</a></code> and the intenal <code>intersect_impl</code> have been refactored to enable a large speed-up. All columns in the output are now suffixed with <code>.x</code> and <code>.y</code>, so expressions must refer to the suffixed values (breaking).</li>
+</ul>
+</div>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
@@ -164,9 +172,9 @@
     <div id="valr-0-2-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-2-0" class="anchor"></a>valr 0.2.0</h1>
-<div id="major-changes" class="section level2">
+<div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>Package dplyr v0.5.0 headers with valr to remove dplyr LinkingTo dependency.</p></li>
 <li><p><code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> now accepts multiple tbls for intersection (#220 @kriemo).</p></li>
@@ -191,9 +199,9 @@
     <div id="valr-0-1-2" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-1-2" class="anchor"></a>valr 0.1.2</h1>
-<div id="major-changes-1" class="section level2">
+<div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Deprecate <code><a href="../reference/bed_sort.html">bed_sort()</a></code> in favor of using <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code> explicitly (fixes #134).</li>
 </ul>
@@ -235,9 +243,9 @@
     <div id="valr-0-1-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-1-0" class="anchor"></a>valr 0.1.0</h1>
-<div id="major-changes-2" class="section level2">
+<div id="major-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
 <ul>
 <li>initial release on CRAN</li>
 </ul>

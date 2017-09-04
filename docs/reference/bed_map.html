@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate summaries and statistics from overlapping intervals. — bed_map • valr</title>
+<title>Calculate summaries from overlapping intervals. — bed_map • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -95,17 +95,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate summaries and statistics from overlapping intervals.</h1>
+    <h1>Calculate summaries from overlapping intervals.</h1>
     </div>
 
     
-    <p>Used to apply functions like <code>min()</code>, <code>count()</code> or <code>concat()</code> to intersecting
-intervals. Book-ended intervals are not reported by default, but can be
-included by setting <code>min_overlap = 0</code>.</p>
+    <p>Used to apply functions like <code>min()</code> and <code>count()</code> to intersecting intervals.
+Book-ended intervals can be included by setting <code>min_overlap = 0</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>),
-  <span class='kw'>min_overlap</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+    <pre class="usage"><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>, <span class='kw'>min_overlap</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='fu'>concat</span>(<span class='no'>.data</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>","</span>)
 
@@ -126,15 +124,7 @@ included by setting <code>min_overlap = 0</code>.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>name-value pairs specifying colnames and expressions to apply</p></td>
-    </tr>
-    <tr>
-      <th>invert</th>
-      <td><p>report <code>x</code> intervals not in <code>y</code></p></td>
-    </tr>
-    <tr>
-      <th>suffix</th>
-      <td><p>colname suffixes in output</p></td>
+      <td><p>name-value pairs specifying column names and expressions</p></td>
     </tr>
     <tr>
       <th>min_overlap</th>
@@ -156,7 +146,9 @@ included by setting <code>min_overlap = 0</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>input tbls are grouped by <code>chrom</code> by default, and additional
+    <p>Columns present in the <code>x</code> and <code>y</code> input (excluding <code>chrom</code>) are suffixed
+with <code>.x</code> or <code>.y</code>. Groups present in the input are stripped from the result.</p>
+<p>input tbls are grouped by <code>chrom</code> by default, and additional
 groups can be added using <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. For example,
 grouping by <code>strand</code> will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the <code>y</code> tbl can
@@ -173,7 +165,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>'chr1'</span>,      <span class='fl'>1</span>,      <span class='fl'>100</span>
+  <span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>
 )
 
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
@@ -183,7 +175,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
   <span class='st'>'chr1'</span>, <span class='fl'>90</span>,     <span class='fl'>120</span>,  <span class='fl'>30</span>
 )
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'value'</span>)</div><div class='img'><img src='bed_map-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value.y</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'sum'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,
@@ -198,68 +190,17 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 )
 
 <span class='co'># also mean, median, sd etc</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end  .sum
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  chr1   100   250    30
-#&gt; 2  chr2   250   500   500</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.min</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>value</span>), <span class='kw'>.max</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 5
-#&gt;   chrom start   end  .min  .max
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  chr1   100   250    10    20
-#&gt; 2  chr2   250   500   500   500</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.concat</span> <span class='kw'>=</span> <span class='fu'>concat</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .concat
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;chr&gt;
-#&gt; 1  chr1   100   250   10,20
-#&gt; 2  chr2   250   500     500</div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.min</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>value</span>), <span class='kw'>.max</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.concat</span> <span class='kw'>=</span> <span class='fu'>concat</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
 <span class='co'># create a list-col</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end   .values
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;list&gt;
-#&gt; 1  chr1   100   250 &lt;dbl [2]&gt;
-#&gt; 2  chr2   250   500 &lt;dbl [1]&gt;</div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
 <span class='co'># can also use `nth` family from dplyr</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.first</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/nth.html'>first</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .first
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1  chr1   100   250     10
-#&gt; 2  chr2   250   500    500</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.last</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/nth.html'>last</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .last
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  chr1   100   250    20
-#&gt; 2  chr2   250   500   500</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.absmax</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>max</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .absmax
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1  chr1   100   250      20
-#&gt; 2  chr2   250   500     500</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.absmin</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>min</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .absmin
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-#&gt; 1  chr1   100   250      10
-#&gt; 2  chr2   250   500     500</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.count</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .count
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;int&gt;
-#&gt; 1  chr1   100   250      2
-#&gt; 2  chr2   250   500      1</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.count_distinct</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='fu'>unique</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .count_distinct
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;int&gt;
-#&gt; 1  chr1   100   250               2
-#&gt; 2  chr2   250   500               1</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.vals</span> <span class='kw'>=</span> <span class='fu'>values</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .vals
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-#&gt; 1  chr1   100   250 10,20
-#&gt; 2  chr2   250   500   500</div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.vals.unique</span> <span class='kw'>=</span> <span class='fu'>values_unique</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
-#&gt;   chrom start   end .vals.unique
-#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;chr&gt;
-#&gt; 1  chr1   100   250        10,20
-#&gt; 2  chr2   250   500          500</div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.first</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/nth.html'>first</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.absmax</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>max</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.count_distinct</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='fu'>unique</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.vals</span> <span class='kw'>=</span> <span class='fu'>values</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.vals.unique</span> <span class='kw'>=</span> <span class='fu'>values_unique</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in grouped_df_impl(data, unname(vars), drop): Column `.id.x` is unknown</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

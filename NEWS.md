@@ -1,5 +1,9 @@
 # valr 0.3.1.9000
 
+## Major changes
+
+* `bed_map()` and the intenal `intersect_impl` have been refactored to enable a large speed-up. All columns in the output are now suffixed with `.x` and `.y`, so expressions must refer to the suffixed values (breaking).
+
 ## Minor changes
 
 * `bed_jaccard()` now works with grouped inputs (#216)

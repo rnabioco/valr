@@ -1,15 +1,15 @@
-#' Calculate summaries and statistics from overlapping intervals.
+#' Calculate summaries from overlapping intervals.
 #'
-#' Used to apply functions like [min()], [count()] or [concat()] to intersecting
-#' intervals. Book-ended intervals are not reported by default, but can be
-#' included by setting `min_overlap = 0`.
+#' Used to apply functions like [min()] and [count()] to intersecting intervals.
+#' Book-ended intervals can be included by setting `min_overlap = 0`.
+#'
+#' Columns present in the `x` and `y` input (excluding `chrom`) are suffixed
+#' with `.x` or `.y`. Groups present in the input are stripped from the result.
 #'
 #' @param x [tbl_interval()]
 #' @param y  [tbl_interval()]
-#' @param invert report `x` intervals not in `y`
-#' @param suffix colname suffixes in output
+#' @param ... name-value pairs specifying column names and expressions
 #' @param min_overlap minimum overlap for intervals.
-#' @param ... name-value pairs specifying colnames and expressions to apply
 #'
 #' @template groups
 #'
@@ -18,12 +18,12 @@
 #' @family multiple set operations
 #'
 #' @seealso
-#' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
+#'   \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #'
 #' @examples
 #' x <- trbl_interval(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',      1,      100
+#'   'chr1', 1,      100
 #' )
 #'
 #' y <- trbl_interval(
@@ -33,7 +33,7 @@
 #'   'chr1', 90,     120,  30
 #' )
 #'
-#' bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
+#' bed_glyph(bed_map(x, y, sum = sum(value.y)), label = 'sum')
 #'
 #' x <- trbl_interval(
 #'  ~chrom, ~start, ~end,
@@ -61,13 +61,7 @@
 #' # can also use `nth` family from dplyr
 #' bed_map(x, y, .first = dplyr::first(value))
 #'
-#' bed_map(x, y, .last = dplyr::last(value))
-#'
 #' bed_map(x, y, .absmax = abs(max(value)))
-#'
-#' bed_map(x, y, .absmin = abs(min(value)))
-#'
-#' bed_map(x, y, .count = length(value))
 #'
 #' bed_map(x, y, .count_distinct = length(unique(value)))
 #'
@@ -76,46 +70,45 @@
 #' bed_map(x, y, .vals.unique = values_unique(value))
 #'
 #' @export
-bed_map <- function(x, y, ..., invert = FALSE,
-                    suffix = c(".x", ".y"),
-                    min_overlap = 1) {
+bed_map <- function(x, y, ..., min_overlap = 1) {
 
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
-  groups_x <- groups(x)
+  ## assign unique ids to x intervals
+  x[[".__id"]] <- unique_ids_impl(x)
 
-  # used only to get the `x` suffix; `y` suffix is ignored`
-  suffix <- list(x = suffix[1], y = suffix[2])
+  x <- group_by(x, chrom, add = TRUE)
+  y <- group_by(y, chrom, add = TRUE)
 
-  # `x` names are suffixed to use for grouping later
-  x_names <- colnames(x)[!colnames(x) %in% "chrom"]
-  x_names_suffix <- stringr::str_c(x_names, suffix$x)
+  res <- intersect_impl(x, y, invert = TRUE)
 
-  # note that `y` columns have no suffix so can be referred to by the original
-  # names
-  res <- bed_intersect(x, y, invert = invert, suffix = c(suffix$x, ""))
+  ## find unmatched x intervals
+  x_nomatch <- unmatched_groups_impl(x, y)
+  x_names <- names(select(res, chrom, ends_with('.x')))
+  names(x_nomatch) <- x_names
 
-  res <- filter(res, .overlap >= min_overlap)
+  ## find rows of x that intersected
+  res_int <- filter(res, !is.na(.overlap))
+  res_int <- filter(res_int, .overlap >= min_overlap)
 
-  ##  map supplied functions to each set of intervals
-  res <- group_by(res, !!! rlang::syms(c("chrom", x_names_suffix)))
-  res <- summarize(res, !!! rlang::quos(...))
-  res <- ungroup(res)
-  ## remove x suffix, but don't pattern match with '.' regex
-  names_no_x <- stringr::str_replace(names(res), stringr::fixed(suffix$x), "")
-  names(res) <- names_no_x
+  ## find rows of `x` that *did not* intersect
+  res_noint <- filter(res, is.na(.overlap) | .overlap < min_overlap)
+  res_noint <- select(res_noint, chrom, ends_with(stringr::fixed(".x")))
+  res_noint <- unique(res_noint)
 
-  # find rows of `x` that did not intersect
-  x_not <- anti_join(x, res, by = c("chrom", x_names))
+  ## map supplied functions to each set of intervals
+  res_group <- group_by(res_int, !! sym(".__id.x"))
+  res_group <- summarize(res_group, !!! quos(...))
 
-  res <- bind_rows(res, x_not)
-  res <- bed_sort(res)
+  int_x <- select(res_int, chrom, ends_with(stringr::fixed(".x")))
+  res_int <- unique(left_join(int_x, res_group, by = ".__id.x"))
 
-  # reassign original `x` groups. `y` groups are gone at this point
-  res <- group_by(res, !!! rlang::syms(c(groups_x)))
+  res_all <- bind_rows(res_int, res_noint, x_nomatch)
+  res_all <- select(res_all, -one_of(".__id.x"))
+  res_all <- arrange(res_all, chrom, start.x, end.x)
 
-  res
+  res_all
 }
 
 #' @export
