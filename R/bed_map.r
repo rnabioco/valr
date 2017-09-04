@@ -71,6 +71,7 @@
 #'
 #' @export
 bed_map <- function(x, y, ..., min_overlap = 1) {
+
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
@@ -82,22 +83,28 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
 
   res <- intersect_impl(x, y, invert = TRUE)
 
+  ## find unmatched x intervals
+  x_nomatch <- unmatched_groups_impl(x, y)
+  x_names <- names(select(res, chrom, ends_with('.x')))
+  names(x_nomatch) <- x_names
+
   ## find rows of x that intersected
   res_int <- filter(res, !is.na(.overlap))
   res_int <- filter(res_int, .overlap >= min_overlap)
 
   ## find rows of `x` that *did not* intersect
-  res_noint <- filter(res, is.na(.overlap))
+  res_noint <- filter(res, is.na(.overlap) | .overlap < min_overlap)
   res_noint <- select(res_noint, chrom, ends_with(stringr::fixed(".x")))
+  res_noint <- unique(res_noint)
 
   ## map supplied functions to each set of intervals
-  res_group <- group_by(res_int, .id.x)
+  res_group <- group_by(res_int, !! sym(".__id.x"))
   res_group <- summarize(res_group, !!! quos(...))
 
   int_x <- select(res_int, chrom, ends_with(stringr::fixed(".x")))
   res_int <- unique(left_join(int_x, res_group, by = ".__id.x"))
 
-  res_all <- bind_rows(res_int, res_noint)
+  res_all <- bind_rows(res_int, res_noint, x_nomatch)
   res_all <- select(res_all, -one_of(".__id.x"))
   res_all <- arrange(res_all, chrom, start.x, end.x)
 

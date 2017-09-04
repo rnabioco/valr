@@ -53,3 +53,7 @@ unique_ids_impl <- function(x) {
     .Call(`_valr_unique_ids_impl`, x)
 }
 
+unmatched_groups_impl <- function(x, y) {
+    .Call(`_valr_unmatched_groups_impl`, x, y)
+}
+

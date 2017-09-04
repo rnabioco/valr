@@ -181,3 +181,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// unmatched_groups_impl
+DataFrame unmatched_groups_impl(GroupedDataFrame x, GroupedDataFrame y);
+RcppExport SEXP _valr_unmatched_groups_impl(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(unmatched_groups_impl(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}

@@ -62,26 +62,46 @@ y <- tibble::tribble(
 
 test_that("concat works correctly", {
   res <- bed_map(x, y, vals = concat(value.y))
-  expected <- c("10,30,20,40", NA, NA)
-  expect_equal(res$vals, expected)
+  pred <- tibble::tribble(
+    ~chrom, ~start.x, ~end.x, ~id.x, ~vals,
+    "chr1", 100, 200, 1, "10,30,20,40",
+    "chr1", 250, 500, 2, NA,
+    "chr2", 250, 500, 3, NA
+  )
+  expect_equal(res, pred)
 })
 
 test_that("values works correctly", {
   res <- bed_map(x, y, vals = values(value.y))
-  expected <- c("10,30,20,40", NA, NA)
-  expect_equal(res$vals, expected)
+  pred <- tibble::tribble(
+    ~chrom, ~start.x, ~end.x, ~id.x, ~vals,
+    "chr1", 100, 200, 1, "10,30,20,40",
+    "chr1", 250, 500, 2, NA,
+    "chr2", 250, 500, 3, NA
+  )
+  expect_equal(res, pred)
 })
 
 test_that("first works correctly", {
   res <- bed_map(x, y, first = first(value.y))
-  expected <- c(10, NA, NA)
-  expect_equal(res$first, expected)
+  pred <- tibble::tribble(
+    ~chrom, ~start.x, ~end.x, ~id.x, ~first,
+    "chr1", 100, 200, 1, 10,
+    "chr1", 250, 500, 2, NA,
+    "chr2", 250, 500, 3, NA
+  )
+  expect_equal(res, pred)
 })
 
 test_that("last works correctly", {
   res <- bed_map(x, y, last = last(value.y))
-  expected <- c(40, NA, NA)
-  expect_equal(res$last, expected)
+  pred <- tibble::tribble(
+    ~chrom, ~start.x, ~end.x, ~id.x, ~last,
+    "chr1", 100, 200, 1, 40,
+    "chr1", 250, 500, 2, NA,
+    "chr2", 250, 500, 3, NA
+  )
+  expect_equal(res, pred)
 })
 
 test_that("book-ended intervals are not reported", {
@@ -97,7 +117,7 @@ test_that("book-ended intervals are not reported", {
   )
 
   expected <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
+    ~chrom, ~start.x, ~end.x, ~value,
     "chr1", 100, 200, 10
   )
   res <- bed_map(x, y, value = sum(value.y))
