@@ -42,7 +42,6 @@
 #'
 #' @export
 bed_complement <- function(x, genome) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 

@@ -1,9 +1,9 @@
 context("flip_strands")
 
 x <- tibble::tribble(
-~chrom, ~start, ~end, ~strand,
-"chr1", 1,      100,  "+",
-"chr2", 1,      100,  "-"
+  ~chrom, ~start, ~end, ~strand,
+  "chr1", 1, 100, "+",
+  "chr2", 1, 100, "-"
 )
 
 test_that("strands are flipped", {
@@ -12,9 +12,9 @@ test_that("strands are flipped", {
 })
 
 y <- tibble::tribble(
-~chrom, ~start, ~end,
-"chr1", 1,      100,
-"chr2", 1,      100
+  ~chrom, ~start, ~end,
+  "chr1", 1, 100,
+  "chr2", 1, 100
 )
 
 test_that("unstranded tbls throw an error", {

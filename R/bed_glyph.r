@@ -35,7 +35,6 @@
 #'
 #' @export
 bed_glyph <- function(expr, label = NULL) {
-
   expr <- substitute(expr)
 
   # assign `expr <- quote(bed_intersect(x, y))` at this point to debug
@@ -136,20 +135,28 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
   fill_colors <- c("#f0f0f0", "#bdbdbd", "#636363")
 
   glyph <- ggplot(.data) +
-    geom_rect(aes_string(xmin = "start", xmax = "end",
-                         ymin = ".y", ymax = ".y + 0.5",
-                         fill = ".facet"),
-              color = "black", alpha = 0.75) +
-    facet_grid(.facet ~ ., switch = "y",
-               scales = "free_y", space = "free_y") +
+    geom_rect(
+      aes_string(
+        xmin = "start", xmax = "end",
+        ymin = ".y", ymax = ".y + 0.5",
+        fill = ".facet"
+      ),
+      color = "black", alpha = 0.75
+    ) +
+    facet_grid(
+      .facet ~ ., switch = "y",
+      scales = "free_y", space = "free_y"
+    ) +
     scale_fill_manual(values = fill_colors) +
     labs(title = title, x = NULL, y = NULL)
 
   if (!is.null(label)) {
     label <- as.name(label)
-    aes_label <- aes_(x = quote( (end - start) / 2 + start),
-                      y = quote(.y + 0.25),
-                      label = substitute(label))
+    aes_label <- aes_(
+      x = quote((end - start) / 2 + start),
+      y = quote(.y + 0.25),
+      label = substitute(label)
+    )
     glyph <- glyph + geom_label(aes_label, na.rm = TRUE)
   }
 
@@ -161,13 +168,13 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
 glyph_theme <- function(base_size = 12, base_family = "Helvetica") {
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(
-    axis.line.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.text.y = element_blank(),
-    legend.position = "none",
-    panel.grid = element_blank(),
-    panel.background = element_blank(),
-    plot.background = element_blank(),
-    panel.border = element_blank()
-  )
+      axis.line.y = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.text.y = element_blank(),
+      legend.position = "none",
+      panel.grid = element_blank(),
+      panel.background = element_blank(),
+      plot.background = element_blank(),
+      panel.border = element_blank()
+    )
 }

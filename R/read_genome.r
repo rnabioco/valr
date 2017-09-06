@@ -61,14 +61,15 @@ read_genome <- function(path) {
 #'
 #' @export
 bound_intervals <- function(x, genome, trim = FALSE) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
 
   res <- left_join(x, genome, by = "chrom")
   if (trim) {
-    res <- mutate(res,
-                  start = ifelse(start < 0, 0, start),
-                  end = ifelse(end > size, size, end))
+    res <- mutate(
+      res,
+      start = ifelse(start < 0, 0, start),
+      end = ifelse(end > size, size, end)
+    )
     res <- select(res, -size)
   } else {
     res <- filter(res, start >= 0 & end <= size)

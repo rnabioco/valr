@@ -2,15 +2,15 @@ context("bed_fisher")
 
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  "chr1", 10,     20,
-  "chr1", 30,     40,
-  "chr1", 51,     52
+  "chr1", 10, 20,
+  "chr1", 30, 40,
+  "chr1", 51, 52
 )
 
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
-  "chr1", 15,     25,
-  "chr1", 51,     52
+  "chr1", 15, 25,
+  "chr1", 51, 52
 )
 
 genome <- tibble::tribble(
