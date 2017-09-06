@@ -6,6 +6,8 @@
 
 * Update dplyr header files to v0.7
 
+* `bed_intersect()` and internal `intersect_impl` were refactored to enable return of non-intersecting intervals.
+
 # valr 0.3.1
 
 ## Enhancements
