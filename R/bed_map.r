@@ -79,7 +79,6 @@
 bed_map <- function(x, y, ..., invert = FALSE,
                     suffix = c(".x", ".y"),
                     min_overlap = 1) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 

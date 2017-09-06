@@ -54,7 +54,6 @@
 bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE, ...) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
@@ -69,8 +68,10 @@ bed_flank <- function(x, genome, both = 0, left = 0,
 
   if (both) left <- right <- both
 
-  res <- flank_impl(x, genome, both, left,
-                    right, fraction, strand, trim)
+  res <- flank_impl(
+    x, genome, both, left,
+    right, fraction, strand, trim
+  )
 
   res <- bed_sort(res)
 

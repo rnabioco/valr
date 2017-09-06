@@ -34,7 +34,6 @@
 #'
 #' @export
 bed_reldist <- function(x, y, detail = FALSE) {
-
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
@@ -48,9 +47,11 @@ bed_reldist <- function(x, y, detail = FALSE) {
   res[[".reldist"]] <- floor(res[[".reldist"]] * 100) / 100
   nr <- nrow(res)
   res <- group_by(res, .reldist)
-  res <- summarize(res,
-                   .counts = n(),
-                   .total = nr,
-                   .freq = .counts / .total)
+  res <- summarize(
+    res,
+    .counts = n(),
+    .total = nr,
+    .freq = .counts / .total
+  )
   res
 }
