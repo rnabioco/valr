@@ -136,19 +136,18 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   if (invert) {
     res <- filter(res, is.na(.overlap))
     res <- select(
-      res, chrom,
-      start = str_c("start", suffix$x),
-      end = str_c("end", suffix$x)
+      res, chrom, ends_with('.x')
     )
-    res <- ungroup(res)
+    names(res) <- str_replace(names(res), fixed('.x'), '')
+    return(res)
   }
 
   if (multiple_tbls) {
     # rename .source.y to .source
     source_col <- paste0(".source", suffix$y)
-    replace_col <- stringr::str_replace(
+    replace_col <- str_replace(
       source_col,
-      stringr::fixed(suffix$y), ""
+      fixed(suffix$y), ""
     )
     cols <- colnames(res)
     colnames(res) <- ifelse(cols == source_col, replace_col, cols)
