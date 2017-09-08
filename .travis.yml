@@ -9,6 +9,7 @@ bioc_required: true
 bioc_use_devel: true
 
 matrix:
+  fast_finish: true
   allow_failures:
     - os: osx
   include:
