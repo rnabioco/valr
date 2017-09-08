@@ -1,0 +1,36 @@
+x <- trbl_interval(
+ ~chrom, ~start, ~end,
+ 'chr1', 100,    250,
+ 'chr2', 250,    500
+)
+
+y <- trbl_interval(
+ ~chrom, ~start, ~end, ~value,
+ 'chr1', 100,    250,  10,
+ 'chr1', 150,    250,  20,
+ 'chr2', 250,    500,  500
+)
+
+bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
+
+# summary examples
+bed_map(x, y, .sum = sum(value))
+
+bed_map(x, y, .min = min(value), .max = max(value))
+
+# identify non-intersecting intervals to include in the result
+res <- bed_map(x, y, .sum = sum(value))
+x_not <- bed_intersect(x, y, invert = TRUE)
+dplyr::bind_rows(res, x_not)
+
+# create a list-column
+bed_map(x, y, .values = list(value))
+
+# use `nth` family from dplyr
+bed_map(x, y, .first = dplyr::first(value))
+
+bed_map(x, y, .absmax = abs(max(value)))
+
+bed_map(x, y, .count = length(value))
+
+bed_map(x, y, .vals = values(value))

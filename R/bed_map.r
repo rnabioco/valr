@@ -18,60 +18,7 @@
 #' @seealso
 #' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #'
-#' @examples
-#' x <- trbl_interval(
-#'   ~chrom, ~start, ~end,
-#'   'chr1',      1,      100
-#' )
-#'
-#' y <- trbl_interval(
-#'   ~chrom, ~start, ~end, ~value,
-#'   'chr1', 1,      20,   10,
-#'   'chr1', 30,     50,   20,
-#'   'chr1', 90,     120,  30
-#' )
-#'
-#' bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
-#'
-#' x <- trbl_interval(
-#'  ~chrom, ~start, ~end,
-#'  'chr1', 100,    250,
-#'  'chr2', 250,    500
-#' )
-#'
-#' y <- trbl_interval(
-#'  ~chrom, ~start, ~end, ~value,
-#'  'chr1', 100,    250,  10,
-#'  'chr1', 150,    250,  20,
-#'  'chr2', 250,    500,  500
-#' )
-#'
-#' # also mean, median, sd etc
-#' bed_map(x, y, .sum = sum(value))
-#'
-#' bed_map(x, y, .min = min(value), .max = max(value))
-#'
-#' bed_map(x, y, .concat = concat(value))
-#'
-#' # create a list-col
-#' bed_map(x, y, .values = list(value))
-#'
-#' # can also use `nth` family from dplyr
-#' bed_map(x, y, .first = dplyr::first(value))
-#'
-#' bed_map(x, y, .last = dplyr::last(value))
-#'
-#' bed_map(x, y, .absmax = abs(max(value)))
-#'
-#' bed_map(x, y, .absmin = abs(min(value)))
-#'
-#' bed_map(x, y, .count = length(value))
-#'
-#' bed_map(x, y, .count_distinct = length(unique(value)))
-#'
-#' bed_map(x, y, .vals = values(value))
-#'
-#' bed_map(x, y, .vals.unique = values_unique(value))
+#' @example inst/example/bed_map.r
 #'
 #' @export
 bed_map <- function(x, y, ..., min_overlap = 1) {
