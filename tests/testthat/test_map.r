@@ -1,22 +1,5 @@
 context("bed_map")
 
-# test_that("`chrom` grouping throws an error", {
-#  x <- tibble::tribble(
-#    ~chrom, ~start, ~end,
-#    "chr1", 100, 250,
-#    "chr2", 250, 500
-#  ) %>% group_by(chrom)
-#
-#  y <- tibble::tribble(
-#    ~chrom, ~start, ~end, ~value,
-#    "chr1", 100, 250, 10,
-#    "chr1", 150, 250, 20,
-#    "chr2", 250, 500, 500
-#  ) %>% group_by(chrom)
-#
-#  expect_error(bed_map(x, y))
-# })
-
 test_that("x/y groupings are respected", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~id,
@@ -40,7 +23,7 @@ test_that("x/y groupings are respected", {
     "chr2", 250, 500, 3, 500,
     "chr2", 250, 500, 2, NA
   )
-  res <- bed_map(x, y, vals = sum(value))
+  res <- bed_map(x, y, vals = sum(value.y))
   expect_true(all(res == pred, na.rm = TRUE))
 })
 
@@ -58,7 +41,7 @@ test_that("values_unique works correctly", {
     "chr1", 150, 250, 20
   )
 
-  res <- bed_map(x, y, vals = values_unique(value))
+  res <- bed_map(x, y, vals = values_unique(value.y))
   expect_equal(res$vals, c("10,20"))
 })
 
@@ -78,25 +61,25 @@ y <- tibble::tribble(
 )
 
 test_that("concat works correctly", {
-  res <- bed_map(x, y, vals = concat(value))
+  res <- bed_map(x, y, vals = concat(value.y))
   expected <- c("10,30,20,40", NA, NA)
   expect_equal(res$vals, expected)
 })
 
 test_that("values works correctly", {
-  res <- bed_map(x, y, vals = values(value))
+  res <- bed_map(x, y, vals = values(value.y))
   expected <- c("10,30,20,40", NA, NA)
   expect_equal(res$vals, expected)
 })
 
 test_that("first works correctly", {
-  res <- bed_map(x, y, first = first(value))
+  res <- bed_map(x, y, first = first(value.y))
   expected <- c(10, NA, NA)
   expect_equal(res$first, expected)
 })
 
 test_that("last works correctly", {
-  res <- bed_map(x, y, last = last(value))
+  res <- bed_map(x, y, last = last(value.y))
   expected <- c(40, NA, NA)
   expect_equal(res$last, expected)
 })
@@ -114,10 +97,10 @@ test_that("book-ended intervals are not reported", {
   )
 
   expected <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
+    ~chrom, ~start.x, ~end.x, ~value,
     "chr1", 100, 200, 10
   )
-  res <- bed_map(x, y, value = sum(value))
+  res <- bed_map(x, y, value = sum(value.y))
   expect_equal(res, expected)
 })
 
@@ -156,6 +139,6 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
   y <- arrange(y, chrom, start)
   y <- group_by(y, group)
 
-  res <- bed_map(x, y, total = sum(value))
+  res <- bed_map(x, y, total = sum(value.y))
   expect_true(all(pred == res, na.rm = T))
 })

@@ -1,12 +1,17 @@
 #' Calculate summaries from overlapping intervals.
 #'
-#' Used to apply functions like [min()] and [count()] to intersecting
-#' intervals. Book-ended intervals are not reported by default, but can be
-#' included by setting `min_overlap = 0`.
+#' Apply functions like [min()] and [count()] to intersecting intervals.
+#' [bed_map()] uses [bed_intersect()] to identify intersecting intervals, so
+#' output columns will be suffixed with `.x` and `.y`. Expressions that refer to
+#' input columns from `x` and `y` columns must take these suffixes into account.
+#'
+#' Book-ended intervals can be included by setting `min_overlap = 0`.
+#' Non-intersecting intervals from `x` are included in the result with `NA`
+#' values
 #'
 #' @param x [tbl_interval()]
 #' @param y  [tbl_interval()]
-#' @param ... name-value pairs specifying colnames and expressions to apply
+#' @param ... name-value pairs specifying column names and expressions to apply
 #' @param min_overlap minimum overlap for intervals.
 #'
 #' @template groups
@@ -25,31 +30,31 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
-  suffix <- list(x = ".x", y = ".y")
-  x_nms <- str_c(names(x), suffix$x)
-  x_nms <- x_nms[!x_nms %in% "chrom.x"]
+  ## add suffixes to all x columns except `chrom`
+  x_nms <- str_c(names(x)[!names(x) %in% "chrom"], ".x")
 
+  ## add chrom as a group
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 
-  res <- intersect_impl(x, y, invert = TRUE, suffix_x = ".x", suffix_y = "")
+  res <- intersect_impl(x, y, invert = TRUE)
 
-  res_noint <- filter(res, is.na(.overlap))
+  ## filter for rows that don't intersect. The `distinct` call is required
+  ## because book-ended book-ended intervals in the intersect_impl result can
+  ## book-end multiple `y` intervals, causing them to be duplicated after the
+  ## `select`
+  res_noint <- filter(res, is.na(.overlap) | .overlap < min_overlap)
   res_noint <- select(res_noint, chrom, ends_with('.x'))
+  res_noint <- distinct(res_noint)
 
   ## map supplied functions to each set of intervals
-  res_int <- filter(res, !is.na(.overlap))
+  res_int <- filter(res, !is.na(.overlap) & .overlap >= min_overlap)
   res_int <- group_by(res_int, !!! syms(c("chrom", x_nms)))
   res_int <- summarize(res_int, !!! quos(...))
   res_int <- ungroup(res_int)
 
   res <- bind_rows(res_int, res_noint)
-  res <- select(
-    res, chrom,
-    start = start.x,
-    end = end.x, everything()
-  )
-  res <- bed_sort(res)
+  res <- arrange(res, chrom, start.x, end.x)
 
   res
 }
