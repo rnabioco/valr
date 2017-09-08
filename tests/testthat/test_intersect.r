@@ -301,3 +301,30 @@ test_that("same intervals are reported with single and multiple intersection", {
     select(-.source)
   expect_true(all(orig == new))
 })
+
+test_that("unmatched groups are included when invert = TRUE", {
+  x <- trbl_interval(
+    ~chrom, ~start, ~end, ~group,
+    "chr1", 100, 500, "A",
+    "chr2", 200, 400, "B", # unmatched
+    "chr2", 300, 500, "A",
+    "chr2", 800, 900, "A"
+  ) %>% group_by(chrom, group)
+
+  y <- trbl_interval(
+    ~chrom, ~start, ~end, ~group,
+    "chr1", 150, 400, "A",
+    "chr1", 500, 550, "A",
+    "chr2", 230, 430, "A",
+    "chr2", 350, 430, "A"
+  ) %>% group_by(chrom, group)
+
+  pred <- trbl_interval(
+    ~chrom, ~start, ~end, ~group,
+    "chr2", 200, 400, "B", # unmatched
+    "chr2", 800, 900, "A"
+  )
+
+  res <- bed_intersect(x, y, invert = TRUE)
+  expect_equal(res, pred)
+})
