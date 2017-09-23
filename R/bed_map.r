@@ -54,6 +54,7 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   res_int <- ungroup(res_int)
 
   res <- bind_rows(res_int, res_noint)
+  # can't use bed_sort because of the `.x` suffixes
   res <- arrange(res, chrom, start.x, end.x)
 
   res
