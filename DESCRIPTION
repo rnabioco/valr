@@ -3,7 +3,9 @@ Type: Package
 Title: Genome Interval Arithmetic in R
 Version: 0.3.1.9000
 Authors@R: c(
-    person('Jay', 'Hesselberth', role = c('aut', 'cre'), email = 'jay.hesselberth@gmail.com'),
+    person('Jay', 'Hesselberth', role = c('aut', 'cre'),
+      email = 'jay.hesselberth@gmail.com',
+      comment = c(ORCID = '0000-0002-6299-179X')),
     person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu')
     )
 Description: Read and manipulate genome intervals and signals. Provides
