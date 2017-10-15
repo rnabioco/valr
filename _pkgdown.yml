@@ -2,6 +2,10 @@ template:
   params:
     bootswatch: cosmo
 
+authors:
+  Jay Hesselberth:
+    href: https://hesselberthlab.org
+
 home:
   links:
   - text: External data sets
