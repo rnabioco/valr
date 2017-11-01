@@ -6,7 +6,9 @@ Authors@R: c(
     person('Jay', 'Hesselberth', role = c('aut', 'cre'),
       email = 'jay.hesselberth@gmail.com',
       comment = c(ORCID = '0000-0002-6299-179X')),
-    person('Kent', 'Riemondy', role = c('aut'), email = 'kent.riemondy@ucdenver.edu')
+    person('Kent', 'Riemondy', role = c('aut'),
+      email = 'kent.riemondy@ucdenver.edu',
+      comment = c(ORCID = '0000-0003-0750-1273'))
     )
 Description: Read and manipulate genome intervals and signals. Provides
              functionality similar to command-line tool suites within R,
