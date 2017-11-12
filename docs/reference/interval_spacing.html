@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -118,8 +119,8 @@
     </div>
 
     
-    <p>Overlapping intervals are merged. Spacing for the first interval of each
-chromosome is undefined (<code>NA</code>).</p>
+    <p>Spacing for the first interval of each chromosome is undefined (<code>NA</code>). The
+leading interval of an overlapping interval pair has a negative value.</p>
     
 
     <pre class="usage"><span class='fu'>interval_spacing</span>(<span class='no'>x</span>)</pre>
@@ -154,7 +155,7 @@ chromosome is undefined (<code>NA</code>).</p>
 
 <span class='fu'>interval_spacing</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
 #&gt;   chrom start   end .spacing
-#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
 #&gt; 1  chr1     1   100       NA
 #&gt; 2  chr1   150   200       50
 #&gt; 3  chr2   200   300       NA</div><div class='input'>

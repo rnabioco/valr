@@ -13,8 +13,8 @@ interval_spacing(x)
 \code{\link[=tbl_interval]{tbl_interval()}} with \code{.spacing} column.
 }
 \description{
-Overlapping intervals are merged. Spacing for the first interval of each
-chromosome is undefined (\code{NA}).
+Spacing for the first interval of each chromosome is undefined (\code{NA}). The
+leading interval of an overlapping interval pair has a negative value.
 }
 \examples{
 x <- trbl_interval(
