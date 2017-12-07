@@ -41,15 +41,23 @@
 #' dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
 #'
 #' @export
-bed_makewindows <- function(x, genome = NULL,
+bed_makewindows <- function(x,
+                            genome = NULL,
                             win_size = 0,
                             step_size = 0,
                             num_win = 0,
                             reverse = FALSE) {
 
+  # handle deprecated genome argument
   if (!is.null(genome)) {
-    warning("genome argument has been deprecated, ignoring",
-            call. = FALSE)
+    if (is.list(genome)) {
+      warning("genome argument has been deprecated, ignoring",
+              call. = FALSE)
+    } else if (is.numeric(genome)) {
+        # if win_size is passed as positional argument it will be genome
+        # reassign to win_size
+        win_size <- genome
+    }
   }
 
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
