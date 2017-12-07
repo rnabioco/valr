@@ -4,13 +4,11 @@
 \alias{bed_makewindows}
 \title{Divide intervals into new sub-intervals ("windows").}
 \usage{
-bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
-  reverse = FALSE)
+bed_makewindows(x, win_size = 0, step_size = 0, num_win = 0,
+  reverse = FALSE, genome = NULL)
 }
 \arguments{
 \item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
-
-\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
 
 \item{win_size}{divide intervals into fixed-size windows}
 
@@ -19,6 +17,8 @@ bed_makewindows(x, genome, win_size = 0, step_size = 0, num_win = 0,
 \item{num_win}{divide intervals to fixed number of windows}
 
 \item{reverse}{reverse window numbers}
+
+\item{genome}{this argument has been deprecated and is unused}
 }
 \value{
 \code{\link[=tbl_interval]{tbl_interval()}} with \code{.win_id} column that contains a numeric
@@ -33,32 +33,27 @@ interval names (see 'namenum' example below) or in subsequent
 \code{group_by} operations (see vignette).
 }
 \examples{
-genome <- trbl_genome(
- ~chrom, ~size,
- "chr1", 200
-)
-
 x <- trbl_interval(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100,    200,  'A',   '.',    '+'
 )
 
-bed_glyph(bed_makewindows(x, genome, num_win = 10), label = '.win_id')
+bed_glyph(bed_makewindows(x, num_win = 10), label = '.win_id')
 
 # Fixed number of windows
-bed_makewindows(x, genome, num_win = 10)
+bed_makewindows(x, num_win = 10)
 
 # Fixed window size
-bed_makewindows(x, genome, win_size = 10)
+bed_makewindows(x, win_size = 10)
 
 # Fixed window size with overlaps
-bed_makewindows(x, genome, win_size = 10, step_size = 5)
+bed_makewindows(x, win_size = 10, step_size = 5)
 
 # reverse win_id
-bed_makewindows(x, genome, win_size = 10, reverse = TRUE)
+bed_makewindows(x, win_size = 10, reverse = TRUE)
 
 # bedtools 'namenum'
-wins <- bed_makewindows(x, genome, win_size = 10)
+wins <- bed_makewindows(x, win_size = 10)
 dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
 
 }
