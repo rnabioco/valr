@@ -4,11 +4,13 @@
 \alias{bed_makewindows}
 \title{Divide intervals into new sub-intervals ("windows").}
 \usage{
-bed_makewindows(x, win_size = 0, step_size = 0, num_win = 0,
-  reverse = FALSE, genome = NULL)
+bed_makewindows(x, genome = NULL, win_size = 0, step_size = 0,
+  num_win = 0, reverse = FALSE)
 }
 \arguments{
 \item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+
+\item{genome}{this argument has been deprecated and is not used}
 
 \item{win_size}{divide intervals into fixed-size windows}
 
@@ -17,8 +19,6 @@ bed_makewindows(x, win_size = 0, step_size = 0, num_win = 0,
 \item{num_win}{divide intervals to fixed number of windows}
 
 \item{reverse}{reverse window numbers}
-
-\item{genome}{this argument has been deprecated and is unused}
 }
 \value{
 \code{\link[=tbl_interval]{tbl_interval()}} with \code{.win_id} column that contains a numeric
