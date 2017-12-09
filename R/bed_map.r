@@ -82,7 +82,7 @@ bed_map <- function(x, y, ..., invert = FALSE,
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
-  groups_x <- groups(x)
+  groups_x <- group_vars(x)
 
   # used only to get the `x` suffix; `y` suffix is ignored`
   suffix <- list(x = suffix[1], y = suffix[2])
