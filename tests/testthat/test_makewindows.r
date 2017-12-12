@@ -85,7 +85,7 @@ test_that("num_win rev", {
 test_that("interval is smaller than n windows", {
   # test warning
   expect_warning(bed_makewindows(x, num_win = 150),
-                 "WARNING: Interval ")
+                 "Interval [^:]+:\\d+-\\d+, smaller than requested number of windows. skipping")
   # test that intervals are dropped if num_win > than interval size
   res <- suppressWarnings(bed_makewindows(x, num_win = 150))
   expect_equal(nrow(res), 0)

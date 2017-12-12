@@ -8,6 +8,8 @@
 
 * `bed_intersect()` and internal `intersect_impl` were refactored to enable return of non-intersecting intervals.
 
+* The genome argument to `bed_makewindows()` was deprecated and will produce a warning if used. Also error handling was added to check and warn if there are intervals smaller than the requested window size in `makewindows_impl()` (#312 @kriemo)
+
 # valr 0.3.1
 
 ## Enhancements
