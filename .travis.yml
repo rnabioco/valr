@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 language: r
 warnings_are_errors: false
-# cache: packages
+cache: packages
 r_build_args: '--no-build-vignettes'
 r_check_args: '--as-cran --ignore-vignettes'
 bioc_required: true
@@ -12,6 +12,8 @@ matrix:
   fast_finish: true
   allow_failures:
     - os: osx
+    - os: linux
+      r: devel
   include:
     - os: linux
       r: release
