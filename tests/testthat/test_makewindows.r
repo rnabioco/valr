@@ -1,11 +1,5 @@
 context("bed_makewindows")
 
-genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 5000,
-  "chr2", 400
-)
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name,
   "chr1", 100, 200, "A",
@@ -14,13 +8,13 @@ x <- tibble::tribble(
 
 # Window IDs are generated
 test_that("window IDs are generated", {
-  res <- bed_makewindows(x, genome, win_size = 10)
+  res <- bed_makewindows(x, win_size = 10)
   expect_true(".win_id" %in% colnames(res))
 })
 
 # Fixed win_size with foward numbering
 test_that("win_size fwd", {
-  res <- bed_makewindows(x, genome, win_size = 10)
+  res <- bed_makewindows(x, win_size = 10)
   # test number of windows
   expect_equal(nrow(res), 15)
   # test forward window numbering
@@ -31,7 +25,7 @@ test_that("win_size fwd", {
 
 # Fixed win_size with reverse numbering
 test_that("win_size rev", {
-  res <- bed_makewindows(x, genome, reverse = TRUE, win_size = 10)
+  res <- bed_makewindows(x, reverse = TRUE, win_size = 10)
   # test number of windows
   expect_equal(nrow(res), 15)
   # test forward window numbering
@@ -42,7 +36,7 @@ test_that("win_size rev", {
 
 # Fixed win_size +step_size with forward numbering
 test_that("win_size +step_size fwd", {
-  res <- bed_makewindows(x, genome, win_size = 10, step_size = 5)
+  res <- bed_makewindows(x, win_size = 10, step_size = 5)
   # test number of windows
   expect_equal(nrow(res), 30)
   # test forward window numbering
@@ -54,7 +48,7 @@ test_that("win_size +step_size fwd", {
 
 # Fixed win_size +step_size with reverse numbering
 test_that("win_size +step_size rev", {
-  res <- bed_makewindows(x, genome, reverse = TRUE, win_size = 10, step_size = 5)
+  res <- bed_makewindows(x, reverse = TRUE, win_size = 10, step_size = 5)
   # test number of windows
   expect_equal(nrow(res), 30)
   # test forward window numbering
@@ -66,7 +60,7 @@ test_that("win_size +step_size rev", {
 
 # Fixed number of windows with forward numbering
 test_that("num_win fwd", {
-  res <- bed_makewindows(x, genome, num_win = 10)
+  res <- bed_makewindows(x, num_win = 10)
   # test number of windows
   expect_equal(nrow(res), 20)
   # test forward window numbering
@@ -78,7 +72,7 @@ test_that("num_win fwd", {
 
 # Fixed number of windows with reverse numbering
 test_that("num_win rev", {
-  res <- bed_makewindows(x, genome, reverse = TRUE, num_win = 10)
+  res <- bed_makewindows(x, reverse = TRUE, num_win = 10)
   # test number of windows
   expect_equal(nrow(res), 20)
   # test forward window numbering
@@ -86,4 +80,13 @@ test_that("num_win rev", {
   # test interval size
   expect_true(all(res[1:10, "end"] - res[1:10, "start"] == 10))
   expect_true(all(res[11:20, "end"] - res[11:20, "start"] == 5))
+})
+
+test_that("interval is smaller than n windows", {
+  # test warning
+  expect_warning(bed_makewindows(x, num_win = 150),
+                 "Interval [^:]+:\\d+-\\d+, smaller than requested number of windows. skipping")
+  # test that intervals are dropped if num_win > than interval size
+  res <- suppressWarnings(bed_makewindows(x, num_win = 150))
+  expect_equal(nrow(res), 0)
 })
