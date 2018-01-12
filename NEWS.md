@@ -1,5 +1,9 @@
 # valr 0.3.1.9000
 
+## Bug fixes
+
+* The output of `findOverlaps()` is now sorted in `subtract_impl()` to prevent reporting intervals that should have been dropped when calling `bed_subtract()` (#316 @kriemo)
+
 ## Minor changes
 
 * `bed_jaccard()` now works with grouped inputs (#216)
