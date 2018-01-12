@@ -73,7 +73,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
       .end = max(end),
       ...
     ))
-    res <- rename(res, start = .start, end = .end)
+    res <- select(res, everything(), start = .start, end = .end)
 
     res <- ungroup(res)
     res <- select(res, !! quo(-one_of(".id_merge")))
