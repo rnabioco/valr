@@ -148,3 +148,9 @@ test_that("longest merged y intervals are used for subtraction", {
   res <- bed_subtract(x, y)
   expect_true(max(res$start) == 580)
 })
+
+test_that("all intervals are dropped in large dataset", {
+  bg <- read_bedgraph(valr_example("hela.h3k4.chip.bg.gz"))
+  res <- bed_subtract(bg, bg)
+  expect_true(nrow(res) == 0)
+})
