@@ -113,3 +113,20 @@ test_that("all supplied x interval columns are passed to the result", {
   res <- bed_shuffle(x, genome, seed = seed)
   expect_true(all(c("strand", "score", "name", "start") %in% colnames(res)))
 })
+
+#from https://github.com/arq5x/bedtools2/blob/master/test/shuffle/test-shuffle.sh
+#does not handle error/ignore entry
+test_that("test an interval that is bigger than the max chrom length", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 0, 110
+  )
+
+  y <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 100
+  )
+
+  res <- bed_shuffle(x, y)
+  expect_true(all(c("strand", "score", "name", "start") %in% colnames(res)))
+})
