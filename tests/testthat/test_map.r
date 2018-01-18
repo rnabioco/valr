@@ -159,3 +159,59 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
   res <- bed_map(x, y, total = sum(value))
   expect_true(all(pred == res, na.rm = T))
 })
+
+#from https://github.com/arq5x/bedtools2/blob/master/test/map/test-map.sh
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  "chr1",  0L,  100L,
+  "chr1", 100L,  200L,
+  "chr2",   0L,  100L,
+  "chr2", 100L,  200L,
+  "chr3",   0L,  100L,
+  "chr3", 100L,  200L
+)
+y <- tibble::tribble(
+  ~chrom, ~start, ~end, ~group, ~value, ~strand,
+  "chr1",  0L, 10L,   "a1", 10L,  "+",
+  "chr1",  10L,  20L,  "a2",     5L,  "+",
+  "chr1",  20L,  30L,  "a3",    15L,  "+",
+  "chr1", 120L, 130L,  "a4",     1L,  "+",
+  "chr3",   0L,  10L,  "a5",     1L,  "+",
+  "chr3",  10L,  20L,  "a6",     2L,  "+",
+  "chr3",  20L,  30L,  "a7",     3L,  "+",
+  "chr3", 120L, 130L,  "a8",     4L,  "+"
+)
+
+#output NA instead of 0
+test_that("test count", {
+  res <- bed_map(x, y, vals = n())
+  expect_equal(res$vals, c(3,1,0,0,3,1))
+})
+
+#R has no built-in mode function
+test_that("test mode", {
+  res <- bed_map(x, y, vals = ???(value))
+  expect_equal(res$vals, c(5,1,NA,NA,1,4))
+})
+
+test_that("Test GFF column extraction", {
+  z <- tibble::tribble(
+    ~chrom, ~seqid, ~type, ~start, ~end, ~score, ~strand, ~phase, ~attributes,
+        "chr1",   "hg19_ccdsGene", "start_codon", 1L,  9L, 0,  "+",  ".", "gene_id..CCDS30744.1...transcript_id..CCDS30744.1..",
+       "chr1",  "hg19_ccdsGene",        "CDS",  2L,  11L,          0,  "+",  "0", "gene_id \"CCDS30744.1\"; transcript_id \"CCDS30744.1\";",
+       "chr1",  "hg19_ccdsGene",       "exon",  8L,  20L,          0,  "+",  ".", "gene_id \"CCDS30744.1\"; transcript_id \"CCDS30744.1\";",
+       "chr1",  "hg19_ccdsGene",        "CDS",  9L,  17L,          0,  "+",  "2", "gene_id \"CCDS30744.1\"; transcript_id \"CCDS30744.1\";",
+       "chr1",  "hg19_ccdsGene",       "exon", 40L, 200L,          0,  "+",  ".", "gene_id \"CCDS30744.1\"; transcript_id \"CCDS30744.1\";"
+  )
+
+  res <- bed_map(x, z, vals = list(chrom))
+  expect_equal(length(res$vals[[1]]), 5)
+})
+
+test_that("Tests for multiple columns and operations", {
+  res <- bed_map(x, y, count = n(), sum = sum(value))
+  expect_equal(res$sum, c(30,1,NA,NA,6,4))
+})
+
+#reading bam files?
+test_that("Test BAM file as DB") {}

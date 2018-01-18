@@ -191,3 +191,70 @@ test_that("`x` intervals not in genome are ignored (#78)", {
   res <- bed_complement(bed, genome)
   expect_true(all(res == expected))
 })
+
+#from https://github.com/arq5x/bedtools2/blob/master/test/complement/test-complement.sh
+test_that("ends are covered", {
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 20
+  )
+  bed <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 0, 1,
+    "chr1", 19, 20
+  )
+  expected <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1, 19
+  )
+  res <- bed_complement(bed, genome)
+  expect_true(all(res == expected))
+})
+
+test_that("entirety is covered", {
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 20
+  )
+  bed <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 0, 20
+  )
+  res <- bed_complement(bed, genome)
+  expect_true(nrow(res) == 0)
+})
+
+test_that("nothing is covered", {
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 20,
+    "chr2", 20
+  )
+  bed <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr2", 0, 20
+  )
+  expected <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 0, 20
+  )
+  res <- bed_complement(bed, genome)
+  expect_true(all(res == expected))
+})
+
+test_that("Issue #356", {
+  genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 249250621
+  )
+  bed <- tibble::tribble(
+    ~chrom, ~start, ~end, ~name,
+    "chr1", 0, 10000, "telomere"
+  )
+  expected <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 10000,	249250621
+  )
+  res <- bed_complement(bed, genome)
+  expect_true(all(res == expected))
+})

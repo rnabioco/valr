@@ -160,3 +160,41 @@ test_that("intervals are not reported off of chromosomes", {
   expect_true(nrow(out) == 1)
   expect_true(out$end[1] == 4501)
 })
+
+#from https://github.com/arq5x/bedtools2/blob/master/test/flank/test-flank.sh
+tiny.genome <- tibble::tribble(
+  ~chrom, ~size,
+  "chr1", 1000
+)
+
+a <- tibble::tribble(
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  "chr1", 100, 200, "a1", "1", "+",
+  "chr1", 100, 200, "a2", "2", "-"
+)
+
+test_that("test going beyond the start of the chrom", {
+  dist <- 200
+  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE)
+  expect_equal(out$end, c(100, 100, 400, 400))
+})
+
+test_that("test going beyond the end of the chrom", {
+  dist <- 1000
+  out <- bed_flank(a, tiny.genome, right = dist, trim = TRUE)
+  expect_equal(out$end, c(1000, 1000))
+})
+
+test_that("test going beyond the start and end of the chrom", {
+  dist <- 2000
+  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE)
+  expect_equal(out$end, c(100, 100, 1000, 1000))
+  expect_equal(out$start, c(0, 0, 200, 200))
+})
+
+test_that("test going beyond the start and end of the chrom with strand", {
+  dist <- 2000
+  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE, strand = TRUE)
+  expect_equal(out$end, c(100, 100, 1000, 1000))
+  expect_equal(out$start, c(0, 0, 200, 200))
+})

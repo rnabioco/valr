@@ -63,6 +63,8 @@ test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
     "chr1", 20, 21
   )
   res <- bed_closest(y, x)
+  res2 <- bed_closest(x, y)
+  expect_equal(nrow(res), 3)
   expect_equal(nrow(res), 3)
 })
 
@@ -452,3 +454,87 @@ test_that("ensure that subtraction is done with respect to input tbls issue#108"
   res <- bed_closest(x_grouped, y_grouped)
   expect_true(all(res$group.x == res$group.y))
 })
+
+#from https://github.com/arq5x/bedtools2/blob/master/test/closest/test-closest.sh
+test_that("test closest forcing -s yet no matching strands on chrom", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 100, 200, "a", 10, "+"
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 90, 120, "b", 1, "-"
+  )
+  res <- bed_closest(group_by(x, strand), group_by(y, strand))
+  expect_true(nrow(res) == 0)
+})
+
+test_that("test closest forcing -S with only an opp strands on chrom", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 100, 200, "a", 10, "+"
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 90, 120, "b", 1, "-"
+  )
+  res <- bed_closest(group_by(x, strand), group_by(flip_strands(y), strand))
+  expect_true(nrow(res) == 1)
+})
+
+test_that("Make sure non-overlapping ties are reported", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 10, 20, "a1", 1, "-"
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 8, 9, "b1", 1, "+",
+    "chr1", 21, 22, "b2", 1, "-"
+  )
+  res <- bed_closest(x, y)
+  expect_true(nrow(res) == 2)
+})
+
+test_that("Make sure non-overlapping ties are reported, with strand option", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 10, 20, "a1", 1, "-"
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 8, 9, "b1", 1, "+",
+    "chr1", 21, 22, "b2", 1, "-"
+  )
+  res <- bed_closest(group_by(x, strand), group_by(y, strand))
+  expect_true(nrow(res) == 1)
+})
+
+test_that("Make sure non-overlapping ties are reported, with strand-oppo option", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 10, 20, "a1", 1, "-"
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 8, 9, "b1", 1, "+",
+    "chr1", 21, 22, "b2", 1, "-"
+  )
+  res <- bed_closest(group_by(x, strand), group_by(flip_strands(y), strand))
+  expect_true(nrow(res) == 1)
+})
+
+test_that("check ties, single db", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 10, 20, "a1", 1, "-"
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~group, ~score, ~strand,
+    "chr1", 8, 9, "b1", 1, "+",
+    "chr1", 21, 22, "b2", 1, "-"
+  )
+  res <- bed_closest(x, y)
+  expect_true(nrow(res) == 2)
+})
+
