@@ -214,4 +214,4 @@ test_that("Tests for multiple columns and operations", {
 })
 
 #reading bam files?
-test_that("Test BAM file as DB") {}
+#test_that("Test BAM file as DB") {}
