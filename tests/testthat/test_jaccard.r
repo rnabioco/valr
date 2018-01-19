@@ -48,7 +48,6 @@ test_that("Test symmetry", {
   expect_equal(res$jaccard, res2$jaccard)
 })
 
-#not working?
 test_that("Test jaccard with mixed strand files", {
   a <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
@@ -74,5 +73,8 @@ test_that("Test jaccard with mixed strand files", {
        "chr2",  30L, 100L,  "2e2r", 32L,  "-"
   )
   res <- bed_jaccard(a, b)
-  expect_true((res$len_i == 145) & (res$len_u == 180) & (res$jaccard == 0.805556) & (res$n == 2))
+  expect_equal(res$len_i, 145)
+  expect_equal(res$len_u, 325)
+  expect_equal(round(res$jaccard, 5), round(0.8055556, 5))
+  expect_equal(res$n, 2)
 })

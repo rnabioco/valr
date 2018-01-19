@@ -124,7 +124,7 @@ test_that("Test intervals that are randomly distributed. The relative distances 
   expect_equal(round(res$.freq, 3), d$fraction)
 })
 
-#slight differences, from rounding?
+##slight differences, from rounding?
 test_that("Test intervals that are randomly distributed. The relative distances should equally represented .", {
   res <- bed_reldist(a, c)
   d <- tibble::tribble(

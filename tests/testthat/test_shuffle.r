@@ -115,7 +115,7 @@ test_that("all supplied x interval columns are passed to the result", {
 })
 
 #from https://github.com/arq5x/bedtools2/blob/master/test/shuffle/test-shuffle.sh
-#does not handle error/ignore entry
+##does not handle error/ignore entry
 test_that("test an interval that is bigger than the max chrom length", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,

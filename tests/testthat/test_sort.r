@@ -140,7 +140,7 @@ test_that("Test by_size = TRUE", {
   expect_equal(res$start-res$end, pred$start-pred$end)
 })
 
-#chrom order is different than bedtools
+##chrom order is different than bedtools
 test_that("Test by_size = TRUE, reverse = TRUE", {
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
@@ -159,7 +159,7 @@ test_that("Test by_size = TRUE, reverse = TRUE", {
   expect_equal(res$start-res$end, pred$start-pred$end)
 })
 
-##not working correctly
+##?!not working correctly
 test_that("Test by_size = TRUE, by_chrom = TRUE", {
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
@@ -178,7 +178,7 @@ test_that("Test by_size = TRUE, by_chrom = TRUE", {
   expect_equal(res$start, pred$start)
 })
 
-##not working correctly
+##?!not working correctly
 test_that("Test by_size = TRUE, by_chrom = TRUE, reverse = TRUE", {
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,

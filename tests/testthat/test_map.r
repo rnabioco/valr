@@ -182,13 +182,13 @@ y <- tibble::tribble(
   "chr3", 120L, 130L,  "a8",     4L,  "+"
 )
 
-#output NA instead of 0
+##output NA instead of 0
 test_that("test count", {
   res <- bed_map(x, y, vals = n())
   expect_equal(res$vals, c(3,1,0,0,3,1))
 })
 
-#R has no built-in mode function
+##R has no built-in mode function
 test_that("test mode", {
   res <- bed_map(x, y, vals = ???(value))
   expect_equal(res$vals, c(5,1,NA,NA,1,4))
@@ -213,5 +213,3 @@ test_that("Tests for multiple columns and operations", {
   expect_equal(res$sum, c(30,1,NA,NA,6,4))
 })
 
-#reading bam files?
-#test_that("Test BAM file as DB") {}

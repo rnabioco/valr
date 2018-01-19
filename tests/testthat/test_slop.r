@@ -119,7 +119,7 @@ test_that("test that old floating-point issues are solved", {
   expect_equal(res$end, 16778971)
 })
 
-#order is changed
+##order is changed
 test_that("test that old floating-point issues are solved", {
   b <- tibble::tribble(
     ~chrom, ~start, ~end,
@@ -156,13 +156,18 @@ test_that("test negative slop on r with strand", {
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 300, 320, "a1", 5, "-"
   )
+
   res <- bed_slop(b, tiny.genome, left = 60, right = -60, strand = TRUE)
   expect_equal(res$start, 360)
   expect_equal(res$end, 380)
 })
 
-#not working?
+##?!not working?
 test_that("test crossover during negative slop", {
+  tiny.genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 1000
+  )
   b <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 300, 320, "a1", 5, "-"
@@ -172,7 +177,7 @@ test_that("test crossover during negative slop", {
   expect_equal(res$end, 360)
 })
 
-#not working?
+##not working?
 test_that("test edge cases", {
   b <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
@@ -183,7 +188,7 @@ test_that("test edge cases", {
   expect_equal(res$end, 1000)
 })
 
-#not working?
+##not working?
 test_that("test edge cases", {
   b <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
