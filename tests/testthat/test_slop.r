@@ -177,8 +177,12 @@ test_that("test crossover during negative slop", {
   expect_equal(res$end, 360)
 })
 
-##not working?
-test_that("test edge cases", {
+##!?not working?
+test_that("going beyond the end of the chrom", {
+  tiny.genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 1000
+  )
   b <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 950, 970, "a1", 5, "-"
@@ -187,14 +191,32 @@ test_that("test edge cases", {
   expect_equal(res$start, 999)
   expect_equal(res$end, 1000)
 })
-
-##not working?
+##?!not same as bedtools output, 0,0 would be invalid
 test_that("test edge cases", {
+  tiny.genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 1000
+  )
   b <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 50, 60, "a1", 5, "-"
   )
   res <- bed_slop(b, tiny.genome, left = -60, right = 60, strand = TRUE, trim = TRUE)
+  expect_equal(res$start, 0)
+  expect_equal(res$end, 1)
+})
+
+##?!goes over boundary
+test_that("test edge cases", {
+  tiny.genome <- tibble::tribble(
+    ~chrom, ~size,
+    "chr1", 1000
+  )
+  b <- tibble::tribble(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 50, 60, "a1", 5, "-"
+  )
+  res <- bed_slop(b, tiny.genome, left = -100, right = 100, strand = TRUE, trim = TRUE)
   expect_equal(res$start, 0)
   expect_equal(res$end, 1)
 })

@@ -182,16 +182,22 @@ y <- tibble::tribble(
   "chr3", 120L, 130L,  "a8",     4L,  "+"
 )
 
-##output NA instead of 0
+##output NA instead of 0, see examples for code to change NA to 0
 test_that("test count", {
   res <- bed_map(x, y, vals = n())
-  expect_equal(res$vals, c(3,1,0,0,3,1))
+  expect_equal(res$vals, c(3,1,NA,NA,3,1))
+  res2 <- bed_map(x, y, vals = n()) %>% mutate(vals = ifelse(is.na(vals), 0, vals))
+  expect_equal(res2$vals, c(3,1,0,0,3,1))
 })
 
-##R has no built-in mode function
+#R has no built-in mode function
 test_that("test mode", {
-  res <- bed_map(x, y, vals = ???(value))
-  expect_equal(res$vals, c(5,1,NA,NA,1,4))
+  getmode <- function(v) {
+    uniqv <- unique(v)
+    uniqv[which.max(tabulate(match(v, uniqv)))]
+  }
+  res <- bed_map(x, y, vals = getmode(value))
+  expect_equal(res$vals, c(10,1,NA,NA,1,4))
 })
 
 test_that("Test GFF column extraction", {
