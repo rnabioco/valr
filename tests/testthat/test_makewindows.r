@@ -90,3 +90,19 @@ test_that("interval is smaller than n windows", {
   res <- suppressWarnings(bed_makewindows(x, num_win = 150))
   expect_equal(nrow(res), 0)
 })
+
+test_that("always get the number of requested windows. issue #322", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~name,
+    "chr1", 11, 44, "A"
+  )
+  res <- bed_makewindows(x, num_win = 10)
+  expect_equal(nrow(res), 10)
+  expect_equal(res$start[10], 38)
+  expect_equal(res$end[10], 44)
+})
+
+test_that("report error if negative value win_size or num_win arguments supplied", {
+  expect_error(bed_makewindows(x, num_win = -1))
+  expect_error(bed_makewindows(x, win_size = -1))
+})
