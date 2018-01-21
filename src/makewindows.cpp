@@ -59,7 +59,7 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
       starts_out.push_back(start_by) ;
 
       // for last iteration through starts also extend to end
-      if (start_by + win_size < end & k < nstarts - 1) {
+      if (start_by + win_size < end && k < nstarts - 1) {
         ends_out.push_back(start_by + win_size) ;
       } else {
         ends_out.push_back(end) ;
