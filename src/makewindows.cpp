@@ -27,7 +27,17 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
     auto end = ends[i] ;
 
     if (num_win > 0) {
-      win_size = round((end - start) / num_win) ;
+      int ivl_len = end - start ;
+      if (ivl_len < num_win) {
+        CharacterVector chroms = df["chrom"] ;
+        auto chrom = as<std::string>(chroms[i]) ;
+        warning("Interval %s:%d-%d, "
+                "smaller than requested number "
+                "of windows. skipping",
+                chrom, start, end);
+        continue ;
+      }
+      win_size = round((ivl_len) / num_win) ;
     }
 
     int by = win_size - step_size ;
@@ -37,6 +47,10 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
     for (int j = start; j < end && j + win_size - by <= end; j += by) {
       starts_by.push_back(j) ;
     }
+    // drop extra window added due to non-integer win_size
+    if (num_win > 0 & starts_by.size() > num_win) {
+      starts_by.pop_back() ;
+    }
 
     int nstarts = starts_by.size() ;
     for (int k = 0; k < nstarts; ++k) {
@@ -44,7 +58,8 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
       auto start_by = starts_by[k] ;
       starts_out.push_back(start_by) ;
 
-      if (start_by + win_size < end) {
+      // for last iteration through starts also extend to end
+      if (start_by + win_size < end && k < nstarts - 1) {
         ends_out.push_back(start_by + win_size) ;
       } else {
         ends_out.push_back(end) ;
@@ -79,11 +94,6 @@ x <- trbl_interval(
   "chr1", 100,    200
 )
 
-genome <- trbl_genome(
-  ~chrom, ~size,
-  "chr1", 500
-)
-
-bed_makewindows(x, genome, win_size = 10)
-bed_makewindows(x, genome, win_size = 10, reverse = TRUE)
+bed_makewindows(x, win_size = 10)
+bed_makewindows(x, win_size = 10, reverse = TRUE)
 */

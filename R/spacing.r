@@ -1,7 +1,7 @@
 #' Calculate interval spacing.
 #'
-#' Overlapping intervals are merged. Spacing for the first interval of each
-#' chromosome is undefined (`NA`).
+#' Spacing for the first interval of each chromosome is undefined (`NA`). The
+#' leading interval of an overlapping interval pair has a negative value.
 #'
 #' @param x [tbl_interval()]
 #'
@@ -23,14 +23,14 @@
 interval_spacing <- function(x) {
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
 
-  res <- bed_merge(x)
+  res <- bed_sort(x)
 
-  groups_x <- groups(x)
+  gx <- groups(x)
 
   res <- group_by(res, chrom)
   res <- mutate(res, .spacing = start - lag(end))
 
-  res <- group_by(res, !!! groups_x)
+  res <- group_by(res, !!! gx)
 
   res
 }

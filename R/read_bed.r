@@ -68,7 +68,7 @@ read_bed12 <- function(filename, ...) {
 read_bedgraph <- function(filename, ...) {
   # load as bed4, rename `value` column and covert to double
   out <- read_bed(filename, n_fields = 4, sort = FALSE)
-  out <- rename(out, value = name)
+  out <- select(out, everything(), value = name)
   out <- mutate(out, value = as.double(value))
   out
 }

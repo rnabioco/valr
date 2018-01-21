@@ -1,5 +1,11 @@
 # valr 0.3.1.9000
 
+## Bug fixes
+
+* `bed_makewindows()` now returns the number of windows specified by `num_win` when the input intervals are not evenly divisble into `num_win`, consistent with `bedtools` behavior.
+
+* The output of `findOverlaps()` is now sorted in `subtract_impl()` to prevent reporting intervals that should have been dropped when calling `bed_subtract()` (#316 @kriemo)
+
 ## Minor changes
 
 * `bed_jaccard()` now works with grouped inputs (#216)
@@ -7,6 +13,8 @@
 * Update dplyr header files to v0.7
 
 * `bed_intersect()` and internal `intersect_impl` were refactored to enable return of non-intersecting intervals.
+
+* The genome argument to `bed_makewindows()` was deprecated and will produce a warning if used. Also error handling was added to check and warn if there are intervals smaller than the requested window size in `makewindows_impl()` (#312 @kriemo)
 
 # valr 0.3.1
 

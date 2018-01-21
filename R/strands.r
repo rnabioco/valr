@@ -29,7 +29,7 @@ flip_strands <- function(x) {
 
   res <- mutate(res, .strand = ifelse(strand == "+", "-", "+"))
   res <- select(res, -strand)
-  res <- rename(res, strand = .strand)
+  res <- select(res, everything(), strand = .strand)
 
   res <- group_by(res, !!! groups_x)
   res
