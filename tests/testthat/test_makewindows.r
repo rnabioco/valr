@@ -101,3 +101,8 @@ test_that("always get the number of requested windows. issue #322", {
   expect_equal(res$start[10], 38)
   expect_equal(res$end[10], 44)
 })
+
+test_that("report error if negative value win_size or num_win arguments supplied", {
+  expect_error(bed_makewindows(x, num_win = -1))
+  expect_error(bed_makewindows(x, win_size = -1))
+})

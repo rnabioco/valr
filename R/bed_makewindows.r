@@ -65,6 +65,9 @@ bed_makewindows <- function(x,
   if (win_size == 0 && num_win == 0)
     stop("specify either `win_size` or `num_win`", call. = FALSE)
 
+  if (win_size < 0 || num_win < 0)
+    stop("`win_size` or `num_win` must be positive values", call. = FALSE)
+
   # dummy win_ids
   x <- mutate(x, .win_id = 0)
   res <- makewindows_impl(x, win_size, num_win, step_size, reverse)
