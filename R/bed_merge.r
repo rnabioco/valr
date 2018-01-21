@@ -56,7 +56,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   if (is_merged(x)) return(x)
 
-  groups_x <- groups(x)
+  groups_x <- group_vars(x)
 
   res <- bed_sort(x)
 
