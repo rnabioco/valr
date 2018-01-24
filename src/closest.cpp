@@ -35,16 +35,16 @@ void closest_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
         indices_y.push_back(ov_it.value) ;
         overlap_sizes.push_back(overlap < 0 ? -overlap : overlap) ;
         distance_sizes.push_back(0);
-      } else if (ov_it.start > vx_it.stop) {
+      } else if (ov_it.start >= vx_it.stop) {
         indices_x.push_back(vx_it.value) ;
         indices_y.push_back(ov_it.value) ;
         overlap_sizes.push_back(0) ;
-        distance_sizes.push_back(-overlap);
+        distance_sizes.push_back(-(overlap - 1));
       } else {
         indices_x.push_back(vx_it.value) ;
         indices_y.push_back(ov_it.value) ;
         overlap_sizes.push_back(0) ;
-        distance_sizes.push_back(overlap);
+        distance_sizes.push_back(overlap - 1);
       }
 
     }
