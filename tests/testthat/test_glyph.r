@@ -29,8 +29,7 @@ b <- trbl_interval(
 
 test_that("expr arguments do not need to be x and/or y", {
   res <- bed_glyph(bed_intersect(a, b))
-  res_class <- class(res)
-  expect_true("ggplot" %in% res_class)
+  expect_is(res, "ggplot")
 })
 
 genome <- tibble::tribble(
