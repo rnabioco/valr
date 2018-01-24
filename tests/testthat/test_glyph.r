@@ -16,6 +16,23 @@ test_that("glyph labels are applied", {
   expect_equal(res$labels$label, "id")
 })
 
+a <- trbl_interval(
+  ~chrom, ~start, ~end,
+  'chr1', 25,     50,
+  'chr1', 100,    125
+)
+
+b <- trbl_interval(
+  ~chrom, ~start, ~end, ~value,
+  'chr1', 30,     75,  50
+)
+
+test_that("expr arguments do not need to be x and/or y", {
+  res <- bed_glyph(bed_intersect(a, b))
+  res_class <- class(res)
+  expect_true("ggplot" %in% res_class)
+})
+
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 1e6
