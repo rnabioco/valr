@@ -100,7 +100,7 @@ bed_glyph <- function(expr, label = NULL) {
 
   # this fetches the `x` and `y` rows from the environment
   for (i in 1:nargs) {
-    env_i <- get(args_req[i], env)
+    env_i <- get(expr_vars[i], env)
     rows <- mutate(env_i, .facet = expr_vars[i])
     res <- bind_rows(res, rows)
   }
