@@ -78,7 +78,7 @@
 #' # counting defaults to output of NA instead of 0, different from Bedtools2 behavior
 #' bed_map(x, y, .counts = n())
 #'
-#' bed_map(x, y, .counts = n()) %>% mutate(.counts = ifelse(is.na(.counts), 0, vals))
+#' dplyr::mutate(bed_map(x, y, .counts = n()), .counts = ifelse(is.na(.counts), 0, .counts))
 #'
 #'
 #' @export
