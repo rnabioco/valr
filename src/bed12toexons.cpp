@@ -31,7 +31,7 @@ std::vector<int> csv_values(std::string csv) {
 DataFrame bed12toexons_impl(DataFrame x) {
 
   // input
-  IntegerVector starts = x["start"] ;
+  NumericVector starts = x["start"] ;
   std::vector<std::string> exon_sizes = x["exon_sizes"] ;
   std::vector<std::string> exon_starts = x["exon_starts"] ;
   std::vector<std::string> strands = x["strand"] ;

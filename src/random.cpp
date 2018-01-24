@@ -42,7 +42,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
   }
 
   CharacterVector rand_chroms(n) ;
-  IntegerVector rand_starts(n) ;
+  NumericVector rand_starts(n) ;
 
   for (int i = 0; i < n; ++i) {
 
@@ -55,7 +55,7 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
     rand_starts[i] = rand_start ;
   }
 
-  IntegerVector rand_ends = rand_starts + length ;
+  NumericVector rand_ends = rand_starts + length ;
 
   return DataFrame::create(_("chrom") = rand_chroms,
                            _("start") = rand_starts,

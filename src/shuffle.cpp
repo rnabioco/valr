@@ -34,10 +34,10 @@ chrom_tree_t makeIntervalTrees(DataFrame incl, interval_map_t interval_map) {
 PCONST_DIST makeChromRNG(DataFrame incl) {
 
   CharacterVector incl_chroms = incl["chrom"] ;
-  IntegerVector incl_starts = incl["start"] ;
-  IntegerVector incl_ends = incl["end"] ;
+  NumericVector incl_starts = incl["start"] ;
+  NumericVector incl_ends = incl["end"] ;
 
-  IntegerVector incl_sizes = incl_ends - incl_starts ;
+  NumericVector incl_sizes = incl_ends - incl_starts ;
 
   // keys sorted in lexographic order
   std::map<std::string, float> chrom_mass ;
@@ -82,8 +82,8 @@ PCONST_DIST makeChromRNG(DataFrame incl) {
 interval_map_t makeIntervalMap(DataFrame incl) {
 
   CharacterVector incl_chroms = incl["chrom"] ;
-  IntegerVector incl_starts   = incl["start"] ;
-  IntegerVector incl_ends     = incl["end"] ;
+  NumericVector incl_starts   = incl["start"] ;
+  NumericVector incl_ends     = incl["end"] ;
 
   int nr = incl.nrows() ;
   interval_map_t interval_map ;
@@ -171,10 +171,10 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
 
   // data on incoming df
   CharacterVector df_chroms = df["chrom"] ;
-  IntegerVector df_starts   = df["start"] ;
-  IntegerVector df_ends     = df["end"] ;
+  NumericVector df_starts   = df["start"] ;
+  NumericVector df_ends     = df["end"] ;
 
-  IntegerVector df_sizes = df_ends - df_starts ;
+  NumericVector df_sizes = df_ends - df_starts ;
 
   // RNG weighted by chromosome masses
   auto chrom_rng = makeChromRNG(incl) ;
@@ -190,8 +190,8 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
   // storage for output
   int nr = df.nrows() ;
   CharacterVector chroms_out(nr) ;
-  IntegerVector   starts_out(nr) ;
-  IntegerVector   ends_out(nr) ;
+  NumericVector   starts_out(nr) ;
+  NumericVector   ends_out(nr) ;
 
   CharacterVector incl_chroms = incl["chrom"] ;
   // sort in lexographic order

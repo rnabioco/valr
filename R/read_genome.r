@@ -26,6 +26,7 @@ read_genome <- function(path) {
   colnames <- c("chrom", "size")
   genome <- suppressMessages(readr::read_tsv(path, col_names = colnames))
   genome <- arrange(genome, desc(size))
+  genome <- mutate(genome, size = as.double(size))
   genome <- as.tbl_genome(genome)
   genome
 }

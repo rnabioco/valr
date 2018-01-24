@@ -21,7 +21,7 @@ inline genome_map_t makeChromSizes(DataFrame genome,
   genome_map_t chrom_sizes ;
 
   CharacterVector refs = genome[col_chrom] ;
-  IntegerVector sizes = genome[col_size] ;
+  NumericVector sizes = genome[col_size] ;
 
   if (unique(refs).length() != refs.length())
     stop("duplicate reference names in genome file.") ;

@@ -48,8 +48,8 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
                      bool fraction = false, bool stranded = false, bool trim = false) {
 
   std::vector<std::string> chroms = df["chrom"];
-  IntegerVector starts = df["start"];
-  IntegerVector ends = df["end"];
+  NumericVector starts = df["start"];
+  NumericVector ends = df["end"];
 
   // storage for outputs
   std::vector<int> starts_out;
