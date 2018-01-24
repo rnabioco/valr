@@ -123,7 +123,6 @@ tiny.genome <- tibble::tribble(
   "chr1", 1000
 )
 
-##?!doesn't respect boundary
 test_that("test going beyond the start of the chrom", {
   out <- bed_shift(a, tiny.genome, size = -300, trim = TRUE)
   expect_true(all(
@@ -132,7 +131,6 @@ test_that("test going beyond the start of the chrom", {
   ))
 })
 
-##?!doens't behave the same as bedtools, 0,0 would invalid
 test_that("test going beyond the start of the chrom", {
   out <- bed_shift(a, tiny.genome, size = -200, trim = TRUE)
   expect_true(all(
@@ -141,7 +139,6 @@ test_that("test going beyond the start of the chrom", {
   ))
 })
 
-##?!doesn't work
 test_that("test going beyond the end of the chrom", {
   out <- bed_shift(a, tiny.genome, size = 1000, trim = TRUE)
   expect_true(all(
@@ -150,7 +147,6 @@ test_that("test going beyond the end of the chrom", {
   ))
 })
 
-##?!doesn't work
 test_that("test shift being larger than a signed int", {
   out <- bed_shift(a, tiny.genome, size = 3000000000, trim = TRUE)
   expect_true(all(

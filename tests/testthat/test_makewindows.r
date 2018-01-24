@@ -92,7 +92,6 @@ test_that("interval is smaller than n windows", {
 })
 
 #from https://github.com/arq5x/bedtools2/blob/master/test/makewindows/test-makewindows.sh
-##!?
 test_that("Test that we alway get the number of requested windows", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name,

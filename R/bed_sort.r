@@ -41,14 +41,20 @@ bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
     res <- mutate(x, .size = end - start)
 
     if (by_chrom) {
-      res <- group_by(res, chrom)
+      if (reverse) {
+        res <- arrange(res, chrom, desc(.size))
+      } else {
+        res <- arrange(res, chrom, .size)
+      }
+    } else {
+      if (reverse) {
+        res <- arrange(res, desc(.size))
+      } else {
+        res <- arrange(res, .size)
+      }
     }
 
-    if (reverse) {
-      res <- arrange(res, desc(.size))
-    } else {
-      res <- arrange(res, .size)
-    }
+
 
     # remove .size column and groups in result
     res <- select(res, -.size)

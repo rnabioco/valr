@@ -87,7 +87,7 @@ void dist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
       int dist_r = abs(midpoint - right) ;
 
       // calc relative distance
-      auto reldist = (float) std::min(dist_l, dist_r) / float(right - left) ;
+      int reldist = round((float) std::min(dist_l, dist_r) / float(right - left) * 100000000) ;
 
       distances.push_back(reldist) ;
       indices_x.push_back(vx_it.value) ;

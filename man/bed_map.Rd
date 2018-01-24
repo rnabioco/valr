@@ -103,6 +103,12 @@ bed_map(x, y, .vals = values(value))
 
 bed_map(x, y, .vals.unique = values_unique(value))
 
+# counting defaults to output of NA instead of 0, different from Bedtools2 behavior
+bed_map(x, y, .counts = n())
+
+bed_map(x, y, .counts = n()) \%>\% mutate(.counts = ifelse(is.na(.counts), 0, vals))
+
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}

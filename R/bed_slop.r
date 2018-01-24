@@ -119,5 +119,17 @@ bed_slop <- function(x, genome, both = 0, left = 0,
   res <- bound_intervals(res, genome, trim)
   res <- bed_sort(res)
 
+  res <- mutate(res,
+                temp_start = start,
+                temp_end = end)
+
+  res <- mutate(res,
+                start = ifelse(temp_start - temp_end < 0,
+                               temp_start, temp_end),
+                end = ifelse(temp_start - temp_end < 0,
+                             temp_end, temp_start))
+
+  res <- select(res, -temp_start,-temp_end)
+
   res
 }
