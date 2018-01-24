@@ -87,7 +87,7 @@ void dist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
       int dist_r = abs(midpoint - right) ;
 
       // calc relative distance
-      int reldist = round((float) std::min(dist_l, dist_r) / float(right - left) * 100000000) ;
+      auto reldist = (float) std::min(dist_l, dist_r) / float(right - left) ;
 
       distances.push_back(reldist) ;
       indices_x.push_back(vx_it.value) ;
@@ -129,7 +129,6 @@ library(dplyr)
       "chr2", 1000,   2000,
       "chr3", 3000, 4000
   ) %>% group_by(chrom)
-
   y <- tibble::frame_data(
       ~chrom, ~start, ~end,
       "chr1", 25,    125,
@@ -138,10 +137,7 @@ library(dplyr)
       "chr2", 1,   1000,
       "chr2", 2000, 3000
   ) %>% group_by(chrom)
-
-
   devtools::load_all()
-
- dist_impl(x, y, distcalc = "absdist")
- dist_impl(x, y, distcalc = "reldist")
-*/
+  dist_impl(x, y, distcalc = "absdist")
+  dist_impl(x, y, distcalc = "reldist")
+  */
