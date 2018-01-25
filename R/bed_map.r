@@ -64,14 +64,14 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   ## and overlaps y intervals. Using base R logical indexing here is ~ 7x faster
   ## than dplyr::anti_join()
   res_noint <- res_noint[!res_noint[[.id_col_out]] %in% res_int[[.id_col_out]], ]
-  res_noint <- select(res_noint, -!!! syms(.id_col_out))
+  res_noint <- select(res_noint, -contains(.id_col_out))
 
   ## map supplied functions to each set of intersecting intervals
   ## group_by .id_col_out to ensure that duplicated input x intervals are reported
   res_int <- group_by(res_int, !!! syms(c("chrom", x_nms, .id_col_out)))
   res_int <- summarize(res_int, !!! quos(...))
   res_int <- ungroup(res_int)
-  res_int <- select(res_int, -!!! syms(.id_col_out))
+  res_int <- select(res_int, -contains(.id_col_out))
 
   res <- bind_rows(res_int, res_noint)
 
