@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,14 +97,6 @@
   </a>
 </li>
       </ul>
-      <form class="navbar-form" role="search" method="GET" action="../search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-        </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -190,17 +183,17 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='fu'>bed_subtract</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  chr1   100   150
-#&gt; 2  chr1   175   200
-#&gt; 3  chr1   250   400
-#&gt; 4  chr1   500   510
-#&gt; 5  chr1   525   550
-#&gt; 6  chr1   575   600
-#&gt; 7  chr1  1050  1150</div><div class='input'>
+#&gt; 1 chr1    100   150
+#&gt; 2 chr1    175   200
+#&gt; 3 chr1    250   400
+#&gt; 4 chr1    500   510
+#&gt; 5 chr1    525   550
+#&gt; 6 chr1    575   600
+#&gt; 7 chr1   1050  1150</div><div class='input'>
 <span class='fu'>bed_subtract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>any</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  chr1   250   400</div><div class='input'>
+#&gt; 1 chr1    250   400</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -224,7 +217,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

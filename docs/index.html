@@ -66,32 +66,24 @@
 <li>
   <a href="http://github.com/rnabioco/valr">
     <span class="fa fa-github fa-lg"></span>
-
+     
   </a>
 </li>
       </ul>
-<form class="navbar-form" role="search" method="GET" action="search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
 </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
-    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
 </div>
 <!--/.navbar -->
 
-
+      
       </header><div class="row">
   <div class="col-md-9">
+    
 
-
-
-
+    
+    
 <div class="contents">
 <div id="valr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
@@ -132,18 +124,18 @@ nearby <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/select_helpers.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">abs</span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)
 <span class="co">#&gt; # A tibble: 1,047 x 4</span>
-<span class="co">#&gt;         name.x   name.y .overlap .dist</span>
-<span class="co">#&gt;          &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1 rs530458610    P704P        0  2578</span>
-<span class="co">#&gt;  2   rs2261631    P704P        0  -267</span>
-<span class="co">#&gt;  3 rs570770556    POTEH        0  -912</span>
-<span class="co">#&gt;  4 rs538163832    POTEH        0  -952</span>
-<span class="co">#&gt;  5 rs190224195    POTEH        0 -1398</span>
-<span class="co">#&gt;  6   rs2379966 DQ571479        0  4749</span>
-<span class="co">#&gt;  7 rs142687051 DQ571479        0  3557</span>
-<span class="co">#&gt;  8 rs528403095 DQ571479        0  3308</span>
-<span class="co">#&gt;  9 rs555126291 DQ571479        0  2744</span>
-<span class="co">#&gt; 10   rs5747567 DQ571479        0 -1777</span>
+<span class="co">#&gt;    name.x      name.y   .overlap .dist</span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1 rs530458610 P704P           0  2579</span>
+<span class="co">#&gt;  2 rs2261631   P704P           0 - 268</span>
+<span class="co">#&gt;  3 rs570770556 POTEH           0 - 913</span>
+<span class="co">#&gt;  4 rs538163832 POTEH           0 - 953</span>
+<span class="co">#&gt;  5 rs190224195 POTEH           0 -1399</span>
+<span class="co">#&gt;  6 rs2379966   DQ571479        0  4750</span>
+<span class="co">#&gt;  7 rs142687051 DQ571479        0  3558</span>
+<span class="co">#&gt;  8 rs528403095 DQ571479        0  3309</span>
+<span class="co">#&gt;  9 rs555126291 DQ571479        0  2745</span>
+<span class="co">#&gt; 10 rs5747567   DQ571479        0 -1778</span>
 <span class="co">#&gt; # ... with 1,037 more rows</span></code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
@@ -310,7 +302,7 @@ ucsc &lt;-<span class="st"> </span><span class="kw"><a href="reference/db.html">
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

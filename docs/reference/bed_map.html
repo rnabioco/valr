@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,14 +97,6 @@
   </a>
 </li>
       </ul>
-      <form class="navbar-form" role="search" method="GET" action="../search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-        </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -198,24 +191,66 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
  <span class='st'>'chr2'</span>, <span class='fl'>250</span>,    <span class='fl'>500</span>,  <span class='fl'>500</span>
 )
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'value'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div><div class='input'>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'value'</span>)</div><div class='img'><img src='bed_map-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># summary examples</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.min</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>value</span>), <span class='kw'>.max</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end  .sum
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 chr1    100   250  30.0
+#&gt; 2 chr2    250   500 500  </div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.min</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>value</span>), <span class='kw'>.max</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 5
+#&gt;   chrom start   end  .min  .max
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 chr1    100   250  10.0  20.0
+#&gt; 2 chr2    250   500 500   500  </div><div class='input'>
 <span class='co'># identify non-intersecting intervals to include in the result</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div><div class='input'><span class='no'>x_not</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_intersect.html'>bed_intersect</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='no'>res</span>, <span class='no'>x_not</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
-#&gt;   chrom start.x end.x value start   end
-#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1  chr1     100   200    10    NA    NA
-#&gt; 2  chr1     100   200    NA    NA    NA</div><div class='input'>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))
+<span class='no'>x_not</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_intersect.html'>bed_intersect</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='no'>res</span>, <span class='no'>x_not</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end  .sum
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 chr1    100   250  30.0
+#&gt; 2 chr2    250   500 500  </div><div class='input'>
 <span class='co'># create a list-column</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.values</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end .values  
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;   
+#&gt; 1 chr1    100   250 &lt;dbl [2]&gt;
+#&gt; 2 chr2    250   500 &lt;dbl [1]&gt;</div><div class='input'>
 <span class='co'># use `nth` family from dplyr</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.first</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/nth.html'>first</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.absmax</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>max</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.count</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div><div class='input'>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.vals</span> <span class='kw'>=</span> <span class='fu'>values</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; <span class='error'>Error in summarise_impl(.data, dots): Evaluation error: object 'value' not found.</span></div></pre>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.first</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/nth.html'>first</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end .first
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1 chr1    100   250   10.0
+#&gt; 2 chr2    250   500  500  </div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.absmax</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>max</span>(<span class='no'>value</span>)))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end .absmax
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 chr1    100   250    20.0
+#&gt; 2 chr2    250   500   500  </div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.count</span> <span class='kw'>=</span> <span class='fu'>length</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end .count
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;int&gt;
+#&gt; 1 chr1    100   250      2
+#&gt; 2 chr2    250   500      1</div><div class='input'>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.vals</span> <span class='kw'>=</span> <span class='fu'>values</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end .vals
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1 chr1    100   250 10,20
+#&gt; 2 chr2    250   500 500  </div><div class='input'>
+<span class='co'># count defaults are NA not 0; differs from bedtools2 ...</span>
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='fu'>n</span>())</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end .counts
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;
+#&gt; 1 chr1    100   250       2
+#&gt; 2 chr2    250   500       1</div><div class='input'>
+<span class='co'># ... but NA counts can be coverted to 0's</span>
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='fu'>n</span>()), <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='fu'>is.na</span>(<span class='no'>.counts</span>), <span class='fl'>0</span>, <span class='no'>.counts</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+#&gt;   chrom start   end .counts
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;
+#&gt; 1 chr1    100   250       2
+#&gt; 2 chr2    250   500       1</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -240,7 +275,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

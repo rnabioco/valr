@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,14 +97,6 @@
   </a>
 </li>
       </ul>
-      <form class="navbar-form" role="search" method="GET" action="../search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-        </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -175,46 +168,46 @@
 <span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; # A tibble: 1,000,000 x 3
 #&gt;    chrom start   end
 #&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-#&gt;  1  chr1   103  1103
-#&gt;  2  chr1   127  1127
-#&gt;  3  chr1   136  1136
-#&gt;  4  chr1   366  1366
-#&gt;  5  chr1   570  1570
-#&gt;  6  chr1   578  1578
-#&gt;  7  chr1   583  1583
-#&gt;  8  chr1   608  1608
-#&gt;  9  chr1   626  1626
-#&gt; 10  chr1   643  1643
+#&gt;  1 chr1    103  1103
+#&gt;  2 chr1    127  1127
+#&gt;  3 chr1    136  1136
+#&gt;  4 chr1    366  1366
+#&gt;  5 chr1    570  1570
+#&gt;  6 chr1    578  1578
+#&gt;  7 chr1    583  1583
+#&gt;  8 chr1    608  1608
+#&gt;  9 chr1    626  1626
+#&gt; 10 chr1    643  1643
 #&gt; # ... with 999,990 more rows</div><div class='input'>
 <span class='co'># sorting can be suppressed</span>
 <span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; # A tibble: 1,000,000 x 3
 #&gt;    chrom    start      end
 #&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-#&gt;  1  chr3 57732457 57733457
-#&gt;  2  chr3  3718191  3719191
-#&gt;  3  chr2 14303922 14304922
-#&gt;  4  chr2 35002561 35003561
-#&gt;  5  chr3 41721326 41722326
-#&gt;  6  chr3 57830588 57831588
-#&gt;  7  chr3 42197908 42198908
-#&gt;  8  chrX  3787839  3788839
-#&gt;  9  chr3 33492117 33493117
-#&gt; 10  chr2 14530349 14531349
+#&gt;  1 chr3  57732457 57733457
+#&gt;  2 chr3   3718191  3719191
+#&gt;  3 chr2  14303922 14304922
+#&gt;  4 chr2  35002561 35003561
+#&gt;  5 chr3  41721326 41722326
+#&gt;  6 chr3  57830588 57831588
+#&gt;  7 chr3  42197908 42198908
+#&gt;  8 chrX   3787839  3788839
+#&gt;  9 chr3  33492117 33493117
+#&gt; 10 chr2  14530349 14531349
 #&gt; # ... with 999,990 more rows</div><div class='input'>
 <span class='co'># 500 random intervals of length 500</span>
 <span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; # A tibble: 500 x 3
 #&gt;    chrom   start     end
 #&gt;    &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;
-#&gt;  1  chr1  401902  402402
-#&gt;  2  chr1  591204  591704
-#&gt;  3  chr1  703042  703542
-#&gt;  4  chr1  738352  738852
-#&gt;  5  chr1  848804  849304
-#&gt;  6  chr1 1406707 1407207
-#&gt;  7  chr1 1701984 1702484
-#&gt;  8  chr1 1725426 1725926
-#&gt;  9  chr1 2058953 2059453
-#&gt; 10  chr1 2095530 2096030
+#&gt;  1 chr1   401902  402402
+#&gt;  2 chr1   591204  591704
+#&gt;  3 chr1   703042  703542
+#&gt;  4 chr1   738352  738852
+#&gt;  5 chr1   848804  849304
+#&gt;  6 chr1  1406707 1407207
+#&gt;  7 chr1  1701984 1702484
+#&gt;  8 chr1  1725426 1725926
+#&gt;  9 chr1  2058953 2059453
+#&gt; 10 chr1  2095530 2096030
 #&gt; # ... with 490 more rows</div><div class='input'>
 </div></pre>
   </div>
@@ -241,7 +234,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

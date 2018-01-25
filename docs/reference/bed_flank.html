@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,14 +97,6 @@
   </a>
 </li>
       </ul>
-      <form class="navbar-form" role="search" method="GET" action="../search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-        </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -202,29 +195,29 @@
 )
 
 <span class='fu'>bed_flank</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
-#&gt;   chrom start   end  name score strand
-#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1  chr1   400   500     .     .      +
-#&gt; 2  chr1   900  1000     .     .      -</div><div class='input'>
+#&gt;   chrom start   end name  score strand
+#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
+#&gt; 1 chr1    400   500 .     .     +     
+#&gt; 2 chr1    900  1000 .     .     -     </div><div class='input'>
 <span class='fu'>bed_flank</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
-#&gt;   chrom start   end  name score strand
-#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1  chr1  1000  1100     .     .      +
-#&gt; 2  chr1  1500  1600     .     .      -</div><div class='input'>
+#&gt;   chrom start   end name  score strand
+#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
+#&gt; 1 chr1   1000  1100 .     .     +     
+#&gt; 2 chr1   1500  1600 .     .     -     </div><div class='input'>
 <span class='fu'>bed_flank</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 6
-#&gt;   chrom start   end  name score strand
-#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1  chr1   400   500     .     .      +
-#&gt; 2  chr1   900  1000     .     .      -
-#&gt; 3  chr1  1000  1100     .     .      +
-#&gt; 4  chr1  1500  1600     .     .      -</div><div class='input'>
+#&gt;   chrom start   end name  score strand
+#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
+#&gt; 1 chr1    400   500 .     .     +     
+#&gt; 2 chr1    900  1000 .     .     -     
+#&gt; 3 chr1   1000  1100 .     .     +     
+#&gt; 4 chr1   1500  1600 .     .     -     </div><div class='input'>
 <span class='fu'>bed_flank</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>fraction</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 6
-#&gt;   chrom start   end  name score strand
-#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1  chr1   250   500     .     .      +
-#&gt; 2  chr1   750  1000     .     .      -
-#&gt; 3  chr1  1000  1250     .     .      +
-#&gt; 4  chr1  1500  1750     .     .      -</div><div class='input'>
+#&gt;   chrom start   end name  score strand
+#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
+#&gt; 1 chr1    250   500 .     .     +     
+#&gt; 2 chr1    750  1000 .     .     -     
+#&gt; 3 chr1   1000  1250 .     .     +     
+#&gt; 4 chr1   1500  1750 .     .     -     </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -248,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
