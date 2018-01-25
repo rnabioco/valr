@@ -46,7 +46,8 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
 
   # find midpoints
   x <- mutate(
-    x, .midpoint = round((end + start) / 2),
+    x,
+    .midpoint = round((end + start) / 2),
     start = .midpoint,
     end = .midpoint + 1
   )

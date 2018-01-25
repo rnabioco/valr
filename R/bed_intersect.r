@@ -136,9 +136,9 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   if (invert) {
     res <- filter(res, is.na(.overlap))
     res <- select(
-      res, chrom, ends_with('.x')
+      res, chrom, ends_with(".x")
     )
-    names(res) <- str_replace(names(res), fixed('.x'), '')
+    names(res) <- str_replace(names(res), fixed(".x"), "")
     return(res)
   }
 

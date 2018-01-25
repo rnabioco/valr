@@ -7,4 +7,5 @@ README.html
 *_cache/
 index.md
 index.html
+*.Rprofvis
 .netlify

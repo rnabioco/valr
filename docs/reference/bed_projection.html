@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,14 +97,6 @@
   </a>
 </li>
       </ul>
-      <form class="navbar-form" role="search" method="GET" action="../search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-        </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -181,22 +174,22 @@ examples.</p>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
 <span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;          chrom  p.value obs_exp_ratio lower_tail
-#&gt;          &lt;chr&gt;    &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;
-#&gt; 1 whole_genome 0.071388      1.002372      FALSE</div><div class='input'>
+#&gt;   chrom        p.value obs_exp_ratio lower_tail
+#&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;     
+#&gt; 1 whole_genome  0.0714          1.00 FALSE     </div><div class='input'>
 <span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 25 x 4
-#&gt;    chrom    p.value obs_exp_ratio lower_tail
-#&gt;    &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt;      &lt;chr&gt;
-#&gt;  1  chr1 0.30163088     1.0029412      FALSE
-#&gt;  2 chr10 0.30528594     1.0038808      FALSE
-#&gt;  3 chr11 0.30561128     0.9960056       TRUE
-#&gt;  4 chr12 0.03144555     1.0145701      FALSE
-#&gt;  5 chr13 0.44931391     1.0010035      FALSE
-#&gt;  6 chr14 0.12457218     1.0099477      FALSE
-#&gt;  7 chr15 0.31685610     1.0041997      FALSE
-#&gt;  8 chr16 0.24807495     1.0064362      FALSE
-#&gt;  9 chr17 0.38070669     1.0029441      FALSE
-#&gt; 10 chr18 0.19026983     0.9910346       TRUE
+#&gt;    chrom p.value obs_exp_ratio lower_tail
+#&gt;    &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;     
+#&gt;  1 chr1   0.302          1.00  FALSE     
+#&gt;  2 chr10  0.305          1.00  FALSE     
+#&gt;  3 chr11  0.306          0.996 TRUE      
+#&gt;  4 chr12  0.0314         1.01  FALSE     
+#&gt;  5 chr13  0.449          1.00  FALSE     
+#&gt;  6 chr14  0.125          1.01  FALSE     
+#&gt;  7 chr15  0.317          1.00  FALSE     
+#&gt;  8 chr16  0.248          1.01  FALSE     
+#&gt;  9 chr17  0.381          1.00  FALSE     
+#&gt; 10 chr18  0.190          0.991 TRUE      
 #&gt; # ... with 15 more rows</div><div class='input'>
 </div></pre>
   </div>
@@ -223,7 +216,7 @@ examples.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

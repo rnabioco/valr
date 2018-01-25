@@ -57,8 +57,9 @@ bed_glyph <- function(expr, label = NULL) {
 
   # bail if the result is too big
   max_rows <- 100
-  if (nrow(res) > max_rows)
+  if (nrow(res) > max_rows) {
     stop("max_rows exceeded in bed_glyph.", call. = FALSE)
+  }
 
   # get default columns
   cols_default <- c("chrom")
@@ -144,7 +145,8 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
       color = "black", alpha = 0.75
     ) +
     facet_grid(
-      .facet ~ ., switch = "y",
+      .facet ~ .,
+      switch = "y",
       scales = "free_y", space = "free_y"
     ) +
     scale_fill_manual(values = fill_colors) +

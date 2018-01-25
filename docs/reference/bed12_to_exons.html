@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,14 +97,6 @@
   </a>
 </li>
       </ul>
-      <form class="navbar-form" role="search" method="GET" action="../search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-        </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -146,18 +139,18 @@ genes will have larger start and end coordinates).</p>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_bed.html'>read_bed12</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))
 
 <span class='fu'>bed12_to_exons</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 1,683 x 6
-#&gt;    chrom   start     end         name score strand
-#&gt;    &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;        &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;
-#&gt;  1  chr1 3204562 3207049 NM_001011874     3      -
-#&gt;  2  chr1 3411782 3411982 NM_001011874     2      -
-#&gt;  3  chr1 3660632 3661579 NM_001011874     1      -
-#&gt;  4  chr1 4280926 4283093 NM_001195662     4      -
-#&gt;  5  chr1 4341990 4342162 NM_001195662     3      -
-#&gt;  6  chr1 4342282 4342918 NM_001195662     2      -
-#&gt;  7  chr1 4399250 4399322 NM_001195662     1      -
-#&gt;  8  chr1 4847774 4848057 NM_001159750     1      +
-#&gt;  9  chr1 4847774 4848057    NM_011541     1      +
-#&gt; 10  chr1 4848408 4848584 NM_001159751     1      +
+#&gt;    chrom   start     end name         score strand
+#&gt;    &lt;chr&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt;        &lt;int&gt; &lt;chr&gt; 
+#&gt;  1 chr1  3204562 3207049 NM_001011874     3 -     
+#&gt;  2 chr1  3411782 3411982 NM_001011874     2 -     
+#&gt;  3 chr1  3660632 3661579 NM_001011874     1 -     
+#&gt;  4 chr1  4280926 4283093 NM_001195662     4 -     
+#&gt;  5 chr1  4341990 4342162 NM_001195662     3 -     
+#&gt;  6 chr1  4342282 4342918 NM_001195662     2 -     
+#&gt;  7 chr1  4399250 4399322 NM_001195662     1 -     
+#&gt;  8 chr1  4847774 4848057 NM_001159750     1 +     
+#&gt;  9 chr1  4847774 4848057 NM_011541        1 +     
+#&gt; 10 chr1  4848408 4848584 NM_001159751     1 +     
 #&gt; # ... with 1,673 more rows</div><div class='input'>
 </div></pre>
   </div>
@@ -180,7 +173,7 @@ genes will have larger start and end coordinates).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

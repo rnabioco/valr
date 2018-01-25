@@ -33,10 +33,12 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
   # flatten incl and excl
-  if (!is.null(incl))
+  if (!is.null(incl)) {
     incl <- bed_merge(incl)
-  if (!is.null(excl))
+  }
+  if (!is.null(excl)) {
     excl <- bed_merge(excl)
+  }
 
   # make genome into an interval tbl
   genome_incl <- mutate(genome, start = 0, end = size)
@@ -52,8 +54,9 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
     incl <- bed_subtract(incl, excl)
   }
 
-  if (nrow(incl) == 0 || is.null(incl))
+  if (nrow(incl) == 0 || is.null(incl)) {
     stop("no intervals to sample from", call. = FALSE)
+  }
 
   # drops all columns except chrom, start, and end
   res <- shuffle_impl(x, incl, within, max_tries, seed)

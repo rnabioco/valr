@@ -18,8 +18,9 @@
 #'
 #' @export
 flip_strands <- function(x) {
-  if (!"strand" %in% colnames(x))
+  if (!"strand" %in% colnames(x)) {
     stop("`strand` column not found in `x`", call. = FALSE)
+  }
 
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
 
