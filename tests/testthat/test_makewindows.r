@@ -106,3 +106,14 @@ test_that("report error if negative value win_size or num_win arguments supplied
   expect_error(bed_makewindows(x, num_win = -1))
   expect_error(bed_makewindows(x, win_size = -1))
 })
+
+test_that("check num_win reported correctly for additional intervals (related to #322)", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 9437053, 9438070,
+    "chr1", 75360291, 75368579,
+    "chr1", 86351980, 86352127
+  )
+  res <- bed_makewindows(x, num_win = 100)
+  expect_equal(max(res$.win_id), 100)
+})
