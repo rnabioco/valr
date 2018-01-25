@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,14 +97,6 @@
   </a>
 </li>
       </ul>
-      <form class="navbar-form" role="search" method="GET" action="../search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-        </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -182,96 +175,96 @@ local file or URLs. The read functions load data into tbls with consistent
 <span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 10 x 3
 #&gt;    chrom  start    end
 #&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-#&gt;  1  chr1  11873  14409
-#&gt;  2  chr1  14361  19759
-#&gt;  3  chr1  14406  29370
-#&gt;  4  chr1  34610  36081
-#&gt;  5  chr1  69090  70008
-#&gt;  6  chr1 134772 140566
-#&gt;  7  chr1 321083 321115
-#&gt;  8  chr1 321145 321207
-#&gt;  9  chr1 322036 326938
-#&gt; 10  chr1 327545 328439</div><div class='input'>
+#&gt;  1 chr1   11873  14409
+#&gt;  2 chr1   14361  19759
+#&gt;  3 chr1   14406  29370
+#&gt;  4 chr1   34610  36081
+#&gt;  5 chr1   69090  70008
+#&gt;  6 chr1  134772 140566
+#&gt;  7 chr1  321083 321115
+#&gt;  8 chr1  321145 321207
+#&gt;  9 chr1  322036 326938
+#&gt; 10 chr1  327545 328439</div><div class='input'>
 <span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'6fields.bed.gz'</span>), <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 6
-#&gt;    chrom  start    end         name score strand
-#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-#&gt;  1  chr1  11873  14409      DDX11L1     3      +
-#&gt;  2  chr1  14361  19759       WASH7P    10      -
-#&gt;  3  chr1  14406  29370       WASH7P     7      -
-#&gt;  4  chr1  34610  36081      FAM138F     3      -
-#&gt;  5  chr1  69090  70008        OR4F5     1      +
-#&gt;  6  chr1 134772 140566    LOC729737     3      -
-#&gt;  7  chr1 321083 321115     DQ597235     1      +
-#&gt;  8  chr1 321145 321207     DQ599768     1      +
-#&gt;  9  chr1 322036 326938 LOC100133331     3      +
-#&gt; 10  chr1 327545 328439    LOC388312     1      +</div><div class='input'>
+#&gt;    chrom  start    end name         score strand
+#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; 
+#&gt;  1 chr1   11873  14409 DDX11L1      3     +     
+#&gt;  2 chr1   14361  19759 WASH7P       10    -     
+#&gt;  3 chr1   14406  29370 WASH7P       7     -     
+#&gt;  4 chr1   34610  36081 FAM138F      3     -     
+#&gt;  5 chr1   69090  70008 OR4F5        1     +     
+#&gt;  6 chr1  134772 140566 LOC729737    3     -     
+#&gt;  7 chr1  321083 321115 DQ597235     1     +     
+#&gt;  8 chr1  321145 321207 DQ599768     1     +     
+#&gt;  9 chr1  322036 326938 LOC100133331 3     +     
+#&gt; 10 chr1  327545 328439 LOC388312    1     +     </div><div class='input'>
 <span class='co'># result is sorted by chrom and start unless `sort = FALSE`</span>
 <span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 3
 #&gt;    chrom  start    end
 #&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-#&gt;  1  chr1  11873  14409
-#&gt;  2  chr1  14361  19759
-#&gt;  3  chr1  14406  29370
-#&gt;  4  chr1  34610  36081
-#&gt;  5  chr1  69090  70008
-#&gt;  6  chr1 134772 140566
-#&gt;  7  chr1 321083 321115
-#&gt;  8  chr1 321145 321207
-#&gt;  9  chr1 322036 326938
-#&gt; 10  chr1 327545 328439</div><div class='input'>
+#&gt;  1 chr1   11873  14409
+#&gt;  2 chr1   14361  19759
+#&gt;  3 chr1   14406  29370
+#&gt;  4 chr1   34610  36081
+#&gt;  5 chr1   69090  70008
+#&gt;  6 chr1  134772 140566
+#&gt;  7 chr1  321083 321115
+#&gt;  8 chr1  321145 321207
+#&gt;  9 chr1  322036 326938
+#&gt; 10 chr1  327545 328439</div><div class='input'>
 
 <span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 100 x 12
-#&gt;    chrom   start     end         name score strand cds_start cds_end item_rgb
-#&gt;    &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;   &lt;int&gt;    &lt;chr&gt;
-#&gt;  1  chr1 3204562 3661579 NM_001011874     0      -   3206102 3661429        0
-#&gt;  2  chr1 4280926 4399322 NM_001195662     0      -   4283061 4399268        0
-#&gt;  3  chr1 4847774 4887990 NM_001159750     0      +   4847994 4886445        0
-#&gt;  4  chr1 4847774 4887990    NM_011541     0      +   4847994 4886445        0
-#&gt;  5  chr1 4848408 4887990 NM_001159751     0      +   4848488 4886445        0
-#&gt;  6  chr1 4899656 5008815 NM_001290372     0      -   4900554 4914046        0
-#&gt;  7  chr1 4899656 5009620    NM_021374     0      -   4900554 5009460        0
-#&gt;  8  chr1 4899656 5060366 NM_001177795     0      -   4900554 5060258        0
-#&gt;  9  chr1 5073166 5152630 NM_001310442     0      +   5074531 5152246        0
-#&gt; 10  chr1 5073166 5152630    NM_133826     0      +   5074531 5152246        0
-#&gt; # ... with 90 more rows, and 3 more variables: exon_count &lt;int&gt;,
-#&gt; #   exon_sizes &lt;chr&gt;, exon_starts &lt;chr&gt;</div><div class='input'>
+#&gt;    chrom  start    end name  score strand cds_start cds_end item_rgb exon_count
+#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt;         &lt;int&gt;
+#&gt;  1 chr1  3.20e⁶ 3.66e⁶ NM_0… 0     -        3206102 3661429 0                 3
+#&gt;  2 chr1  4.28e⁶ 4.40e⁶ NM_0… 0     -        4283061 4399268 0                 4
+#&gt;  3 chr1  4.85e⁶ 4.89e⁶ NM_0… 0     +        4847994 4886445 0                10
+#&gt;  4 chr1  4.85e⁶ 4.89e⁶ NM_0… 0     +        4847994 4886445 0                10
+#&gt;  5 chr1  4.85e⁶ 4.89e⁶ NM_0… 0     +        4848488 4886445 0                10
+#&gt;  6 chr1  4.90e⁶ 5.01e⁶ NM_0… 0     -        4900554 4914046 0                 5
+#&gt;  7 chr1  4.90e⁶ 5.01e⁶ NM_0… 0     -        4900554 5009460 0                 5
+#&gt;  8 chr1  4.90e⁶ 5.06e⁶ NM_0… 0     -        4900554 5060258 0                 6
+#&gt;  9 chr1  5.07e⁶ 5.15e⁶ NM_0… 0     +        5074531 5152246 0                13
+#&gt; 10 chr1  5.07e⁶ 5.15e⁶ NM_1… 0     +        5074531 5152246 0                14
+#&gt; # ... with 90 more rows, and 2 more variables: exon_sizes &lt;chr&gt;,
+#&gt; #   exon_starts &lt;chr&gt;</div><div class='input'>
 
 <span class='fu'>read_bedgraph</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.bg.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 4
-#&gt;   chrom    start      end value
-#&gt;   &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;dbl&gt;
-#&gt; 1 chr19 49302000 49302300 -1.00
-#&gt; 2 chr19 49302300 49302600 -0.75
-#&gt; 3 chr19 49302600 49302900 -0.50
-#&gt; 4 chr19 49302900 49303200 -0.25</div><div class='input'>
+#&gt;   chrom    start      end  value
+#&gt;   &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 chr19 49302000 49302300 -1.00 
+#&gt; 2 chr19 49302300 49302600 -0.750
+#&gt; 3 chr19 49302600 49302900 -0.500
+#&gt; 4 chr19 49302900 49303200 -0.250</div><div class='input'>
 
 <span class='fu'>read_narrowpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.narrowPeak.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 570 x 10
-#&gt;    chrom    start      end  name score strand signal   pvalue qvalue  peak
-#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
-#&gt;  1 chr22 17372940 17373090     .     0      .      4  4.62628     -1    -1
-#&gt;  2 chr22 17392200 17392350     .     0      .      5  4.67347     -1    -1
-#&gt;  3 chr22 17398400 17398550     .     0      .     10 11.62090     -1    -1
-#&gt;  4 chr22 17539180 17539330     .     0      .     21 30.93400     -1    -1
-#&gt;  5 chr22 17652440 17652590     .     0      .      6  5.35123     -1    -1
-#&gt;  6 chr22 17652780 17652930     .     0      .     12 12.52210     -1    -1
-#&gt;  7 chr22 17980800 17980950     .     0      .     12 12.59440     -1    -1
-#&gt;  8 chr22 18038260 18038410     .     0      .     29 36.01930     -1    -1
-#&gt;  9 chr22 18225280 18225430     .     0      .     21 25.00740     -1    -1
-#&gt; 10 chr22 18268020 18268170     .     0      .     14 12.98120     -1    -1
+#&gt;    chrom    start      end name  score strand signal pvalue qvalue  peak
+#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+#&gt;  1 chr22 17372940 17373090 .         0 .        4.00   4.63  -1.00    -1
+#&gt;  2 chr22 17392200 17392350 .         0 .        5.00   4.67  -1.00    -1
+#&gt;  3 chr22 17398400 17398550 .         0 .       10.0   11.6   -1.00    -1
+#&gt;  4 chr22 17539180 17539330 .         0 .       21.0   30.9   -1.00    -1
+#&gt;  5 chr22 17652440 17652590 .         0 .        6.00   5.35  -1.00    -1
+#&gt;  6 chr22 17652780 17652930 .         0 .       12.0   12.5   -1.00    -1
+#&gt;  7 chr22 17980800 17980950 .         0 .       12.0   12.6   -1.00    -1
+#&gt;  8 chr22 18038260 18038410 .         0 .       29.0   36.0   -1.00    -1
+#&gt;  9 chr22 18225280 18225430 .         0 .       21.0   25.0   -1.00    -1
+#&gt; 10 chr22 18268020 18268170 .         0 .       14.0   13.0   -1.00    -1
 #&gt; # ... with 560 more rows</div><div class='input'>
 
 <span class='fu'>read_broadpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.broadPeak.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 1,181 x 9
-#&gt;    chrom    start      end  name score strand    signal pvalue qvalue
-#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 chr22 16847903 16848440     .   503      . 10.530253    2.5     -1
-#&gt;  2 chr22 16849452 16851326     .   483      .  9.806790   15.7     -1
-#&gt;  3 chr22 16849955 16850086     .  1000      . 32.374499    4.2     -1
-#&gt;  4 chr22 16850694 16850924     .   831      . 22.537030    4.9     -1
-#&gt;  5 chr22 16852964 16853782     .   499      . 10.369338    6.2     -1
-#&gt;  6 chr22 16855065 16855803     .   477      .  9.577821    3.9     -1
-#&gt;  7 chr22 16855944 16856974     .   491      . 10.065081    8.5     -1
-#&gt;  8 chr22 16857425 16857958     .   505      . 10.609279    2.5     -1
-#&gt;  9 chr22 16858284 16858824     .   549      . 12.217043    4.5     -1
-#&gt; 10 chr22 16859972 16862024     .   404      .  6.889310    9.3     -1
+#&gt;    chrom    start      end name  score strand signal pvalue qvalue
+#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 chr22 16847903 16848440 .       503 .       10.5    2.50  -1.00
+#&gt;  2 chr22 16849452 16851326 .       483 .        9.81  15.7   -1.00
+#&gt;  3 chr22 16849955 16850086 .      1000 .       32.4    4.20  -1.00
+#&gt;  4 chr22 16850694 16850924 .       831 .       22.5    4.90  -1.00
+#&gt;  5 chr22 16852964 16853782 .       499 .       10.4    6.20  -1.00
+#&gt;  6 chr22 16855065 16855803 .       477 .        9.58   3.90  -1.00
+#&gt;  7 chr22 16855944 16856974 .       491 .       10.1    8.50  -1.00
+#&gt;  8 chr22 16857425 16857958 .       505 .       10.6    2.50  -1.00
+#&gt;  9 chr22 16858284 16858824 .       549 .       12.2    4.50  -1.00
+#&gt; 10 chr22 16859972 16862024 .       404 .        6.89   9.30  -1.00
 #&gt; # ... with 1,171 more rows</div><div class='input'>
 </div></pre>
   </div>
@@ -298,7 +291,7 @@ local file or URLs. The read functions load data into tbls with consistent
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

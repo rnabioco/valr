@@ -1,12 +1,12 @@
 context("bed_flank")
 
 genome <- tibble::tribble(
-  ~chrom, ~size,
+  ~ chrom, ~ size,
   "chr1", 5000
 )
 
 x <- tibble::tribble(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
   "chr1", 500, 1000, ".", ".", "+",
   "chr1", 1000, 1500, ".", ".", "-"
 )
@@ -161,14 +161,14 @@ test_that("intervals are not reported off of chromosomes", {
   expect_true(out$end[1] == 4501)
 })
 
-#from https://github.com/arq5x/bedtools2/blob/master/test/flank/test-flank.sh
+# from https://github.com/arq5x/bedtools2/blob/master/test/flank/test-flank.sh
 tiny.genome <- tibble::tribble(
-  ~chrom, ~size,
+  ~ chrom, ~ size,
   "chr1", 1000
 )
 
 a <- tibble::tribble(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
   "chr1", 100, 200, "a1", "1", "+",
   "chr1", 100, 200, "a2", "2", "-"
 )

@@ -49,11 +49,13 @@ bed_slop <- function(x, genome, both = 0, left = 0,
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
-  if (strand && !"strand" %in% colnames(x))
+  if (strand && !"strand" %in% colnames(x)) {
     stop("expected `strand` in `x`", call. = FALSE)
+  }
 
-  if (both != 0 && (left != 0 || right != 0))
+  if (both != 0 && (left != 0 || right != 0)) {
     stop("ambiguous side spec for bed_slop", call. = FALSE)
+  }
 
   if (fraction) x <- mutate(x, .size = end - start)
 
@@ -76,7 +78,8 @@ bed_slop <- function(x, genome, both = 0, left = 0,
     if (strand) {
       if (fraction) {
         res <- mutate(
-          x, start = ifelse(strand == "+",
+          x,
+          start = ifelse(strand == "+",
             start - round(left * .size),
             start - round(right * .size)
           ),
@@ -87,7 +90,8 @@ bed_slop <- function(x, genome, both = 0, left = 0,
         )
       } else {
         res <- mutate(
-          x, start = ifelse(strand == "+",
+          x,
+          start = ifelse(strand == "+",
             start - left,
             start - right
           ),
@@ -120,16 +124,20 @@ bed_slop <- function(x, genome, both = 0, left = 0,
   res <- bed_sort(res)
 
   res <- mutate(res,
-                temp_start = start,
-                temp_end = end)
+    temp_start = start,
+    temp_end = end
+  )
 
   res <- mutate(res,
-                start = ifelse(temp_start - temp_end < 0,
-                               temp_start, temp_end),
-                end = ifelse(temp_start - temp_end < 0,
-                             temp_end, temp_start))
+    start = ifelse(temp_start - temp_end < 0,
+      temp_start, temp_end
+    ),
+    end = ifelse(temp_start - temp_end < 0,
+      temp_end, temp_start
+    )
+  )
 
-  res <- select(res, -temp_start,-temp_end)
+  res <- select(res, -temp_start, -temp_end)
 
   res
 }

@@ -62,7 +62,8 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   # shift invervals
   if (!stranded && !fraction) {
     res <- mutate(
-      x, start = start + size,
+      x,
+      start = start + size,
       end = end + size
     )
   }
@@ -71,7 +72,8 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   if (!stranded && fraction) {
     res <- mutate(x, .size = end - start)
     res <- mutate(
-      res, start = start + round(.size * fraction),
+      res,
+      start = start + round(.size * fraction),
       end = end + round(.size * fraction)
     )
     res <- select(res, -.size)
@@ -80,7 +82,8 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   # shift by strand
   if (stranded && !fraction) {
     res <- mutate(
-      x, start = ifelse(strand == "+",
+      x,
+      start = ifelse(strand == "+",
         start + size,
         start - size
       ),
@@ -95,7 +98,8 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   if (stranded && fraction) {
     res <- mutate(x, .size = end - start)
     res <- mutate(
-      res, start = ifelse(strand == "+",
+      res,
+      start = ifelse(strand == "+",
         start + round(.size * fraction),
         start - round(.size * fraction)
       ),

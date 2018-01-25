@@ -18,6 +18,7 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -96,14 +97,6 @@
   </a>
 </li>
       </ul>
-      <form class="navbar-form" role="search" method="GET" action="../search.html">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-        </div>
-        <button type="submit" class="btn btn-default">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -199,16 +192,16 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 7
 #&gt;   chrom start.x end.x start.y end.y .overlap .dist
 #&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;
-#&gt; 1  chr1     500   600     550   580       30     0
-#&gt; 2  chr1     500   600     100   200        0  -300
-#&gt; 3  chr1     500   600     150   200        0  -300
-#&gt; 4  chr2    5000  6000    7000  8500        0  1000</div><div class='input'>
+#&gt; 1 chr1      500   600     550   580       30     0
+#&gt; 2 chr1      500   600     100   200        0 - 301
+#&gt; 3 chr1      500   600     150   200        0 - 301
+#&gt; 4 chr2     5000  6000    7000  8500        0  1001</div><div class='input'>
 <span class='fu'>bed_closest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 6
 #&gt;   chrom start.x end.x start.y end.y .dist
 #&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
-#&gt; 1  chr1     500   600     100   200  -300
-#&gt; 2  chr1     500   600     150   200  -300
-#&gt; 3  chr2    5000  6000    7000  8500  1000</div><div class='input'>
+#&gt; 1 chr1      500   600     100   200 - 301
+#&gt; 2 chr1      500   600     150   200 - 301
+#&gt; 3 chr2     5000  6000    7000  8500  1001</div><div class='input'>
 <span class='co'># Report distance based on strand</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
@@ -227,18 +220,18 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='no'>res</span>$<span class='no'>.dist_strand</span> <span class='kw'>&lt;-</span> <span class='fu'>ifelse</span>(<span class='no'>res</span>$<span class='no'>strand.x</span> <span class='kw'>==</span> <span class='st'>"+"</span>, <span class='no'>res</span>$<span class='no'>.dist</span>, -(<span class='no'>res</span>$<span class='no'>.dist</span>))
 <span class='no'>res</span></div><div class='output co'>#&gt; # A tibble: 2 x 14
 #&gt;   chrom start.x end.x name.x score.x strand.x start.y end.y name.y score.y
-#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;   &lt;dbl&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;   &lt;dbl&gt;
-#&gt; 1  chr1      10    20      a       1        -       8     9      b       1
-#&gt; 2  chr1      10    20      a       1        -      21    22      b       1
+#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+#&gt; 1 chr1     10.0  20.0 a         1.00 -           8.00  9.00 b         1.00
+#&gt; 2 chr1     10.0  20.0 a         1.00 -          21.0  22.0  b         1.00
 #&gt; # ... with 4 more variables: strand.y &lt;chr&gt;, .overlap &lt;int&gt;, .dist &lt;int&gt;,
 #&gt; #   .dist_strand &lt;int&gt;</div><div class='input'>
 <span class='co'># report absolute distances</span>
 <span class='no'>res</span>$<span class='no'>.abs_dist</span> <span class='kw'>&lt;-</span> <span class='fu'>abs</span>(<span class='no'>res</span>$<span class='no'>.dist</span>)
 <span class='no'>res</span></div><div class='output co'>#&gt; # A tibble: 2 x 15
 #&gt;   chrom start.x end.x name.x score.x strand.x start.y end.y name.y score.y
-#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;   &lt;dbl&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;chr&gt;   &lt;dbl&gt;
-#&gt; 1  chr1      10    20      a       1        -       8     9      b       1
-#&gt; 2  chr1      10    20      a       1        -      21    22      b       1
+#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+#&gt; 1 chr1     10.0  20.0 a         1.00 -           8.00  9.00 b         1.00
+#&gt; 2 chr1     10.0  20.0 a         1.00 -          21.0  22.0  b         1.00
 #&gt; # ... with 5 more variables: strand.y &lt;chr&gt;, .overlap &lt;int&gt;, .dist &lt;int&gt;,
 #&gt; #   .dist_strand &lt;int&gt;, .abs_dist &lt;int&gt;</div><div class='input'>
 </div></pre>
@@ -266,7 +259,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
