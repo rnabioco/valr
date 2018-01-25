@@ -68,11 +68,13 @@ bound_intervals <- function(x, genome, trim = FALSE) {
     res <- mutate(
       res,
       start = ifelse(start < 0,
-                     0,
-                     pmin(start, size - 1)),
+        0,
+        pmin(start, size - 1)
+      ),
       end = ifelse(end > size,
-                   size,
-                   pmax(1, end))
+        size,
+        pmax(1, end)
+      )
     )
     res <- select(res, -size)
   } else {
@@ -80,9 +82,11 @@ bound_intervals <- function(x, genome, trim = FALSE) {
     res <- select(res, -size)
   }
 
-  if(any(res$start == res$end)){
-    warning(paste0(sum(res$start == res$end),
-                   " intervals generated with same start and end were discarded"))
+  if (any(res$start == res$end)) {
+    warning(paste0(
+      sum(res$start == res$end),
+      " intervals generated with same start and end were discarded"
+    ))
   }
 
   res <- res[res$start != res$end, ]

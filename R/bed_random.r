@@ -36,8 +36,9 @@ bed_random <- function(genome, length = 1000, n = 1e6,
                        sort_by = c("chrom", "start"), seed = 0) {
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
-  if (!all(genome$size > length))
+  if (!all(genome$size > length)) {
     stop("`length` must be greater than all chrom sizes", call. = FALSE)
+  }
 
   out <- random_impl(genome, length, n, seed)
 

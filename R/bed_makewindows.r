@@ -52,21 +52,24 @@ bed_makewindows <- function(x,
   if (!is.null(genome)) {
     if (is.list(genome)) {
       warning("genome argument has been deprecated, ignoring",
-              call. = FALSE)
+        call. = FALSE
+      )
     } else if (is.numeric(genome)) {
-        # if win_size is passed as positional argument it will be genome
-        # reassign to win_size
-        win_size <- genome
+      # if win_size is passed as positional argument it will be genome
+      # reassign to win_size
+      win_size <- genome
     }
   }
 
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
 
-  if (win_size == 0 && num_win == 0)
+  if (win_size == 0 && num_win == 0) {
     stop("specify either `win_size` or `num_win`", call. = FALSE)
+  }
 
-  if (win_size < 0 || num_win < 0)
+  if (win_size < 0 || num_win < 0) {
     stop("`win_size` or `num_win` must be positive values", call. = FALSE)
+  }
 
   # dummy win_ids
   x <- mutate(x, .win_id = 0)

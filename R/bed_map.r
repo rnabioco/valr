@@ -37,7 +37,9 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   ## don't use mutate, in order to ignore input grouping
   ## don't overwrite .id if it exists
   .id_col <- ".id"
-  if (.id_col %in% names(x)) { .id_col <- str_c(.id_col, ".x")}
+  if (.id_col %in% names(x)) {
+    .id_col <- str_c(.id_col, ".x")
+  }
   x[[.id_col]] <- seq_len(nrow(x))
 
   .id_col_out <- str_c(.id_col, ".x")
@@ -46,14 +48,14 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 
-  res <- intersect_impl(x, y, invert = TRUE, suffix_x = ".x", suffix_y= "")
+  res <- intersect_impl(x, y, invert = TRUE, suffix_x = ".x", suffix_y = "")
 
   ## filter for rows that don't intersect. The `duplicated` call is required
   ## because book-ended intervals in the intersect_impl result can
   ## book-end multiple `y` intervals, causing them to be duplicated after the
   ## `select`. base::duplicated is ~10x faster than dplyr::distinct
   res_noint <- filter(res, is.na(.overlap) | .overlap < min_overlap)
-  res_noint <- select(res_noint, chrom, ends_with('.x'))
+  res_noint <- select(res_noint, chrom, ends_with(".x"))
   res_noint <- res_noint[!duplicated(res_noint[[.id_col_out]]), ]
 
   ## identify intersecting intervals
