@@ -75,7 +75,7 @@ tiny.genome <- tibble::tribble(
   "chr1", 1000
 )
 
-h19 <- read.table(file = valr_example("hg19.chrom.sizes.gz"), sep = '\t', header = FALSE)
+h19 <- read.table(file = valr_example("hg19.chrom.sizes.gz"), sep = '\t', header = FALSE, stringsAsFactors=FALSE)
 colnames(h19) <- c("chrom", "size")
 h19 <- tibble::as_tibble(h19)
 
@@ -185,7 +185,7 @@ test_that("test crossover during negative slop resulting in 0 length intervals a
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 300, 320, "a1", 5, "-"
   )
-  res <- bed_slop(b, tiny.genome, left = -10, right = -10, strand = TRUE)
+  expect_warning(res <- bed_slop(b, tiny.genome, left = -10, right = -10, strand = TRUE))
   expect_equal(nrow(res), 0)
 })
 
