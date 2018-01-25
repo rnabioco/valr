@@ -154,3 +154,52 @@ test_that("all intervals are dropped in large dataset", {
   res <- bed_subtract(bg, bg)
   expect_true(nrow(res) == 0)
 })
+
+# from https://github.com/arq5x/bedtools2/blob/master/test/subtract/test-subtract.sh
+a <- tibble::tribble(
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  "chr1", 10, 20, "a1", 1, "+",
+  "chr1", 50, 70, "a2", 2, "-"
+)
+
+b <- tibble::tribble(
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
+  "chr1", 18, 25, "b1", 1, "-",
+  "chr1", 80, 90, "b2", 2, "+"
+)
+
+test_that("test baseline subtraction", {
+  c <- tibble::tribble(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 10, 18, "a1", 1, "+",
+    "chr1", 50, 70, "a2", 2, "-"
+  )
+  res <- bed_subtract(a, b)
+  expect_equal(res, c)
+})
+
+test_that("test any = TRUE subtraction", {
+  c <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 50, 70
+  )
+  res <- bed_subtract(a, b, any = TRUE)
+  expect_equal(res, c)
+})
+
+test_that("test with 2 DBs", {
+  b2 <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 5, 15,
+    "chr1", 55, 65
+  )
+
+  c <- tibble::tribble(
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
+    "chr1", 15, 18, "a1", 1, "+",
+    "chr1", 50, 55, "a2", 2, "-",
+    "chr1", 65, 70, "a2", 2, "-"
+  )
+  res <- bed_subtract(bed_subtract(a, b), b2)
+  expect_equal(res, c)
+})

@@ -159,14 +159,24 @@ test_that("is_merged identifies previously merged tbls", {
   expect_true(is_merged(res))
 })
 
-test_that("bed_merge with spec returns start/end columns (issue #288)", {
+#from https://github.com/arq5x/bedtools2/blob/master/test/merge/test-merge.sh
+test_that("Test that precision default is high enough for formatting not to give scientific notation", {
   x <- trbl_interval(
-    ~chrom, ~start, ~end, ~value,
-    "chr1", 100, 200, 100,
-    "chr1", 150, 250, 200
+    ~chrom, ~start, ~end, ~name, ~score, ~strand, ~val1, ~val2,
+        "chr1", 5333587L, 5344172L,   "line1", 0L,  "-", 5334680L, 5344172L,
+       "chr1",  5481008L,  5484749L,  "line2",  0L,  "-",  5481796L,    5484749L,
+       "chr1",  5481008L,  5484749L,  "line3",  0L,  "-",  5481796L,    5484749L,
+       "chr1",  5481008L,  5484749L,  "line4",  0L,  "-",  5481796L,    5484749L,
+       "chr1",  6763278L,  6766882L,  "line5",  0L,  "-",  7766544L,    6766882L
   )
 
-  res <- bed_merge(x, .value = sum(value))
-  expect_true("start" %in% names(res))
-  expect_true("end" %in% names(res))
+  res <- bed_merge(x, .value = sum(val2))
+  expect_equal(res$.value, c(5344172, 16454247, 6766882))
+})
+
+test_that("Test stranded merge with bedPlus files that have strand", {
+  x <- read_bed(valr_example("bug254_e.bed"), n_fields = 7, skip = 1)
+  x <- x %>% group_by(strand)
+  res <- bed_merge(x, 200) %>% arrange(end)
+  expect_equal(res$end, c(20000, 25000))
 })
