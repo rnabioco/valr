@@ -112,9 +112,20 @@
     </div>
 
     <div class="contents">
-    <div id="valr-0-3-1-9000" class="section level1">
+    <div id="valr-0-4-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#valr-0-3-1-9000" class="anchor"></a>valr 0.3.1.9000</h1>
+<a href="#valr-0-4-0" class="anchor"></a>valr 0.4.0</h1>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li><p>All relevant tests from bedtool2 were ported into valr. Bugs identified in corner cases by new tests were fixed (#328 @raysinesis)</p></li>
+<li><p><code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> now works with grouped inputs (#216)</p></li>
+<li><p>Update dplyr header files to v0.7</p></li>
+<li><p><code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> and internal <code>intersect_impl</code> were refactored to enable return of non-intersecting intervals.</p></li>
+<li><p>The genome argument to <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> was deprecated and will produce a warning if used. Also error handling was added to check and warn if there are intervals smaller than the requested window size in <code>makewindows_impl()</code> (#312 @kriemo)</p></li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
@@ -123,16 +134,6 @@
 <li><p><code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> accepts <code>trbl_intervals</code> named other than <code>x</code> and <code>y</code> (#318).</p></li>
 <li><p><code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> now returns the number of windows specified by <code>num_win</code> when the input intervals are not evenly divisble into <code>num_win</code>, consistent with <code>bedtools</code> behavior.</p></li>
 <li><p>The output of <code>findOverlaps()</code> is now sorted in <code>subtract_impl()</code> to prevent reporting intervals that should have been dropped when calling <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code> (#316 @kriemo)</p></li>
-</ul>
-</div>
-<div id="minor-changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
-<ul>
-<li><p><code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> now works with grouped inputs (#216)</p></li>
-<li><p>Update dplyr header files to v0.7</p></li>
-<li><p><code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> and internal <code>intersect_impl</code> were refactored to enable return of non-intersecting intervals.</p></li>
-<li><p>The genome argument to <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> was deprecated and will produce a warning if used. Also error handling was added to check and warn if there are intervals smaller than the requested window size in <code>makewindows_impl()</code> (#312 @kriemo)</p></li>
 </ul>
 </div>
 </div>
@@ -274,7 +275,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#valr-0-3-1-9000">0.3.1.9000</a></li>
+        <li><a href="#valr-0-4-0">0.4.0</a></li>
         <li><a href="#valr-0-3-1">0.3.1</a></li>
         <li><a href="#valr-0-3-0">0.3.0</a></li>
         <li><a href="#valr-0-2-0">0.2.0</a></li>
