@@ -85,6 +85,13 @@ bed_map(x, y, .absmax = abs(max(value)))
 bed_map(x, y, .count = length(value))
 
 bed_map(x, y, .vals = values(value))
+
+# count defaults are NA not 0; differs from bedtools2 ...
+bed_map(x, y, .counts = n())
+
+# ... but NA counts can be coverted to 0's
+dplyr::mutate(bed_map(x, y, .counts = n()), .counts = ifelse(is.na(.counts), 0, .counts))
+
 }
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}

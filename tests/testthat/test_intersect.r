@@ -23,7 +23,7 @@ test_that("invert param works", {
   expect_equal(nrow(res), 1)
 })
 
-test_that("multple as", {
+test_that("multiple as", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200,
@@ -328,3 +328,21 @@ test_that("unmatched groups are included when invert = TRUE", {
   res <- bed_intersect(x, y, invert = TRUE)
   expect_equal(res, pred)
 })
+
+#from https://github.com/arq5x/bedtools2/blob/master/test/intersect/test-intersect.sh
+test_that("0 length records", {
+  x <- trbl_interval(
+    ~chrom, ~start, ~end,
+    "chr7",	33059403,	33059403
+  )
+
+  y <- trbl_interval(
+    ~chrom, ~start, ~end, ~group, ~type,
+        "chr7", 32599076, 33069221,      "NAq",   "intron",
+       "chr7",  33059336L,  33060883L,  "NT5C3A",  "intron"
+  )
+  res <- bed_intersect(x, y)
+  expect_equal(res$start.x - res$end.x, c(0,0))
+  expect_equal(res$start.y - res$end.y, c(-470145,-1547))
+})
+

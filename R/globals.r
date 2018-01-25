@@ -18,5 +18,6 @@ globalVariables(c(
   ".reference_coverage", ".total_trials", ".exp_prob",
   "p.value", ".win_size", ".row_id",
   "cds_start", "cds_end", "score",
-  "n_int", "sum_overlap", "sum_x", "sum_xy", "sum_y"
+  "n_int", "sum_overlap", "sum_x", "sum_xy", "sum_y",
+  "temp_start", "temp_end"
 ))

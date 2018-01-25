@@ -124,3 +124,28 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
   res <- bed_coverage(x, y)
   expect_true(res[1, ".ints"] == 0)
 })
+
+#from https://github.com/arq5x/bedtools2/blob/master/test/coverage/test-coverage.sh
+test_that("Test the last record in file with no overlaps is reported", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 0, 10,
+    "chr1", 15, 20,
+    "chr1", 21, 25
+  )
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 3, 15
+  )
+  res <- bed_coverage(x, y)
+  expect_equal(res$.cov, c(7, 0, 0))
+})
+
+test_that("Test that simple chr	0	100 works", {
+  z <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 0, 100
+  )
+  res <- bed_coverage(z, z)
+  expect_equal(nrow(res), 1)
+})

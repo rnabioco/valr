@@ -36,7 +36,6 @@ test_that("self absdist is 0", {
   expect_true(sum(res$.absdist) == 0)
 })
 
-
 test_that("x ivls without matching y-ivls chroms are reported with absdist = NA", {
   x <- tibble::frame_data(
     ~chrom, ~start, ~end,
