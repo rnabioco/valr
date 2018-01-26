@@ -28,6 +28,7 @@ library(dplyr)
 library(ggplot2)
 library(tibble)
 library(scales)
+library(GenomicRanges)
 library(microbenchmark)
 
 genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
@@ -94,7 +95,87 @@ ggplot(res, aes(x=reorder(expr, time), y=time)) +
     y='execution time (seconds)',
     x='',
     title="valr benchmarks",
-    subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repititions"))
+    subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repetitions"))
+
+# set up test for valr vs GenomicRanges
+seed_x <- 1010486
+x <- bed_random(genome, n = n, seed = seed_x)
+seed_y <- 9283019
+y <- bed_random(genome, n = n, seed = seed_y)
+seed_z <- 1234567
+z <- bed_random(genome, n = n, seed = seed_z, sort_by = NULL)
+
+# convert valr tibbles into GR objects
+x_gr <- GRanges(
+  seqnames = Rle(x$chrom),
+  ranges = IRanges(x$start, end = x$end))
+y_gr <- GRanges(
+  seqnames = Rle(y$chrom),
+  ranges = IRanges(y$start, end = y$end))
+z_gr <- GRanges(
+  seqnames = Rle(z$chrom),
+  ranges = IRanges(z$start, end = z$end))
+
+res2 <- microbenchmark(
+  # valr
+  bed_flank(x, genome, both = 1000),
+  bed_shift(x, genome),
+  bed_merge(x),
+  bed_complement(x, genome),
+  bed_closest(x, y),
+  bed_intersect(x, y),
+  bed_subtract(x, y),
+  bed_makewindows(x, win_size = 100),
+  bed_sort(z),
+  # GRanges
+  flank(x_gr, 1000),
+  shift(x_gr,0),
+  reduce(x_gr),
+  gaps(x_gr),
+  nearest(x_gr),
+  intersect(x_gr, y_gr),
+  setdiff(x_gr, y_gr),
+  tile(x_gr, width = 100),
+  sort(z_gr),
+  times = nrep,
+  unit = 's')
+
+# label experiment pair and software
+comp <- as.tibble(summary(res2)) %>% 
+  mutate(pair = as.numeric(row_number()) %% (nrow(res2) / nrep / 2)) %>% 
+  mutate(software = rep(c("valr", "GR"), each = (nrow(res2) / nrep / 2))) %>%
+  select(expr, pair, software)
+
+# covert nanoseconds to seconds
+res2 <- res2 %>%
+  as_tibble() %>%
+  left_join(comp) %>%
+  mutate(time = time / 1e9) %>%
+  arrange(time)
+
+# futz with the x-axis
+maxs2 <- res2 %>%
+  group_by(expr) %>%
+  summarize(max.time = max(boxplot.stats(time)$stats))
+
+# filter out outliers
+res2 <- res2 %>%
+  left_join(maxs2) %>%
+  filter(time <= max.time * 1.05)
+
+#label
+ggplot(res2, aes(x=reorder(expr, pair), y=time)) +
+  geom_boxplot(aes(fill = software), outlier.shape = NA, alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  geom_vline(xintercept=seq(1,nrow(res2),2)-.5, color = 'grey', alpha = 0.23) +
+  labs(
+    y='execution time (seconds)',
+    x='',
+    title="valr vs GenomicRanges benchmarks",
+    subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repetitions"))
+
 
 library(devtools)
 devtools::session_info()
