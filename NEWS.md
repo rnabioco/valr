@@ -1,4 +1,6 @@
-# valr 0.3.1.9000
+# valr 0.4.0.9000
+
+# valr 0.4.0
 
 ## Minor changes
 
