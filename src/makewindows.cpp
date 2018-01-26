@@ -44,15 +44,15 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
 
     // create candidate starts
     std::vector<int> starts_by ;
-    if (num_win > 0){
+    if (num_win > 0) {
       int win_idx = 0 ;
       for (int j = start; j < end && win_idx < num_win; j += win_size, ++win_idx) {
         starts_by.push_back(j) ;
-        }
+      }
     } else {
       for (int j = start; j < end && j + win_size - by <= end; j += by) {
         starts_by.push_back(j) ;
-        }
+      }
     }
 
     int nstarts = starts_by.size() ;
