@@ -54,7 +54,20 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
 #'                      c("-", "+"), c(2, 2))
 #'       )
 #'
-#' as.tbl_interval(gr)
+#' x = as.tbl_interval(gr)
+#'
+#' conversion of tbl_interval back to GRanges in 2 ways:
+#' gr <- GenomicRanges::GRanges(
+#'         seqnames = S4Vectors::Rle(x$chrom),
+#'         ranges   = IRanges::IRanges(
+#'                      start = x$start + 1,
+#'                      end = x$end,
+#'                      names = x$name),
+#'         strand   = S4Vectors::Rle(x$strand)
+#'         )
+#' or
+#' gr <- GenomicRanges::makeGRangesFromDataFrame(dplyr::mutate(x, start = start +1))
+#'
 #' }
 #'
 #' @export
