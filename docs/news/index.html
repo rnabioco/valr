@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,10 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="All news" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -112,6 +118,10 @@
     </div>
 
     <div class="contents">
+    <div id="valr-0-4-0-9000" class="section level1">
+<h1 class="hasAnchor">
+<a href="#valr-0-4-0-9000" class="anchor"></a>valr 0.4.0.9000</h1>
+</div>
     <div id="valr-0-4-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#valr-0-4-0" class="anchor"></a>valr 0.4.0</h1>
@@ -119,21 +129,21 @@
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
 <ul>
-<li><p>All relevant tests from bedtool2 were ported into valr. Bugs identified in corner cases by new tests were fixed (#328 @raysinesis)</p></li>
-<li><p><code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> now works with grouped inputs (#216)</p></li>
+<li><p>All relevant tests from bedtool2 were ported into valr. Bugs identified in corner cases by new tests were fixed (<a href='http://github.com/rnabioco/valr/issues/328'>#328</a> <a href='http://github.com/raysinesis'>@raysinesis</a>)</p></li>
+<li><p><code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> now works with grouped inputs (<a href='http://github.com/rnabioco/valr/issues/216'>#216</a>)</p></li>
 <li><p>Update dplyr header files to v0.7</p></li>
 <li><p><code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> and internal <code>intersect_impl</code> were refactored to enable return of non-intersecting intervals.</p></li>
-<li><p>The genome argument to <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> was deprecated and will produce a warning if used. Also error handling was added to check and warn if there are intervals smaller than the requested window size in <code>makewindows_impl()</code> (#312 @kriemo)</p></li>
+<li><p>The genome argument to <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> was deprecated and will produce a warning if used. Also error handling was added to check and warn if there are intervals smaller than the requested window size in <code>makewindows_impl()</code> (<a href='http://github.com/rnabioco/valr/issues/312'>#312</a> <a href='http://github.com/kriemo'>@kriemo</a>)</p></li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li><p>Fixed off by one error in reported distances from <code><a href="../reference/bed_closest.html">bed_closest()</a></code>. Distances reported now are the same as <code>bedtools closest</code> behavior (#311).</p></li>
-<li><p><code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> accepts <code>trbl_intervals</code> named other than <code>x</code> and <code>y</code> (#318).</p></li>
+<li><p>Fixed off by one error in reported distances from <code><a href="../reference/bed_closest.html">bed_closest()</a></code>. Distances reported now are the same as <code>bedtools closest</code> behavior (<a href='http://github.com/rnabioco/valr/issues/311'>#311</a>).</p></li>
+<li><p><code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> accepts <code>trbl_intervals</code> named other than <code>x</code> and <code>y</code> (<a href='http://github.com/rnabioco/valr/issues/318'>#318</a>).</p></li>
 <li><p><code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> now returns the number of windows specified by <code>num_win</code> when the input intervals are not evenly divisble into <code>num_win</code>, consistent with <code>bedtools</code> behavior.</p></li>
-<li><p>The output of <code>findOverlaps()</code> is now sorted in <code>subtract_impl()</code> to prevent reporting intervals that should have been dropped when calling <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code> (#316 @kriemo)</p></li>
+<li><p>The output of <code>findOverlaps()</code> is now sorted in <code>subtract_impl()</code> to prevent reporting intervals that should have been dropped when calling <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code> (<a href='http://github.com/rnabioco/valr/issues/316'>#316</a> <a href='http://github.com/kriemo'>@kriemo</a>)</p></li>
 </ul>
 </div>
 </div>
@@ -163,7 +173,7 @@
 <a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
-<code><a href="../reference/bed_merge.html">bed_merge()</a></code> now reports start/end columns if spec is provided (#288)</li>
+<code><a href="../reference/bed_merge.html">bed_merge()</a></code> now reports start/end columns if spec is provided (<a href='http://github.com/rnabioco/valr/issues/288'>#288</a>)</li>
 </ul>
 </div>
 </div>
@@ -175,7 +185,7 @@
 <a href="#enhancements-1" class="anchor"></a>Enhancements</h2>
 <ul>
 <li><p>New <code><a href="../reference/create_introns.html">create_introns()</a></code>, <code><a href="../reference/create_utrs5.html">create_utrs5()</a></code> and <code><a href="../reference/create_utrs3.html">create_utrs3()</a></code> functions for generating features from BED12 files.</p></li>
-<li><p>Speed-ups in <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> (~50x), <code><a href="../reference/bed_merge.html">bed_merge()</a></code> (~4x), and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> (~4x) (thanks to @kriemo and @sheridar). Thanks to the sponsors of the <a href="https://hackathon.colorado.edu/">Biofrontiers Hackathon</a> for the caffeine underlying these improvements.</p></li>
+<li><p>Speed-ups in <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> (~50x), <code><a href="../reference/bed_merge.html">bed_merge()</a></code> (~4x), and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> (~4x) (thanks to <a href='http://github.com/kriemo'>@kriemo</a> and <a href='http://github.com/sheridar'>@sheridar</a>). Thanks to the sponsors of the <a href="https://hackathon.colorado.edu/">Biofrontiers Hackathon</a> for the caffeine underlying these improvements.</p></li>
 </ul>
 </div>
 <div id="bug-fixes-2" class="section level2">
@@ -194,7 +204,7 @@
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>Package dplyr v0.5.0 headers with valr to remove dplyr LinkingTo dependency.</p></li>
-<li><p><code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> now accepts multiple tbls for intersection (#220 @kriemo).</p></li>
+<li><p><code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> now accepts multiple tbls for intersection (<a href='http://github.com/rnabioco/valr/issues/220'>#220</a> <a href='http://github.com/kriemo'>@kriemo</a>).</p></li>
 <li><p>new <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code> that wrap tibbles and enforce strict column naming. <code><a href="../reference/tbl_interval.html">trbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">trbl_genome()</a></code> are constructors that take <code><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tibble::tribble()</a></code> formatting and <code><a href="../reference/is.tbl_interval.html">is.tbl_interval()</a></code> and <code><a href="../reference/is.tbl_genome.html">is.tbl_genome()</a></code> are used to check for valid classes.</p></li>
 </ul>
 </div>
@@ -209,7 +219,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Merge intervals in <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> and use numeric values for calculation (fixes #204).</li>
+<li>Merge intervals in <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> and use numeric values for calculation (fixes <a href='http://github.com/rnabioco/valr/issues/204'>#204</a>).</li>
 </ul>
 </div>
 </div>
@@ -220,7 +230,7 @@
 <h2 class="hasAnchor">
 <a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
-<li>Deprecate <code><a href="../reference/bed_sort.html">bed_sort()</a></code> in favor of using <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code> explicitly (fixes #134).</li>
+<li>Deprecate <code><a href="../reference/bed_sort.html">bed_sort()</a></code> in favor of using <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code> explicitly (fixes <a href='http://github.com/rnabioco/valr/issues/134'>#134</a>).</li>
 </ul>
 </div>
 <div id="minor-changes-3" class="section level2">
@@ -228,8 +238,8 @@
 <a href="#minor-changes-3" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>add <code>src/init.c</code> that calls <code>R_registerRoutines</code> and <code>R_useDynamicSymbols</code> to address NOTE in r-devel</p></li>
-<li><p>Deprecate <code>dist</code> parameter in <code><a href="../reference/bed_closest.html">bed_closest()</a></code> in favor of using user supplied functions (#182 @kriemo)</p></li>
-<li><p>Make <code>.id</code> values sequential across chroms in <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code> output (#171)</p></li>
+<li><p>Deprecate <code>dist</code> parameter in <code><a href="../reference/bed_closest.html">bed_closest()</a></code> in favor of using user supplied functions (<a href='http://github.com/rnabioco/valr/issues/182'>#182</a> <a href='http://github.com/kriemo'>@kriemo</a>)</p></li>
+<li><p>Make <code>.id</code> values sequential across chroms in <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code> output (<a href='http://github.com/rnabioco/valr/issues/171'>#171</a>)</p></li>
 <li><p>Transfer repository to <a href="http://github.com/rnabioco/valr" class="uri">http://github.com/rnabioco/valr</a>, update links and docs.</p></li>
 <li><p>Move shiny app to new repo (<a href="http://github.com/rnabioco/valrdata" class="uri">http://github.com/rnabioco/valrdata</a>).</p></li>
 <li><p>Add Kent Riemondy to LICENSE file.</p></li>
@@ -240,7 +250,7 @@
 <a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
-<code><a href="../reference/bed_merge.html">bed_merge()</a></code> now merges contained intervals (#177)</li>
+<code><a href="../reference/bed_merge.html">bed_merge()</a></code> now merges contained intervals (<a href='http://github.com/rnabioco/valr/issues/177'>#177</a>)</li>
 </ul>
 </div>
 </div>
@@ -275,6 +285,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#valr-0-4-0-9000">0.4.0.9000</a></li>
         <li><a href="#valr-0-4-0">0.4.0</a></li>
         <li><a href="#valr-0-3-1">0.3.1</a></li>
         <li><a href="#valr-0-3-0">0.3.0</a></li>
