@@ -13,4 +13,4 @@
 # ignore long-running vignettes
 ^vignettes/benchmarks\.Rmd$
 ^vignettes/interval-stats\.Rmd$
-^.netlify$
+^LICENSE\.md$
