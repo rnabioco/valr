@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LICENSE.md • valr</title>
+<title>cran-comments.md • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
 <script src="pkgdown.js"></script>
   
   
-<meta property="og:title" content="LICENSE.md" />
+<meta property="og:title" content="cran-comments.md" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -113,17 +113,56 @@
       <div class="row">
   <div class="contents col-md-12">
     <div class="page-header">
-      <h1>LICENSE.md</h1>
+      <h1>cran-comments.md</h1>
     </div>
 
-<div id="mit-license" class="section level1">
-<h1 class="hasAnchor">
-<a href="#mit-license" class="anchor"></a>MIT License</h1>
-<p>Copyright (c) 2016-2018 Jay R Hesselberth and Kent Riemondy</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<div id="new-minor-version" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-minor-version" class="anchor"></a>New minor version</h2>
+<ul>
+<li>This is a new minor version (see NEWS.md).</li>
+</ul>
 </div>
+<div id="test-environments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#test-environments" class="anchor"></a>Test environments</h2>
+<ul>
+<li>Windows Server 2012 R2 x64 (on appveyor), R 3.4.3</li>
+<li>win-builder (devel and release)</li>
+<li>local OS X install, R 3.4.3</li>
+<li>OS X (on travis-ci), R 3.4.3</li>
+<li>ubuntu 14.04 (on travis-ci), R 3.4.3</li>
+</ul>
+</div>
+<div id="r-cmd-check-results" class="section level2">
+<h2 class="hasAnchor">
+<a href="#r-cmd-check-results" class="anchor"></a>R CMD check results</h2>
+<ul>
+<li>on appveyor</li>
+</ul>
+<p>Status: OK 0 errors | 0 warnings | 0 notes</p>
+<ul>
+<li>on win-builder</li>
+</ul>
+<p>Status: OK 0 errors | 0 warnings | 0 notes</p>
+<ul>
+<li>on OS X</li>
+</ul>
+<p>Status: OK 0 errors | 0 warnings | 0 notes</p>
+<ul>
+<li>on ubuntu</li>
+</ul>
+<p>Status: 1 NOTE</p>
+<p>installed size is 10.7Mb sub-directories of 1Mb or more: libs 9.7Mb</p>
+<p>This package uses Rcpp, which creates a large shared library on linux. This note is not present on OS X or windows (appveyor or win-builder).</p>
+</div>
+<div id="reverse-dependencies" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reverse-dependencies" class="anchor"></a>Reverse dependencies</h2>
+<p>There are no reverse dependencies.</p>
+</div>
+
 
   </div>
 
