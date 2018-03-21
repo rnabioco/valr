@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Create 5' UTR features. — create_utrs5" />
+
+<meta property="og:description" content="Create 5' UTR features." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -63,7 +69,19 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/valr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
@@ -71,21 +89,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/valr.html">Overview</a>
-    </li>
-    <li>
-      <a href="../articles/interval-stats.html">Interval Statistics</a>
-    </li>
-    <li>
       <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
+    <li>
+      <a href="../articles/interval-stats.html">Interval statistics</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -108,6 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create 5' UTR features.</h1>
+    <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/features.r'><code>R/features.r</code></a></small>
     </div>
 
     
@@ -177,3 +190,4 @@
 
   </body>
 </html>
+

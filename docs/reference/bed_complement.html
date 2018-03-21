@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Identify intervals in a genome not covered by a query. — bed_complement" />
+
+<meta property="og:description" content="Identify intervals in a genome not covered by a query." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -63,7 +69,19 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/valr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
@@ -71,21 +89,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/valr.html">Overview</a>
-    </li>
-    <li>
-      <a href="../articles/interval-stats.html">Interval Statistics</a>
-    </li>
-    <li>
       <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
+    <li>
+      <a href="../articles/interval-stats.html">Interval statistics</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -108,6 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Identify intervals in a genome not covered by a query.</h1>
+    <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_complement.r'><code>R/bed_complement.r</code></a></small>
     </div>
 
     
@@ -152,7 +165,7 @@
   <span class='st'>'chr1'</span>, <span class='fl'>200</span>
 )
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_complement</span>(<span class='no'>x</span>, <span class='no'>genome</span>))</div><div class='img'><img src='bed_complement-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_complement</span>(<span class='no'>x</span>, <span class='no'>genome</span>))</div><div class='img'><img src='bed_complement-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_genome.html'>trbl_genome</a></span>(
    ~<span class='no'>chrom</span>,  ~<span class='no'>size</span>,
    <span class='st'>'chr1'</span>,  <span class='fl'>500</span>,
@@ -173,12 +186,12 @@
 <span class='fu'>bed_complement</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 chr1      0   100
-#&gt; 2 chr1    400   500
-#&gt; 3 chr2    100   200
-#&gt; 4 chr2    400   600
-#&gt; 5 chr3      0   500
-#&gt; 6 chr3    600   800</div><div class='input'>
+#&gt; 1 chr1     0.  100.
+#&gt; 2 chr1   400.  500.
+#&gt; 3 chr2   100.  200.
+#&gt; 4 chr2   400.  600.
+#&gt; 5 chr3     0.  500.
+#&gt; 6 chr3   600.  800.</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -210,3 +223,4 @@
 
   </body>
 </html>
+

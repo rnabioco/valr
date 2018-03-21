@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Adjust intervals by a fixed size. — bed_shift" />
+
+<meta property="og:description" content="Out-of-bounds intervals are removed by default." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -63,7 +69,19 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/valr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
@@ -71,21 +89,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/valr.html">Overview</a>
-    </li>
-    <li>
-      <a href="../articles/interval-stats.html">Interval Statistics</a>
-    </li>
-    <li>
       <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
+    <li>
+      <a href="../articles/interval-stats.html">Interval statistics</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -108,6 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Adjust intervals by a fixed size.</h1>
+    <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_shift.r'><code>R/bed_shift.r</code></a></small>
     </div>
 
     
@@ -165,7 +178,7 @@
   <span class='st'>'chr1'</span>, <span class='fl'>125</span>
 )
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_shift</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>size</span> <span class='kw'>=</span> -<span class='fl'>20</span>))</div><div class='img'><img src='bed_shift-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_shift</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>size</span> <span class='kw'>=</span> -<span class='fl'>20</span>))</div><div class='img'><img src='bed_shift-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
    ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>strand</span>,
    <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>150</span>,  <span class='st'>"+"</span>,
@@ -186,33 +199,33 @@
 <span class='fu'>bed_shift</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 4
 #&gt;   chrom start   end strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
-#&gt; 1 chr1    200   250 +     
-#&gt; 2 chr1    300   350 +     
-#&gt; 3 chr2    400   450 +     
-#&gt; 4 chr2    500   550 -     
-#&gt; 5 chr3    600   650 -     
-#&gt; 6 chr3    700   750 -     </div><div class='input'>
+#&gt; 1 chr1   200.  250. +     
+#&gt; 2 chr1   300.  350. +     
+#&gt; 3 chr2   400.  450. +     
+#&gt; 4 chr2   500.  550. -     
+#&gt; 5 chr3   600.  650. -     
+#&gt; 6 chr3   700.  750. -     </div><div class='input'>
 <span class='fu'>bed_shift</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>fraction</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 4
 #&gt;   chrom start   end strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
-#&gt; 1 chr1    125   175 +     
-#&gt; 2 chr1    225   275 +     
-#&gt; 3 chr2    325   375 +     
-#&gt; 4 chr2    425   475 -     
-#&gt; 5 chr3    525   575 -     
-#&gt; 6 chr3    625   675 -     </div><div class='input'>
+#&gt; 1 chr1   125.  175. +     
+#&gt; 2 chr1   225.  275. +     
+#&gt; 3 chr2   325.  375. +     
+#&gt; 4 chr2   425.  475. -     
+#&gt; 5 chr3   525.  575. -     
+#&gt; 6 chr3   625.  675. -     </div><div class='input'>
 <span class='co'># shift with respect to strand</span>
 <span class='no'>stranded</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>x</span>, <span class='no'>strand</span>)
 <span class='fu'>bed_shift</span>(<span class='no'>stranded</span>, <span class='no'>genome</span>, <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 4
 #&gt; # Groups:   strand [2]
 #&gt;   chrom start   end strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
-#&gt; 1 chr1    200   250 +     
-#&gt; 2 chr1    300   350 +     
-#&gt; 3 chr2    400   450 +     
-#&gt; 4 chr2    300   350 -     
-#&gt; 5 chr3    400   450 -     
-#&gt; 6 chr3    500   550 -     </div><div class='input'>
+#&gt; 1 chr1   200.  250. +     
+#&gt; 2 chr1   300.  350. +     
+#&gt; 3 chr2   400.  450. +     
+#&gt; 4 chr2   300.  350. -     
+#&gt; 5 chr3   400.  450. -     
+#&gt; 6 chr3   500.  550. -     </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -244,3 +257,4 @@
 
   </body>
 </html>
+

@@ -18,13 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Calculate the Jaccard statistic for two sets of intervals. — bed_jaccard" />
+
+<meta property="og:description" content="Quantifies the extent of overlap between to sets of intervals in terms of
+base-pairs. Groups that are shared between input are used to calculate the statistic
+for subsets of data." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -63,7 +71,19 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/valr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
@@ -71,21 +91,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/valr.html">Overview</a>
-    </li>
-    <li>
-      <a href="../articles/interval-stats.html">Interval Statistics</a>
-    </li>
-    <li>
       <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
+    <li>
+      <a href="../articles/interval-stats.html">Interval statistics</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -108,6 +122,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate the Jaccard statistic for two sets of intervals.</h1>
+    <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_jaccard.r'><code>R/bed_jaccard.r</code></a></small>
     </div>
 
     
@@ -144,8 +159,8 @@ for subsets of data.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:
-    $$ J(x,y) = \frac{\mid x \bigcap y \mid}
+    <p>The Jaccard statistic takes values of <code>[0,1]</code> and is measured as:</p>
+<p>$$ J(x,y) = \frac{\mid x \bigcap y \mid}
                      {\mid x \bigcup y \mid} =
                 \frac{\mid x \bigcap y \mid}
                      {\mid x \mid + \mid y \mid -
@@ -170,24 +185,24 @@ examples.</p>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
 <span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
-#&gt;       len_i      len_u jaccard      n
-#&gt;       &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1 236059495 1709233073   0.160 399478</div><div class='input'>
+#&gt;        len_i       len_u jaccard       n
+#&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+#&gt; 1 236059495. 1709233073.   0.160 399478.</div><div class='input'>
 <span class='co'># calculate jaccard per chromosome</span>
 <span class='fu'>bed_jaccard</span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>x</span>, <span class='no'>chrom</span>),
             <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>y</span>, <span class='no'>chrom</span>))</div><div class='output co'>#&gt; # A tibble: 25 x 5
-#&gt;    chrom    len_i     len_u jaccard     n
-#&gt;    &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-#&gt;  1 chr1  19013821 137669498   0.160 32087
-#&gt;  2 chr10 10471352  75102550   0.162 17752
-#&gt;  3 chr11 10221596  74407682   0.159 17362
-#&gt;  4 chr12 10132944  73478730   0.160 17078
-#&gt;  5 chr13  8912455  64140662   0.161 15149
-#&gt;  6 chr14  8232867  59341464   0.161 13902
-#&gt;  7 chr15  7765611  56428414   0.160 13143
-#&gt;  8 chr16  6833852  49562929   0.160 11634
-#&gt;  9 chr17  6210996  44901313   0.161 10542
-#&gt; 10 chr18  5979095  43289534   0.160 10113
+#&gt;    chrom     len_i      len_u jaccard      n
+#&gt;    &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 chr1  19013821. 137669498.   0.160 32087.
+#&gt;  2 chr10 10471352.  75102550.   0.162 17752.
+#&gt;  3 chr11 10221596.  74407682.   0.159 17362.
+#&gt;  4 chr12 10132944.  73478730.   0.160 17078.
+#&gt;  5 chr13  8912455.  64140662.   0.161 15149.
+#&gt;  6 chr14  8232867.  59341464.   0.161 13902.
+#&gt;  7 chr15  7765611.  56428414.   0.160 13143.
+#&gt;  8 chr16  6833852.  49562929.   0.160 11634.
+#&gt;  9 chr17  6210996.  44901313.   0.161 10542.
+#&gt; 10 chr18  5979095.  43289534.   0.160 10113.
 #&gt; # ... with 15 more rows</div><div class='input'>
 </div></pre>
   </div>
@@ -222,3 +237,4 @@ examples.</p>
 
   </body>
 </html>
+

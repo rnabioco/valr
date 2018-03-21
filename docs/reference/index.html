@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Function reference" />
 
 <meta property="og:image" content="/logo.png" />
@@ -69,7 +67,19 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/valr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
@@ -77,21 +87,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/valr.html">Overview</a>
-    </li>
-    <li>
-      <a href="../articles/interval-stats.html">Interval Statistics</a>
-    </li>
-    <li>
       <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
+    <li>
+      <a href="../articles/interval-stats.html">Interval statistics</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -137,37 +141,37 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="tbl_genome.html">tbl_genome</a></code> <code><a href="tbl_genome.html">trbl_genome</a></code> </p>
+            <p><code><a href="tbl_genome.html">tbl_genome()</a></code> <code><a href="tbl_genome.html">trbl_genome()</a></code> </p>
           </td>
           <td><p>Tibble for reference sizes.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="tbl_interval.html">tbl_interval</a></code> <code><a href="tbl_interval.html">trbl_interval</a></code> </p>
+            <p><code><a href="tbl_interval.html">tbl_interval()</a></code> <code><a href="tbl_interval.html">trbl_interval()</a></code> </p>
           </td>
           <td><p>Tibble for intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="is.tbl_genome.html">is.tbl_genome</a></code> </p>
+            <p><code><a href="is.tbl_genome.html">is.tbl_genome()</a></code> </p>
           </td>
           <td><p>Test if the object is a tbl_genome.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="is.tbl_interval.html">is.tbl_interval</a></code> </p>
+            <p><code><a href="is.tbl_interval.html">is.tbl_interval()</a></code> </p>
           </td>
           <td><p>Test if the object is a tbl_interval.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="as.tbl_genome.html">as.tbl_genome</a></code> </p>
+            <p><code><a href="as.tbl_genome.html">as.tbl_genome()</a></code> </p>
           </td>
           <td><p>Coerce objects to tbl_genome.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="as.tbl_interval.html">as.tbl_interval</a></code> </p>
+            <p><code><a href="as.tbl_interval.html">as.tbl_interval()</a></code> </p>
           </td>
           <td><p>Coerce objects to tbl_intervals.</p></td>
         </tr>
@@ -181,25 +185,25 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="read_bed.html">read_bed</a></code> <code><a href="read_bed.html">read_bed12</a></code> <code><a href="read_bed.html">read_bedgraph</a></code> <code><a href="read_bed.html">read_narrowpeak</a></code> <code><a href="read_bed.html">read_broadpeak</a></code> </p>
+            <p><code><a href="read_bed.html">read_bed()</a></code> <code><a href="read_bed.html">read_bed12()</a></code> <code><a href="read_bed.html">read_bedgraph()</a></code> <code><a href="read_bed.html">read_narrowpeak()</a></code> <code><a href="read_bed.html">read_broadpeak()</a></code> </p>
           </td>
           <td><p>Read BED and related files.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="read_genome.html">read_genome</a></code> </p>
+            <p><code><a href="read_genome.html">read_genome()</a></code> </p>
           </td>
           <td><p>Read genome files.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="read_vcf.html">read_vcf</a></code> </p>
+            <p><code><a href="read_vcf.html">read_vcf()</a></code> </p>
           </td>
           <td><p>Read a VCF file.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="db.html">db_ucsc</a></code> <code><a href="db.html">db_ensembl</a></code> </p>
+            <p><code><a href="db.html">db_ucsc()</a></code> <code><a href="db.html">db_ensembl()</a></code> </p>
           </td>
           <td><p>Fetch data from remote databases.</p></td>
         </tr>
@@ -213,43 +217,43 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_cluster.html">bed_cluster</a></code> </p>
+            <p><code><a href="bed_cluster.html">bed_cluster()</a></code> </p>
           </td>
           <td><p>Cluster neighboring intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_complement.html">bed_complement</a></code> </p>
+            <p><code><a href="bed_complement.html">bed_complement()</a></code> </p>
           </td>
           <td><p>Identify intervals in a genome not covered by a query.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_flank.html">bed_flank</a></code> </p>
+            <p><code><a href="bed_flank.html">bed_flank()</a></code> </p>
           </td>
           <td><p>Create flanking intervals from input intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_merge.html">bed_merge</a></code> </p>
+            <p><code><a href="bed_merge.html">bed_merge()</a></code> </p>
           </td>
           <td><p>Merge overlapping intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_slop.html">bed_slop</a></code> </p>
+            <p><code><a href="bed_slop.html">bed_slop()</a></code> </p>
           </td>
           <td><p>Increase the size of input intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_shift.html">bed_shift</a></code> </p>
+            <p><code><a href="bed_shift.html">bed_shift()</a></code> </p>
           </td>
           <td><p>Adjust intervals by a fixed size.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_sort.html">bed_sort</a></code> </p>
+            <p><code><a href="bed_sort.html">bed_sort()</a></code> </p>
           </td>
           <td><p>Sort a set of intervals.</p></td>
         </tr>
@@ -263,37 +267,37 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_closest.html">bed_closest</a></code> </p>
+            <p><code><a href="bed_closest.html">bed_closest()</a></code> </p>
           </td>
           <td><p>Identify closest intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_coverage.html">bed_coverage</a></code> </p>
+            <p><code><a href="bed_coverage.html">bed_coverage()</a></code> </p>
           </td>
           <td><p>Compute coverage of intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_intersect.html">bed_intersect</a></code> </p>
+            <p><code><a href="bed_intersect.html">bed_intersect()</a></code> </p>
           </td>
           <td><p>Identify intersecting intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_map.html">bed_map</a></code> <code><a href="bed_map.html">concat</a></code> <code><a href="bed_map.html">values_unique</a></code> <code><a href="bed_map.html">values</a></code> </p>
+            <p><code><a href="bed_map.html">bed_map()</a></code> <code><a href="bed_map.html">concat()</a></code> <code><a href="bed_map.html">values_unique()</a></code> <code><a href="bed_map.html">values()</a></code> </p>
           </td>
           <td><p>Calculate summaries from overlapping intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_subtract.html">bed_subtract</a></code> </p>
+            <p><code><a href="bed_subtract.html">bed_subtract()</a></code> </p>
           </td>
           <td><p>Subtract two sets of intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_window.html">bed_window</a></code> </p>
+            <p><code><a href="bed_window.html">bed_window()</a></code> </p>
           </td>
           <td><p>Identify intervals within a specified distance.</p></td>
         </tr>
@@ -307,13 +311,13 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_random.html">bed_random</a></code> </p>
+            <p><code><a href="bed_random.html">bed_random()</a></code> </p>
           </td>
           <td><p>Generate randomly placed intervals on a genome.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_shuffle.html">bed_shuffle</a></code> </p>
+            <p><code><a href="bed_shuffle.html">bed_shuffle()</a></code> </p>
           </td>
           <td><p>Shuffle input intervals.</p></td>
         </tr>
@@ -327,31 +331,31 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_absdist.html">bed_absdist</a></code> </p>
+            <p><code><a href="bed_absdist.html">bed_absdist()</a></code> </p>
           </td>
           <td><p>Compute absolute distances between intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_reldist.html">bed_reldist</a></code> </p>
+            <p><code><a href="bed_reldist.html">bed_reldist()</a></code> </p>
           </td>
           <td><p>Compute relative distances between intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_fisher.html">bed_fisher</a></code> </p>
+            <p><code><a href="bed_fisher.html">bed_fisher()</a></code> </p>
           </td>
           <td><p>Fisher's test to measure overlap between two sets of intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_jaccard.html">bed_jaccard</a></code> </p>
+            <p><code><a href="bed_jaccard.html">bed_jaccard()</a></code> </p>
           </td>
           <td><p>Calculate the Jaccard statistic for two sets of intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_projection.html">bed_projection</a></code> </p>
+            <p><code><a href="bed_projection.html">bed_projection()</a></code> </p>
           </td>
           <td><p>Projection test for query interval overlap.</p></td>
         </tr>
@@ -365,67 +369,67 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="create_introns.html">create_introns</a></code> </p>
+            <p><code><a href="create_introns.html">create_introns()</a></code> </p>
           </td>
           <td><p>Create intron features.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="create_tss.html">create_tss</a></code> </p>
+            <p><code><a href="create_tss.html">create_tss()</a></code> </p>
           </td>
           <td><p>Create transcription start site features.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="create_utrs3.html">create_utrs3</a></code> </p>
+            <p><code><a href="create_utrs3.html">create_utrs3()</a></code> </p>
           </td>
           <td><p>Create 3' UTR features.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="create_utrs5.html">create_utrs5</a></code> </p>
+            <p><code><a href="create_utrs5.html">create_utrs5()</a></code> </p>
           </td>
           <td><p>Create 5' UTR features.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_makewindows.html">bed_makewindows</a></code> </p>
+            <p><code><a href="bed_makewindows.html">bed_makewindows()</a></code> </p>
           </td>
           <td><p>Divide intervals into new sub-intervals ("windows").</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed12_to_exons.html">bed12_to_exons</a></code> </p>
+            <p><code><a href="bed12_to_exons.html">bed12_to_exons()</a></code> </p>
           </td>
           <td><p>Convert BED12 to individual exons in BED6.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bed_glyph.html">bed_glyph</a></code> </p>
+            <p><code><a href="bed_glyph.html">bed_glyph()</a></code> </p>
           </td>
           <td><p>Create example glyphs for valr functions.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="bound_intervals.html">bound_intervals</a></code> </p>
+            <p><code><a href="bound_intervals.html">bound_intervals()</a></code> </p>
           </td>
           <td><p>Select intervals bounded by a genome.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="flip_strands.html">flip_strands</a></code> </p>
+            <p><code><a href="flip_strands.html">flip_strands()</a></code> </p>
           </td>
           <td><p>Flip strands in intervals.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="interval_spacing.html">interval_spacing</a></code> </p>
+            <p><code><a href="interval_spacing.html">interval_spacing()</a></code> </p>
           </td>
           <td><p>Calculate interval spacing.</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="valr_example.html">valr_example</a></code> </p>
+            <p><code><a href="valr_example.html">valr_example()</a></code> </p>
           </td>
           <td><p>Provide working directory for valr example files.</p></td>
         </tr>
@@ -462,3 +466,4 @@
 
   </body>
 </html>
+

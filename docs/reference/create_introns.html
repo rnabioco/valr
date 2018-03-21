@@ -18,13 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Create intron features. — create_introns" />
+
+<meta property="og:description" content="Numbers in the score column are intron numbers from 5' to 3' independent of
+strand. I.e., the first introns for + and - strand genes both have score
+values of 1." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -63,7 +71,19 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/valr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
@@ -71,21 +91,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/valr.html">Overview</a>
-    </li>
-    <li>
-      <a href="../articles/interval-stats.html">Interval Statistics</a>
-    </li>
-    <li>
       <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
+    <li>
+      <a href="../articles/interval-stats.html">Interval statistics</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -108,6 +122,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create intron features.</h1>
+    <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/features.r'><code>R/features.r</code></a></small>
     </div>
 
     
@@ -139,16 +154,16 @@ values of <code>1</code>.</p>
 <span class='fu'>create_introns</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 1,583 x 6
 #&gt;    chrom   start     end name         score strand
 #&gt;    &lt;chr&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt; 
-#&gt;  1 chr1  3207049 3411782 NM_001011874  2.00 -     
-#&gt;  2 chr1  3411982 3660632 NM_001011874  1.00 -     
-#&gt;  3 chr1  4283093 4341990 NM_001195662  3.00 -     
-#&gt;  4 chr1  4342162 4342282 NM_001195662  2.00 -     
-#&gt;  5 chr1  4342918 4399250 NM_001195662  1.00 -     
-#&gt;  6 chr1  4848057 4857550 NM_001159750  1.00 +     
-#&gt;  7 chr1  4848057 4857550 NM_011541     1.00 +     
-#&gt;  8 chr1  4848584 4857550 NM_001159751  1.00 +     
-#&gt;  9 chr1  4857613 4868107 NM_001159750  1.00 +     
-#&gt; 10 chr1  4857613 4868107 NM_011541     1.00 +     
+#&gt;  1 chr1  3207049 3411782 NM_001011874    2. -     
+#&gt;  2 chr1  3411982 3660632 NM_001011874    1. -     
+#&gt;  3 chr1  4283093 4341990 NM_001195662    3. -     
+#&gt;  4 chr1  4342162 4342282 NM_001195662    2. -     
+#&gt;  5 chr1  4342918 4399250 NM_001195662    1. -     
+#&gt;  6 chr1  4848057 4857550 NM_001159750    1. +     
+#&gt;  7 chr1  4848057 4857550 NM_011541       1. +     
+#&gt;  8 chr1  4848584 4857550 NM_001159751    1. +     
+#&gt;  9 chr1  4857613 4868107 NM_001159750    1. +     
+#&gt; 10 chr1  4857613 4868107 NM_011541       1. +     
 #&gt; # ... with 1,573 more rows</div><div class='input'>
 </div></pre>
   </div>
@@ -179,3 +194,4 @@ values of <code>1</code>.</p>
 
   </body>
 </html>
+

@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Increase the size of input intervals. — bed_slop" />
+
+<meta property="og:description" content="Increase the size of input intervals." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -63,7 +69,19 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
+        <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/valr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
@@ -71,21 +89,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/valr.html">Overview</a>
-    </li>
-    <li>
-      <a href="../articles/interval-stats.html">Interval Statistics</a>
-    </li>
-    <li>
       <a href="../articles/benchmarks.html">Benchmarks</a>
+    </li>
+    <li>
+      <a href="../articles/interval-stats.html">Interval statistics</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -108,6 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Increase the size of input intervals.</h1>
+    <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_slop.r'><code>R/bed_slop.r</code></a></small>
     </div>
 
     
@@ -182,7 +195,7 @@
   <span class='st'>'chr1'</span>, <span class='fl'>400</span>
 )
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='img'><img src='bed_slop-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='img'><img src='bed_slop-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_genome.html'>trbl_genome</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>5000</span>
@@ -197,23 +210,23 @@
 <span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
 #&gt;   chrom start   end name  score strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
-#&gt; 1 chr1    400  1000 .     .     +     
-#&gt; 2 chr1    900  1500 .     .     -     </div><div class='input'>
+#&gt; 1 chr1   400. 1000. .     .     +     
+#&gt; 2 chr1   900. 1500. .     .     -     </div><div class='input'>
 <span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
 #&gt;   chrom start   end name  score strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
-#&gt; 1 chr1    500  1100 .     .     +     
-#&gt; 2 chr1   1000  1600 .     .     -     </div><div class='input'>
+#&gt; 1 chr1   500. 1100. .     .     +     
+#&gt; 2 chr1  1000. 1600. .     .     -     </div><div class='input'>
 <span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
 #&gt;   chrom start   end name  score strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
-#&gt; 1 chr1    400  1100 .     .     +     
-#&gt; 2 chr1    900  1600 .     .     -     </div><div class='input'>
+#&gt; 1 chr1   400. 1100. .     .     +     
+#&gt; 2 chr1   900. 1600. .     .     -     </div><div class='input'>
 <span class='fu'>bed_slop</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>both</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>fraction</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 6
 #&gt;   chrom start   end name  score strand
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
-#&gt; 1 chr1    250  1250 .     .     +     
-#&gt; 2 chr1    750  1750 .     .     -     </div><div class='input'>
+#&gt; 1 chr1   250. 1250. .     .     +     
+#&gt; 2 chr1   750. 1750. .     .     -     </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -245,3 +258,4 @@
 
   </body>
 </html>
+
