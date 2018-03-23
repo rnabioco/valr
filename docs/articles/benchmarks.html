@@ -25,7 +25,7 @@
   ga('create', 'UA-54095998-3', 'auto');
   ga('send', 'pageview');
 
-</script>
+</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 </head>
 <body>
     <div class="container template-vignette">
@@ -37,8 +37,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">valr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">valr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -48,7 +52,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/valr.html">Get Started</a>
+  <a href="../articles/valr.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -80,7 +84,12 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -93,7 +102,7 @@
     <div class="page-header toc-ignore">
       <h1>Benchmarks</h1>
             
-            <h4 class="date">March 21 2018</h4>
+            <h4 class="date">March 23 2018</h4>
       
       <small>Source: <a href="http://github.com/rnabioco/valr/blob/master/vignettes/benchmarks.Rmd"><code>vignettes/benchmarks.Rmd</code></a></small>
 
@@ -109,8 +118,8 @@
 #&gt;  ui       unknown                     
 #&gt;  language (EN)                        
 #&gt;  collate  en_US.UTF-8                 
-#&gt;  tz       America/Toronto             
-#&gt;  date     2018-03-21                  
+#&gt;  tz       America/Denver              
+#&gt;  date     2018-03-23                  
 #&gt; 
 #&gt;  package        * version    date      
 #&gt;  assertthat       0.2.0      2017-04-11
@@ -154,7 +163,7 @@
 #&gt;  parallel         3.4.3      2018-01-13
 #&gt;  pillar           1.2.1      2018-02-27
 #&gt;  pkgconfig        2.0.1      2017-03-21
-#&gt;  pkgdown          0.1.0.9000 2018-03-21
+#&gt;  pkgdown          0.1.0.9000 2018-03-23
 #&gt;  plyr             1.8.4      2016-06-08
 #&gt;  psych            1.7.8      2017-09-09
 #&gt;  purrr            0.2.4      2017-10-18
@@ -221,7 +230,7 @@
 #&gt;  local                              
 #&gt;  CRAN (R 3.4.3)                     
 #&gt;  CRAN (R 3.4.0)                     
-#&gt;  Github (r-lib/pkgdown@33ed986)     
+#&gt;  local                              
 #&gt;  CRAN (R 3.4.0)                     
 #&gt;  CRAN (R 3.4.1)                     
 #&gt;  cran (@0.2.4)                      
@@ -266,5 +275,15 @@
       </footer>
 </div>
 
-  </body>
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    appId: 'TK8WB6UEB2',
+    apiKey: 'c871e0fb692cad1373a189fc7fe65300',
+    indexName: 'valr-pkgdown',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+</body>
 </html>

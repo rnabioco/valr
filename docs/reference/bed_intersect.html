@@ -32,6 +32,8 @@ have .overlap values of 0 in the output." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,6 +55,9 @@ have .overlap values of 0 in the output." />
 
 </script>
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
   </head>
 
   <body>
@@ -66,8 +71,12 @@ have .overlap values of 0 in the output." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">valr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">valr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -77,7 +86,7 @@ have .overlap values of 0 in the output." />
   </a>
 </li>
 <li>
-  <a href="../articles/valr.html">Get Started</a>
+  <a href="../articles/valr.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -110,6 +119,11 @@ have .overlap values of 0 in the output." />
   </a>
 </li>
       </ul>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -131,7 +145,7 @@ have <code>.overlap</code> values of <code>0</code> in the output.</p>
 
     <pre class="usage"><span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>))</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -315,6 +329,19 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 
       </footer>
    </div>
+
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    appId: 'TK8WB6UEB2',
+    apiKey: 'c871e0fb692cad1373a189fc7fe65300',
+    indexName: 'valr-pkgdown',
+    inputSelector: 'input#search-input.form-control',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
+</script>
+
 
   </body>
 </html>
