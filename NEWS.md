@@ -1,5 +1,7 @@
 # valr 0.4.0.9000
 
+* Several explicit comparisons to the Bioconductor GenomicRanges library are included for users considering using valr. See examples in `as.tbl_interval()` and timings in `vignette('benchmarks')`.
+
 # valr 0.4.0
 
 ## Minor changes
