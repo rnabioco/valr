@@ -40,6 +40,21 @@ gr <- GenomicRanges::GRanges(
       )
 
 as.tbl_interval(gr)
+
+# There are two ways to convert a tbl_interval to GRanges:
+
+gr <- GenomicRanges::GRanges(
+        seqnames = S4Vectors::Rle(x$chrom),
+        ranges   = IRanges::IRanges(
+                     start = x$start + 1,
+                     end = x$end,
+                     names = x$name),
+        strand   = S4Vectors::Rle(x$strand)
+        )
+# or:
+
+gr <- GenomicRanges::makeGRangesFromDataFrame(dplyr::mutate(x, start = start +1))
+
 }
 
 }
