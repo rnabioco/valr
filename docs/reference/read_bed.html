@@ -247,19 +247,20 @@ local file or URLs. The read functions load data into tbls with consistent
 #&gt; 10 chr1  327545 328439</div><div class='input'>
 
 <span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 100 x 12
-#&gt;    chrom   start    end name   score strand cds_start cds_end item_rgb exon_count exon_sizes         
-#&gt;    &lt;chr&gt;   &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;              
-#&gt;  1 chr1  3204562 3.66e6 NM_00… 0     -        3206102 3661429 0                 3 2487,200,947,      
-#&gt;  2 chr1  4280926 4.40e6 NM_00… 0     -        4283061 4399268 0                 4 2167,172,636,72,   
-#&gt;  3 chr1  4847774 4.89e6 NM_00… 0     +        4847994 4886445 0                10 283,63,106,88,143,…
-#&gt;  4 chr1  4847774 4.89e6 NM_01… 0     +        4847994 4886445 0                10 283,63,106,88,146,…
-#&gt;  5 chr1  4848408 4.89e6 NM_00… 0     +        4848488 4886445 0                10 176,63,106,88,146,…
-#&gt;  6 chr1  4899656 5.01e6 NM_00… 0     -        4900554 4914046 0                 5 1087,235,84,143,15…
-#&gt;  7 chr1  4899656 5.01e6 NM_02… 0     -        4900554 5009460 0                 5 1087,235,84,143,22…
-#&gt;  8 chr1  4899656 5.06e6 NM_00… 0     -        4900554 5060258 0                 6 1087,235,84,143,30…
-#&gt;  9 chr1  5073166 5.15e6 NM_00… 0     +        5074531 5152246 0                13 193,147,103,90,114…
-#&gt; 10 chr1  5073166 5.15e6 NM_13… 0     +        5074531 5152246 0                14 193,147,103,90,114…
-#&gt; # ... with 90 more rows, and 1 more variable: exon_starts &lt;chr&gt;</div><div class='input'>
+#&gt;    chrom  start    end name  score strand cds_start cds_end item_rgb exon_count
+#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt;         &lt;int&gt;
+#&gt;  1 chr1  3.20e⁶ 3.66e⁶ NM_0… 0     -        3206102 3661429 0                 3
+#&gt;  2 chr1  4.28e⁶ 4.40e⁶ NM_0… 0     -        4283061 4399268 0                 4
+#&gt;  3 chr1  4.85e⁶ 4.89e⁶ NM_0… 0     +        4847994 4886445 0                10
+#&gt;  4 chr1  4.85e⁶ 4.89e⁶ NM_0… 0     +        4847994 4886445 0                10
+#&gt;  5 chr1  4.85e⁶ 4.89e⁶ NM_0… 0     +        4848488 4886445 0                10
+#&gt;  6 chr1  4.90e⁶ 5.01e⁶ NM_0… 0     -        4900554 4914046 0                 5
+#&gt;  7 chr1  4.90e⁶ 5.01e⁶ NM_0… 0     -        4900554 5009460 0                 5
+#&gt;  8 chr1  4.90e⁶ 5.06e⁶ NM_0… 0     -        4900554 5060258 0                 6
+#&gt;  9 chr1  5.07e⁶ 5.15e⁶ NM_0… 0     +        5074531 5152246 0                13
+#&gt; 10 chr1  5.07e⁶ 5.15e⁶ NM_1… 0     +        5074531 5152246 0                14
+#&gt; # ... with 90 more rows, and 2 more variables: exon_sizes &lt;chr&gt;,
+#&gt; #   exon_starts &lt;chr&gt;</div><div class='input'>
 
 <span class='fu'>read_bedgraph</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.bg.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 4
 #&gt;   chrom    start      end  value
@@ -272,31 +273,31 @@ local file or URLs. The read functions load data into tbls with consistent
 <span class='fu'>read_narrowpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.narrowPeak.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 570 x 10
 #&gt;    chrom    start      end name  score strand signal pvalue qvalue  peak
 #&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
-#&gt;  1 chr22 17372940 17373090 .         0 .          4.   4.63    -1.    -1
-#&gt;  2 chr22 17392200 17392350 .         0 .          5.   4.67    -1.    -1
-#&gt;  3 chr22 17398400 17398550 .         0 .         10.  11.6     -1.    -1
-#&gt;  4 chr22 17539180 17539330 .         0 .         21.  30.9     -1.    -1
-#&gt;  5 chr22 17652440 17652590 .         0 .          6.   5.35    -1.    -1
-#&gt;  6 chr22 17652780 17652930 .         0 .         12.  12.5     -1.    -1
-#&gt;  7 chr22 17980800 17980950 .         0 .         12.  12.6     -1.    -1
-#&gt;  8 chr22 18038260 18038410 .         0 .         29.  36.0     -1.    -1
-#&gt;  9 chr22 18225280 18225430 .         0 .         21.  25.0     -1.    -1
-#&gt; 10 chr22 18268020 18268170 .         0 .         14.  13.0     -1.    -1
+#&gt;  1 chr22 17372940 17373090 .         0 .        4.00   4.63  -1.00    -1
+#&gt;  2 chr22 17392200 17392350 .         0 .        5.00   4.67  -1.00    -1
+#&gt;  3 chr22 17398400 17398550 .         0 .       10.0   11.6   -1.00    -1
+#&gt;  4 chr22 17539180 17539330 .         0 .       21.0   30.9   -1.00    -1
+#&gt;  5 chr22 17652440 17652590 .         0 .        6.00   5.35  -1.00    -1
+#&gt;  6 chr22 17652780 17652930 .         0 .       12.0   12.5   -1.00    -1
+#&gt;  7 chr22 17980800 17980950 .         0 .       12.0   12.6   -1.00    -1
+#&gt;  8 chr22 18038260 18038410 .         0 .       29.0   36.0   -1.00    -1
+#&gt;  9 chr22 18225280 18225430 .         0 .       21.0   25.0   -1.00    -1
+#&gt; 10 chr22 18268020 18268170 .         0 .       14.0   13.0   -1.00    -1
 #&gt; # ... with 560 more rows</div><div class='input'>
 
 <span class='fu'>read_broadpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.broadPeak.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 1,181 x 9
 #&gt;    chrom    start      end name  score strand signal pvalue qvalue
 #&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 chr22 16847903 16848440 .       503 .       10.5    2.50    -1.
-#&gt;  2 chr22 16849452 16851326 .       483 .        9.81  15.7     -1.
-#&gt;  3 chr22 16849955 16850086 .      1000 .       32.4    4.20    -1.
-#&gt;  4 chr22 16850694 16850924 .       831 .       22.5    4.90    -1.
-#&gt;  5 chr22 16852964 16853782 .       499 .       10.4    6.20    -1.
-#&gt;  6 chr22 16855065 16855803 .       477 .        9.58   3.90    -1.
-#&gt;  7 chr22 16855944 16856974 .       491 .       10.1    8.50    -1.
-#&gt;  8 chr22 16857425 16857958 .       505 .       10.6    2.50    -1.
-#&gt;  9 chr22 16858284 16858824 .       549 .       12.2    4.50    -1.
-#&gt; 10 chr22 16859972 16862024 .       404 .        6.89   9.30    -1.
+#&gt;  1 chr22 16847903 16848440 .       503 .       10.5    2.50  -1.00
+#&gt;  2 chr22 16849452 16851326 .       483 .        9.81  15.7   -1.00
+#&gt;  3 chr22 16849955 16850086 .      1000 .       32.4    4.20  -1.00
+#&gt;  4 chr22 16850694 16850924 .       831 .       22.5    4.90  -1.00
+#&gt;  5 chr22 16852964 16853782 .       499 .       10.4    6.20  -1.00
+#&gt;  6 chr22 16855065 16855803 .       477 .        9.58   3.90  -1.00
+#&gt;  7 chr22 16855944 16856974 .       491 .       10.1    8.50  -1.00
+#&gt;  8 chr22 16857425 16857958 .       505 .       10.6    2.50  -1.00
+#&gt;  9 chr22 16858284 16858824 .       549 .       12.2    4.50  -1.00
+#&gt; 10 chr22 16859972 16862024 .       404 .        6.89   9.30  -1.00
 #&gt; # ... with 1,171 more rows</div><div class='input'>
 </div></pre>
   </div>
