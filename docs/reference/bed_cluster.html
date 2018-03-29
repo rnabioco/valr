@@ -136,7 +136,7 @@ clustered." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Cluster neighboring intervals.</h1>
@@ -196,14 +196,14 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 )
 
 <span class='fu'>bed_cluster</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 4
-#&gt;   chrom  start   end   .id
-#&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
-#&gt; 1 chr1  100      200     1
-#&gt; 2 chr1  180      250     1
-#&gt; 3 chr1  250      500     1
-#&gt; 4 chr1  501     1000     2
-#&gt; 5 chr2    1.00   100     3
-#&gt; 6 chr2  150      200     4</div><div class='input'>
+#&gt;   chrom start   end   .id
+#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+#&gt; 1 chr1   100.  200.     1
+#&gt; 2 chr1   180.  250.     1
+#&gt; 3 chr1   250.  500.     1
+#&gt; 4 chr1   501. 1000.     2
+#&gt; 5 chr2     1.  100.     3
+#&gt; 6 chr2   150.  200.     4</div><div class='input'>
 <span class='co'># glyph illustrating clustering of overlapping and book-ended intervals</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
