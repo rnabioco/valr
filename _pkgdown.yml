@@ -1,3 +1,5 @@
+url: http://valr.hesselberthlab.org
+
 template:
   params:
     bootswatch: cosmo

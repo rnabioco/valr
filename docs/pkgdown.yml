@@ -5,4 +5,7 @@ articles:
   benchmarks: benchmarks.html
   interval-stats: interval-stats.html
   valr: valr.html
+urls:
+  reference: http://valr.hesselberthlab.org/reference
+  article: http://valr.hesselberthlab.org/articles
 

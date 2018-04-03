@@ -30,7 +30,7 @@
 <meta property="og:description" content="Calculate Fisher's test on number of intervals that are shared and unique
 between two sets of x and y intervals." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://valr.hesselberthlab.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -179,10 +179,10 @@ examples.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html'>http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html</a></p>
+    <div class='dont-index'><p><a href='http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html'>http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html</a></p>
 <p>Other interval statistics: <code><a href='bed_absdist.html'>bed_absdist</a></code>,
   <code><a href='bed_jaccard.html'>bed_jaccard</a></code>, <code><a href='bed_projection.html'>bed_projection</a></code>,
-  <code><a href='bed_reldist.html'>bed_reldist</a></code></p>
+  <code><a href='bed_reldist.html'>bed_reldist</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -191,10 +191,8 @@ examples.</p>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
-<span class='fu'>bed_fisher</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt;   estimate p.value conf.low conf.high                             method
-#&gt; 1 2.345878       0 2.331851  2.360146 Fisher's Exact Test for Count Data
-#&gt;   alternative
-#&gt; 1   two.sided</div><div class='input'>
+<span class='fu'>bed_fisher</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt;   estimate p.value conf.low conf.high                             method alternative
+#&gt; 1 2.345878       0 2.331851  2.360146 Fisher's Exact Test for Count Data   two.sided</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -230,6 +228,7 @@ examples.</p>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
   docsearch({
+    
     apiKey: '96b273b8c116e85a04e863c2426c319d',
     indexName: 'valr',
     inputSelector: 'input#search-input.form-control',
