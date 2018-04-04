@@ -141,6 +141,7 @@ chrom, start and end colnames." />
     <div class="page-header">
     <h1>Read BED and related files.</h1>
     <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/read_bed.r'><code>R/read_bed.r</code></a></small>
+    <div class="hidden name"><code>read_bed.Rd</code></div>
     </div>
 
     
@@ -247,19 +248,20 @@ local file or URLs. The read functions load data into tbls with consistent
 #&gt; 10 chr1  327545 328439</div><div class='input'>
 
 <span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 100 x 12
-#&gt;    chrom   start    end name   score strand cds_start cds_end item_rgb exon_count exon_sizes         
-#&gt;    &lt;chr&gt;   &lt;int&gt;  &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;              
-#&gt;  1 chr1  3204562 3.66e6 NM_00… 0     -        3206102 3661429 0                 3 2487,200,947,      
-#&gt;  2 chr1  4280926 4.40e6 NM_00… 0     -        4283061 4399268 0                 4 2167,172,636,72,   
-#&gt;  3 chr1  4847774 4.89e6 NM_00… 0     +        4847994 4886445 0                10 283,63,106,88,143,…
-#&gt;  4 chr1  4847774 4.89e6 NM_01… 0     +        4847994 4886445 0                10 283,63,106,88,146,…
-#&gt;  5 chr1  4848408 4.89e6 NM_00… 0     +        4848488 4886445 0                10 176,63,106,88,146,…
-#&gt;  6 chr1  4899656 5.01e6 NM_00… 0     -        4900554 4914046 0                 5 1087,235,84,143,15…
-#&gt;  7 chr1  4899656 5.01e6 NM_02… 0     -        4900554 5009460 0                 5 1087,235,84,143,22…
-#&gt;  8 chr1  4899656 5.06e6 NM_00… 0     -        4900554 5060258 0                 6 1087,235,84,143,30…
-#&gt;  9 chr1  5073166 5.15e6 NM_00… 0     +        5074531 5152246 0                13 193,147,103,90,114…
-#&gt; 10 chr1  5073166 5.15e6 NM_13… 0     +        5074531 5152246 0                14 193,147,103,90,114…
-#&gt; # ... with 90 more rows, and 1 more variable: exon_starts &lt;chr&gt;</div><div class='input'>
+#&gt;    chrom  start    end name  score strand cds_start cds_end item_rgb exon_count
+#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt;         &lt;int&gt;
+#&gt;  1 chr1  3.20e6 3.66e6 NM_0… 0     -        3206102 3661429 0                 3
+#&gt;  2 chr1  4.28e6 4.40e6 NM_0… 0     -        4283061 4399268 0                 4
+#&gt;  3 chr1  4.85e6 4.89e6 NM_0… 0     +        4847994 4886445 0                10
+#&gt;  4 chr1  4.85e6 4.89e6 NM_0… 0     +        4847994 4886445 0                10
+#&gt;  5 chr1  4.85e6 4.89e6 NM_0… 0     +        4848488 4886445 0                10
+#&gt;  6 chr1  4.90e6 5.01e6 NM_0… 0     -        4900554 4914046 0                 5
+#&gt;  7 chr1  4.90e6 5.01e6 NM_0… 0     -        4900554 5009460 0                 5
+#&gt;  8 chr1  4.90e6 5.06e6 NM_0… 0     -        4900554 5060258 0                 6
+#&gt;  9 chr1  5.07e6 5.15e6 NM_0… 0     +        5074531 5152246 0                13
+#&gt; 10 chr1  5.07e6 5.15e6 NM_1… 0     +        5074531 5152246 0                14
+#&gt; # ... with 90 more rows, and 2 more variables: exon_sizes &lt;chr&gt;,
+#&gt; #   exon_starts &lt;chr&gt;</div><div class='input'>
 
 <span class='fu'>read_bedgraph</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.bg.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 4
 #&gt;   chrom    start      end  value
@@ -333,8 +335,8 @@ local file or URLs. The read functions load data into tbls with consistent
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
   docsearch({
-    
-    apiKey: '96b273b8c116e85a04e863c2426c319d',
+    appId: 'TK8WB6UEB2',
+    apiKey: 'c871e0fb692cad1373a189fc7fe65300',
     indexName: 'valr',
     inputSelector: 'input#search-input.form-control',
     debug: false // Set debug to true if you want to inspect the dropdown

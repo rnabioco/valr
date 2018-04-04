@@ -140,6 +140,7 @@ between two sets of x and y intervals." />
     <div class="page-header">
     <h1>Fisher's test to measure overlap between two sets of intervals.</h1>
     <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_fisher.r'><code>R/bed_fisher.r</code></a></small>
+    <div class="hidden name"><code>bed_fisher.Rd</code></div>
     </div>
 
     
@@ -191,8 +192,10 @@ examples.</p>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
-<span class='fu'>bed_fisher</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt;   estimate p.value conf.low conf.high                             method alternative
-#&gt; 1 2.345878       0 2.331851  2.360146 Fisher's Exact Test for Count Data   two.sided</div><div class='input'>
+<span class='fu'>bed_fisher</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt;   estimate p.value conf.low conf.high                             method
+#&gt; 1 2.345878       0 2.331851  2.360146 Fisher's Exact Test for Count Data
+#&gt;   alternative
+#&gt; 1   two.sided</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -228,8 +231,8 @@ examples.</p>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
   docsearch({
-    
-    apiKey: '96b273b8c116e85a04e863c2426c319d',
+    appId: 'TK8WB6UEB2',
+    apiKey: 'c871e0fb692cad1373a189fc7fe65300',
     indexName: 'valr',
     inputSelector: 'input#search-input.form-control',
     debug: false // Set debug to true if you want to inspect the dropdown

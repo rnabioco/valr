@@ -5,7 +5,8 @@ template:
     bootswatch: cosmo
     ganalytics: UA-54095998-3
     docsearch:
-      api_key: 96b273b8c116e85a04e863c2426c319d
+      app_id: TK8WB6UEB2
+      api_key: c871e0fb692cad1373a189fc7fe65300 
       index_name: valr
 
 authors:
