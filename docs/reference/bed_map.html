@@ -141,16 +141,18 @@ input columns from x and y columns must take these suffixes into account." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate summaries from overlapping intervals.</h1>
-    <small>Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_map.r'><code>R/bed_map.r</code></a></small>
+    <small class="dont-index">Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_map.r'><code>R/bed_map.r</code></a></small>
     <div class="hidden name"><code>bed_map.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Apply functions like <code>min()</code> and <code>count()</code> to intersecting intervals.
 <code>bed_map()</code> uses <code><a href='bed_intersect.html'>bed_intersect()</a></code> to identify intersecting intervals, so
 output columns will be suffixed with <code>.x</code> and <code>.y</code>. Expressions that refer to
 input columns from <code>x</code> and <code>y</code> columns must take these suffixes into account.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>, <span class='kw'>min_overlap</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
@@ -321,10 +323,10 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <script>
   docsearch({
     appId: 'TK8WB6UEB2',
+    
     apiKey: 'c871e0fb692cad1373a189fc7fe65300',
     indexName: 'valr',
-    inputSelector: 'input#search-input.form-control',
-    debug: false // Set debug to true if you want to inspect the dropdown
+    inputSelector: 'input#search-input.form-control'
   });
 </script>
 
