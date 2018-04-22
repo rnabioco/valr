@@ -79,10 +79,16 @@
   },
   "selectors_exclude": [
     ".dont-index"
-  ],
+    ],
   "min_indexed_level": 2,
   "custom_settings": {
-    "separatorsToIndex": "_"
-  },
-  "nb_hits": 708
+    "separatorsToIndex": "_",
+    "attributesToRetrieve": [
+      "hierarchy",
+      "content",
+      "anchor",
+      "url",
+      "url_without_anchor"
+    ]
+  }
 }
