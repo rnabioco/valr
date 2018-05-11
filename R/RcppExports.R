@@ -37,6 +37,10 @@ merge_impl <- function(gdf, max_dist = 0L, collapse = TRUE) {
     .Call(`_valr_merge_impl`, gdf, max_dist, collapse)
 }
 
+partition_impl <- function(gdf, max_dist = -1L) {
+    .Call(`_valr_partition_impl`, gdf, max_dist)
+}
+
 random_impl <- function(genome, length, n, seed = 0L) {
     .Call(`_valr_random_impl`, genome, length, n, seed)
 }

@@ -57,5 +57,6 @@ bed_glyph(bed_cluster(x), label = '.id')
 
 Other single set operations: \code{\link{bed_complement}},
   \code{\link{bed_flank}}, \code{\link{bed_merge}},
-  \code{\link{bed_shift}}, \code{\link{bed_slop}}
+  \code{\link{bed_partition}}, \code{\link{bed_shift}},
+  \code{\link{bed_slop}}
 }

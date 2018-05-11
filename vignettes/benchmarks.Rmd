@@ -56,6 +56,7 @@ res <- microbenchmark(
   bed_flank(x, genome, both = 1000),
   bed_shift(x, genome),
   bed_merge(x),
+  bed_partition(x),
   bed_cluster(x),
   bed_complement(x, genome),
   # multi tbl functions
@@ -99,7 +100,7 @@ ggplot(res, aes(x=reorder(expr, time), y=time)) +
     y='execution time (seconds)',
     x='',
     title="valr benchmarks",
-    subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repititions"))
+    subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repetitions"))
 
 ```
 

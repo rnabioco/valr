@@ -172,7 +172,8 @@
 
     <div class='dont-index'><p>Other single set operations: <code><a href='bed_cluster.html'>bed_cluster</a></code>,
   <code><a href='bed_flank.html'>bed_flank</a></code>, <code><a href='bed_merge.html'>bed_merge</a></code>,
-  <code><a href='bed_shift.html'>bed_shift</a></code>, <code><a href='bed_slop.html'>bed_slop</a></code></p></div>
+  <code><a href='bed_partition.html'>bed_partition</a></code>, <code><a href='bed_shift.html'>bed_shift</a></code>,
+  <code><a href='bed_slop.html'>bed_slop</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -208,12 +209,12 @@
 <span class='fu'>bed_complement</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 chr1     0.  100.
-#&gt; 2 chr1   400.  500.
-#&gt; 3 chr2   100.  200.
-#&gt; 4 chr2   400.  600.
-#&gt; 5 chr3     0.  500.
-#&gt; 6 chr3   600.  800.</div><div class='input'>
+#&gt; 1 chr1      0   100
+#&gt; 2 chr1    400   500
+#&gt; 3 chr2    100   200
+#&gt; 4 chr2    400   600
+#&gt; 5 chr3      0   500
+#&gt; 6 chr3    600   800</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Merge overlapping intervals. — bed_merge • valr</title>
+<title>Partition intervals into elemental intervals — bed_partition • valr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -33,11 +33,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Merge overlapping intervals. — bed_merge" />
+<meta property="og:title" content="Partition intervals into elemental intervals — bed_partition" />
 
-<meta property="og:description" content="Operations can be performed on merged intervals by specifying name-value
-pairs. Default max_dist of 0 means book-ended intervals are
-merged." />
+<meta property="og:description" content="Convert a set of intervals into elemental intervals that contain each start
+and end position in the set." />
 
 <meta property="og:image" content="http://valr.hesselberthlab.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -140,35 +139,30 @@ merged." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Merge overlapping intervals.</h1>
-    <small class="dont-index">Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_merge.r'><code>R/bed_merge.r</code></a></small>
-    <div class="hidden name"><code>bed_merge.Rd</code></div>
+    <h1>Partition intervals into elemental intervals</h1>
+    <small class="dont-index">Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_partition.r'><code>R/bed_partition.r</code></a></small>
+    <div class="hidden name"><code>bed_partition.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Operations can be performed on merged intervals by specifying name-value
-pairs. Default <code>max_dist</code> of <code>0</code> means book-ended intervals are
-merged.</p>
+    <p>Convert a set of intervals into elemental intervals that contain each start
+and end position in the set.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>max_dist</th>
-      <td><p>maximum distance between intervals to merge</p></td>
+      <td><p><code><a href='tbl_interval.html'>trbl_interval()</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>name-value pairs that specify operations on merged intervals</p></td>
+      <td><p>name-value pairs specifying column names and expressions to apply</p></td>
     </tr>
     </table>
     
@@ -178,7 +172,11 @@ merged.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>input tbls are grouped by <code>chrom</code> by default, and additional
+    <p>Summary operations, such as <code>min()</code> or <code>count()</code> can be performed
+on elemental intervals by specifying name-value pairs.</p>
+<p>This function is useful for calculating summaries across overlapping intervals
+without merging the intervals.</p>
+<p>input tbls are grouped by <code>chrom</code> by default, and additional
 groups can be added using <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. For example,
 grouping by <code>strand</code> will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the <code>y</code> tbl can
@@ -186,64 +184,80 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='http://bedtools.readthedocs.org/en/latest/content/tools/merge.html'>http://bedtools.readthedocs.org/en/latest/content/tools/merge.html</a></p>
+    <div class='dont-index'><p><a href='https://bedops.readthedocs.io/en/latest/content/reference/set-operations/bedops.html#partition-p-partition'>https://bedops.readthedocs.io/en/latest/content/reference/set-operations/bedops.html#partition-p-partition</a></p>
 <p>Other single set operations: <code><a href='bed_cluster.html'>bed_cluster</a></code>,
   <code><a href='bed_complement.html'>bed_complement</a></code>, <code><a href='bed_flank.html'>bed_flank</a></code>,
-  <code><a href='bed_partition.html'>bed_partition</a></code>, <code><a href='bed_shift.html'>bed_shift</a></code>,
+  <code><a href='bed_merge.html'>bed_merge</a></code>, <code><a href='bed_shift.html'>bed_shift</a></code>,
   <code><a href='bed_slop.html'>bed_slop</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
-  <span class='st'>'chr1'</span>,  <span class='fl'>1</span>,      <span class='fl'>50</span>,
-  <span class='st'>'chr1'</span>,  <span class='fl'>10</span>,     <span class='fl'>75</span>,
-  <span class='st'>'chr1'</span>,  <span class='fl'>100</span>,    <span class='fl'>120</span>
-)
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,  <span class='fl'>10</span>, <span class='st'>"+"</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,  <span class='fl'>20</span>, <span class='st'>"-"</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>300</span>,    <span class='fl'>550</span>,  <span class='fl'>30</span>, <span class='st'>"+"</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>550</span>,    <span class='fl'>575</span>,   <span class='fl'>2</span>, <span class='st'>"+"</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>,   <span class='fl'>5</span>, <span class='st'>"+"</span> )
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_merge</span>(<span class='no'>x</span>))</div><div class='img'><img src='bed_merge-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
- ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>1</span>,      <span class='fl'>50</span>,   <span class='fl'>1</span>,      <span class='st'>'+'</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,  <span class='fl'>2</span>,      <span class='st'>'+'</span>,
- <span class='st'>"chr1"</span>, <span class='fl'>150</span>,    <span class='fl'>250</span>,  <span class='fl'>3</span>,      <span class='st'>'-'</span>,
- <span class='st'>"chr2"</span>, <span class='fl'>1</span>,      <span class='fl'>25</span>,   <span class='fl'>4</span>,      <span class='st'>'+'</span>,
- <span class='st'>"chr2"</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,  <span class='fl'>5</span>,      <span class='st'>'-'</span>,
- <span class='st'>"chr2"</span>, <span class='fl'>400</span>,    <span class='fl'>500</span>,  <span class='fl'>6</span>,      <span class='st'>'+'</span>,
- <span class='st'>"chr2"</span>, <span class='fl'>450</span>,    <span class='fl'>550</span>,  <span class='fl'>7</span>,      <span class='st'>'+'</span>
-)
 
-<span class='fu'>bed_merge</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 3
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_partition</span>(<span class='no'>x</span>))</div><div class='img'><img src='bed_partition-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"value"</span>)</div><div class='img'><img src='bed_partition-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>bed_partition</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1 chr1      1    50
-#&gt; 2 chr1    100   250
-#&gt; 3 chr2      1    25
-#&gt; 4 chr2    200   550</div><div class='input'>
-<span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>max_dist</span> <span class='kw'>=</span> <span class='fl'>100</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 3
-#&gt;   chrom start   end
-#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1 chr1      1   200
-#&gt; 2 chr2      1    25
-#&gt; 3 chr2    200   550</div><div class='input'>
-<span class='co'># merge intervals on same strand</span>
-<span class='fu'>bed_merge</span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>x</span>, <span class='no'>strand</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 4
-#&gt; # Groups:   strand [2]
-#&gt;   chrom start   end strand
-#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
-#&gt; 1 chr1    150   250 -     
-#&gt; 2 chr2    200   400 -     
-#&gt; 3 chr1      1    50 +     
-#&gt; 4 chr1    100   200 +     
-#&gt; 5 chr2      1    25 +     
-#&gt; 6 chr2    400   550 +     </div><div class='input'>
-<span class='fu'>bed_merge</span>(<span class='no'>x</span>, <span class='kw'>.value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 4
-#&gt;   chrom  start   end .value
-#&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-#&gt; 1 chr1    1.00  50.0   1.00
-#&gt; 2 chr1  100    250     5.00
-#&gt; 3 chr2    1.00  25.0   4.00
-#&gt; 4 chr2  200    550    18.0 </div><div class='input'>
+#&gt; 1 chr1    100   200
+#&gt; 2 chr1    200   300
+#&gt; 3 chr1    300   400
+#&gt; 4 chr1    400   500
+#&gt; 5 chr1    500   550
+#&gt; 6 chr1    550   575
+#&gt; 7 chr1    800   900</div><div class='input'>
+<span class='co'># compute summary over each elemental interval</span>
+<span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 7 x 4
+#&gt;   chrom start   end value
+#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+#&gt; 1 chr1    100   200 10.0 
+#&gt; 2 chr1    200   300 30.0 
+#&gt; 3 chr1    300   400 60.0 
+#&gt; 4 chr1    400   500 40.0 
+#&gt; 5 chr1    500   550 30.0 
+#&gt; 6 chr1    550   575  2.00
+#&gt; 7 chr1    800   900  5.00</div><div class='input'>
+<span class='co'># partition and compute summaries based on group</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>x</span>, <span class='no'>strand</span>)
+<span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 5
+#&gt;   chrom start   end strand value
+#&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt;
+#&gt; 1 chr1    100   300 +      10.0 
+#&gt; 2 chr1    200   400 -      20.0 
+#&gt; 3 chr1    300   500 +      40.0 
+#&gt; 4 chr1    500   550 +      30.0 
+#&gt; 5 chr1    550   575 +       2.00
+#&gt; 6 chr1    800   900 +       5.00</div><div class='input'>
+<span class='co'># combine values across multiple tibbles</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>10</span>,     <span class='fl'>500</span>,  <span class='fl'>100</span>, <span class='st'>"+"</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>250</span>,    <span class='fl'>420</span>,  <span class='fl'>200</span>, <span class='st'>"-"</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>350</span>,    <span class='fl'>550</span>,  <span class='fl'>300</span>, <span class='st'>"+"</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>550</span>,    <span class='fl'>555</span>,   <span class='fl'>20</span>, <span class='st'>"+"</span>,
+ <span class='st'>'chr1'</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>,   <span class='fl'>50</span>, <span class='st'>"+"</span> )
+
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)
+<span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>sum</span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 11 x 5
+#&gt;    chrom start   end strand  value
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;
+#&gt;  1 chr1     10   100 +      100   
+#&gt;  2 chr1    100   300 +      110   
+#&gt;  3 chr1    200   250 -       20.0 
+#&gt;  4 chr1    250   400 -      220   
+#&gt;  5 chr1    300   350 +      140   
+#&gt;  6 chr1    350   500 +      440   
+#&gt;  7 chr1    400   420 -      200   
+#&gt;  8 chr1    500   550 +      330   
+#&gt;  9 chr1    550   555 +       22.0 
+#&gt; 10 chr1    555   575 +        2.00
+#&gt; 11 chr1    800   900 +       55.0 </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

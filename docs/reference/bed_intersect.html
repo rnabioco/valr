@@ -234,28 +234,28 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 7
 #&gt;   chrom start.x end.x start.y end.y value.y .overlap
 #&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;int&gt;
-#&gt; 1 chr1     100.  500.    150.  400.    100.      250
-#&gt; 2 chr1     100.  500.    500.  550.    100.        0
-#&gt; 3 chr2     200.  400.    230.  430.    200.      170
-#&gt; 4 chr2     200.  400.    350.  430.    300.       50
-#&gt; 5 chr2     300.  500.    230.  430.    200.      130
-#&gt; 6 chr2     300.  500.    350.  430.    300.       80</div><div class='input'>
+#&gt; 1 chr1      100   500     150   400     100      250
+#&gt; 2 chr1      100   500     500   550     100        0
+#&gt; 3 chr2      200   400     230   430     200      170
+#&gt; 4 chr2      200   400     350   430     300       50
+#&gt; 5 chr2      300   500     230   430     200      130
+#&gt; 6 chr2      300   500     350   430     300       80</div><div class='input'>
 <span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   chrom start   end
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 chr2   800.  900.</div><div class='input'>
+#&gt; 1 chr2    800   900</div><div class='input'>
 <span class='co'># start and end of each overlapping interval</span>
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>)
 <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>res</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'>pmax</span>(<span class='no'>start.x</span>, <span class='no'>start.y</span>),
                    <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'>pmin</span>(<span class='no'>end.x</span>, <span class='no'>end.y</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 9
 #&gt;   chrom start.x end.x start.y end.y value.y .overlap start   end
 #&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 chr1     100.  500.    150.  400.    100.      250  150.  400.
-#&gt; 2 chr1     100.  500.    500.  550.    100.        0  500.  500.
-#&gt; 3 chr2     200.  400.    230.  430.    200.      170  230.  400.
-#&gt; 4 chr2     200.  400.    350.  430.    300.       50  350.  400.
-#&gt; 5 chr2     300.  500.    230.  430.    200.      130  300.  430.
-#&gt; 6 chr2     300.  500.    350.  430.    300.       80  350.  430.</div><div class='input'>
+#&gt; 1 chr1      100   500     150   400     100      250   150   400
+#&gt; 2 chr1      100   500     500   550     100        0   500   500
+#&gt; 3 chr2      200   400     230   430     200      170   230   400
+#&gt; 4 chr2      200   400     350   430     300       50   350   400
+#&gt; 5 chr2      300   500     230   430     200      130   300   430
+#&gt; 6 chr2      300   500     350   430     300       80   350   430</div><div class='input'>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
@@ -267,46 +267,46 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>z</span>)</div><div class='output co'>#&gt; # A tibble: 11 x 8
 #&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
 #&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;int&gt;
-#&gt;  1 chr1     100.  500.    150.  400.    100. y            250
-#&gt;  2 chr1     100.  500.    150.  400.    100. z            250
-#&gt;  3 chr1     100.  500.    500.  550.    100. y              0
-#&gt;  4 chr1     100.  500.    500.  550.    100. z              0
-#&gt;  5 chr2     200.  400.    230.  430.    200. y            170
-#&gt;  6 chr2     200.  400.    230.  430.    200. z            170
-#&gt;  7 chr2     200.  400.    350.  430.    300. y             50
-#&gt;  8 chr2     300.  500.    230.  430.    200. y            130
-#&gt;  9 chr2     300.  500.    230.  430.    200. z            130
-#&gt; 10 chr2     300.  500.    350.  430.    300. y             80
-#&gt; 11 chr2     800.  900.    750.  900.    400. z            100</div><div class='input'>
+#&gt;  1 chr1      100   500     150   400     100 y            250
+#&gt;  2 chr1      100   500     150   400     100 z            250
+#&gt;  3 chr1      100   500     500   550     100 y              0
+#&gt;  4 chr1      100   500     500   550     100 z              0
+#&gt;  5 chr2      200   400     230   430     200 y            170
+#&gt;  6 chr2      200   400     230   430     200 z            170
+#&gt;  7 chr2      200   400     350   430     300 y             50
+#&gt;  8 chr2      300   500     230   430     200 y            130
+#&gt;  9 chr2      300   500     230   430     200 z            130
+#&gt; 10 chr2      300   500     350   430     300 y             80
+#&gt; 11 chr2      800   900     750   900     400 z            100</div><div class='input'>
 <span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='kw'>exons</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>introns</span> <span class='kw'>=</span> <span class='no'>z</span>)</div><div class='output co'>#&gt; # A tibble: 11 x 8
 #&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
 #&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;int&gt;
-#&gt;  1 chr1     100.  500.    150.  400.    100. exons        250
-#&gt;  2 chr1     100.  500.    150.  400.    100. introns      250
-#&gt;  3 chr1     100.  500.    500.  550.    100. exons          0
-#&gt;  4 chr1     100.  500.    500.  550.    100. introns        0
-#&gt;  5 chr2     200.  400.    230.  430.    200. exons        170
-#&gt;  6 chr2     200.  400.    230.  430.    200. introns      170
-#&gt;  7 chr2     200.  400.    350.  430.    300. exons         50
-#&gt;  8 chr2     300.  500.    230.  430.    200. exons        130
-#&gt;  9 chr2     300.  500.    230.  430.    200. introns      130
-#&gt; 10 chr2     300.  500.    350.  430.    300. exons         80
-#&gt; 11 chr2     800.  900.    750.  900.    400. introns      100</div><div class='input'>
+#&gt;  1 chr1      100   500     150   400     100 exons        250
+#&gt;  2 chr1      100   500     150   400     100 introns      250
+#&gt;  3 chr1      100   500     500   550     100 exons          0
+#&gt;  4 chr1      100   500     500   550     100 introns        0
+#&gt;  5 chr2      200   400     230   430     200 exons        170
+#&gt;  6 chr2      200   400     230   430     200 introns      170
+#&gt;  7 chr2      200   400     350   430     300 exons         50
+#&gt;  8 chr2      300   500     230   430     200 exons        130
+#&gt;  9 chr2      300   500     230   430     200 introns      130
+#&gt; 10 chr2      300   500     350   430     300 exons         80
+#&gt; 11 chr2      800   900     750   900     400 introns      100</div><div class='input'>
 <span class='co'># a list of tbl_intervals can also be passed</span>
 <span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='fu'>list</span>(<span class='kw'>exons</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>introns</span> <span class='kw'>=</span> <span class='no'>z</span>))</div><div class='output co'>#&gt; # A tibble: 11 x 8
 #&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
 #&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;int&gt;
-#&gt;  1 chr1     100.  500.    150.  400.    100. exons        250
-#&gt;  2 chr1     100.  500.    150.  400.    100. introns      250
-#&gt;  3 chr1     100.  500.    500.  550.    100. exons          0
-#&gt;  4 chr1     100.  500.    500.  550.    100. introns        0
-#&gt;  5 chr2     200.  400.    230.  430.    200. exons        170
-#&gt;  6 chr2     200.  400.    230.  430.    200. introns      170
-#&gt;  7 chr2     200.  400.    350.  430.    300. exons         50
-#&gt;  8 chr2     300.  500.    230.  430.    200. exons        130
-#&gt;  9 chr2     300.  500.    230.  430.    200. introns      130
-#&gt; 10 chr2     300.  500.    350.  430.    300. exons         80
-#&gt; 11 chr2     800.  900.    750.  900.    400. introns      100</div><div class='input'>
+#&gt;  1 chr1      100   500     150   400     100 exons        250
+#&gt;  2 chr1      100   500     150   400     100 introns      250
+#&gt;  3 chr1      100   500     500   550     100 exons          0
+#&gt;  4 chr1      100   500     500   550     100 introns        0
+#&gt;  5 chr2      200   400     230   430     200 exons        170
+#&gt;  6 chr2      200   400     230   430     200 introns      170
+#&gt;  7 chr2      200   400     350   430     300 exons         50
+#&gt;  8 chr2      300   500     230   430     200 exons        130
+#&gt;  9 chr2      300   500     230   430     200 introns      130
+#&gt; 10 chr2      300   500     350   430     300 exons         80
+#&gt; 11 chr2      800   900     750   900     400 introns      100</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
