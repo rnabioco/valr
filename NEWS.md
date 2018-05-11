@@ -1,5 +1,7 @@
 # valr 0.4.0.9000
 
+* Added new function, [`bed_partition()`](https://valr.hesselberthlab.org/reference/bed_partition.html), which is similar to `bed_merge()` but collapses intervals to elemental intervals rather than the maximal overlapping region. `bed_partition()` also can compute summaries of data from overlapping intervals. See examples in `bed_partition()` and timings in `vignette('benchmarks')` @kriemo.
+
 * Several explicit comparisons to the Bioconductor GenomicRanges library are included for users considering using valr. See examples in `as.tbl_interval()` and timings in `vignette('benchmarks')`.
 
 # valr 0.4.0

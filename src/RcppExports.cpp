@@ -129,6 +129,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// partition_impl
+DataFrame partition_impl(const GroupedDataFrame& gdf, int max_dist);
+RcppExport SEXP _valr_partition_impl(SEXP gdfSEXP, SEXP max_distSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const GroupedDataFrame& >::type gdf(gdfSEXP);
+    Rcpp::traits::input_parameter< int >::type max_dist(max_distSEXP);
+    rcpp_result_gen = Rcpp::wrap(partition_impl(gdf, max_dist));
+    return rcpp_result_gen;
+END_RCPP
+}
 // random_impl
 DataFrame random_impl(DataFrame genome, int length, int n, int seed);
 RcppExport SEXP _valr_random_impl(SEXP genomeSEXP, SEXP lengthSEXP, SEXP nSEXP, SEXP seedSEXP) {

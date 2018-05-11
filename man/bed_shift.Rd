@@ -68,5 +68,6 @@ bed_shift(stranded, genome, 100)
 
 Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_complement}}, \code{\link{bed_flank}},
-  \code{\link{bed_merge}}, \code{\link{bed_slop}}
+  \code{\link{bed_merge}}, \code{\link{bed_partition}},
+  \code{\link{bed_slop}}
 }
