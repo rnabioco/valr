@@ -108,7 +108,7 @@ DataFrame partition_impl(const GroupedDataFrame& gdf,
   std::vector<int> group_starts ;
   std::vector<int> group_ends ;
 
-  // interate through vector of partitioned intervals and write to dataframe
+  // iterate through vector of partitioned intervals and write to dataframe
   for (auto it : out_ivls) {
     indices_x.push_back(it.value) ;
     group_starts.push_back(it.start) ;

@@ -6,7 +6,7 @@ template:
     ganalytics: UA-54095998-3
     docsearch:
       app_id: TK8WB6UEB2
-      api_key: c871e0fb692cad1373a189fc7fe65300 
+      api_key: c871e0fb692cad1373a189fc7fe65300
       index_name: valr
 
 authors:
@@ -37,6 +37,7 @@ reference:
     - bed_complement
     - bed_flank
     - bed_merge
+    - bed_partition
     - bed_slop
     - bed_shift
     - bed_sort
