@@ -36,6 +36,7 @@ Suggests:
     testthat,
     microbenchmark,
     covr,
+    curl,
     RMySQL,
     purrr,
     tidyr,
