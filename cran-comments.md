@@ -2,13 +2,16 @@
 
 * This is a new minor version (see NEWS.md).
 
+* Addresses an e-mail from CRAN about undeclared package dependencies
+  in test code. "curl" was added to Suggests.
+
 ## Test environments
 
-* Windows Server 2012 R2 x64 (on appveyor), R 3.4.3
+* Windows Server 2012 R2 x64 (on appveyor), R 3.5.0
 * win-builder (devel and release)
-* local OS X install, R 3.4.3
-* OS X (on travis-ci), R 3.4.3
-* ubuntu 14.04 (on travis-ci), R 3.4.3
+* local OS X install, R 3.5.0
+* OS X (on travis-ci), R 3.5.0
+* ubuntu 14.04 (on travis-ci), R 3.5.0
 
 ## R CMD check results
 

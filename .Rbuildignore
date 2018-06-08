@@ -14,3 +14,5 @@
 ^vignettes/benchmarks\.Rmd$
 ^vignettes/interval-stats\.Rmd$
 ^LICENSE\.md$
+^\.env$
+^CRAN-RELEASE$
