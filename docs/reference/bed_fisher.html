@@ -80,7 +80,7 @@ between two sets of x and y intervals." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.1.9000</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@ between two sets of x and y intervals." />
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="http://github.com/rnabioco/valr">
+  <a href="https://github.com/rnabioco/valr">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -144,7 +144,7 @@ between two sets of x and y intervals." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Fisher's test to measure overlap between two sets of intervals.</h1>
-    <small class="dont-index">Source: <a href='http://github.com/rnabioco/valr/blob/master/R/bed_fisher.r'><code>R/bed_fisher.r</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/rnabioco/valr/blob/master/R/bed_fisher.r'><code>R/bed_fisher.r</code></a></small>
     <div class="hidden name"><code>bed_fisher.Rd</code></div>
     </div>
 
@@ -199,10 +199,10 @@ examples.</p>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
-<span class='fu'>bed_fisher</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt;   estimate p.value conf.low conf.high                             method
-#&gt; 1 2.345878       0 2.331851  2.360146 Fisher's Exact Test for Count Data
-#&gt;   alternative
-#&gt; 1   two.sided</div><div class='input'>
+<span class='fu'>bed_fisher</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 6
+#&gt;   estimate p.value conf.low conf.high method                        alternative
+#&gt;      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                         &lt;chr&gt;      
+#&gt; 1     2.35       0     2.33      2.36 Fisher's Exact Test for Coun… two.sided  </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

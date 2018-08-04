@@ -22,3 +22,4 @@ create_utrs5(x)
 Other feature functions: \code{\link{create_introns}},
   \code{\link{create_tss}}, \code{\link{create_utrs3}}
 }
+\concept{feature functions}

@@ -46,3 +46,4 @@ bed_shuffle(x, genome, seed = 9830491)
 
 Other randomizing operations: \code{\link{bed_random}}
 }
+\concept{randomizing operations}

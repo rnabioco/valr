@@ -21,8 +21,6 @@ trbl_interval(...)
 }
 \description{
 Required column names are \code{chrom}, \code{start} and \code{end}.
-
-Construct a tbl_interval using tribble formatting.
 }
 \examples{
 x <- tibble::tribble(

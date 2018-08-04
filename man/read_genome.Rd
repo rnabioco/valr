@@ -34,3 +34,4 @@ read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
 Other read functions: \code{\link{read_bed}},
   \code{\link{read_vcf}}
 }
+\concept{read functions}

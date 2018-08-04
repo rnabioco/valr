@@ -4,8 +4,8 @@
 \alias{bed_flank}
 \title{Create flanking intervals from input intervals.}
 \usage{
-bed_flank(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
-  strand = FALSE, trim = FALSE, ...)
+bed_flank(x, genome, both = 0, left = 0, right = 0,
+  fraction = FALSE, strand = FALSE, trim = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
@@ -74,3 +74,4 @@ Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_partition}}, \code{\link{bed_shift}},
   \code{\link{bed_slop}}
 }
+\concept{single set operations}

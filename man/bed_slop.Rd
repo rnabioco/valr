@@ -4,8 +4,8 @@
 \alias{bed_slop}
 \title{Increase the size of input intervals.}
 \usage{
-bed_slop(x, genome, both = 0, left = 0, right = 0, fraction = FALSE,
-  strand = FALSE, trim = FALSE, ...)
+bed_slop(x, genome, both = 0, left = 0, right = 0,
+  fraction = FALSE, strand = FALSE, trim = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
@@ -74,3 +74,4 @@ Other single set operations: \code{\link{bed_cluster}},
   \code{\link{bed_merge}}, \code{\link{bed_partition}},
   \code{\link{bed_shift}}
 }
+\concept{single set operations}

@@ -22,8 +22,6 @@ trbl_genome(...)
 \description{
 Equivalent to information in UCSC "chromSizes" files. Required column names are:
 \code{chrom} and \code{size}
-
-Construct a tbl_genome using tribble formatting.
 }
 \examples{
 genome <- tibble::tribble(

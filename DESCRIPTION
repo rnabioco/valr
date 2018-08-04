@@ -48,7 +48,7 @@ Suggests:
     IRanges,
     S4Vectors,
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 URL: http://github.com/rnabioco/valr, http://rnabioco.github.io/valr
 BugReports: https://github.com/rnabioco/valr/issues
 Roxygen: list(markdown = TRUE)

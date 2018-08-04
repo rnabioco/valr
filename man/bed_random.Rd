@@ -50,3 +50,4 @@ bed_random(genome, length = 500, n = 500, seed = 10104)
 
 Other randomizing operations: \code{\link{bed_shuffle}}
 }
+\concept{randomizing operations}

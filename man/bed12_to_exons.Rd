@@ -26,3 +26,4 @@ Other utilities: \code{\link{bed_makewindows}},
   \code{\link{flip_strands}},
   \code{\link{interval_spacing}}
 }
+\concept{utilities}

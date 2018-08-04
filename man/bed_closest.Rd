@@ -95,3 +95,4 @@ Other multiple set operations: \code{\link{bed_coverage}},
   \code{\link{bed_intersect}}, \code{\link{bed_map}},
   \code{\link{bed_subtract}}, \code{\link{bed_window}}
 }
+\concept{multiple set operations}

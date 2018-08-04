@@ -29,3 +29,4 @@ Other utilities: \code{\link{bed12_to_exons}},
   \code{\link{bound_intervals}},
   \code{\link{interval_spacing}}
 }
+\concept{utilities}

@@ -24,3 +24,4 @@ create_introns(x)
 Other feature functions: \code{\link{create_tss}},
   \code{\link{create_utrs3}}, \code{\link{create_utrs5}}
 }
+\concept{feature functions}

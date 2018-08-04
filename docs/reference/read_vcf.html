@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.1.9000</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="http://github.com/rnabioco/valr">
+  <a href="https://github.com/rnabioco/valr">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -143,7 +143,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Read a VCF file.</h1>
-    <small class="dont-index">Source: <a href='http://github.com/rnabioco/valr/blob/master/R/read_vcf.r'><code>R/read_vcf.r</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/rnabioco/valr/blob/master/R/read_vcf.r'><code>R/read_vcf.r</code></a></small>
     <div class="hidden name"><code>read_vcf.Rd</code></div>
     </div>
 
@@ -182,19 +182,19 @@ Interval lengths are the size of the 'REF' field.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>vcf_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.vcf.gz'</span>)
 <span class='fu'>read_vcf</span>(<span class='no'>vcf_file</span>)</div><div class='output co'>#&gt; # A tibble: 11 x 18
-#&gt;    CHROM   POS ID     REF   ALT    QUAL FILTER INFO    FORMAT X1    X2    X3   
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-#&gt;  1 1        10 1:10   A     T       100 PASS   NS=5;A… GT     0/0   ./.   0/0  
-#&gt;  2 1        20 1:20   G     C       100 PASS   NS=0;A… GT     ./.   ./.   ./.  
-#&gt;  3 1        30 1:30   C     A       100 PASS   NS=6;A… GT     0/0   0/0   0/0  
-#&gt;  4 1        40 1:40   A     C       100 PASS   NS=6;A… GT     0/0   0/0   0/0  
-#&gt;  5 1     10000 1:100… G     C       100 PASS   NS=6;A… GT     0/0   0/0   0/0  
-#&gt;  6 1     20000 1:200… T     A       100 PASS   NS=6;A… GT     1/1   1/1   1/1  
-#&gt;  7 4      5000 4:5000 A     T       100 PASS   NS=6;A… GT     1/1   1/1   1/1  
-#&gt;  8 4      6000 4:6000 C     T       100 PASS   NS=6;A… GT     1/1   1/1   1/1  
-#&gt;  9 X       800 X:800  A     C       100 PASS   NS=6;A… GT     1/1   1/1   1/1  
-#&gt; 10 X       900 X:900  A     T       100 PASS   NS=6;A… GT     1/1   1/1   1/1  
-#&gt; 11 X      1000 X:1000 T     G       100 PASS   NS=5;A… GT     1/1   1/1   1/1  
+#&gt;    CHROM   POS ID    REF   ALT    QUAL FILTER INFO  FORMAT X1    X2    X3   
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt;  1 1        10 1:10  A     T       100 PASS   NS=5… GT     0/0   ./.   0/0  
+#&gt;  2 1        20 1:20  G     C       100 PASS   NS=0… GT     ./.   ./.   ./.  
+#&gt;  3 1        30 1:30  C     A       100 PASS   NS=6… GT     0/0   0/0   0/0  
+#&gt;  4 1        40 1:40  A     C       100 PASS   NS=6… GT     0/0   0/0   0/0  
+#&gt;  5 1     10000 1:10… G     C       100 PASS   NS=6… GT     0/0   0/0   0/0  
+#&gt;  6 1     20000 1:20… T     A       100 PASS   NS=6… GT     1/1   1/1   1/1  
+#&gt;  7 4      5000 4:50… A     T       100 PASS   NS=6… GT     1/1   1/1   1/1  
+#&gt;  8 4      6000 4:60… C     T       100 PASS   NS=6… GT     1/1   1/1   1/1  
+#&gt;  9 X       800 X:800 A     C       100 PASS   NS=6… GT     1/1   1/1   1/1  
+#&gt; 10 X       900 X:900 A     T       100 PASS   NS=6… GT     1/1   1/1   1/1  
+#&gt; 11 X      1000 X:10… T     G       100 PASS   NS=5… GT     1/1   1/1   1/1  
 #&gt; # ... with 6 more variables: X4 &lt;chr&gt;, X5 &lt;chr&gt;, X6 &lt;chr&gt;, chrom &lt;chr&gt;,
 #&gt; #   start &lt;int&gt;, end &lt;int&gt;</div><div class='input'>
 </div></pre>
