@@ -23,7 +23,13 @@
 #'
 #' @export
 tbl_interval <- function(x, ..., .validate = TRUE) {
-  out <- tibble::as_tibble(x, ...)
+
+  if("tbl_df" %in% class(x)){
+    out <- x
+  } else {
+    out <- tibble::as_tibble(x, ...)
+  }
+
   if (.validate) {
     out <- check_interval(out)
   }
