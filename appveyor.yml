@@ -15,6 +15,7 @@ install:
 os: Visual Studio 2015 CTP 6
 
 build_script:
+  - travis-tool.sh install_github r-lib/remotes
   - travis-tool.sh install_deps
   - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_bioc GenomicRanges
