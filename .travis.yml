@@ -5,10 +5,11 @@ warnings_are_errors: false
 cache: packages
 r_build_args: '--no-build-vignettes'
 r_check_args: '--as-cran --ignore-vignettes'
-bioc_required: true
-bioc_use_devel: true
 r_packages:
   - devtools
+
+bioc_packages:
+  - GenomicRanges
 
 matrix:
   fast_finish: true
