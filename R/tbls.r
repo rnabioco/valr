@@ -24,7 +24,7 @@
 #' @export
 tbl_interval <- function(x, ..., .validate = TRUE) {
 
-  if("tbl_df" %in% class(x)){
+  if(tibble::is_tibble(x)){
     out <- x
   } else {
     out <- tibble::as_tibble(x, ...)
