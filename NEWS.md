@@ -2,7 +2,7 @@
 
 ## Bug fixes
 
-* Changed behavior of `as.tbl_interval()` to call `as_tibble()` only on non-tibble input, which prevents groups from being stripped from `tibbles`.
+* Changed the behavior of `as.tbl_interval()` to call `as_tibble()` only on non-tibble input, which prevents groups from being stripped from `tibble()` input (#338).
 
 # valr 0.4.1
 
