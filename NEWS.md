@@ -1,4 +1,4 @@
-# valr 0.4.1.9000
+# valr 0.4.2
 
 ## Bug fixes
 
