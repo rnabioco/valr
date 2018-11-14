@@ -2,7 +2,7 @@
 
 * This is a new minor version (see NEWS.md).
 
-* Addresses an incompatibility with a future dplyr release.
+* Addresses an incompatibility with the dplyr package v0.7.8 release.
 
 ## Test environments
 
@@ -25,14 +25,14 @@
 
   Status: 1 NOTE
   
-  checking package dependencies ... NOTE
-  Package suggested but not available for checking: 'GenomicRanges'
+  Package suggested but not available for checking: 'GenomicRanges'  
   
-  GenomicRanges is available as a Bioconductor package.
+  GenomicRanges is available as a Bioconductor package.  
   
 * on rhub (windows, release and devel versions)
 
   Status: 1 Note
+  
   Packages suggested but not available for checking:
   'GenomicRanges' 'IRanges' 'S4Vectors'
   
