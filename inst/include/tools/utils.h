@@ -3,129 +3,106 @@
 
 #include <tools/SymbolVector.h>
 
-void assert_all_white_list(const DataFrame&);
+void check_valid_colnames(const DataFrame& df, bool warn_only = false);
+int check_range_one_based(int x, int max);
+void assert_all_allow_list(const DataFrame&);
 SEXP shared_SEXP(SEXP x);
 SEXP shallow_copy(const List& data);
 SEXP pairlist_shallow_copy(SEXP p);
 void copy_attributes(SEXP out, SEXP data);
-void strip_index(DataFrame x);
 SEXP null_if_empty(SEXP x);
 
 bool is_vector(SEXP x);
 bool is_atomic(SEXP x);
 
 SEXP vec_names(SEXP x);
+SEXP vec_names_or_empty(SEXP x);
 bool is_str_empty(SEXP str);
 bool has_name_at(SEXP x, R_len_t i);
 SEXP name_at(SEXP x, size_t i);
 
-SEXP f_env(SEXP x);
-bool is_quosure(SEXP x);
-SEXP maybe_rhs(SEXP x);
+SEXP child_env(SEXP parent);
+
+int get_size(SEXP x);
 
 
 namespace dplyr {
 
-inline bool character_vector_equal(const CharacterVector& x, const CharacterVector& y) {
-  if ((SEXP)x == (SEXP)y) return true;
+SEXP constant_recycle(SEXP x, int n, const SymbolString& name);
+std::string get_single_class(SEXP x);
+CharacterVector default_chars(SEXP x, R_xlen_t len);
+CharacterVector get_class(SEXP x);
+SEXP set_class(SEXP x, const CharacterVector& class_);
+void copy_class(SEXP out, SEXP origin);
+void copy_names(SEXP out, SEXP origin);
+CharacterVector get_levels(SEXP x);
+SEXP set_levels(SEXP x, const CharacterVector& levels);
+bool same_levels(SEXP left, SEXP right);
+bool character_vector_equal(const CharacterVector& x, const CharacterVector& y);
 
-  if (x.length() != y.length())
-    return false;
-
-  for (R_xlen_t i = 0; i < x.length(); ++i) {
-    SEXP xi = x[i];
-    SEXP yi = y[i];
-
-    // Ideally we'd use Rf_Seql(), but this is not exported.
-    if (Rf_NonNullStringMatch(xi, yi)) continue;
-    if (xi == NA_STRING && yi == NA_STRING) continue;
-    if (xi == NA_STRING || yi == NA_STRING)
-      return false;
-    if (CHAR(xi)[0] == 0 && CHAR(yi)[0] == 0) continue;
-    return false;
-  }
-
-  return true;
-}
-
-inline std::string get_single_class(SEXP x) {
-  SEXP klass = Rf_getAttrib(x, R_ClassSymbol);
-  if (!Rf_isNull(klass)) {
-    CharacterVector classes(klass);
-    return collapse_utf8(classes, "/");
-  }
-
-  if (Rf_isMatrix(x)) {
-    return "matrix";
-  }
-
-  switch (TYPEOF(x)) {
-  case INTSXP:
-    return "integer";
-  case REALSXP :
-    return "numeric";
-  case LGLSXP:
-    return "logical";
-  case STRSXP:
-    return "character";
-
-  case VECSXP:
-    return "list";
-  default:
-    break;
-  }
-
-  // just call R to deal with other cases
-  // we could call R_data_class directly but we might get a "this is not part of the api"
-  klass = Rf_eval(Rf_lang2(Rf_install("class"), x), R_GlobalEnv);
-  return CHAR(STRING_ELT(klass, 0));
-}
-
-inline CharacterVector default_chars(SEXP x, R_xlen_t len) {
-  if (Rf_isNull(x)) return CharacterVector(len);
-  return x;
-}
-
-inline CharacterVector get_class(SEXP x) {
-  SEXP class_attr = Rf_getAttrib(x, R_ClassSymbol);
-  return default_chars(class_attr, 0);
-}
-
-inline SEXP set_class(SEXP x, const CharacterVector& class_) {
-  SEXP class_attr = class_.length() == 0 ? R_NilValue : (SEXP)class_;
-  return Rf_setAttrib(x, R_ClassSymbol, class_attr);
-}
-
-inline CharacterVector get_levels(SEXP x) {
-  SEXP levels_attr = Rf_getAttrib(x, R_LevelsSymbol);
-  return default_chars(levels_attr, 0);
-}
-
-inline SEXP set_levels(SEXP x, const CharacterVector& levels) {
-  return Rf_setAttrib(x, R_LevelsSymbol, levels);
-}
-
-inline bool same_levels(SEXP left, SEXP right) {
-  return character_vector_equal(get_levels(left), get_levels(right));
-}
-
-inline SymbolVector get_vars(SEXP x) {
-  static SEXP vars_symbol = Rf_install("vars");
-  return SymbolVector(Rf_getAttrib(x, vars_symbol));
-}
-
-inline void set_vars(SEXP x, const SymbolVector& vars) {
-  static SEXP vars_symbol = Rf_install("vars");
-  Rf_setAttrib(x, vars_symbol, vars.get_vector());
-}
-
-inline void copy_vars(SEXP target, SEXP source) {
-  set_vars(target, get_vars(source));
-}
+SymbolVector get_vars(SEXP x);
 
 // effectively the same as copy_attributes but without names and dims
 inline void copy_most_attributes(SEXP out, SEXP data) {
   Rf_copyMostAttrib(data, out);
+}
+
+
+namespace internal {
+
+// *INDENT-OFF*
+struct rlang_api_ptrs_t {
+  SEXP (*quo_get_expr)(SEXP quo);
+  SEXP (*quo_set_expr)(SEXP quo, SEXP expr);
+  SEXP (*quo_get_env)(SEXP quo);
+  SEXP (*quo_set_env)(SEXP quo, SEXP env);
+  SEXP (*new_quosure)(SEXP expr, SEXP env);
+  bool (*is_quosure)(SEXP x);
+  SEXP (*as_data_pronoun)(SEXP data);
+  SEXP (*as_data_mask)(SEXP data, SEXP parent);
+  SEXP (*new_data_mask)(SEXP bottom, SEXP top);
+
+  rlang_api_ptrs_t() {
+    quo_get_expr =      (SEXP (*)(SEXP))             R_GetCCallable("rlang", "rlang_quo_get_expr");
+    quo_set_expr =      (SEXP (*)(SEXP, SEXP))       R_GetCCallable("rlang", "rlang_quo_set_expr");
+    quo_get_env =       (SEXP (*)(SEXP))             R_GetCCallable("rlang", "rlang_quo_get_env");
+    quo_set_env =       (SEXP (*)(SEXP, SEXP))       R_GetCCallable("rlang", "rlang_quo_set_env");
+    new_quosure =       (SEXP (*)(SEXP, SEXP))       R_GetCCallable("rlang", "rlang_new_quosure");
+    is_quosure =        (bool (*)(SEXP))             R_GetCCallable("rlang", "rlang_is_quosure");
+    as_data_pronoun =   (SEXP (*)(SEXP))             R_GetCCallable("rlang", "rlang_as_data_pronoun");
+    as_data_mask =      (SEXP (*)(SEXP, SEXP))       R_GetCCallable("rlang", "rlang_as_data_mask");
+    new_data_mask =     (SEXP (*)(SEXP, SEXP))       R_GetCCallable("rlang", "rlang_new_data_mask_3.0.0");
+  }
+};
+// *INDENT-ON*
+
+const rlang_api_ptrs_t& rlang_api();
+
+} // namespace internal
+
+
+} // dplyr
+
+namespace rlang {
+
+inline SEXP quo_get_expr(SEXP quo) {
+  return dplyr::internal::rlang_api().quo_get_expr(quo);
+}
+
+inline SEXP quo_get_env(SEXP quo) {
+  return dplyr::internal::rlang_api().quo_get_env(quo);
+}
+
+inline bool is_quosure(SEXP x) {
+  return dplyr::internal::rlang_api().is_quosure(x);
+}
+
+inline SEXP new_data_mask(SEXP bottom, SEXP top) {
+  return dplyr::internal::rlang_api().new_data_mask(bottom, top);
+}
+
+inline SEXP as_data_pronoun(SEXP data) {
+  return dplyr::internal::rlang_api().as_data_pronoun(data);
 }
 
 }
