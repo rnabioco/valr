@@ -8,6 +8,8 @@
 // of the MIT license. See the LICENSE file for details.
 
 #include "valr.h"
+// #include <tools/utils.h>
+// #include <tools/bad.h>
 
 std::vector<int> csv_values(std::string csv) {
 
@@ -28,7 +30,7 @@ std::vector<int> csv_values(std::string csv) {
 }
 
 // [[Rcpp::export]]
-DataFrame bed12toexons_impl(DataFrame x) {
+DataFrame bed12toexons_impl(DataFrame x, SEXP frame) {
 
   // input
   IntegerVector starts = x["start"] ;
@@ -68,7 +70,9 @@ DataFrame bed12toexons_impl(DataFrame x) {
 
   CharacterVector cnames = CharacterVector::create("chrom", "start", "end", "name", "score", "strand") ;
   SymbolVector names = SymbolVector(cnames) ;
-  DataFrame out = DataFrameSubsetVisitors(x, names).subset(df_idx, "data.frame");
+
+  DataFrame tmp = DataFrameSelect(x, names) ;
+  DataFrame out = subset_dataframe(tmp, df_idx, frame) ;
 
   out["start"] = starts_out ;
   out["end"] = ends_out ;

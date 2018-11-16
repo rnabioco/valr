@@ -87,10 +87,10 @@ bed_map(x, y, .count = length(value))
 bed_map(x, y, .vals = values(value))
 
 # count defaults are NA not 0; differs from bedtools2 ...
-bed_map(x, y, .counts = n())
+bed_map(x, y, .counts = dplyr::n())
 
 # ... but NA counts can be coverted to 0's
-dplyr::mutate(bed_map(x, y, .counts = n()), .counts = ifelse(is.na(.counts), 0, .counts))
+dplyr::mutate(bed_map(x, y, .counts = dplyr::n()), .counts = ifelse(is.na(.counts), 0, .counts))
 
 }
 \seealso{

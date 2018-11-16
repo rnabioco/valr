@@ -2,7 +2,7 @@
 #define dplyr_checks_H
 
 #include <tools/SymbolString.h>
-#include <dplyr/bad.h>
+#include <tools/bad.h>
 
 namespace dplyr {
 
@@ -12,7 +12,8 @@ enum SupportedType {
   DPLYR_REALSXP = REALSXP,
   DPLYR_CPLXSXP = CPLXSXP,
   DPLYR_STRSXP = STRSXP,
-  DPLYR_VECSXP = VECSXP
+  DPLYR_VECSXP = VECSXP,
+  DPLYR_RAWSXP = RAWSXP
 };
 
 inline std::string type_name(SEXP x) {
@@ -69,6 +70,8 @@ inline SupportedType check_supported_type(SEXP x, const SymbolString& name = Str
     return DPLYR_STRSXP;
   case VECSXP:
     return DPLYR_VECSXP;
+  case RAWSXP:
+    return DPLYR_RAWSXP;
   default:
     if (name.is_empty()) {
       Rcpp::stop("is of unsupported type %s", type_name(x));
@@ -88,6 +91,13 @@ inline void check_length(const int actual, const int expected, const char* comme
   message.set_encoding(CE_UTF8);
   stop(message.get_cstring());
 }
+
+inline void check_not_null(SEXP result, const SymbolString& name) {
+  if (Rf_isNull(result)) {
+    bad_col(name, "is of unsupported type NULL");
+  }
+}
+
 
 }
 #endif

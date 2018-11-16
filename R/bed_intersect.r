@@ -131,7 +131,7 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
-  res <- intersect_impl(x, y, invert, suffix$x, suffix$y)
+  res <- intersect_impl(x, y, environment(), invert, suffix$x, suffix$y)
 
   if (invert) {
     res <- filter(res, is.na(.overlap))

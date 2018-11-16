@@ -102,4 +102,7 @@ check_suffix <- function(suffix) {
 #' @param grp_df grouped tbl_df
 #' @return `tibble` of grouping labels or `NULL` if no groups present
 #' @noRd
-get_labels <- function(grp_tbl) attr(grp_tbl, "labels")
+get_labels <- function(grp_tbl) {
+  grp_df <- attr(grp_tbl, "groups")
+  grp_df[, !colnames(grp_df) %in% ".rows"]
+}

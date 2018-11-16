@@ -15,20 +15,37 @@
 #include "valr.h"
 
 inline bool compare_rows(DataFrame df_x, DataFrame df_y,
-                         int idx_x, int idx_y) {
+                         int idx_x, int idx_y, SEXP frame) {
 
   IntegerVector idxs_x = IntegerVector::create(idx_x) ;
   IntegerVector idxs_y = IntegerVector::create(idx_y) ;
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(idxs_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(df_y, df_y.names()).subset(idxs_y, "data.frame");
+  DataFrame subset_x = subset_dataframe(df_x, idxs_x, frame) ;
+  DataFrame subset_y = subset_dataframe(df_y, idxs_y, frame) ;
 
+  // don't compare the .rows column
   int ncols = df_x.size() ;
+  CharacterVector cnames_x = df_x.attr("names") ;
+  CharacterVector cnames_y = df_y.attr("names") ;
+  std::string group_col = ".rows" ;
   bool cols_equal = false;
 
   for (int i = 0; i < ncols; i++) {
+    auto current_col = cnames_x[i];
+    if(current_col == group_col) {
+      break ;
+    }
+    CharacterVector::iterator itr = std::find(cnames_y.begin(), cnames_y.end(), current_col);
+
+    int y_col_idx ;
+    if (itr != cnames_y.end()) {
+      y_col_idx = std::distance(cnames_y.begin(), itr);
+    } else {
+      Rcpp::stop("Element not found");
+    }
+
     CharacterVector col_x = subset_x[i] ;
-    CharacterVector col_y = subset_y[i] ;
+    CharacterVector col_y = subset_y[y_col_idx] ;
 
     cols_equal = is_true(all(col_x == col_y)) ;
     if (!cols_equal) break ;
@@ -40,6 +57,7 @@ inline bool compare_rows(DataFrame df_x, DataFrame df_y,
 template < typename FN, typename... ARGS >
 inline void GroupApply(const GroupedDataFrame& x,
                        const GroupedDataFrame& y,
+                       SEXP frame,
                        FN&& fn, ARGS&& ... args) {
 
   auto data_x = x.data() ;
@@ -48,8 +66,8 @@ inline void GroupApply(const GroupedDataFrame& x,
   auto ng_x = x.ngroups() ;
   auto ng_y = y.ngroups() ;
 
-  DataFrame labels_x(data_x.attr("labels"));
-  DataFrame labels_y(data_y.attr("labels"));
+  DataFrame labels_x = x.group_data() ;
+  DataFrame labels_y = y.group_data() ;
 
   GroupedDataFrame::group_iterator git_x = x.group_begin() ;
   for (int nx = 0; nx < ng_x; nx++, ++git_x) {
@@ -61,8 +79,7 @@ inline void GroupApply(const GroupedDataFrame& x,
 
       GroupedSlicingIndex gi_y = *git_y ;
 
-      bool same_groups = compare_rows(labels_x, labels_y, nx, ny);
-
+      bool same_groups = compare_rows(labels_x, labels_y, nx, ny, frame);
       if (same_groups) {
 
         ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;

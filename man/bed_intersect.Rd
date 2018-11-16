@@ -24,7 +24,7 @@ If  multiple \code{y} tbls are supplied, the \code{.source} contains variable na
 associated with each interval. All original columns from the \code{y} are suffixed
 with \code{.y} in the output.
 
-If \code{...} contains named inputs (i.e \code{a = y, b = z} or \code{list(a = y, b = z)}),
+If \code{...} contains named inputs (i.e \code{a = y, b = z} or \code{list(a = y, b =  z)}),
 then \code{.source} will contain supplied names (see examples).
 }
 \description{

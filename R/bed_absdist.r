@@ -50,7 +50,7 @@ bed_absdist <- function(x, y, genome) {
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
 
-  res <- dist_impl(x, y, distcalc = "absdist")
+  res <- dist_impl(x, y, distcalc = "absdist", environment())
 
   # convert groups_xy to character vector
   if (!is.null(groups_xy)) {
@@ -59,7 +59,7 @@ bed_absdist <- function(x, y, genome) {
 
   # calculate reference sizes
   genome <- filter(genome, genome$chrom %in% res$chrom)
-  genome <- inner_join(genome, attributes(y)$labels, by = c("chrom"))
+  genome <- inner_join(genome, get_labels(y), by = c("chrom"))
 
   ref_points <- summarize(y, .ref_points = n())
   genome <- inner_join(genome, ref_points, by = c("chrom", groups_xy))

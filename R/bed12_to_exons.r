@@ -21,7 +21,7 @@ bed12_to_exons <- function(x) {
     stop("expected 12 column input", call. = FALSE)
   }
 
-  res <- bed12toexons_impl(x)
+  res <- bed12toexons_impl(x, environment())
   res <- bed_sort(res)
 
   res

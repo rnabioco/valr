@@ -9,7 +9,8 @@
 
 #include "valr.h"
 
-DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) {
+DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf,
+                                  SEXP frame, int max_dist = 0) {
 
   auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
@@ -54,13 +55,16 @@ DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0)
     group_starts.push_back(it.start) ;
     group_ends.push_back(it.stop) ;
   }
-  DataFrame subset_x = DataFrameSubsetVisitors(df, df.names()).subset(indices_x, "data.frame");
+
+  DataFrame subset_x = subset_dataframe(df, indices_x, frame) ;
+
   subset_x["start"] = group_starts ;
   subset_x["end"] = group_ends ;
   return subset_x ;
 }
 
-DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) {
+DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, SEXP frame,
+                                 int max_dist = 0) {
 
   auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
@@ -135,17 +139,17 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) 
 }
 
 //[[Rcpp::export]]
-DataFrame merge_impl(GroupedDataFrame gdf,
+DataFrame merge_impl(GroupedDataFrame gdf, SEXP frame,
                      int max_dist = 0,
                      bool collapse = true) {
 
   if (!collapse) {
     // return a cluster id per input interval
-    DataFrame out = clusterMergedIntervals(gdf, max_dist) ;
+    DataFrame out = clusterMergedIntervals(gdf, frame, max_dist) ;
     return out ;
   } else {
     // return only merged intervals
-    DataFrame out = collapseMergedIntervals(gdf, max_dist) ;
+    DataFrame out = collapseMergedIntervals(gdf, frame, max_dist) ;
     return out ;
   }
 }

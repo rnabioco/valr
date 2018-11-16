@@ -62,6 +62,7 @@ read_genome <- function(path) {
 #' @export
 bound_intervals <- function(x, genome, trim = FALSE) {
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- ungroup(x)
 
   res <- left_join(x, genome, by = "chrom")
   if (trim) {

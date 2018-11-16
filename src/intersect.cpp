@@ -12,7 +12,8 @@
 void unmatched_groups(GroupedDataFrame x, GroupedDataFrame y,
                       std::vector<int>& indices_x,
                       std::vector<int>& indices_y,
-                      std::vector<int>& overlap_sizes) {
+                      std::vector<int>& overlap_sizes,
+                      SEXP frame) {
 
   auto data_x = x.data() ;
   auto data_y = y.data() ;
@@ -20,8 +21,8 @@ void unmatched_groups(GroupedDataFrame x, GroupedDataFrame y,
   auto ng_x = x.ngroups() ;
   auto ng_y = y.ngroups() ;
 
-  DataFrame labels_x(data_x.attr("labels"));
-  DataFrame labels_y(data_y.attr("labels"));
+  DataFrame labels_x = x.group_data() ;
+  DataFrame labels_y = y.group_data() ;
 
   GroupedDataFrame::group_iterator git_x = x.group_begin() ;
   for (int nx = 0; nx < ng_x; nx++, ++git_x) {
@@ -32,7 +33,7 @@ void unmatched_groups(GroupedDataFrame x, GroupedDataFrame y,
     GroupedDataFrame::group_iterator git_y = y.group_begin() ;
 
     for (int ny = 0; ny < ng_y; ny++, ++git_y) {
-      match = compare_rows(labels_x, labels_y, nx, ny);
+      match = compare_rows(labels_x, labels_y, nx, ny, frame);
       if (match) break ;
     }
 
@@ -81,6 +82,7 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
 
 // [[Rcpp::export]]
 DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
+                         SEXP frame,
                          bool invert = false,
                          const std::string& suffix_x = ".x",
                          const std::string& suffix_y = ".y") {
@@ -97,16 +99,16 @@ DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
 
   // find unmatched x intervals
   if (invert) {
-    unmatched_groups(x, y, indices_x, indices_y, overlap_sizes) ;
+    unmatched_groups(x, y, indices_x, indices_y, overlap_sizes, frame) ;
   }
 
   // set up interval trees for each chromosome and apply intersect_group
-  GroupApply(x, y, intersect_group,
+  GroupApply(x, y, frame, intersect_group,
              std::ref(indices_x), std::ref(indices_y),
              std::ref(overlap_sizes), invert);
 
-  DataFrame subset_x = DataFrameSubsetVisitors(data_x, data_x.names()).subset(indices_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(data_y, data_y.names()).subset(indices_y, "data.frame");
+  DataFrame subset_x = subset_dataframe(data_x, indices_x, frame) ;
+  DataFrame subset_y = subset_dataframe(data_y, indices_y, frame) ;
 
   DataFrameBuilder out;
   // x names, data

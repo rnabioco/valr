@@ -54,7 +54,8 @@ void closest_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
 
 //[[Rcpp::export]]
 DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
-                       const std::string& suffix_x, const std::string& suffix_y) {
+                       const std::string& suffix_x, const std::string& suffix_y,
+                       SEXP frame) {
 
   DataFrame df_x = x.data() ;
   DataFrame df_y = y.data() ;
@@ -65,18 +66,12 @@ DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
   std::vector<int> overlap_sizes ;
   std::vector<int> distance_sizes ;
 
-  // preallocate vector to save some time
-  indices_x.reserve(2e6) ;
-  indices_y.reserve(2e6) ;
-  overlap_sizes.reserve(2e6) ;
-  distance_sizes.reserve(2e6) ;
-
   // set up interval trees for each chromosome and apply closest_grouped
-  GroupApply(x, y, closest_grouped, std::ref(indices_x), std::ref(indices_y),
+  GroupApply(x, y, frame, closest_grouped, std::ref(indices_x), std::ref(indices_y),
              std::ref(overlap_sizes), std::ref(distance_sizes));
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(indices_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(df_y, df_y.names()).subset(indices_y, "data.frame");
+  DataFrame subset_x = subset_dataframe(df_x, indices_x, frame) ;
+  DataFrame subset_y = subset_dataframe(df_y, indices_y, frame) ;
 
   DataFrameBuilder out;
   // x names, data
@@ -114,6 +109,6 @@ y <- tibble::tribble(
 suffix_x <- '.x'
 suffix_y <- '.y'
 
-closest_impl(x, y, suffix_x, suffix_y)
+closest_impl(x, y, suffix_x, suffix_y, environment())
 
 */

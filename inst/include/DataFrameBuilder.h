@@ -79,7 +79,7 @@ public:
     auto names = this->names ;
     set_rownames(res, nrow) ;
     res.attr("names") = names ;
-    res.attr("class") = classes_not_grouped() ;
+    res.attr("class") = Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame") ;
     return res ;
   }
 };

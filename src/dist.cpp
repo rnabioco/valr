@@ -96,15 +96,15 @@ void dist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
 }
 
 //[[Rcpp::export]]
-DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc) {
+DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc, SEXP frame) {
 
   std::vector<double> distances ;
   std::vector<int> indices_x ;
 
   DataFrame df_x = x.data() ;
-  GroupApply(x, y, dist_grouped, std::ref(indices_x), std::ref(distances), std::ref(distcalc));
+  GroupApply(x, y, frame, dist_grouped, std::ref(indices_x), std::ref(distances), std::ref(distcalc));
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(indices_x, "data.frame");
+  DataFrame subset_x = subset_dataframe(df_x, indices_x, frame) ;
 
   DataFrameBuilder out;
   // x names, data
