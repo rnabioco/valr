@@ -87,7 +87,7 @@ bed_closest <- function(x, y, overlap = TRUE,
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
-  res <- closest_impl(x, y, suffix$x, suffix$y)
+  res <- closest_impl(x, y, suffix$x, suffix$y, environment())
 
   if (!overlap) {
     res <- filter(res, .overlap < 1)

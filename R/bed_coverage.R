@@ -50,7 +50,7 @@ bed_coverage <- function(x, y, ...) {
   y <- bed_sort(y)
   y <- group_by(y, chrom, add = TRUE)
 
-  res <- coverage_impl(x, y)
+  res <- coverage_impl(x, y, environment())
 
   res
 }

@@ -63,14 +63,14 @@ bed_subtract <- function(x, y, any = FALSE) {
 
   if (any) {
     # collect and return x intervals without overlaps
-    res <- intersect_impl(x, y, invert = TRUE)
+    res <- intersect_impl(x, y, environment(), invert = TRUE)
     anti <- filter(res, is.na(.overlap))
     anti <- select(anti, chrom, start = start.x, end = end.x)
 
     return(anti)
   }
 
-  res <- subtract_impl(x, y)
+  res <- subtract_impl(x, y, environment())
   res <- bind_rows(res, res_no_y)
   res <- bed_sort(res)
 
