@@ -73,7 +73,7 @@ public:
     }
   }
 
-  // apply common  attributes to output dataframe
+  // apply common attributes to output dataframe
   inline List format_df(int nrow) {
     List res = *this ;
     auto names = this->names ;

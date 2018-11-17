@@ -7,11 +7,12 @@
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
-#ifndef valr__utils_H
-#define valr__utils_H
+#ifndef valr__dplyrutils_H
+#define valr__dplyrutils_H
 
 #include "valr.h"
 
+// wrapper to call dplyr DataFrameSubsetVisitors
 DataFrame subset_dataframe(const DataFrame& df,
                            std::vector<int> indices,
                            SEXP frame) ;
@@ -19,5 +20,14 @@ DataFrame subset_dataframe(const DataFrame& df,
 DataFrame subset_dataframe(const DataFrame& df,
                            IntegerVector indices,
                            SEXP frame) ;
+
+inline DataFrame check_is_grouped(const DataFrame& x){
+  bool is_grouped(Rf_inherits(x, "grouped_df")) ;
+
+  if(!is_grouped) {
+    Rcpp::stop("error: grouped dataframe required") ;
+  }
+  return(x) ;
+}
 
 #endif

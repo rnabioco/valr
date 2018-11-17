@@ -18,3 +18,9 @@ DataFrame subset_dataframe(const DataFrame& df,
   DataFrame out = DataFrameSubsetVisitors(df, frame).subset_all(idx_r);
   return(out) ;
 }
+
+GroupedDataFrame::GroupedDataFrame(DataFrame x):
+  data_(check_is_grouped(x)),
+  groups(data_.attr("groups"))
+{}
+

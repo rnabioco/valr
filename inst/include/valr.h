@@ -27,5 +27,4 @@ using namespace dplyr ;
 #include "genome.h"
 #include "random.h"
 #include "DataFrameBuilder.h"
-#include "valr_dplyr_types.h"
 #endif

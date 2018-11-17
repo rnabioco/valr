@@ -5,7 +5,7 @@
 #include <dplyr/allow_list.h>
 #include <tools/collapse.h>
 #include <tools/bad.h>
-#include <dplyr/data/GroupedDataFrame.h>
+#include <dplyr/data/GroupedDataFrame.h> // note that groupeddataframe was redefined
 #include <dplyr/symbols.h>
 
 using namespace Rcpp;
