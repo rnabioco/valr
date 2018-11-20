@@ -61,7 +61,13 @@ bed_partition <- function(x, ...) {
   x <- bed_sort(x)
   x <- group_by(x, chrom, add = TRUE)
 
-  res <- partition_impl(x, environment())
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    x_cpp <- update_groups(x)
+    res <- partition_impl(x_cpp, environment())
+  } else {
+    res <- partition_impl(x, environment())
+  }
+
   res <- tbl_df(res)
 
   # drop non-grouped cols as values no longer match ivls

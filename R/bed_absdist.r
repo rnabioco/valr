@@ -50,7 +50,13 @@ bed_absdist <- function(x, y, genome) {
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
 
-  res <- dist_impl(x, y, distcalc = "absdist", environment())
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    x_cpp <- update_groups(x)
+    y_cpp <- update_groups(y)
+    res <- dist_impl(x_cpp, y_cpp, distcalc = "absdist", environment())
+  } else {
+    res <- dist_impl(x, y, distcalc = "absdist", environment())
+  }
 
   # convert groups_xy to character vector
   if (!is.null(groups_xy)) {

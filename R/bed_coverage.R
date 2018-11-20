@@ -50,6 +50,11 @@ bed_coverage <- function(x, y, ...) {
   y <- bed_sort(y)
   y <- group_by(y, chrom, add = TRUE)
 
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    x <- update_groups(x)
+    y <- update_groups(y)
+  }
+
   res <- coverage_impl(x, y, environment())
 
   res

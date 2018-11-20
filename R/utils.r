@@ -103,6 +103,32 @@ check_suffix <- function(suffix) {
 #' @return `tibble` of grouping labels or `NULL` if no groups present
 #' @noRd
 get_labels <- function(grp_tbl) {
-  grp_df <- attr(grp_tbl, "groups")
-  grp_df[, !colnames(grp_df) %in% ".rows"]
+
+  dplyr_version <- packageVersion("dplyr")
+
+  if (dplyr_version < "0.7.9.9000") {
+    grp_df <- attr(grp_tbl, "labels")
+  } else if (dplyr_version >= "0.7.9.9000") {
+    grp_df <- attr(grp_tbl, "groups")
+    grp_df <- grp_df[, !colnames(grp_df) %in% ".rows"]
+  } else {
+    stop("unable to extract labels from input dataframe")
+  }
+  grp_df
+}
+
+#' @export
+update_groups <- function(df){
+  r_indexes <- lapply(attr(df, "indices"),
+                      function(x) x + 1L)
+
+  attr(df, "groups") <- as_tibble(attr(df, "labels"))
+  attr(df, "groups")$.rows <- r_indexes
+  attr(df, "biggest_group_size") <- NULL
+  attr(df, "group_sizes") <- NULL
+  attr(df, "indices") <- NULL
+  attr(df, "labels") <- NULL
+  attr(df, "vars") <- NULL
+  attr(df, "drop") <- NULL
+  df
 }

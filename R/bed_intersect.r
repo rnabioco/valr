@@ -131,6 +131,11 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    x <- update_groups(x)
+    y <- update_groups(y)
+  }
+
   res <- intersect_impl(x, y, environment(), invert, suffix$x, suffix$y)
 
   if (invert) {

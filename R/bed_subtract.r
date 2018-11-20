@@ -61,6 +61,11 @@ bed_subtract <- function(x, y, any = FALSE) {
   # keep x ivls from groups not found in y
   res_no_y <- semi_join(x, not_y_grps, by = colnames(not_y_grps))
 
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    x <- update_groups(x)
+    y <- update_groups(y)
+  }
+
   if (any) {
     # collect and return x intervals without overlaps
     res <- intersect_impl(x, y, environment(), invert = TRUE)
@@ -71,6 +76,7 @@ bed_subtract <- function(x, y, any = FALSE) {
   }
 
   res <- subtract_impl(x, y, environment())
+  res <- ungroup(res)
   res <- bind_rows(res, res_no_y)
   res <- bed_sort(res)
 

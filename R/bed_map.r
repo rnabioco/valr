@@ -48,6 +48,11 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    x <- update_groups(x)
+    y <- update_groups(y)
+  }
+
   res <- intersect_impl(x, y, invert = TRUE, suffix_x = ".x", suffix_y = "", environment())
 
   ## filter for rows that don't intersect. The `duplicated` call is required

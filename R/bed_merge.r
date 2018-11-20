@@ -63,6 +63,10 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   res <- group_by(res, chrom, add = TRUE)
 
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    res <- update_groups(res)
+  }
+
   # if no dots are passed then use fast internal merge
   if (!is.null(substitute(...))) {
     res <- merge_impl(res, environment(), max_dist, collapse = FALSE)

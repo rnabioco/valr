@@ -48,6 +48,10 @@ bed_cluster <- function(x, max_dist = 0) {
   res <- group_by(x, chrom, add = TRUE)
   res <- bed_sort(res)
 
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    res <- update_groups(res)
+  }
+
   res <- merge_impl(res,  environment(), max_dist, collapse = FALSE)
 
   res <- mutate(res, .id = .id_merge)

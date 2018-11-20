@@ -87,6 +87,11 @@ bed_closest <- function(x, y, overlap = TRUE,
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
+  if (packageVersion("dplyr") < "0.7.9.9000"){
+    x <- update_groups(x)
+    y <- update_groups(y)
+  }
+
   res <- closest_impl(x, y, suffix$x, suffix$y, environment())
 
   if (!overlap) {
