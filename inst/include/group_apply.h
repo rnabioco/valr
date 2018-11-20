@@ -33,7 +33,7 @@ inline bool compare_rows(DataFrame df_x, DataFrame df_y,
   for (int i = 0; i < ncols; i++) {
     auto current_col = cnames_x[i];
     if(current_col == group_col) {
-      break ;
+      continue ;
     }
     CharacterVector::iterator itr = std::find(cnames_y.begin(), cnames_y.end(), current_col);
 
@@ -73,11 +73,13 @@ inline void GroupApply(const GroupedDataFrame& x,
   for (int nx = 0; nx < ng_x; nx++, ++git_x) {
 
     GroupedSlicingIndex gi_x = *git_x ;
+    if(gi_x.size() == 0) continue ;
 
     GroupedDataFrame::group_iterator git_y = y.group_begin() ;
     for (int ny = 0; ny < ng_y; ny++, ++git_y) {
 
       GroupedSlicingIndex gi_y = *git_y ;
+      if(gi_y.size() == 0) continue ;
 
       bool same_groups = compare_rows(labels_x, labels_y, nx, ny, frame);
       if (same_groups) {
