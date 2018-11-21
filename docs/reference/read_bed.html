@@ -8,18 +8,25 @@
 
 <title>Read BED and related files. — read_bed • valr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js" integrity="sha256-hIvIxeqhGZF+VVeM55k0mJvWpQ6gTkWk3Emc+NmowYA=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -31,7 +38,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -48,7 +55,8 @@ chrom, start and end colnames." />
 
 
 <!-- mathjax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -214,101 +222,101 @@ local file or URLs. The read functions load data into tbls with consistent
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format.</span>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))</div><div class='output co'>#&gt; [90m# A tibble: 10 x 3[39m
+<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 3</span><span>
 #&gt;    chrom  start    end
-#&gt;    [3m[90m&lt;chr&gt;[39m[23m  [3m[90m&lt;int&gt;[39m[23m  [3m[90m&lt;int&gt;[39m[23m
-#&gt; [90m 1[39m chr1   [4m1[24m[4m1[24m873  [4m1[24m[4m4[24m409
-#&gt; [90m 2[39m chr1   [4m1[24m[4m4[24m361  [4m1[24m[4m9[24m759
-#&gt; [90m 3[39m chr1   [4m1[24m[4m4[24m406  [4m2[24m[4m9[24m370
-#&gt; [90m 4[39m chr1   [4m3[24m[4m4[24m610  [4m3[24m[4m6[24m081
-#&gt; [90m 5[39m chr1   [4m6[24m[4m9[24m090  [4m7[24m[4m0[24m008
-#&gt; [90m 6[39m chr1  [4m1[24m[4m3[24m[4m4[24m772 [4m1[24m[4m4[24m[4m0[24m566
-#&gt; [90m 7[39m chr1  [4m3[24m[4m2[24m[4m1[24m083 [4m3[24m[4m2[24m[4m1[24m115
-#&gt; [90m 8[39m chr1  [4m3[24m[4m2[24m[4m1[24m145 [4m3[24m[4m2[24m[4m1[24m207
-#&gt; [90m 9[39m chr1  [4m3[24m[4m2[24m[4m2[24m036 [4m3[24m[4m2[24m[4m6[24m938
-#&gt; [90m10[39m chr1  [4m3[24m[4m2[24m[4m7[24m545 [4m3[24m[4m2[24m[4m8[24m439</div><div class='input'>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'6fields.bed.gz'</span>), <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; [90m# A tibble: 10 x 6[39m
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1   </span><span style='text-decoration: underline;'>11</span><span>873  </span><span style='text-decoration: underline;'>14</span><span>409
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>361  </span><span style='text-decoration: underline;'>19</span><span>759
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>406  </span><span style='text-decoration: underline;'>29</span><span>370
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1   </span><span style='text-decoration: underline;'>34</span><span>610  </span><span style='text-decoration: underline;'>36</span><span>081
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1   </span><span style='text-decoration: underline;'>69</span><span>090  </span><span style='text-decoration: underline;'>70</span><span>008
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  </span><span style='text-decoration: underline;'>134</span><span>772 </span><span style='text-decoration: underline;'>140</span><span>566
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>083 </span><span style='text-decoration: underline;'>321</span><span>115
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>145 </span><span style='text-decoration: underline;'>321</span><span>207
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439</div><div class='input'>
+<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'6fields.bed.gz'</span>), <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 6</span><span>
 #&gt;    chrom  start    end name         score strand
-#&gt;    [3m[90m&lt;chr&gt;[39m[23m  [3m[90m&lt;int&gt;[39m[23m  [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m        [3m[90m&lt;chr&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m 
-#&gt; [90m 1[39m chr1   [4m1[24m[4m1[24m873  [4m1[24m[4m4[24m409 DDX11L1      3     +     
-#&gt; [90m 2[39m chr1   [4m1[24m[4m4[24m361  [4m1[24m[4m9[24m759 WASH7P       10    -     
-#&gt; [90m 3[39m chr1   [4m1[24m[4m4[24m406  [4m2[24m[4m9[24m370 WASH7P       7     -     
-#&gt; [90m 4[39m chr1   [4m3[24m[4m4[24m610  [4m3[24m[4m6[24m081 FAM138F      3     -     
-#&gt; [90m 5[39m chr1   [4m6[24m[4m9[24m090  [4m7[24m[4m0[24m008 OR4F5        1     +     
-#&gt; [90m 6[39m chr1  [4m1[24m[4m3[24m[4m4[24m772 [4m1[24m[4m4[24m[4m0[24m566 LOC729737    3     -     
-#&gt; [90m 7[39m chr1  [4m3[24m[4m2[24m[4m1[24m083 [4m3[24m[4m2[24m[4m1[24m115 DQ597235     1     +     
-#&gt; [90m 8[39m chr1  [4m3[24m[4m2[24m[4m1[24m145 [4m3[24m[4m2[24m[4m1[24m207 DQ599768     1     +     
-#&gt; [90m 9[39m chr1  [4m3[24m[4m2[24m[4m2[24m036 [4m3[24m[4m2[24m[4m6[24m938 LOC100133331 3     +     
-#&gt; [90m10[39m chr1  [4m3[24m[4m2[24m[4m7[24m545 [4m3[24m[4m2[24m[4m8[24m439 LOC388312    1     +     </div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1   </span><span style='text-decoration: underline;'>11</span><span>873  </span><span style='text-decoration: underline;'>14</span><span>409 DDX11L1      3     +     
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>361  </span><span style='text-decoration: underline;'>19</span><span>759 WASH7P       10    -     
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>406  </span><span style='text-decoration: underline;'>29</span><span>370 WASH7P       7     -     
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1   </span><span style='text-decoration: underline;'>34</span><span>610  </span><span style='text-decoration: underline;'>36</span><span>081 FAM138F      3     -     
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1   </span><span style='text-decoration: underline;'>69</span><span>090  </span><span style='text-decoration: underline;'>70</span><span>008 OR4F5        1     +     
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  </span><span style='text-decoration: underline;'>134</span><span>772 </span><span style='text-decoration: underline;'>140</span><span>566 LOC729737    3     -     
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>083 </span><span style='text-decoration: underline;'>321</span><span>115 DQ597235     1     +     
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>145 </span><span style='text-decoration: underline;'>321</span><span>207 DQ599768     1     +     
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938 LOC100133331 3     +     
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439 LOC388312    1     +     </div><div class='input'>
 <span class='co'># result is sorted by chrom and start unless `sort = FALSE`</span>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [90m# A tibble: 10 x 3[39m
+<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 3</span><span>
 #&gt;    chrom  start    end
-#&gt;    [3m[90m&lt;chr&gt;[39m[23m  [3m[90m&lt;int&gt;[39m[23m  [3m[90m&lt;int&gt;[39m[23m
-#&gt; [90m 1[39m chr1   [4m1[24m[4m1[24m873  [4m1[24m[4m4[24m409
-#&gt; [90m 2[39m chr1   [4m1[24m[4m4[24m361  [4m1[24m[4m9[24m759
-#&gt; [90m 3[39m chr1   [4m1[24m[4m4[24m406  [4m2[24m[4m9[24m370
-#&gt; [90m 4[39m chr1   [4m3[24m[4m4[24m610  [4m3[24m[4m6[24m081
-#&gt; [90m 5[39m chr1   [4m6[24m[4m9[24m090  [4m7[24m[4m0[24m008
-#&gt; [90m 6[39m chr1  [4m1[24m[4m3[24m[4m4[24m772 [4m1[24m[4m4[24m[4m0[24m566
-#&gt; [90m 7[39m chr1  [4m3[24m[4m2[24m[4m1[24m083 [4m3[24m[4m2[24m[4m1[24m115
-#&gt; [90m 8[39m chr1  [4m3[24m[4m2[24m[4m1[24m145 [4m3[24m[4m2[24m[4m1[24m207
-#&gt; [90m 9[39m chr1  [4m3[24m[4m2[24m[4m2[24m036 [4m3[24m[4m2[24m[4m6[24m938
-#&gt; [90m10[39m chr1  [4m3[24m[4m2[24m[4m7[24m545 [4m3[24m[4m2[24m[4m8[24m439</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1   </span><span style='text-decoration: underline;'>11</span><span>873  </span><span style='text-decoration: underline;'>14</span><span>409
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>361  </span><span style='text-decoration: underline;'>19</span><span>759
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>406  </span><span style='text-decoration: underline;'>29</span><span>370
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1   </span><span style='text-decoration: underline;'>34</span><span>610  </span><span style='text-decoration: underline;'>36</span><span>081
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1   </span><span style='text-decoration: underline;'>69</span><span>090  </span><span style='text-decoration: underline;'>70</span><span>008
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  </span><span style='text-decoration: underline;'>134</span><span>772 </span><span style='text-decoration: underline;'>140</span><span>566
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>083 </span><span style='text-decoration: underline;'>321</span><span>115
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>145 </span><span style='text-decoration: underline;'>321</span><span>207
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439</div><div class='input'>
 
-<span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))</div><div class='output co'>#&gt; [90m# A tibble: 100 x 12[39m
+<span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 100 x 12</span><span>
 #&gt;    chrom  start    end name  score strand cds_start cds_end item_rgb exon_count
-#&gt;    [3m[90m&lt;chr&gt;[39m[23m  [3m[90m&lt;int&gt;[39m[23m  [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m      [3m[90m&lt;int&gt;[39m[23m   [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m         [3m[90m&lt;int&gt;[39m[23m
-#&gt; [90m 1[39m chr1  3.20[90me[39m6 3.66[90me[39m6 NM_0… 0     -        3[4m2[24m[4m0[24m[4m6[24m102 3[4m6[24m[4m6[24m[4m1[24m429 0                 3
-#&gt; [90m 2[39m chr1  4.28[90me[39m6 4.40[90me[39m6 NM_0… 0     -        4[4m2[24m[4m8[24m[4m3[24m061 4[4m3[24m[4m9[24m[4m9[24m268 0                 4
-#&gt; [90m 3[39m chr1  4.85[90me[39m6 4.89[90me[39m6 NM_0… 0     +        4[4m8[24m[4m4[24m[4m7[24m994 4[4m8[24m[4m8[24m[4m6[24m445 0                10
-#&gt; [90m 4[39m chr1  4.85[90me[39m6 4.89[90me[39m6 NM_0… 0     +        4[4m8[24m[4m4[24m[4m7[24m994 4[4m8[24m[4m8[24m[4m6[24m445 0                10
-#&gt; [90m 5[39m chr1  4.85[90me[39m6 4.89[90me[39m6 NM_0… 0     +        4[4m8[24m[4m4[24m[4m8[24m488 4[4m8[24m[4m8[24m[4m6[24m445 0                10
-#&gt; [90m 6[39m chr1  4.90[90me[39m6 5.01[90me[39m6 NM_0… 0     -        4[4m9[24m[4m0[24m[4m0[24m554 4[4m9[24m[4m1[24m[4m4[24m046 0                 5
-#&gt; [90m 7[39m chr1  4.90[90me[39m6 5.01[90me[39m6 NM_0… 0     -        4[4m9[24m[4m0[24m[4m0[24m554 5[4m0[24m[4m0[24m[4m9[24m460 0                 5
-#&gt; [90m 8[39m chr1  4.90[90me[39m6 5.06[90me[39m6 NM_0… 0     -        4[4m9[24m[4m0[24m[4m0[24m554 5[4m0[24m[4m6[24m[4m0[24m258 0                 6
-#&gt; [90m 9[39m chr1  5.07[90me[39m6 5.15[90me[39m6 NM_0… 0     +        5[4m0[24m[4m7[24m[4m4[24m531 5[4m1[24m[4m5[24m[4m2[24m246 0                13
-#&gt; [90m10[39m chr1  5.07[90me[39m6 5.15[90me[39m6 NM_1… 0     +        5[4m0[24m[4m7[24m[4m4[24m531 5[4m1[24m[4m5[24m[4m2[24m246 0                14
-#&gt; [90m# ... with 90 more rows, and 2 more variables: exon_sizes [3m[90m&lt;chr&gt;[90m[23m,
-#&gt; #   exon_starts [3m[90m&lt;chr&gt;[90m[23m[39m</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1  3.20</span><span style='color: #555555;'>e</span><span>6 3.66</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        3</span><span style='text-decoration: underline;'>206</span><span>102 3</span><span style='text-decoration: underline;'>661</span><span>429 0                 3
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1  4.28</span><span style='color: #555555;'>e</span><span>6 4.40</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        4</span><span style='text-decoration: underline;'>283</span><span>061 4</span><span style='text-decoration: underline;'>399</span><span>268 0                 4
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1  4.85</span><span style='color: #555555;'>e</span><span>6 4.89</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     +        4</span><span style='text-decoration: underline;'>847</span><span>994 4</span><span style='text-decoration: underline;'>886</span><span>445 0                10
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1  4.85</span><span style='color: #555555;'>e</span><span>6 4.89</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     +        4</span><span style='text-decoration: underline;'>847</span><span>994 4</span><span style='text-decoration: underline;'>886</span><span>445 0                10
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1  4.85</span><span style='color: #555555;'>e</span><span>6 4.89</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     +        4</span><span style='text-decoration: underline;'>848</span><span>488 4</span><span style='text-decoration: underline;'>886</span><span>445 0                10
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  4.90</span><span style='color: #555555;'>e</span><span>6 5.01</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        4</span><span style='text-decoration: underline;'>900</span><span>554 4</span><span style='text-decoration: underline;'>914</span><span>046 0                 5
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  4.90</span><span style='color: #555555;'>e</span><span>6 5.01</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        4</span><span style='text-decoration: underline;'>900</span><span>554 5</span><span style='text-decoration: underline;'>009</span><span>460 0                 5
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  4.90</span><span style='color: #555555;'>e</span><span>6 5.06</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        4</span><span style='text-decoration: underline;'>900</span><span>554 5</span><span style='text-decoration: underline;'>060</span><span>258 0                 6
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  5.07</span><span style='color: #555555;'>e</span><span>6 5.15</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     +        5</span><span style='text-decoration: underline;'>074</span><span>531 5</span><span style='text-decoration: underline;'>152</span><span>246 0                13
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  5.07</span><span style='color: #555555;'>e</span><span>6 5.15</span><span style='color: #555555;'>e</span><span>6 NM_1… 0     +        5</span><span style='text-decoration: underline;'>074</span><span>531 5</span><span style='text-decoration: underline;'>152</span><span>246 0                14
+#&gt; </span><span style='color: #555555;'># ... with 90 more rows, and 2 more variables: exon_sizes </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; #   exon_starts </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 
-<span class='fu'>read_bedgraph</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.bg.gz'</span>))</div><div class='output co'>#&gt; [90m# A tibble: 4 x 4[39m
+<span class='fu'>read_bedgraph</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.bg.gz'</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 4</span><span>
 #&gt;   chrom    start      end value
-#&gt;   [3m[90m&lt;chr&gt;[39m[23m    [3m[90m&lt;int&gt;[39m[23m    [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;dbl&gt;[39m[23m
-#&gt; [90m1[39m chr19 49[4m3[24m[4m0[24m[4m2[24m000 49[4m3[24m[4m0[24m[4m2[24m300 -[31m1[39m   
-#&gt; [90m2[39m chr19 49[4m3[24m[4m0[24m[4m2[24m300 49[4m3[24m[4m0[24m[4m2[24m600 -[31m0[39m[31m.[39m[31m75[39m
-#&gt; [90m3[39m chr19 49[4m3[24m[4m0[24m[4m2[24m600 49[4m3[24m[4m0[24m[4m2[24m900 -[31m0[39m[31m.[39m[31m5[39m 
-#&gt; [90m4[39m chr19 49[4m3[24m[4m0[24m[4m2[24m900 49[4m3[24m[4m0[24m[4m3[24m200 -[31m0[39m[31m.[39m[31m25[39m</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>000 49</span><span style='text-decoration: underline;'>302</span><span>300 -</span><span style='color: #BB0000;'>1</span><span>   
+#&gt; </span><span style='color: #555555;'>2</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>300 49</span><span style='text-decoration: underline;'>302</span><span>600 -</span><span style='color: #BB0000;'>0.75</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>600 49</span><span style='text-decoration: underline;'>302</span><span>900 -</span><span style='color: #BB0000;'>0.5</span><span> 
+#&gt; </span><span style='color: #555555;'>4</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>900 49</span><span style='text-decoration: underline;'>303</span><span>200 -</span><span style='color: #BB0000;'>0.25</span><span></div><div class='input'>
 
-<span class='fu'>read_narrowpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.narrowPeak.gz'</span>))</div><div class='output co'>#&gt; [90m# A tibble: 570 x 10[39m
+<span class='fu'>read_narrowpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.narrowPeak.gz'</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 570 x 10</span><span>
 #&gt;    chrom    start      end name  score strand signal pvalue qvalue  peak
-#&gt;    [3m[90m&lt;chr&gt;[39m[23m    [3m[90m&lt;int&gt;[39m[23m    [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m   [3m[90m&lt;dbl&gt;[39m[23m  [3m[90m&lt;dbl&gt;[39m[23m  [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;int&gt;[39m[23m
-#&gt; [90m 1[39m chr22 17[4m3[24m[4m7[24m[4m2[24m940 17[4m3[24m[4m7[24m[4m3[24m090 .         0 .           4   4.63     -[31m1[39m    -[31m1[39m
-#&gt; [90m 2[39m chr22 17[4m3[24m[4m9[24m[4m2[24m200 17[4m3[24m[4m9[24m[4m2[24m350 .         0 .           5   4.67     -[31m1[39m    -[31m1[39m
-#&gt; [90m 3[39m chr22 17[4m3[24m[4m9[24m[4m8[24m400 17[4m3[24m[4m9[24m[4m8[24m550 .         0 .          10  11.6      -[31m1[39m    -[31m1[39m
-#&gt; [90m 4[39m chr22 17[4m5[24m[4m3[24m[4m9[24m180 17[4m5[24m[4m3[24m[4m9[24m330 .         0 .          21  30.9      -[31m1[39m    -[31m1[39m
-#&gt; [90m 5[39m chr22 17[4m6[24m[4m5[24m[4m2[24m440 17[4m6[24m[4m5[24m[4m2[24m590 .         0 .           6   5.35     -[31m1[39m    -[31m1[39m
-#&gt; [90m 6[39m chr22 17[4m6[24m[4m5[24m[4m2[24m780 17[4m6[24m[4m5[24m[4m2[24m930 .         0 .          12  12.5      -[31m1[39m    -[31m1[39m
-#&gt; [90m 7[39m chr22 17[4m9[24m[4m8[24m[4m0[24m800 17[4m9[24m[4m8[24m[4m0[24m950 .         0 .          12  12.6      -[31m1[39m    -[31m1[39m
-#&gt; [90m 8[39m chr22 18[4m0[24m[4m3[24m[4m8[24m260 18[4m0[24m[4m3[24m[4m8[24m410 .         0 .          29  36.0      -[31m1[39m    -[31m1[39m
-#&gt; [90m 9[39m chr22 18[4m2[24m[4m2[24m[4m5[24m280 18[4m2[24m[4m2[24m[4m5[24m430 .         0 .          21  25.0      -[31m1[39m    -[31m1[39m
-#&gt; [90m10[39m chr22 18[4m2[24m[4m6[24m[4m8[24m020 18[4m2[24m[4m6[24m[4m8[24m170 .         0 .          14  13.0      -[31m1[39m    -[31m1[39m
-#&gt; [90m# ... with 560 more rows[39m</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr22 17</span><span style='text-decoration: underline;'>372</span><span>940 17</span><span style='text-decoration: underline;'>373</span><span>090 .         0 .           4   4.63     -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr22 17</span><span style='text-decoration: underline;'>392</span><span>200 17</span><span style='text-decoration: underline;'>392</span><span>350 .         0 .           5   4.67     -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr22 17</span><span style='text-decoration: underline;'>398</span><span>400 17</span><span style='text-decoration: underline;'>398</span><span>550 .         0 .          10  11.6      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr22 17</span><span style='text-decoration: underline;'>539</span><span>180 17</span><span style='text-decoration: underline;'>539</span><span>330 .         0 .          21  30.9      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr22 17</span><span style='text-decoration: underline;'>652</span><span>440 17</span><span style='text-decoration: underline;'>652</span><span>590 .         0 .           6   5.35     -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr22 17</span><span style='text-decoration: underline;'>652</span><span>780 17</span><span style='text-decoration: underline;'>652</span><span>930 .         0 .          12  12.5      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr22 17</span><span style='text-decoration: underline;'>980</span><span>800 17</span><span style='text-decoration: underline;'>980</span><span>950 .         0 .          12  12.6      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr22 18</span><span style='text-decoration: underline;'>038</span><span>260 18</span><span style='text-decoration: underline;'>038</span><span>410 .         0 .          29  36.0      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr22 18</span><span style='text-decoration: underline;'>225</span><span>280 18</span><span style='text-decoration: underline;'>225</span><span>430 .         0 .          21  25.0      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> chr22 18</span><span style='text-decoration: underline;'>268</span><span>020 18</span><span style='text-decoration: underline;'>268</span><span>170 .         0 .          14  13.0      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'># ... with 560 more rows</span><span></div><div class='input'>
 
-<span class='fu'>read_broadpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.broadPeak.gz'</span>))</div><div class='output co'>#&gt; [90m# A tibble: 1,181 x 9[39m
+<span class='fu'>read_broadpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.broadPeak.gz'</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,181 x 9</span><span>
 #&gt;    chrom    start      end name  score strand signal pvalue qvalue
-#&gt;    [3m[90m&lt;chr&gt;[39m[23m    [3m[90m&lt;int&gt;[39m[23m    [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m [3m[90m&lt;int&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m   [3m[90m&lt;dbl&gt;[39m[23m  [3m[90m&lt;dbl&gt;[39m[23m  [3m[90m&lt;dbl&gt;[39m[23m
-#&gt; [90m 1[39m chr22 16[4m8[24m[4m4[24m[4m7[24m903 16[4m8[24m[4m4[24m[4m8[24m440 .       503 .       10.5     2.5     -[31m1[39m
-#&gt; [90m 2[39m chr22 16[4m8[24m[4m4[24m[4m9[24m452 16[4m8[24m[4m5[24m[4m1[24m326 .       483 .        9.81   15.7     -[31m1[39m
-#&gt; [90m 3[39m chr22 16[4m8[24m[4m4[24m[4m9[24m955 16[4m8[24m[4m5[24m[4m0[24m086 .      [4m1[24m000 .       32.4     4.2     -[31m1[39m
-#&gt; [90m 4[39m chr22 16[4m8[24m[4m5[24m[4m0[24m694 16[4m8[24m[4m5[24m[4m0[24m924 .       831 .       22.5     4.9     -[31m1[39m
-#&gt; [90m 5[39m chr22 16[4m8[24m[4m5[24m[4m2[24m964 16[4m8[24m[4m5[24m[4m3[24m782 .       499 .       10.4     6.2     -[31m1[39m
-#&gt; [90m 6[39m chr22 16[4m8[24m[4m5[24m[4m5[24m065 16[4m8[24m[4m5[24m[4m5[24m803 .       477 .        9.58    3.9     -[31m1[39m
-#&gt; [90m 7[39m chr22 16[4m8[24m[4m5[24m[4m5[24m944 16[4m8[24m[4m5[24m[4m6[24m974 .       491 .       10.1     8.5     -[31m1[39m
-#&gt; [90m 8[39m chr22 16[4m8[24m[4m5[24m[4m7[24m425 16[4m8[24m[4m5[24m[4m7[24m958 .       505 .       10.6     2.5     -[31m1[39m
-#&gt; [90m 9[39m chr22 16[4m8[24m[4m5[24m[4m8[24m284 16[4m8[24m[4m5[24m[4m8[24m824 .       549 .       12.2     4.5     -[31m1[39m
-#&gt; [90m10[39m chr22 16[4m8[24m[4m5[24m[4m9[24m972 16[4m8[24m[4m6[24m[4m2[24m024 .       404 .        6.89    9.3     -[31m1[39m
-#&gt; [90m# ... with 1,171 more rows[39m</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr22 16</span><span style='text-decoration: underline;'>847</span><span>903 16</span><span style='text-decoration: underline;'>848</span><span>440 .       503 .       10.5     2.5     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr22 16</span><span style='text-decoration: underline;'>849</span><span>452 16</span><span style='text-decoration: underline;'>851</span><span>326 .       483 .        9.81   15.7     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr22 16</span><span style='text-decoration: underline;'>849</span><span>955 16</span><span style='text-decoration: underline;'>850</span><span>086 .      </span><span style='text-decoration: underline;'>1</span><span>000 .       32.4     4.2     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr22 16</span><span style='text-decoration: underline;'>850</span><span>694 16</span><span style='text-decoration: underline;'>850</span><span>924 .       831 .       22.5     4.9     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr22 16</span><span style='text-decoration: underline;'>852</span><span>964 16</span><span style='text-decoration: underline;'>853</span><span>782 .       499 .       10.4     6.2     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr22 16</span><span style='text-decoration: underline;'>855</span><span>065 16</span><span style='text-decoration: underline;'>855</span><span>803 .       477 .        9.58    3.9     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr22 16</span><span style='text-decoration: underline;'>855</span><span>944 16</span><span style='text-decoration: underline;'>856</span><span>974 .       491 .       10.1     8.5     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr22 16</span><span style='text-decoration: underline;'>857</span><span>425 16</span><span style='text-decoration: underline;'>857</span><span>958 .       505 .       10.6     2.5     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr22 16</span><span style='text-decoration: underline;'>858</span><span>284 16</span><span style='text-decoration: underline;'>858</span><span>824 .       549 .       12.2     4.5     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> chr22 16</span><span style='text-decoration: underline;'>859</span><span>972 16</span><span style='text-decoration: underline;'>862</span><span>024 .       404 .        6.89    9.3     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'># ... with 1,171 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -333,14 +341,13 @@ local file or URLs. The read functions load data into tbls with consistent
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
-
       </footer>
    </div>
 
   
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
 <script>
   docsearch({
     appId: 'TK8WB6UEB2',

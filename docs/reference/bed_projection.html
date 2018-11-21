@@ -8,18 +8,25 @@
 
 <title>Projection test for query interval overlap. — bed_projection • valr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js" integrity="sha256-hIvIxeqhGZF+VVeM55k0mJvWpQ6gTkWk3Emc+NmowYA=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -31,7 +38,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -46,7 +53,8 @@
 
 
 <!-- mathjax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -180,10 +188,10 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with the following columns:</p><ul>
-<li><p><code>chrom</code> the name of chromosome tested if <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>by_chrom = TRUE</a></code>,
+<li><p><code>chrom</code> the name of chromosome tested if <code>by_chrom = TRUE</code>,
 otherwise has a value of <code>whole_genome</code></p></li>
 <li><p><code>p.value</code> p-value from a binomial test. p-values &gt; 0.5
-are converted to <code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>1 - p-value</a></code> and <code>lower_tail</code> is <code>FALSE</code></p></li>
+are converted to <code>1 - p-value</code> and <code>lower_tail</code> is <code>FALSE</code></p></li>
 <li><p><code>obs_exp_ratio</code> ratio of observed to expected overlap frequency</p></li>
 <li><p><code>lower_tail</code> <code>TRUE</code> indicates the observed overlaps are in the lower tail
 of the distribution (e.g., less overlap than expected). <code>FALSE</code> indicates
@@ -213,25 +221,25 @@ examples.</p>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
-<span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; [90m# A tibble: 1 x 4[39m
+<span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 4</span><span>
 #&gt;   chrom        p.value obs_exp_ratio lower_tail
-#&gt;   [3m[90m&lt;chr&gt;[39m[23m          [3m[90m&lt;dbl&gt;[39m[23m         [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m     
-#&gt; [90m1[39m whole_genome  0.071[4m4[24m          1.00 FALSE     </div><div class='input'>
-<span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [90m# A tibble: 25 x 4[39m
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> whole_genome  0.071</span><span style='text-decoration: underline;'>4</span><span>          1.00 FALSE     </div><div class='input'>
+<span class='fu'>bed_projection</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>genome</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 25 x 4</span><span>
 #&gt;    chrom p.value obs_exp_ratio lower_tail
-#&gt;    [3m[90m&lt;chr&gt;[39m[23m   [3m[90m&lt;dbl&gt;[39m[23m         [3m[90m&lt;dbl&gt;[39m[23m [3m[90m&lt;chr&gt;[39m[23m     
-#&gt; [90m 1[39m chr1   0.302          1.00  FALSE     
-#&gt; [90m 2[39m chr10  0.305          1.00  FALSE     
-#&gt; [90m 3[39m chr11  0.306          0.996 TRUE      
-#&gt; [90m 4[39m chr12  0.031[4m4[24m         1.01  FALSE     
-#&gt; [90m 5[39m chr13  0.449          1.00  FALSE     
-#&gt; [90m 6[39m chr14  0.125          1.01  FALSE     
-#&gt; [90m 7[39m chr15  0.317          1.00  FALSE     
-#&gt; [90m 8[39m chr16  0.248          1.01  FALSE     
-#&gt; [90m 9[39m chr17  0.381          1.00  FALSE     
-#&gt; [90m10[39m chr18  0.190          0.991 TRUE      
-#&gt; [90m# ... with 15 more rows[39m</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1   0.302          1.00  FALSE     
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr10  0.305          1.00  FALSE     
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr11  0.306          0.996 TRUE      
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr12  0.031</span><span style='text-decoration: underline;'>4</span><span>         1.01  FALSE     
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr13  0.449          1.00  FALSE     
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr14  0.125          1.01  FALSE     
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr15  0.317          1.00  FALSE     
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr16  0.248          1.01  FALSE     
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr17  0.381          1.00  FALSE     
+#&gt; </span><span style='color: #555555;'>10</span><span> chr18  0.190          0.991 TRUE      
+#&gt; </span><span style='color: #555555;'># ... with 15 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -256,14 +264,13 @@ examples.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.9000.</p>
 </div>
-
       </footer>
    </div>
 
   
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
 <script>
   docsearch({
     appId: 'TK8WB6UEB2',
