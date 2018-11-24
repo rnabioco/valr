@@ -87,7 +87,7 @@ bed_closest <- function(x, y, overlap = TRUE,
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
-  if (packageVersion("dplyr") < "0.7.9.9000"){
+  if (utils::packageVersion("dplyr") < "0.7.9.9000"){
     x <- update_groups(x)
     y <- update_groups(y)
   }

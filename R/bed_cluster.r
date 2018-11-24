@@ -48,7 +48,7 @@ bed_cluster <- function(x, max_dist = 0) {
   res <- group_by(x, chrom, add = TRUE)
   res <- bed_sort(res)
 
-  if (packageVersion("dplyr") < "0.7.9.9000"){
+  if (utils::packageVersion("dplyr") < "0.7.9.9000"){
     res <- update_groups(res)
   }
 

@@ -104,7 +104,7 @@ check_suffix <- function(suffix) {
 #' @noRd
 get_labels <- function(grp_tbl) {
 
-  dplyr_version <- packageVersion("dplyr")
+  dplyr_version <- utils::packageVersion("dplyr")
 
   if (dplyr_version < "0.7.9.9000") {
     grp_df <- attr(grp_tbl, "labels")
@@ -117,7 +117,10 @@ get_labels <- function(grp_tbl) {
   grp_df
 }
 
-#' @export
+#' Update grouped dataframe attributes for dplyr 0.8.0 version
+#' @param df grouped data frame
+#' @return grouped data frame with attributes mathcing dplyr 0.8.0 version
+#' @noRd
 update_groups <- function(df){
   r_indexes <- lapply(attr(df, "indices"),
                       function(x) x + 1L)

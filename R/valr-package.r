@@ -21,7 +21,7 @@
 #' @importFrom stringr str_replace str_split str_c str_length fixed
 #' @importFrom rlang quos sym syms
 #' @importFrom stats fisher.test na.omit
-#' @importFrom utils head tail
+#' @importFrom utils head tail packageVersion
 #' @importFrom broom tidy
 #' @import ggplot2
 #' @import dplyr
