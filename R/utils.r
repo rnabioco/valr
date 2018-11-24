@@ -119,7 +119,7 @@ get_labels <- function(grp_tbl) {
 
 #' Update grouped dataframe attributes for dplyr 0.8.0 version
 #' @param df grouped data frame
-#' @return grouped data frame with attributes mathcing dplyr 0.8.0 version
+#' @return grouped data frame with attributes matching dplyr 0.8.0 version
 #' @noRd
 update_groups <- function(df){
   r_indexes <- lapply(attr(df, "indices"),
