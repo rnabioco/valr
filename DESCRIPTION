@@ -54,4 +54,5 @@ BugReports: https://github.com/rnabioco/valr/issues
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Remotes: 
-    tidyverse/dplyr
+    tidyverse/dplyr,
+    tidyverse/tibble
