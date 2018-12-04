@@ -24,7 +24,9 @@ Imports:
     tibble (>= 1.4.2),
     broom,
     ggplot2
-SystemRequirements: C++11
+SystemRequirements: 
+    C++11,
+    GNU make
 LinkingTo:
     Rcpp (>= 1.0.0),
     BH,

@@ -1,2 +1,5 @@
 CXX_STD = CXX11
 PKG_CPPFLAGS = -I../inst/include
+
+SOURCES = $(wildcard *.c *.cpp dplyr/*.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
