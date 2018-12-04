@@ -229,6 +229,11 @@ public:
     return groups[groups.size() - 1] ;
   }
 
+  template <typename Data>
+  static void strip_groups(Data& x) {
+      x.attr("groups") = R_NilValue;
+  }
+
 private:
   DataFrame data_;
   DataFrame groups;

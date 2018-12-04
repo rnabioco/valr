@@ -74,11 +74,18 @@ public:
   }
 
   // apply common attributes to output dataframe
+  // by default groups are stripped and tbl_df is returned
   inline List format_df(int nrow) {
     List res = *this ;
     auto names = this->names ;
+
     set_rownames(res, nrow) ;
     res.attr("names") = names ;
+
+    if(Rf_inherits(res, "grouped_df")){
+      GroupedDataFrame::strip_groups(res) ;
+    }
+
     res.attr("class") = Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame") ;
     return res ;
   }
