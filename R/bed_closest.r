@@ -80,10 +80,13 @@ bed_closest <- function(x, y, overlap = TRUE,
   check_suffix(suffix)
 
   x <- bed_sort(x)
-  x <- group_by(x, chrom, add = TRUE)
-
   y <- bed_sort(y)
-  y <- group_by(y, chrom, add = TRUE)
+
+  groups_xy <- shared_groups(x, y)
+  groups_vars <- rlang::syms(c("chrom", groups_xy))
+
+  x <- group_by(x, !!! groups_vars)
+  y <- group_by(y, !!! groups_vars)
 
   suffix <- list(x = suffix[1], y = suffix[2])
 

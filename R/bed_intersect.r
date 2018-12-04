@@ -126,8 +126,12 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
   check_suffix(suffix)
 
-  x <- group_by(x, chrom, add = TRUE)
-  y <- group_by(y, chrom, add = TRUE)
+  # establish grouping with shared groups (and chrom)
+  groups_xy <- shared_groups(x, y)
+  groups_vars <- rlang::syms(c("chrom", groups_xy))
+
+  x <- group_by(x, !!! groups_vars)
+  y <- group_by(y, !!! groups_vars)
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
