@@ -1,5 +1,42 @@
 context("dplyr grouping")
 
+genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
+seed <- 1010486
+x <- bed_random(genome, n = 1e4, seed = seed)
+x$strand <- rep(c("+", "_"), 5e3)
+y <- x
+
+x_grpd <- group_by(x, strand)
+y_grpd <- group_by(y, strand)
+
+
+test_that("mismatched groups are dropped by two table verbs", {
+   res1 <- bed_closest(x, y_grpd)
+   res2 <- bed_closest(x_grpd, y)
+   expect_equal(res1, res2)
+   expect_equal(nrow(res1), 20284)
+
+   res1 <- bed_intersect(x, y_grpd)
+   res2 <- bed_intersect(x_grpd, y)
+   expect_equal(res1, res2)
+   expect_equal(nrow(res1), 10076)
+
+   res1 <- bed_map(x, y_grpd, .n = n())
+   res2 <- bed_map(x_grpd, y, .n = n())
+   expect_equal(res1, res2)
+   expect_equal(nrow(res1), 10000)
+
+   res1 <- bed_subtract(x, y_grpd)
+   res2 <- bed_subtract(x_grpd, y)
+   expect_equal(res1, res2)
+   expect_equal(nrow(res1), 0)
+
+   res1 <- bed_window(x, y_grpd, genome)
+   res2 <- bed_window(x_grpd, y, genome)
+   expect_equal(res1, res2)
+   expect_equal(nrow(res1), 10076)
+})
+
 ## dplyr v0.7.9 and earlier style grouped data_frame
 df_old <- structure(
     list(
