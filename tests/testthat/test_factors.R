@@ -21,7 +21,7 @@ test_that("factor types for groups are handled the same as character", {
 
 test_that("mixing factor and character vectors for grouping works", {
   res_x <- bed_intersect(x_grpd, x_grpd)
-  res_mixed <- bed_intersect(x_grpd, x_facs_grpd)
+  expect_warning(res_mixed <- bed_intersect(x_grpd, x_facs_grpd))
   expect_true(all(res_x == res_mixed))
 })
 
@@ -31,9 +31,8 @@ test_that("factors with no entries are handled ", {
     filter(strand == "+", chrom == "chr1") %>%
     group_by(strand)
 
-  res_x <- bed_intersect(x, x_empty_groups)
+  res_x <- bed_intersect(x_facs_grpd, x_empty_groups)
   expect_true(all(res_x$chrom == "chr1"))
   expect_true(all(res_x$strand.x == "+" && res_x$strand.y == "+"))
+
 })
-
-
