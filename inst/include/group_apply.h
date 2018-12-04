@@ -14,6 +14,10 @@
 
 #include "valr.h"
 
+DataFrame extract_groups(const DataFrame& x) ;
+std::vector<int> shared_row_indexes(const GroupedDataFrame& x,
+                                    const GroupedDataFrame& y) ;
+
 inline bool compare_rows(DataFrame df_x, DataFrame df_y,
                          int idx_x, int idx_y, SEXP frame) {
 
@@ -53,7 +57,6 @@ inline bool compare_rows(DataFrame df_x, DataFrame df_y,
   return cols_equal ;
 }
 
-
 template < typename FN, typename... ARGS >
 inline void GroupApply(const GroupedDataFrame& x,
                        const GroupedDataFrame& y,
@@ -63,34 +66,36 @@ inline void GroupApply(const GroupedDataFrame& x,
   auto data_x = x.data() ;
   auto data_y = y.data() ;
 
-  auto ng_x = x.ngroups() ;
-  auto ng_y = y.ngroups() ;
+  std::vector<int> grp_idx_x, grp_idx_y ;
+  grp_idx_x = shared_row_indexes(x, y) ;
+  grp_idx_y = shared_row_indexes(y, x) ;
 
-  DataFrame labels_x = x.group_data() ;
-  DataFrame labels_y = y.group_data() ;
+  if(grp_idx_x.size() != grp_idx_y.size()){
+    stop("incompatible groups found between x and y dataframes") ;
+  }
 
-  GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-  for (int nx = 0; nx < ng_x; nx++, ++git_x) {
+  ListView idx_x(x.indices()) ;
+  ListView idx_y(y.indices()) ;
 
-    GroupedSlicingIndex gi_x = *git_x ;
-    if(gi_x.size() == 0) continue ;
+  int ng_x = grp_idx_x.size() ;
+  for (int i = 0; i < ng_x; i++) {
+    int x_idx = grp_idx_x[i] ;
+    int y_idx = grp_idx_y[i] ;
 
-    GroupedDataFrame::group_iterator git_y = y.group_begin() ;
-    for (int ny = 0; ny < ng_y; ny++, ++git_y) {
+    GroupedSlicingIndex gi_x, gi_y ;
+    gi_x = GroupedSlicingIndex(idx_x[x_idx], x_idx) ;
+    gi_y = GroupedSlicingIndex(idx_y[y_idx], y_idx) ;
 
-      GroupedSlicingIndex gi_y = *git_y ;
-      if(gi_y.size() == 0) continue ;
-
-      bool same_groups = compare_rows(labels_x, labels_y, nx, ny, frame);
-      if (same_groups) {
-
-        ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
-        ivl_vector_t vy = makeIntervalVector(data_y, gi_y) ;
-
-        std::bind(std::forward<FN>(fn), vx, vy, std::forward<ARGS>(args)...)();
-      }
+    if(gi_x.size() == 0 || gi_y.size() == 0) {
+      continue ;
     }
+
+    ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
+    ivl_vector_t vy = makeIntervalVector(data_y, gi_y) ;
+
+    std::bind(std::forward<FN>(fn), vx, vy, std::forward<ARGS>(args)...)();
   }
 }
+
 
 #endif
