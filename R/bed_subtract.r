@@ -53,8 +53,11 @@ bed_subtract <- function(x, y, any = FALSE) {
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
-  x <- group_by(x, chrom, add = TRUE)
-  y <- group_by(y, chrom, add = TRUE)
+  groups_xy <- shared_groups(x, y)
+  groups_vars <- rlang::syms(c("chrom", groups_xy))
+
+  x <- group_by(x, !!! groups_vars)
+  y <- group_by(y, !!! groups_vars)
 
   # find groups not in y
   not_y_grps <- setdiff(get_labels(x), get_labels(y))

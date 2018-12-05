@@ -86,9 +86,12 @@ bed_merge <- function(x, max_dist = 0, ...) {
     res <- merge_impl(res, environment(), max_dist, collapse = TRUE)
     res <- select(res, !!! rlang::syms(c("chrom", "start", "end", groups_x)))
   }
-
+  res <- ungroup(res)
   # restore original grouping
-  res <- group_by(res, !!! rlang::syms(groups_x))
+  if(!is.null(groups_x)){
+    res <- group_by(res, !!! rlang::syms(groups_x))
+  }
+
   res <- reorder_names(res, x)
 
   attr(res, "merged") <- TRUE

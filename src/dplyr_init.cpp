@@ -74,7 +74,7 @@ namespace dplyr {
 // SEXP symbols::double_colon = Rf_install("::");
 // SEXP symbols::na_rm = Rf_install("na.rm");
 SEXP symbols::new_env = Rf_install("new.env");
-// SEXP symbols::comment = Rf_install("comment");
+SEXP symbols::comment = Rf_install("comment");
 // SEXP symbols::groups = Rf_install("groups");
 // SEXP symbols::vars = Rf_install("vars");
 //
