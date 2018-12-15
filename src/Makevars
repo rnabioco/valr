@@ -3,3 +3,10 @@ PKG_CPPFLAGS = -I../inst/include
 
 SOURCES = $(wildcard *.c *.cpp dplyr/*.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
+
+all: $(SHLIB) after
+
+clean:
+	rm -f $(OBJECTS)
+
+after: clean
