@@ -53,7 +53,7 @@ void closest_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
 }
 
 //[[Rcpp::export]]
-DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y,
+DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
                        const std::string& suffix_x, const std::string& suffix_y,
                        SEXP frame) {
 

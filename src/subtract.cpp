@@ -76,7 +76,7 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
 }
 
 //[[Rcpp::export]]
-DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y,
+DataFrame subtract_impl(ValrGroupedDataFrame gdf_x, ValrGroupedDataFrame gdf_y,
                         SEXP frame) {
 
   std::vector<std::string> chrom_out ;

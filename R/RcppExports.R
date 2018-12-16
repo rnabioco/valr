@@ -53,3 +53,7 @@ subtract_impl <- function(gdf_x, gdf_y, frame) {
     .Call(`_valr_subtract_impl`, gdf_x, gdf_y, frame)
 }
 
+rowwise_subset_df <- function(x, row_indices) {
+    .Call(`_valr_rowwise_subset_df`, x, row_indices)
+}
+

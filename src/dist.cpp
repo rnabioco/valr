@@ -96,7 +96,7 @@ void dist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
 }
 
 //[[Rcpp::export]]
-DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc, SEXP frame) {
+DataFrame dist_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, std::string distcalc, SEXP frame) {
 
   std::vector<double> distances ;
   std::vector<int> indices_x ;

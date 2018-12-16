@@ -19,13 +19,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // closest_impl
-DataFrame closest_impl(GroupedDataFrame x, GroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y, SEXP frame);
+DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, const std::string& suffix_x, const std::string& suffix_y, SEXP frame);
 RcppExport SEXP _valr_closest_impl(SEXP xSEXP, SEXP ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP, SEXP frameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type y(ySEXP);
     Rcpp::traits::input_parameter< const std::string& >::type suffix_x(suffix_xSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type suffix_y(suffix_ySEXP);
     Rcpp::traits::input_parameter< SEXP >::type frame(frameSEXP);
@@ -46,26 +46,26 @@ BEGIN_RCPP
 END_RCPP
 }
 // coverage_impl
-DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y, SEXP frame);
+DataFrame coverage_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, SEXP frame);
 RcppExport SEXP _valr_coverage_impl(SEXP xSEXP, SEXP ySEXP, SEXP frameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type y(ySEXP);
     Rcpp::traits::input_parameter< SEXP >::type frame(frameSEXP);
     rcpp_result_gen = Rcpp::wrap(coverage_impl(x, y, frame));
     return rcpp_result_gen;
 END_RCPP
 }
 // dist_impl
-DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc, SEXP frame);
+DataFrame dist_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, std::string distcalc, SEXP frame);
 RcppExport SEXP _valr_dist_impl(SEXP xSEXP, SEXP ySEXP, SEXP distcalcSEXP, SEXP frameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type y(ySEXP);
     Rcpp::traits::input_parameter< std::string >::type distcalc(distcalcSEXP);
     Rcpp::traits::input_parameter< SEXP >::type frame(frameSEXP);
     rcpp_result_gen = Rcpp::wrap(dist_impl(x, y, distcalc, frame));
@@ -92,13 +92,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // intersect_impl
-DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y, SEXP frame, bool invert, const std::string& suffix_x, const std::string& suffix_y);
+DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, SEXP frame, bool invert, const std::string& suffix_x, const std::string& suffix_y);
 RcppExport SEXP _valr_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP frameSEXP, SEXP invertSEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type x(xSEXP);
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type y(ySEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type y(ySEXP);
     Rcpp::traits::input_parameter< SEXP >::type frame(frameSEXP);
     Rcpp::traits::input_parameter< bool >::type invert(invertSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type suffix_x(suffix_xSEXP);
@@ -180,15 +180,27 @@ BEGIN_RCPP
 END_RCPP
 }
 // subtract_impl
-DataFrame subtract_impl(GroupedDataFrame gdf_x, GroupedDataFrame gdf_y, SEXP frame);
+DataFrame subtract_impl(ValrGroupedDataFrame gdf_x, ValrGroupedDataFrame gdf_y, SEXP frame);
 RcppExport SEXP _valr_subtract_impl(SEXP gdf_xSEXP, SEXP gdf_ySEXP, SEXP frameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type gdf_x(gdf_xSEXP);
-    Rcpp::traits::input_parameter< GroupedDataFrame >::type gdf_y(gdf_ySEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type gdf_x(gdf_xSEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type gdf_y(gdf_ySEXP);
     Rcpp::traits::input_parameter< SEXP >::type frame(frameSEXP);
     rcpp_result_gen = Rcpp::wrap(subtract_impl(gdf_x, gdf_y, frame));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rowwise_subset_df
+// Based on Kevin Ushey's implementation here // http: DataFrame rowwise_subset_df(const DataFrame& x, IntegerVector row_indices);
+RcppExport SEXP _valr_rowwise_subset_df(SEXP xSEXP, SEXP row_indicesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const DataFrame& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type row_indices(row_indicesSEXP);
+    rcpp_result_gen = Rcpp::wrap(rowwise_subset_df(x, row_indices));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -207,6 +219,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_valr_random_impl", (DL_FUNC) &_valr_random_impl, 4},
     {"_valr_shuffle_impl", (DL_FUNC) &_valr_shuffle_impl, 5},
     {"_valr_subtract_impl", (DL_FUNC) &_valr_subtract_impl, 3},
+    {"_valr_rowwise_subset_df", (DL_FUNC) &_valr_rowwise_subset_df, 2},
     {NULL, NULL, 0}
 };
 

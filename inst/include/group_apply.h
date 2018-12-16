@@ -14,9 +14,55 @@
 
 #include "valr.h"
 
+class ValrGroupedDataFrame;
+
+class ValrGroupedDataFrame {
+public:
+
+  ValrGroupedDataFrame(DataFrame x) ;
+
+  DataFrame& data() {
+    return data_;
+  }
+  const DataFrame& data() const {
+    return data_;
+  }
+
+  inline int size() const {
+    return data_.size();
+  }
+
+  inline int ngroups() const {
+    return groups.nrows();
+  }
+
+  inline int nrows() const {
+    return data_.nrows();
+  }
+
+  inline const DataFrame& group_data() const {
+    return groups ;
+  }
+
+  inline SEXP indices() const {
+    return groups[groups.size() - 1] ;
+  }
+
+  template <typename Data>
+  static void strip_groups(Data& x) {
+    x.attr("groups") = R_NilValue;
+  }
+
+private:
+  DataFrame data_;
+  DataFrame groups;
+};
+
 DataFrame extract_groups(const DataFrame& x) ;
-std::vector<int> shared_row_indexes(const GroupedDataFrame& x,
-                                    const GroupedDataFrame& y) ;
+std::vector<int> shared_row_indexes(const ValrGroupedDataFrame& x,
+                                    const ValrGroupedDataFrame& y) ;
+DataFrame rowwise_subset_df(const DataFrame& x,
+                            IntegerVector row_indices) ;
 
 inline bool compare_rows(DataFrame df_x, DataFrame df_y,
                          int idx_x, int idx_y, SEXP frame) {
@@ -58,8 +104,8 @@ inline bool compare_rows(DataFrame df_x, DataFrame df_y,
 }
 
 template < typename FN, typename... ARGS >
-inline void GroupApply(const GroupedDataFrame& x,
-                       const GroupedDataFrame& y,
+inline void GroupApply(const ValrGroupedDataFrame& x,
+                       const ValrGroupedDataFrame& y,
                        SEXP frame,
                        FN&& fn, ARGS&& ... args) {
 
@@ -82,9 +128,9 @@ inline void GroupApply(const GroupedDataFrame& x,
     int x_idx = grp_idx_x[i] ;
     int y_idx = grp_idx_y[i] ;
 
-    GroupedSlicingIndex gi_x, gi_y ;
-    gi_x = GroupedSlicingIndex(idx_x[x_idx], x_idx) ;
-    gi_y = GroupedSlicingIndex(idx_y[y_idx], y_idx) ;
+    IntegerVector gi_x, gi_y ;
+    gi_x = idx_x[x_idx];
+    gi_y = idx_y[y_idx] ;
 
     if(gi_x.size() == 0 || gi_y.size() == 0) {
       continue ;

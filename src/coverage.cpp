@@ -110,7 +110,7 @@ void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
 
 
 //[[Rcpp::export]]
-DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y, SEXP frame) {
+DataFrame coverage_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, SEXP frame) {
 
   // overlapping interval stats
   std::vector<int> overlap_counts ;
@@ -132,10 +132,11 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y, SEXP frame) {
   if (y.data().nrows() == 0) {
     auto ng_x = x.ngroups() ;
 
-    GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-    for (int nx = 0; nx < ng_x; nx++, ++git_x) {
+    ListView idx_x(x.indices()) ;
 
-      GroupedSlicingIndex gi_x = *git_x ;
+    for (int nx = 0; nx < ng_x; nx++) {
+      IntegerVector gi_x ;
+      gi_x = idx_x[nx];
       ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
 
       for (auto it : vx) {

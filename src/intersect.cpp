@@ -9,7 +9,7 @@
 
 #include "valr.h"
 
-void unmatched_groups(GroupedDataFrame x, GroupedDataFrame y,
+void unmatched_groups(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
                       std::vector<int>& indices_x,
                       std::vector<int>& indices_y,
                       std::vector<int>& overlap_sizes,
@@ -24,15 +24,16 @@ void unmatched_groups(GroupedDataFrame x, GroupedDataFrame y,
   DataFrame labels_x = x.group_data() ;
   DataFrame labels_y = y.group_data() ;
 
-  GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-  for (int nx = 0; nx < ng_x; nx++, ++git_x) {
+  ListView idx_x(x.indices()) ;
 
-    GroupedSlicingIndex gi_x = *git_x ;
+  for (int nx = 0; nx < ng_x; nx++) {
+
+    IntegerVector gi_x ;
+    gi_x = idx_x[nx];
 
     bool match = true ;
-    GroupedDataFrame::group_iterator git_y = y.group_begin() ;
 
-    for (int ny = 0; ny < ng_y; ny++, ++git_y) {
+    for (int ny = 0; ny < ng_y; ny++) {
       match = compare_rows(labels_x, labels_y, nx, ny, frame);
       if (match) break ;
     }
@@ -40,7 +41,7 @@ void unmatched_groups(GroupedDataFrame x, GroupedDataFrame y,
     if (match) continue ;
 
     for (int i = 0; i < gi_x.size(); i++) {
-      indices_x.push_back(gi_x[i]) ;
+      indices_x.push_back(gi_x[i] - 1) ;
       indices_y.push_back(NA_INTEGER) ;
       overlap_sizes.push_back(NA_INTEGER) ;
     }
@@ -81,7 +82,7 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
 
 
 // [[Rcpp::export]]
-DataFrame intersect_impl(GroupedDataFrame x, GroupedDataFrame y,
+DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
                          SEXP frame,
                          bool invert = false,
                          const std::string& suffix_x = ".x",
