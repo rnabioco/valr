@@ -14,122 +14,37 @@
 
 #include "valr.h"
 
-class ValrGroupedDataFrame;
-
-class ValrGroupedDataFrame {
-public:
-
-  ValrGroupedDataFrame(DataFrame x) ;
-
-  DataFrame& data() {
-    return data_;
-  }
-  const DataFrame& data() const {
-    return data_;
-  }
-
-  inline int size() const {
-    return data_.size();
-  }
-
-  inline int ngroups() const {
-    return groups.nrows();
-  }
-
-  inline int nrows() const {
-    return data_.nrows();
-  }
-
-  inline const DataFrame& group_data() const {
-    return groups ;
-  }
-
-  inline SEXP indices() const {
-    return groups[groups.size() - 1] ;
-  }
-
-  template <typename Data>
-  static void strip_groups(Data& x) {
-    x.attr("groups") = R_NilValue;
-  }
-
-private:
-  DataFrame data_;
-  DataFrame groups;
-};
-
-DataFrame extract_groups(const DataFrame& x) ;
-
-std::vector<int> shared_row_indexes(const ValrGroupedDataFrame& x,
-                                    const ValrGroupedDataFrame& y) ;
-
-DataFrame rowwise_subset_df(const DataFrame& x,
-                            IntegerVector row_indices) ;
-
-inline bool compare_rows(DataFrame df_x, DataFrame df_y,
-                         int idx_x, int idx_y) {
-
-  IntegerVector idxs_x = IntegerVector::create(idx_x) ;
-  IntegerVector idxs_y = IntegerVector::create(idx_y) ;
-
-  DataFrame subset_x = subset_dataframe(df_x, idxs_x) ;
-  DataFrame subset_y = subset_dataframe(df_y, idxs_y) ;
-
-  // don't compare the .rows column
-  int ncols = df_x.size() ;
-  CharacterVector cnames_x = df_x.attr("names") ;
-  CharacterVector cnames_y = df_y.attr("names") ;
-  std::string group_col = ".rows" ;
-  bool cols_equal = false;
-
-  for (int i = 0; i < ncols; i++) {
-    auto current_col = cnames_x[i];
-    if(current_col == group_col) {
-      continue ;
-    }
-    CharacterVector::iterator itr = std::find(cnames_y.begin(), cnames_y.end(), current_col);
-
-    int y_col_idx ;
-    if (itr != cnames_y.end()) {
-      y_col_idx = std::distance(cnames_y.begin(), itr);
-    } else {
-      Rcpp::stop("Element not found");
-    }
-
-    CharacterVector col_x = subset_x[i] ;
-    CharacterVector col_y = subset_y[y_col_idx] ;
-
-    cols_equal = is_true(all(col_x == col_y)) ;
-    if (!cols_equal) break ;
-  }
-  return cols_equal ;
-}
-
 template < typename FN, typename... ARGS >
 inline void GroupApply(const ValrGroupedDataFrame& x,
                        const ValrGroupedDataFrame& y,
-                       IntegerVector grp_idx_x,
-                       IntegerVector grp_idx_y,
+                       const IntegerVector& shared_grps_x,
+                       const IntegerVector& shared_grps_y,
                        FN&& fn, ARGS&& ... args) {
 
   auto data_x = x.data() ;
   auto data_y = y.data() ;
 
-  if(grp_idx_x.size() != grp_idx_y.size()){
+  int ng_x = shared_grps_x.size() ;
+  int ng_y = shared_grps_y.size() ;
+
+  if(ng_x != ng_y){
     stop("incompatible groups found between x and y dataframes") ;
   }
 
-  ListView idx_x(x.indices()) ;
-  ListView idx_y(y.indices()) ;
+  // access the group .rows list
+  ListView grp_indices_x(x.indices()) ;
+  ListView grp_indices_y(y.indices()) ;
 
-  int ng_x = grp_idx_x.size() ;
   for (int i = 0; i < ng_x; i++) {
-    int x_idx = grp_idx_x[i] ;
-    int y_idx = grp_idx_y[i] ;
+    // get next row index to subset from x and y groups
+    // convert from R to Cpp index
+    int shared_x_index = shared_grps_x[i] - 1;
+    int shared_y_index = shared_grps_y[i] - 1;
 
+    // subset the group lists and return integervectors
     IntegerVector gi_x, gi_y ;
-    gi_x = idx_x[x_idx - 1];
-    gi_y = idx_y[y_idx - 1] ;
+    gi_x = grp_indices_x[shared_x_index] ;
+    gi_y = grp_indices_y[shared_y_index] ;
 
     if(gi_x.size() == 0 || gi_y.size() == 0) {
       continue ;

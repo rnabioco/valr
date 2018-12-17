@@ -16,6 +16,7 @@
 using namespace Rcpp ;
 
 #include "utils.h"
+#include "grouped_dataframe.h"
 #include "IntervalTree.h"
 #include "intervals.h"
 #include "group_apply.h"

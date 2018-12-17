@@ -159,7 +159,7 @@ convert_factors <- function(x, group_cols){
 #'
 #' @param x grouped data.frame
 #' @param y grouped data.frame
-#' @returns named list with integer vector of indexes of groups shared between data.frames
+#' @return named list with integer vector of indexes of groups shared between data.frames
 #' @noRd
 shared_group_indexes <- function(x, y){
   x <- get_group_data(x)
@@ -174,7 +174,7 @@ shared_group_indexes <- function(x, y){
 #'
 #' @param x data.frame
 #' @param y data.frame
-#' @returns named list with integer vector of indexes shared between data.frames
+#' @return named list with integer vector of indexes shared between data.frames
 #' @noRd
 shared_rows <- function(x, y){
   # based on plyr::match_df
