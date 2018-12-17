@@ -57,12 +57,12 @@ bed_absdist <- function(x, y, genome) {
     res <- dist_impl(x_cpp, y_cpp,
                      grp_indexes$x,
                      grp_indexes$y,
-                     distcalc = "absdist", environment())
+                     distcalc = "absdist")
   } else {
     grp_indexes <- shared_group_indexes(x_cpp, y_cpp)
     res <- dist_impl(x, y,
                      grp_indexes$x, grp_indexes$y,
-                     distcalc = "absdist", environment())
+                     distcalc = "absdist")
   }
 
   # convert groups_xy to character vector

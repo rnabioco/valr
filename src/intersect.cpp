@@ -12,8 +12,7 @@
 void unmatched_groups(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
                       std::vector<int>& indices_x,
                       std::vector<int>& indices_y,
-                      std::vector<int>& overlap_sizes,
-                      SEXP frame) {
+                      std::vector<int>& overlap_sizes) {
 
   auto data_x = x.data() ;
   auto data_y = y.data() ;
@@ -34,7 +33,7 @@ void unmatched_groups(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
     bool match = true ;
 
     for (int ny = 0; ny < ng_y; ny++) {
-      match = compare_rows(labels_x, labels_y, nx, ny, frame);
+      match = compare_rows(labels_x, labels_y, nx, ny);
       if (match) break ;
     }
 
@@ -85,7 +84,6 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
 DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
                          IntegerVector x_grp_indexes,
                          IntegerVector y_grp_indexes,
-                         SEXP frame,
                          bool invert = false,
                          const std::string& suffix_x = ".x",
                          const std::string& suffix_y = ".y") {
@@ -102,16 +100,16 @@ DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
 
   // find unmatched x intervals
   if (invert) {
-    unmatched_groups(x, y, indices_x, indices_y, overlap_sizes, frame) ;
+    unmatched_groups(x, y, indices_x, indices_y, overlap_sizes) ;
   }
 
   // set up interval trees for each chromosome and apply intersect_group
-  GroupApply(x, y, x_grp_indexes, y_grp_indexes, frame, intersect_group,
+  GroupApply(x, y, x_grp_indexes, y_grp_indexes, intersect_group,
              std::ref(indices_x), std::ref(indices_y),
              std::ref(overlap_sizes), invert);
 
-  DataFrame subset_x = subset_dataframe(data_x, indices_x, frame) ;
-  DataFrame subset_y = subset_dataframe(data_y, indices_y, frame) ;
+  DataFrame subset_x = subset_dataframe(data_x, indices_x) ;
+  DataFrame subset_y = subset_dataframe(data_y, indices_y) ;
 
   DataFrameBuilder out;
   // x names, data

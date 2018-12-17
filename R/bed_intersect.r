@@ -150,7 +150,6 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   res <- intersect_impl(x, y,
                         grp_indexes$x,
                         grp_indexes$y,
-                        environment(),
                         invert,
                         suffix$x,
                         suffix$y)

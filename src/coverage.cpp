@@ -112,8 +112,7 @@ void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
 //[[Rcpp::export]]
 DataFrame coverage_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
                         IntegerVector x_grp_indexes,
-                        IntegerVector y_grp_indexes,
-                        SEXP frame) {
+                        IntegerVector y_grp_indexes) {
 
   // overlapping interval stats
   std::vector<int> overlap_counts ;
@@ -126,7 +125,8 @@ DataFrame coverage_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
 
   auto data_x = x.data() ;
 
-  GroupApply(x, y, x_grp_indexes, y_grp_indexes, frame, coverage_group,
+  GroupApply(x, y, x_grp_indexes, y_grp_indexes,
+             coverage_group,
              std::ref(overlap_counts), std::ref(ivls_bases_covered),
              std::ref(x_ivl_lengths), std::ref(fractions_covered), std::ref(indices_x));
 
@@ -153,7 +153,7 @@ DataFrame coverage_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
     }
   }
 
-  DataFrame subset_x = subset_dataframe(data_x, indices_x, frame) ;
+  DataFrame subset_x = subset_dataframe(data_x, indices_x) ;
 
   DataFrameBuilder out;
   // x names, data

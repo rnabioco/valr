@@ -50,7 +50,7 @@ bed_reldist <- function(x, y, detail = FALSE) {
   res <- dist_impl(x, y,
                    grp_indexes$x,
                    grp_indexes$y,
-                   distcalc = "reldist", environment())
+                   distcalc = "reldist")
 
   if (detail) return(res)
 

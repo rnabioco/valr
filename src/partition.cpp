@@ -42,7 +42,7 @@ void partitionIntervals(const IntervalCache& ivl_cache,
 }
 
 //[[Rcpp::export]]
-DataFrame partition_impl(const ValrGroupedDataFrame& gdf, SEXP frame,
+DataFrame partition_impl(const ValrGroupedDataFrame& gdf,
                          int max_dist = -1) {
 
   auto ng = gdf.ngroups() ;
@@ -119,7 +119,7 @@ DataFrame partition_impl(const ValrGroupedDataFrame& gdf, SEXP frame,
   // subset original dataframe, note that the grouped column values will be correct
   // but non-grouped column values are no longer matched to each interval
   // and are dropped on the R side
-  DataFrame subset_x = subset_dataframe(df, indices_x, frame) ;
+  DataFrame subset_x = subset_dataframe(df, indices_x) ;
 
   subset_x["start"] = group_starts ;
   subset_x["end"] = group_ends ;

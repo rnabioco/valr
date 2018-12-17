@@ -43,7 +43,7 @@ void check_coords(int start, int end,
 }
 
 //[[Rcpp::export]]
-DataFrame flank_impl(DataFrame df, DataFrame genome, SEXP frame,
+DataFrame flank_impl(DataFrame df, DataFrame genome,
                      double both = 0, double left = 0, double right = 0,
                      bool fraction = false, bool stranded = false, bool trim = false) {
 
@@ -136,7 +136,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome, SEXP frame,
     }
   }
 
-  DataFrame out = subset_dataframe(df, df_idx, frame) ;
+  DataFrame out = subset_dataframe(df, df_idx) ;
 
   out["start"] = starts_out;
   out["end"] = ends_out;

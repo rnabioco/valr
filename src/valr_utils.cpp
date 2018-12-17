@@ -1,6 +1,5 @@
 #include "valr.h"
 
-// [[Rcpp::export]]
 // Based on Kevin Ushey's implementation here
 // http://kevinushey.github.io/blog/2015/01/24/understanding-data-frame-subsetting/
 DataFrame rowwise_subset_df(const DataFrame& x,
@@ -111,8 +110,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
 }
 
 DataFrame subset_dataframe(const DataFrame& df,
-                           std::vector<int> indices,
-                           SEXP frame){
+                           std::vector<int> indices){
 
   IntegerVector idx_rcpp = wrap(indices) ;
   IntegerVector idx_r = idx_rcpp + 1 ;
@@ -121,8 +119,7 @@ DataFrame subset_dataframe(const DataFrame& df,
 }
 
 DataFrame subset_dataframe(const DataFrame& df,
-                           IntegerVector indices,
-                           SEXP frame){
+                           IntegerVector indices){
 
   IntegerVector idx_r = indices + 1 ;
   DataFrame out = rowwise_subset_df(df, idx_r);

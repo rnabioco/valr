@@ -76,7 +76,7 @@ bed_subtract <- function(x, y, any = FALSE) {
     res <- intersect_impl(x, y,
                           grp_indexes$x,
                           grp_indexes$y,
-                          environment(), invert = TRUE)
+                          invert = TRUE)
     anti <- filter(res, is.na(.overlap))
     anti <- select(anti, chrom, start = start.x, end = end.x)
 
@@ -85,8 +85,7 @@ bed_subtract <- function(x, y, any = FALSE) {
 
   res <- subtract_impl(x, y,
                        grp_indexes$x,
-                       grp_indexes$y,
-                       environment())
+                       grp_indexes$y)
   res <- ungroup(res)
   res <- bind_rows(res, res_no_y)
   res <- bed_sort(res)

@@ -13,12 +13,10 @@
 #include "valr.h"
 
 DataFrame subset_dataframe(const DataFrame& df,
-                           std::vector<int> indices,
-                           SEXP frame) ;
+                           std::vector<int> indices) ;
 
 DataFrame subset_dataframe(const DataFrame& df,
-                           IntegerVector indices,
-                           SEXP frame) ;
+                           IntegerVector indices) ;
 
 inline DataFrame check_is_grouped(const DataFrame& x){
   bool is_grouped(Rf_inherits(x, "grouped_df")) ;

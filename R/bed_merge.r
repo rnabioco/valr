@@ -69,7 +69,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   # if no dots are passed then use fast internal merge
   if (!is.null(substitute(...))) {
-    res <- merge_impl(res, environment(), max_dist, collapse = FALSE)
+    res <- merge_impl(res, max_dist, collapse = FALSE)
     group_vars <- rlang::syms(c("chrom", ".id_merge", groups_x))
     res <- group_by(res, !!! group_vars, add = TRUE)
 
@@ -83,7 +83,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
     res <- ungroup(res)
     res <- select(res, !! quo(-one_of(".id_merge")))
   } else {
-    res <- merge_impl(res, environment(), max_dist, collapse = TRUE)
+    res <- merge_impl(res, max_dist, collapse = TRUE)
     res <- select(res, !!! rlang::syms(c("chrom", "start", "end", groups_x)))
   }
   res <- ungroup(res)

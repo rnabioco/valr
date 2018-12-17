@@ -30,7 +30,7 @@ std::vector<int> csv_values(std::string csv) {
 }
 
 // [[Rcpp::export]]
-DataFrame bed12toexons_impl(DataFrame x, SEXP frame) {
+DataFrame bed12toexons_impl(DataFrame x) {
 
   // input
   IntegerVector starts = x["start"] ;
@@ -68,11 +68,7 @@ DataFrame bed12toexons_impl(DataFrame x, SEXP frame) {
     }
   }
 
-  // CharacterVector cnames = CharacterVector::create("chrom", "start", "end", "name", "score", "strand") ;
-  // SymbolVector names = SymbolVector(cnames) ;
-  //
-  // DataFrame tmp = DataFrameSelect(x, names) ;
-  DataFrame out = subset_dataframe(x, df_idx, frame) ;
+  DataFrame out = subset_dataframe(x, df_idx) ;
 
   out["start"] = starts_out ;
   out["end"] = ends_out ;

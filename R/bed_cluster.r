@@ -52,7 +52,7 @@ bed_cluster <- function(x, max_dist = 0) {
     res <- update_groups(res)
   }
 
-  res <- merge_impl(res,  environment(), max_dist, collapse = FALSE)
+  res <- merge_impl(res, max_dist, collapse = FALSE)
 
   res <- mutate(res, .id = .id_merge)
   res <- select(res, !! quo(-one_of(".id_merge", ".overlap_merge")))

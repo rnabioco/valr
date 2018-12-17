@@ -62,7 +62,7 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
                         grp_indexes$x,
                         grp_indexes$y,
                         invert = TRUE,
-                        suffix_x = ".x", suffix_y = "", environment())
+                        suffix_x = ".x", suffix_y = "")
 
   ## filter for rows that don't intersect. The `duplicated` call is required
   ## because book-ended intervals in the intersect_impl result can

@@ -56,8 +56,8 @@ void closest_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
 DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
                        IntegerVector grp_idx_x,
                        IntegerVector grp_idx_y,
-                       const std::string& suffix_x, const std::string& suffix_y,
-                       SEXP frame) {
+                       const std::string& suffix_x,
+                       const std::string& suffix_y) {
 
   DataFrame df_x = x.data() ;
   DataFrame df_y = y.data() ;
@@ -69,11 +69,12 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   std::vector<int> distance_sizes ;
 
   // set up interval trees for each chromosome and apply closest_grouped
-  GroupApply(x, y, grp_idx_x, grp_idx_y, frame, closest_grouped, std::ref(indices_x), std::ref(indices_y),
+  GroupApply(x, y, grp_idx_x, grp_idx_y,
+             closest_grouped, std::ref(indices_x), std::ref(indices_y),
              std::ref(overlap_sizes), std::ref(distance_sizes));
 
-  DataFrame subset_x = subset_dataframe(df_x, indices_x, frame) ;
-  DataFrame subset_y = subset_dataframe(df_y, indices_y, frame) ;
+  DataFrame subset_x = subset_dataframe(df_x, indices_x) ;
+  DataFrame subset_y = subset_dataframe(df_y, indices_y) ;
 
   DataFrameBuilder out;
   // x names, data

@@ -65,13 +65,13 @@ DataFrame rowwise_subset_df(const DataFrame& x,
                             IntegerVector row_indices) ;
 
 inline bool compare_rows(DataFrame df_x, DataFrame df_y,
-                         int idx_x, int idx_y, SEXP frame) {
+                         int idx_x, int idx_y) {
 
   IntegerVector idxs_x = IntegerVector::create(idx_x) ;
   IntegerVector idxs_y = IntegerVector::create(idx_y) ;
 
-  DataFrame subset_x = subset_dataframe(df_x, idxs_x, frame) ;
-  DataFrame subset_y = subset_dataframe(df_y, idxs_y, frame) ;
+  DataFrame subset_x = subset_dataframe(df_x, idxs_x) ;
+  DataFrame subset_y = subset_dataframe(df_y, idxs_y) ;
 
   // don't compare the .rows column
   int ncols = df_x.size() ;
@@ -108,15 +108,10 @@ inline void GroupApply(const ValrGroupedDataFrame& x,
                        const ValrGroupedDataFrame& y,
                        IntegerVector grp_idx_x,
                        IntegerVector grp_idx_y,
-                       SEXP frame,
                        FN&& fn, ARGS&& ... args) {
 
   auto data_x = x.data() ;
   auto data_y = y.data() ;
-
-  // std::vector<int> grp_idx_x, grp_idx_y ;
-  // grp_idx_x = shared_row_indexes(x, y) ;
-  // grp_idx_y = shared_row_indexes(y, x) ;
 
   if(grp_idx_x.size() != grp_idx_y.size()){
     stop("incompatible groups found between x and y dataframes") ;

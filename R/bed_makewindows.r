@@ -78,7 +78,7 @@ bed_makewindows <- function(x,
     x <- update_groups(x)
   }
 
-  res <- makewindows_impl(x, environment(), win_size, num_win, step_size, reverse)
+  res <- makewindows_impl(x, win_size, num_win, step_size, reverse)
   res <- as.tbl_interval(res)
 
   res
