@@ -1,49 +1,34 @@
 #include "valr.h"
 
-// Based on Kevin Ushey's implementation here
+// Based on Kevin Ushey's implementation here:
 // http://kevinushey.github.io/blog/2015/01/24/understanding-data-frame-subsetting/
 DataFrame rowwise_subset_df(const DataFrame& x,
                             IntegerVector row_indices) {
 
-  // Get some useful variables
-  // (lengths of index vectors)
   int column_indices_n = x.ncol();
   int row_indices_n = row_indices.size();
 
-  // Translate from R to C indices.
-  // This could be optimized...
   row_indices = row_indices - 1;
 
-  // Allocate the output 'data.frame'.
   List output = no_init(column_indices_n);
 
-  // Set the names, based on the names of 'x'.
-  // We'll assume it has names.
   CharacterVector x_names =
     as<CharacterVector>(Rf_getAttrib(x, R_NamesSymbol));
 
-  // Use Rcpp's sugar subsetting to subset names.
+
   output.attr("names") = x_names;
 
-  // Loop and fill!
   for (int j = 0; j < column_indices_n; ++j)
   {
-    // Get the j'th element of 'x'. We don't need to
-    // PROTECT it since it's implicitly protected as a
-    // child of 'x'.
     SEXP element = VECTOR_ELT(x, j);
 
-    // Get the 'rows' for that vector, and fill.
     SEXP vec = PROTECT(
       Rf_allocVector(TYPEOF(element), row_indices_n)
     );
 
     for (int i = 0; i < row_indices_n; ++i)
     {
-      // Copying vectors is a pain in the butt, because
-      // we need to know the actual type underneath the
-      // SEXP. Raw and Complex vectors are not handled.
-      // Also, if the row_indices contain NA, return type dependent NAs
+      // if the row_indices contain NA, return type dependent NAs
       switch (TYPEOF(vec))
       {
       case REALSXP:
@@ -87,21 +72,13 @@ DataFrame rowwise_subset_df(const DataFrame& x,
       }
     }
 
-    // Don't need to protect 'vec' anymore
     UNPROTECT(1);
 
-    // And make sure the output list now
-    // refers to that vector!
     SET_VECTOR_ELT(output, j, vec);
   }
 
-  // Finally, copy the attributes of `x` to `output`...
   Rf_copyMostAttrib(x, output);
 
-  // ... but set the row names manually. Note that this
-  // is the secret method for creating 'compact' row
-  // names, whereby internally R stores the 'empty' row
-  // names object as 'c(NA_integer_, -<nrow>)'.
   Rf_setAttrib(output, R_RowNamesSymbol,
                IntegerVector::create(NA_INTEGER, -row_indices_n));
 
@@ -125,12 +102,6 @@ DataFrame subset_dataframe(const DataFrame& df,
   DataFrame out = rowwise_subset_df(df, idx_r);
   return(out) ;
 }
-
-// GroupedDataFrame::GroupedDataFrame(DataFrame x):
-//   data_(check_is_grouped(x)),
-//   groups(data_.attr("groups"))
-// {}
-
 
 ValrGroupedDataFrame::ValrGroupedDataFrame(DataFrame x):
   data_(check_is_grouped(x)),

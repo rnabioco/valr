@@ -17,10 +17,6 @@ typedef Interval<int>      ivl_t ;
 typedef std::vector<ivl_t> ivl_vector_t ;
 typedef IntervalTree<int>  ivl_tree_t ;
 
-// the value field of intervals in the returned vector correspond to the index
-// of the interval in the original dataframe (i.e., the values of the
-// SlicingIndex)
-
 inline ivl_vector_t makeIntervalVector(DataFrame df, IntegerVector si,
                                        std::string col_start = "start",
                                        std::string col_end = "end") {
@@ -39,21 +35,4 @@ inline ivl_vector_t makeIntervalVector(DataFrame df, IntegerVector si,
   return ivls ;
 }
 
-// inline ivl_vector_t makeIntervalVector(DataFrame df, GroupedSlicingIndex si,
-//                                        std::string col_start = "start",
-//                                        std::string col_end = "end") {
-//
-//   ivl_vector_t ivls ;
-//
-//   IntegerVector starts = df[col_start] ;
-//   IntegerVector ends   = df[col_end] ;
-//
-//   int size = si.size() ;
-//
-//   for (int i = 0; i < size; ++i) {
-//     int j = si[i] ;
-//     ivls.push_back(ivl_t(starts[j], ends[j], j)) ;
-//   }
-//   return ivls ;
-// }
 #endif

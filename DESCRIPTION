@@ -26,13 +26,9 @@ Imports:
     ggplot2,
     plyr
 SystemRequirements: 
-    C++11,
-    GNU make
+    C++11
 LinkingTo:
     Rcpp (>= 1.0.0),
-    BH,
-    plogr,
-    bindrcpp,
 Suggests:
     knitr,
     rmarkdown,

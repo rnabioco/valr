@@ -1,13 +1,3 @@
 PKG_CPPFLAGS = -I../inst/include
 CXX_STD = CXX11
 CXX11FLAGS += -std=c++11
-
-SOURCES = $(wildcard *.c *.cpp dplyr/*.cpp)
-OBJECTS = $(SOURCES:.cpp=.o)
-
-all: $(SHLIB) after
-
-clean:
-	rm -f $(OBJECTS)
-
-after: clean

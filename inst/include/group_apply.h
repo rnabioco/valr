@@ -59,8 +59,10 @@ private:
 };
 
 DataFrame extract_groups(const DataFrame& x) ;
+
 std::vector<int> shared_row_indexes(const ValrGroupedDataFrame& x,
                                     const ValrGroupedDataFrame& y) ;
+
 DataFrame rowwise_subset_df(const DataFrame& x,
                             IntegerVector row_indices) ;
 
