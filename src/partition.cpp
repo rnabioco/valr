@@ -42,19 +42,20 @@ void partitionIntervals(const IntervalCache& ivl_cache,
 }
 
 //[[Rcpp::export]]
-DataFrame partition_impl(const GroupedDataFrame& gdf, SEXP frame,
+DataFrame partition_impl(const ValrGroupedDataFrame& gdf, SEXP frame,
                          int max_dist = -1) {
 
   auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
 
-  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+  ListView idx(gdf.indices()) ;
 
   std::vector<ivl_t> out_ivls ;
   IntervalCache ivl_cache ;
-  for (int i = 0; i < ng; i++, ++git) {
+  for (int i = 0; i < ng; i++) {
 
-    GroupedSlicingIndex indices = *git ;
+    IntegerVector indices ;
+    indices = idx[i];
     ivl_vector_t intervals = makeIntervalVector(df, indices);
 
     // set first interval

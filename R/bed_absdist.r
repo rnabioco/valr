@@ -53,9 +53,16 @@ bed_absdist <- function(x, y, genome) {
   if (utils::packageVersion("dplyr") < "0.7.9.9000"){
     x_cpp <- update_groups(x)
     y_cpp <- update_groups(y)
-    res <- dist_impl(x_cpp, y_cpp, distcalc = "absdist", environment())
+    grp_indexes <- shared_group_indexes(x_cpp, y_cpp)
+    res <- dist_impl(x_cpp, y_cpp,
+                     grp_indexes$x,
+                     grp_indexes$y,
+                     distcalc = "absdist", environment())
   } else {
-    res <- dist_impl(x, y, distcalc = "absdist", environment())
+    grp_indexes <- shared_group_indexes(x_cpp, y_cpp)
+    res <- dist_impl(x, y,
+                     grp_indexes$x, grp_indexes$y,
+                     distcalc = "absdist", environment())
   }
 
   # convert groups_xy to character vector

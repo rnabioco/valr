@@ -5,28 +5,28 @@ bed12toexons_impl <- function(x, frame) {
     .Call(`_valr_bed12toexons_impl`, x, frame)
 }
 
-closest_impl <- function(x, y, suffix_x, suffix_y, frame) {
-    .Call(`_valr_closest_impl`, x, y, suffix_x, suffix_y, frame)
+closest_impl <- function(x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y, frame) {
+    .Call(`_valr_closest_impl`, x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y, frame)
 }
 
 complement_impl <- function(gdf, genome) {
     .Call(`_valr_complement_impl`, gdf, genome)
 }
 
-coverage_impl <- function(x, y, frame) {
-    .Call(`_valr_coverage_impl`, x, y, frame)
+coverage_impl <- function(x, y, x_grp_indexes, y_grp_indexes, frame) {
+    .Call(`_valr_coverage_impl`, x, y, x_grp_indexes, y_grp_indexes, frame)
 }
 
-dist_impl <- function(x, y, distcalc, frame) {
-    .Call(`_valr_dist_impl`, x, y, distcalc, frame)
+dist_impl <- function(x, y, x_grp_indexes, y_grp_indexes, distcalc, frame) {
+    .Call(`_valr_dist_impl`, x, y, x_grp_indexes, y_grp_indexes, distcalc, frame)
 }
 
 flank_impl <- function(df, genome, frame, both = 0, left = 0, right = 0, fraction = FALSE, stranded = FALSE, trim = FALSE) {
     .Call(`_valr_flank_impl`, df, genome, frame, both, left, right, fraction, stranded, trim)
 }
 
-intersect_impl <- function(x, y, frame, invert = FALSE, suffix_x = ".x", suffix_y = ".y") {
-    .Call(`_valr_intersect_impl`, x, y, frame, invert, suffix_x, suffix_y)
+intersect_impl <- function(x, y, x_grp_indexes, y_grp_indexes, frame, invert = FALSE, suffix_x = ".x", suffix_y = ".y") {
+    .Call(`_valr_intersect_impl`, x, y, x_grp_indexes, y_grp_indexes, frame, invert, suffix_x, suffix_y)
 }
 
 makewindows_impl <- function(df, frame, win_size = 0L, num_win = 0L, step_size = 0L, reverse = FALSE) {
@@ -49,8 +49,8 @@ shuffle_impl <- function(df, incl, within = FALSE, max_tries = 1000L, seed = 0L)
     .Call(`_valr_shuffle_impl`, df, incl, within, max_tries, seed)
 }
 
-subtract_impl <- function(gdf_x, gdf_y, frame) {
-    .Call(`_valr_subtract_impl`, gdf_x, gdf_y, frame)
+subtract_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, frame) {
+    .Call(`_valr_subtract_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, frame)
 }
 
 rowwise_subset_df <- function(x, row_indices) {

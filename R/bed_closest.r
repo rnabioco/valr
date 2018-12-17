@@ -94,8 +94,12 @@ bed_closest <- function(x, y, overlap = TRUE,
     x <- update_groups(x)
     y <- update_groups(y)
   }
+  grp_indexes <- shared_group_indexes(x, y)
 
-  res <- closest_impl(x, y, suffix$x, suffix$y, environment())
+  res <- closest_impl(x, y,
+                      grp_indexes$x,
+                      grp_indexes$y,
+                      suffix$x, suffix$y, environment())
 
   if (!overlap) {
     res <- filter(res, .overlap < 1)

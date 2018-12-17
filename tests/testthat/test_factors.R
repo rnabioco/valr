@@ -21,7 +21,7 @@ test_that("factor types for groups are handled the same as character", {
 
 test_that("mixing factor and character vectors for grouping works", {
   res_x <- bed_intersect(x_grpd, x_grpd)
-  expect_warning(res_mixed <- bed_intersect(x_grpd, x_facs_grpd))
+  res_mixed <- bed_intersect(x_grpd, x_facs_grpd)
   expect_true(all(res_x == res_mixed))
 })
 

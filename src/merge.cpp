@@ -9,19 +9,20 @@
 
 #include "valr.h"
 
-DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf,
+DataFrame collapseMergedIntervals(const ValrGroupedDataFrame& gdf,
                                   SEXP frame, int max_dist = 0) {
 
   auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
 
-  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+  ListView idx(gdf.indices()) ;
+
   // approach from http://www.geeksforgeeks.org/merging-intervals/
-
   std::vector<ivl_t> s ;
-  for (int i = 0; i < ng; i++, ++git) {
+  for (int i = 0; i < ng; i++) {
 
-    GroupedSlicingIndex indices = *git ;
+    IntegerVector indices ;
+    indices = idx[i];
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
 
@@ -63,7 +64,7 @@ DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf,
   return subset_x ;
 }
 
-DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, SEXP frame,
+DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf, SEXP frame,
                                  int max_dist = 0) {
 
   auto ng = gdf.ngroups() ;
@@ -76,15 +77,16 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, SEXP frame,
 
   std::size_t cluster_id = 0;  //store counter for cluster id
 
-  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+  ListView idx(gdf.indices()) ;
 
   // approach from http://www.geeksforgeeks.org/merging-intervals/
 
   std::vector<ivl_t> s ;
 
-  for (int i = 0; i < ng; i++, ++git) {
+  for (int i = 0; i < ng; i++) {
 
-    GroupedSlicingIndex indices = *git ;
+    IntegerVector indices ;
+    indices = idx[i];
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
     // set dummy first interval to ensure first interval maintained
@@ -139,7 +141,7 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, SEXP frame,
 }
 
 //[[Rcpp::export]]
-DataFrame merge_impl(GroupedDataFrame gdf, SEXP frame,
+DataFrame merge_impl(ValrGroupedDataFrame gdf, SEXP frame,
                      int max_dist = 0,
                      bool collapse = true) {
 

@@ -55,7 +55,11 @@ bed_coverage <- function(x, y, ...) {
     y <- update_groups(y)
   }
 
-  res <- coverage_impl(x, y, environment())
+  grp_indexes <- shared_group_indexes(x, y)
+  res <- coverage_impl(x, y,
+                       grp_indexes$x,
+                       grp_indexes$y,
+                       environment())
 
   res
 }

@@ -10,7 +10,7 @@
 #include "valr.h"
 
 //[[Rcpp::export]]
-DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
+DataFrame complement_impl(ValrGroupedDataFrame gdf, DataFrame genome) {
 
   genome_map_t chrom_sizes = makeChromSizes(genome) ;
 
@@ -25,22 +25,24 @@ DataFrame complement_impl(GroupedDataFrame gdf, DataFrame genome) {
   std::vector<int> ends_out ;
 
   int ngroups = gdf.ngroups() ;
-  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
-  for (int i = 0; i < ngroups; ++i, ++git) {
+  ListView idx(gdf.indices()) ;
 
-    GroupedSlicingIndex indices = *git ;
+  for (int i = 0; i < ngroups; ++i) {
+
+    IntegerVector indices ;
+    indices = idx[i];
     int ni = indices.size() ;
 
     int start, end ;
     int last_end = 1 ;
 
     // get chrom from first index
-    auto chrom = as<std::string>(chroms[indices[0]]) ;
+    auto chrom = as<std::string>(chroms[indices[0] - 1]) ;
 
     for (int j = 0; j < ni; ++j) {
 
-      start = starts[indices[j]] ;
-      end = ends[indices[j]] ;
+      start = starts[indices[j] - 1] ;
+      end = ends[indices[j] - 1] ;
 
       if (j == 0) {
         if (start == 0) {

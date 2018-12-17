@@ -23,7 +23,8 @@ Imports:
     stringr,
     tibble (>= 1.4.2),
     broom,
-    ggplot2
+    ggplot2,
+    plyr
 SystemRequirements: 
     C++11,
     GNU make

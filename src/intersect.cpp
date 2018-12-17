@@ -83,6 +83,8 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
 
 // [[Rcpp::export]]
 DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
+                         IntegerVector x_grp_indexes,
+                         IntegerVector y_grp_indexes,
                          SEXP frame,
                          bool invert = false,
                          const std::string& suffix_x = ".x",
@@ -104,7 +106,7 @@ DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   }
 
   // set up interval trees for each chromosome and apply intersect_group
-  GroupApply(x, y, frame, intersect_group,
+  GroupApply(x, y, x_grp_indexes, y_grp_indexes, frame, intersect_group,
              std::ref(indices_x), std::ref(indices_y),
              std::ref(overlap_sizes), invert);
 

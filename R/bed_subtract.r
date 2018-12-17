@@ -69,16 +69,24 @@ bed_subtract <- function(x, y, any = FALSE) {
     y <- update_groups(y)
   }
 
+  grp_indexes <- shared_group_indexes(x, y)
+
   if (any) {
     # collect and return x intervals without overlaps
-    res <- intersect_impl(x, y, environment(), invert = TRUE)
+    res <- intersect_impl(x, y,
+                          grp_indexes$x,
+                          grp_indexes$y,
+                          environment(), invert = TRUE)
     anti <- filter(res, is.na(.overlap))
     anti <- select(anti, chrom, start = start.x, end = end.x)
 
     return(anti)
   }
 
-  res <- subtract_impl(x, y, environment())
+  res <- subtract_impl(x, y,
+                       grp_indexes$x,
+                       grp_indexes$y,
+                       environment())
   res <- ungroup(res)
   res <- bind_rows(res, res_no_y)
   res <- bed_sort(res)

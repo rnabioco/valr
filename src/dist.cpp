@@ -96,13 +96,16 @@ void dist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
 }
 
 //[[Rcpp::export]]
-DataFrame dist_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, std::string distcalc, SEXP frame) {
+DataFrame dist_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
+                    IntegerVector x_grp_indexes,
+                    IntegerVector y_grp_indexes,
+                    std::string distcalc, SEXP frame) {
 
   std::vector<double> distances ;
   std::vector<int> indices_x ;
 
   DataFrame df_x = x.data() ;
-  GroupApply(x, y, frame, dist_grouped, std::ref(indices_x), std::ref(distances), std::ref(distcalc));
+  GroupApply(x, y, x_grp_indexes, y_grp_indexes, frame, dist_grouped, std::ref(indices_x), std::ref(distances), std::ref(distcalc));
 
   DataFrame subset_x = subset_dataframe(df_x, indices_x, frame) ;
 

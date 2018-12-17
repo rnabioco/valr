@@ -68,11 +68,11 @@ DataFrame bed12toexons_impl(DataFrame x, SEXP frame) {
     }
   }
 
-  CharacterVector cnames = CharacterVector::create("chrom", "start", "end", "name", "score", "strand") ;
-  SymbolVector names = SymbolVector(cnames) ;
-
-  DataFrame tmp = DataFrameSelect(x, names) ;
-  DataFrame out = subset_dataframe(tmp, df_idx, frame) ;
+  // CharacterVector cnames = CharacterVector::create("chrom", "start", "end", "name", "score", "strand") ;
+  // SymbolVector names = SymbolVector(cnames) ;
+  //
+  // DataFrame tmp = DataFrameSelect(x, names) ;
+  DataFrame out = subset_dataframe(x, df_idx, frame) ;
 
   out["start"] = starts_out ;
   out["end"] = ends_out ;

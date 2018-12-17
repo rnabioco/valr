@@ -83,7 +83,7 @@ public:
     res.attr("names") = names ;
 
     if(Rf_inherits(res, "grouped_df")){
-      GroupedDataFrame::strip_groups(res) ;
+      ValrGroupedDataFrame::strip_groups(res) ;
     }
 
     res.attr("class") = Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame") ;

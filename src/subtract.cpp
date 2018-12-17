@@ -77,6 +77,8 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
 
 //[[Rcpp::export]]
 DataFrame subtract_impl(ValrGroupedDataFrame gdf_x, ValrGroupedDataFrame gdf_y,
+                        IntegerVector x_grp_indexes,
+                        IntegerVector y_grp_indexes,
                         SEXP frame) {
 
   std::vector<std::string> chrom_out ;
@@ -90,7 +92,7 @@ DataFrame subtract_impl(ValrGroupedDataFrame gdf_x, ValrGroupedDataFrame gdf_y,
   std::vector<int> indices_out ;
 
   // set up interval trees for each chromosome and apply subtract_group
-  GroupApply(gdf_x, gdf_y, frame, subtract_group, std::ref(indices_out), std::ref(starts_out), std::ref(ends_out));
+  GroupApply(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, frame, subtract_group, std::ref(indices_out), std::ref(starts_out), std::ref(ends_out));
 
   // extract out x data, new intervals will be generated as copies of the parent interval
   DataFrame out = subset_dataframe(df_x, indices_out, frame) ;

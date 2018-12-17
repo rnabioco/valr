@@ -106,15 +106,17 @@ inline bool compare_rows(DataFrame df_x, DataFrame df_y,
 template < typename FN, typename... ARGS >
 inline void GroupApply(const ValrGroupedDataFrame& x,
                        const ValrGroupedDataFrame& y,
+                       IntegerVector grp_idx_x,
+                       IntegerVector grp_idx_y,
                        SEXP frame,
                        FN&& fn, ARGS&& ... args) {
 
   auto data_x = x.data() ;
   auto data_y = y.data() ;
 
-  std::vector<int> grp_idx_x, grp_idx_y ;
-  grp_idx_x = shared_row_indexes(x, y) ;
-  grp_idx_y = shared_row_indexes(y, x) ;
+  // std::vector<int> grp_idx_x, grp_idx_y ;
+  // grp_idx_x = shared_row_indexes(x, y) ;
+  // grp_idx_y = shared_row_indexes(y, x) ;
 
   if(grp_idx_x.size() != grp_idx_y.size()){
     stop("incompatible groups found between x and y dataframes") ;
@@ -129,8 +131,8 @@ inline void GroupApply(const ValrGroupedDataFrame& x,
     int y_idx = grp_idx_y[i] ;
 
     IntegerVector gi_x, gi_y ;
-    gi_x = idx_x[x_idx];
-    gi_y = idx_y[y_idx] ;
+    gi_x = idx_x[x_idx - 1];
+    gi_y = idx_y[y_idx - 1] ;
 
     if(gi_x.size() == 0 || gi_y.size() == 0) {
       continue ;

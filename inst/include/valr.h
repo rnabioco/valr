@@ -15,10 +15,10 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 
-#include <dplyr/dplyr.h>
-#include <dplyr/visitors/subset/DataFrameSubsetVisitors.h>
-#include <dplyr/visitors/subset/DataFrameSelect.h>
-using namespace dplyr ;
+//#include <dplyr/dplyr.h>
+// #include <dplyr/visitors/subset/DataFrameSubsetVisitors.h>
+// #include <dplyr/visitors/subset/DataFrameSelect.h>
+// using namespace dplyr ;
 
 #include "utils.h"
 #include "IntervalTree.h"
