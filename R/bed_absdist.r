@@ -59,7 +59,7 @@ bed_absdist <- function(x, y, genome) {
                      grp_indexes$y,
                      distcalc = "absdist")
   } else {
-    grp_indexes <- shared_group_indexes(x_cpp, y_cpp)
+    grp_indexes <- shared_group_indexes(x, y)
     res <- dist_impl(x, y,
                      grp_indexes$x, grp_indexes$y,
                      distcalc = "absdist")
