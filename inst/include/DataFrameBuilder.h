@@ -1,6 +1,6 @@
 // DataFrameBuilder.h
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -82,8 +82,8 @@ public:
     set_rownames(res, nrow) ;
     res.attr("names") = names ;
 
-    if(Rf_inherits(res, "grouped_df")){
-      GroupedDataFrame::strip_groups(res) ;
+    if (Rf_inherits(res, "grouped_df")) {
+      ValrGroupedDataFrame::strip_groups(res) ;
     }
 
     res.attr("class") = Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame") ;

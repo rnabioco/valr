@@ -135,3 +135,76 @@ update_groups <- function(df){
   attr(df, "drop") <- NULL
   df
 }
+
+#' Type convert factors if they are grouping columns
+#' @param x data frame
+#' @param group_cols group columns to type convert if factors
+#' @return ungrouped dataframe
+#' @noRd
+convert_factors <- function(x, group_cols){
+
+  contains_factor <- sapply(x[, group_cols], is.factor)
+  if (any(contains_factor)){
+
+    warning("Factors are not allowed for grouping: ",
+            paste(group_cols[contains_factor],
+                  collapse = ","),
+            " will be treated as characters",
+            call. = FALSE)
+
+    x <- ungroup(x)
+    convert_cols <- group_cols[contains_factor]
+    x <- mutate_at(x, .vars = convert_cols, as.character)
+  } else {
+    ungroup(x)
+  }
+  x
+}
+
+
+#' Get indexes of groups in each grouped data.frame that are found in the other data.frame
+#'
+#' @param x grouped data.frame
+#' @param y grouped data.frame
+#' @return named list with integer vector of indexes of groups shared between data.frames
+#' @noRd
+shared_group_indexes <- function(x, y){
+  x <- get_group_data(x)
+  y <- get_group_data(y)
+  shared_rows(x, y)
+}
+
+#' Get indexes of rows in each data.frame that are found in the other data.frame
+#'
+#' By default only columns with the same names in the two data.frames will
+#' be compared
+#'
+#' @param x data.frame
+#' @param y data.frame
+#' @return named list with integer vector of indexes shared between data.frames
+#' @noRd
+shared_rows <- function(x, y){
+  # based on plyr::match_df
+  shared_cols <- intersect(colnames(x), colnames(y))
+  combined_df <- bind_rows(x[shared_cols], y[shared_cols])
+
+  keys <- plyr::id(combined_df, drop = TRUE)
+  n_x <- nrow(x)
+  n_y <- nrow(y)
+  keys <- list(x = keys[seq_len(n_x)],
+               y = keys[n_x + seq_len(n_y)],
+               n = attr(keys, "n"))
+  x_indexes <- which(keys$x %in% keys$y)
+  y_indexes <- which(keys$y %in% keys$x)
+  list(x = x_indexes,
+       y = y_indexes)
+}
+
+#' Get data.frame from groups attribute without .rows column
+#' @param x data.frame
+#' @return data.frame without the .rows column
+#' @noRd
+get_group_data <- function(df){
+  grps <- attr(df, "groups")
+  grps[, -ncol(grps)]
+}

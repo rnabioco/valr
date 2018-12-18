@@ -1,6 +1,6 @@
 // group_apply.h
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -14,79 +14,39 @@
 
 #include "valr.h"
 
-DataFrame extract_groups(const DataFrame& x) ;
-std::vector<int> shared_row_indexes(const GroupedDataFrame& x,
-                                    const GroupedDataFrame& y) ;
-
-inline bool compare_rows(DataFrame df_x, DataFrame df_y,
-                         int idx_x, int idx_y, SEXP frame) {
-
-  IntegerVector idxs_x = IntegerVector::create(idx_x) ;
-  IntegerVector idxs_y = IntegerVector::create(idx_y) ;
-
-  DataFrame subset_x = subset_dataframe(df_x, idxs_x, frame) ;
-  DataFrame subset_y = subset_dataframe(df_y, idxs_y, frame) ;
-
-  // don't compare the .rows column
-  int ncols = df_x.size() ;
-  CharacterVector cnames_x = df_x.attr("names") ;
-  CharacterVector cnames_y = df_y.attr("names") ;
-  std::string group_col = ".rows" ;
-  bool cols_equal = false;
-
-  for (int i = 0; i < ncols; i++) {
-    auto current_col = cnames_x[i];
-    if(current_col == group_col) {
-      continue ;
-    }
-    CharacterVector::iterator itr = std::find(cnames_y.begin(), cnames_y.end(), current_col);
-
-    int y_col_idx ;
-    if (itr != cnames_y.end()) {
-      y_col_idx = std::distance(cnames_y.begin(), itr);
-    } else {
-      Rcpp::stop("Element not found");
-    }
-
-    CharacterVector col_x = subset_x[i] ;
-    CharacterVector col_y = subset_y[y_col_idx] ;
-
-    cols_equal = is_true(all(col_x == col_y)) ;
-    if (!cols_equal) break ;
-  }
-  return cols_equal ;
-}
-
 template < typename FN, typename... ARGS >
-inline void GroupApply(const GroupedDataFrame& x,
-                       const GroupedDataFrame& y,
-                       SEXP frame,
+inline void GroupApply(const ValrGroupedDataFrame& x,
+                       const ValrGroupedDataFrame& y,
+                       const IntegerVector& shared_grps_x,
+                       const IntegerVector& shared_grps_y,
                        FN&& fn, ARGS&& ... args) {
 
   auto data_x = x.data() ;
   auto data_y = y.data() ;
 
-  std::vector<int> grp_idx_x, grp_idx_y ;
-  grp_idx_x = shared_row_indexes(x, y) ;
-  grp_idx_y = shared_row_indexes(y, x) ;
+  int ng_x = shared_grps_x.size() ;
+  int ng_y = shared_grps_y.size() ;
 
-  if(grp_idx_x.size() != grp_idx_y.size()){
+  if (ng_x != ng_y) {
     stop("incompatible groups found between x and y dataframes") ;
   }
 
-  ListView idx_x(x.indices()) ;
-  ListView idx_y(y.indices()) ;
+  // access the group .rows list
+  ListView grp_indices_x(x.indices()) ;
+  ListView grp_indices_y(y.indices()) ;
 
-  int ng_x = grp_idx_x.size() ;
   for (int i = 0; i < ng_x; i++) {
-    int x_idx = grp_idx_x[i] ;
-    int y_idx = grp_idx_y[i] ;
+    // get next row index to subset from x and y groups
+    // convert from R to Cpp index
+    int shared_x_index = shared_grps_x[i] - 1;
+    int shared_y_index = shared_grps_y[i] - 1;
 
-    GroupedSlicingIndex gi_x, gi_y ;
-    gi_x = GroupedSlicingIndex(idx_x[x_idx], x_idx) ;
-    gi_y = GroupedSlicingIndex(idx_y[y_idx], y_idx) ;
+    // subset the group lists and return integervectors
+    IntegerVector gi_x, gi_y ;
+    gi_x = grp_indices_x[shared_x_index] ;
+    gi_y = grp_indices_y[shared_y_index] ;
 
-    if(gi_x.size() == 0 || gi_y.size() == 0) {
+    if (gi_x.size() == 0 || gi_y.size() == 0) {
       continue ;
     }
 

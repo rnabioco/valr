@@ -44,9 +44,14 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
 
   .id_col_out <- str_c(.id_col, ".x")
 
-  ## add chrom as a group
+  # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
-  groups_vars <- rlang::syms(c("chrom", groups_xy))
+  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_vars <- rlang::syms(groups_xy)
+
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
 
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
@@ -56,7 +61,13 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
     y <- update_groups(y)
   }
 
-  res <- intersect_impl(x, y, invert = TRUE, suffix_x = ".x", suffix_y = "", environment())
+  grp_indexes <- shared_group_indexes(x, y)
+
+  res <- intersect_impl(x, y,
+                        grp_indexes$x,
+                        grp_indexes$y,
+                        invert = TRUE,
+                        suffix_x = ".x", suffix_y = "")
 
   ## filter for rows that don't intersect. The `duplicated` call is required
   ## because book-ended intervals in the intersect_impl result can

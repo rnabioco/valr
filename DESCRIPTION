@@ -23,13 +23,12 @@ Imports:
     stringr,
     tibble (>= 1.4.2),
     broom,
-    ggplot2
-SystemRequirements: C++11
+    ggplot2,
+    plyr
+SystemRequirements: 
+    C++11
 LinkingTo:
     Rcpp (>= 1.0.0),
-    BH,
-    plogr,
-    bindrcpp,
 Suggests:
     knitr,
     rmarkdown,
@@ -54,5 +53,4 @@ BugReports: https://github.com/rnabioco/valr/issues
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Remotes: 
-    tidyverse/dplyr,
-    tidyverse/tibble
+    tidyverse/dplyr

@@ -1,6 +1,6 @@
 // makewindows.cpp
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -10,7 +10,7 @@
 #include "valr.h"
 
 //[[Rcpp::export]]
-DataFrame makewindows_impl(DataFrame df, SEXP frame, int win_size = 0, int num_win = 0,
+DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
                            int step_size = 0, bool reverse = false) {
 
   NumericVector starts = df["start"] ;
@@ -78,7 +78,7 @@ DataFrame makewindows_impl(DataFrame df, SEXP frame, int win_size = 0, int num_w
     }
   }
 
-  DataFrame out = subset_dataframe(df, df_idxs, frame) ;
+  DataFrame out = subset_dataframe(df, df_idxs) ;
 
   // replace original starts, ends, and .win_id
   out["start"] = starts_out ;

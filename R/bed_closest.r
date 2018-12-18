@@ -82,8 +82,14 @@ bed_closest <- function(x, y, overlap = TRUE,
   x <- bed_sort(x)
   y <- bed_sort(y)
 
+  # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
-  groups_vars <- rlang::syms(c("chrom", groups_xy))
+  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_vars <- rlang::syms(groups_xy)
+
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
 
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
@@ -94,8 +100,13 @@ bed_closest <- function(x, y, overlap = TRUE,
     x <- update_groups(x)
     y <- update_groups(y)
   }
+  grp_indexes <- shared_group_indexes(x, y)
 
-  res <- closest_impl(x, y, suffix$x, suffix$y, environment())
+  res <- closest_impl(x, y,
+                      grp_indexes$x,
+                      grp_indexes$y,
+                      suffix$x,
+                      suffix$y)
 
   if (!overlap) {
     res <- filter(res, .overlap < 1)

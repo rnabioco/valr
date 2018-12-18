@@ -43,9 +43,14 @@ bed_absdist <- function(x, y, genome) {
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
-  # find minimum shared groups
-  groups_xy <- shared_groups(y, x)
-  groups_vars <- rlang::syms(c("chrom", groups_xy))
+  # establish grouping with shared groups (and chrom)
+  groups_xy <- shared_groups(x, y)
+  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_vars <- rlang::syms(groups_xy)
+
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
 
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
@@ -53,9 +58,16 @@ bed_absdist <- function(x, y, genome) {
   if (utils::packageVersion("dplyr") < "0.7.9.9000"){
     x_cpp <- update_groups(x)
     y_cpp <- update_groups(y)
-    res <- dist_impl(x_cpp, y_cpp, distcalc = "absdist", environment())
+    grp_indexes <- shared_group_indexes(x_cpp, y_cpp)
+    res <- dist_impl(x_cpp, y_cpp,
+                     grp_indexes$x,
+                     grp_indexes$y,
+                     distcalc = "absdist")
   } else {
-    res <- dist_impl(x, y, distcalc = "absdist", environment())
+    grp_indexes <- shared_group_indexes(x, y)
+    res <- dist_impl(x, y,
+                     grp_indexes$x, grp_indexes$y,
+                     distcalc = "absdist")
   }
 
   # convert groups_xy to character vector
