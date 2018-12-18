@@ -84,7 +84,7 @@ inline bool compare_rows(DataFrame df_x, DataFrame df_y,
 
   for (int i = 0; i < ncols; i++) {
     auto current_col = cnames_x[i];
-    if(current_col == group_col) {
+    if (current_col == group_col) {
       continue ;
     }
     CharacterVector::iterator itr = std::find(cnames_y.begin(), cnames_y.end(), current_col);

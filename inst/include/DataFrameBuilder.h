@@ -82,7 +82,7 @@ public:
     set_rownames(res, nrow) ;
     res.attr("names") = names ;
 
-    if(Rf_inherits(res, "grouped_df")){
+    if (Rf_inherits(res, "grouped_df")) {
       ValrGroupedDataFrame::strip_groups(res) ;
     }
 

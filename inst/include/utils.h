@@ -18,13 +18,13 @@ DataFrame subset_dataframe(const DataFrame& df,
 DataFrame subset_dataframe(const DataFrame& df,
                            IntegerVector indices) ;
 
-inline DataFrame check_is_grouped(const DataFrame& x){
+inline DataFrame check_is_grouped(const DataFrame& x) {
   bool is_grouped(Rf_inherits(x, "grouped_df")) ;
 
-  if(!is_grouped) {
+  if (!is_grouped) {
     Rcpp::stop("error: grouped dataframe required") ;
   }
-  return(x) ;
+  return (x) ;
 }
 
 template <typename Df>
@@ -35,9 +35,9 @@ inline void set_rownames(Df& data, int n) {
 
 namespace Rcpp {
 
-typedef Vector<INTSXP, NoProtectStorage> IntegerVectorView;
-typedef Vector<VECSXP, NoProtectStorage> ListView;
-typedef DataFrame_Impl<NoProtectStorage> DataFrameView;
+  typedef Vector<INTSXP, NoProtectStorage> IntegerVectorView;
+  typedef Vector<VECSXP, NoProtectStorage> ListView;
+  typedef DataFrame_Impl<NoProtectStorage> DataFrameView;
 
 }
 

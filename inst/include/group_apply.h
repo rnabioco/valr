@@ -27,7 +27,7 @@ inline void GroupApply(const ValrGroupedDataFrame& x,
   int ng_x = shared_grps_x.size() ;
   int ng_y = shared_grps_y.size() ;
 
-  if(ng_x != ng_y){
+  if (ng_x != ng_y) {
     stop("incompatible groups found between x and y dataframes") ;
   }
 
@@ -46,7 +46,7 @@ inline void GroupApply(const ValrGroupedDataFrame& x,
     gi_x = grp_indices_x[shared_x_index] ;
     gi_y = grp_indices_y[shared_y_index] ;
 
-    if(gi_x.size() == 0 || gi_y.size() == 0) {
+    if (gi_x.size() == 0 || gi_y.size() == 0) {
       continue ;
     }
 

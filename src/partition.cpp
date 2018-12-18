@@ -12,19 +12,26 @@
 class IntervalCache {
   // store vector of intervals to partition
   // and max stop of the stored intervals
-  public:
-    ivl_vector_t ivls ;
-    int max_stop = 0;
-    void clear() {ivls.clear(); max_stop = 0;}
-    void push_back(ivl_t ivl) {ivls.push_back(ivl); }
-    size_t size() {return ivls.size();}
+public:
+  ivl_vector_t ivls ;
+  int max_stop = 0;
+  void clear() {
+    ivls.clear();
+    max_stop = 0;
+  }
+  void push_back(ivl_t ivl) {
+    ivls.push_back(ivl);
+  }
+  size_t size() {
+    return ivls.size();
+  }
 };
 
 void partitionIntervals(const IntervalCache& ivl_cache,
-                        ivl_vector_t& ivl_result){
+                        ivl_vector_t& ivl_result) {
   // convert interval to points
   std::vector<int> ivl_points ;
-  for (auto it:ivl_cache.ivls){
+  for (auto it:ivl_cache.ivls) {
     ivl_points.push_back(it.start) ;
     ivl_points.push_back(it.stop) ;
   }
@@ -35,7 +42,7 @@ void partitionIntervals(const IntervalCache& ivl_cache,
 
   // generate partitions as intervals between
   size_t n_pts = ivl_points.size() ;
-  for (int i = 0; i < n_pts - 1; i++){
+  for (int i = 0; i < n_pts - 1; i++) {
     ivl_t new_ivl(ivl_points[i], ivl_points[i + 1], ivl_cache.ivls[0].value) ;
     ivl_result.push_back(new_ivl) ;
   }
@@ -68,7 +75,7 @@ DataFrame partition_impl(const ValrGroupedDataFrame& gdf,
       if (max_stop + max_dist < it.start) {
         // doesn't overlap
         // clear out cache
-        if (ivl_cache.ivls.size() > 1){
+        if (ivl_cache.ivls.size() > 1) {
           partitionIntervals(ivl_cache,
                              out_ivls) ;
           ivl_cache.clear() ;
@@ -95,7 +102,7 @@ DataFrame partition_impl(const ValrGroupedDataFrame& gdf,
       }
     }
     // write out final stored interval set
-    if (ivl_cache.size() > 1){
+    if (ivl_cache.size() > 1) {
       partitionIntervals(ivl_cache,
                          out_ivls) ;
       ivl_cache.clear() ;

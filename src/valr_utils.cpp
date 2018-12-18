@@ -9,7 +9,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
   int column_indices_n = x.ncol();
   int row_indices_n = row_indices.size();
 
-  if (r_index){
+  if (r_index) {
     row_indices = row_indices - 1;
   }
 
@@ -25,8 +25,8 @@ DataFrame rowwise_subset_df(const DataFrame& x,
     SEXP element = VECTOR_ELT(x, j);
 
     SEXP vec = PROTECT(
-      Rf_allocVector(TYPEOF(element), row_indices_n)
-    );
+                 Rf_allocVector(TYPEOF(element), row_indices_n)
+               );
 
     for (int i = 0; i < row_indices_n; ++i)
     {
@@ -35,7 +35,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
       switch (TYPEOF(vec))
       {
       case REALSXP:
-        if(row_indices[i] == NA_INTEGER) {
+        if (row_indices[i] == NA_INTEGER) {
           REAL(vec)[i] = Rcpp::Vector<REALSXP>::get_na() ;
         } else {
           REAL(vec)[i] =
@@ -44,7 +44,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
         break;
       case INTSXP:
       case LGLSXP:
-        if(row_indices[i] == NA_INTEGER) {
+        if (row_indices[i] == NA_INTEGER) {
           INTEGER(vec)[i] = Rcpp::Vector<INTSXP>::get_na() ;
         } else {
           INTEGER(vec)[i] =
@@ -52,7 +52,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
         }
         break;
       case STRSXP:
-        if(row_indices[i] == NA_INTEGER) {
+        if (row_indices[i] == NA_INTEGER) {
           SET_STRING_ELT(vec, i,
                          Rcpp::Vector<STRSXP>::get_na()) ;
           break;
@@ -61,7 +61,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
                        STRING_ELT(element, row_indices[i]));
         break;
       case VECSXP:
-        if(row_indices[i] == NA_INTEGER) {
+        if (row_indices[i] == NA_INTEGER) {
           SET_VECTOR_ELT(vec, i,
                          Rcpp::Vector<VECSXP>::get_na()) ;
         } else {
@@ -70,8 +70,8 @@ DataFrame rowwise_subset_df(const DataFrame& x,
         }
         break;
       default: {
-          stop("Incompatible column type detected");
-        }
+        stop("Incompatible column type detected");
+      }
       }
     }
 
@@ -96,8 +96,8 @@ DataFrame rowwise_subset_df(const DataFrame& x,
   int column_indices_n = x.ncol();
   int row_indices_n = row_indices.size();
 
-  if (r_index){
-    for (auto i:row_indices){
+  if (r_index) {
+    for (auto i:row_indices) {
       i--;
     }
   }
@@ -114,8 +114,8 @@ DataFrame rowwise_subset_df(const DataFrame& x,
     SEXP element = VECTOR_ELT(x, j);
 
     SEXP vec = PROTECT(
-      Rf_allocVector(TYPEOF(element), row_indices_n)
-    );
+                 Rf_allocVector(TYPEOF(element), row_indices_n)
+               );
 
     for (int i = 0; i < row_indices_n; ++i)
     {
@@ -124,7 +124,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
       switch (TYPEOF(vec))
       {
       case REALSXP:
-        if(row_indices[i] == NA_INTEGER) {
+        if (row_indices[i] == NA_INTEGER) {
           REAL(vec)[i] = Rcpp::Vector<REALSXP>::get_na() ;
         } else {
           REAL(vec)[i] =
@@ -133,7 +133,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
         break;
       case INTSXP:
       case LGLSXP:
-        if(row_indices[i] == NA_INTEGER) {
+        if (row_indices[i] == NA_INTEGER) {
           INTEGER(vec)[i] = Rcpp::Vector<INTSXP>::get_na() ;
         } else {
           INTEGER(vec)[i] =
@@ -141,7 +141,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
         }
         break;
       case STRSXP:
-        if(row_indices[i] == NA_INTEGER) {
+        if (row_indices[i] == NA_INTEGER) {
           SET_STRING_ELT(vec, i,
                          Rcpp::Vector<STRSXP>::get_na()) ;
           break;
@@ -150,7 +150,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
                        STRING_ELT(element, row_indices[i]));
         break;
       case VECSXP:
-        if(row_indices[i] == NA_INTEGER) {
+        if (row_indices[i] == NA_INTEGER) {
           SET_VECTOR_ELT(vec, i,
                          Rcpp::Vector<VECSXP>::get_na()) ;
         } else {
@@ -159,8 +159,8 @@ DataFrame rowwise_subset_df(const DataFrame& x,
         }
         break;
       default: {
-          stop("Incompatible column type detected");
-        }
+        stop("Incompatible column type detected");
+      }
       }
     }
 
@@ -179,17 +179,17 @@ DataFrame rowwise_subset_df(const DataFrame& x,
 }
 
 DataFrame subset_dataframe(const DataFrame& df,
-                           std::vector<int> indices){
+                           std::vector<int> indices) {
 
   DataFrame out = rowwise_subset_df(df, indices, false);
-  return(out) ;
+  return (out) ;
 }
 
 DataFrame subset_dataframe(const DataFrame& df,
-                           IntegerVector indices){
+                           IntegerVector indices) {
 
   DataFrame out = rowwise_subset_df(df, indices, false);
-  return(out) ;
+  return (out) ;
 }
 
 ValrGroupedDataFrame::ValrGroupedDataFrame(DataFrame x):
