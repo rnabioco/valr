@@ -1,7 +1,17 @@
+// valr_utils.cpp
+//
+// Copyright (C) 2018 Jay Hesselberth and Kent Riemondy
+//
+// This file is part of valr.
+//
+// This software may be modified and distributed under the terms
+// of the MIT license. See the LICENSE file for details.
+
 #include "valr.h"
 
 // Based on Kevin Ushey's implementation here:
 // http://kevinushey.github.io/blog/2015/01/24/understanding-data-frame-subsetting/
+// Input row indices are assumed to be zero-based
 DataFrame rowwise_subset_df(const DataFrame& x,
                             IntegerVector row_indices,
                             bool r_index = false) {
@@ -89,6 +99,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
 
 }
 
+// use std::vector<int> indices rather than IntegerVector
 DataFrame rowwise_subset_df(const DataFrame& x,
                             std::vector<int> row_indices,
                             bool r_index = false) {
@@ -192,12 +203,13 @@ DataFrame subset_dataframe(const DataFrame& df,
   return (out) ;
 }
 
+// ValrGroupedDataFrame class definition
 ValrGroupedDataFrame::ValrGroupedDataFrame(DataFrame x):
   data_(check_is_grouped(x)),
   groups(data_.attr("groups"))
 {}
 
-// return data.frame without .rows column (always last in group_data)
+// return group_data data.frame without .rows column (always last in group_data)
 DataFrame extract_groups(const DataFrame& x) {
   int n = x.ncol() - 1;
   CharacterVector df_names = x.names() ;
@@ -215,35 +227,3 @@ DataFrame extract_groups(const DataFrame& x) {
   res.attr("class") = "data.frame" ;
   return res;
 }
-
-// Perform intersect between group_data of groupeddataframes and return the
-// row indicies shared between both dataframes. Used to identify matching
-// groups for two table operations i.e. intersect_impl.
-// Based on intersect_data_frame from dplyr
-// std::vector<int> shared_row_indexes(const ValrGroupedDataFrame& x,
-//                                     const ValrGroupedDataFrame& y) {
-//
-//   DataFrame grp_x = extract_groups(x.group_data()) ;
-//   DataFrame grp_y = extract_groups(y.group_data()) ;
-//
-//   typedef VisitorSetIndexSet<DataFrameJoinVisitors> Set;
-//
-//   SymbolVector x_names = grp_x.names();
-//   DataFrameJoinVisitors visitors(grp_x, grp_y, x_names, x_names, true, true);
-//   Set set(visitors);
-//
-//   train_insert(set, grp_x.nrows());
-//
-//   std::vector<int> indices ;
-//   int n_y = grp_y.nrows();
-//   for (int i = 0; i < n_y; i++) {
-//     Set::iterator it = set.find(-i - 1);
-//     if (it != set.end()) {
-//       indices.push_back(*it);
-//       set.erase(it);
-//     }
-//   }
-//   return indices ;
-// }
-
-
