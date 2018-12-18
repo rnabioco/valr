@@ -1,5 +1,4 @@
-dist: trusty
-sudo: required
+dist: xenial
 language: r
 warnings_are_errors: false
 cache: packages
@@ -35,6 +34,8 @@ matrix:
         provider: script
         script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
         skip_cleanup: true
+      after_success:
+      - Rscript -e 'covr::codecov()'
     - os: linux
       r: devel
       compiler: gcc-6
@@ -52,7 +53,4 @@ matrix:
     - os: osx
       r: release
       compiler: clang
-
-after_success:
-  - Rscript -e 'covr::codecov()'
 
