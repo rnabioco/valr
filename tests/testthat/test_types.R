@@ -1,11 +1,10 @@
 context("factors")
 
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
-seed <- 1010486
-x <- bed_random(genome, n = 1e4, seed = seed)
-x$strand <- rep(c("+", "_"), 5e3)
 
+x <- read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
 x_facs <- x
+
 x_facs$chrom <- factor(x_facs$chrom)
 x_facs$strand <- factor(x_facs$strand)
 
@@ -51,5 +50,5 @@ test_that("complex, raw, and other types are not supported", {
 test_that("list columns are supported", {
   x$lst_col <- list(1:10)
   res <- bed_intersect(x, x)
-  expect_equal(nrow(res), 10076)
+  expect_equal(nrow(res), 16)
 })
