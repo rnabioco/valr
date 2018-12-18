@@ -44,9 +44,14 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
 
   .id_col_out <- str_c(.id_col, ".x")
 
-  ## add chrom as a group
+  # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
-  groups_vars <- rlang::syms(c("chrom", groups_xy))
+  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_vars <- rlang::syms(groups_xy)
+
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
 
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)

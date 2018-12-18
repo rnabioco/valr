@@ -131,7 +131,7 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   groups_xy <- unique(as.character(c("chrom", groups_xy)))
   groups_vars <- rlang::syms(groups_xy)
 
-  # type convert grouping factors to characters and ungroup
+  # type convert grouping factors to characters if necessary and ungroup
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 

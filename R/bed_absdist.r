@@ -43,9 +43,14 @@ bed_absdist <- function(x, y, genome) {
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
   if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
 
-  # find minimum shared groups
-  groups_xy <- shared_groups(y, x)
-  groups_vars <- rlang::syms(c("chrom", groups_xy))
+  # establish grouping with shared groups (and chrom)
+  groups_xy <- shared_groups(x, y)
+  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_vars <- rlang::syms(groups_xy)
+
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
 
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)

@@ -145,6 +145,13 @@ convert_factors <- function(x, group_cols){
 
   contains_factor <- sapply(x[, group_cols], is.factor)
   if (any(contains_factor)){
+
+    warning("Factors are not allowed for grouping: ",
+            paste(group_cols[contains_factor],
+                  collapse = ","),
+            " will be treated as characters",
+            call. = FALSE)
+
     x <- ungroup(x)
     convert_cols <- group_cols[contains_factor]
     x <- mutate_at(x, .vars = convert_cols, as.character)
