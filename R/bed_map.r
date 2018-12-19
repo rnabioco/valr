@@ -56,7 +56,7 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
 
-  if (utils::packageVersion("dplyr") < "0.7.9.9000"){
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
     x <- update_groups(x)
     y <- update_groups(y)
   }

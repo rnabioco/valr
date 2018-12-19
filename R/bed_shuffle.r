@@ -58,7 +58,7 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
     stop("no intervals to sample from", call. = FALSE)
   }
 
-  if (utils::packageVersion("dplyr") < "0.7.9.9000"){
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
     x_cpp <- update_groups(x)
     # drops all columns except chrom, start, and end
     res <- shuffle_impl(x_cpp, incl, within, max_tries, seed)

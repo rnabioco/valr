@@ -71,7 +71,7 @@ bed_flank <- function(x, genome, both = 0, left = 0,
 
   if (both) left <- right <- both
 
-  if (utils::packageVersion("dplyr") < "0.7.9.9000"){
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
     x <- update_groups(x)
   }
 

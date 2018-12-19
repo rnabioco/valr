@@ -63,7 +63,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   res <- group_by(res, chrom, add = TRUE)
 
-  if (utils::packageVersion("dplyr") < "0.7.9.9000"){
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
     res <- update_groups(res)
   }
 

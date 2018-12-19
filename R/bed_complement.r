@@ -57,7 +57,7 @@ bed_complement <- function(x, genome) {
 
   res <- group_by(res, chrom)
 
-  if (utils::packageVersion("dplyr") < "0.7.9.9000"){
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
     res <- update_groups(res)
   }
 
