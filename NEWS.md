@@ -1,5 +1,7 @@
 # valr 0.4.2.9000
 
+## Major changes 
+
 * Internal `Rcpp` functions have been reorganized to remove all dependencies on `dplyr` C++ functions. 
 
 ## Minor changes

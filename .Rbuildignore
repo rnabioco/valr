@@ -7,7 +7,7 @@
 ^\.codecov\.yml$
 ^docs$
 ^appveyor\.yml$
-^_pkgdown\.yml$
+^pkgdown$
 ^man-roxygen$
 ^.github$
 # ignore long-running vignettes

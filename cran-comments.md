@@ -4,6 +4,8 @@
 
 * Addresses an incompatibility with the dplyr package v0.7.8 release.
 
+* Also added fix for rchk error. 
+
 ## Test environments
 
 * Windows Server 2008 R2 SP1, 32/64 bit (on rhub) (devel and R 3.5.1)
