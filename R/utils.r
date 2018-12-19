@@ -188,7 +188,7 @@ shared_rows <- function(x, y){
   shared_cols <- intersect(colnames(x), colnames(y))
   combined_df <- bind_rows(x[shared_cols], y[shared_cols])
 
-  keys <- plyr::id(combined_df, drop = TRUE)
+  keys <- id(combined_df, drop = TRUE)
   n_x <- nrow(x)
   n_y <- nrow(y)
   keys <- list(x = keys[seq_len(n_x)],
