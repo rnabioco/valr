@@ -1,6 +1,6 @@
 // coverage.cpp
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -110,7 +110,9 @@ void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
 
 
 //[[Rcpp::export]]
-DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
+DataFrame coverage_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
+                        IntegerVector x_grp_indexes,
+                        IntegerVector y_grp_indexes) {
 
   // overlapping interval stats
   std::vector<int> overlap_counts ;
@@ -123,7 +125,8 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
 
   auto data_x = x.data() ;
 
-  GroupApply(x, y, coverage_group,
+  GroupApply(x, y, x_grp_indexes, y_grp_indexes,
+             coverage_group,
              std::ref(overlap_counts), std::ref(ivls_bases_covered),
              std::ref(x_ivl_lengths), std::ref(fractions_covered), std::ref(indices_x));
 
@@ -132,10 +135,11 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
   if (y.data().nrows() == 0) {
     auto ng_x = x.ngroups() ;
 
-    GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-    for (int nx = 0; nx < ng_x; nx++, ++git_x) {
+    ListView idx_x(x.indices()) ;
 
-      GroupedSlicingIndex gi_x = *git_x ;
+    for (int nx = 0; nx < ng_x; nx++) {
+      IntegerVector gi_x ;
+      gi_x = idx_x[nx];
       ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
 
       for (auto it : vx) {
@@ -149,7 +153,7 @@ DataFrame coverage_impl(GroupedDataFrame x, GroupedDataFrame y) {
     }
   }
 
-  DataFrame subset_x = DataFrameSubsetVisitors(data_x, data_x.names()).subset(indices_x, "data.frame");
+  DataFrame subset_x = subset_dataframe(data_x, indices_x) ;
 
   DataFrameBuilder out;
   // x names, data

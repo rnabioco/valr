@@ -1,5 +1,15 @@
 # valr 0.4.2.9000
 
+## Major changes 
+
+* Internal `Rcpp` functions have been reorganized to remove all dependencies on `dplyr` C++ functions. 
+
+## Minor changes
+
+* Due to internal refactoring of Rcpp functions, only data.frames containing Numeric, Logical, Integer, Character, and List column types are supported. Columns containing Raw, Complex, or other R classes are not supported and will issue an error. 
+
+* Factors are now disallowed from grouping variables in multiset operations to avoid sort order discrepancies, and compatibility with factor handling in `dplyr` v.0.8.0. Factors will now be internally type-converted to character and a warning is issued.
+
 # valr 0.4.2
 
 ## Bug fixes

@@ -5,28 +5,28 @@ bed12toexons_impl <- function(x) {
     .Call(`_valr_bed12toexons_impl`, x)
 }
 
-closest_impl <- function(x, y, suffix_x, suffix_y) {
-    .Call(`_valr_closest_impl`, x, y, suffix_x, suffix_y)
+closest_impl <- function(x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y) {
+    .Call(`_valr_closest_impl`, x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y)
 }
 
 complement_impl <- function(gdf, genome) {
     .Call(`_valr_complement_impl`, gdf, genome)
 }
 
-coverage_impl <- function(x, y) {
-    .Call(`_valr_coverage_impl`, x, y)
+coverage_impl <- function(x, y, x_grp_indexes, y_grp_indexes) {
+    .Call(`_valr_coverage_impl`, x, y, x_grp_indexes, y_grp_indexes)
 }
 
-dist_impl <- function(x, y, distcalc) {
-    .Call(`_valr_dist_impl`, x, y, distcalc)
+dist_impl <- function(x, y, x_grp_indexes, y_grp_indexes, distcalc) {
+    .Call(`_valr_dist_impl`, x, y, x_grp_indexes, y_grp_indexes, distcalc)
 }
 
 flank_impl <- function(df, genome, both = 0, left = 0, right = 0, fraction = FALSE, stranded = FALSE, trim = FALSE) {
     .Call(`_valr_flank_impl`, df, genome, both, left, right, fraction, stranded, trim)
 }
 
-intersect_impl <- function(x, y, invert = FALSE, suffix_x = ".x", suffix_y = ".y") {
-    .Call(`_valr_intersect_impl`, x, y, invert, suffix_x, suffix_y)
+intersect_impl <- function(x, y, x_grp_indexes, y_grp_indexes, invert = FALSE, suffix_x = ".x", suffix_y = ".y") {
+    .Call(`_valr_intersect_impl`, x, y, x_grp_indexes, y_grp_indexes, invert, suffix_x, suffix_y)
 }
 
 makewindows_impl <- function(df, win_size = 0L, num_win = 0L, step_size = 0L, reverse = FALSE) {
@@ -49,7 +49,7 @@ shuffle_impl <- function(df, incl, within = FALSE, max_tries = 1000L, seed = 0L)
     .Call(`_valr_shuffle_impl`, df, incl, within, max_tries, seed)
 }
 
-subtract_impl <- function(gdf_x, gdf_y) {
-    .Call(`_valr_subtract_impl`, gdf_x, gdf_y)
+subtract_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes) {
+    .Call(`_valr_subtract_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes)
 }
 

@@ -22,6 +22,7 @@ bed12_to_exons <- function(x) {
   }
 
   res <- bed12toexons_impl(x)
+  res <- res[, c("chrom", "start", "end", "name", "score", "strand")]
   res <- bed_sort(res)
 
   res

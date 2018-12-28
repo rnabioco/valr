@@ -1,6 +1,6 @@
 // dist.cpp
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -96,15 +96,18 @@ void dist_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
 }
 
 //[[Rcpp::export]]
-DataFrame dist_impl(GroupedDataFrame x, GroupedDataFrame y, std::string distcalc) {
+DataFrame dist_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
+                    IntegerVector x_grp_indexes,
+                    IntegerVector y_grp_indexes,
+                    std::string distcalc) {
 
   std::vector<double> distances ;
   std::vector<int> indices_x ;
 
   DataFrame df_x = x.data() ;
-  GroupApply(x, y, dist_grouped, std::ref(indices_x), std::ref(distances), std::ref(distcalc));
+  GroupApply(x, y, x_grp_indexes, y_grp_indexes, dist_grouped, std::ref(indices_x), std::ref(distances), std::ref(distcalc));
 
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(indices_x, "data.frame");
+  DataFrame subset_x = subset_dataframe(df_x, indices_x) ;
 
   DataFrameBuilder out;
   // x names, data

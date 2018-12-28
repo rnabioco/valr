@@ -1,6 +1,6 @@
 // merge.cpp
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -9,18 +9,20 @@
 
 #include "valr.h"
 
-DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) {
+DataFrame collapseMergedIntervals(const ValrGroupedDataFrame& gdf,
+                                  int max_dist = 0) {
 
   auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
 
-  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+  ListView idx(gdf.indices()) ;
+
   // approach from http://www.geeksforgeeks.org/merging-intervals/
-
   std::vector<ivl_t> s ;
-  for (int i = 0; i < ng; i++, ++git) {
+  for (int i = 0; i < ng; i++) {
 
-    GroupedSlicingIndex indices = *git ;
+    IntegerVector indices ;
+    indices = idx[i];
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
 
@@ -54,13 +56,16 @@ DataFrame collapseMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0)
     group_starts.push_back(it.start) ;
     group_ends.push_back(it.stop) ;
   }
-  DataFrame subset_x = DataFrameSubsetVisitors(df, df.names()).subset(indices_x, "data.frame");
+
+  DataFrame subset_x = subset_dataframe(df, indices_x) ;
+
   subset_x["start"] = group_starts ;
   subset_x["end"] = group_ends ;
   return subset_x ;
 }
 
-DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) {
+DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
+                                 int max_dist = 0) {
 
   auto ng = gdf.ngroups() ;
   DataFrame df = gdf.data() ;
@@ -72,15 +77,16 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) 
 
   std::size_t cluster_id = 0;  //store counter for cluster id
 
-  GroupedDataFrame::group_iterator git = gdf.group_begin() ;
+  ListView idx(gdf.indices()) ;
 
   // approach from http://www.geeksforgeeks.org/merging-intervals/
 
   std::vector<ivl_t> s ;
 
-  for (int i = 0; i < ng; i++, ++git) {
+  for (int i = 0; i < ng; i++) {
 
-    GroupedSlicingIndex indices = *git ;
+    IntegerVector indices ;
+    indices = idx[i];
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
     // set dummy first interval to ensure first interval maintained
@@ -135,7 +141,7 @@ DataFrame clusterMergedIntervals(const GroupedDataFrame& gdf, int max_dist = 0) 
 }
 
 //[[Rcpp::export]]
-DataFrame merge_impl(GroupedDataFrame gdf,
+DataFrame merge_impl(ValrGroupedDataFrame gdf,
                      int max_dist = 0,
                      bool collapse = true) {
 

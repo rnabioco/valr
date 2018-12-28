@@ -53,24 +53,46 @@ bed_subtract <- function(x, y, any = FALSE) {
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
   if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
 
-  x <- group_by(x, chrom, add = TRUE)
-  y <- group_by(y, chrom, add = TRUE)
+  # establish grouping with shared groups (and chrom)
+  groups_xy <- shared_groups(x, y)
+  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_vars <- rlang::syms(groups_xy)
+
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
+
+  x <- group_by(x, !!! groups_vars)
+  y <- group_by(y, !!! groups_vars)
 
   # find groups not in y
   not_y_grps <- setdiff(get_labels(x), get_labels(y))
   # keep x ivls from groups not found in y
   res_no_y <- semi_join(x, not_y_grps, by = colnames(not_y_grps))
 
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
+    x <- update_groups(x)
+    y <- update_groups(y)
+  }
+
+  grp_indexes <- shared_group_indexes(x, y)
+
   if (any) {
     # collect and return x intervals without overlaps
-    res <- intersect_impl(x, y, invert = TRUE)
+    res <- intersect_impl(x, y,
+                          grp_indexes$x,
+                          grp_indexes$y,
+                          invert = TRUE)
     anti <- filter(res, is.na(.overlap))
     anti <- select(anti, chrom, start = start.x, end = end.x)
 
     return(anti)
   }
 
-  res <- subtract_impl(x, y)
+  res <- subtract_impl(x, y,
+                       grp_indexes$x,
+                       grp_indexes$y)
+  res <- ungroup(res)
   res <- bind_rows(res, res_no_y)
   res <- bed_sort(res)
 

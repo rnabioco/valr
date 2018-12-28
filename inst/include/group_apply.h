@@ -1,6 +1,6 @@
 // group_apply.h
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -14,64 +14,48 @@
 
 #include "valr.h"
 
-inline bool compare_rows(DataFrame df_x, DataFrame df_y,
-                         int idx_x, int idx_y) {
-
-  IntegerVector idxs_x = IntegerVector::create(idx_x) ;
-  IntegerVector idxs_y = IntegerVector::create(idx_y) ;
-
-  DataFrame subset_x = DataFrameSubsetVisitors(df_x, df_x.names()).subset(idxs_x, "data.frame");
-  DataFrame subset_y = DataFrameSubsetVisitors(df_y, df_y.names()).subset(idxs_y, "data.frame");
-
-  int ncols = df_x.size() ;
-  bool cols_equal = false;
-
-  for (int i = 0; i < ncols; i++) {
-    CharacterVector col_x = subset_x[i] ;
-    CharacterVector col_y = subset_y[i] ;
-
-    cols_equal = is_true(all(col_x == col_y)) ;
-    if (!cols_equal) break ;
-  }
-  return cols_equal ;
-}
-
-
 template < typename FN, typename... ARGS >
-inline void GroupApply(const GroupedDataFrame& x,
-                       const GroupedDataFrame& y,
+inline void GroupApply(const ValrGroupedDataFrame& x,
+                       const ValrGroupedDataFrame& y,
+                       const IntegerVector& shared_grps_x,
+                       const IntegerVector& shared_grps_y,
                        FN&& fn, ARGS&& ... args) {
 
   auto data_x = x.data() ;
   auto data_y = y.data() ;
 
-  auto ng_x = x.ngroups() ;
-  auto ng_y = y.ngroups() ;
+  int ng_x = shared_grps_x.size() ;
+  int ng_y = shared_grps_y.size() ;
 
-  DataFrame labels_x(data_x.attr("labels"));
-  DataFrame labels_y(data_y.attr("labels"));
+  if (ng_x != ng_y) {
+    stop("incompatible groups found between x and y dataframes") ;
+  }
 
-  GroupedDataFrame::group_iterator git_x = x.group_begin() ;
-  for (int nx = 0; nx < ng_x; nx++, ++git_x) {
+  // access the group .rows list
+  ListView grp_indices_x(x.indices()) ;
+  ListView grp_indices_y(y.indices()) ;
 
-    GroupedSlicingIndex gi_x = *git_x ;
+  for (int i = 0; i < ng_x; i++) {
+    // get next row index to subset from x and y groups
+    // convert from R to Cpp index
+    int shared_x_index = shared_grps_x[i] - 1;
+    int shared_y_index = shared_grps_y[i] - 1;
 
-    GroupedDataFrame::group_iterator git_y = y.group_begin() ;
-    for (int ny = 0; ny < ng_y; ny++, ++git_y) {
+    // subset the group lists and return integervectors
+    IntegerVector gi_x, gi_y ;
+    gi_x = grp_indices_x[shared_x_index] ;
+    gi_y = grp_indices_y[shared_y_index] ;
 
-      GroupedSlicingIndex gi_y = *git_y ;
-
-      bool same_groups = compare_rows(labels_x, labels_y, nx, ny);
-
-      if (same_groups) {
-
-        ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
-        ivl_vector_t vy = makeIntervalVector(data_y, gi_y) ;
-
-        std::bind(std::forward<FN>(fn), vx, vy, std::forward<ARGS>(args)...)();
-      }
+    if (gi_x.size() == 0 || gi_y.size() == 0) {
+      continue ;
     }
+
+    ivl_vector_t vx = makeIntervalVector(data_x, gi_x) ;
+    ivl_vector_t vy = makeIntervalVector(data_y, gi_y) ;
+
+    std::bind(std::forward<FN>(fn), vx, vy, std::forward<ARGS>(args)...)();
   }
 }
+
 
 #endif

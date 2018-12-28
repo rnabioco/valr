@@ -44,11 +44,30 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
 
   .id_col_out <- str_c(.id_col, ".x")
 
-  ## add chrom as a group
-  x <- group_by(x, chrom, add = TRUE)
-  y <- group_by(y, chrom, add = TRUE)
+  # establish grouping with shared groups (and chrom)
+  groups_xy <- shared_groups(x, y)
+  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_vars <- rlang::syms(groups_xy)
 
-  res <- intersect_impl(x, y, invert = TRUE, suffix_x = ".x", suffix_y = "")
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
+
+  x <- group_by(x, !!! groups_vars)
+  y <- group_by(y, !!! groups_vars)
+
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
+    x <- update_groups(x)
+    y <- update_groups(y)
+  }
+
+  grp_indexes <- shared_group_indexes(x, y)
+
+  res <- intersect_impl(x, y,
+                        grp_indexes$x,
+                        grp_indexes$y,
+                        invert = TRUE,
+                        suffix_x = ".x", suffix_y = "")
 
   ## filter for rows that don't intersect. The `duplicated` call is required
   ## because book-ended intervals in the intersect_impl result can
@@ -70,15 +89,23 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
 
   ## map supplied functions to each set of intersecting intervals
   ## group_by .id_col_out to ensure that duplicated input x intervals are reported
-  res_int <- group_by(res_int, !!! syms(c("chrom", x_nms, .id_col_out)))
+ # res_int <- group_by(res_int, !!! syms(c("chrom", x_nms, .id_col_out)))
+  res_int <- group_by(res_int, !!! syms(.id_col_out))
   res_int <- summarize(res_int, !!! quos(...))
   res_int <- ungroup(res_int)
-  res_int <- select(res_int, -contains(.id_col_out))
 
-  res <- bind_rows(res_int, res_noint)
+  ## join summarize data with intervals based on .id
+  ## avoids grouping by many unnecessary columns
+  join_grps <- .id_col_out
+  names(join_grps) <- .id_col
+  x <- ungroup(x)
+  res_int <- inner_join(x, res_int, by = join_grps)
+  res_int <- select(res_int, -contains(.id_col))
 
   ## rename to match input columns
-  colnames(res) <- stringr::str_replace(colnames(res), "[.]x$", "")
+  colnames(res_noint) <- stringr::str_replace(colnames(res_noint), "[.]x$", "")
+
+  res <- bind_rows(res_int, res_noint)
 
   res <- bed_sort(res)
 

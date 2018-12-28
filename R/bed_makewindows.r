@@ -73,6 +73,11 @@ bed_makewindows <- function(x,
 
   # dummy win_ids
   x <- mutate(x, .win_id = 0)
+
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
+    x <- update_groups(x)
+  }
+
   res <- makewindows_impl(x, win_size, num_win, step_size, reverse)
   res <- as.tbl_interval(res)
 

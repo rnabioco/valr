@@ -40,7 +40,17 @@ bed_reldist <- function(x, y, detail = FALSE) {
   x <- group_by(x, chrom, add = TRUE)
   y <- group_by(y, chrom, add = TRUE)
 
-  res <- dist_impl(x, y, distcalc = "reldist")
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
+    x <- update_groups(x)
+    y <- update_groups(y)
+  }
+
+  grp_indexes <- shared_group_indexes(x, y)
+
+  res <- dist_impl(x, y,
+                   grp_indexes$x,
+                   grp_indexes$y,
+                   distcalc = "reldist")
 
   if (detail) return(res)
 

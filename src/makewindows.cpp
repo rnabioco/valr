@@ -1,6 +1,6 @@
 // makewindows.cpp
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -78,7 +78,7 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
     }
   }
 
-  DataFrame out = DataFrameSubsetVisitors(df, df.names()).subset(df_idxs, "data.frame");
+  DataFrame out = subset_dataframe(df, df_idxs) ;
 
   // replace original starts, ends, and .win_id
   out["start"] = starts_out ;

@@ -58,8 +58,13 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
     stop("no intervals to sample from", call. = FALSE)
   }
 
-  # drops all columns except chrom, start, and end
-  res <- shuffle_impl(x, incl, within, max_tries, seed)
+  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
+    x_cpp <- update_groups(x)
+    # drops all columns except chrom, start, and end
+    res <- shuffle_impl(x_cpp, incl, within, max_tries, seed)
+  } else {
+    res <- shuffle_impl(x, incl, within, max_tries, seed)
+  }
 
   # bind original x column data to result (#81)
   res <- bind_cols(res, x[, !colnames(x) %in% colnames(res)])

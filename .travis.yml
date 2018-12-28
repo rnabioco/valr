@@ -1,5 +1,6 @@
 dist: xenial
 language: r
+sudo: required
 warnings_are_errors: false
 cache: packages
 r_build_args: '--no-build-vignettes'

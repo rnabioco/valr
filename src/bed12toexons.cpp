@@ -1,6 +1,6 @@
 // bed12toexons.cpp
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -8,6 +8,8 @@
 // of the MIT license. See the LICENSE file for details.
 
 #include "valr.h"
+// #include <tools/utils.h>
+// #include <tools/bad.h>
 
 std::vector<int> csv_values(std::string csv) {
 
@@ -66,9 +68,7 @@ DataFrame bed12toexons_impl(DataFrame x) {
     }
   }
 
-  CharacterVector cnames = CharacterVector::create("chrom", "start", "end", "name", "score", "strand") ;
-  SymbolVector names = SymbolVector(cnames) ;
-  DataFrame out = DataFrameSubsetVisitors(x, names).subset(df_idx, "data.frame");
+  DataFrame out = subset_dataframe(x, df_idx) ;
 
   out["start"] = starts_out ;
   out["end"] = ends_out ;

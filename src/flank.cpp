@@ -1,6 +1,6 @@
 // flank.cpp
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -136,7 +136,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
     }
   }
 
-  DataFrame out = DataFrameSubsetVisitors(df, df.names()).subset(df_idx, "data.frame");
+  DataFrame out = subset_dataframe(df, df_idx) ;
 
   out["start"] = starts_out;
   out["end"] = ends_out;
