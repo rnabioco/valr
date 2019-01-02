@@ -32,13 +32,13 @@ test_that("factors with no entries are handled ", {
 
   expect_warning(res_x <- bed_intersect(x_facs_grpd, x_empty_groups))
   expect_true(all(res_x$chrom == "chr1"))
-  expect_true(all(res_x$strand.x == "+" && res_x$strand.y == "+"))
+  expect_true(all(res_x$strand.x == "+" & res_x$strand.y == "+"))
 
 })
 
 test_that("complex, raw, and other types are not supported", {
   tmp <- x
-  tmp$compex <- 1 + 2i
+  tmp$complex <- 1 + 2i
   expect_error(bed_intersect(tmp, tmp))
 
   tmp <- x
