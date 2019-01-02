@@ -1,10 +1,8 @@
 ## New minor version
 
-* This is a new minor version (see NEWS.md).
+* This is a new major version (see NEWS.md).
 
-* Addresses an incompatibility with the dplyr package v0.7.8 release.
-
-* Also added fix for rchk error. 
+* Addresses an incompatibility with the forthcoming dplyr v0.8.0 release.
 
 ## Test environments
 
