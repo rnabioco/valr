@@ -1,7 +1,7 @@
 Package: valr
 Type: Package
 Title: Genome Interval Arithmetic in R
-Version: 0.4.2.9000
+Version: 0.5.0
 Authors@R: c(
     person('Jay', 'Hesselberth', role = c('aut', 'cre'),
       email = 'jay.hesselberth@gmail.com',
