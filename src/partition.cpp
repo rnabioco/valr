@@ -42,7 +42,7 @@ void partitionIntervals(const IntervalCache& ivl_cache,
 
   // generate partitions as intervals between
   size_t n_pts = ivl_points.size() ;
-  for (int i = 0; i < n_pts - 1; i++) {
+  for (size_t i = 0; i < n_pts - 1; i++) {
     ivl_t new_ivl(ivl_points[i], ivl_points[i + 1], ivl_cache.ivls[0].value) ;
     ivl_result.push_back(new_ivl) ;
   }
