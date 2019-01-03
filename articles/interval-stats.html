@@ -113,7 +113,7 @@
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">January 02 2019</h4>
+            <h4 class="date">January 03 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/interval-stats.Rmd"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="hidden name"><code>interval-stats.Rmd</code></div>
@@ -182,27 +182,21 @@
 <a class="sourceLine" id="cb2-11" data-line-number="11">} </a></code></pre></div>
 <p>We use the <code>distance_stats()</code> function to apply the <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code> function to each group of data.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">obs_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(rpts, tss, genome, <span class="st">'name'</span>, <span class="st">'obs'</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Warning: group_by_() is deprecated. </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Please use group_by() instead</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; The 'programming' vignette or the tidyeval book can help you</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; to program with group_by() : https://tidyeval.tidyverse.org</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; This warning is displayed once per session.</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">obs_stats</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; # A tibble: 2,106 x 4</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;    name       stat    value             type </span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;   &lt;list&gt;            &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  1 (A)n       reldist &lt;tibble [27 × 1]&gt; obs  </span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  2 (AAAAACA)n reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;  3 (AAAAC)n   reldist &lt;tibble [6 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;  4 (AAAAG)n   reldist &lt;tibble [2 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;  5 (AAAAT)n   reldist &lt;tibble [3 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;  6 (AAAATA)n  reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt;  7 (AAAATAA)n reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt;  8 (AAAC)n    reldist &lt;tibble [2 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt;  9 (AAACA)n   reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; 10 (AAACAA)n  reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt; # ... with 2,096 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2">obs_stats</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; # A tibble: 2,106 x 4</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;    name       stat    value             type </span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;   &lt;list&gt;            &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  1 (A)n       reldist &lt;tibble [27 × 1]&gt; obs  </span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  2 (AAAAACA)n reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  3 (AAAAC)n   reldist &lt;tibble [6 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  4 (AAAAG)n   reldist &lt;tibble [2 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  5 (AAAAT)n   reldist &lt;tibble [3 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  6 (AAAATA)n  reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  7 (AAAATAA)n reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  8 (AAAC)n    reldist &lt;tibble [2 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;  9 (AAACA)n   reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; 10 (AAACAA)n  reldist &lt;tibble [1 × 1]&gt;  obs  </span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; # ... with 2,096 more rows</span></a></code></pre></div>
 <p>And the same is done for a set of shuffled group of data. <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code> is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">shfs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(rpts, genome, <span class="dt">within =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">shf_stats &lt;-<span class="st"> </span><span class="kw">distance_stats</span>(shfs, tss, genome, <span class="st">'name'</span>, <span class="st">'shuf'</span>)</a></code></pre></div>
@@ -223,21 +217,21 @@
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/na.fail">na.omit</a></span>()</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8">res</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # A tibble: 16,794 x 5</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; # Groups:   name, stat [1,932]</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # A tibble: 16,742 x 5</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; # Groups:   name, stat [1,921]</span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;    name  stat      .id     obs     shuf</span></a>
 <a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  1 (A)n  absdist     1 5120782 15979316</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  2 (A)n  absdist     2  226477 15745268</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  3 (A)n  absdist     3   31242 14897956</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  4 (A)n  absdist     4    8930 13051643</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  5 (A)n  absdist     5   41316 10297376</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  6 (A)n  absdist     6   22519  8163967</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  7 (A)n  absdist     7   15173  6309408</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  8 (A)n  absdist     8   21985  4548342</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt;  9 (A)n  absdist     9   13458  4348984</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 10 (A)n  absdist    10  134007  2902407</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; # ... with 16,784 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  1 (A)n  absdist     1 5120782 15905534</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  2 (A)n  absdist     2  226477 10333611</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  3 (A)n  absdist     3   31242  4988944</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  4 (A)n  absdist     4    8930  2257918</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  5 (A)n  absdist     5   41316  1872557</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  6 (A)n  absdist     6   22519  1837859</span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  7 (A)n  absdist     7   15173  1540800</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  8 (A)n  absdist     8   21985   362903</span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt;  9 (A)n  absdist     9   13458   166617</span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 10 (A)n  absdist    10  134007    37126</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; # ... with 16,732 more rows</span></a></code></pre></div>
 <p>Now that the data are formatted, we can use the non-parametric <code><a href="https://www.rdocumentation.org/packages/stats/topics/ks.test">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://www.rdocumentation.org/packages/broom/topics/reexports">broom::tidy()</a></code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(broom)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
@@ -374,8 +368,8 @@
 <a class="sourceLine" id="cb12-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(type)</a>
 <a class="sourceLine" id="cb12-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb12-11" data-line-number="11">DT<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(signif_tests)</a></code></pre></div>
-<div id="htmlwidget-5ea071255b9991b240f6" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5ea071255b9991b240f6">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6c38766a643c176b1a16" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6c38766a643c176b1a16">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 
