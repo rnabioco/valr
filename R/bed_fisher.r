@@ -19,8 +19,8 @@
 #' @examples
 #' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 #'
-#' x <- bed_random(genome, seed = 1010486)
-#' y <- bed_random(genome, seed = 9203911)
+#' x <- bed_random(genome, n = 1e4, seed = 1010486)
+#' y <- bed_random(genome, n = 1e4, seed = 9203911)
 #'
 #' bed_fisher(x, y, genome)
 #'
