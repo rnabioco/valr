@@ -143,8 +143,8 @@
 <a class="sourceLine" id="cb3-10" data-line-number="10">nearby &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12">nearby <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)</a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # A tibble: 1,047 x 4</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;    name.x      name.y   .overlap .dist</span></a>
 <a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span></a>
@@ -158,7 +158,7 @@
 <a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  8 rs528403095 DQ571479        0  3309</span></a>
 <a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt;  9 rs555126291 DQ571479        0  2745</span></a>
 <a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; 10 rs5747567   DQ571479        0 -1778</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; # ... with 1,037 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; # … with 1,037 more rows</span></a></code></pre></div>
 </div>
 </div>
   </div>

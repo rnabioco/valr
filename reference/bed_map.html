@@ -215,7 +215,7 @@ input columns from <code>x</code> and <code>y</code> columns must take these suf
 Non-intersecting intervals from <code>x</code> are included in the result with <code>NA</code>
 values</p>
 <p>input tbls are grouped by <code>chrom</code> by default, and additional
-groups can be added using <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. For example,
+groups can be added using <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. For example,
 grouping by <code>strand</code> will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the <code>y</code> tbl can
 first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
@@ -257,7 +257,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='co'># identify non-intersecting intervals to include in the result</span>
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.sum</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>value</span>))
 <span class='no'>x_not</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_intersect.html'>bed_intersect</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='no'>res</span>, <span class='no'>x_not</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='no'>res</span>, <span class='no'>x_not</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;   chrom start   end  .sum
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 #&gt; 1 chr1    100   250    30
@@ -269,7 +269,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; 1 chr1    100   250 &lt;dbl [2]&gt;
 #&gt; 2 chr2    250   500 &lt;dbl [1]&gt;</div><div class='input'>
 <span class='co'># use `nth` family from dplyr</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.first</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/nth.html'>first</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.first</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>first</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;   chrom start   end .first
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
 #&gt; 1 chr1    100   250     10
@@ -290,13 +290,13 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; 1 chr1    100   250 10,20
 #&gt; 2 chr2    250   500 500  </div><div class='input'>
 <span class='co'># count defaults are NA not 0; differs from bedtools2 ...</span>
-<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/n.html'>n</a></span>())</div><div class='output co'>#&gt; # A tibble: 2 x 4
+<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/n.html'>n</a></span>())</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;   chrom start   end .counts
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;
 #&gt; 1 chr1    100   250       2
 #&gt; 2 chr2    250   500       1</div><div class='input'>
 <span class='co'># ... but NA counts can be coverted to 0's</span>
-<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/n.html'>n</a></span>()), <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NA'>is.na</a></span>(<span class='no'>.counts</span>), <span class='fl'>0</span>, <span class='no'>.counts</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='fu'>bed_map</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/n.html'>n</a></span>()), <span class='kw'>.counts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NA'>is.na</a></span>(<span class='no'>.counts</span>), <span class='fl'>0</span>, <span class='no'>.counts</span>))</div><div class='output co'>#&gt; # A tibble: 2 x 4
 #&gt;   chrom start   end .counts
 #&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;
 #&gt; 1 chr1    100   250       2

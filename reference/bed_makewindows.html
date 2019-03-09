@@ -288,7 +288,7 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt; 10 chr1    190   200 A     .     +            1</div><div class='input'>
 <span class='co'># bedtools 'namenum'</span>
 <span class='no'>wins</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>wins</span>, <span class='kw'>namenum</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stringr/topics/str_c'>str_c</a></span>(<span class='no'>name</span>, <span class='st'>'_'</span>, <span class='no'>.win_id</span>))</div><div class='output co'>#&gt; # A tibble: 10 x 8
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>wins</span>, <span class='kw'>namenum</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span>(<span class='no'>name</span>, <span class='st'>'_'</span>, <span class='no'>.win_id</span>))</div><div class='output co'>#&gt; # A tibble: 10 x 8
 #&gt;    chrom start   end name  score strand .win_id namenum
 #&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;  
 #&gt;  1 chr1    100   110 A     .     +            1 A_1    

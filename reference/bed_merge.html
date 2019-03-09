@@ -192,7 +192,7 @@ merged.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
-groups can be added using <code><a href='http://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. For example,
+groups can be added using <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>dplyr::group_by()</a></code>. For example,
 grouping by <code>strand</code> will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the <code>y</code> tbl can
 first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></code>.</p>
@@ -240,7 +240,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; 2 chr2      1    25
 #&gt; 3 chr2    200   550</div><div class='input'>
 <span class='co'># merge intervals on same strand</span>
-<span class='fu'>bed_merge</span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>x</span>, <span class='no'>strand</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 4
+<span class='fu'>bed_merge</span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>x</span>, <span class='no'>strand</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 4
 #&gt; # Groups:   strand [2]
 #&gt;   chrom start   end strand
 #&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 

@@ -109,7 +109,7 @@
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
             
-            <h4 class="date">2019-01-04</h4>
+            <h4 class="date">2019-03-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/valr.Rmd"><code>vignettes/valr.Rmd</code></a></small>
       <div class="hidden name"><code>valr.Rmd</code></div>
@@ -147,8 +147,8 @@
 <a class="sourceLine" id="cb1-10" data-line-number="10">nearby &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)</a>
 <a class="sourceLine" id="cb1-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12">nearby <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>)</a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt; # A tibble: 285 x 4</span></a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;    name.x      name.y            .overlap .dist</span></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                &lt;int&gt; &lt;int&gt;</span></a>
@@ -162,7 +162,7 @@
 <a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt;  8 rs114101676 GAB4                     0   474</span></a>
 <a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt;  9 rs62236167  CECR7                    0   262</span></a>
 <a class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt; 10 rs5747023   CECR1                    0  -387</span></a>
-<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="co">#&gt; # ... with 275 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="co">#&gt; # … with 275 more rows</span></a></code></pre></div>
 </div>
 <div id="input-data" class="section level3">
 <h3 class="hasAnchor">
@@ -236,20 +236,20 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># access the `refGene` tbl on the `hg38` assembly.</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="cf">if</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(RMySQL)) {</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">  ucsc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="kw"><a href="http://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span>(ucsc, <span class="st">'refGene'</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="kw"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span>(ucsc, <span class="st">'refGene'</span>)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">}</a></code></pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#visual-documentation" class="anchor"></a>Visual documentation</h3>
 <p>The <code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> tool illustrates the results of operations in <code>valr</code>, similar to those found in the <code>BEDtools</code> documentation. This glyph shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="st">'chr1'</span>, <span class="dv">25</span>,     <span class="dv">50</span>,</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="st">'chr1'</span>, <span class="dv">100</span>,    <span class="dv">125</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">)</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
 <a class="sourceLine" id="cb6-8" data-line-number="8">  <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,</a>
 <a class="sourceLine" id="cb6-9" data-line-number="9">  <span class="st">'chr1'</span>, <span class="dv">30</span>,     <span class="dv">75</span></a>
 <a class="sourceLine" id="cb6-10" data-line-number="10">)</a>
@@ -257,7 +257,7 @@
 <a class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y))</a></code></pre></div>
 <p><img src="valr_files/figure-html/intersect_glyph-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end,</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="st">'chr1'</span>,      <span class="dv">1</span>,      <span class="dv">50</span>,</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="st">'chr1'</span>,      <span class="dv">10</span>,     <span class="dv">75</span>,</a>
@@ -277,14 +277,14 @@
 <h3 class="hasAnchor">
 <a href="#grouping-data" class="anchor"></a>Grouping data</h3>
 <p>The <code>group_by</code> function in dplyr can be used to perform fuctions on subsets of single and multiple <code>data_frame</code>s. Functions in <code>valr</code> leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by <code>strand</code> to perform comparisons among intervals on the same strand.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">x &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, <span class="op">~</span>strand,</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="st">'chr1'</span>, <span class="dv">1</span>,      <span class="dv">100</span>,  <span class="st">'+'</span>,</a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">150</span>,  <span class="st">'+'</span>,</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="st">'chr2'</span>, <span class="dv">100</span>,    <span class="dv">200</span>,  <span class="st">'-'</span></a>
 <a class="sourceLine" id="cb8-6" data-line-number="6">)</a>
 <a class="sourceLine" id="cb8-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tribble</a></span>(</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">y &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(</a>
 <a class="sourceLine" id="cb8-9" data-line-number="9">  <span class="op">~</span>chrom, <span class="op">~</span>start, <span class="op">~</span>end, <span class="op">~</span>strand,</a>
 <a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">125</span>,  <span class="st">'+'</span>,</a>
 <a class="sourceLine" id="cb8-11" data-line-number="11">  <span class="st">'chr1'</span>, <span class="dv">50</span>,     <span class="dv">150</span>,  <span class="st">'-'</span>,</a>
@@ -292,8 +292,8 @@
 <a class="sourceLine" id="cb8-13" data-line-number="13">)</a>
 <a class="sourceLine" id="cb8-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co"># intersect tbls by strand</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">x &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(x, strand)</a>
-<a class="sourceLine" id="cb8-17" data-line-number="17">y &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(y, strand)</a>
+<a class="sourceLine" id="cb8-16" data-line-number="16">x &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(x, strand)</a>
+<a class="sourceLine" id="cb8-17" data-line-number="17">y &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(y, strand)</a>
 <a class="sourceLine" id="cb8-18" data-line-number="18"></a>
 <a class="sourceLine" id="cb8-19" data-line-number="19"><span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)</a>
 <a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; # A tibble: 2 x 8</span></a>
@@ -302,10 +302,10 @@
 <a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt; 1 chr1        1   100 +             50   125 +              50</span></a>
 <a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">#&gt; 2 chr1       50   150 +             50   125 +              75</span></a></code></pre></div>
 <p>Comparisons between intervals on opposite strands are done using the <code><a href="../reference/flip_strands.html">flip_strands()</a></code> function:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(x, strand)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(x, strand)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/flip_strands.html">flip_strands</a></span>(y)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">y &lt;-<span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(y, strand)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">y &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(y, strand)</a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(x, y)</a>
 <a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; # A tibble: 3 x 8</span></a>
@@ -349,8 +349,8 @@
 <p>Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on <code>+</code> strand genes, but <code>-</code> genes are easily accomodated by filtering them and using <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> with <code>reverse</code>d window numbers.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># generate 1 bp TSS intervals, `+` strand only</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">tss &lt;-<span class="st"> </span>genes <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(strand <span class="op">==</span><span class="st"> '+'</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">end =</span> start <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(strand <span class="op">==</span><span class="st"> '+'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">end =</span> start <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co"># 1000 bp up and downstream</span></a>
 <a class="sourceLine" id="cb13-7" data-line-number="7">region_size &lt;-<span class="st"> </span><span class="dv">1000</span></a>
@@ -376,12 +376,12 @@
 <a class="sourceLine" id="cb13-27" data-line-number="27"><span class="co">#&gt;  8 chr22 16161415 16161465 LINC00516 3     +            8</span></a>
 <a class="sourceLine" id="cb13-28" data-line-number="28"><span class="co">#&gt;  9 chr22 16161465 16161515 LINC00516 3     +            9</span></a>
 <a class="sourceLine" id="cb13-29" data-line-number="29"><span class="co">#&gt; 10 chr22 16161515 16161565 LINC00516 3     +           10</span></a>
-<a class="sourceLine" id="cb13-30" data-line-number="30"><span class="co">#&gt; # ... with 13,520 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb13-30" data-line-number="30"><span class="co">#&gt; # … with 13,520 more rows</span></a></code></pre></div>
 <p>Now we use the <code>.win_id</code> group with <code><a href="../reference/bed_map.html">bed_map()</a></code> to caluclate a sum by mapping <code>y</code> signals onto the intervals in <code>x</code>. These data are regrouped by <code>.win_id</code> and a summary with <code>mean</code> and <code>sd</code> values is calculated.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># map signals to TSS regions and calculate summary statistics.</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bed_map.html">bed_map</a></span>(x, y, <span class="dt">win_sum =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(value, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(.win_id) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">win_mean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(.win_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="dt">win_mean =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
 <a class="sourceLine" id="cb14-5" data-line-number="5">            <span class="dt">win_sd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/sd">sd</a></span>(win_sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
 <a class="sourceLine" id="cb14-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb14-7" data-line-number="7">res</a>
@@ -398,7 +398,7 @@
 <a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt;  8       8     128.   91.5</span></a>
 <a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt;  9       9     130.   95.7</span></a>
 <a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 10      10     130.   88.8</span></a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; # ... with 31 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; # … with 31 more rows</span></a></code></pre></div>
 <p>Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"></a>
@@ -444,7 +444,7 @@
 <li><p>Adjust interval coordinates with <code><a href="../reference/bed_slop.html">bed_slop()</a></code> and <code><a href="../reference/bed_shift.html">bed_shift()</a></code>, and create new flanking intervals with <code><a href="../reference/bed_flank.html">bed_flank()</a></code>.</p></li>
 <li><p>Combine nearby intervals with <code><a href="../reference/bed_merge.html">bed_merge()</a></code> and identify nearby intervals with <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
 <li><p>Generate intervals not covered by a query with <code><a href="../reference/bed_complement.html">bed_complement()</a></code>.</p></li>
-<li><p>Order intervals with <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code>.</p></li>
+<li><p>Order intervals with <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code>.</p></li>
 </ul>
 </div>
 <div id="comparing-multiple-interval-sets" class="section level3">
@@ -464,7 +464,7 @@
 <ul>
 <li><p>Generate random intervals with <code><a href="../reference/bed_random.html">bed_random()</a></code>.</p></li>
 <li><p>Shuffle the coordinates of intervals with <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code>.</p></li>
-<li><p>Sample input intervals with <code><a href="http://dplyr.tidyverse.org/reference/sample.html">dplyr::sample_n()</a></code> and <code><a href="http://dplyr.tidyverse.org/reference/sample.html">dplyr::sample_frac()</a></code>.</p></li>
+<li><p>Sample input intervals with <code><a href="https://dplyr.tidyverse.org/reference/sample.html">dplyr::sample_n()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/sample.html">dplyr::sample_frac()</a></code>.</p></li>
 </ul>
 </div>
 <div id="interval-statistics" class="section level3">
