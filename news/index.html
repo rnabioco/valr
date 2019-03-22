@@ -23,8 +23,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -95,7 +94,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -128,13 +127,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rnabioco/valr">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+      <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -154,14 +153,21 @@
       <small>Source: <a href='https://github.com/rnabioco/valr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="valr-0509000" class="section level1">
+    <div id="valr-0-5-0-9000" class="section level1">
 <h1 class="page-header">
-<a href="#valr-0509000" class="anchor"></a>valr 0.5.0.9000<small> Unreleased </small>
+<a href="#valr-0-5-0-9000" class="anchor"></a>valr 0.5.0.9000<small> Unreleased </small>
 </h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fixed <code><a href="../reference/bed_closest.html">bed_closest()</a></code> to prevent erroneous intervals being reported when adjacent closest intervals are present in the <code>y</code> table. (<a href='https://github.com/rnabioco/valr/issues/348'>#348</a>)</li>
+</ul>
 </div>
-    <div id="valr-050" class="section level1">
+</div>
+    <div id="valr-0-5-0" class="section level1">
 <h1 class="page-header">
-<a href="#valr-050" class="anchor"></a>valr 0.5.0<small> 2019-01-03 </small>
+<a href="#valr-0-5-0" class="anchor"></a>valr 0.5.0<small> 2019-01-03 </small>
 </h1>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -179,30 +185,30 @@
 </ul>
 </div>
 </div>
-    <div id="valr-042" class="section level1">
+    <div id="valr-0-4-2" class="section level1">
 <h1 class="page-header">
-<a href="#valr-042" class="anchor"></a>valr 0.4.2<small> 2018-11-17 </small>
+<a href="#valr-0-4-2" class="anchor"></a>valr 0.4.2<small> 2018-11-17 </small>
 </h1>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Changed the behavior of <code><a href="../reference/as.tbl_interval.html">as.tbl_interval()</a></code> to call <code>as_tibble()</code> only on non-tibble input, which prevents groups from being stripped from <code>tibble()</code> input (<a href='https://github.com/rnabioco/valr/issues/338'>#338</a>).</li>
 </ul>
 </div>
 </div>
-    <div id="valr-041" class="section level1">
+    <div id="valr-0-4-1" class="section level1">
 <h1 class="page-header">
-<a href="#valr-041" class="anchor"></a>valr 0.4.1<small> 2018-06-08 </small>
+<a href="#valr-0-4-1" class="anchor"></a>valr 0.4.1<small> 2018-06-08 </small>
 </h1>
 <ul>
 <li><p>Added new function, <code><a href="../reference/bed_partition.html">bed_partition()</a></code>, which is similar to <code><a href="../reference/bed_merge.html">bed_merge()</a></code> but collapses intervals to elemental intervals rather than the maximal overlapping region. <code><a href="../reference/bed_partition.html">bed_partition()</a></code> also can compute summaries of data from overlapping intervals. See examples in <code><a href="../reference/bed_partition.html">bed_partition()</a></code> and timings in <code><a href="../articles/benchmarks.html">vignette('benchmarks')</a></code> <a href='https://github.com/kriemo'>@kriemo</a>.</p></li>
 <li><p>Several explicit comparisons to the Bioconductor GenomicRanges library are included for users considering using valr. See examples in <code><a href="../reference/as.tbl_interval.html">as.tbl_interval()</a></code> and timings in <code><a href="../articles/benchmarks.html">vignette('benchmarks')</a></code>.</p></li>
 </ul>
 </div>
-    <div id="valr-040" class="section level1">
+    <div id="valr-0-4-0" class="section level1">
 <h1 class="page-header">
-<a href="#valr-040" class="anchor"></a>valr 0.4.0<small> 2018-01-25 </small>
+<a href="#valr-0-4-0" class="anchor"></a>valr 0.4.0<small> 2018-01-25 </small>
 </h1>
 <div id="minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
@@ -215,9 +221,9 @@
 <li><p>The genome argument to <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> was deprecated and will produce a warning if used. Also error handling was added to check and warn if there are intervals smaller than the requested window size in <code>makewindows_impl()</code> (<a href='https://github.com/rnabioco/valr/issues/312'>#312</a> <a href='https://github.com/kriemo'>@kriemo</a>)</p></li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li><p>Fixed off by one error in reported distances from <code><a href="../reference/bed_closest.html">bed_closest()</a></code>. Distances reported now are the same as <code>bedtools closest</code> behavior (<a href='https://github.com/rnabioco/valr/issues/311'>#311</a>).</p></li>
 <li><p><code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> accepts <code>trbl_intervals</code> named other than <code>x</code> and <code>y</code> (<a href='https://github.com/rnabioco/valr/issues/318'>#318</a>).</p></li>
@@ -226,9 +232,9 @@
 </ul>
 </div>
 </div>
-    <div id="valr-031" class="section level1">
+    <div id="valr-0-3-1" class="section level1">
 <h1 class="page-header">
-<a href="#valr-031" class="anchor"></a>valr 0.3.1<small> 2017-07-22 </small>
+<a href="#valr-0-3-1" class="anchor"></a>valr 0.3.1<small> 2017-07-22 </small>
 </h1>
 <div id="enhancements" class="section level2">
 <h2 class="hasAnchor">
@@ -248,18 +254,18 @@
 <code><a href="../reference/bed_sort.html">bed_sort()</a></code> has been de-deprecated to reduce <code>arrange</code> calls in library code.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code><a href="../reference/bed_merge.html">bed_merge()</a></code> now reports start/end columns if spec is provided (<a href='https://github.com/rnabioco/valr/issues/288'>#288</a>)</li>
 </ul>
 </div>
 </div>
-    <div id="valr-030" class="section level1">
+    <div id="valr-0-3-0" class="section level1">
 <h1 class="page-header">
-<a href="#valr-030" class="anchor"></a>valr 0.3.0<small> 2017-06-15 </small>
+<a href="#valr-0-3-0" class="anchor"></a>valr 0.3.0<small> 2017-06-15 </small>
 </h1>
 <div id="enhancements-1" class="section level2">
 <h2 class="hasAnchor">
@@ -269,17 +275,17 @@
 <li><p>Speed-ups in <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> (~50x), <code><a href="../reference/bed_merge.html">bed_merge()</a></code> (~4x), and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> (~4x) (thanks to <a href='https://github.com/kriemo'>@kriemo</a> and <a href='https://github.com/sheridar'>@sheridar</a>). Thanks to the sponsors of the <a href="https://hackathon.colorado.edu/">Biofrontiers Hackathon</a> for the caffeine underlying these improvements.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>intervals from <code><a href="../reference/bed_random.html">bed_random()</a></code> are now sorted properly.</li>
 </ul>
 </div>
 </div>
-    <div id="valr-020" class="section level1">
+    <div id="valr-0-2-0" class="section level1">
 <h1 class="page-header">
-<a href="#valr-020" class="anchor"></a>valr 0.2.0<small> 2017-05-05 </small>
+<a href="#valr-0-2-0" class="anchor"></a>valr 0.2.0<small> 2017-05-05 </small>
 </h1>
 <div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
@@ -297,17 +303,17 @@
 <li>intervals returned from <code><a href="../reference/bed_random.html">bed_random()</a></code> are sorted by <code>chrom</code> and <code>start</code> by default.</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Merge intervals in <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> and use numeric values for calculation (fixes <a href='https://github.com/rnabioco/valr/issues/204'>#204</a>).</li>
 </ul>
 </div>
 </div>
-    <div id="valr-012" class="section level1">
+    <div id="valr-0-1-2" class="section level1">
 <h1 class="page-header">
-<a href="#valr-012" class="anchor"></a>valr 0.1.2<small> 2017-03-16 </small>
+<a href="#valr-0-1-2" class="anchor"></a>valr 0.1.2<small> 2017-03-16 </small>
 </h1>
 <div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
@@ -328,18 +334,18 @@
 <li><p>Add Kent Riemondy to LICENSE file.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level2">
+<div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-6" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code><a href="../reference/bed_merge.html">bed_merge()</a></code> now merges contained intervals (<a href='https://github.com/rnabioco/valr/issues/177'>#177</a>)</li>
 </ul>
 </div>
 </div>
-    <div id="valr-011" class="section level1">
+    <div id="valr-0-1-1" class="section level1">
 <h1 class="page-header">
-<a href="#valr-011" class="anchor"></a>valr 0.1.1<small> 2016-12-01 </small>
+<a href="#valr-0-1-1" class="anchor"></a>valr 0.1.1<small> 2016-12-01 </small>
 </h1>
 <div id="minor-changes-5" class="section level2">
 <h2 class="hasAnchor">
@@ -351,9 +357,9 @@
 </ul>
 </div>
 </div>
-    <div id="valr-010" class="section level1">
+    <div id="valr-0-1-0" class="section level1">
 <h1 class="page-header">
-<a href="#valr-010" class="anchor"></a>valr 0.1.0<small> 2016-11-21 </small>
+<a href="#valr-0-1-0" class="anchor"></a>valr 0.1.0<small> 2016-11-21 </small>
 </h1>
 <div id="major-changes-3" class="section level2">
 <h2 class="hasAnchor">
@@ -369,17 +375,17 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#valr-0509000">0.5.0.9000</a></li>
-        <li><a href="#valr-050">0.5.0</a></li>
-        <li><a href="#valr-042">0.4.2</a></li>
-        <li><a href="#valr-041">0.4.1</a></li>
-        <li><a href="#valr-040">0.4.0</a></li>
-        <li><a href="#valr-031">0.3.1</a></li>
-        <li><a href="#valr-030">0.3.0</a></li>
-        <li><a href="#valr-020">0.2.0</a></li>
-        <li><a href="#valr-012">0.1.2</a></li>
-        <li><a href="#valr-011">0.1.1</a></li>
-        <li><a href="#valr-010">0.1.0</a></li>
+        <li><a href="#valr-0-5-0-9000">0.5.0.9000</a></li>
+        <li><a href="#valr-0-5-0">0.5.0</a></li>
+        <li><a href="#valr-0-4-2">0.4.2</a></li>
+        <li><a href="#valr-0-4-1">0.4.1</a></li>
+        <li><a href="#valr-0-4-0">0.4.0</a></li>
+        <li><a href="#valr-0-3-1">0.3.1</a></li>
+        <li><a href="#valr-0-3-0">0.3.0</a></li>
+        <li><a href="#valr-0-2-0">0.2.0</a></li>
+        <li><a href="#valr-0-1-2">0.1.2</a></li>
+        <li><a href="#valr-0-1-1">0.1.1</a></li>
+        <li><a href="#valr-0-1-0">0.1.0</a></li>
       </ul>
     </div>
   </div>
@@ -392,7 +398,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

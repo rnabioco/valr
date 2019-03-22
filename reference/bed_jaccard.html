@@ -23,8 +23,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -99,7 +98,7 @@ for subsets of data." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,13 +131,13 @@ for subsets of data." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rnabioco/valr">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+      <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -220,27 +219,27 @@ examples.</p>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
 
-<span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 4</span><span>
+<span class='fu'>bed_jaccard</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;       len_i      len_u jaccard      n
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 236</span><span style='text-decoration: underline;'>059</span><span>495 </span><span style='text-decoration: underline;'>1</span><span>709</span><span style='text-decoration: underline;'>233</span><span>073   0.160 </span><span style='text-decoration: underline;'>399</span><span>478</div><div class='input'>
+#&gt;       &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1 235607860 1708554359   0.160 399752</div><div class='input'>
 <span class='co'># calculate jaccard per chromosome</span>
 <span class='fu'>bed_jaccard</span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>x</span>, <span class='no'>chrom</span>),
-            <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>y</span>, <span class='no'>chrom</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 25 x 5</span><span>
+            <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>y</span>, <span class='no'>chrom</span>))</div><div class='output co'>#&gt; # A tibble: 25 x 5
 #&gt;    chrom    len_i     len_u jaccard     n
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> chr1  19</span><span style='text-decoration: underline;'>013</span><span>821 137</span><span style='text-decoration: underline;'>669</span><span>498   0.160 </span><span style='text-decoration: underline;'>32</span><span>087
-#&gt; </span><span style='color: #555555;'> 2</span><span> chr10 10</span><span style='text-decoration: underline;'>471</span><span>352  75</span><span style='text-decoration: underline;'>102</span><span>550   0.162 </span><span style='text-decoration: underline;'>17</span><span>752
-#&gt; </span><span style='color: #555555;'> 3</span><span> chr11 10</span><span style='text-decoration: underline;'>221</span><span>596  74</span><span style='text-decoration: underline;'>407</span><span>682   0.159 </span><span style='text-decoration: underline;'>17</span><span>362
-#&gt; </span><span style='color: #555555;'> 4</span><span> chr12 10</span><span style='text-decoration: underline;'>132</span><span>944  73</span><span style='text-decoration: underline;'>478</span><span>730   0.160 </span><span style='text-decoration: underline;'>17</span><span>078
-#&gt; </span><span style='color: #555555;'> 5</span><span> chr13  8</span><span style='text-decoration: underline;'>912</span><span>455  64</span><span style='text-decoration: underline;'>140</span><span>662   0.161 </span><span style='text-decoration: underline;'>15</span><span>149
-#&gt; </span><span style='color: #555555;'> 6</span><span> chr14  8</span><span style='text-decoration: underline;'>232</span><span>867  59</span><span style='text-decoration: underline;'>341</span><span>464   0.161 </span><span style='text-decoration: underline;'>13</span><span>902
-#&gt; </span><span style='color: #555555;'> 7</span><span> chr15  7</span><span style='text-decoration: underline;'>765</span><span>611  56</span><span style='text-decoration: underline;'>428</span><span>414   0.160 </span><span style='text-decoration: underline;'>13</span><span>143
-#&gt; </span><span style='color: #555555;'> 8</span><span> chr16  6</span><span style='text-decoration: underline;'>833</span><span>852  49</span><span style='text-decoration: underline;'>562</span><span>929   0.160 </span><span style='text-decoration: underline;'>11</span><span>634
-#&gt; </span><span style='color: #555555;'> 9</span><span> chr17  6</span><span style='text-decoration: underline;'>210</span><span>996  44</span><span style='text-decoration: underline;'>901</span><span>313   0.161 </span><span style='text-decoration: underline;'>10</span><span>542
-#&gt; </span><span style='color: #555555;'>10</span><span> chr18  5</span><span style='text-decoration: underline;'>979</span><span>095  43</span><span style='text-decoration: underline;'>289</span><span>534   0.160 </span><span style='text-decoration: underline;'>10</span><span>113
-#&gt; </span><span style='color: #555555;'># … with 15 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 chr1  18949776 137312717   0.160 32155
+#&gt;  2 chr10 10297917  75375993   0.158 17547
+#&gt;  3 chr11 10381872  74526141   0.162 17394
+#&gt;  4 chr12 10258612  73803981   0.161 17335
+#&gt;  5 chr13  8940241  63744976   0.163 14952
+#&gt;  6 chr14  8200728  59377643   0.160 13949
+#&gt;  7 chr15  7867717  56694256   0.161 13385
+#&gt;  8 chr16  6871740  49891604   0.160 11639
+#&gt;  9 chr17  6247903  45089451   0.161 10508
+#&gt; 10 chr18  5911670  43075918   0.159 10050
+#&gt; # … with 15 more rows</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -265,7 +264,7 @@ examples.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
