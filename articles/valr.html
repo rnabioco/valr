@@ -110,7 +110,7 @@
     <div class="page-header toc-ignore">
       <h1>valr overview</h1>
             
-            <h4 class="date">2019-03-17</h4>
+            <h4 class="date">2019-03-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/valr.Rmd"><code>vignettes/valr.Rmd</code></a></small>
       <div class="hidden name"><code>valr.Rmd</code></div>
@@ -407,14 +407,14 @@
 <a class="sourceLine" id="cb16-3" title="3">x_labels &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="op">-</span>region_size, region_size, <span class="dt">by =</span> win_size <span class="op">*</span><span class="st"> </span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb16-4" title="4">x_breaks &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">1</span>, <span class="dv">41</span>, <span class="dt">by =</span> <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb16-5" title="5"></a>
-<a class="sourceLine" id="cb16-6" title="6">sd_limits &lt;-<span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">ymax =</span> win_mean <span class="op">+</span><span class="st"> </span>win_sd, <span class="dt">ymin =</span> win_mean <span class="op">-</span><span class="st"> </span>win_sd)</a>
+<a class="sourceLine" id="cb16-6" title="6">sd_limits &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">ymax =</span> win_mean <span class="op">+</span><span class="st"> </span>win_sd, <span class="dt">ymin =</span> win_mean <span class="op">-</span><span class="st"> </span>win_sd)</a>
 <a class="sourceLine" id="cb16-7" title="7"></a>
-<a class="sourceLine" id="cb16-8" title="8"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(res, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> .win_id, <span class="dt">y =</span> win_mean)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-9" title="9"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span>(sd_limits) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-10" title="10"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span>(<span class="dt">labels =</span> x_labels, <span class="dt">breaks =</span> x_breaks) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-11" title="11"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span>(<span class="st">'Position (bp from TSS)'</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">'Signal'</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-12" title="12"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">'Human H3K4me3 signal near transcription start sites'</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-13" title="13"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb16-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(res, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> .win_id, <span class="dt">y =</span> win_mean)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-9" title="9"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_linerange">geom_pointrange</a></span>(sd_limits) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-10" title="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_continuous">scale_x_continuous</a></span>(<span class="dt">labels =</span> x_labels, <span class="dt">breaks =</span> x_breaks) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-11" title="11"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">xlab</a></span>(<span class="st">'Position (bp from TSS)'</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="st">'Signal'</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-12" title="12"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">'Human H3K4me3 signal near transcription start sites'</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-13" title="13"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_classic</a></span>()</a></code></pre></div>
 <p><img src="valr_files/figure-html/plot-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 </div>

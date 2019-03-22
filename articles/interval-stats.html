@@ -114,7 +114,7 @@
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">March 17 2019</h4>
+            <h4 class="date">March 22 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/interval-stats.Rmd"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="hidden name"><code>interval-stats.Rmd</code></div>
@@ -224,21 +224,21 @@
 <a class="sourceLine" id="cb5-6" title="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/na.fail">na.omit</a></span>()</a>
 <a class="sourceLine" id="cb5-7" title="7"></a>
 <a class="sourceLine" id="cb5-8" title="8">res</a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt; # A tibble: 16,719 x 5</span></a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; # Groups:   name, stat [1,900]</span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt; # A tibble: 16,654 x 5</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; # Groups:   name, stat [1,897]</span></a>
 <a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;    name  stat      .id     obs     shuf</span></a>
 <a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt;  1 (A)n  absdist     1 5120782 15888674</span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt;  2 (A)n  absdist     2  226477 10904814</span></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt;  3 (A)n  absdist     3   31242  9168764</span></a>
-<a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt;  4 (A)n  absdist     4    8930  2224035</span></a>
-<a class="sourceLine" id="cb5-17" title="17"><span class="co">#&gt;  5 (A)n  absdist     5   41316  1613835</span></a>
-<a class="sourceLine" id="cb5-18" title="18"><span class="co">#&gt;  6 (A)n  absdist     6   22519     5775</span></a>
-<a class="sourceLine" id="cb5-19" title="19"><span class="co">#&gt;  7 (A)n  absdist     7   15173    15510</span></a>
-<a class="sourceLine" id="cb5-20" title="20"><span class="co">#&gt;  8 (A)n  absdist     8   21985    17670</span></a>
-<a class="sourceLine" id="cb5-21" title="21"><span class="co">#&gt;  9 (A)n  absdist     9   13458    22172</span></a>
-<a class="sourceLine" id="cb5-22" title="22"><span class="co">#&gt; 10 (A)n  absdist    10  134007    94862</span></a>
-<a class="sourceLine" id="cb5-23" title="23"><span class="co">#&gt; # … with 16,709 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt;  1 (A)n  absdist     1 5120782 14607012</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co">#&gt;  2 (A)n  absdist     2  226477 12821289</span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt;  3 (A)n  absdist     3   31242 10183207</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt;  4 (A)n  absdist     4    8930  9453909</span></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="co">#&gt;  5 (A)n  absdist     5   41316  8239602</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="co">#&gt;  6 (A)n  absdist     6   22519  7148166</span></a>
+<a class="sourceLine" id="cb5-19" title="19"><span class="co">#&gt;  7 (A)n  absdist     7   15173  3541972</span></a>
+<a class="sourceLine" id="cb5-20" title="20"><span class="co">#&gt;  8 (A)n  absdist     8   21985  1359101</span></a>
+<a class="sourceLine" id="cb5-21" title="21"><span class="co">#&gt;  9 (A)n  absdist     9   13458    59592</span></a>
+<a class="sourceLine" id="cb5-22" title="22"><span class="co">#&gt; 10 (A)n  absdist    10  134007    23390</span></a>
+<a class="sourceLine" id="cb5-23" title="23"><span class="co">#&gt; # … with 16,644 more rows</span></a></code></pre></div>
 <p>Now that the data are formatted, we can use the non-parametric <code><a href="https://www.rdocumentation.org/packages/stats/topics/ks.test">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://www.rdocumentation.org/packages/broom/topics/reexports">broom::tidy()</a></code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(broom)</a>
 <a class="sourceLine" id="cb6-2" title="2"></a>
@@ -250,9 +250,9 @@
 <a class="sourceLine" id="cb6-8" title="8"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(name<span class="op">:</span>p.value) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-9" title="9"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(p.value)</a></code></pre></div>
 <p>Histgrams of the different stats help visulaize the distribution of p.values.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(pvals, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(p.value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>alt) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/theme_cowplot">theme_cowplot</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(pvals, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(p.value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_histogram">geom_histogram</a></span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>alt) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/theme_cowplot">theme_cowplot</a></span>()</a></code></pre></div>
 <p><img src="interval-stats_files/figure-html/pvalue_viz-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>We can also assess false discovery rates (q.values) using <code><a href="https://www.rdocumentation.org/packages/stats/topics/p.adjust">p.adjust()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">pvals &lt;-</a>
@@ -260,7 +260,7 @@
 <a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">q.value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/p.adjust">p.adjust</a></span>(p.value)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-4" title="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-5" title="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(q.value)</a></code></pre></div>
-<p>Finally we can visualize these results using <code><a href="https://ggplot2.tidyverse.org/reference/stat_ecdf.html">stat_ecdf()</a></code>.</p>
+<p>Finally we can visualize these results using <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/stat_ecdf">stat_ecdf()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">res_gather &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(res, type, value, <span class="op">-</span>name, <span class="op">-</span>stat, <span class="op">-</span>.id)</a>
 <a class="sourceLine" id="cb9-2" title="2"></a>
 <a class="sourceLine" id="cb9-3" title="3">signif &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(pvals, <span class="dv">5</span>)</a>
@@ -269,10 +269,10 @@
 <a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span>signif <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-7" title="7"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(res_gather, <span class="dt">by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'name'</span>, <span class="st">'stat'</span>))</a>
 <a class="sourceLine" id="cb9-8" title="8"></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(res_signif, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> value, <span class="dt">color =</span> type)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-10" title="10"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/stat_ecdf.html">stat_ecdf</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>name) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/theme_cowplot">theme_cowplot</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-12" title="12"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span>(<span class="dt">palette =</span> <span class="st">'Set1'</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb9-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(res_signif, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> value, <span class="dt">color =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/stat_ecdf">stat_ecdf</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_grid">facet_grid</a></span>(stat <span class="op">~</span><span class="st"> </span>name) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/theme_cowplot">theme_cowplot</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_continuous">scale_x_log10</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-12" title="12"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/scale_brewer">scale_color_brewer</a></span>(<span class="dt">palette =</span> <span class="st">'Set1'</span>)</a></code></pre></div>
 <p><img src="interval-stats_files/figure-html/ecfs-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="projection-test" class="section level2">
@@ -375,8 +375,8 @@
 <a class="sourceLine" id="cb12-9" title="9"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(type)</a>
 <a class="sourceLine" id="cb12-10" title="10"></a>
 <a class="sourceLine" id="cb12-11" title="11">DT<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(signif_tests)</a></code></pre></div>
-<div id="htmlwidget-5e24d3a47c2a2dbafcb4" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5e24d3a47c2a2dbafcb4">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6326249f88b64c7e3cd1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6326249f88b64c7e3cd1">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 
