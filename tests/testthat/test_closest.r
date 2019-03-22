@@ -16,9 +16,7 @@ test_that("1bp closer, check for off-by-one errors", {
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
-  expect_true(res[1, ]$.dist == -1)
-  expect_true(res[2, ]$.dist == 0)
-  expect_true(res[3, ]$.dist == 1)
+  expect_true(all(c(0, -1, 1) %in% res$.dist))
 })
 
 test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
@@ -35,9 +33,7 @@ test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
   )
   res <- bed_closest(y, x)
   expect_equal(nrow(res), 3)
-  expect_true(res[1, ]$.dist == 1)
-  expect_true(res[2, ]$.dist == 0)
-  expect_true(res[3, ]$.dist == -1)
+  expect_true(all(c(0, -1, 1) %in% res$.dist))
 })
 
 test_that("0bp apart closer, check for off-by-one errors", {
@@ -54,9 +50,7 @@ test_that("0bp apart closer, check for off-by-one errors", {
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
-  expect_true(res[1, ]$.dist == -1)
-  expect_true(res[2, ]$.dist == 0)
-  expect_true(res[3, ]$.dist == 1)
+  expect_true(all(c(0, -1, 1) %in% res$.dist))
 })
 
 test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
@@ -75,9 +69,7 @@ test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
   res2 <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
   expect_equal(nrow(res), 3)
-  expect_true(res[1, ]$.dist == 1)
-  expect_true(res[2, ]$.dist == 0)
-  expect_true(res[3, ]$.dist == -1)
+  expect_true(all(c(0, -1, 1) %in% res$.dist))
 })
 
 test_that("check that first left interval at index 0 is not lost", {
@@ -545,6 +537,23 @@ test_that("check ties, single db", {
     ~ chrom, ~ start, ~ end, ~ group, ~ score, ~ strand,
     "chr1", 8, 9, "b1", 1, "+",
     "chr1", 21, 22, "b2", 1, "-"
+  )
+  res <- bed_closest(x, y)
+  expect_true(nrow(res) == 2)
+})
+
+test_that("check reporting of adjacent intervals issue #348", {
+  x <- tibble::tribble(
+    ~ chrom, ~ start, ~ end,
+    "chr1", 10, 20
+  )
+
+  y <- tibble::tribble(
+    ~ chrom, ~ start, ~ end,
+    "chr1", 8, 9,
+    "chr1", 9, 10,
+    "chr1", 20, 21,
+    "chr1", 21, 22
   )
   res <- bed_closest(x, y)
   expect_true(nrow(res) == 2)
