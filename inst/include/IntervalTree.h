@@ -243,8 +243,8 @@ public:
 
   intervalVector findClosest(K start, K stop) const {
     intervalVector closest ;
-    std::pair<int, intervalVector> min_dist_l, min_dist_r;
-    this->findClosest(start, stop, closest, min_dist_l, min_dist_r) ;
+    std::pair<int, intervalVector> min_dist;
+    this->findClosest(start, stop, closest, min_dist) ;
     return closest;
   }
 
@@ -254,10 +254,11 @@ public:
     if (!intervals.empty() && !(stop < intervals.front().start)) {
       for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
         const interval& interval = *i;
-        if (interval.stop >= start && interval.start <= stop) {
+        if (interval.stop > start && interval.start < stop) {
+          // adjacent intervals are considered non-overlappping
           closest.push_back(interval);
-        } else if (stop < interval.start) {
-          // finddistance on left
+        } else if (stop <= interval.start) {
+          // find distance on left
           int ivl_dist_l = interval.start - stop ;
           // if smaller than best min dist found update pair with dist and intervals
           if (ivl_dist_l < min_dist.first) {
@@ -268,7 +269,7 @@ public:
             // if same dist append intervals
             min_dist.second.push_back(interval) ;
           }
-        } else if (start > interval.stop) {
+        } else if (start >= interval.stop) {
           // find distance on right
           int ivl_dist_r = start - interval.stop ;
           // if smaller than best min dist found update pair with dist and intervals
@@ -282,16 +283,16 @@ public:
           }
         }
       }
-    }  else if (!intervals.empty()  && (stop < intervals.front().start)) {
+    }  else if (!intervals.empty()  && (stop <= intervals.front().start)) {
       for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
         const interval& interval = *i;
         if (interval.start > intervals.front().start) {
           continue ;
         } else {
-          // finddistance on left
+          // find distance on left
           int ivl_dist_l = interval.start - stop ;
           // if smaller than best min dist found update pair with dist and intervals
-          if (ivl_dist_l < min_dist.first) {
+          if (ivl_dist_l <= min_dist.first) {
             min_dist.first = ivl_dist_l;
             min_dist.second.clear() ;
             min_dist.second.push_back(interval) ;

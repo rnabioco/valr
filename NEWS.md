@@ -1,5 +1,9 @@
 # valr 0.5.0.9000
 
+## Bug fixes
+
+* Fixed `bed_closest()` to prevent erroneous intervals being reported when adjacent closest intervals are present in the `y` table. (#348)
+
 # valr 0.5.0
 
 ## Major changes 
