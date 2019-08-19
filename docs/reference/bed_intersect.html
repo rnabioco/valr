@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 <!-- Bootstrap 4 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -43,12 +43,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 
-
-<!-- docsearch -->
-<script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Identify intersecting intervals. — bed_intersect" />
@@ -125,10 +119,6 @@ have .overlap values of 0 in the output." />
 </li>
       </ul>
       
-      <form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control mr-sm-2" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-      </form>
-      
     </div>
   </div>
 </nav>
@@ -152,26 +142,17 @@ have <code>.overlap</code> values of <code>0</code> in the output.</p>
 
     <pre class="usage"><span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>".x"</span>, <span class='st'>".y"</span>))</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>one or more (e.g. a list of) <code>y</code> <code><a href='tbl_interval.html'>tbl_interval()</a></code>s</p></td>
-    </tr>
-    <tr>
-      <th>invert</th>
-      <td><p>report <code>x</code> intervals not in <code>y</code></p></td>
-    </tr>
-    <tr>
-      <th>suffix</th>
-      <td><p>colname suffixes in output</p></td>
-    </tr>
-    </table>
+    <h2>Arguments</h2>
+    <dl class="row" id="arguments">
+      <dt class="col-sm-3 text-truncate">x</dt>
+      <dd class="col-sm-9"><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></dd>
+      <dt class="col-sm-3 text-truncate">...</dt>
+      <dd class="col-sm-9"><p>one or more (e.g. a list of) <code>y</code> <code><a href='tbl_interval.html'>tbl_interval()</a></code>s</p></dd>
+      <dt class="col-sm-3 text-truncate">invert</dt>
+      <dd class="col-sm-9"><p>report <code>x</code> intervals not in <code>y</code></p></dd>
+      <dt class="col-sm-3 text-truncate">suffix</dt>
+      <dd class="col-sm-9"><p>colname suffixes in output</p></dd>
+    </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -331,23 +312,6 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
    </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
-<script>
-  docsearch({
-    appId: 'TK8WB6UEB2',
-    
-    apiKey: 'c871e0fb692cad1373a189fc7fe65300',
-    indexName: 'valr',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-
 
 
   </body>

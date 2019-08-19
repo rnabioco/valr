@@ -13,14 +13,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <!-- Bootstrap 4 JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css">
 <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Interval statistics">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Interval statistics">
 <meta property="og:description" content="">
 <meta property="og:image" content="http://valr.hesselberthlab.org/logo.png">
 <meta name="twitter:card" content="summary">
@@ -75,11 +72,7 @@
   </a>
 </li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control mr-sm-2" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
-</form>
-      
-    </div>
+</div>
   </div>
 </nav><div class="container template-article">
 
@@ -92,7 +85,7 @@
     <div class="page-header pb-2 mt-4 mb-2 border-bottom toc-ignore">
       <h1 class="display-4" data-toc-skip>Interval statistics</h1>
             
-            <h4 class="date">August 18 2019</h4>
+            <h4 class="date">August 19 2019</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/interval-stats.Rmd"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="d-none name"><code>interval-stats.Rmd</code></div>
@@ -202,21 +195,21 @@
 <span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span>()</span>
 <span id="cb5-7"><a href="#cb5-7"></a></span>
 <span id="cb5-8"><a href="#cb5-8"></a>res</span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; # A tibble: 16,786 x 5</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; # Groups:   name, stat [1,911]</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; # A tibble: 16,769 x 5</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; # Groups:   name, stat [1,904]</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;    name  stat      .id     obs     shuf</span></span>
 <span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  1 (A)n  absdist     1 5120782 16021144</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  2 (A)n  absdist     2  226477 13911683</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  3 (A)n  absdist     3   31242 13528126</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  4 (A)n  absdist     4    8930  8700607</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  5 (A)n  absdist     5   41316  5679904</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  6 (A)n  absdist     6   22519  5275686</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  7 (A)n  absdist     7   15173  4635455</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  8 (A)n  absdist     8   21985  4464510</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt;  9 (A)n  absdist     9   13458  4212650</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 10 (A)n  absdist    10  134007  3876821</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; # … with 16,776 more rows</span></span></code></pre></div>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  1 (A)n  absdist     1 5120782 15723686</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  2 (A)n  absdist     2  226477 13920168</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  3 (A)n  absdist     3   31242  9908507</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  4 (A)n  absdist     4    8930  9240065</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  5 (A)n  absdist     5   41316  2976727</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  6 (A)n  absdist     6   22519  2734266</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  7 (A)n  absdist     7   15173  2150854</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  8 (A)n  absdist     8   21985   540895</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt;  9 (A)n  absdist     9   13458   127702</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 10 (A)n  absdist    10  134007      290</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; # … with 16,759 more rows</span></span></code></pre></div>
 <p>Now that the data are formatted, we can use the non-parametric <code><a href="https://rdrr.io/r/stats/ks.test.html">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://rdrr.io/pkg/broom/man/reexports.html">broom::tidy()</a></code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(broom)</span>
 <span id="cb6-2"><a href="#cb6-2"></a></span>
@@ -353,8 +346,8 @@
 <span id="cb12-9"><a href="#cb12-9"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(type)</span>
 <span id="cb12-10"><a href="#cb12-10"></a></span>
 <span id="cb12-11"><a href="#cb12-11"></a>DT<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span>(signif_tests)</span></code></pre></div>
-<div id="htmlwidget-3e29718fc98bb30ad82d" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3e29718fc98bb30ad82d">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b96aecfef986c76a4e89" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b96aecfef986c76a4e89">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>type<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 
@@ -382,20 +375,7 @@
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    appId: 'TK8WB6UEB2',
-    
-    apiKey: 'c871e0fb692cad1373a189fc7fe65300',
-    indexName: 'valr',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+
+  </body>
 </html>
