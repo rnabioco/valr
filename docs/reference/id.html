@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-<title>Articles • valr</title>
+<title>Plyr function id packaged due to plyr being retired
+Compute a unique numeric id for each unique row in a data frame. — id • valr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -51,7 +52,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Plyr function id packaged due to plyr being retired
+Compute a unique numeric id for each unique row in a data frame. — id" />
+
+<meta property="og:description" content="Properties:
+order(id) is equivalent to do.call(order, df)
+rows containing the same data have the same value
+if drop = FALSE then room for all possibilites
+
+" />
 
 <meta property="og:image" content="http://valr.hesselberthlab.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -130,25 +139,61 @@
   </div>
 </nav>
 
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
 
 <div class="row">
   <div class="col-md-9 contents">
-    <div class="page-header">
-      <h1 class="display-4">Articles</h1>
+    <div class="page-header pb-2 mt-4 mb-2 border-bottom">
+    <h1>Plyr function id packaged due to plyr being retired
+Compute a unique numeric id for each unique row in a data frame.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rnabioco/valr/blob/master/R/utils-external.r'><code>R/utils-external.r</code></a></small>
+    <div class="d-none name"><code>id.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
+    <div class="ref-description">
+    
+    <p>Properties:</p><ul>
+<li><p><code><a href='https://rdrr.io/r/base/order.html'>order(id)</a></code> is equivalent to <code><a href='https://rdrr.io/r/base/do.call.html'>do.call(order, df)</a></code></p></li>
+<li><p>rows containing the same data have the same value</p></li>
+<li><p>if <code>drop = FALSE</code> then room for all possibilites</p></li>
+</ul>
 
-      <ul>
-        <li><a href="benchmarks.html">valr Benchmarks</a></li>
-        <li><a href="interval-stats.html">Interval statistics</a></li>
-        <li><a href="valr.html">valr overview</a></li>
-      </ul>
+    
     </div>
+
+    <pre class="usage"><span class='fu'>id</span>(<span class='no'>.variables</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.variables</th>
+      <td><p>list of variables</p></td>
+    </tr>
+    <tr>
+      <th>drop</th>
+      <td><p>drop unusued factor levels?</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a numeric vector with attribute n, giving total number of
+possibilities</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='id_var.html'>id_var</a></code></p></div>
+    
+
   </div>
+
+  <div class="col-md-3 d-none d-md-block" id="sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
+  </div>
+
 </div>
 
 

@@ -9,6 +9,10 @@ template:
       api_key: c871e0fb692cad1373a189fc7fe65300
       index_name: valr
 
+navbar:
+  bg: dark
+  type: dark
+
 authors:
   Jay Hesselberth:
     href: https://hesselberthlab.org
