@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Genome Interval Arithmetic in R">
 <meta property="og:description" content="Read and manipulate genome intervals and signals. Provides
              functionality similar to command-line tool suites within R,
@@ -33,7 +34,7 @@
 </script>
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-dark navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -53,7 +54,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -85,7 +86,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/rnabioco/valr">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -98,12 +99,9 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
+      </header><div class="row">
+  <div class="contents col-md-9">
 <div id="valr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#valr" class="anchor"></a>valr <img src="reference/figures/logo.png" align="right">
@@ -114,17 +112,17 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The latest stable version can be installed from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">'valr'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'valr'</span>)</a></code></pre></div>
 <p>The latest development version can be installed from github:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'rnabioco/valr'</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">'rnabioco/valr'</span>)</a></code></pre></div>
 </div>
 <div id="valr-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#valr-example" class="anchor"></a>valr Example</h2>
 <p>Functions in valr have similar names to their BEDtools counterparts, and so will be familiar to users coming from the BEDtools suite. Unlike other tools that wrap BEDtools and write temporary files to disk, valr tools run natively in memory. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools">pybedtools</a>, valr has a terse syntax:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(valr)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(valr)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">snps &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5">genes &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)</a>
@@ -136,7 +134,7 @@
 <a class="sourceLine" id="cb3-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12">nearby <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)</a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # A tibble: 1,047 x 4</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;    name.x      name.y   .overlap .dist</span></a>
 <a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span></a>
@@ -150,7 +148,7 @@
 <a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  8 rs528403095 DQ571479        0  3309</span></a>
 <a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt;  9 rs555126291 DQ571479        0  2745</span></a>
 <a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; 10 rs5747567   DQ571479        0 -1778</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; # … with 1,037 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; # ... with 1,037 more rows</span></a></code></pre></div>
 </div>
 </div>
   </div>
@@ -186,12 +184,12 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://hesselberthlab.org">Jay Hesselberth</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6299-179X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
-<li>Kent Riemondy <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-0750-1273" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<a href="https://hesselberthlab.org">Jay Hesselberth</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6299-179X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
+<li>Kent Riemondy <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-0750-1273" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/rnabioco/valr"><img src="https://travis-ci.org/rnabioco/valr.svg?branch=master" alt="Build Status"></a></li>
@@ -203,7 +201,6 @@
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -212,12 +209,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
