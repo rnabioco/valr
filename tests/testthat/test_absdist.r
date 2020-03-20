@@ -1,18 +1,18 @@
 context("bed_absdist")
 
-genome <- tibble::frame_data(
+genome <- tibble::tribble(
   ~ chrom, ~ size,
   "chr1", 10000,
   "chr2", 10000,
   "chr3", 10000
 )
 
-x <- tibble::frame_data(
+x <- tibble::tribble(
   ~ chrom, ~ start, ~ end,
   "chr1", 75, 125
 )
 
-y <- tibble::frame_data(
+y <- tibble::tribble(
   ~ chrom, ~ start, ~ end,
   "chr1", 50, 100,
   "chr1", 100, 150
@@ -24,7 +24,7 @@ test_that("absdist calculation is correct", {
 })
 
 test_that("self absdist is 0", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~ chrom, ~ start, ~ end,
     "chr1", 5, 15,
     "chr1", 50, 150,
@@ -37,7 +37,7 @@ test_that("self absdist is 0", {
 })
 
 test_that("x ivls without matching y-ivls chroms are reported with absdist = NA", {
-  x <- tibble::frame_data(
+  x <- tibble::tribble(
     ~ chrom, ~ start, ~ end,
     "chr1", 5, 15,
     "chr1", 50, 150,
@@ -45,7 +45,7 @@ test_that("x ivls without matching y-ivls chroms are reported with absdist = NA"
     "chr3", 3000, 4000
   )
 
-  y <- tibble::frame_data(
+  y <- tibble::tribble(
     ~ chrom, ~ start, ~ end,
     "chr1", 25, 125,
     "chr1", 150, 250,
