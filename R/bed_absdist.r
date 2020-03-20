@@ -80,18 +80,18 @@ bed_absdist <- function(x, y, genome) {
   genome <- inner_join(genome, get_labels(y), by = c("chrom"))
 
   ref_points <- summarize(y, .ref_points = n())
-  genome <- inner_join(genome, ref_points, by = c("chrom", groups_xy))
+  genome <- inner_join(genome, ref_points, by = c(groups_xy))
 
   genome <- mutate(genome, .ref_gap = .ref_points / size)
   genome <- select(genome, -size, -.ref_points)
 
   # calculate scaled reference sizes
-  res <- full_join(res, genome, by = c("chrom", groups_xy))
+  res <- full_join(res, genome, by = c(groups_xy))
   res <- mutate(res, .absdist_scaled = .absdist * .ref_gap)
   res <- select(res, -.ref_gap)
 
   # report back original x intervals not found
-  x_missing <- anti_join(x, res, by = c("chrom", groups_xy))
+  x_missing <- anti_join(x, res, by = c(groups_xy))
   x_missing <- ungroup(x_missing)
   x_missing <- mutate(x_missing, .absdist = NA, .absdist_scaled = NA)
   res <- bind_rows(res, x_missing)
