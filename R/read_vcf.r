@@ -21,7 +21,7 @@ read_vcf <- function(vcf) {
     res,
     chrom = stringr::str_c("chr", CHROM),
     start = POS,
-    end = start + stringr::str_length(REF)
+    end = POS + stringr::str_length(REF)
   )
 
   res
