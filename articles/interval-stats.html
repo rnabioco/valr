@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -33,7 +33,7 @@
 </head>
 <body>
     <div class="container template-article">
-      <header><div class="navbar navbar-dark navbar-fixed-top" role="navigation">
+      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -98,16 +98,16 @@
 
       
 
-      </header><script src="interval-stats_files/htmlwidgets-1.3/htmlwidgets.js"></script><script src="interval-stats_files/jquery-1.12.4/jquery.min.js"></script><link href="interval-stats_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="interval-stats_files/datatables-binding-0.9/datatables.js"></script><link href="interval-stats_files/dt-core-1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="interval-stats_files/dt-core-1.10.19/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="interval-stats_files/dt-core-1.10.19/js/jquery.dataTables.min.js"></script><link href="interval-stats_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet">
-<script src="interval-stats_files/crosstalk-1.0.0/js/crosstalk.min.js"></script><div class="row">
+      </header><script src="interval-stats_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="interval-stats_files/jquery-1.12.4/jquery.min.js"></script><link href="interval-stats_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="interval-stats_files/datatables-binding-0.12/datatables.js"></script><link href="interval-stats_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="interval-stats_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="interval-stats_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="interval-stats_files/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet">
+<script src="interval-stats_files/crosstalk-1.1.0.1/js/crosstalk.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Interval statistics</h1>
             
-            <h4 class="date">September 25 2019</h4>
+            <h4 class="date">March 20 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/interval-stats.Rmd"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="hidden name"><code>interval-stats.Rmd</code></div>
@@ -217,21 +217,21 @@
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span>()</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8">res</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # A tibble: 16,784 x 5</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; # Groups:   name, stat [1,918]</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; # A tibble: 16,752 x 5</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; # Groups:   name, stat [1,896]</span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;    name  stat      .id     obs     shuf</span></a>
 <a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  1 (A)n  absdist     1 5120782 14722906</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  2 (A)n  absdist     2  226477 14594332</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  3 (A)n  absdist     3   31242 14482840</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  4 (A)n  absdist     4    8930 13667222</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  5 (A)n  absdist     5   41316 13625881</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  6 (A)n  absdist     6   22519 13032036</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  7 (A)n  absdist     7   15173 12431774</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  8 (A)n  absdist     8   21985  9054815</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt;  9 (A)n  absdist     9   13458  5700765</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 10 (A)n  absdist    10  134007  5632793</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; # … with 16,774 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  1 (A)n  absdist     1 5120782 15738424</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  2 (A)n  absdist     2  226477 14163219</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  3 (A)n  absdist     3   31242 13254436</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  4 (A)n  absdist     4    8930 10805554</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  5 (A)n  absdist     5   41316 10564653</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  6 (A)n  absdist     6   22519 10123612</span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  7 (A)n  absdist     7   15173  5777175</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  8 (A)n  absdist     8   21985  2520232</span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt;  9 (A)n  absdist     9   13458  1369083</span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 10 (A)n  absdist    10  134007   838420</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; # … with 16,742 more rows</span></a></code></pre></div>
 <p>Now that the data are formatted, we can use the non-parametric <code><a href="https://rdrr.io/r/stats/ks.test.html">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://rdrr.io/pkg/broom/man/reexports.html">broom::tidy()</a></code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(broom)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
@@ -370,8 +370,8 @@
 <a class="sourceLine" id="cb12-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(type)</a>
 <a class="sourceLine" id="cb12-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb12-11" data-line-number="11">DT<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span>(signif_tests)</a></code></pre></div>
-<div id="htmlwidget-9d30d063f9ac0cd89a80" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9d30d063f9ac0cd89a80">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-48374153aeadf84e217b" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-48374153aeadf84e217b">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 

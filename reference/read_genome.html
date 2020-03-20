@@ -19,8 +19,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -78,7 +78,7 @@ computed intervals that have coordinates outside of the genome bounds." />
   <body>
     <div class="container template-reference-topic">
       <header>
-      <div class="navbar navbar-dark navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -177,8 +177,9 @@ tab-delimited</p></td>
     <p>URLs to genome files can also be used.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other read functions: <code><a href='read_bed.html'>read_bed</a></code>,
-  <code><a href='read_vcf.html'>read_vcf</a></code></p></div>
+    <div class='dont-index'><p>Other read functions: 
+<code><a href='read_bed.html'>read_bed</a>()</code>,
+<code><a href='read_vcf.html'>read_vcf</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>read_genome</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'hg19.chrom.sizes.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 25 x 2
