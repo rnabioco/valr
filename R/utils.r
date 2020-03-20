@@ -117,25 +117,6 @@ get_labels <- function(grp_tbl) {
   grp_df
 }
 
-#' Update grouped dataframe attributes for dplyr 0.8.0 version
-#' @param df grouped data frame
-#' @return grouped data frame with attributes matching dplyr 0.8.0 version
-#' @noRd
-update_groups <- function(df){
-  r_indexes <- lapply(attr(df, "indices"),
-                      function(x) x + 1L)
-
-  attr(df, "groups") <- as_tibble(attr(df, "labels"))
-  attr(df, "groups")$.rows <- r_indexes
-  attr(df, "biggest_group_size") <- NULL
-  attr(df, "group_sizes") <- NULL
-  attr(df, "indices") <- NULL
-  attr(df, "labels") <- NULL
-  attr(df, "vars") <- NULL
-  attr(df, "drop") <- NULL
-  df
-}
-
 #' Type convert factors if they are grouping columns
 #' @param x data frame
 #' @param group_cols group columns to type convert if factors
