@@ -63,8 +63,11 @@ bed_subtract(x, y, any = TRUE)
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 
-Other multiple set operations: \code{\link{bed_closest}},
-  \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
-  \code{\link{bed_map}}, \code{\link{bed_window}}
+Other multiple set operations: 
+\code{\link{bed_closest}()},
+\code{\link{bed_coverage}()},
+\code{\link{bed_intersect}()},
+\code{\link{bed_map}()},
+\code{\link{bed_window}()}
 }
 \concept{multiple set operations}

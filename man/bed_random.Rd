@@ -4,8 +4,13 @@
 \alias{bed_random}
 \title{Generate randomly placed intervals on a genome.}
 \usage{
-bed_random(genome, length = 1000, n = 1e+06, sort_by = c("chrom",
-  "start"), seed = 0)
+bed_random(
+  genome,
+  length = 1000,
+  n = 1e+06,
+  sort_by = c("chrom", "start"),
+  seed = 0
+)
 }
 \arguments{
 \item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
@@ -48,6 +53,7 @@ bed_random(genome, length = 500, n = 500, seed = 10104)
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 
-Other randomizing operations: \code{\link{bed_shuffle}}
+Other randomizing operations: 
+\code{\link{bed_shuffle}()}
 }
 \concept{randomizing operations}

@@ -28,7 +28,7 @@ base-pairs. Groups that are shared between input are used to calculate the stati
 for subsets of data.
 }
 \details{
-The Jaccard statistic takes values of \code{[0,1]} and is measured as:
+The Jaccard statistic takes values of \verb{[0,1]} and is measured as:
 
 \deqn{ J(x,y) = \frac{\mid x \bigcap y \mid}
                      {\mid x \bigcup y \mid} =
@@ -57,8 +57,10 @@ bed_jaccard(dplyr::group_by(x, chrom),
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html}
 
-Other interval statistics: \code{\link{bed_absdist}},
-  \code{\link{bed_fisher}}, \code{\link{bed_projection}},
-  \code{\link{bed_reldist}}
+Other interval statistics: 
+\code{\link{bed_absdist}()},
+\code{\link{bed_fisher}()},
+\code{\link{bed_projection}()},
+\code{\link{bed_reldist}()}
 }
 \concept{interval statistics}

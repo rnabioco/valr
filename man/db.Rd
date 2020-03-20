@@ -6,11 +6,23 @@
 \alias{db_ensembl}
 \title{Fetch data from remote databases.}
 \usage{
-db_ucsc(dbname, host = "genome-mysql.cse.ucsc.edu", user = "genomep",
-  password = "password", port = 3306, ...)
+db_ucsc(
+  dbname,
+  host = "genome-mysql.cse.ucsc.edu",
+  user = "genomep",
+  password = "password",
+  port = 3306,
+  ...
+)
 
-db_ensembl(dbname, host = "ensembldb.ensembl.org", user = "anonymous",
-  password = "", port = 3306, ...)
+db_ensembl(
+  dbname,
+  host = "ensembldb.ensembl.org",
+  user = "anonymous",
+  password = "",
+  port = 3306,
+  ...
+)
 }
 \arguments{
 \item{dbname}{name of database}

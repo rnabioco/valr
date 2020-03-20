@@ -96,8 +96,11 @@ dplyr::mutate(bed_map(x, y, .counts = dplyr::n()), .counts = ifelse(is.na(.count
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 
-Other multiple set operations: \code{\link{bed_closest}},
-  \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
-  \code{\link{bed_subtract}}, \code{\link{bed_window}}
+Other multiple set operations: 
+\code{\link{bed_closest}()},
+\code{\link{bed_coverage}()},
+\code{\link{bed_intersect}()},
+\code{\link{bed_subtract}()},
+\code{\link{bed_window}()}
 }
 \concept{multiple set operations}

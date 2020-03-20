@@ -71,8 +71,11 @@ bed_window(x, y, genome, both = 100)
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/window.html}
 
-Other multiple set operations: \code{\link{bed_closest}},
-  \code{\link{bed_coverage}}, \code{\link{bed_intersect}},
-  \code{\link{bed_map}}, \code{\link{bed_subtract}}
+Other multiple set operations: 
+\code{\link{bed_closest}()},
+\code{\link{bed_coverage}()},
+\code{\link{bed_intersect}()},
+\code{\link{bed_map}()},
+\code{\link{bed_subtract}()}
 }
 \concept{multiple set operations}

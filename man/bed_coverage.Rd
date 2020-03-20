@@ -58,8 +58,11 @@ bed_coverage(x, y)
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html}
 
-Other multiple set operations: \code{\link{bed_closest}},
-  \code{\link{bed_intersect}}, \code{\link{bed_map}},
-  \code{\link{bed_subtract}}, \code{\link{bed_window}}
+Other multiple set operations: 
+\code{\link{bed_closest}()},
+\code{\link{bed_intersect}()},
+\code{\link{bed_map}()},
+\code{\link{bed_subtract}()},
+\code{\link{bed_window}()}
 }
 \concept{multiple set operations}
