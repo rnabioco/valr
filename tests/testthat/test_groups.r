@@ -81,11 +81,10 @@ df_new <- structure(
     )
   )
 
-test_that("old dataframe groupings (dplyr v. < 0.7.9.900) are tolerated", {
+test_that("old dataframe groupings (dplyr v. < 0.7.9.900) are no longer tolerated", {
 
   if (packageVersion("dplyr") >= "0.7.9.9000"){
-    expect_warning(bed_intersect(df_old, df_old))
-    res <- suppressWarnings(bed_intersect(df_old, df_old))
+    expect_error(bed_intersect(df_old, df_old))
   } else {
     expect_silent(bed_intersect(df_old, df_old))
     res <- bed_intersect(df_old, df_old)
@@ -94,11 +93,10 @@ test_that("old dataframe groupings (dplyr v. < 0.7.9.900) are tolerated", {
     df_attr_names <-  names(attributes(df_old))
     expect_true(all(c("labels", "indices", "group_sizes") %in% df_attr_names))
     expect_false("groups" %in% df_attr_names)
+    expect_is(res, "data.frame")
+    expect_equal(nrow(res), 6)
   }
 
-  res <- suppressWarnings(bed_intersect(df_old, df_old))
-  expect_is(res, "data.frame")
-  expect_equal(nrow(res), 6)
 })
 
 
