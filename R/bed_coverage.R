@@ -59,11 +59,6 @@ bed_coverage <- function(x, y, ...) {
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x <- update_groups(x)
-    y <- update_groups(y)
-  }
-
   grp_indexes <- shared_group_indexes(x, y)
   res <- coverage_impl(x, y,
                        grp_indexes$x,

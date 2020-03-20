@@ -59,16 +59,13 @@
 bed_partition <- function(x, ...) {
   groups_df <- group_vars(x)
   x <- bed_sort(x)
-  x <- group_by(x, chrom, add = TRUE)
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x_cpp <- update_groups(x)
-    res <- partition_impl(x_cpp)
-  } else {
-    res <- partition_impl(x)
-  }
+  groups <- rlang::syms(unique(c("chrom", groups_df)))
+  x <- group_by(x, !!! groups)
 
-  res <- tbl_df(res)
+  res <- partition_impl(x)
+
+  res <- tibble::as_tibble(res)
 
   # drop non-grouped cols as values no longer match ivls
   res <- select(res, chrom, start, end, one_of(groups_df))

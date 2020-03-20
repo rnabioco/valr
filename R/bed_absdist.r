@@ -45,7 +45,7 @@ bed_absdist <- function(x, y, genome) {
 
   # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
-  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_xy <- unique(unique(as.character(c("chrom", groups_xy))))
   groups_vars <- rlang::syms(groups_xy)
 
   # type convert grouping factors to characters if necessary and ungroup

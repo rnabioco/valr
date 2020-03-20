@@ -45,12 +45,10 @@
 bed_cluster <- function(x, max_dist = 0) {
   if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
 
-  res <- group_by(x, chrom, add = TRUE)
-  res <- bed_sort(res)
+  groups <- rlang::syms(unique(c("chrom", group_vars(x))))
+  res <- group_by(x, !!! groups)
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    res <- update_groups(res)
-  }
+  res <- bed_sort(res)
 
   res <- merge_impl(res, max_dist, collapse = FALSE)
 

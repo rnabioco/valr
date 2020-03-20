@@ -140,11 +140,6 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x <- update_groups(x)
-    y <- update_groups(y)
-  }
-
   grp_indexes <- shared_group_indexes(x, y)
 
   res <- intersect_impl(x, y,

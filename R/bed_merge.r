@@ -57,21 +57,18 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   if (is_merged(x)) return(x)
 
-  groups_x <- groups(x)
+  groups_x <- group_vars(x)
 
   res <- bed_sort(x)
 
-  res <- group_by(res, chrom, add = TRUE)
-
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    res <- update_groups(res)
-  }
+  group_vars <- rlang::syms(unique(c("chrom", groups_x)))
+  res <- group_by(res, !!! group_vars)
 
   # if no dots are passed then use fast internal merge
   if (!is.null(substitute(...))) {
     res <- merge_impl(res, max_dist, collapse = FALSE)
-    group_vars <- rlang::syms(c("chrom", ".id_merge", groups_x))
-    res <- group_by(res, !!! group_vars, add = TRUE)
+    group_vars <- rlang::syms(unique(c("chrom", ".id_merge", groups_x)))
+    res <- group_by(res, !!! group_vars)
 
     res <- summarize(res, !!! rlang::quos(
       .start = min(start),
