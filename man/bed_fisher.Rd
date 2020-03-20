@@ -38,8 +38,10 @@ bed_fisher(x, y, genome)
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 
-Other interval statistics: \code{\link{bed_absdist}},
-  \code{\link{bed_jaccard}}, \code{\link{bed_projection}},
-  \code{\link{bed_reldist}}
+Other interval statistics: 
+\code{\link{bed_absdist}()},
+\code{\link{bed_jaccard}()},
+\code{\link{bed_projection}()},
+\code{\link{bed_reldist}()}
 }
 \concept{interval statistics}

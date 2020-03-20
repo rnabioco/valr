@@ -55,9 +55,12 @@ bed_glyph(bed_cluster(x), label = '.id')
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
 
-Other single set operations: \code{\link{bed_complement}},
-  \code{\link{bed_flank}}, \code{\link{bed_merge}},
-  \code{\link{bed_partition}}, \code{\link{bed_shift}},
-  \code{\link{bed_slop}}
+Other single set operations: 
+\code{\link{bed_complement}()},
+\code{\link{bed_flank}()},
+\code{\link{bed_merge}()},
+\code{\link{bed_partition}()},
+\code{\link{bed_shift}()},
+\code{\link{bed_slop}()}
 }
 \concept{single set operations}

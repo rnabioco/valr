@@ -24,7 +24,7 @@ If  multiple \code{y} tbls are supplied, the \code{.source} contains variable na
 associated with each interval. All original columns from the \code{y} are suffixed
 with \code{.y} in the output.
 
-If \code{...} contains named inputs (i.e \code{a = y, b = z} or \code{list(a = y, b =  z)}),
+If \code{...} contains named inputs (i.e \verb{a = y, b = z} or \code{list(a = y, b =  z)}),
 then \code{.source} will contain supplied names (see examples).
 }
 \description{
@@ -98,8 +98,11 @@ bed_intersect(x, list(exons = y, introns = z))
 \seealso{
 \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
 
-Other multiple set operations: \code{\link{bed_closest}},
-  \code{\link{bed_coverage}}, \code{\link{bed_map}},
-  \code{\link{bed_subtract}}, \code{\link{bed_window}}
+Other multiple set operations: 
+\code{\link{bed_closest}()},
+\code{\link{bed_coverage}()},
+\code{\link{bed_map}()},
+\code{\link{bed_subtract}()},
+\code{\link{bed_window}()}
 }
 \concept{multiple set operations}

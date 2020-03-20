@@ -4,8 +4,15 @@
 \alias{bed_shuffle}
 \title{Shuffle input intervals.}
 \usage{
-bed_shuffle(x, genome, incl = NULL, excl = NULL, max_tries = 1000,
-  within = FALSE, seed = 0)
+bed_shuffle(
+  x,
+  genome,
+  incl = NULL,
+  excl = NULL,
+  max_tries = 1000,
+  within = FALSE,
+  seed = 0
+)
 }
 \arguments{
 \item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
@@ -44,6 +51,7 @@ bed_shuffle(x, genome, seed = 9830491)
 \seealso{
 \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 
-Other randomizing operations: \code{\link{bed_random}}
+Other randomizing operations: 
+\code{\link{bed_random}()}
 }
 \concept{randomizing operations}

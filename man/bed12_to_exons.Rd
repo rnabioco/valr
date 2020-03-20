@@ -21,9 +21,10 @@ bed12_to_exons(x)
 
 }
 \seealso{
-Other utilities: \code{\link{bed_makewindows}},
-  \code{\link{bound_intervals}},
-  \code{\link{flip_strands}},
-  \code{\link{interval_spacing}}
+Other utilities: 
+\code{\link{bed_makewindows}()},
+\code{\link{bound_intervals}()},
+\code{\link{flip_strands}()},
+\code{\link{interval_spacing}()}
 }
 \concept{utilities}

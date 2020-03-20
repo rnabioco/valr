@@ -1,5 +1,9 @@
 # valr 0.5.0.9000
 
+## Minor changes
+
+* dplyr version < 0.8.0 is no longer supported due to unecessary code bloat and challenges with handling multiple grouping structures (#359).
+
 ## Bug fixes
 
 * Fixed `bed_closest()` to prevent erroneous intervals being reported when adjacent closest intervals are present in the `y` table. (#348)
