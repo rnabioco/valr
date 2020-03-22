@@ -42,32 +42,36 @@ bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
 
     if (by_chrom) {
       if (reverse) {
-        res <- arrange(res, chrom, desc(.size))
+        res <- res[order(res$chrom, -res$.size, method = "radix"), ]
+      #  res <- arrange(res, chrom, desc(.size))
       } else {
-        res <- arrange(res, chrom, .size)
+        res <- res[order(res$chrom, res$.size, method = "radix"), ]
+      #  res <- arrange(res, chrom, .size)
       }
     } else {
       if (reverse) {
-        res <- arrange(res, desc(.size))
+        res <- res[order(-res$.size, method = "radix"), ]
+      #  res <- arrange(res, desc(.size))
       } else {
-        res <- arrange(res, .size)
+        res <- res[order(res$.size,  method = "radix"), ]
+       # res <- arrange(res, .size)
       }
     }
-
-
 
     # remove .size column and groups in result
     res <- select(res, -.size)
   } else {
-    if (by_chrom) {
-      res <- group_by(x, chrom)
-    }
 
     # sort by coordinate
     if (reverse) {
-      res <- arrange(x, chrom, desc(start))
+      res <- x[order(x$chrom, -x$start,
+                       method = "radix"), ]
+
+   #   res <- arrange(x, chrom, desc(start))
     } else {
-      res <- arrange(x, chrom, start, end)
+      res <- x[order(x$chrom, x$start, x$end,
+                       method = "radix"), ]
+     # res <- arrange(x, chrom, start, end)
     }
   }
 

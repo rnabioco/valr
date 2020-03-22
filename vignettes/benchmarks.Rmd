@@ -116,7 +116,7 @@ x <- bed_random(genome, n = n, seed = seed_x)
 seed_y <- 9283019
 y <- bed_random(genome, n = n, seed = seed_y)
 seed_z <- 1234567
-z <- bed_random(genome, n = n, seed = seed_z, sort_by = NULL)
+z <- bed_random(genome, n = n, seed = seed_z, sorted = FALSE)
 
 # convert valr tibbles into GR objects
 x_gr <- GRanges(
