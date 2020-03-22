@@ -112,43 +112,43 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The latest stable version can be installed from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'valr'</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'valr'</span>)</pre></div>
 <p>The latest development version can be installed from github:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">'rnabioco/valr'</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install.packages("devtools")</span>
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">'rnabioco/valr'</span>)</pre></div>
 </div>
 <div id="valr-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#valr-example" class="anchor"></a>valr Example</h2>
 <p>Functions in valr have similar names to their BEDtools counterparts, and so will be familiar to users coming from the BEDtools suite. Unlike other tools that wrap BEDtools and write temporary files to disk, valr tools run natively in memory. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools">pybedtools</a>, valr has a terse syntax:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(valr)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a>snps &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)</span>
-<span id="cb3-5"><a href="#cb3-5"></a>genes &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_bed.html">read_bed</a></span>(<span class="kw"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="dt">n_fields =</span> <span class="dv">6</span>)</span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># find snps in intergenic regions</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>intergenic &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_subtract.html">bed_subtract</a></span>(snps, genes)</span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co"># find distance from intergenic snps to nearest gene</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>nearby &lt;-<span class="st"> </span><span class="kw"><a href="reference/bed_closest.html">bed_closest</a></span>(intergenic, genes)</span>
-<span id="cb3-11"><a href="#cb3-11"></a></span>
-<span id="cb3-12"><a href="#cb3-12"></a>nearby <span class="op">%&gt;%</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), .overlap, .dist) <span class="op">%&gt;%</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(.dist) <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>)</span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; # A tibble: 1,047 x 4</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;    name.x      name.y   .overlap .dist</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;  1 rs530458610 P704P           0  2579</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  2 rs2261631   P704P           0  -268</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt;  3 rs570770556 POTEH           0  -913</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt;  4 rs538163832 POTEH           0  -953</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;  5 rs190224195 POTEH           0 -1399</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt;  6 rs2379966   DQ571479        0  4750</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt;  7 rs142687051 DQ571479        0  3558</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt;  8 rs528403095 DQ571479        0  3309</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt;  9 rs555126291 DQ571479        0  2745</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; 10 rs5747567   DQ571479        0 -1778</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; # ... with 1,037 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">valr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+
+<span class="no">snps</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), <span class="kw">n_fields</span> <span class="kw">=</span> <span class="fl">6</span>)
+<span class="no">genes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="kw">n_fields</span> <span class="kw">=</span> <span class="fl">6</span>)
+
+<span class="co"># find snps in intergenic regions</span>
+<span class="no">intergenic</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bed_subtract.html">bed_subtract</a></span>(<span class="no">snps</span>, <span class="no">genes</span>)
+<span class="co"># find distance from intergenic snps to nearest gene</span>
+<span class="no">nearby</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bed_closest.html">bed_closest</a></span>(<span class="no">intergenic</span>, <span class="no">genes</span>)
+
+<span class="no">nearby</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), <span class="no">.overlap</span>, <span class="no">.dist</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">.dist</span>) <span class="kw">&lt;</span> <span class="fl">5000</span>)
+<span class="co">#&gt; # A tibble: 1,047 x 4</span>
+<span class="co">#&gt;    name.x      name.y   .overlap .dist</span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1 rs530458610 P704P           0  2579</span>
+<span class="co">#&gt;  2 rs2261631   P704P           0  -268</span>
+<span class="co">#&gt;  3 rs570770556 POTEH           0  -913</span>
+<span class="co">#&gt;  4 rs538163832 POTEH           0  -953</span>
+<span class="co">#&gt;  5 rs190224195 POTEH           0 -1399</span>
+<span class="co">#&gt;  6 rs2379966   DQ571479        0  4750</span>
+<span class="co">#&gt;  7 rs142687051 DQ571479        0  3558</span>
+<span class="co">#&gt;  8 rs528403095 DQ571479        0  3309</span>
+<span class="co">#&gt;  9 rs555126291 DQ571479        0  2745</span>
+<span class="co">#&gt; 10 rs5747567   DQ571479        0 -1778</span>
+<span class="co">#&gt; # ... with 1,037 more rows</span></pre></div>
 </div>
 </div>
   </div>
