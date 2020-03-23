@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -47,7 +51,6 @@
 local file or URLs. The read functions load data into tbls with consistent
 chrom, start and end colnames." />
 <meta property="og:image" content="http://valr.hesselberthlab.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -75,7 +78,7 @@ chrom, start and end colnames." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -128,7 +131,7 @@ chrom, start and end colnames." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/rnabioco/valr">
+  <a href="https://github.com/rnabioco/valr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -210,112 +213,106 @@ local file or URLs. The read functions load data into tbls with consistent
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format.</span>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 10 x 3
+<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 3</span><span>
 #&gt;    chrom  start    end
-#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-#&gt;  1 chr1   11873  14409
-#&gt;  2 chr1   14361  19759
-#&gt;  3 chr1   14406  29370
-#&gt;  4 chr1   34610  36081
-#&gt;  5 chr1   69090  70008
-#&gt;  6 chr1  134772 140566
-#&gt;  7 chr1  321083 321115
-#&gt;  8 chr1  321145 321207
-#&gt;  9 chr1  322036 326938
-#&gt; 10 chr1  327545 328439</div><div class='input'>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'6fields.bed.gz'</span>), <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 6
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1   </span><span style='text-decoration: underline;'>11</span><span>873  </span><span style='text-decoration: underline;'>14</span><span>409
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>361  </span><span style='text-decoration: underline;'>19</span><span>759
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>406  </span><span style='text-decoration: underline;'>29</span><span>370
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1   </span><span style='text-decoration: underline;'>34</span><span>610  </span><span style='text-decoration: underline;'>36</span><span>081
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1   </span><span style='text-decoration: underline;'>69</span><span>090  </span><span style='text-decoration: underline;'>70</span><span>008
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  </span><span style='text-decoration: underline;'>134</span><span>772 </span><span style='text-decoration: underline;'>140</span><span>566
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>083 </span><span style='text-decoration: underline;'>321</span><span>115
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>145 </span><span style='text-decoration: underline;'>321</span><span>207
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439</div><div class='input'>
+<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'6fields.bed.gz'</span>), <span class='kw'>n_fields</span> <span class='kw'>=</span> <span class='fl'>6</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 6</span><span>
 #&gt;    chrom  start    end name         score strand
-#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; 
-#&gt;  1 chr1   11873  14409 DDX11L1      3     +     
-#&gt;  2 chr1   14361  19759 WASH7P       10    -     
-#&gt;  3 chr1   14406  29370 WASH7P       7     -     
-#&gt;  4 chr1   34610  36081 FAM138F      3     -     
-#&gt;  5 chr1   69090  70008 OR4F5        1     +     
-#&gt;  6 chr1  134772 140566 LOC729737    3     -     
-#&gt;  7 chr1  321083 321115 DQ597235     1     +     
-#&gt;  8 chr1  321145 321207 DQ599768     1     +     
-#&gt;  9 chr1  322036 326938 LOC100133331 3     +     
-#&gt; 10 chr1  327545 328439 LOC388312    1     +     </div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1   </span><span style='text-decoration: underline;'>11</span><span>873  </span><span style='text-decoration: underline;'>14</span><span>409 DDX11L1      3     +     
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>361  </span><span style='text-decoration: underline;'>19</span><span>759 WASH7P       10    -     
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>406  </span><span style='text-decoration: underline;'>29</span><span>370 WASH7P       7     -     
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1   </span><span style='text-decoration: underline;'>34</span><span>610  </span><span style='text-decoration: underline;'>36</span><span>081 FAM138F      3     -     
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1   </span><span style='text-decoration: underline;'>69</span><span>090  </span><span style='text-decoration: underline;'>70</span><span>008 OR4F5        1     +     
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  </span><span style='text-decoration: underline;'>134</span><span>772 </span><span style='text-decoration: underline;'>140</span><span>566 LOC729737    3     -     
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>083 </span><span style='text-decoration: underline;'>321</span><span>115 DQ597235     1     +     
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>145 </span><span style='text-decoration: underline;'>321</span><span>207 DQ599768     1     +     
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938 LOC100133331 3     +     
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439 LOC388312    1     +     </div><div class='input'>
 <span class='co'># result is sorted by chrom and start unless `sort = FALSE`</span>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 10 x 3
+<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>), <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 3</span><span>
 #&gt;    chrom  start    end
-#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-#&gt;  1 chr1   11873  14409
-#&gt;  2 chr1   14361  19759
-#&gt;  3 chr1   14406  29370
-#&gt;  4 chr1   34610  36081
-#&gt;  5 chr1   69090  70008
-#&gt;  6 chr1  134772 140566
-#&gt;  7 chr1  321083 321115
-#&gt;  8 chr1  321145 321207
-#&gt;  9 chr1  322036 326938
-#&gt; 10 chr1  327545 328439</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1   </span><span style='text-decoration: underline;'>11</span><span>873  </span><span style='text-decoration: underline;'>14</span><span>409
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>361  </span><span style='text-decoration: underline;'>19</span><span>759
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1   </span><span style='text-decoration: underline;'>14</span><span>406  </span><span style='text-decoration: underline;'>29</span><span>370
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1   </span><span style='text-decoration: underline;'>34</span><span>610  </span><span style='text-decoration: underline;'>36</span><span>081
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1   </span><span style='text-decoration: underline;'>69</span><span>090  </span><span style='text-decoration: underline;'>70</span><span>008
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  </span><span style='text-decoration: underline;'>134</span><span>772 </span><span style='text-decoration: underline;'>140</span><span>566
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>083 </span><span style='text-decoration: underline;'>321</span><span>115
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>145 </span><span style='text-decoration: underline;'>321</span><span>207
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439</div><div class='input'>
 
-<span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 100 x 12
+<span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 100 x 12</span><span>
 #&gt;    chrom  start    end name  score strand cds_start cds_end item_rgb exon_count
-#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt;         &lt;int&gt;
-#&gt;  1 chr1  3.20e6 3.66e6 NM_0… 0     -        3206102 3661429 0                 3
-#&gt;  2 chr1  4.28e6 4.40e6 NM_0… 0     -        4283061 4399268 0                 4
-#&gt;  3 chr1  4.85e6 4.89e6 NM_0… 0     +        4847994 4886445 0                10
-#&gt;  4 chr1  4.85e6 4.89e6 NM_0… 0     +        4847994 4886445 0                10
-#&gt;  5 chr1  4.85e6 4.89e6 NM_0… 0     +        4848488 4886445 0                10
-#&gt;  6 chr1  4.90e6 5.01e6 NM_0… 0     -        4900554 4914046 0                 5
-#&gt;  7 chr1  4.90e6 5.01e6 NM_0… 0     -        4900554 5009460 0                 5
-#&gt;  8 chr1  4.90e6 5.06e6 NM_0… 0     -        4900554 5060258 0                 6
-#&gt;  9 chr1  5.07e6 5.15e6 NM_0… 0     +        5074531 5152246 0                13
-#&gt; 10 chr1  5.07e6 5.15e6 NM_1… 0     +        5074531 5152246 0                14
-#&gt; # … with 90 more rows, and 2 more variables: exon_sizes &lt;chr&gt;,
-#&gt; #   exon_starts &lt;chr&gt;</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1  3.20</span><span style='color: #555555;'>e</span><span>6 3.66</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        3</span><span style='text-decoration: underline;'>206</span><span>102 3</span><span style='text-decoration: underline;'>661</span><span>429 0                 3
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1  4.28</span><span style='color: #555555;'>e</span><span>6 4.40</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        4</span><span style='text-decoration: underline;'>283</span><span>061 4</span><span style='text-decoration: underline;'>399</span><span>268 0                 4
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1  4.85</span><span style='color: #555555;'>e</span><span>6 4.89</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     +        4</span><span style='text-decoration: underline;'>847</span><span>994 4</span><span style='text-decoration: underline;'>886</span><span>445 0                10
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1  4.85</span><span style='color: #555555;'>e</span><span>6 4.89</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     +        4</span><span style='text-decoration: underline;'>847</span><span>994 4</span><span style='text-decoration: underline;'>886</span><span>445 0                10
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1  4.85</span><span style='color: #555555;'>e</span><span>6 4.89</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     +        4</span><span style='text-decoration: underline;'>848</span><span>488 4</span><span style='text-decoration: underline;'>886</span><span>445 0                10
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  4.90</span><span style='color: #555555;'>e</span><span>6 5.01</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        4</span><span style='text-decoration: underline;'>900</span><span>554 4</span><span style='text-decoration: underline;'>914</span><span>046 0                 5
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  4.90</span><span style='color: #555555;'>e</span><span>6 5.01</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        4</span><span style='text-decoration: underline;'>900</span><span>554 5</span><span style='text-decoration: underline;'>009</span><span>460 0                 5
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  4.90</span><span style='color: #555555;'>e</span><span>6 5.06</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     -        4</span><span style='text-decoration: underline;'>900</span><span>554 5</span><span style='text-decoration: underline;'>060</span><span>258 0                 6
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  5.07</span><span style='color: #555555;'>e</span><span>6 5.15</span><span style='color: #555555;'>e</span><span>6 NM_0… 0     +        5</span><span style='text-decoration: underline;'>074</span><span>531 5</span><span style='text-decoration: underline;'>152</span><span>246 0                13
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  5.07</span><span style='color: #555555;'>e</span><span>6 5.15</span><span style='color: #555555;'>e</span><span>6 NM_1… 0     +        5</span><span style='text-decoration: underline;'>074</span><span>531 5</span><span style='text-decoration: underline;'>152</span><span>246 0                14
+#&gt; </span><span style='color: #555555;'># … with 90 more rows, and 2 more variables: exon_sizes </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; #   exon_starts </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 
-<span class='fu'>read_bedgraph</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.bg.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 4 x 4
+<span class='fu'>read_bedgraph</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.bg.gz'</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 4</span><span>
 #&gt;   chrom    start      end value
-#&gt;   &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;dbl&gt;
-#&gt; 1 chr19 49302000 49302300 -1   
-#&gt; 2 chr19 49302300 49302600 -0.75
-#&gt; 3 chr19 49302600 49302900 -0.5 
-#&gt; 4 chr19 49302900 49303200 -0.25</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>000 49</span><span style='text-decoration: underline;'>302</span><span>300 -</span><span style='color: #BB0000;'>1</span><span>   
+#&gt; </span><span style='color: #555555;'>2</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>300 49</span><span style='text-decoration: underline;'>302</span><span>600 -</span><span style='color: #BB0000;'>0.75</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>600 49</span><span style='text-decoration: underline;'>302</span><span>900 -</span><span style='color: #BB0000;'>0.5</span><span> 
+#&gt; </span><span style='color: #555555;'>4</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>900 49</span><span style='text-decoration: underline;'>303</span><span>200 -</span><span style='color: #BB0000;'>0.25</span><span></div><div class='input'>
 
-<span class='fu'>read_narrowpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.narrowPeak.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 570 x 10
+<span class='fu'>read_narrowpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.narrowPeak.gz'</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 570 x 10</span><span>
 #&gt;    chrom    start      end name  score strand signal pvalue qvalue  peak
-#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
-#&gt;  1 chr22 17372940 17373090 .         0 .           4   4.63     -1    -1
-#&gt;  2 chr22 17392200 17392350 .         0 .           5   4.67     -1    -1
-#&gt;  3 chr22 17398400 17398550 .         0 .          10  11.6      -1    -1
-#&gt;  4 chr22 17539180 17539330 .         0 .          21  30.9      -1    -1
-#&gt;  5 chr22 17652440 17652590 .         0 .           6   5.35     -1    -1
-#&gt;  6 chr22 17652780 17652930 .         0 .          12  12.5      -1    -1
-#&gt;  7 chr22 17980800 17980950 .         0 .          12  12.6      -1    -1
-#&gt;  8 chr22 18038260 18038410 .         0 .          29  36.0      -1    -1
-#&gt;  9 chr22 18225280 18225430 .         0 .          21  25.0      -1    -1
-#&gt; 10 chr22 18268020 18268170 .         0 .          14  13.0      -1    -1
-#&gt; # … with 560 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr22 17</span><span style='text-decoration: underline;'>372</span><span>940 17</span><span style='text-decoration: underline;'>373</span><span>090 .         0 .           4   4.63     -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr22 17</span><span style='text-decoration: underline;'>392</span><span>200 17</span><span style='text-decoration: underline;'>392</span><span>350 .         0 .           5   4.67     -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr22 17</span><span style='text-decoration: underline;'>398</span><span>400 17</span><span style='text-decoration: underline;'>398</span><span>550 .         0 .          10  11.6      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr22 17</span><span style='text-decoration: underline;'>539</span><span>180 17</span><span style='text-decoration: underline;'>539</span><span>330 .         0 .          21  30.9      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr22 17</span><span style='text-decoration: underline;'>652</span><span>440 17</span><span style='text-decoration: underline;'>652</span><span>590 .         0 .           6   5.35     -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr22 17</span><span style='text-decoration: underline;'>652</span><span>780 17</span><span style='text-decoration: underline;'>652</span><span>930 .         0 .          12  12.5      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr22 17</span><span style='text-decoration: underline;'>980</span><span>800 17</span><span style='text-decoration: underline;'>980</span><span>950 .         0 .          12  12.6      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr22 18</span><span style='text-decoration: underline;'>038</span><span>260 18</span><span style='text-decoration: underline;'>038</span><span>410 .         0 .          29  36.0      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr22 18</span><span style='text-decoration: underline;'>225</span><span>280 18</span><span style='text-decoration: underline;'>225</span><span>430 .         0 .          21  25.0      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> chr22 18</span><span style='text-decoration: underline;'>268</span><span>020 18</span><span style='text-decoration: underline;'>268</span><span>170 .         0 .          14  13.0      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'># … with 560 more rows</span><span></div><div class='input'>
 
-<span class='fu'>read_broadpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.broadPeak.gz'</span>))</div><div class='output co'>#&gt; # A tibble: 1,181 x 9
+<span class='fu'>read_broadpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.broadPeak.gz'</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,181 x 9</span><span>
 #&gt;    chrom    start      end name  score strand signal pvalue qvalue
-#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-#&gt;  1 chr22 16847903 16848440 .       503 .       10.5     2.5     -1
-#&gt;  2 chr22 16849452 16851326 .       483 .        9.81   15.7     -1
-#&gt;  3 chr22 16849955 16850086 .      1000 .       32.4     4.2     -1
-#&gt;  4 chr22 16850694 16850924 .       831 .       22.5     4.9     -1
-#&gt;  5 chr22 16852964 16853782 .       499 .       10.4     6.2     -1
-#&gt;  6 chr22 16855065 16855803 .       477 .        9.58    3.9     -1
-#&gt;  7 chr22 16855944 16856974 .       491 .       10.1     8.5     -1
-#&gt;  8 chr22 16857425 16857958 .       505 .       10.6     2.5     -1
-#&gt;  9 chr22 16858284 16858824 .       549 .       12.2     4.5     -1
-#&gt; 10 chr22 16859972 16862024 .       404 .        6.89    9.3     -1
-#&gt; # … with 1,171 more rows</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr22 16</span><span style='text-decoration: underline;'>847</span><span>903 16</span><span style='text-decoration: underline;'>848</span><span>440 .       503 .       10.5     2.5     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr22 16</span><span style='text-decoration: underline;'>849</span><span>452 16</span><span style='text-decoration: underline;'>851</span><span>326 .       483 .        9.81   15.7     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr22 16</span><span style='text-decoration: underline;'>849</span><span>955 16</span><span style='text-decoration: underline;'>850</span><span>086 .      </span><span style='text-decoration: underline;'>1</span><span>000 .       32.4     4.2     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr22 16</span><span style='text-decoration: underline;'>850</span><span>694 16</span><span style='text-decoration: underline;'>850</span><span>924 .       831 .       22.5     4.9     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr22 16</span><span style='text-decoration: underline;'>852</span><span>964 16</span><span style='text-decoration: underline;'>853</span><span>782 .       499 .       10.4     6.2     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr22 16</span><span style='text-decoration: underline;'>855</span><span>065 16</span><span style='text-decoration: underline;'>855</span><span>803 .       477 .        9.58    3.9     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr22 16</span><span style='text-decoration: underline;'>855</span><span>944 16</span><span style='text-decoration: underline;'>856</span><span>974 .       491 .       10.1     8.5     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr22 16</span><span style='text-decoration: underline;'>857</span><span>425 16</span><span style='text-decoration: underline;'>857</span><span>958 .       505 .       10.6     2.5     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr22 16</span><span style='text-decoration: underline;'>858</span><span>284 16</span><span style='text-decoration: underline;'>858</span><span>824 .       549 .       12.2     4.5     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> chr22 16</span><span style='text-decoration: underline;'>859</span><span>972 16</span><span style='text-decoration: underline;'>862</span><span>024 .       404 .        6.89    9.3     -</span><span style='color: #BB0000;'>1</span><span>
+#&gt; </span><span style='color: #555555;'># … with 1,171 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -326,7 +323,7 @@ local file or URLs. The read functions load data into tbls with consistent
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>

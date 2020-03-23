@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,7 +49,6 @@
 <meta property="og:title" content="Generate randomly placed intervals on a genome. — bed_random" />
 <meta property="og:description" content="Generate randomly placed intervals on a genome." />
 <meta property="og:image" content="http://valr.hesselberthlab.org/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -73,7 +76,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -126,7 +129,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/rnabioco/valr">
+  <a href="https://github.com/rnabioco/valr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -201,62 +204,56 @@
   <span class='st'>"chrX"</span>,  <span class='fl'>5000000</span>
 )
 
-<span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; # A tibble: 1,000,000 x 3
+<span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1,000,000 x 3</span><span>
 #&gt;    chrom start   end
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt;
-#&gt;  1 chr1    108  1108
-#&gt;  2 chr1    222  1222
-#&gt;  3 chr1    316  1316
-#&gt;  4 chr1    636  1636
-#&gt;  5 chr1    762  1762
-#&gt;  6 chr1    994  1994
-#&gt;  7 chr1   1044  2044
-#&gt;  8 chr1   1115  2115
-#&gt;  9 chr1   1236  2236
-#&gt; 10 chr1   1247  2247
-#&gt; # … with 999,990 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1    103  </span><span style='text-decoration: underline;'>1</span><span>103
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1    127  </span><span style='text-decoration: underline;'>1</span><span>127
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1    136  </span><span style='text-decoration: underline;'>1</span><span>136
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1    366  </span><span style='text-decoration: underline;'>1</span><span>366
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1    570  </span><span style='text-decoration: underline;'>1</span><span>570
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1    578  </span><span style='text-decoration: underline;'>1</span><span>578
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1    583  </span><span style='text-decoration: underline;'>1</span><span>583
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1    608  </span><span style='text-decoration: underline;'>1</span><span>608
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1    626  </span><span style='text-decoration: underline;'>1</span><span>626
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1    643  </span><span style='text-decoration: underline;'>1</span><span>643
+#&gt; </span><span style='color: #555555;'># … with 999,990 more rows</span><span></div><div class='input'>
 <span class='co'># sorting can be suppressed</span>
-<span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>sorted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; # A tibble: 1,000,000 x 3
+<span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>sorted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,000,000 x 3</span><span>
 #&gt;    chrom    start      end
-#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-#&gt;  1 chr3   2703523  2704523
-#&gt;  2 chr3  25572641 25573641
-#&gt;  3 chr2  43591664 43592664
-#&gt;  4 chr2  36729533 36730533
-#&gt;  5 chr3  39340630 39341630
-#&gt;  6 chr3   5444257  5445257
-#&gt;  7 chr3  25169413 25170413
-#&gt;  8 chrX   2348141  2349141
-#&gt;  9 chr3  21266015 21267015
-#&gt; 10 chr2  19119330 19120330
-#&gt; # … with 999,990 more rows</div><div class='input'>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr3  57</span><span style='text-decoration: underline;'>732</span><span>457 57</span><span style='text-decoration: underline;'>733</span><span>457
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr3   3</span><span style='text-decoration: underline;'>718</span><span>191  3</span><span style='text-decoration: underline;'>719</span><span>191
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr2  14</span><span style='text-decoration: underline;'>303</span><span>922 14</span><span style='text-decoration: underline;'>304</span><span>922
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr2  35</span><span style='text-decoration: underline;'>002</span><span>561 35</span><span style='text-decoration: underline;'>003</span><span>561
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr3  41</span><span style='text-decoration: underline;'>721</span><span>326 41</span><span style='text-decoration: underline;'>722</span><span>326
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr3  57</span><span style='text-decoration: underline;'>830</span><span>588 57</span><span style='text-decoration: underline;'>831</span><span>588
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr3  42</span><span style='text-decoration: underline;'>197</span><span>908 42</span><span style='text-decoration: underline;'>198</span><span>908
+#&gt; </span><span style='color: #555555;'> 8</span><span> chrX   3</span><span style='text-decoration: underline;'>787</span><span>839  3</span><span style='text-decoration: underline;'>788</span><span>839
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr3  33</span><span style='text-decoration: underline;'>492</span><span>117 33</span><span style='text-decoration: underline;'>493</span><span>117
+#&gt; </span><span style='color: #555555;'>10</span><span> chr2  14</span><span style='text-decoration: underline;'>530</span><span>349 14</span><span style='text-decoration: underline;'>531</span><span>349
+#&gt; </span><span style='color: #555555;'># … with 999,990 more rows</span><span></div><div class='input'>
 <span class='co'># 500 random intervals of length 500</span>
-<span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; # A tibble: 500 x 3
+<span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 500 x 3</span><span>
 #&gt;    chrom   start     end
-#&gt;    &lt;chr&gt;   &lt;int&gt;   &lt;int&gt;
-#&gt;  1 chr1   143339  143839
-#&gt;  2 chr1   395247  395747
-#&gt;  3 chr1  1340905 1341405
-#&gt;  4 chr1  1662968 1663468
-#&gt;  5 chr1  2145462 2145962
-#&gt;  6 chr1  2159360 2159860
-#&gt;  7 chr1  2224349 2224849
-#&gt;  8 chr1  2226142 2226642
-#&gt;  9 chr1  2255856 2256356
-#&gt; 10 chr1  2578266 2578766
-#&gt; # … with 490 more rows</div><div class='input'>
-</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> chr1   </span><span style='text-decoration: underline;'>401</span><span>902  </span><span style='text-decoration: underline;'>402</span><span>402
+#&gt; </span><span style='color: #555555;'> 2</span><span> chr1   </span><span style='text-decoration: underline;'>591</span><span>204  </span><span style='text-decoration: underline;'>591</span><span>704
+#&gt; </span><span style='color: #555555;'> 3</span><span> chr1   </span><span style='text-decoration: underline;'>703</span><span>042  </span><span style='text-decoration: underline;'>703</span><span>542
+#&gt; </span><span style='color: #555555;'> 4</span><span> chr1   </span><span style='text-decoration: underline;'>738</span><span>352  </span><span style='text-decoration: underline;'>738</span><span>852
+#&gt; </span><span style='color: #555555;'> 5</span><span> chr1   </span><span style='text-decoration: underline;'>848</span><span>804  </span><span style='text-decoration: underline;'>849</span><span>304
+#&gt; </span><span style='color: #555555;'> 6</span><span> chr1  1</span><span style='text-decoration: underline;'>406</span><span>707 1</span><span style='text-decoration: underline;'>407</span><span>207
+#&gt; </span><span style='color: #555555;'> 7</span><span> chr1  1</span><span style='text-decoration: underline;'>701</span><span>984 1</span><span style='text-decoration: underline;'>702</span><span>484
+#&gt; </span><span style='color: #555555;'> 8</span><span> chr1  1</span><span style='text-decoration: underline;'>725</span><span>426 1</span><span style='text-decoration: underline;'>725</span><span>926
+#&gt; </span><span style='color: #555555;'> 9</span><span> chr1  2</span><span style='text-decoration: underline;'>058</span><span>953 2</span><span style='text-decoration: underline;'>059</span><span>453
+#&gt; </span><span style='color: #555555;'>10</span><span> chr1  2</span><span style='text-decoration: underline;'>095</span><span>530 2</span><span style='text-decoration: underline;'>096</span><span>030
+#&gt; </span><span style='color: #555555;'># … with 490 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -267,7 +264,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>
