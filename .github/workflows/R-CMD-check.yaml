@@ -69,7 +69,7 @@ jobs:
           remotes::install_cran("rcmdcheck")
 
           remotes::install_cran("BiocManager")
-          Rscript -e "BiocManager::install(c('GenomicRanges', 'IRanges', 'S4Vectors'))"
+          BiocManager::install(c('GenomicRanges', 'IRanges', 'S4Vectors'))
         shell: Rscript {0}
 
       - name: Check
