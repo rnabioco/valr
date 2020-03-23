@@ -10,3 +10,4 @@ index.html
 *.Rprofvis
 .netlify
 .env
+docs
