@@ -153,13 +153,7 @@
     <p>Generate randomly placed intervals on a genome.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bed_random</span>(
-  <span class='no'>genome</span>,
-  <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1e+06</span>,
-  <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chrom"</span>, <span class='st'>"start"</span>),
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>0</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1e+06</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sorted</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,12 +171,12 @@
       <td><p>number of intervals to generate</p></td>
     </tr>
     <tr>
-      <th>sort_by</th>
-      <td><p>sorting variables</p></td>
-    </tr>
-    <tr>
       <th>seed</th>
       <td><p>seed RNG for reproducible intervals</p></td>
+    </tr>
+    <tr>
+      <th>sorted</th>
+      <td><p>return sorted output</p></td>
     </tr>
     </table>
 
@@ -191,7 +185,7 @@
     <p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Sorting can be suppressed with <code>sort_by = NULL</code>.</p>
+    <p>Sorting can be suppressed with <code>sorted = FALSE</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='http://bedtools.readthedocs.org/en/latest/content/tools/random.html'>http://bedtools.readthedocs.org/en/latest/content/tools/random.html</a></p>
@@ -222,7 +216,7 @@
 #&gt; 10 chr1   1247  2247
 #&gt; # … with 999,990 more rows</div><div class='input'>
 <span class='co'># sorting can be suppressed</span>
-<span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; # A tibble: 1,000,000 x 3
+<span class='fu'>bed_random</span>(<span class='no'>genome</span>, <span class='kw'>sorted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10104</span>)</div><div class='output co'>#&gt; # A tibble: 1,000,000 x 3
 #&gt;    chrom    start      end
 #&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
 #&gt;  1 chr3   2703523  2704523

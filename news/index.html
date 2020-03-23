@@ -151,6 +151,14 @@
 <h1 class="page-header">
 <a href="#valr-0-5-0-9000" class="anchor"></a>valr 0.5.0.9000<small> Unreleased </small>
 </h1>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li><p>The <code>sort_by</code> argument of <code><a href="../reference/bed_random.html">bed_random()</a></code> has been changed to <code>sorted</code>, and will now by default use <code><a href="../reference/bed_sort.html">bed_sort()</a></code> to sort the output, rather than rely on naming the sorting columns. Sorting can be suppressed by using <code>sorted = FALSE</code>.</p></li>
+<li><p><code><a href="../reference/bed_sort.html">bed_sort()</a></code> now uses base R sorting with the <code>radix</code> method for increased speed. (<a href='https://github.com/rnabioco/valr/issues/353'>#353</a>)</p></li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
@@ -170,9 +178,9 @@
 <li>Internal <code>Rcpp</code> functions have been reorganized to remove all dependencies on <code>dplyr</code> C++ functions.</li>
 </ul>
 </div>
-<div id="minor-changes" class="section level2">
+<div id="minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>Due to internal refactoring of Rcpp functions, only data.frames containing Numeric, Logical, Integer, Character, and List column types are supported. Columns containing Raw, Complex, or other R classes are not supported and will issue an error.</p></li>
 <li><p>Factors are now disallowed from grouping variables in multiset operations to avoid sort order discrepancies, and compatibility with factor handling in <code>dplyr</code> v.0.8.0. Factors will now be internally type-converted to character and a warning is issued.</p></li>
@@ -204,9 +212,9 @@
 <h1 class="page-header">
 <a href="#valr-0-4-0" class="anchor"></a>valr 0.4.0<small> 2018-01-25 </small>
 </h1>
-<div id="minor-changes-1" class="section level2">
+<div id="minor-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>All relevant tests from bedtool2 were ported into valr. Bugs identified in corner cases by new tests were fixed (<a href='https://github.com/rnabioco/valr/issues/328'>#328</a> <a href='https://github.com/raysinesis'>@raysinesis</a>)</p></li>
 <li><p><code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> now works with grouped inputs (<a href='https://github.com/rnabioco/valr/issues/216'>#216</a>)</p></li>
@@ -240,9 +248,9 @@
 <li><p>Improve documentation of interval statistics with more complex examples.</p></li>
 </ul>
 </div>
-<div id="minor-changes-2" class="section level2">
+<div id="minor-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-3" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>
 <code><a href="../reference/bed_sort.html">bed_sort()</a></code> has been de-deprecated to reduce <code>arrange</code> calls in library code.</li>
@@ -290,9 +298,9 @@
 <li><p>new <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code> that wrap tibbles and enforce strict column naming. <code><a href="../reference/tbl_interval.html">trbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">trbl_genome()</a></code> are constructors that take <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tibble::tribble()</a></code> formatting and <code><a href="../reference/is.tbl_interval.html">is.tbl_interval()</a></code> and <code><a href="../reference/is.tbl_genome.html">is.tbl_genome()</a></code> are used to check for valid classes.</p></li>
 </ul>
 </div>
-<div id="minor-changes-3" class="section level2">
+<div id="minor-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-3" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-4" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>intervals returned from <code><a href="../reference/bed_random.html">bed_random()</a></code> are sorted by <code>chrom</code> and <code>start</code> by default.</li>
 </ul>
@@ -316,9 +324,9 @@
 <li>Deprecate <code><a href="../reference/bed_sort.html">bed_sort()</a></code> in favor of using <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code> explicitly (fixes <a href='https://github.com/rnabioco/valr/issues/134'>#134</a>).</li>
 </ul>
 </div>
-<div id="minor-changes-4" class="section level2">
+<div id="minor-changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-4" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-5" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>add <code>src/init.c</code> that calls <code>R_registerRoutines</code> and <code>R_useDynamicSymbols</code> to address NOTE in r-devel</p></li>
 <li><p>Deprecate <code>dist</code> parameter in <code><a href="../reference/bed_closest.html">bed_closest()</a></code> in favor of using user supplied functions (<a href='https://github.com/rnabioco/valr/issues/182'>#182</a> <a href='https://github.com/kriemo'>@kriemo</a>)</p></li>
@@ -341,9 +349,9 @@
 <h1 class="page-header">
 <a href="#valr-0-1-1" class="anchor"></a>valr 0.1.1<small> 2016-12-01 </small>
 </h1>
-<div id="minor-changes-5" class="section level2">
+<div id="minor-changes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-5" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-6" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>test / vignette guards for Suggested RMySQL</p></li>
 <li><p>fixed memory leak in absdist.cpp</p></li>
