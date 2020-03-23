@@ -32,6 +32,9 @@ jobs:
           install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
+
+          remotes::install_cran("BiocManager")
+          BiocManager::install(c('GenomicRanges', 'IRanges', 'S4Vectors'))
         shell: Rscript {0}
 
       - name: Install package
