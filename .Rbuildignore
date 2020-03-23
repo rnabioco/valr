@@ -16,3 +16,5 @@
 ^LICENSE\.md$
 ^\.env$
 ^CRAN-RELEASE$
+^codecov\.yml$
+^\.github$
