@@ -1,5 +1,13 @@
 # valr 0.5.0.9000
 
+## Minor changes
+
+* The `sort_by` argument of `bed_random()` has been changed to `sorted`, and will now by default
+use `bed_sort()` to sort the output, rather than rely on naming the sorting columns. Sorting can
+be suppressed by using `sorted = FALSE`. 
+
+* `bed_sort()` now uses base R sorting with the `radix` method for increased speed. (#353)
+
 ## Bug fixes
 
 * Fixed `bed_closest()` to prevent erroneous intervals being reported when adjacent closest intervals are present in the `y` table. (#348)
