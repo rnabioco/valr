@@ -10,7 +10,7 @@ name: test-coverage
 
 jobs:
   test-coverage:
-    runs-on: ubuntu-16.04
+    runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
 
