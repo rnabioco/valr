@@ -404,11 +404,27 @@ HTMLWidgets.widget({
 
         // remove the overflow: hidden attribute of the scrollHead
         // (otherwise the scrolling table body obscures the filters)
+        // The workaround and the discussion from
+        // https://github.com/rstudio/DT/issues/554#issuecomment-518007347
+        // Otherwise the filter selection will not be anchored to the values
+        // when the columns number is many and scrollX is enabled.
         var scrollHead = $(el).find('.dataTables_scrollHead,.dataTables_scrollFoot');
-        var cssOverflow = scrollHead.css('overflow');
-        if (cssOverflow === 'hidden') {
+        var cssOverflowHead = scrollHead.css('overflow');
+        var scrollBody = $(el).find('.dataTables_scrollBody');
+        var cssOverflowBody = scrollBody.css('overflow');
+        var scrollTable = $(el).find('.dataTables_scroll');
+        var cssOverflowTable = scrollTable.css('overflow');
+        if (cssOverflowHead === 'hidden') {
           $x.on('show hide', function(e) {
-            scrollHead.css('overflow', e.type === 'show' ? '' : cssOverflow);
+            if (e.type === 'show') {
+              scrollHead.css('overflow', 'visible');
+              scrollBody.css('overflow', 'visible');
+              scrollTable.css('overflow-x', 'scroll');
+            } else {
+              scrollHead.css('overflow', cssOverflowHead);
+              scrollBody.css('overflow', cssOverflowBody);
+              scrollTable.css('overflow-x', cssOverflowTable);
+            }
           });
           $x.css('z-index', 25);
         }
@@ -680,7 +696,7 @@ HTMLWidgets.widget({
 
       // don't highlight the "not found" row, so we get the rows using the api
       if (table.rows({ filter: 'applied' }).data().length === 0) return;
-      // highlight gloal search keywords
+      // highlight global search keywords
       body.highlight($.trim(table.search()).split(/\s+/));
       // then highlight keywords from individual column filters
       if (filterRow) filterRow.each(function(i, td) {
@@ -701,6 +717,10 @@ HTMLWidgets.widget({
         // remove event handler
         table.off('draw.dt.dth column-visibility.dt.dth column-reorder.dt.dth');
       });
+
+      // Set the option for escaping regex characters in our search string.  This will be used
+      // for all future matching.
+      jQuery.fn.highlight.options.escapeRegex = (!options.search || !options.search.regex);
 
       // initial highlight for state saved conditions and initial states
       highlight();
@@ -743,7 +763,7 @@ HTMLWidgets.widget({
             $input.attr('title', 'Hit Ctrl+Enter to finish editing, or Esc to cancel');
           }
           $input.val(value);
-          if (disableCols && inArray(_cell.index().column, disableCols)) {
+          if (inArray(_cell.index().column, disableCols)) {
             $input.attr('readonly', '').css('filter', 'invert(25%)');
           }
           $cell.empty().append($input);
@@ -822,7 +842,7 @@ HTMLWidgets.widget({
       if (event !== 'cell_edit' && shinyData.hasOwnProperty(id) && shinyData[id] === JSON.stringify(value))
         return;
       shinyData[id] = JSON.stringify(value);
-      if (HTMLWidgets.shinyMode) {
+      if (HTMLWidgets.shinyMode && Shiny.setInputValue) {
         Shiny.setInputValue(id, value, opts);
         if (!instance.clearInputs[id]) instance.clearInputs[id] = function() {
           Shiny.setInputValue(id, null);
@@ -862,6 +882,12 @@ HTMLWidgets.widget({
     // change the row index of a cell
     var tweakCellIndex = function(cell) {
       var info = cell.index();
+      // some cell may not be valid. e.g, #759
+      // when using the RowGroup extension, datatables will
+      // generate the row label and the cells are not part of
+      // the data thus contain no row/col info
+      if (info === undefined)
+        return {row: null, col: null};
       if (server) {
         info.row = DT_rows_current[info.row];
       } else {
@@ -870,9 +896,43 @@ HTMLWidgets.widget({
       return {row: info.row, col: info.column};
     }
 
+    // a flag to indicates if select extension is initialized or not
+    var flagSelectExt = table.settings()[0]._select !== undefined;
+    // the Select extension should only be used in the client mode and
+    // when the selection.mode is set to none
+    if (data.selection.mode === 'none' && !server && flagSelectExt) {
+      var updateRowsSelected = function() {
+        var rows = table.rows({selected: true});
+        var selected = [];
+        $.each(rows.indexes().toArray(), function(i, v) {
+          selected.push(v + 1);
+        });
+        changeInput('rows_selected', selected);
+      }
+      var updateColsSelected = function() {
+        var columns = table.columns({selected: true});
+        changeInput('columns_selected', columns.indexes().toArray());
+      }
+      var updateCellsSelected = function() {
+        var cells = table.cells({selected: true});
+        var selected = [];
+        cells.every(function() {
+          var row = this.index().row;
+          var col = this.index().column;
+          selected = selected.concat([[row + 1, col]]);
+        });
+        changeInput('cells_selected', transposeArray2D(selected), 'shiny.matrix');
+      }
+      table.on('select deselect', function(e, dt, type, indexes) {
+        updateRowsSelected();
+        updateColsSelected();
+        updateCellsSelected();
+      })
+    }
+
     var selMode = data.selection.mode, selTarget = data.selection.target;
     if (inArray(selMode, ['single', 'multiple'])) {
-      var selClass = data.style === 'bootstrap' ? 'active' : 'selected';
+      var selClass = inArray(data.style, ['bootstrap', 'bootstrap4']) ? 'active' : 'selected';
       var selected = data.selection.selected, selected1, selected2;
       // selected1: row indices; selected2: column indices
       if (selected === null) {
@@ -1003,7 +1063,7 @@ HTMLWidgets.widget({
         if (selTarget === 'row+column') {
           $(table.columns().footer()).css('cursor', 'pointer');
         }
-        table.on('click.dt', selTarget === 'column' ? 'tbody td' : 'tfoot tr th', function() {
+        var callback = function() {
           var colIdx = selTarget === 'column' ? table.cell(this).index().column :
               $.inArray(this, table.columns().footer()),
               thisCol = $(table.column(colIdx).nodes());
@@ -1017,7 +1077,12 @@ HTMLWidgets.widget({
             selected2 = selMode === 'single' ? [colIdx] : unique(selected2.concat([colIdx]));
           }
           changeInput('columns_selected', selected2);
-        });
+        }
+        if (selTarget === 'column') {
+          $(table.table().body()).on('click.dt', 'td', callback);
+        } else {
+          $(table.table().footer()).on('click.dt', 'tr th', callback);
+        }
         changeInput('columns_selected', selected2);
         var selectCols = function() {
           table.columns().nodes().flatten().to$().removeClass(selClass);

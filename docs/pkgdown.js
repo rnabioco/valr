@@ -2,11 +2,11 @@
 (function($) {
   $(function() {
 
-    $('nav.navbar').headroom();
+    $('.navbar-fixed-top').headroom();
 
-    $('body').scrollspy({
-      target: '#sidebar',
-      offset: 60
+    $('body').css('padding-top', $('.navbar').height() + 10);
+    $(window).resize(function(){
+      $('body').css('padding-top', $('.navbar').height() + 10);
     });
 
     $('[data-toggle="tooltip"]').tooltip();

@@ -34,7 +34,7 @@ test_that("chrom sizes less than length throws an error", {
 
 test_that("intervals are sorted by default", {
   x <- bed_random(genome, n = 1e4, seed = seed)
-  y <- bed_random(genome, n = 1e4, sort_by = NULL, seed = seed)
+  y <- bed_random(genome, n = 1e4, sorted = FALSE, seed = seed)
   expect_false(all(x == y))
 
   # default sort

@@ -2,7 +2,13 @@
 
 ## Minor changes
 
-* dplyr version < 0.8.0 is no longer supported due to unecessary code bloat and challenges with handling multiple grouping structures (#359).
+* dplyr version < 0.8.0 is no longer supported due to unnecessary code bloat and challenges with handling multiple grouping structures (#359).
+
+* The `sort_by` argument of `bed_random()` has been changed to `sorted`, and will now by default
+use `bed_sort()` to sort the output, rather than rely on naming the sorting columns. Sorting can
+be suppressed by using `sorted = FALSE`. 
+
+* `bed_sort()` now uses base R sorting with the `radix` method for increased speed. (#353)
 
 ## Bug fixes
 

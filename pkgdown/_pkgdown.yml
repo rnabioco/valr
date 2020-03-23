@@ -2,11 +2,8 @@ url: http://valr.hesselberthlab.org
 
 template:
   params:
+    bootswatch: cosmo
     ganalytics: UA-54095998-3
-
-navbar:
-  bg: dark
-  type: dark
 
 authors:
   Jay Hesselberth:
