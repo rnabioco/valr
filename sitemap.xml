@@ -1,150 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://valr.hesselberthlab.org/index.html</loc>
+    <loc>https://rnabioco.github.io/valr/index.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/as.tbl_genome.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/as.tbl_genome.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/as.tbl_interval.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/as.tbl_interval.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed12_to_exons.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed12_to_exons.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_absdist.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_absdist.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_closest.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_closest.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_cluster.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_cluster.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_complement.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_complement.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_coverage.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_coverage.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_fisher.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_fisher.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_flank.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_flank.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_glyph.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_glyph.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_intersect.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_intersect.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_jaccard.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_jaccard.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_makewindows.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_makewindows.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_map.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_map.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_merge.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_merge.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_partition.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_partition.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_projection.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_projection.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_random.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_random.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_reldist.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_reldist.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_shift.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_shift.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_shuffle.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_shuffle.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_slop.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_slop.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_sort.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_sort.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_subtract.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_subtract.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bed_window.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bed_window.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/bound_intervals.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/bound_intervals.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/create_introns.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/create_introns.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/create_tss.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/create_tss.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/create_utrs3.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/create_utrs3.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/create_utrs5.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/create_utrs5.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/db.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/db.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/flip_strands.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/flip_strands.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/id.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/id.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/id_var.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/id_var.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/interval_spacing.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/interval_spacing.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/is.tbl_genome.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/is.tbl_genome.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/is.tbl_interval.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/is.tbl_interval.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/read_bed.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/read_bed.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/read_genome.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/read_genome.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/read_vcf.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/read_vcf.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/tbl_genome.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/tbl_genome.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/tbl_interval.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/tbl_interval.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/valr.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/valr.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/reference/valr_example.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/valr_example.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/articles/benchmarks.html</loc>
+    <loc>https://rnabioco.github.io/valr/articles/benchmarks.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/articles/interval-stats.html</loc>
+    <loc>https://rnabioco.github.io/valr/articles/interval-stats.html</loc>
   </url>
   <url>
-    <loc>http://valr.hesselberthlab.org/articles/valr.html</loc>
+    <loc>https://rnabioco.github.io/valr/articles/valr.html</loc>
   </url>
 </urlset>
