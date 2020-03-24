@@ -11,3 +11,4 @@ index.html
 .netlify
 .env
 docs
+.DS_Store
