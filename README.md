@@ -1,12 +1,13 @@
 
 # valr <img src="man/figures/logo.png" align="right" />
 
+<!-- badges: start -->
+
 [![R build
 status](https://github.com/rnabioco/valr/workflows/R-CMD-check/badge.svg)](https://github.com/rnabioco/valr/actions)
 [![codecov](https://codecov.io/gh/rnabioco/valr/branch/master/graph/badge.svg)](https://codecov.io/gh/rnabioco/valr)
 [![](https://www.r-pkg.org/badges/version/valr)](https://CRAN.R-project.org/package=valr)
-[![](https://cranlogs.r-pkg.org/badges/valr?color=FFD700)](https://www.r-pkg.org/pkg/valr)
-[![DOI](https://zenodo.org/badge/49370633.svg)](https://zenodo.org/badge/latestdoi/49370633)
+<!-- badges: end -->
 
 The valr package provides tools to read and manipulate genome intervals
 and signals, similar to the
