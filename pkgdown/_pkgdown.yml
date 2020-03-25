@@ -1,4 +1,4 @@
-url: http://valr.hesselberthlab.org
+url: https://rnabioco.github.io/valr
 
 template:
   params:
@@ -8,6 +8,8 @@ template:
 authors:
   Jay Hesselberth:
     href: https://hesselberthlab.org
+  RNA Bioscience Initiative:
+    href: https://rockyrna.org
 
 home:
   links:
