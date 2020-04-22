@@ -55,8 +55,6 @@ bed_merge <- function(x, max_dist = 0, ...) {
     stop("max_dist must be positive", call. = FALSE)
   }
 
-  if (is_merged(x)) return(x)
-
   groups_x <- group_vars(x)
 
   res <- bed_sort(x)
@@ -91,21 +89,19 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   res <- reorder_names(res, x)
 
-  attr(res, "merged") <- TRUE
-
   res
 }
 
-#' Ask whether a tbl is already merged.
+#' #' Ask whether a tbl is already merged.
+#' #'
+#' #' @param x tbl of intervals
+#' #' @noRd
+#' is_merged <- function(x) {
+#'   merged_attr <- attr(x, "merged")
 #'
-#' @param x tbl of intervals
-#' @noRd
-is_merged <- function(x) {
-  merged_attr <- attr(x, "merged")
-
-  if (is.null(merged_attr) || !merged_attr) {
-    return(FALSE)
-  } else {
-    return(TRUE)
-  }
-}
+#'   if (is.null(merged_attr) || !merged_attr) {
+#'     return(FALSE)
+#'   } else {
+#'     return(TRUE)
+#'   }
+#' }

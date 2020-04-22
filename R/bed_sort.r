@@ -67,8 +67,5 @@ bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
     }
   }
 
-  # add `sorted` attribute
-  # attr(res, "sorted") <- TRUE
-
   res
 }
