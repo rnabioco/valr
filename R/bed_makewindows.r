@@ -61,7 +61,7 @@ bed_makewindows <- function(x,
     }
   }
 
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   if (win_size == 0 && num_win == 0) {
     stop("specify either `win_size` or `num_win`", call. = FALSE)
@@ -75,7 +75,6 @@ bed_makewindows <- function(x,
   x <- mutate(x, .win_id = 0)
 
   res <- makewindows_impl(x, win_size, num_win, step_size, reverse)
-  res <- as.tbl_interval(res)
 
   res
 }

@@ -29,8 +29,8 @@
 #' @export
 bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
                         max_tries = 1000, within = FALSE, seed = 0) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  genome <- check_genome(genome)
 
   # flatten incl and excl
   if (!is.null(incl)) {
@@ -62,8 +62,6 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
 
   # bind original x column data to result (#81)
   res <- bind_cols(res, x[, !colnames(x) %in% colnames(res)])
-
-  res <- as.tbl_interval(res)
 
   res
 }

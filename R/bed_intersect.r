@@ -121,8 +121,8 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
     y <- y_tbl[[1]]
   }
 
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
+  x <- check_interval(x)
+  y <- check_interval(y)
 
   check_suffix(suffix)
 

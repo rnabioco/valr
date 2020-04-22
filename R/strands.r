@@ -22,7 +22,7 @@ flip_strands <- function(x) {
     stop("`strand` column not found in `x`", call. = FALSE)
   }
 
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   # remove existing groups
   groups_x <- groups(x)

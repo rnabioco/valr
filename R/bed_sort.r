@@ -35,7 +35,7 @@
 #'
 #' @export
 bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
-  if (!is.tbl_interval(x)) x <- tbl_interval(x)
+  x <- check_interval(x)
 
   if (by_size) {
     res <- mutate(x, .size = end - start)
@@ -68,9 +68,7 @@ bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
   }
 
   # add `sorted` attribute
-  attr(res, "sorted") <- TRUE
-
-  res <- as.tbl_interval(res)
+  # attr(res, "sorted") <- TRUE
 
   res
 }

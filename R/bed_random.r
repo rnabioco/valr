@@ -33,7 +33,7 @@
 #'
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6, seed = 0, sorted = TRUE) {
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  genome <- check_genome(genome)
 
   if (!all(genome$size > length)) {
     stop("`length` must be greater than all chrom sizes", call. = FALSE)
@@ -45,6 +45,5 @@ bed_random <- function(genome, length = 1000, n = 1e6, seed = 0, sorted = TRUE) 
     out <- bed_sort(out)
   }
 
-  out <- as.tbl_interval(out)
   out
 }

@@ -26,7 +26,6 @@ read_genome <- function(path) {
   colnames <- c("chrom", "size")
   genome <- suppressMessages(readr::read_tsv(path, col_names = colnames))
   genome <- arrange(genome, desc(size))
-  genome <- as.tbl_genome(genome)
   genome
 }
 
@@ -61,7 +60,8 @@ read_genome <- function(path) {
 #'
 #' @export
 bound_intervals <- function(x, genome, trim = FALSE) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
+  genome <- check_genome(genome)
   x <- ungroup(x)
 
   res <- left_join(x, genome, by = "chrom")

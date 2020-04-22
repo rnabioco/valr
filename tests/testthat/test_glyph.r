@@ -16,13 +16,13 @@ test_that("glyph labels are applied", {
   expect_equal(res$labels$label, "id")
 })
 
-a <- trbl_interval(
+a <- tibble::tribble(
   ~ chrom, ~ start, ~ end,
   "chr1", 25, 50,
   "chr1", 100, 125
 )
 
-b <- trbl_interval(
+b <- tibble::tribble(
   ~ chrom, ~ start, ~ end, ~ value,
   "chr1", 30, 75, 50
 )

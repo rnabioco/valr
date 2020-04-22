@@ -3,7 +3,7 @@ context("bed_partition")
 
 test_that("basic partition works (bedops partition1 test)", {
 
-  x <- trbl_interval(
+  x <- tibble::tribble(
     ~chrom,   ~start,   ~end,
     "chr1",   10L,  100L,
     "chr1",   50L,  125L,
@@ -17,7 +17,7 @@ test_that("basic partition works (bedops partition1 test)", {
     "chr1", 2000L, 2500L
   )
 
-  pred <- trbl_interval(
+  pred <- tibble::tribble(
     ~chrom,   ~start,   ~end,
     "chr0",  100L,  250L,
     "chr0",  250L,  300L,
@@ -39,7 +39,7 @@ test_that("basic partition works (bedops partition1 test)", {
 
 test_that("extended partition works (bedops partition2 test)", {
 
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom,   ~start,   ~end,
   "chr1",   10L,  100L,
   "chr1",   50L,  125L,
@@ -76,7 +76,7 @@ x <- trbl_interval(
   "chr1",   20L,   30L
   )
 
-pred <- trbl_interval(
+pred <- tibble::tribble(
   ~chrom,   ~start,   ~end,
   "chr0",  100L,  300L,
   "chr1",    1L,    3L,
@@ -122,7 +122,7 @@ pred <- trbl_interval(
 
 test_that("partition drops non-grouped cols (bedops partition3 test)", {
 
-  x <- trbl_interval(
+  x <- tibble::tribble(
    ~chrom,   ~start,   ~end,  ~name, ~score, ~strand, ~seq,
   "chr1", 33657L, 33687L,        "+MA0068.1-Pax4", 8.67655e-06, "+", "TAATGCTATCCCTCCCCCAGCCCCCCACCC",
   "chr1", 33666L, 33686L,       "+MA0073.1-RREB1", 1.97929e-06, "+",           "CCCTCCCCCAGCCCCCCACC",
@@ -132,7 +132,7 @@ test_that("partition drops non-grouped cols (bedops partition3 test)", {
   "chr1", 34377L, 34390L,       "+MA0114.1-HNF4A", 5.44281e-06, "+",                  "TGGGCAAAGGGCA"
   )
 
-  pred <- trbl_interval(
+  pred <- tibble::tribble(
     ~chrom,   ~start,   ~end,
      "chr1", 33657L, 33666L,
      "chr1", 33666L, 33670L,
@@ -152,7 +152,7 @@ test_that("partition drops non-grouped cols (bedops partition3 test)", {
 
 test_that("partition drops non-grouped cols (bedops partition4 test)", {
 
-  x <- trbl_interval(
+  x <- tibble::tribble(
     ~chrom,   ~start,   ~end,
   "chr1", 279L, 280L,
   "chr1", 280L, 281L,
@@ -165,7 +165,7 @@ test_that("partition drops non-grouped cols (bedops partition4 test)", {
   "chr1", 313L, 314L
   )
 
-  pred <- trbl_interval(
+  pred <- tibble::tribble(
     ~chrom,   ~start,   ~end,
      "chr1", 279L, 280L,
      "chr1", 280L, 281L,
@@ -185,7 +185,7 @@ test_that("partition drops non-grouped cols (bedops partition4 test)", {
 
 test_that("grouping is respected", {
 
-  x <- trbl_interval(
+  x <- tibble::tribble(
     ~chrom,   ~start,   ~end,  ~strand,
     "chr1", 33657L, 33687L,"+",
     "chr1", 33666L, 33686L,"+",

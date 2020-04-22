@@ -26,9 +26,9 @@
 #'
 #' @export
 bed_fisher <- function(x, y, genome) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  y <- check_interval(y)
+  genome <- check_genome(genome)
 
   # number of intervals
   n_x <- nrow(x)

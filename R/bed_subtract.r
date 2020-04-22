@@ -50,8 +50,8 @@
 #'
 #' @export
 bed_subtract <- function(x, y, any = FALSE) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
+  x <- check_interval(x)
+  y <- check_interval(y)
 
   # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)

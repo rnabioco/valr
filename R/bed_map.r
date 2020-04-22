@@ -27,8 +27,8 @@
 #'
 #' @export
 bed_map <- function(x, y, ..., min_overlap = 1) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
+  x <- check_interval(x)
+  y <- check_interval(y)
 
   ## add suffixes to all x columns except `chrom`
   x_nms <- str_c(names(x)[!names(x) %in% "chrom"], ".x")

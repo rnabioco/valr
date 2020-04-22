@@ -43,7 +43,7 @@
 #'
 #' @export
 bed_cluster <- function(x, max_dist = 0) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   groups <- rlang::syms(unique(c("chrom", group_vars(x))))
   res <- group_by(x, !!! groups)

@@ -49,7 +49,7 @@
 #'
 #' @export
 bed_merge <- function(x, max_dist = 0, ...) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   if (max_dist < 0) {
     stop("max_dist must be positive", call. = FALSE)
