@@ -91,17 +91,3 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   res
 }
-
-#' #' Ask whether a tbl is already merged.
-#' #'
-#' #' @param x tbl of intervals
-#' #' @noRd
-#' is_merged <- function(x) {
-#'   merged_attr <- attr(x, "merged")
-#'
-#'   if (is.null(merged_attr) || !merged_attr) {
-#'     return(FALSE)
-#'   } else {
-#'     return(TRUE)
-#'   }
-#' }
