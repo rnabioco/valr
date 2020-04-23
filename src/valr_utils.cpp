@@ -9,6 +9,23 @@
 
 #include "valr.h"
 
+// reuse of r-lib/vctrs approach for setting levels
+void init_factor(SEXP x, SEXP levels) {
+  if (TYPEOF(x) != INTSXP) {
+    Rf_errorcall(R_NilValue, "Internal error: Only integers can be made into factors");
+  }
+
+  SEXP factor_string ;
+  PROTECT(factor_string = Rf_allocVector(STRSXP, 1)) ;
+  SET_STRING_ELT(factor_string, 0, Rf_mkChar("factor")) ;
+  UNPROTECT(1) ;
+
+  Rf_setAttrib(x, R_LevelsSymbol, levels);
+  Rf_setAttrib(x, R_ClassSymbol, factor_string);
+
+}
+
+
 // Based on Kevin Ushey's implementation here:
 // http://kevinushey.github.io/blog/2015/01/24/understanding-data-frame-subsetting/
 // Input row indices are assumed to be zero-based
@@ -85,6 +102,13 @@ DataFrame rowwise_subset_df(const DataFrame& x,
       }
     }
 
+    if(Rf_isFactor(x[j])){
+      // set levels on output factor
+      IntegerVector tmp = x[j] ;
+      SEXP levels = tmp.attr("levels") ;
+      init_factor(vec, levels) ;
+    }
+
     UNPROTECT(1);
 
     SET_VECTOR_ELT(output, j, vec);
@@ -127,6 +151,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
     SEXP vec = PROTECT(
                  Rf_allocVector(TYPEOF(element), row_indices_n)
                );
+
 
     for (int i = 0; i < row_indices_n; ++i)
     {
@@ -175,6 +200,12 @@ DataFrame rowwise_subset_df(const DataFrame& x,
       }
     }
 
+    if(Rf_isFactor(x[j])){
+      // set levels on output factor
+      IntegerVector tmp = x[j] ;
+      SEXP levels = tmp.attr("levels") ;
+      init_factor(vec, levels) ;
+    }
     UNPROTECT(1);
 
     SET_VECTOR_ELT(output, j, vec);

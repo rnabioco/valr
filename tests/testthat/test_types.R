@@ -52,3 +52,24 @@ test_that("list columns are supported", {
   res <- bed_intersect(x, x)
   expect_equal(nrow(res), 16)
 })
+
+test_that("input factor columns that are not grouped are preserved in output #360", {
+  x <- tibble(chrom = rep('chr1', 100),
+                 start = 0:99,
+                 end = 1:100,
+                grps = factor(rep(LETTERS[1:10], times = 10)))
+  y <- tibble(chrom = "chr1",
+              start = 1,
+              end = 5)
+  res <- bed_intersect(x, y)
+
+  expect_true(is.factor(res$grps.x))
+
+  # levels are the same as input
+  expect_true(all(levels(res$grps.x) == LETTERS[1:10]))
+
+  # characters work as expected
+  x$grps <- as.character(x$grps)
+  res <- bed_intersect(x, y)
+  expect_true(is.character(res$grps.x))
+})
