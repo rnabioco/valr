@@ -2,115 +2,53 @@
 % Please edit documentation in R/tbls.r
 \name{check_interval}
 \alias{check_interval}
-\title{#' Construct a tbl_interval using tribble formatting.
-#'
-#' @rdname tbl_interval
-#'
-#' @return \code{\link[=tbl_interval]{tbl_interval()}}
-
-#' @export
-trbl_interval <- function(...) {
-out <- tibble::tribble(...)
-out <- as.tbl_interval(out)
-out
-}}
+\alias{valr_input}
+\alias{check_genome}
+\title{Bed-like data.frame requirements for valr functions}
 \usage{
 check_interval(x)
+
+check_genome(x)
+}
+\arguments{
+\item{x}{A \code{data.frame} or \code{tibble::tibble}}
 }
 \description{
-#' Test if the object is a tbl_interval.
-#'
-#' @param x An object
-#' @return \code{TRUE} if the object inherits from the \code{\link[=tbl_interval]{tbl_interval()}} class.
-#' @export
-is.tbl_interval <- function(x) {
-"tbl_ivl" \%in\% class(x)
-}
-}
-\details{
-#' Tibble for reference sizes.
-#'
-#' Equivalent to information in UCSC "chromSizes" files. Required column names are:
-#' \code{chrom} and \code{size}
-#'
-#' @param x A \code{data_frame}
-#' @param ... params for \code{\link[tibble:tibble]{tibble::tibble()}}
-#' @param .validate check valid column names
-#'
-#' @rdname tbl_genome
-#'
-#' @examples
-#' genome <- tibble::tribble(
-#'   ~chrom, ~size,
-#'   'chr1', 1e6,
-#'   'chr2', 1e7
-#' )
-#'
-#' is.tbl_genome(genome)
-#' genome <- tbl_genome(genome)
-#' is.tbl_genome(genome)
-#'
-#' @export
-tbl_genome <- function(x, ..., .validate = TRUE) {
-out <- tibble::as_tibble(x, ...)
-if (.validate) {
-out <- check_genome(out)
-}
-class(out) <- union("tbl_gnm", class(out))
-out
-}
+Required column names for interval dataframes are
+\code{chrom}, \code{start} and \code{end}. Internally interval dataframes are
+validated using \code{check_interval()}
 
-#' Coerce objects to tbl_genome.
-#'
-#' This is an S3 generic. valr includes methods to coerce tbl_df and data.frame
-#' objects.
-#'
-#' @param x object to convert to tbl_genome.
-#'
-#' @return \code{\link[=tbl_genome]{tbl_genome()}}
-#'
-#' @export
-as.tbl_genome <- function(x) {
-UseMethod("as.tbl_genome")
+Required column names for genome dataframes are
+\code{chrom} and \code{size}. Internally genome dataframes are
+validated using \code{check_genome()}.
 }
+\examples{
+# using tibble
+x <- tibble::tribble(
+  ~chrom, ~start, ~end,
+  'chr1',  1,     50,
+  'chr1',  10,    75,
+  'chr1',  100,   120
+)
 
-#' @export
-#' @rdname as.tbl_genome
-as.tbl_genome.tbl_df <- function(x) {
-tbl_genome(x)
-}
+check_interval(x)
 
-#' @export
-#' @rdname as.tbl_genome
-as.tbl_genome.data.frame <- function(x) {
-tbl_genome(x)
-}
+# using base R data.frame
+x <- data.frame(chrom = "chr1",
+           start = 0,
+           end = 100,
+           stringsAsFactors = FALSE
+)
 
-#' Construct a tbl_genome using tribble formatting.
-#'
-#' @return \code{\link[=tbl_genome]{tbl_genome()}}
-#'
-#' @rdname tbl_genome
-#'
-#' @examples
-#' trbl_genome(
-#'   ~chrom, ~size,
-#'   'chr1', 1e6
-#' )
-#'
-#' @export
-trbl_genome <- function(...) {
-out <- tibble::tribble(...)
-out <- tbl_genome(out)
-out
-}
+check_interval(x)
 
-#' Test if the object is a tbl_genome.
-#'
-#' @param x An object
-#' @return \code{TRUE} if the object inherits from the \code{\link[=tbl_genome]{tbl_genome()}} class.
-#' @export
-is.tbl_genome <- function(x) {
-"tbl_gnm" \%in\% class(x)
-}
+# example genome input
+
+x <- tibble::tribble(
+  ~chrom, ~size,
+  'chr1', 1e6
+)
+
+check_genome(x)
+
 }

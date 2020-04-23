@@ -2,31 +2,7 @@
 % Please edit documentation in R/tbls.r
 \name{gr_to_bed}
 \alias{gr_to_bed}
-\title{#' Tibble for intervals.
-#'
-#' Required column names are \code{chrom}, \code{start} and \code{end}.
-#'
-#' @param x A \code{data_frame}
-#' @param ... params for \code{\link[tibble:tibble]{tibble::tibble()}}
-#' @param .validate check valid column names
-#'
-#' @rdname tbl_interval
-#'
-#' @examples
-#' x <- tibble::tribble(
-#'   ~chrom, ~start, ~end,
-#'   'chr1',  1,     50,
-#'   'chr1',  10,    75,
-#'   'chr1',  100,   120
-#' )
-#'
-#' is.tbl_interval(x)
-#'
-#' x <- tbl_interval(x)
-#' is.tbl_interval(x)
-#'
-#' @export
-tbl_interval <- function(x, ..., .validate = TRUE) {}
+\title{Convert Granges to bed tibble}
 \usage{
 gr_to_bed(x)
 }
@@ -37,14 +13,7 @@ gr_to_bed(x)
 \code{\link[tibble:tibble]{tibble::tibble()}}
 }
 \description{
-if(tibble::is_tibble(x)){
-out <- x
-} else {
-out <- tibble::as_tibble(x, ...)
-}
-}
-\details{
-
+Convert Granges to bed tibble
 }
 \examples{
 \dontrun{

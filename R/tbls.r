@@ -54,12 +54,64 @@ gr_to_bed <- function(x) {
 
 # Validity checks ---------------------------------------------------
 
+#' Bed-like data.frame requirements for valr functions
+#'
+#' Required column names for interval dataframes are
+#' `chrom`, `start` and `end`. Internally interval dataframes are
+#' validated using `check_interval()`
+#'
+#' @param x A `data.frame` or `tibble::tibble`
+#'
+#' @aliases valr_input
+#'
+#' @examples
+#' # using tibble
+#' x <- tibble::tribble(
+#'   ~chrom, ~start, ~end,
+#'   'chr1',  1,     50,
+#'   'chr1',  10,    75,
+#'   'chr1',  100,   120
+#' )
+#'
+#' check_interval(x)
+#'
+#' # using base R data.frame
+#' x <- data.frame(chrom = "chr1",
+#'            start = 0,
+#'            end = 100,
+#'            stringsAsFactors = FALSE
+#' )
+#'
+#' check_interval(x)
+#'
+#' @export
 check_interval <- function(x) {
   expect_names <- c("chrom", "start", "end")
   check_names(x, expect_names)
   x
 }
 
+
+#' Input genome file data.frame requirements for valr
+#'
+#' Required column names for genome dataframes are
+#' `chrom` and `size`. Internally genome dataframes are
+#' validated using `check_genome()`.
+#'
+#' @param x A `data.frame` or `tibble::tibble`
+#' @rdname check_interval
+#'
+#' @examples
+#' # example genome input
+#'
+#' x <- tibble::tribble(
+#'   ~chrom, ~size,
+#'   'chr1', 1e6
+#' )
+#'
+#' check_genome(x)
+#'
+#' @export
 check_genome <- function(x) {
   expect_names <- c("chrom", "size")
   check_names(x, expect_names)

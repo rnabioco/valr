@@ -68,10 +68,10 @@ bed_file <- valr_example("3fields.bed.gz")
 read_bed(bed_file) # accepts filepaths or URLs
 ```
 
-`valr` can also operate on BED-like data.frames already constructed in R, provided that columns named `chrom`, `start` and `end` are present. New tbls can also be contructed using `trbl_interval()`.
+`valr` can also operate on BED-like data.frames already constructed in R, provided that columns named `chrom`, `start` and `end` are present. New tbls can also be contructed as either `tibbles` or base R `data.frames`.
 
 ```{r trbl_ivls}
-bed <- trbl_interval(
+bed <- tribble(
   ~chrom, ~start,  ~end, 
   "chr1", 1657492, 2657492, 
   "chr2", 2501324, 3094650
@@ -86,7 +86,7 @@ bed
 
 ```{r zero-based}
 # a chromosome 100 basepairs in length
-chrom <- trbl_interval(
+chrom <- tribble(
   ~chrom, ~start, ~end, 
   "chr1", 0,      100
 )
@@ -94,7 +94,7 @@ chrom <- trbl_interval(
 chrom
 
 # single basepair intervals
-bases <- trbl_interval(
+bases <- tribble(
   ~chrom, ~start, ~end, 
   "chr1", 0,      1, # first base of chromosome
   "chr1", 1,      2,  # second base of chromosome
@@ -121,13 +121,13 @@ if(require(RMySQL)) {
 The `bed_glyph()` tool illustrates the results of operations in `valr`, similar to those found in the `BEDtools` documentation. This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
 ```{r intersect_glyph}
-x <- tibble::tribble(
+x <- tribble(
   ~chrom, ~start, ~end,
   'chr1', 25,     50,
   'chr1', 100,    125
 )
 
-y <- tibble::tribble(
+y <- tribble(
   ~chrom, ~start, ~end,
   'chr1', 30,     75
 )
@@ -138,7 +138,7 @@ bed_glyph(bed_intersect(x, y))
 And this glyph illustrates `bed_merge()`:
 
 ```{r merge_glyph}
-x <- tibble::tribble(
+x <- tribble(
   ~chrom, ~start, ~end,
   'chr1',      1,      50,
   'chr1',      10,     75,
@@ -159,14 +159,14 @@ Command-line tools like `BEDtools` and `bedops` can be used in reproducible work
 The `group_by` function in dplyr can be used to perform fuctions on subsets of single and multiple `data_frame`s. Functions in `valr` leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by `strand` to perform comparisons among intervals on the same strand.
 
 ```{r strand}
-x <- tibble::tribble(
+x <- tribble(
   ~chrom, ~start, ~end, ~strand,
   'chr1', 1,      100,  '+',
   'chr1', 50,     150,  '+',
   'chr2', 100,    200,  '-'
 )
 
-y <- tibble::tribble(
+y <- tribble(
   ~chrom, ~start, ~end, ~strand,
   'chr1', 50,     125,  '+',
   'chr1', 50,     150,  '-',
@@ -288,7 +288,7 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 ### Data types
 
-* Create interval sets with `tbl_interval()` and `tbl_genome()`, which enforce strict column naming.
+* Validate interval sets with `check_interval()` and `check_genome()`, which enforce strict column naming.
 
 ### Reading data
 
