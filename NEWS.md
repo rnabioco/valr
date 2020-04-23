@@ -12,6 +12,8 @@ be suppressed by using `sorted = FALSE`.
 
 * Fixed `bed_closest()` to prevent erroneous intervals being reported when adjacent closest intervals are present in the `y` table. (#348)
 
+* Factor columns that are not used for grouping are returned as factors rather than inappropriately being coerced to integer vectors (#360)
+
 # valr 0.5.0
 
 ## Major changes 
