@@ -44,6 +44,10 @@ NULL
 check_interval <- function(x) {
   expect_names <- c("chrom", "start", "end")
   check_names(x, expect_names)
+
+  if(!tibble::is_tibble(x)){
+    x <- tibble::as_tibble(x)
+  }
   x
 }
 
@@ -82,6 +86,11 @@ check_genome <- function(x) {
       paste0(chroms[dups], collapse = ", ")
     ))
   }
+
+  if(!tibble::is_tibble(x)){
+    x <- tibble::as_tibble(x)
+  }
+
   x
 }
 
