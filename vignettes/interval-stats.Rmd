@@ -58,14 +58,16 @@ First we define a function that takes `x` and `y` intervals and computes distanc
 
 ```{r stats}
 distance_stats <- function(x, y, genome, group_var, type = NA) {
-  group_by_(x, .dots = group_var) %>%
+  group_by(x, !!rlang::sym(group_var)) %>%
     do(
        reldist = bed_reldist(., y, detail = TRUE) %>%
          select(.value = .reldist),
        absdist = bed_absdist(., y, genome) %>%
          select(.value = .absdist)
-       ) %>%
-    tidyr::gather_('stat', 'value', setdiff(names(.), list(group_var))) %>%
+       ) %>% 
+    tidyr::pivot_longer(cols = -name, 
+                        names_to = 'stat',
+                        values_to = 'value') %>% 
     mutate(type = type)
 } 
 ```
@@ -89,7 +91,7 @@ Now we can bind the observed and shuffled data together, and do some tidying to 
 1. `unnest()`ing the data frames
 1. creating groups for each repeat (`name`), stat (`reldist` or `absdist`) and type (`obs` or `shf`)
 1. adding unique surrogate row numbers for each group
-1. using `tidyr::spread()` to create two new `obs` and `shuf` columns
+1. using `tidyr::pivot_wider()` to create two new `obs` and `shuf` columns
 1. removing rows with `NA` values.
 
 ```{r bind_res}
@@ -97,13 +99,14 @@ res <- bind_rows(obs_stats, shf_stats) %>%
   tidyr::unnest(value) %>% 
   group_by(name, stat, type) %>%
   mutate(.id = row_number()) %>%
-  tidyr::spread(type, .value) %>%
+  tidyr::pivot_wider(names_from = "type",
+                     values_from = ".value") %>%
   na.omit()
 
 res
 ```
 
-Now that the data are formatted, we can use the non-parametric `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group. `broom::tidy()` is used to reformat the results of each test into a `data_frame`, and the results of each test are `gather`ed to into a `type` column for each test type.
+Now that the data are formatted, we can use the non-parametric `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group. `broom::tidy()` is used to reformat the results of each test into a `tibble`, and the results of each test are `pivot`ed to into a `type` column for each test type.
 
 ```{r pvalues, warning=FALSE}
 library(broom)
@@ -111,10 +114,11 @@ library(broom)
 pvals <- res %>% do(twosided = tidy(ks.test(.$obs, .$shuf)),
                     less = tidy(ks.test(.$obs, .$shuf, alternative = 'less')),
                     greater = tidy(ks.test(.$obs, .$shuf, alternative = 'greater'))) %>%
-  tidyr::gather(alt, type, -name, -stat) %>%
+  tidyr::pivot_longer(cols = -c(name, stat), names_to = "alt", values_to = "type") %>%
   unnest(type) %>%
   select(name:p.value) %>%
   arrange(p.value)
+
 ```
 
 Histgrams of the different stats help visulaize the distribution of p.values.
@@ -138,7 +142,10 @@ pvals <-
 Finally we can visualize these results using `stat_ecdf()`.
 
 ```{r ecfs}
-res_gather <- tidyr::gather(res, type, value, -name, -stat, -.id)
+res_gather <- tidyr::pivot_longer(res, 
+                                  cols = -c(name, stat, .id),
+                                  names_to = "type",
+                                  values_to = "value")
 
 signif <- head(pvals, 5)
 
@@ -180,7 +187,7 @@ Next we'll apply the `bed_projection()` test for each repeat class for both codi
 
 # function to apply bed_projection to groups
 projection_stats <- function(x, y, genome, group_var, type = NA) {
-  group_by_(x, .dots = group_var) %>%
+  group_by(x, !!rlang::sym(group_var)) %>%
     do(n_repeats = nrow(.),
        projection = bed_projection(., y, genome)) %>%
     mutate(type = type)
