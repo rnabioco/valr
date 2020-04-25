@@ -7,14 +7,14 @@
 bed_coverage(x, y, ...)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{y}{\link{ivl_df}}
 
 \item{...}{extra arguments (not used)}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with the following additional columns:
+\link{ivl_df} with the following additional columns:
 \itemize{
 \item \code{.ints} number of \code{x} intersections
 \item \code{.cov} per-base coverage of \code{x} intervals
@@ -36,7 +36,7 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 Book-ended intervals are included in coverage calculations.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
   "chr1", 100,    500,  '+',
   "chr2", 200,    400,  '+',
@@ -44,7 +44,7 @@ x <- trbl_interval(
   "chr2", 800,    900,  '-'
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end, ~value, ~strand,
   "chr1", 150,    400,  100,    '+',
   "chr1", 500,    550,  100,    '+',

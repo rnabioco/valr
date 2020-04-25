@@ -1,34 +1,34 @@
 #' Identify intervals in a genome not covered by a query.
 #'
-#' @param x [tbl_interval()]
-#' @param genome [tbl_genome()]
+#' @param x [ivl_df]
+#' @param genome [ivl_df]
 #'
 #' @family single set operations
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 0,      10,
 #'   'chr1', 75,     100
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   'chr1', 200
 #' )
 #'
 #' bed_glyph(bed_complement(x, genome))
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'    ~chrom,  ~size,
 #'    'chr1',  500,
 #'    'chr2',  600,
 #'    'chr3',  800
 #' )
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'    ~chrom, ~start, ~end,
 #'    'chr1', 100,    300,
 #'    'chr1', 200,    400,

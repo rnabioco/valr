@@ -16,9 +16,9 @@ values_unique(.data, sep = ",")
 values(.data, sep = ",")
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{y}{\link{ivl_df}}
 
 \item{...}{name-value pairs specifying column names and expressions to apply}
 
@@ -29,7 +29,7 @@ values(.data, sep = ",")
 \item{sep}{separator character}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}}
+\link{ivl_df}
 }
 \description{
 Apply functions like \code{\link[=min]{min()}} and \code{\link[=count]{count()}} to intersecting intervals.
@@ -49,13 +49,13 @@ compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
  ~chrom, ~start, ~end,
  'chr1', 100,    250,
  'chr2', 250,    500
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
  ~chrom, ~start, ~end, ~value,
  'chr1', 100,    250,  10,
  'chr1', 150,    250,  20,

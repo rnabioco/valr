@@ -2,8 +2,8 @@
 #'
 #' Subtract `y` intervals from `x` intervals.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
 #' @param any remove any `x` intervals that overlap `y`
 #'
 #' @template groups
@@ -13,19 +13,19 @@
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 1,      100
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 50,     75
 #' )
 #'
 #' bed_glyph(bed_subtract(x, y))
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  'chr1', 100,    200,
 #'  'chr1', 250,    400,
@@ -34,7 +34,7 @@
 #'  'chr1', 1300,   1500
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  'chr1', 150,    175,
 #'  'chr1', 510,    525,

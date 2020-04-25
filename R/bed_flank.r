@@ -1,7 +1,7 @@
 #' Create flanking intervals from input intervals.
 #'
-#' @param x [tbl_interval()]
-#' @param genome [tbl_genome()]
+#' @param x [ivl_df]
+#' @param genome [genome_df]
 #' @param both number of bases on both sizes
 #' @param left number of bases on left side
 #' @param right number of bases on right side
@@ -10,33 +10,33 @@
 #' @param trim adjust coordinates for out-of-bounds intervals
 #' @param ... extra arguments (not used)
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family single set operations
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/flank.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1',      25,      50,
 #'   'chr1',      100,     125
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   'chr1', 130
 #' )
 #'
 #' bed_glyph(bed_flank(x, genome, both = 20))
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'  'chr1', 500,    1000, '.',   '.',    '+',
 #'  'chr1', 1000,   1500, '.',   '.',    '-'
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   'chr1', 5000
 #' )

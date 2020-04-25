@@ -7,16 +7,16 @@
 bed_projection(x, y, genome, by_chrom = FALSE)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{y}{\link{ivl_df}}
 
-\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
+\item{genome}{\link{genome_df}}
 
 \item{by_chrom}{compute test per chromosome}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with the following columns:
+\link{ivl_df} with the following columns:
 \itemize{
 \item \code{chrom} the name of chromosome tested if \code{by_chrom = TRUE},
 otherwise has a value of \code{whole_genome}

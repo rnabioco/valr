@@ -17,9 +17,9 @@ bed_flank(
 )
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
+\item{genome}{\link{genome_df}}
 
 \item{both}{number of bases on both sizes}
 
@@ -36,32 +36,32 @@ bed_flank(
 \item{...}{extra arguments (not used)}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}}
+\link{ivl_df}
 }
 \description{
 Create flanking intervals from input intervals.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',      25,      50,
   'chr1',      100,     125
 )
 
-genome <- trbl_genome(
+genome <- tibble::tribble(
   ~chrom, ~size,
   'chr1', 130
 )
 
 bed_glyph(bed_flank(x, genome, both = 20))
 
-x <- trbl_interval(
+x <- tibble::tribble(
  ~chrom, ~start, ~end, ~name, ~score, ~strand,
  'chr1', 500,    1000, '.',   '.',    '+',
  'chr1', 1000,   1500, '.',   '.',    '-'
 )
 
-genome <- trbl_genome(
+genome <- tibble::tribble(
   ~chrom, ~size,
   'chr1', 5000
 )

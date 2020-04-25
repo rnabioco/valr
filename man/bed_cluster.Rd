@@ -7,12 +7,12 @@
 bed_cluster(x, max_dist = 0)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
 \item{max_dist}{maximum distance between clustered intervals.}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with \code{.id} column specifying sets of clustered intervals.
+\link{ivl_df} with \code{.id} column specifying sets of clustered intervals.
 }
 \description{
 The ouput \code{.id} column can be used in downstream grouping operations. Default
@@ -27,7 +27,7 @@ compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 100,    200,
   'chr1', 180,    250,
@@ -40,7 +40,7 @@ x <- trbl_interval(
 bed_cluster(x)
 
 # glyph illustrating clustering of overlapping and book-ended intervals
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 1,      10,
   'chr1', 5,      20,

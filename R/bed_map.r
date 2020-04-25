@@ -9,14 +9,14 @@
 #' Non-intersecting intervals from `x` are included in the result with `NA`
 #' values
 #'
-#' @param x [tbl_interval()]
-#' @param y  [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y  [ivl_df]
 #' @param ... name-value pairs specifying column names and expressions to apply
 #' @param min_overlap minimum overlap for intervals.
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family multiple set operations
 #'

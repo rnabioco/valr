@@ -4,13 +4,13 @@
 #' pairs. Default `max_dist` of `0` means book-ended intervals are
 #' merged.
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #' @param max_dist maximum distance between intervals to merge
 #' @param ... name-value pairs that specify operations on merged intervals
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family single set operations
 #'
@@ -18,7 +18,7 @@
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1',  1,      50,
 #'   'chr1',  10,     75,
@@ -27,7 +27,7 @@
 #'
 #' bed_glyph(bed_merge(x))
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~value, ~strand,
 #'  "chr1", 1,      50,   1,      '+',
 #'  "chr1", 100,    200,  2,      '+',

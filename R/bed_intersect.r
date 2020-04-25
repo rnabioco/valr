@@ -3,14 +3,14 @@
 #' Report intersecting intervals from `x` and `y` tbls. Book-ended intervals
 #' have `.overlap` values of `0` in the output.
 #'
-#' @param x [tbl_interval()]
-#' @param ... one or more (e.g. a list of) `y` [tbl_interval()]s
+#' @param x [ivl_df]
+#' @param ... one or more (e.g. a list of) `y` [ivl_df()]s
 #' @param invert report `x` intervals not in `y`
 #' @param suffix colname suffixes in output
 #'
 #' @return
 #'
-#' [tbl_interval()] with original columns from `x` and `y` suffixed with `.x`
+#' [ivl_df] with original columns from `x` and `y` suffixed with `.x`
 #' and `.y`, and a new `.overlap` column with the extent of overlap for the
 #' intersecting intervals.
 #'
@@ -24,13 +24,13 @@
 #' @template groups
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 25,      50,
 #'   'chr1', 100,     125
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 30,     75
 #' )
@@ -39,7 +39,7 @@
 #'
 #' bed_glyph(bed_intersect(x, y, invert = TRUE))
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 100,    500,
 #'   'chr2', 200,    400,
@@ -47,7 +47,7 @@
 #'   'chr2', 800,    900
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
 #'   'chr1', 150,    400,  100,
 #'   'chr1', 500,    550,  100,
@@ -64,7 +64,7 @@
 #' dplyr::mutate(res, start = pmax(start.x, start.y),
 #'                    end = pmin(end.x, end.y))
 #'
-#' z <- trbl_interval(
+#' z <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
 #'   'chr1', 150,    400,  100,
 #'   'chr1', 500,    550,  100,

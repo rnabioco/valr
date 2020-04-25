@@ -9,12 +9,12 @@
 #' This function is useful for calculating summaries across overlapping intervals
 #' without merging the intervals.
 #'
-#' @param x [trbl_interval()]
+#' @param x [ivl_df]
 #' @param ... name-value pairs specifying column names and expressions to apply
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df()]
 #'
 #' @family single set operations
 #'
@@ -22,7 +22,7 @@
 #' \url{https://bedops.readthedocs.io/en/latest/content/reference/set-operations/bedops.html#partition-p-partition}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value, ~strand,
 #'  'chr1', 100,    500,  10, "+",
 #'  'chr1', 200,    400,  20, "-",
@@ -44,7 +44,7 @@
 #' bed_partition(x, value = sum(value))
 #'
 #' # combine values across multiple tibbles
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value, ~strand,
 #'  'chr1', 10,     500,  100, "+",
 #'  'chr1', 250,    420,  200, "-",
@@ -57,6 +57,8 @@
 #'
 #' @export
 bed_partition <- function(x, ...) {
+  x <- check_interval(x)
+
   groups_df <- group_vars(x)
   x <- bed_sort(x)
 

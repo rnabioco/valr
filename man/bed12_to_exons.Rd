@@ -7,7 +7,7 @@
 bed12_to_exons(x)
 }
 \arguments{
-\item{x}{\link{valr_input}}
+\item{x}{\link{ivl_df}}
 }
 \description{
 After conversion to BED6 format, the \code{score} column contains the exon

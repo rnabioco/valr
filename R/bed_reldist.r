@@ -1,13 +1,13 @@
 #' Compute relative distances between intervals.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
 #' @param detail report relative distances for each `x` interval.
 #'
 #' @family interval statistics
 #'
 #' @return
-#' If `detail = FALSE`, a [tbl_interval()] that summarizes
+#' If `detail = FALSE`, a [ivl_df] that summarizes
 #' calculated `.reldist` values with the following columns:
 #'
 #'   - `.reldist` relative distance metric

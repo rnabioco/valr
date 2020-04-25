@@ -4,7 +4,7 @@
 #' number, with respect to strand (i.e., the first exon for `-` strand
 #' genes will have larger start and end coordinates).
 #'
-#' @param x [valr_input]
+#' @param x [ivl_df]
 #'
 #' @family utilities
 #'

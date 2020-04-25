@@ -12,8 +12,8 @@
 #'                      {\mid x \mid + \mid y \mid -
 #'                       \mid x \bigcap y \mid} }
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
 #'
 #' @template stats
 #'

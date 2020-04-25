@@ -1,21 +1,21 @@
 #' Shuffle input intervals.
 #'
-#' @param x [tbl_interval()]
-#' @param genome [tbl_genome()]
-#' @param incl [tbl_interval()] of included intervals
-#' @param excl [tbl_interval()] of excluded intervals
+#' @param x [ivl_df]
+#' @param genome [genome_df]
+#' @param incl [ivl_df] of included intervals
+#' @param excl [ivl_df] of excluded intervals
 #' @param max_tries maximum tries to identify a bounded interval
 #' @param within shuffle within chromosomes
 #' @param seed seed for reproducible intervals
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family randomizing operations
 #'
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 #'
 #' @examples
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'  ~chrom, ~size,
 #'  "chr1", 1e6,
 #'  "chr2", 2e6,

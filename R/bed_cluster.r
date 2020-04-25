@@ -4,12 +4,12 @@
 #' `max_dist = 0` means that both overlapping and book-ended intervals will be
 #' clustered.
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #' @param max_dist maximum distance between clustered intervals.
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()] with `.id` column specifying sets of clustered intervals.
+#' @return [ivl_df] with `.id` column specifying sets of clustered intervals.
 #'
 #' @family single set operations
 #'
@@ -17,7 +17,7 @@
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 100,    200,
 #'   'chr1', 180,    250,
@@ -30,7 +30,7 @@
 #' bed_cluster(x)
 #'
 #' # glyph illustrating clustering of overlapping and book-ended intervals
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 1,      10,
 #'   'chr1', 5,      20,

@@ -10,7 +10,7 @@
 #' @param sort sort the tbl by chrom and start
 #' @param ... options to pass to [readr::read_tsv()]
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family read functions
 #'

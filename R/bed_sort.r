@@ -1,6 +1,6 @@
 #' Sort a set of intervals.
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #' @param by_size sort by interval size
 #' @param by_chrom sort within chromosome
 #' @param reverse reverse sort order
@@ -9,7 +9,7 @@
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'    ~chrom, ~start, ~end,
 #'    "chr8", 500,    1000,
 #'    "chr8", 1000,   5000,

@@ -7,7 +7,7 @@
 create_utrs3(x)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}} in BED12 format}
+\item{x}{\link{ivl_df} in BED12 format}
 }
 \description{
 Create 3' UTR features.

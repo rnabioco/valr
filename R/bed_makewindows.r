@@ -1,6 +1,6 @@
 #' Divide intervals into new sub-intervals ("windows").
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #' @param win_size divide intervals into fixed-size windows
 #' @param step_size size to step before next window
 #' @param num_win divide intervals to fixed number of windows
@@ -13,11 +13,11 @@
 #'
 #' @family utilities
 #'
-#' @return [tbl_interval()] with `.win_id` column that contains a numeric
+#' @return [ivl_df] with `.win_id` column that contains a numeric
 #'   identifier for the window.
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'   "chr1", 100,    200,  'A',   '.',    '+'
 #' )

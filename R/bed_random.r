@@ -1,6 +1,6 @@
 #' Generate randomly placed intervals on a genome.
 #'
-#' @param genome [tbl_genome()]
+#' @param genome [genome_df]
 #' @param length length of intervals
 #' @param n number of intervals to generate
 #' @param seed seed RNG for reproducible intervals
@@ -8,14 +8,14 @@
 #'
 #' @details Sorting can be suppressed with `sorted = FALSE`.
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family randomizing operations
 #'
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
 #'
 #' @examples
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom,  ~size,
 #'   "chr1",  10000000,
 #'   "chr2",  50000000,

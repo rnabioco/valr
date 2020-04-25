@@ -15,12 +15,12 @@
 #'   Both absolute and scaled distances are reported as `.absdist` and
 #'   `.absdist_scaled`.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
-#' @param genome [tbl_genome()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
+#' @param genome [genome_df]
 #'
 #' @return
-#' [tbl_interval()] with `.absdist` and `.absdist_scaled` columns.
+#' [ivl_df] with `.absdist` and `.absdist_scaled` columns.
 #'
 #' @template stats
 #'

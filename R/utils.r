@@ -18,17 +18,17 @@ valr_example <- function(path) {
 #' ordering. `x` columns that do not exist in `y` are moved to the
 #' last column.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
 #'
 #' @examples
 #' # names out of order
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~end, ~chrom, ~start, ~value,
 #'   75,   "chr1", 125,    10
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,  ~scores,
 #'   "chr1", 50,     100,   1.2,
 #'   "chr1", 100,    150,   2.4
@@ -52,19 +52,19 @@ reorder_names <- function(x, y) {
 #' Identify minimum shared groups between `x` and `y` tbls. Returns
 #' `NULL` if there are no shared groups.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
 #'
 #' @return `list` of groups or `NULL`
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
 #'   "chr1", 150,    400,  100,
 #'   "chr2", 230,    430,  200
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
 #'   "chr1", 50,     100,  1,
 #'   "chr1", 100,    150,  2
@@ -103,17 +103,8 @@ check_suffix <- function(suffix) {
 #' @return `tibble` of grouping labels or `NULL` if no groups present
 #' @noRd
 get_labels <- function(grp_tbl) {
-
-  dplyr_version <- utils::packageVersion("dplyr")
-
-  if (dplyr_version < "0.7.9.9000") {
-    grp_df <- attr(grp_tbl, "labels")
-  } else if (dplyr_version >= "0.7.9.9000") {
-    grp_df <- attr(grp_tbl, "groups")
-    grp_df <- grp_df[, !colnames(grp_df) %in% ".rows"]
-  } else {
-    stop("unable to extract labels from input dataframe")
-  }
+  grp_df <- attr(grp_tbl, "groups")
+  grp_df <- grp_df[, !colnames(grp_df) %in% ".rows"]
   grp_df
 }
 

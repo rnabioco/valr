@@ -7,14 +7,14 @@
 bed_merge(x, max_dist = 0, ...)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
 \item{max_dist}{maximum distance between intervals to merge}
 
 \item{...}{name-value pairs that specify operations on merged intervals}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}}
+\link{ivl_df}
 }
 \description{
 Operations can be performed on merged intervals by specifying name-value
@@ -29,7 +29,7 @@ compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1',  1,      50,
   'chr1',  10,     75,
@@ -38,7 +38,7 @@ x <- trbl_interval(
 
 bed_glyph(bed_merge(x))
 
-x <- trbl_interval(
+x <- tibble::tribble(
  ~chrom, ~start, ~end, ~value, ~strand,
  "chr1", 1,      50,   1,      '+',
  "chr1", 100,    200,  2,      '+',
