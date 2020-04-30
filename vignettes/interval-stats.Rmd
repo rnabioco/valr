@@ -199,7 +199,7 @@ pvals_ncoding <- projection_stats(rpts, promoters_ncoding, genome, 'name', 'non_
 pvals <-
   bind_rows(pvals_ncoding, pvals_coding) %>%
   ungroup() %>% 
-  tidyr::unnest() %>%
+  tidyr::unnest(cols = c(n_repeats, projection)) %>%
   select(-chrom)
 
 # filter for repeat classes with at least 10 intervals
