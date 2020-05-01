@@ -17,6 +17,8 @@ be suppressed by using `sorted = FALSE`.
 
 * `bed_sort()` now uses base R sorting with the `radix` method for increased speed. (#353)
 
+* `tbls` processed by `bed_merge()`or `bed_sort()` no longer store either `merged` or `sorted` as attributes, due to these attributes being rarely checked in the codebase and potential sources of unexpected behavior.
+
 ## Bug fixes
 
 * Fixed `bed_closest()` to prevent erroneous intervals being reported when adjacent closest intervals are present in the `y` table. (#348)
