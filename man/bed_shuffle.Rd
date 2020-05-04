@@ -15,13 +15,13 @@ bed_shuffle(
 )
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
+\item{genome}{\link{genome_df}}
 
-\item{incl}{\code{\link[=tbl_interval]{tbl_interval()}} of included intervals}
+\item{incl}{\link{ivl_df} of included intervals}
 
-\item{excl}{\code{\link[=tbl_interval]{tbl_interval()}} of excluded intervals}
+\item{excl}{\link{ivl_df} of excluded intervals}
 
 \item{max_tries}{maximum tries to identify a bounded interval}
 
@@ -30,13 +30,13 @@ bed_shuffle(
 \item{seed}{seed for reproducible intervals}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}}
+\link{ivl_df}
 }
 \description{
 Shuffle input intervals.
 }
 \examples{
-genome <- trbl_genome(
+genome <- tibble::tribble(
  ~chrom, ~size,
  "chr1", 1e6,
  "chr2", 2e6,

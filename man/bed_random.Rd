@@ -7,7 +7,7 @@
 bed_random(genome, length = 1000, n = 1e+06, seed = 0, sorted = TRUE)
 }
 \arguments{
-\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
+\item{genome}{\link{genome_df}}
 
 \item{length}{length of intervals}
 
@@ -18,7 +18,7 @@ bed_random(genome, length = 1000, n = 1e+06, seed = 0, sorted = TRUE)
 \item{sorted}{return sorted output}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}}
+\link{ivl_df}
 }
 \description{
 Generate randomly placed intervals on a genome.
@@ -27,7 +27,7 @@ Generate randomly placed intervals on a genome.
 Sorting can be suppressed with \code{sorted = FALSE}.
 }
 \examples{
-genome <- trbl_genome(
+genome <- tibble::tribble(
   ~chrom,  ~size,
   "chr1",  10000000,
   "chr2",  50000000,

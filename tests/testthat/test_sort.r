@@ -86,7 +86,7 @@ test_that("ties in start are sorted by end", {
   )
 
   res <- bed_sort(x)
-  expect_equal(res, pred)
+  expect_equivalent(res, pred)
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/sort/test-sort.sh

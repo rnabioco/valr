@@ -9,20 +9,20 @@
 #' @return [ggplot2::ggplot()]
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  'chr1', 25,     50,
 #'  'chr1', 100,    125
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
 #'   'chr1', 30,     75,  50
 #' )
 #'
 #' bed_glyph(bed_intersect(x, y))
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 30,     75,
 #'   'chr1', 50,     90,
@@ -103,7 +103,7 @@ bed_glyph <- function(expr, label = NULL) {
   for (i in 1:nargs) {
     env_i <- get(expr_vars[i], env)
     rows <- mutate(env_i, .facet = expr_vars[i])
-    res <- bind_rows(res, rows)
+    res <- bind_rows(res, as_tibble(rows))
   }
 
   # assign `.y` values in the result based on clustering

@@ -7,16 +7,16 @@
 bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"))
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{y}{\link{ivl_df}}
 
 \item{overlap}{report overlapping intervals}
 
 \item{suffix}{colname suffixes in output}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with additional columns:
+\link{ivl_df} with additional columns:
 \itemize{
 \item \code{.dist} distance to closest interval. Negative distances
 denote upstream intervals.
@@ -34,12 +34,12 @@ compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 100,    125
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 25,     50,
   'chr1', 140,    175
@@ -47,13 +47,13 @@ y <- trbl_interval(
 
 bed_glyph(bed_closest(x, y))
 
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 500,    600,
   "chr2", 5000,   6000
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 100,    200,
   "chr1", 150,    200,
@@ -66,12 +66,12 @@ bed_closest(x, y)
 bed_closest(x, y, overlap = FALSE)
 
 # Report distance based on strand
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 10,	   20,   "a",   1,      "-"
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 8,	     9,	   "b",   1,      "+",
   "chr1", 21,	   22,	 "b",   1,      "-"

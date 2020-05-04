@@ -4,13 +4,13 @@
 #' pairs. Default `max_dist` of `0` means book-ended intervals are
 #' merged.
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #' @param max_dist maximum distance between intervals to merge
 #' @param ... name-value pairs that specify operations on merged intervals
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family single set operations
 #'
@@ -18,7 +18,7 @@
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1',  1,      50,
 #'   'chr1',  10,     75,
@@ -27,7 +27,7 @@
 #'
 #' bed_glyph(bed_merge(x))
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~value, ~strand,
 #'  "chr1", 1,      50,   1,      '+',
 #'  "chr1", 100,    200,  2,      '+',
@@ -49,29 +49,24 @@
 #'
 #' @export
 bed_merge <- function(x, max_dist = 0, ...) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   if (max_dist < 0) {
     stop("max_dist must be positive", call. = FALSE)
   }
 
-  if (is_merged(x)) return(x)
-
-  groups_x <- groups(x)
+  groups_x <- group_vars(x)
 
   res <- bed_sort(x)
 
-  res <- group_by(res, chrom, add = TRUE)
-
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    res <- update_groups(res)
-  }
+  group_vars <- rlang::syms(unique(c("chrom", groups_x)))
+  res <- group_by(res, !!! group_vars)
 
   # if no dots are passed then use fast internal merge
   if (!is.null(substitute(...))) {
     res <- merge_impl(res, max_dist, collapse = FALSE)
-    group_vars <- rlang::syms(c("chrom", ".id_merge", groups_x))
-    res <- group_by(res, !!! group_vars, add = TRUE)
+    group_vars <- rlang::syms(unique(c("chrom", ".id_merge", groups_x)))
+    res <- group_by(res, !!! group_vars)
 
     res <- summarize(res, !!! rlang::quos(
       .start = min(start),
@@ -94,21 +89,5 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   res <- reorder_names(res, x)
 
-  attr(res, "merged") <- TRUE
-
   res
-}
-
-#' Ask whether a tbl is already merged.
-#'
-#' @param x tbl of intervals
-#' @noRd
-is_merged <- function(x) {
-  merged_attr <- attr(x, "merged")
-
-  if (is.null(merged_attr) || !merged_attr) {
-    return(FALSE)
-  } else {
-    return(TRUE)
-  }
 }

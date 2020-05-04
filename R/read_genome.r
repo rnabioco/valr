@@ -7,7 +7,7 @@
 #' @param path containing chrom/contig names and sizes, one-pair-per-line,
 #'   tab-delimited
 #'
-#' @return [tbl_genome()], sorted by `size`
+#' @return [genome_df], sorted by `size`
 #'
 #' @note URLs to genome files can also be used.
 #'
@@ -26,7 +26,6 @@ read_genome <- function(path) {
   colnames <- c("chrom", "size")
   genome <- suppressMessages(readr::read_tsv(path, col_names = colnames))
   genome <- arrange(genome, desc(size))
-  genome <- as.tbl_genome(genome)
   genome
 }
 
@@ -35,16 +34,16 @@ read_genome <- function(path) {
 #' Used to remove out-of-bounds intervals, or trim interval coordinates using a
 #' `genome`.
 #'
-#' @param x [tbl_interval()]
-#' @param genome [tbl_genome()]
+#' @param x [ivl_df]
+#' @param genome [genome_df]
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family utilities
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  "chr1", -100,   500,
 #'  "chr1", 100,    1e9,
@@ -61,7 +60,8 @@ read_genome <- function(path) {
 #'
 #' @export
 bound_intervals <- function(x, genome, trim = FALSE) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
+  genome <- check_genome(genome)
   x <- ungroup(x)
 
   res <- left_join(x, genome, by = "chrom")

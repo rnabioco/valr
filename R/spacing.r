@@ -3,14 +3,14 @@
 #' Spacing for the first interval of each chromosome is undefined (`NA`). The
 #' leading interval of an overlapping interval pair has a negative value.
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #'
-#' @return [tbl_interval()] with `.spacing` column.
+#' @return [ivl_df] with `.spacing` column.
 #'
 #' @family utilities
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 1,      100,
 #'   'chr1', 150,    200,
@@ -21,7 +21,7 @@
 #'
 #' @export
 interval_spacing <- function(x) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   res <- bed_sort(x)
 

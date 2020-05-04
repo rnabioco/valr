@@ -1,6 +1,6 @@
 #' Divide intervals into new sub-intervals ("windows").
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #' @param win_size divide intervals into fixed-size windows
 #' @param step_size size to step before next window
 #' @param num_win divide intervals to fixed number of windows
@@ -13,11 +13,11 @@
 #'
 #' @family utilities
 #'
-#' @return [tbl_interval()] with `.win_id` column that contains a numeric
+#' @return [ivl_df] with `.win_id` column that contains a numeric
 #'   identifier for the window.
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'   "chr1", 100,    200,  'A',   '.',    '+'
 #' )
@@ -61,7 +61,7 @@ bed_makewindows <- function(x,
     }
   }
 
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   if (win_size == 0 && num_win == 0) {
     stop("specify either `win_size` or `num_win`", call. = FALSE)
@@ -74,12 +74,7 @@ bed_makewindows <- function(x,
   # dummy win_ids
   x <- mutate(x, .win_id = 0)
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x <- update_groups(x)
-  }
-
   res <- makewindows_impl(x, win_size, num_win, step_size, reverse)
-  res <- as.tbl_interval(res)
 
   res
 }

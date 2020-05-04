@@ -1,10 +1,10 @@
-x <- trbl_interval(
+x <- tibble::tribble(
  ~chrom, ~start, ~end,
  'chr1', 100,    250,
  'chr2', 250,    500
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
  ~chrom, ~start, ~end, ~value,
  'chr1', 100,    250,  10,
  'chr1', 150,    250,  20,

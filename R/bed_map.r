@@ -9,14 +9,14 @@
 #' Non-intersecting intervals from `x` are included in the result with `NA`
 #' values
 #'
-#' @param x [tbl_interval()]
-#' @param y  [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y  [ivl_df]
 #' @param ... name-value pairs specifying column names and expressions to apply
 #' @param min_overlap minimum overlap for intervals.
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family multiple set operations
 #'
@@ -27,8 +27,8 @@
 #'
 #' @export
 bed_map <- function(x, y, ..., min_overlap = 1) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
+  x <- check_interval(x)
+  y <- check_interval(y)
 
   ## add suffixes to all x columns except `chrom`
   x_nms <- str_c(names(x)[!names(x) %in% "chrom"], ".x")
@@ -55,11 +55,6 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
 
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
-
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x <- update_groups(x)
-    y <- update_groups(y)
-  }
 
   grp_indexes <- shared_group_indexes(x, y)
 

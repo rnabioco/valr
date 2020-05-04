@@ -101,7 +101,7 @@ test_that("book-ended intervals are not reported", {
     "chr1", 100, 200, 10
   )
   res <- bed_map(x, y, value = sum(value))
-  expect_equal(res, expected)
+  expect_equivalent(res, expected)
 })
 
 test_that("ensure that mapping is calculated with respect to input tbls issue#108", {

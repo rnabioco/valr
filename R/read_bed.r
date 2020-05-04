@@ -10,7 +10,7 @@
 #' @param sort sort the tbl by chrom and start
 #' @param ... options to pass to [readr::read_tsv()]
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family read functions
 #'
@@ -31,12 +31,11 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
 
-  bed_raw <- readr::read_tsv(
+  out <- readr::read_tsv(
     filename,
     col_names = colnames,
     col_types = coltypes, ...
   )
-  out <- as.tbl_interval(bed_raw)
 
   if (sort) out <- bed_sort(out)
 
@@ -90,7 +89,6 @@ read_narrowpeak <- function(filename, ...) {
     col_types = peak_coltypes,
     col_names = colnames
   )
-  out <- as.tbl_interval(out)
   out
 }
 
@@ -107,7 +105,6 @@ read_broadpeak <- function(filename, ...) {
   coltypes <- peak_coltypes[1:length(peak_coltypes) - 1]
   colnames <- names(coltypes)
   out <- readr::read_tsv(filename, col_names = colnames, col_types = coltypes)
-  out <- as.tbl_interval(out)
   out
 }
 

@@ -2,7 +2,7 @@
 #'
 #' @inheritParams bed_flank
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family single set operations
 #'
@@ -10,25 +10,25 @@
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/slop.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 110,    120,
 #'   'chr1', 225,    235
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   'chr1', 400
 #' )
 #'
 #' bed_glyph(bed_slop(x, genome, both = 20, trim = TRUE))
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'  ~chrom, ~size,
 #'  "chr1", 5000
 #' )
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end, ~name, ~score, ~strand,
 #'  "chr1", 500,    1000, '.',   '.',     '+',
 #'  "chr1", 1000,   1500, '.',   '.',     '-'
@@ -46,8 +46,8 @@
 bed_slop <- function(x, genome, both = 0, left = 0,
                      right = 0, fraction = FALSE,
                      strand = FALSE, trim = FALSE, ...) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  genome <- check_genome(genome)
 
   if (strand && !"strand" %in% colnames(x)) {
     stop("expected `strand` in `x`", call. = FALSE)

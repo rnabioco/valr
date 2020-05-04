@@ -175,7 +175,7 @@ test_that("test baseline subtraction", {
     "chr1", 50, 70, "a2", 2, "-"
   )
   res <- bed_subtract(a, b)
-  expect_equal(res, c)
+  expect_equivalent(res, c)
 })
 
 test_that("test any = TRUE subtraction", {
@@ -201,5 +201,5 @@ test_that("test with 2 DBs", {
     "chr1", 65, 70, "a2", 2, "-"
   )
   res <- bed_subtract(bed_subtract(a, b), b2)
-  expect_equal(res, c)
+  expect_equivalent(res, c)
 })

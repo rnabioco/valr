@@ -1,7 +1,7 @@
 #' Identify intervals within a specified distance.
 #'
-#' @param x [tbl_interval()]
-#' @param y  [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y  [ivl_df]
 #' @param ... params for bed_slop and bed_intersect
 #' @inheritParams bed_slop
 #' @inheritParams bed_intersect
@@ -10,25 +10,25 @@
 #'
 #' @family multiple set operations
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'  ~chrom, ~start, ~end,
 #'  'chr1', 25,     50,
 #'  'chr1', 100,    125
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 60,     75
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   'chr1', 125
 #' )
 #'
 #' bed_glyph(bed_window(x, y, genome, both = 15))
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 10,    100,
 #'   "chr2", 200,    400,
@@ -36,14 +36,14 @@
 #'   "chr2", 800,    900
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   "chr1", 150,    400,
 #'   "chr2", 230,    430,
 #'   "chr2", 350,    430
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   "chr1", 500,
 #'   "chr2", 1000
@@ -55,9 +55,9 @@
 #'
 #' @export
 bed_window <- function(x, y, genome, ...) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  y <- check_interval(y)
+  genome <- check_genome(genome)
 
   x <- mutate(x, .start = start, .end = end)
 

@@ -1,7 +1,7 @@
 #' Compute coverage of intervals.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
 #' @param ... extra arguments (not used)
 #'
 #' @note Book-ended intervals are included in coverage calculations.
@@ -11,7 +11,7 @@
 #' @family multiple set operations
 #'
 #' @return
-#' [tbl_interval()] with the following additional columns:
+#' [ivl_df] with the following additional columns:
 #'
 #'   - `.ints` number of `x` intersections
 #'   - `.cov` per-base coverage of `x` intervals
@@ -19,7 +19,7 @@
 #'   - `.frac` `.len` scaled by the number of `y` intervals
 #
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~strand,
 #'   "chr1", 100,    500,  '+',
 #'   "chr2", 200,    400,  '+',
@@ -27,7 +27,7 @@
 #'   "chr2", 800,    900,  '-'
 #' )
 #'
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value, ~strand,
 #'   "chr1", 150,    400,  100,    '+',
 #'   "chr1", 500,    550,  100,    '+',
@@ -41,8 +41,8 @@
 #'
 #' @export
 bed_coverage <- function(x, y, ...) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
+  x <- check_interval(x)
+  y <- check_interval(y)
 
   x <- bed_sort(x)
   y <- bed_sort(y)
@@ -58,11 +58,6 @@ bed_coverage <- function(x, y, ...) {
 
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
-
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x <- update_groups(x)
-    y <- update_groups(y)
-  }
 
   grp_indexes <- shared_group_indexes(x, y)
   res <- coverage_impl(x, y,

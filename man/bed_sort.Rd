@@ -7,7 +7,7 @@
 bed_sort(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
 \item{by_size}{sort by interval size}
 
@@ -19,7 +19,7 @@ bed_sort(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE)
 Sort a set of intervals.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
    ~chrom, ~start, ~end,
    "chr8", 500,    1000,
    "chr8", 1000,   5000,

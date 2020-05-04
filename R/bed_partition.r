@@ -9,12 +9,12 @@
 #' This function is useful for calculating summaries across overlapping intervals
 #' without merging the intervals.
 #'
-#' @param x [trbl_interval()]
+#' @param x [ivl_df]
 #' @param ... name-value pairs specifying column names and expressions to apply
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df()]
 #'
 #' @family single set operations
 #'
@@ -22,7 +22,7 @@
 #' \url{https://bedops.readthedocs.io/en/latest/content/reference/set-operations/bedops.html#partition-p-partition}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value, ~strand,
 #'  'chr1', 100,    500,  10, "+",
 #'  'chr1', 200,    400,  20, "-",
@@ -44,7 +44,7 @@
 #' bed_partition(x, value = sum(value))
 #'
 #' # combine values across multiple tibbles
-#' y <- trbl_interval(
+#' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value, ~strand,
 #'  'chr1', 10,     500,  100, "+",
 #'  'chr1', 250,    420,  200, "-",
@@ -57,18 +57,17 @@
 #'
 #' @export
 bed_partition <- function(x, ...) {
+  x <- check_interval(x)
+
   groups_df <- group_vars(x)
   x <- bed_sort(x)
-  x <- group_by(x, chrom, add = TRUE)
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x_cpp <- update_groups(x)
-    res <- partition_impl(x_cpp)
-  } else {
-    res <- partition_impl(x)
-  }
+  groups <- rlang::syms(unique(c("chrom", groups_df)))
+  x <- group_by(x, !!! groups)
 
-  res <- tbl_df(res)
+  res <- partition_impl(x)
+
+  res <- tibble::as_tibble(res)
 
   # drop non-grouped cols as values no longer match ivls
   res <- select(res, chrom, start, end, one_of(groups_df))

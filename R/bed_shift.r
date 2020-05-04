@@ -2,32 +2,32 @@
 #'
 #' Out-of-bounds intervals are removed by default.
 #'
-#' @param x [tbl_interval()]
-#' @param genome [tbl_genome()]
+#' @param x [ivl_df]
+#' @param genome [ivl_df]
 #' @param size number of bases to shift. postive numbers shift right, negative shift left.
 #' @param fraction define `size` as a fraction of interval
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family single set operations
 #' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'  'chr1',  25,     50,
 #'  'chr1',  100,    125
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   'chr1', 125
 #' )
 #'
 #' bed_glyph(bed_shift(x, genome, size = -20))
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'    ~chrom, ~start, ~end, ~strand,
 #'    "chr1", 100,    150,  "+",
 #'    "chr1", 200,    250,  "+",
@@ -37,7 +37,7 @@
 #'    "chr3", 600,    650,  "-"
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'    ~chrom, ~size,
 #'    "chr1", 1000,
 #'    "chr2", 2000,
@@ -54,8 +54,8 @@
 #'
 #' @export
 bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  genome <- check_genome(genome)
 
   stranded <- "strand" %in% groups(x)
 

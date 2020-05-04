@@ -1,13 +1,13 @@
 #' Compute relative distances between intervals.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
 #' @param detail report relative distances for each `x` interval.
 #'
 #' @family interval statistics
 #'
 #' @return
-#' If `detail = FALSE`, a [tbl_interval()] that summarizes
+#' If `detail = FALSE`, a [ivl_df] that summarizes
 #' calculated `.reldist` values with the following columns:
 #'
 #'   - `.reldist` relative distance metric
@@ -34,16 +34,20 @@
 #'
 #' @export
 bed_reldist <- function(x, y, detail = FALSE) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
+  x <- check_interval(x)
+  y <- check_interval(y)
 
-  x <- group_by(x, chrom, add = TRUE)
-  y <- group_by(y, chrom, add = TRUE)
+  # establish grouping with shared groups (and chrom)
+  groups_xy <- shared_groups(x, y)
+  groups_xy <- unique(as.character(c("chrom", groups_xy)))
+  groups_vars <- rlang::syms(groups_xy)
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x <- update_groups(x)
-    y <- update_groups(y)
-  }
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
+
+  x <- group_by(x, !!! groups_vars)
+  y <- group_by(y, !!! groups_vars)
 
   grp_indexes <- shared_group_indexes(x, y)
 

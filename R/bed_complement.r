@@ -1,34 +1,34 @@
 #' Identify intervals in a genome not covered by a query.
 #'
-#' @param x [tbl_interval()]
-#' @param genome [tbl_genome()]
+#' @param x [ivl_df]
+#' @param genome [ivl_df]
 #'
 #' @family single set operations
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 0,      10,
 #'   'chr1', 75,     100
 #' )
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'   ~chrom, ~size,
 #'   'chr1', 200
 #' )
 #'
 #' bed_glyph(bed_complement(x, genome))
 #'
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'    ~chrom,  ~size,
 #'    'chr1',  500,
 #'    'chr2',  600,
 #'    'chr3',  800
 #' )
 #'
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'    ~chrom, ~start, ~end,
 #'    'chr1', 100,    300,
 #'    'chr1', 200,    400,
@@ -42,8 +42,8 @@
 #'
 #' @export
 bed_complement <- function(x, genome) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  genome <- check_genome(genome)
 
   res <- bed_merge(x)
 
@@ -57,13 +57,9 @@ bed_complement <- function(x, genome) {
 
   res <- group_by(res, chrom)
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    res <- update_groups(res)
-  }
-
   res <- complement_impl(res, genome)
 
-  res <- bind_rows(res, chroms_no_overlaps)
+  res <- bind_rows(res, as_tibble(chroms_no_overlaps))
   res <- bed_sort(res)
 
   res

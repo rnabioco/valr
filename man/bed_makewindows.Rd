@@ -14,7 +14,7 @@ bed_makewindows(
 )
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
 \item{genome}{this argument has been deprecated and is not used}
 
@@ -27,7 +27,7 @@ bed_makewindows(
 \item{reverse}{reverse window numbers}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with \code{.win_id} column that contains a numeric
+\link{ivl_df} with \code{.win_id} column that contains a numeric
 identifier for the window.
 }
 \description{
@@ -39,7 +39,7 @@ interval names (see 'namenum' example below) or in subsequent
 \code{group_by} operations (see vignette).
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100,    200,  'A',   '.',    '+'
 )

@@ -3,9 +3,9 @@
 #' Calculate Fisher's test on number of intervals that are shared and unique
 #' between two sets of `x` and `y` intervals.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
-#' @param genome [tbl_genome()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
+#' @param genome [genome_df]
 #'
 #' @template stats
 #'
@@ -14,7 +14,7 @@
 #' @seealso
 #'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @examples
 #' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
@@ -26,9 +26,9 @@
 #'
 #' @export
 bed_fisher <- function(x, y, genome) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  y <- check_interval(y)
+  genome <- check_genome(genome)
 
   # number of intervals
   n_x <- nrow(x)

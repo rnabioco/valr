@@ -3,12 +3,12 @@
 #' Flips positive (`+`) stranded intervals to negative (`-`) strands,
 #' and vice-versa. Facilitates comparisons among intervals on opposing strands.
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #'
 #' @family utilities
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~strand,
 #'   'chr1', 1,      100,  '+',
 #'   'chr2', 1,      100,  '-'
@@ -22,7 +22,7 @@ flip_strands <- function(x) {
     stop("`strand` column not found in `x`", call. = FALSE)
   }
 
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   # remove existing groups
   groups_x <- groups(x)

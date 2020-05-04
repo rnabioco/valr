@@ -7,9 +7,9 @@
 bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
+\item{genome}{\link{ivl_df}}
 
 \item{size}{number of bases to shift. postive numbers shift right, negative shift left.}
 
@@ -18,26 +18,26 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 \item{trim}{adjust coordinates for out-of-bounds intervals}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}}
+\link{ivl_df}
 }
 \description{
 Out-of-bounds intervals are removed by default.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
  'chr1',  25,     50,
  'chr1',  100,    125
 )
 
-genome <- trbl_genome(
+genome <- tibble::tribble(
   ~chrom, ~size,
   'chr1', 125
 )
 
 bed_glyph(bed_shift(x, genome, size = -20))
 
-x <- trbl_interval(
+x <- tibble::tribble(
    ~chrom, ~start, ~end, ~strand,
    "chr1", 100,    150,  "+",
    "chr1", 200,    250,  "+",
@@ -47,7 +47,7 @@ x <- trbl_interval(
    "chr3", 600,    650,  "-"
 )
 
-genome <- trbl_genome(
+genome <- tibble::tribble(
    ~chrom, ~size,
    "chr1", 1000,
    "chr2", 2000,

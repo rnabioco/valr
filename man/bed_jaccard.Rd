@@ -7,9 +7,9 @@
 bed_jaccard(x, y)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{y}{\link{ivl_df}}
 }
 \value{
 tibble with the following columns:

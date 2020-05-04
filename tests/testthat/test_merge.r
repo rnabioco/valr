@@ -147,21 +147,9 @@ test_that("contained intervals are merged issue #176", {
   expect_true(nrow(res) == 1)
 })
 
-test_that("is_merged identifies previously merged tbls", {
-  x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
-    "chr1", 1, 10,
-    "chr1", 2, 5,
-    "chr1", 7, 9
-  )
-  expect_false(is_merged(x))
-  res <- bed_merge(x)
-  expect_true(is_merged(res))
-})
-
 # from https://github.com/arq5x/bedtools2/blob/master/test/merge/test-merge.sh
 test_that("Test that precision default is high enough for formatting not to give scientific notation", {
-  x <- trbl_interval(
+  x <- tibble::tribble(
     ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand, ~ val1, ~ val2,
     "chr1", 5333587L, 5344172L, "line1", 0L, "-", 5334680L, 5344172L,
     "chr1", 5481008L, 5484749L, "line2", 0L, "-", 5481796L, 5484749L,

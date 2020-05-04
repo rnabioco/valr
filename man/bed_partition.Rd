@@ -7,12 +7,12 @@
 bed_partition(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=trbl_interval]{trbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
 \item{...}{name-value pairs specifying column names and expressions to apply}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}}
+\code{\link[=ivl_df]{ivl_df()}}
 }
 \description{
 Convert a set of intervals into elemental intervals that contain each start
@@ -32,7 +32,7 @@ compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end, ~value, ~strand,
  'chr1', 100,    500,  10, "+",
  'chr1', 200,    400,  20, "-",
@@ -54,7 +54,7 @@ x <- dplyr::group_by(x, strand)
 bed_partition(x, value = sum(value))
 
 # combine values across multiple tibbles
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end, ~value, ~strand,
  'chr1', 10,     500,  100, "+",
  'chr1', 250,    420,  200, "-",

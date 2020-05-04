@@ -7,16 +7,16 @@
 bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"))
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{...}{one or more (e.g. a list of) \code{y} \code{\link[=tbl_interval]{tbl_interval()}}s}
+\item{...}{one or more (e.g. a list of) \code{y} \code{\link[=ivl_df]{ivl_df()}}s}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
 \item{suffix}{colname suffixes in output}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with original columns from \code{x} and \code{y} suffixed with \code{.x}
+\link{ivl_df} with original columns from \code{x} and \code{y} suffixed with \code{.x}
 and \code{.y}, and a new \code{.overlap} column with the extent of overlap for the
 intersecting intervals.
 
@@ -39,13 +39,13 @@ compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 25,      50,
   'chr1', 100,     125
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 30,     75
 )
@@ -54,7 +54,7 @@ bed_glyph(bed_intersect(x, y))
 
 bed_glyph(bed_intersect(x, y, invert = TRUE))
 
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 100,    500,
   'chr2', 200,    400,
@@ -62,7 +62,7 @@ x <- trbl_interval(
   'chr2', 800,    900
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end, ~value,
   'chr1', 150,    400,  100,
   'chr1', 500,    550,  100,
@@ -79,7 +79,7 @@ res <- bed_intersect(x, y)
 dplyr::mutate(res, start = pmax(start.x, start.y),
                    end = pmin(end.x, end.y))
 
-z <- trbl_interval(
+z <- tibble::tribble(
   ~chrom, ~start, ~end, ~value,
   'chr1', 150,    400,  100,
   'chr1', 500,    550,  100,

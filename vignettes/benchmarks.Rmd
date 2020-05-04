@@ -62,7 +62,7 @@ res <- microbenchmark(
   # multi tbl functions
   bed_closest(x, y),
   bed_intersect(x, y),
-  bed_map(x, y, .n = n()),
+  bed_map(x, y, .n = length(end)),
   bed_subtract(x, y),
   bed_window(x, y, genome),
   # stats
@@ -154,7 +154,7 @@ res2 <- microbenchmark(
   unit = 's')
 
 # label experiment pair and software
-comp <- as.tibble(summary(res2)) %>% 
+comp <- as_tibble(summary(res2)) %>% 
   mutate(pair = as.numeric(row_number()) %% (nrow(res2) / nrep / 2)) %>% 
   mutate(software = rep(c("valr", "GR"), each = (nrow(res2) / nrep / 2))) %>%
   select(expr, pair, software)

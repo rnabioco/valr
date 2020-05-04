@@ -8,8 +8,6 @@
 // of the MIT license. See the LICENSE file for details.
 
 #include "valr.h"
-// #include <tools/utils.h>
-// #include <tools/bad.h>
 
 std::vector<int> csv_values(std::string csv) {
 

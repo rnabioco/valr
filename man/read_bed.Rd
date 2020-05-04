@@ -30,7 +30,7 @@ read_broadpeak(filename, ...)
 \item{...}{options to pass to \code{\link[readr:read_tsv]{readr::read_tsv()}}}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}}
+\link{ivl_df}
 }
 \description{
 read functions for BED and related formats. Filenames can be

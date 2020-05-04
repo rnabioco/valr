@@ -4,12 +4,12 @@
 #' `max_dist = 0` means that both overlapping and book-ended intervals will be
 #' clustered.
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #' @param max_dist maximum distance between clustered intervals.
 #'
 #' @template groups
 #'
-#' @return [tbl_interval()] with `.id` column specifying sets of clustered intervals.
+#' @return [ivl_df] with `.id` column specifying sets of clustered intervals.
 #'
 #' @family single set operations
 #'
@@ -17,7 +17,7 @@
 #' \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
 #'
 #' @examples
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 100,    200,
 #'   'chr1', 180,    250,
@@ -30,7 +30,7 @@
 #' bed_cluster(x)
 #'
 #' # glyph illustrating clustering of overlapping and book-ended intervals
-#' x <- trbl_interval(
+#' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1', 1,      10,
 #'   'chr1', 5,      20,
@@ -43,14 +43,12 @@
 #'
 #' @export
 bed_cluster <- function(x, max_dist = 0) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
-  res <- group_by(x, chrom, add = TRUE)
+  groups <- rlang::syms(unique(c("chrom", group_vars(x))))
+  res <- group_by(x, !!! groups)
+
   res <- bed_sort(res)
-
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    res <- update_groups(res)
-  }
 
   res <- merge_impl(res, max_dist, collapse = FALSE)
 

@@ -4,7 +4,7 @@
 #' number, with respect to strand (i.e., the first exon for `-` strand
 #' genes will have larger start and end coordinates).
 #'
-#' @param x [tbl_interval()]
+#' @param x [ivl_df]
 #'
 #' @family utilities
 #'
@@ -15,7 +15,7 @@
 #'
 #' @export
 bed12_to_exons <- function(x) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
+  x <- check_interval(x)
 
   if (!ncol(x) == 12) {
     stop("expected 12 column input", call. = FALSE)

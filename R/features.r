@@ -4,7 +4,7 @@
 #' strand. I.e., the first introns for `+` and `-` strand genes both have `score`
 #' values of `1`.
 #'
-#' @param x [tbl_interval()] in BED12 format
+#' @param x [ivl_df] in BED12 format
 #'
 #' @family feature functions
 #'
@@ -35,7 +35,7 @@ create_introns <- function(x) {
 
 #' Create 5' UTR features.
 #'
-#' @param x [tbl_interval()] in BED12 format
+#' @param x [ivl_df] in BED12 format
 #'
 #' @family feature functions
 #'
@@ -63,7 +63,7 @@ create_utrs5 <- function(x) {
 
 #' Create 3' UTR features.
 #'
-#' @param x [tbl_interval()] in BED12 format
+#' @param x [ivl_df] in BED12 format
 #'
 #' @family feature functions
 #'
@@ -91,7 +91,7 @@ create_utrs3 <- function(x) {
 
 #' Create transcription start site features.
 #'
-#' @param x [tbl_interval()] in BED format
+#' @param x [ivl_df] in BED format
 #'
 #' @family feature functions
 #'

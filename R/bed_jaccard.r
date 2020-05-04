@@ -12,8 +12,8 @@
 #'                      {\mid x \mid + \mid y \mid -
 #'                       \mid x \bigcap y \mid} }
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
 #'
 #' @template stats
 #'
@@ -46,8 +46,8 @@
 #'
 #' @export
 bed_jaccard <- function(x, y) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
+  x <- check_interval(x)
+  y <- check_interval(y)
 
   groups_shared <- shared_groups(x, y)
 

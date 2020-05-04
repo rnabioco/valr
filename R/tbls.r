@@ -1,14 +1,27 @@
-#' Tibble for intervals.
+# Validity checks ---------------------------------------------------
+#' Bed-like data.frame requirements for valr functions
 #'
-#' Required column names are `chrom`, `start` and `end`.
+#' @name ivl_df
+#' @docType package
+NULL
+
+#' Bed-like data.frame requirements for valr functions
+#' @rdname ivl_df
+#' @name genome_df
+#' @docType package
+NULL
+
+#' Check bed-like data.frame requirements for valr compatibility
 #'
-#' @param x A `data_frame`
-#' @param ... params for [tibble::tibble()]
-#' @param .validate check valid column names
+#' Required column names for interval dataframes are
+#' `chrom`, `start` and `end`. Internally interval dataframes are
+#' validated using `check_interval()`
 #'
-#' @rdname tbl_interval
+#' @param x A `data.frame` or `tibble::tibble`
+#' @rdname  ivl_df
 #'
 #' @examples
+#' # using tibble
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
 #'   'chr1',  1,     50,
@@ -16,35 +29,88 @@
 #'   'chr1',  100,   120
 #' )
 #'
-#' is.tbl_interval(x)
+#' check_interval(x)
 #'
-#' x <- tbl_interval(x)
-#' is.tbl_interval(x)
+#' # using base R data.frame
+#' x <- data.frame(chrom = "chr1",
+#'            start = 0,
+#'            end = 100,
+#'            stringsAsFactors = FALSE
+#' )
+#'
+#' check_interval(x)
 #'
 #' @export
-tbl_interval <- function(x, ..., .validate = TRUE) {
+check_interval <- function(x) {
+  expect_names <- c("chrom", "start", "end")
+  check_names(x, expect_names)
 
-  if(tibble::is_tibble(x)){
-    out <- x
-  } else {
-    out <- tibble::as_tibble(x, ...)
+  if(!tibble::is_tibble(x)){
+    x <- tibble::as_tibble(x)
   }
-
-  if (.validate) {
-    out <- check_interval(out)
-  }
-  class(out) <- union("tbl_ivl", class(out))
-  out
+  x
 }
 
-#' Coerce objects to tbl_intervals.
+
+#' Check genome file data.frame requirements for valr compatibility
 #'
-#' This is an S3 generic. valr includes methods to coerce tbl_df and GRanges
-#' objects.
+#' Required column names for genome dataframes are
+#' `chrom` and `size`. Internally genome dataframes are
+#' validated using `check_genome()`.
 #'
-#' @param x object to convert to tbl_interval.
+#' @param x A `data.frame` or `tibble::tibble`
+#' @rdname ivl_df
 #'
-#' @return [tbl_interval()]
+#' @examples
+#' # example genome input
+#'
+#' x <- tibble::tribble(
+#'   ~chrom, ~size,
+#'   'chr1', 1e6
+#' )
+#'
+#' check_genome(x)
+#'
+#' @export
+check_genome <- function(x) {
+  expect_names <- c("chrom", "size")
+  check_names(x, expect_names)
+
+  # check for unique refs
+  chroms <- x[["chrom"]]
+  dups <- duplicated(chroms)
+
+  if (any(dups)) {
+    stop(sprintf(
+      "duplicate chroms in genome: %s",
+      paste0(chroms[dups], collapse = ", ")
+    ))
+  }
+
+  if(!tibble::is_tibble(x)){
+    x <- tibble::as_tibble(x)
+  }
+
+  x
+}
+
+check_names <- function(x, expected) {
+  missing <- setdiff(expected, names(x))
+  if (length(missing) != 0) {
+    stop(sprintf(
+      "expected %d required names, missing: %s",
+      length(expected),
+      paste0(missing, collapse = ", ")
+    ))
+  }
+}
+
+
+#' Convert Granges to bed tibble
+#'
+#' @param x GRanges object to convert to bed tibble.
+#'
+#' @return [tibble::tibble()]
 #'
 #' @examples
 #' \dontrun{
@@ -60,9 +126,9 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
 #'                      c("-", "+"), c(2, 2))
 #'       )
 #'
-#' as.tbl_interval(gr)
+#' gr_to_bed(gr)
 #'
-#' # There are two ways to convert a tbl_interval to GRanges:
+#' # There are two ways to convert a bed-like data.frame to GRanges:
 #'
 #' gr <- GenomicRanges::GRanges(
 #'         seqnames = S4Vectors::Rle(x$chrom),
@@ -79,25 +145,7 @@ tbl_interval <- function(x, ..., .validate = TRUE) {
 #' }
 #'
 #' @export
-as.tbl_interval <- function(x) {
-  UseMethod("as.tbl_interval")
-}
-
-#' @export
-#' @rdname as.tbl_interval
-as.tbl_interval.tbl_df <- function(x) {
-  tbl_interval(x)
-}
-
-#' @export
-#' @rdname as.tbl_interval
-as.tbl_interval.data.frame <- function(x) {
-  tbl_interval(x)
-}
-
-#' @export
-#' @rdname as.tbl_interval
-as.tbl_interval.GRanges <- function(x) {
+gr_to_bed <- function(x) {
   # https://www.biostars.org/p/89341/
   res <- tibble(
     chrom = as.character(x@seqnames),
@@ -109,149 +157,6 @@ as.tbl_interval.GRanges <- function(x) {
   )
 
   res <- mutate(res, strand = ifelse(strand == "*", ".", strand))
-  tbl_interval(res)
+  res
 }
 
-#' Construct a tbl_interval using tribble formatting.
-#'
-#' @rdname tbl_interval
-#'
-#' @return [tbl_interval()]
-#
-#' @export
-trbl_interval <- function(...) {
-  out <- tibble::tribble(...)
-  out <- as.tbl_interval(out)
-  out
-}
-
-#' Test if the object is a tbl_interval.
-#'
-#' @param x An object
-#' @return `TRUE` if the object inherits from the [tbl_interval()] class.
-#' @export
-is.tbl_interval <- function(x) {
-  "tbl_ivl" %in% class(x)
-}
-
-#' Tibble for reference sizes.
-#'
-#' Equivalent to information in UCSC "chromSizes" files. Required column names are:
-#' `chrom` and `size`
-#'
-#' @param x A `data_frame`
-#' @param ... params for [tibble::tibble()]
-#' @param .validate check valid column names
-#'
-#' @rdname tbl_genome
-#'
-#' @examples
-#' genome <- tibble::tribble(
-#'   ~chrom, ~size,
-#'   'chr1', 1e6,
-#'   'chr2', 1e7
-#' )
-#'
-#' is.tbl_genome(genome)
-#' genome <- tbl_genome(genome)
-#' is.tbl_genome(genome)
-#'
-#' @export
-tbl_genome <- function(x, ..., .validate = TRUE) {
-  out <- tibble::as_tibble(x, ...)
-  if (.validate) {
-    out <- check_genome(out)
-  }
-  class(out) <- union("tbl_gnm", class(out))
-  out
-}
-
-#' Coerce objects to tbl_genome.
-#'
-#' This is an S3 generic. valr includes methods to coerce tbl_df and data.frame
-#' objects.
-#'
-#' @param x object to convert to tbl_genome.
-#'
-#' @return [tbl_genome()]
-#'
-#' @export
-as.tbl_genome <- function(x) {
-  UseMethod("as.tbl_genome")
-}
-
-#' @export
-#' @rdname as.tbl_genome
-as.tbl_genome.tbl_df <- function(x) {
-  tbl_genome(x)
-}
-
-#' @export
-#' @rdname as.tbl_genome
-as.tbl_genome.data.frame <- function(x) {
-  tbl_genome(x)
-}
-
-#' Construct a tbl_genome using tribble formatting.
-#'
-#' @return [tbl_genome()]
-#'
-#' @rdname tbl_genome
-#'
-#' @examples
-#' trbl_genome(
-#'   ~chrom, ~size,
-#'   'chr1', 1e6
-#' )
-#'
-#' @export
-trbl_genome <- function(...) {
-  out <- tibble::tribble(...)
-  out <- tbl_genome(out)
-  out
-}
-
-#' Test if the object is a tbl_genome.
-#'
-#' @param x An object
-#' @return `TRUE` if the object inherits from the [tbl_genome()] class.
-#' @export
-is.tbl_genome <- function(x) {
-  "tbl_gnm" %in% class(x)
-}
-
-# Validity checks ---------------------------------------------------
-
-check_interval <- function(x) {
-  expect_names <- c("chrom", "start", "end")
-  check_names(x, expect_names)
-  x
-}
-
-check_genome <- function(x) {
-  expect_names <- c("chrom", "size")
-  check_names(x, expect_names)
-
-  # check for unique refs
-  chroms <- x[["chrom"]]
-  dups <- duplicated(chroms)
-
-  if (any(dups)) {
-    stop(sprintf(
-      "duplicate chroms in genome: %s",
-      paste0(chroms[dups], collapse = ", ")
-    ))
-  }
-  x
-}
-
-check_names <- function(x, expected) {
-  missing <- setdiff(expected, names(x))
-  if (length(missing) != 0) {
-    stop(sprintf(
-      "expected %d required names, missing: %s",
-      length(expected),
-      paste0(missing, collapse = ", ")
-    ))
-  }
-}

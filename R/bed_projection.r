@@ -1,8 +1,8 @@
 #' Projection test for query interval overlap.
 #'
-#' @param x [tbl_interval()]
-#' @param y [tbl_interval()]
-#' @param genome [tbl_genome()]
+#' @param x [ivl_df]
+#' @param y [ivl_df]
+#' @param genome [genome_df]
 #' @param by_chrom compute test per chromosome
 #'
 #' @template stats
@@ -10,7 +10,7 @@
 #' @family interval statistics
 #'
 #' @return
-#' [tbl_interval()] with the following columns:
+#' [ivl_df] with the following columns:
 #'
 #'   - `chrom` the name of chromosome tested if `by_chrom = TRUE`,
 #'      otherwise has a value of `whole_genome`
@@ -40,9 +40,9 @@
 #'
 #' @export
 bed_projection <- function(x, y, genome, by_chrom = FALSE) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_interval(y)) y <- as.tbl_interval(y)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  y <- check_interval(y)
+  genome <- check_genome(genome)
 
   # find midpoints
   x <- mutate(

@@ -7,11 +7,11 @@
 bed_window(x, y, genome, ...)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{y}{\link{ivl_df}}
 
-\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
+\item{genome}{\link{genome_df}}
 
 \item{...}{params for bed_slop and bed_intersect}
 }
@@ -26,25 +26,25 @@ compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
-x <- trbl_interval(
+x <- tibble::tribble(
  ~chrom, ~start, ~end,
  'chr1', 25,     50,
  'chr1', 100,    125
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   'chr1', 60,     75
 )
 
-genome <- trbl_genome(
+genome <- tibble::tribble(
   ~chrom, ~size,
   'chr1', 125
 )
 
 bed_glyph(bed_window(x, y, genome, both = 15))
 
-x <- trbl_interval(
+x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 10,    100,
   "chr2", 200,    400,
@@ -52,14 +52,14 @@ x <- trbl_interval(
   "chr2", 800,    900
 )
 
-y <- trbl_interval(
+y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 150,    400,
   "chr2", 230,    430,
   "chr2", 350,    430
 )
 
-genome <- trbl_genome(
+genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 500,
   "chr2", 1000

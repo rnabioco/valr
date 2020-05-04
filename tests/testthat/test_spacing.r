@@ -24,7 +24,7 @@ test_that("start intervals are NA", {
 
 # from bedtools2
 test_that("bt test succeeds", {
-  x <- trbl_interval(
+  x <- tibble::tribble(
     ~ chrom, ~ start, ~ end,
     "chr1", 20, 30,
     "chr1", 25, 40,

@@ -1,21 +1,21 @@
 #' Shuffle input intervals.
 #'
-#' @param x [tbl_interval()]
-#' @param genome [tbl_genome()]
-#' @param incl [tbl_interval()] of included intervals
-#' @param excl [tbl_interval()] of excluded intervals
+#' @param x [ivl_df]
+#' @param genome [genome_df]
+#' @param incl [ivl_df] of included intervals
+#' @param excl [ivl_df] of excluded intervals
 #' @param max_tries maximum tries to identify a bounded interval
 #' @param within shuffle within chromosomes
 #' @param seed seed for reproducible intervals
 #'
-#' @return [tbl_interval()]
+#' @return [ivl_df]
 #'
 #' @family randomizing operations
 #'
 #' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html}
 #'
 #' @examples
-#' genome <- trbl_genome(
+#' genome <- tibble::tribble(
 #'  ~chrom, ~size,
 #'  "chr1", 1e6,
 #'  "chr2", 2e6,
@@ -29,8 +29,8 @@
 #' @export
 bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
                         max_tries = 1000, within = FALSE, seed = 0) {
-  if (!is.tbl_interval(x)) x <- as.tbl_interval(x)
-  if (!is.tbl_genome(genome)) genome <- as.tbl_genome(genome)
+  x <- check_interval(x)
+  genome <- check_genome(genome)
 
   # flatten incl and excl
   if (!is.null(incl)) {
@@ -58,18 +58,10 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
     stop("no intervals to sample from", call. = FALSE)
   }
 
-  if (utils::packageVersion("dplyr") < "0.7.99.9000"){
-    x_cpp <- update_groups(x)
-    # drops all columns except chrom, start, and end
-    res <- shuffle_impl(x_cpp, incl, within, max_tries, seed)
-  } else {
-    res <- shuffle_impl(x, incl, within, max_tries, seed)
-  }
+  res <- shuffle_impl(x, incl, within, max_tries, seed)
 
   # bind original x column data to result (#81)
-  res <- bind_cols(res, x[, !colnames(x) %in% colnames(res)])
-
-  res <- as.tbl_interval(res)
+  res <- bind_cols(res, as_tibble(x[, !colnames(x) %in% colnames(res)]))
 
   res
 }

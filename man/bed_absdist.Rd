@@ -7,14 +7,14 @@
 bed_absdist(x, y, genome)
 }
 \arguments{
-\item{x}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{x}{\link{ivl_df}}
 
-\item{y}{\code{\link[=tbl_interval]{tbl_interval()}}}
+\item{y}{\link{ivl_df}}
 
-\item{genome}{\code{\link[=tbl_genome]{tbl_genome()}}}
+\item{genome}{\link{genome_df}}
 }
 \value{
-\code{\link[=tbl_interval]{tbl_interval()}} with \code{.absdist} and \code{.absdist_scaled} columns.
+\link{ivl_df} with \code{.absdist} and \code{.absdist_scaled} columns.
 }
 \description{
 Computes the absolute distance between the midpoint of each \code{x} interval and
