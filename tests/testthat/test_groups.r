@@ -82,7 +82,7 @@ df_new <- structure(
   )
 
 test_that("old dataframe groupings (dplyr v. < 0.7.9.900) are tolerated", {
-
+  skip("no longer tolerated from dplyr 1.0.0")
   if (packageVersion("dplyr") >= "0.7.9.9000"){
     expect_warning(bed_intersect(df_old, df_old))
     res <- suppressWarnings(bed_intersect(df_old, df_old))
