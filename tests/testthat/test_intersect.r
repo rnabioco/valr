@@ -326,7 +326,7 @@ test_that("unmatched groups are included when invert = TRUE", {
   )
 
   res <- bed_intersect(x, y, invert = TRUE)
-  expect_equal(res, pred)
+  expect_equivalent(res, pred)
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/intersect/test-intersect.sh

@@ -33,7 +33,7 @@ test_that("basic partition works (bedops partition1 test)", {
   )
 
   res <- bed_partition(x)
-  expect_equal(res, pred)
+  expect_equivalent(res, pred)
 })
 
 
@@ -116,7 +116,7 @@ pred <- trbl_interval(
   )
 
   res <- bed_partition(x)
-  expect_equal(res, pred)
+  expect_equivalent(res, pred)
 })
 
 
@@ -146,7 +146,7 @@ test_that("partition drops non-grouped cols (bedops partition3 test)", {
      )
 
   res <- bed_partition(x)
-  expect_equal(res, pred)
+  expect_equivalent(res, pred)
 })
 
 
@@ -179,7 +179,7 @@ test_that("partition drops non-grouped cols (bedops partition4 test)", {
      )
 
   res <- bed_partition(x)
-  expect_equal(res, pred)
+  expect_equivalent(res, pred)
 })
 
 
