@@ -1,34 +1,19 @@
-## New minor version
+## New major version
 
 * This is a new major version (see NEWS.md).
 
-* Addresses an incompatibility with the forthcoming dplyr v0.8.0 release.
+* Addresses incompatibilities with the forthcoming dplyr v1.0.0 release.
 
 ## Test environments
 
-* Windows Server 2008 R2 SP1, 32/64 bit (on rhub) (devel and R 3.5.1)
-* Windows Server 2012 R2 x64 (on appveyor), (devel and R 3.5.1)
-* win-builder (devel and  R 3.5.1)
-* local OS X install, R 3.5.1
-* OS X (on travis-ci), R 3.5.0
-* ubuntu 14.04 (on travis-ci), (devel and R 3.5.1)
-
+* win-builder (devel and  R 3.6.0)
+* local OS X install, R 3.6.0
+* Windows (on Github Actions), 3.6.0
+* macOS (on Github Actions), R 3.6.0
+* ubuntu 16.04 (on Github Actions), (devel and R 3.6.0)
 
 ## R CMD check results
 
-* on appveyor
-
-  Status: OK
-  0 errors | 0 warnings | 0 notes
-  
-* on appveyor (devel version)
-
-  Status: 1 NOTE
-  
-  Package suggested but not available for checking: 'GenomicRanges'  
-  
-  GenomicRanges is available as a Bioconductor package.  
-  
 * on rhub (windows, release and devel versions)
 
   Status: 1 Note

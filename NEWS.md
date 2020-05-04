@@ -1,11 +1,10 @@
-# valr 0.5.0.9000
+# valr 0.6.0
 
 ## Major changes
 
 * `trbl_interval()` and `trbl_genome()` custom `tibble` subclasses have been deemed unnecessary and have been removed from the package. 
 
 * coercing `GRanges` to a `valr` compatible data.frame now uses the `gr_to_bed()` function rather than `as.trbl_interal()` methods. 
-
 
 ## Minor changes
 
