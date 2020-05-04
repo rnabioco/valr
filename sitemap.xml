@@ -4,12 +4,6 @@
     <loc>https://rnabioco.github.io/valr/index.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/as.tbl_genome.html</loc>
-  </url>
-  <url>
-    <loc>https://rnabioco.github.io/valr/reference/as.tbl_interval.html</loc>
-  </url>
-  <url>
     <loc>https://rnabioco.github.io/valr/reference/bed12_to_exons.html</loc>
   </url>
   <url>
@@ -103,6 +97,9 @@
     <loc>https://rnabioco.github.io/valr/reference/flip_strands.html</loc>
   </url>
   <url>
+    <loc>https://rnabioco.github.io/valr/reference/gr_to_bed.html</loc>
+  </url>
+  <url>
     <loc>https://rnabioco.github.io/valr/reference/id.html</loc>
   </url>
   <url>
@@ -112,10 +109,7 @@
     <loc>https://rnabioco.github.io/valr/reference/interval_spacing.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/is.tbl_genome.html</loc>
-  </url>
-  <url>
-    <loc>https://rnabioco.github.io/valr/reference/is.tbl_interval.html</loc>
+    <loc>https://rnabioco.github.io/valr/reference/ivl_df.html</loc>
   </url>
   <url>
     <loc>https://rnabioco.github.io/valr/reference/read_bed.html</loc>
@@ -125,12 +119,6 @@
   </url>
   <url>
     <loc>https://rnabioco.github.io/valr/reference/read_vcf.html</loc>
-  </url>
-  <url>
-    <loc>https://rnabioco.github.io/valr/reference/tbl_genome.html</loc>
-  </url>
-  <url>
-    <loc>https://rnabioco.github.io/valr/reference/tbl_interval.html</loc>
   </url>
   <url>
     <loc>https://rnabioco.github.io/valr/reference/valr.html</loc>

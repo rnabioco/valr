@@ -165,11 +165,11 @@ have <code>.overlap</code> values of <code>0</code> in the output.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+      <td><p><a href='ivl_df.html'>ivl_df</a></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>one or more (e.g. a list of) <code>y</code> <code><a href='tbl_interval.html'>tbl_interval()</a></code>s</p></td>
+      <td><p>one or more (e.g. a list of) <code>y</code> <code><a href='ivl_df.html'>ivl_df()</a></code>s</p></td>
     </tr>
     <tr>
       <th>invert</th>
@@ -183,7 +183,7 @@ have <code>.overlap</code> values of <code>0</code> in the output.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with original columns from <code>x</code> and <code>y</code> suffixed with <code>.x</code>
+    <p><a href='ivl_df.html'>ivl_df</a> with original columns from <code>x</code> and <code>y</code> suffixed with <code>.x</code>
 and <code>.y</code>, and a new <code>.overlap</code> column with the extent of overlap for the
 intersecting intervals.</p>
 <p>If  multiple <code>y</code> tbls are supplied, the <code>.source</code> contains variable names
@@ -209,20 +209,20 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <code><a href='bed_window.html'>bed_window</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>25</span>,      <span class='fl'>50</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>100</span>,     <span class='fl'>125</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>75</span>
 )
 
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><div class='img'><img src='bed_intersect-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_intersect</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='img'><img src='bed_intersect-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,
   <span class='st'>'chr2'</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,
@@ -230,7 +230,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
   <span class='st'>'chr2'</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,
@@ -263,7 +263,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; </span><span style='color: #555555;'>4</span><span> chr2      200   400     350   430     300       50   350   400
 #&gt; </span><span style='color: #555555;'>5</span><span> chr2      300   500     230   430     200      130   300   430
 #&gt; </span><span style='color: #555555;'>6</span><span> chr2      300   500     350   430     300       80   350   430</div><div class='input'>
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>500</span>,    <span class='fl'>550</span>,  <span class='fl'>100</span>,

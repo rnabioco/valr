@@ -175,11 +175,11 @@ input columns from <code>x</code> and <code>y</code> columns must take these suf
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+      <td><p><a href='ivl_df.html'>ivl_df</a></p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+      <td><p><a href='ivl_df.html'>ivl_df</a></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -201,7 +201,7 @@ input columns from <code>x</code> and <code>y</code> columns must take these suf
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p>
+    <p><a href='ivl_df.html'>ivl_df</a></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Book-ended intervals can be included by setting <code>min_overlap = 0</code>.
@@ -223,13 +223,13 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <code><a href='bed_window.html'>bed_window</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,
  <span class='st'>'chr2'</span>, <span class='fl'>250</span>,    <span class='fl'>500</span>
 )
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>250</span>,  <span class='fl'>10</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>250</span>,  <span class='fl'>20</span>,

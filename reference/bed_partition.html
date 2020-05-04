@@ -165,7 +165,7 @@ and end position in the set.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>trbl_interval()</a></code></p></td>
+      <td><p><a href='ivl_df.html'>ivl_df</a></p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -175,7 +175,7 @@ and end position in the set.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p>
+    <p><code><a href='ivl_df.html'>ivl_df()</a></code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Summary operations, such as <code><a href='https://rdrr.io/r/base/Extremes.html'>min()</a></code> or <code>count()</code> can be performed
@@ -199,7 +199,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <code><a href='bed_slop.html'>bed_slop</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,  <span class='fl'>10</span>, <span class='st'>"+"</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,  <span class='fl'>20</span>, <span class='st'>"-"</span>,
@@ -242,7 +242,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; </span><span style='color: #555555;'>5</span><span> chr1    550   575 +          2
 #&gt; </span><span style='color: #555555;'>6</span><span> chr1    800   900 +          5</div><div class='input'>
 <span class='co'># combine values across multiple tibbles</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>10</span>,     <span class='fl'>500</span>,  <span class='fl'>100</span>, <span class='st'>"+"</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>250</span>,    <span class='fl'>420</span>,  <span class='fl'>200</span>, <span class='st'>"-"</span>,

@@ -103,7 +103,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>valr overview</h1>
             
-            <h4 class="date">2020-04-23</h4>
+            <h4 class="date">2020-05-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/valr.Rmd"><code>vignettes/valr.Rmd</code></a></small>
       <div class="hidden name"><code>valr.Rmd</code></div>
@@ -177,8 +177,8 @@
 <span class="co">#&gt;  8 chr1  321145 321207</span>
 <span class="co">#&gt;  9 chr1  322036 326938</span>
 <span class="co">#&gt; 10 chr1  327545 328439</span></pre></body></html></div>
-<p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns named <code>chrom</code>, <code>start</code> and <code>end</code> are present. New tbls can also be contructed using <code><a href="../reference/tbl_interval.html">trbl_interval()</a></code>.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">bed</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tbl_interval.html">trbl_interval</a></span>(
+<p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns named <code>chrom</code>, <code>start</code> and <code>end</code> are present. New tbls can also be contructed as either <code>tibbles</code> or base R <code>data.frames</code>.</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">bed</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
   ~<span class="no">chrom</span>, ~<span class="no">start</span>,  ~<span class="no">end</span>,
   <span class="st">"chr1"</span>, <span class="fl">1657492</span>, <span class="fl">2657492</span>,
   <span class="st">"chr2"</span>, <span class="fl">2501324</span>, <span class="fl">3094650</span>
@@ -196,7 +196,7 @@
 <a href="#interval-coordinates" class="anchor"></a>Interval coordinates</h3>
 <p><code>valr</code> adheres to the BED <a href="http://genome.ucsc.edu/FAQ/FAQformat#format1">format</a> which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># a chromosome 100 basepairs in length</span>
-<span class="no">chrom</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tbl_interval.html">trbl_interval</a></span>(
+<span class="no">chrom</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
   ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
   <span class="st">"chr1"</span>, <span class="fl">0</span>,      <span class="fl">100</span>
 )
@@ -208,7 +208,7 @@
 <span class="co">#&gt; 1 chr1      0   100</span>
 
 <span class="co"># single basepair intervals</span>
-<span class="no">bases</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tbl_interval.html">trbl_interval</a></span>(
+<span class="no">bases</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
   ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
   <span class="st">"chr1"</span>, <span class="fl">0</span>,      <span class="fl">1</span>, <span class="co"># first base of chromosome</span>
   <span class="st">"chr1"</span>, <span class="fl">1</span>,      <span class="fl">2</span>,  <span class="co"># second base of chromosome</span>
@@ -237,13 +237,13 @@
 <h3 class="hasAnchor">
 <a href="#visual-documentation" class="anchor"></a>Visual documentation</h3>
 <p>The <code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> tool illustrates the results of operations in <code>valr</code>, similar to those found in the <code>BEDtools</code> documentation. This glyph shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
   ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
   <span class="st">'chr1'</span>, <span class="fl">25</span>,     <span class="fl">50</span>,
   <span class="st">'chr1'</span>, <span class="fl">100</span>,    <span class="fl">125</span>
 )
 
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
   ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
   <span class="st">'chr1'</span>, <span class="fl">30</span>,     <span class="fl">75</span>
 )
@@ -251,7 +251,7 @@
 <span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(<span class="no">x</span>, <span class="no">y</span>))</pre></body></html></div>
 <p><img src="valr_files/figure-html/intersect_glyph-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
   ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
   <span class="st">'chr1'</span>,      <span class="fl">1</span>,      <span class="fl">50</span>,
   <span class="st">'chr1'</span>,      <span class="fl">10</span>,     <span class="fl">75</span>,
@@ -271,14 +271,14 @@
 <h3 class="hasAnchor">
 <a href="#grouping-data" class="anchor"></a>Grouping data</h3>
 <p>The <code>group_by</code> function in dplyr can be used to perform fuctions on subsets of single and multiple <code>data_frame</code>s. Functions in <code>valr</code> leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by <code>strand</code> to perform comparisons among intervals on the same strand.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
   ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>, ~<span class="no">strand</span>,
   <span class="st">'chr1'</span>, <span class="fl">1</span>,      <span class="fl">100</span>,  <span class="st">'+'</span>,
   <span class="st">'chr1'</span>, <span class="fl">50</span>,     <span class="fl">150</span>,  <span class="st">'+'</span>,
   <span class="st">'chr2'</span>, <span class="fl">100</span>,    <span class="fl">200</span>,  <span class="st">'-'</span>
 )
 
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
   ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>, ~<span class="no">strand</span>,
   <span class="st">'chr1'</span>, <span class="fl">50</span>,     <span class="fl">125</span>,  <span class="st">'+'</span>,
   <span class="st">'chr1'</span>, <span class="fl">50</span>,     <span class="fl">150</span>,  <span class="st">'-'</span>,
@@ -418,7 +418,7 @@
 <h3 class="hasAnchor">
 <a href="#data-types" class="anchor"></a>Data types</h3>
 <ul>
-<li>Create interval sets with <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code>, which enforce strict column naming.</li>
+<li>Validate interval sets with <code><a href="../reference/ivl_df.html">check_interval()</a></code> and <code><a href="../reference/ivl_df.html">check_genome()</a></code>, which enforce strict column naming.</li>
 </ul>
 </div>
 <div id="reading-data" class="section level3">

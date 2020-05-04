@@ -154,12 +154,22 @@
 <h1 class="page-header" data-toc-text="0.5.0.9000">
 <a href="#valr-0509000" class="anchor"></a>valr 0.5.0.9000<small> Unreleased </small>
 </h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li><p><code>trbl_interval()</code> and <code>trbl_genome()</code> custom <code>tibble</code> subclasses have been deemed unnecessary and have been removed from the package.</p></li>
+<li><p>coercing <code>GRanges</code> to a <code>valr</code> compatible data.frame now uses the <code><a href="../reference/gr_to_bed.html">gr_to_bed()</a></code> function rather than <code>as.trbl_interal()</code> methods.</p></li>
+</ul>
+</div>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
 <ul>
+<li><p>dplyr version &lt; 0.8.0 is no longer supported due to unnecessary code bloat and challenges with handling multiple grouping structures (<a href='https://github.com/rnabioco/valr/issues/359'>#359</a>).</p></li>
 <li><p>The <code>sort_by</code> argument of <code><a href="../reference/bed_random.html">bed_random()</a></code> has been changed to <code>sorted</code>, and will now by default use <code><a href="../reference/bed_sort.html">bed_sort()</a></code> to sort the output, rather than rely on naming the sorting columns. Sorting can be suppressed by using <code>sorted = FALSE</code>.</p></li>
 <li><p><code><a href="../reference/bed_sort.html">bed_sort()</a></code> now uses base R sorting with the <code>radix</code> method for increased speed. (<a href='https://github.com/rnabioco/valr/issues/353'>#353</a>)</p></li>
+<li><p><code>tbls</code> processed by <code><a href="../reference/bed_merge.html">bed_merge()</a></code>or <code><a href="../reference/bed_sort.html">bed_sort()</a></code> no longer store either <code>merged</code> or <code>sorted</code> as attributes, due to these attributes being rarely checked in the codebase and potential sources of unexpected behavior.</p></li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -175,9 +185,9 @@
 <h1 class="page-header" data-toc-text="0.5.0">
 <a href="#valr-050" class="anchor"></a>valr 0.5.0<small> 2019-01-03 </small>
 </h1>
-<div id="major-changes" class="section level2">
+<div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Internal <code>Rcpp</code> functions have been reorganized to remove all dependencies on <code>dplyr</code> C++ functions.</li>
 </ul>
@@ -199,7 +209,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Changed the behavior of <code><a href="../reference/as.tbl_interval.html">as.tbl_interval()</a></code> to call <code>as_tibble()</code> only on non-tibble input, which prevents groups from being stripped from <code>tibble()</code> input (<a href='https://github.com/rnabioco/valr/issues/338'>#338</a>).</li>
+<li>Changed the behavior of <code>as.tbl_interval()</code> to call <code>as_tibble()</code> only on non-tibble input, which prevents groups from being stripped from <code>tibble()</code> input (<a href='https://github.com/rnabioco/valr/issues/338'>#338</a>).</li>
 </ul>
 </div>
 </div>
@@ -209,7 +219,7 @@
 </h1>
 <ul>
 <li><p>Added new function, <code><a href="../reference/bed_partition.html">bed_partition()</a></code>, which is similar to <code><a href="../reference/bed_merge.html">bed_merge()</a></code> but collapses intervals to elemental intervals rather than the maximal overlapping region. <code><a href="../reference/bed_partition.html">bed_partition()</a></code> also can compute summaries of data from overlapping intervals. See examples in <code><a href="../reference/bed_partition.html">bed_partition()</a></code> and timings in <code><a href="../articles/benchmarks.html">vignette('benchmarks')</a></code> <a href='https://github.com/kriemo'>@kriemo</a>.</p></li>
-<li><p>Several explicit comparisons to the Bioconductor GenomicRanges library are included for users considering using valr. See examples in <code><a href="../reference/as.tbl_interval.html">as.tbl_interval()</a></code> and timings in <code><a href="../articles/benchmarks.html">vignette('benchmarks')</a></code>.</p></li>
+<li><p>Several explicit comparisons to the Bioconductor GenomicRanges library are included for users considering using valr. See examples in <code>as.tbl_interval()</code> and timings in <code><a href="../articles/benchmarks.html">vignette('benchmarks')</a></code>.</p></li>
 </ul>
 </div>
     <div id="valr-040" class="section level1">
@@ -247,7 +257,7 @@
 <a href="#enhancements" class="anchor"></a>Enhancements</h2>
 <ul>
 <li><p>A manuscript describing valr has been published in <a href="https://f1000research.com/articles/6-1025/v1">F1000Research</a>.</p></li>
-<li><p>New S3 generic <code><a href="../reference/as.tbl_interval.html">as.tbl_interval()</a></code> converts <code><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html">GenomicRanges::GRanges</a></code> objects to <code>tbl_interval</code>.</p></li>
+<li><p>New S3 generic <code>as.tbl_interval()</code> converts <code><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html">GenomicRanges::GRanges</a></code> objects to <code>tbl_interval</code>.</p></li>
 <li><p>New <code><a href="../reference/create_tss.html">create_tss()</a></code> for creating transcription start sites.</p></li>
 <li><p>Improve documentation of interval statistics with more complex examples.</p></li>
 </ul>
@@ -293,13 +303,13 @@
 <h1 class="page-header" data-toc-text="0.2.0">
 <a href="#valr-020" class="anchor"></a>valr 0.2.0<small> 2017-05-05 </small>
 </h1>
-<div id="major-changes-1" class="section level2">
+<div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>Package dplyr v0.5.0 headers with valr to remove dplyr LinkingTo dependency.</p></li>
 <li><p><code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> now accepts multiple tbls for intersection (<a href='https://github.com/rnabioco/valr/issues/220'>#220</a> <a href='https://github.com/kriemo'>@kriemo</a>).</p></li>
-<li><p>new <code><a href="../reference/tbl_interval.html">tbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">tbl_genome()</a></code> that wrap tibbles and enforce strict column naming. <code><a href="../reference/tbl_interval.html">trbl_interval()</a></code> and <code><a href="../reference/tbl_genome.html">trbl_genome()</a></code> are constructors that take <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tibble::tribble()</a></code> formatting and <code><a href="../reference/is.tbl_interval.html">is.tbl_interval()</a></code> and <code><a href="../reference/is.tbl_genome.html">is.tbl_genome()</a></code> are used to check for valid classes.</p></li>
+<li><p>new <code>tbl_interval()</code> and <code>tbl_genome()</code> that wrap tibbles and enforce strict column naming. <code>trbl_interval()</code> and <code>trbl_genome()</code> are constructors that take <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tibble::tribble()</a></code> formatting and <code>is.tbl_interval()</code> and <code>is.tbl_genome()</code> are used to check for valid classes.</p></li>
 </ul>
 </div>
 <div id="minor-changes-4" class="section level2">
@@ -321,9 +331,9 @@
 <h1 class="page-header" data-toc-text="0.1.2">
 <a href="#valr-012" class="anchor"></a>valr 0.1.2<small> 2017-03-16 </small>
 </h1>
-<div id="major-changes-2" class="section level2">
+<div id="major-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Deprecate <code><a href="../reference/bed_sort.html">bed_sort()</a></code> in favor of using <code><a href="https://dplyr.tidyverse.org/reference/arrange.html">dplyr::arrange()</a></code> explicitly (fixes <a href='https://github.com/rnabioco/valr/issues/134'>#134</a>).</li>
 </ul>
@@ -367,9 +377,9 @@
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#valr-010" class="anchor"></a>valr 0.1.0<small> 2016-11-21 </small>
 </h1>
-<div id="major-changes-3" class="section level2">
+<div id="major-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-4" class="anchor"></a>Major changes</h2>
 <ul>
 <li>initial release on CRAN</li>
 </ul>

@@ -107,7 +107,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Interval statistics</h1>
             
-            <h4 class="date">April 23 2020</h4>
+            <h4 class="date">May 04 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/interval-stats.Rmd"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="hidden name"><code>interval-stats.Rmd</code></div>
@@ -164,38 +164,34 @@
 <a href="#distance-metrics" class="anchor"></a>Distance metrics</h2>
 <p>First we define a function that takes <code>x</code> and <code>y</code> intervals and computes distance statistics (using <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>) for specified groups. The value of each statistic is assigned to a <code>.value</code> column.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">distance_stats</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>, <span class="no">y</span>, <span class="no">genome</span>, <span class="no">group_var</span>, <span class="no">type</span> <span class="kw">=</span> <span class="fl">NA</span>) {
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/se-deprecated.html">group_by_</a></span>(<span class="no">x</span>, <span class="kw">.dots</span> <span class="kw">=</span> <span class="no">group_var</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">x</span>, !!<span class="kw pkg">rlang</span><span class="kw ns">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html">sym</a></span>(<span class="no">group_var</span>)) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/do.html">do</a></span>(
        <span class="kw">reldist</span> <span class="kw">=</span> <span class="fu"><a href="../reference/bed_reldist.html">bed_reldist</a></span>(<span class="no">.</span>, <span class="no">y</span>, <span class="kw">detail</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
          <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">.value</span> <span class="kw">=</span> <span class="no">.reldist</span>),
        <span class="kw">absdist</span> <span class="kw">=</span> <span class="fu"><a href="../reference/bed_absdist.html">bed_absdist</a></span>(<span class="no">.</span>, <span class="no">y</span>, <span class="no">genome</span>) <span class="kw">%&gt;%</span>
          <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">.value</span> <span class="kw">=</span> <span class="no">.absdist</span>)
        ) <span class="kw">%&gt;%</span>
-    <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/deprecated-se.html">gather_</a></span>(<span class="st">'stat'</span>, <span class="st">'value'</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/setops.html">setdiff</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">.</span>), <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">group_var</span>))) <span class="kw">%&gt;%</span>
+    <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span>(<span class="kw">cols</span> <span class="kw">=</span> -<span class="no">name</span>,
+                        <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">'stat'</span>,
+                        <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">'value'</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="no">type</span>)
 }</pre></body></html></div>
 <p>We use the <code>distance_stats()</code> function to apply the <code><a href="../reference/bed_absdist.html">bed_absdist()</a></code> function to each group of data.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">obs_stats</span> <span class="kw">&lt;-</span> <span class="fu">distance_stats</span>(<span class="no">rpts</span>, <span class="no">tss</span>, <span class="no">genome</span>, <span class="st">'name'</span>, <span class="st">'obs'</span>)
-<span class="co">#&gt; Warning: group_by_() is deprecated. </span>
-<span class="co">#&gt; Please use group_by() instead</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; The 'programming' vignette or the tidyeval book can help you</span>
-<span class="co">#&gt; to program with group_by() : https://tidyeval.tidyverse.org</span>
-<span class="co">#&gt; This warning is displayed once per session.</span>
 <span class="no">obs_stats</span>
 <span class="co">#&gt; # A tibble: 2,106 x 4</span>
 <span class="co">#&gt;    name       stat    value             type </span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;   &lt;list&gt;            &lt;chr&gt;</span>
 <span class="co">#&gt;  1 (A)n       reldist &lt;tibble [27 × 1]&gt; obs  </span>
-<span class="co">#&gt;  2 (AAAAACA)n reldist &lt;tibble [1 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  3 (AAAAC)n   reldist &lt;tibble [6 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  4 (AAAAG)n   reldist &lt;tibble [2 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  5 (AAAAT)n   reldist &lt;tibble [3 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  6 (AAAATA)n  reldist &lt;tibble [1 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  7 (AAAATAA)n reldist &lt;tibble [1 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  8 (AAAC)n    reldist &lt;tibble [2 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  9 (AAACA)n   reldist &lt;tibble [1 × 1]&gt;  obs  </span>
-<span class="co">#&gt; 10 (AAACAA)n  reldist &lt;tibble [1 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  2 (A)n       absdist &lt;tibble [28 × 1]&gt; obs  </span>
+<span class="co">#&gt;  3 (AAAAACA)n reldist &lt;tibble [1 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  4 (AAAAACA)n absdist &lt;tibble [1 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  5 (AAAAC)n   reldist &lt;tibble [6 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  6 (AAAAC)n   absdist &lt;tibble [7 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  7 (AAAAG)n   reldist &lt;tibble [2 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  8 (AAAAG)n   absdist &lt;tibble [2 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  9 (AAAAT)n   reldist &lt;tibble [3 × 1]&gt;  obs  </span>
+<span class="co">#&gt; 10 (AAAAT)n   absdist &lt;tibble [4 × 1]&gt;  obs  </span>
 <span class="co">#&gt; # … with 2,096 more rows</span></pre></body></html></div>
 <p>And the same is done for a set of shuffled group of data. <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code> is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">shfs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/bed_shuffle.html">bed_shuffle</a></span>(<span class="no">rpts</span>, <span class="no">genome</span>, <span class="kw">within</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
@@ -206,39 +202,40 @@
 <code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code>ing the data frames</li>
 <li>creating groups for each repeat (<code>name</code>), stat (<code>reldist</code> or <code>absdist</code>) and type (<code>obs</code> or <code>shf</code>)</li>
 <li>adding unique surrogate row numbers for each group</li>
-<li>using <code><a href="https://tidyr.tidyverse.org/reference/spread.html">tidyr::spread()</a></code> to create two new <code>obs</code> and <code>shuf</code> columns</li>
+<li>using <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">tidyr::pivot_wider()</a></code> to create two new <code>obs</code> and <code>shuf</code> columns</li>
 <li>removing rows with <code>NA</code> values.</li>
 </ol>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">obs_stats</span>, <span class="no">shf_stats</span>) <span class="kw">%&gt;%</span>
   <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="no">value</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">name</span>, <span class="no">stat</span>, <span class="no">type</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">.id</span> <span class="kw">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span>()) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/spread.html">spread</a></span>(<span class="no">type</span>, <span class="no">.value</span>) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span>(<span class="kw">names_from</span> <span class="kw">=</span> <span class="st">"type"</span>,
+                     <span class="kw">values_from</span> <span class="kw">=</span> <span class="st">".value"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span>()
 
 <span class="no">res</span>
-<span class="co">#&gt; # A tibble: 16,770 x 5</span>
-<span class="co">#&gt; # Groups:   name, stat [1,927]</span>
-<span class="co">#&gt;    name  stat      .id     obs     shuf</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 (A)n  absdist     1 5120782 15997839</span>
-<span class="co">#&gt;  2 (A)n  absdist     2  226477 15840766</span>
-<span class="co">#&gt;  3 (A)n  absdist     3   31242 15573632</span>
-<span class="co">#&gt;  4 (A)n  absdist     4    8930 14244579</span>
-<span class="co">#&gt;  5 (A)n  absdist     5   41316 13479588</span>
-<span class="co">#&gt;  6 (A)n  absdist     6   22519 13328724</span>
-<span class="co">#&gt;  7 (A)n  absdist     7   15173 11403508</span>
-<span class="co">#&gt;  8 (A)n  absdist     8   21985  9963739</span>
-<span class="co">#&gt;  9 (A)n  absdist     9   13458  6663293</span>
-<span class="co">#&gt; 10 (A)n  absdist    10  134007  5404735</span>
-<span class="co">#&gt; # … with 16,760 more rows</span></pre></body></html></div>
-<p>Now that the data are formatted, we can use the non-parametric <code><a href="https://rdrr.io/r/stats/ks.test.html">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://rdrr.io/pkg/broom/man/reexports.html">broom::tidy()</a></code> is used to reformat the results of each test into a <code>data_frame</code>, and the results of each test are <code>gather</code>ed to into a <code>type</code> column for each test type.</p>
+<span class="co">#&gt; # A tibble: 16,760 x 5</span>
+<span class="co">#&gt; # Groups:   name, stat [1,934]</span>
+<span class="co">#&gt;    name  stat      .id   obs   shuf</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 (A)n  reldist     1 0.363 0.122 </span>
+<span class="co">#&gt;  2 (A)n  reldist     2 0.429 0.183 </span>
+<span class="co">#&gt;  3 (A)n  reldist     3 0.246 0.139 </span>
+<span class="co">#&gt;  4 (A)n  reldist     4 0.478 0.266 </span>
+<span class="co">#&gt;  5 (A)n  reldist     5 0.260 0.295 </span>
+<span class="co">#&gt;  6 (A)n  reldist     6 0.286 0.0787</span>
+<span class="co">#&gt;  7 (A)n  reldist     7 0.498 0.317 </span>
+<span class="co">#&gt;  8 (A)n  reldist     8 0.237 0.393 </span>
+<span class="co">#&gt;  9 (A)n  reldist     9 0.314 0.406 </span>
+<span class="co">#&gt; 10 (A)n  reldist    10 0.149 0.478 </span>
+<span class="co">#&gt; # … with 16,750 more rows</span></pre></body></html></div>
+<p>Now that the data are formatted, we can use the non-parametric <code><a href="https://rdrr.io/r/stats/ks.test.html">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://rdrr.io/pkg/broom/man/reexports.html">broom::tidy()</a></code> is used to reformat the results of each test into a <code>tibble</code>, and the results of each test are <code>pivot</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">broom</span>)
 
 <span class="no">pvals</span> <span class="kw">&lt;-</span> <span class="no">res</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="kw">twosided</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>)),
                     <span class="kw">less</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>, <span class="kw">alternative</span> <span class="kw">=</span> <span class="st">'less'</span>)),
                     <span class="kw">greater</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>, <span class="kw">alternative</span> <span class="kw">=</span> <span class="st">'greater'</span>))) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(<span class="no">alt</span>, <span class="no">type</span>, -<span class="no">name</span>, -<span class="no">stat</span>) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span>(<span class="kw">cols</span> <span class="kw">=</span> -<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">name</span>, <span class="no">stat</span>), <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"alt"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"type"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="no">type</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>:<span class="no">p.value</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="no">p.value</span>)</pre></body></html></div>
@@ -254,7 +251,10 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="no">q.value</span>)</pre></body></html></div>
 <p>Finally we can visualize these results using <code><a href="https://ggplot2.tidyverse.org/reference/stat_ecdf.html">stat_ecdf()</a></code>.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">res_gather</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span>(<span class="no">res</span>, <span class="no">type</span>, <span class="no">value</span>, -<span class="no">name</span>, -<span class="no">stat</span>, -<span class="no">.id</span>)
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">res_gather</span> <span class="kw">&lt;-</span> <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span>(<span class="no">res</span>,
+                                  <span class="kw">cols</span> <span class="kw">=</span> -<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">name</span>, <span class="no">stat</span>, <span class="no">.id</span>),
+                                  <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"type"</span>,
+                                  <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"value"</span>)
 
 <span class="no">signif</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">pvals</span>, <span class="fl">5</span>)
 
@@ -318,7 +318,7 @@
 <div class="sourceCode" id="cb11"><html><body><pre class="r">
 <span class="co"># function to apply bed_projection to groups</span>
 <span class="no">projection_stats</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>, <span class="no">y</span>, <span class="no">genome</span>, <span class="no">group_var</span>, <span class="no">type</span> <span class="kw">=</span> <span class="fl">NA</span>) {
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/se-deprecated.html">group_by_</a></span>(<span class="no">x</span>, <span class="kw">.dots</span> <span class="kw">=</span> <span class="no">group_var</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">x</span>, !!<span class="kw pkg">rlang</span><span class="kw ns">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html">sym</a></span>(<span class="no">group_var</span>)) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="kw">n_repeats</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">.</span>),
        <span class="kw">projection</span> <span class="kw">=</span> <span class="fu"><a href="../reference/bed_projection.html">bed_projection</a></span>(<span class="no">.</span>, <span class="no">y</span>, <span class="no">genome</span>)) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="no">type</span>)
@@ -330,10 +330,8 @@
 <span class="no">pvals</span> <span class="kw">&lt;-</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">pvals_ncoding</span>, <span class="no">pvals_coding</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>() <span class="kw">%&gt;%</span>
-  <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>() <span class="kw">%&gt;%</span>
+  <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">n_repeats</span>, <span class="no">projection</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">chrom</span>)
-<span class="co">#&gt; Warning: `cols` is now required.</span>
-<span class="co">#&gt; Please use `cols = c(n_repeats, projection)`</span>
 
 <span class="co"># filter for repeat classes with at least 10 intervals</span>
 <span class="no">pvals</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">pvals</span>,
@@ -370,8 +368,8 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="no">type</span>)
 
 <span class="kw pkg">DT</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span>(<span class="no">signif_tests</span>)</pre></body></html></div>
-<div id="htmlwidget-b1a7ad00709a593605b3" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b1a7ad00709a593605b3">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e88727cf61a12823cf85" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e88727cf61a12823cf85">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 

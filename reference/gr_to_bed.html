@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Flip strands in intervals. — flip_strands • valr</title>
+<title>Convert Granges to bed tibble — gr_to_bed • valr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Flip strands in intervals. — flip_strands" />
-<meta property="og:description" content="Flips positive (+) stranded intervals to negative (-) strands,
-and vice-versa. Facilitates comparisons among intervals on opposing strands." />
+<meta property="og:title" content="Convert Granges to bed tibble — gr_to_bed" />
+<meta property="og:description" content="Convert Granges to bed tibble" />
 <meta property="og:image" content="https://rnabioco.github.io/valr/logo.png" />
 
 
@@ -148,48 +147,61 @@ and vice-versa. Facilitates comparisons among intervals on opposing strands." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Flip strands in intervals.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rnabioco/valr/blob/master/R/strands.r'><code>R/strands.r</code></a></small>
-    <div class="hidden name"><code>flip_strands.Rd</code></div>
+    <h1>Convert Granges to bed tibble</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rnabioco/valr/blob/master/R/tbls.r'><code>R/tbls.r</code></a></small>
+    <div class="hidden name"><code>gr_to_bed.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Flips positive (<code>+</code>) stranded intervals to negative (<code>-</code>) strands,
-and vice-versa. Facilitates comparisons among intervals on opposing strands.</p>
+    <p>Convert Granges to bed tibble</p>
     </div>
 
-    <pre class="usage"><span class='fu'>flip_strands</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>gr_to_bed</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><a href='ivl_df.html'>ivl_df</a></p></td>
+      <td><p>GRanges object to convert to bed tibble.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p>Other utilities: 
-<code><a href='bed12_to_exons.html'>bed12_to_exons</a>()</code>,
-<code><a href='bed_makewindows.html'>bed_makewindows</a>()</code>,
-<code><a href='bound_intervals.html'>bound_intervals</a>()</code>,
-<code><a href='interval_spacing.html'>interval_spacing</a>()</code></p></div>
+    <p><code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>strand</span>,
-  <span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>,  <span class='st'>'+'</span>,
-  <span class='st'>'chr2'</span>, <span class='fl'>1</span>,      <span class='fl'>100</span>,  <span class='st'>'-'</span>
-)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>GenomicRanges</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html'>GRanges</a></span>(
+        <span class='kw'>seqnames</span> <span class='kw'>=</span> <span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Rle-class.html'>Rle</a></span>(
+                     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chr1"</span>, <span class='st'>"chr2"</span>, <span class='st'>"chr1"</span>, <span class='st'>"chr3"</span>),
+                     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)),
+        <span class='kw'>ranges</span>   <span class='kw'>=</span> <span class='kw pkg'>IRanges</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html'>IRanges</a></span>(
+                     <span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>),
+                     <span class='kw'>end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>500</span>, <span class='fl'>1000</span>, <span class='fl'>2000</span>),
+                     <span class='kw'>names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>letters</span>, <span class='fl'>4</span>)),
+        <span class='kw'>strand</span>   <span class='kw'>=</span> <span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Rle-class.html'>Rle</a></span>(
+                     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"-"</span>, <span class='st'>"+"</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>))
+      )
 
-<span class='fu'>flip_strands</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 4</span><span>
-#&gt;   chrom start   end strand
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> chr1      1   100 -     
-#&gt; </span><span style='color: #555555;'>2</span><span> chr2      1   100 +     </div><div class='input'>
-</div></span></pre>
+<span class='fu'>gr_to_bed</span>(<span class='no'>gr</span>)
+
+<span class='co'># There are two ways to convert a bed-like data.frame to GRanges:</span>
+
+<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>GenomicRanges</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html'>GRanges</a></span>(
+        <span class='kw'>seqnames</span> <span class='kw'>=</span> <span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Rle-class.html'>Rle</a></span>(<span class='no'>x</span>$<span class='no'>chrom</span>),
+        <span class='kw'>ranges</span>   <span class='kw'>=</span> <span class='kw pkg'>IRanges</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html'>IRanges</a></span>(
+                     <span class='kw'>start</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>start</span> + <span class='fl'>1</span>,
+                     <span class='kw'>end</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>end</span>,
+                     <span class='kw'>names</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>name</span>),
+        <span class='kw'>strand</span>   <span class='kw'>=</span> <span class='kw pkg'>S4Vectors</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/S4Vectors/man/Rle-class.html'>Rle</a></span>(<span class='no'>x</span>$<span class='no'>strand</span>)
+        )
+<span class='co'># or:</span>
+
+<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>GenomicRanges</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/GenomicRanges/man/makeGRangesFromDataFrame.html'>makeGRangesFromDataFrame</a></span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>x</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='no'>start</span> +<span class='fl'>1</span>))
+
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

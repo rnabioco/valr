@@ -167,7 +167,7 @@ clustered.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='tbl_interval.html'>tbl_interval()</a></code></p></td>
+      <td><p><a href='ivl_df.html'>ivl_df</a></p></td>
     </tr>
     <tr>
       <th>max_dist</th>
@@ -177,7 +177,7 @@ clustered.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='tbl_interval.html'>tbl_interval()</a></code> with <code>.id</code> column specifying sets of clustered intervals.</p>
+    <p><a href='ivl_df.html'>ivl_df</a> with <code>.id</code> column specifying sets of clustered intervals.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>input tbls are grouped by <code>chrom</code> by default, and additional
@@ -197,7 +197,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <code><a href='bed_slop.html'>bed_slop</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>180</span>,    <span class='fl'>250</span>,
@@ -217,7 +217,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; </span><span style='color: #555555;'>5</span><span> chr2      1   100     3
 #&gt; </span><span style='color: #555555;'>6</span><span> chr2    150   200     4</div><div class='input'>
 <span class='co'># glyph illustrating clustering of overlapping and book-ended intervals</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tbl_interval.html'>trbl_interval</a></span>(
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>1</span>,      <span class='fl'>10</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>5</span>,      <span class='fl'>20</span>,
