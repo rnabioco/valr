@@ -12,7 +12,7 @@ test_that("glyphs are rendered", {
 })
 
 test_that("glyph labels are applied", {
-  res <- bed_glyph(bed_merge(x, id = n()), label = "id")
+  res <- bed_glyph(bed_merge(x, id = dplyr::n()), label = "id")
   expect_equal(res$labels$label, "id")
 })
 
