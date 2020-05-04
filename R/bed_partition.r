@@ -68,7 +68,7 @@ bed_partition <- function(x, ...) {
     res <- partition_impl(x)
   }
 
-  res <- tbl_df(res)
+  res <- as_tibble(res)
 
   # drop non-grouped cols as values no longer match ivls
   res <- select(res, chrom, start, end, one_of(groups_df))
