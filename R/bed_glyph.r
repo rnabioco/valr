@@ -103,7 +103,7 @@ bed_glyph <- function(expr, label = NULL) {
   for (i in 1:nargs) {
     env_i <- get(expr_vars[i], env)
     rows <- mutate(env_i, .facet = expr_vars[i])
-    res <- bind_rows(res, rows)
+    res <- bind_rows(res, as_tibble(rows))
   }
 
   # assign `.y` values in the result based on clustering

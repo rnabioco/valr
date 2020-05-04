@@ -61,7 +61,7 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
   res <- shuffle_impl(x, incl, within, max_tries, seed)
 
   # bind original x column data to result (#81)
-  res <- bind_cols(res, x[, !colnames(x) %in% colnames(res)])
+  res <- bind_cols(res, as_tibble(x[, !colnames(x) %in% colnames(res)]))
 
   res
 }
