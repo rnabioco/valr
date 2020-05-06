@@ -5,7 +5,7 @@ articles:
   benchmarks: benchmarks.html
   interval-stats: interval-stats.html
   valr: valr.html
-last_built: 2020-05-06T15:38Z
+last_built: 2020-05-06T15:47Z
 urls:
   reference: https://rnabioco.github.io/valr/reference
   article: https://rnabioco.github.io/valr/articles
