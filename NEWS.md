@@ -1,5 +1,9 @@
 # valr (development version)
 
+## Bug Fixes
+
+* Fixed rchk unprotect error (#365)
+
 # valr 0.6.0
 
 ## Major changes
