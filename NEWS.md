@@ -1,4 +1,4 @@
-# valr 0.7.0
+# valr 0.6.1
 
 ## Bug Fixes
 
