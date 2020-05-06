@@ -154,10 +154,17 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#valr-development-version" class="anchor"></a>valr (development version)<small> Unreleased </small>
 </h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
+<ul>
+<li>Fixed rchk unprotect error (<a href='https://github.com/rnabioco/valr/issues/365'>#365</a>)</li>
+</ul>
+</div>
 </div>
     <div id="valr-060" class="section level1">
 <h1 class="page-header" data-toc-text="0.6.0">
-<a href="#valr-060" class="anchor"></a>valr 0.6.0<small> Unreleased </small>
+<a href="#valr-060" class="anchor"></a>valr 0.6.0<small> 2020-05-04 </small>
 </h1>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -177,9 +184,9 @@
 <li><p><code>tbls</code> processed by <code><a href="../reference/bed_merge.html">bed_merge()</a></code>or <code><a href="../reference/bed_sort.html">bed_sort()</a></code> no longer store either <code>merged</code> or <code>sorted</code> as attributes, due to these attributes being rarely checked in the codebase and potential sources of unexpected behavior.</p></li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li><p>Fixed <code><a href="../reference/bed_closest.html">bed_closest()</a></code> to prevent erroneous intervals being reported when adjacent closest intervals are present in the <code>y</code> table. (<a href='https://github.com/rnabioco/valr/issues/348'>#348</a>)</p></li>
 <li><p>Factor columns that are not used for grouping are returned as factors rather than inappropriately being coerced to integer vectors (<a href='https://github.com/rnabioco/valr/issues/360'>#360</a>)</p></li>
@@ -210,9 +217,9 @@
 <h1 class="page-header" data-toc-text="0.4.2">
 <a href="#valr-042" class="anchor"></a>valr 0.4.2<small> 2018-11-17 </small>
 </h1>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Changed the behavior of <code>as.tbl_interval()</code> to call <code>as_tibble()</code> only on non-tibble input, which prevents groups from being stripped from <code>tibble()</code> input (<a href='https://github.com/rnabioco/valr/issues/338'>#338</a>).</li>
 </ul>
@@ -242,9 +249,9 @@
 <li><p>The genome argument to <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> was deprecated and will produce a warning if used. Also error handling was added to check and warn if there are intervals smaller than the requested window size in <code>makewindows_impl()</code> (<a href='https://github.com/rnabioco/valr/issues/312'>#312</a> <a href='https://github.com/kriemo'>@kriemo</a>)</p></li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li><p>Fixed off by one error in reported distances from <code><a href="../reference/bed_closest.html">bed_closest()</a></code>. Distances reported now are the same as <code>bedtools closest</code> behavior (<a href='https://github.com/rnabioco/valr/issues/311'>#311</a>).</p></li>
 <li><p><code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> accepts <code>trbl_intervals</code> named other than <code>x</code> and <code>y</code> (<a href='https://github.com/rnabioco/valr/issues/318'>#318</a>).</p></li>
@@ -275,9 +282,9 @@
 <code><a href="../reference/bed_sort.html">bed_sort()</a></code> has been de-deprecated to reduce <code>arrange</code> calls in library code.</li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code><a href="../reference/bed_merge.html">bed_merge()</a></code> now reports start/end columns if spec is provided (<a href='https://github.com/rnabioco/valr/issues/288'>#288</a>)</li>
@@ -296,9 +303,9 @@
 <li><p>Speed-ups in <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> (~50x), <code><a href="../reference/bed_merge.html">bed_merge()</a></code> (~4x), and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> (~4x) (thanks to <a href='https://github.com/kriemo'>@kriemo</a> and <a href='https://github.com/sheridar'>@sheridar</a>). Thanks to the sponsors of the Biofrontiers Hackathon for the caffeine underlying these improvements.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>intervals from <code><a href="../reference/bed_random.html">bed_random()</a></code> are now sorted properly.</li>
 </ul>
@@ -324,9 +331,9 @@
 <li>intervals returned from <code><a href="../reference/bed_random.html">bed_random()</a></code> are sorted by <code>chrom</code> and <code>start</code> by default.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level2">
+<div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-6" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Merge intervals in <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code> and use numeric values for calculation (fixes <a href='https://github.com/rnabioco/valr/issues/204'>#204</a>).</li>
 </ul>
@@ -355,9 +362,9 @@
 <li><p>Add Kent Riemondy to LICENSE file.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-6" class="section level2">
+<div id="bug-fixes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-7" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
 <code><a href="../reference/bed_merge.html">bed_merge()</a></code> now merges contained intervals (<a href='https://github.com/rnabioco/valr/issues/177'>#177</a>)</li>
