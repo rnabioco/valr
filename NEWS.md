@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.7.0
 
 ## Bug Fixes
 
