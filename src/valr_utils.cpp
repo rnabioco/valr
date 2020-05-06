@@ -15,14 +15,13 @@ void init_factor(SEXP x, SEXP levels) {
     Rf_errorcall(R_NilValue, "Internal error: Only integers can be made into factors");
   }
 
-  SEXP factor_string ;
-  PROTECT(factor_string = Rf_allocVector(STRSXP, 1)) ;
+  SEXP factor_string = PROTECT(Rf_allocVector(STRSXP, 1)) ;
   SET_STRING_ELT(factor_string, 0, Rf_mkChar("factor")) ;
-  UNPROTECT(1) ;
 
   Rf_setAttrib(x, R_LevelsSymbol, levels);
   Rf_setAttrib(x, R_ClassSymbol, factor_string);
 
+  UNPROTECT(1) ;
 }
 
 
@@ -105,8 +104,9 @@ DataFrame rowwise_subset_df(const DataFrame& x,
     if(Rf_isFactor(x[j])){
       // set levels on output factor
       IntegerVector tmp = x[j] ;
-      SEXP levels = tmp.attr("levels") ;
+      SEXP levels = PROTECT(tmp.attr("levels")) ;
       init_factor(vec, levels) ;
+      UNPROTECT(1) ;
     }
 
     UNPROTECT(1);
@@ -203,8 +203,9 @@ DataFrame rowwise_subset_df(const DataFrame& x,
     if(Rf_isFactor(x[j])){
       // set levels on output factor
       IntegerVector tmp = x[j] ;
-      SEXP levels = tmp.attr("levels") ;
+      SEXP levels = PROTECT(tmp.attr("levels")) ;
       init_factor(vec, levels) ;
+      UNPROTECT(1);
     }
     UNPROTECT(1);
 
