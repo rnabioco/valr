@@ -1,10 +1,8 @@
-## New major version
+## New patch version
 
-* This is a new major version (see NEWS.md).
+* This is a new patch version that fixes an issue in the last release caught by CRAN rchk involving a misplaced UNPROTECT call.
 
-* Addresses incompatibilities with the forthcoming dplyr v1.0.0 release.
-
-## Test environments
+## Test environment
 
 * win-builder (devel and  R 3.6.0)
 * local OS X install, R 3.6.0
