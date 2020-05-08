@@ -1,5 +1,7 @@
 ## New patch version
 
+* This is a resubmission with better Title and DOI added to Description.
+
 * This is a new patch version that fixes an issue in the last release caught by CRAN rchk involving a misplaced UNPROTECT call.
 
 ## Test environment
