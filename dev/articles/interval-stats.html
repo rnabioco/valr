@@ -99,8 +99,8 @@
 
       
 
-      </header><script src="interval-stats_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="interval-stats_files/jquery-1.12.4/jquery.min.js"></script><link href="interval-stats_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="interval-stats_files/datatables-binding-0.13/datatables.js"></script><link href="interval-stats_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+      </header><script src="interval-stats_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="interval-stats_files/htmlwidgets-1.5.1/htmlwidgets.js"></script><script src="interval-stats_files/jquery-1.12.4/jquery.min.js"></script><link href="interval-stats_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="interval-stats_files/datatables-binding-0.14/datatables.js"></script><link href="interval-stats_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="interval-stats_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="interval-stats_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="interval-stats_files/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet">
 <script src="interval-stats_files/crosstalk-1.1.0.1/js/crosstalk.min.js"></script><div class="row">
@@ -108,7 +108,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Interval statistics</h1>
             
-            <h4 class="date">May 08 2020</h4>
+            <h4 class="date">July 20 2020</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/interval-stats.Rmd"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="hidden name"><code>interval-stats.Rmd</code></div>
@@ -215,27 +215,27 @@
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span>()
 
 <span class="no">res</span>
-<span class="co">#&gt; # A tibble: 16,768 x 5</span>
-<span class="co">#&gt; # Groups:   name, stat [1,904]</span>
+<span class="co">#&gt; # A tibble: 16,805 x 5</span>
+<span class="co">#&gt; # Groups:   name, stat [1,919]</span>
 <span class="co">#&gt;    name  stat      .id   obs   shuf</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 (A)n  reldist     1 0.363 0.276 </span>
-<span class="co">#&gt;  2 (A)n  reldist     2 0.429 0.214 </span>
-<span class="co">#&gt;  3 (A)n  reldist     3 0.246 0.291 </span>
-<span class="co">#&gt;  4 (A)n  reldist     4 0.478 0.247 </span>
-<span class="co">#&gt;  5 (A)n  reldist     5 0.260 0.381 </span>
-<span class="co">#&gt;  6 (A)n  reldist     6 0.286 0.323 </span>
-<span class="co">#&gt;  7 (A)n  reldist     7 0.498 0.188 </span>
-<span class="co">#&gt;  8 (A)n  reldist     8 0.237 0.171 </span>
-<span class="co">#&gt;  9 (A)n  reldist     9 0.314 0.449 </span>
-<span class="co">#&gt; 10 (A)n  reldist    10 0.149 0.0411</span>
-<span class="co">#&gt; # … with 16,758 more rows</span></pre></body></html></div>
-<p>Now that the data are formatted, we can use the non-parametric <code><a href="https://rdrr.io/r/stats/ks.test.html">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://rdrr.io/pkg/broom/man/reexports.html">broom::tidy()</a></code> is used to reformat the results of each test into a <code>tibble</code>, and the results of each test are <code>pivot</code>ed to into a <code>type</code> column for each test type.</p>
+<span class="co">#&gt;  1 (A)n  reldist     1 0.363 0.258 </span>
+<span class="co">#&gt;  2 (A)n  reldist     2 0.429 0.210 </span>
+<span class="co">#&gt;  3 (A)n  reldist     3 0.246 0.242 </span>
+<span class="co">#&gt;  4 (A)n  reldist     4 0.478 0.408 </span>
+<span class="co">#&gt;  5 (A)n  reldist     5 0.260 0.364 </span>
+<span class="co">#&gt;  6 (A)n  reldist     6 0.286 0.0616</span>
+<span class="co">#&gt;  7 (A)n  reldist     7 0.498 0.397 </span>
+<span class="co">#&gt;  8 (A)n  reldist     8 0.237 0.277 </span>
+<span class="co">#&gt;  9 (A)n  reldist     9 0.314 0.300 </span>
+<span class="co">#&gt; 10 (A)n  reldist    10 0.149 0.499 </span>
+<span class="co">#&gt; # … with 16,795 more rows</span></pre></body></html></div>
+<p>Now that the data are formatted, we can use the non-parametric <code><a href="https://rdrr.io/r/stats/ks.test.html">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://broom.tidymodels.org/reference/reexports.html">broom::tidy()</a></code> is used to reformat the results of each test into a <code>tibble</code>, and the results of each test are <code>pivot</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">broom</span>)
 
-<span class="no">pvals</span> <span class="kw">&lt;-</span> <span class="no">res</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="kw">twosided</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>)),
-                    <span class="kw">less</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>, <span class="kw">alternative</span> <span class="kw">=</span> <span class="st">'less'</span>)),
-                    <span class="kw">greater</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>, <span class="kw">alternative</span> <span class="kw">=</span> <span class="st">'greater'</span>))) <span class="kw">%&gt;%</span>
+<span class="no">pvals</span> <span class="kw">&lt;-</span> <span class="no">res</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/do.html">do</a></span>(<span class="kw">twosided</span> <span class="kw">=</span> <span class="fu"><a href="https://broom.tidymodels.org/reference/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>)),
+                    <span class="kw">less</span> <span class="kw">=</span> <span class="fu"><a href="https://broom.tidymodels.org/reference/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>, <span class="kw">alternative</span> <span class="kw">=</span> <span class="st">'less'</span>)),
+                    <span class="kw">greater</span> <span class="kw">=</span> <span class="fu"><a href="https://broom.tidymodels.org/reference/reexports.html">tidy</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html">ks.test</a></span>(<span class="no">.</span>$<span class="no">obs</span>, <span class="no">.</span>$<span class="no">shuf</span>, <span class="kw">alternative</span> <span class="kw">=</span> <span class="st">'greater'</span>))) <span class="kw">%&gt;%</span>
   <span class="kw pkg">tidyr</span><span class="kw ns">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span>(<span class="kw">cols</span> <span class="kw">=</span> -<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">name</span>, <span class="no">stat</span>), <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"alt"</span>, <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"type"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span>(<span class="no">type</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">name</span>:<span class="no">p.value</span>) <span class="kw">%&gt;%</span>
@@ -261,14 +261,12 @@
 
 <span class="no">res_signif</span> <span class="kw">&lt;-</span>
   <span class="no">signif</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>(<span class="no">res_gather</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'name'</span>, <span class="st">'stat'</span>))
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span>(<span class="no">res_gather</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'name'</span>, <span class="st">'stat'</span>))
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">res_signif</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">value</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">type</span>)) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ecdf.html">stat_ecdf</a></span>() +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(<span class="no">stat</span> ~ <span class="no">name</span>) + <span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_cowplot</a></span>() + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_log10</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span>(<span class="kw">palette</span> <span class="kw">=</span> <span class="st">'Set1'</span>)
-<span class="co">#&gt; Warning: Transformation introduced infinite values in continuous x-axis</span>
-<span class="co">#&gt; Warning: Removed 2 rows containing non-finite values (stat_ecdf).</span></pre></body></html></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span>(<span class="kw">palette</span> <span class="kw">=</span> <span class="st">'Set1'</span>)</pre></body></html></div>
 <p><img src="interval-stats_files/figure-html/ecfs-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="projection-test" class="section level2">
@@ -371,8 +369,8 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="no">type</span>)
 
 <span class="kw pkg">DT</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span>(<span class="no">signif_tests</span>)</pre></body></html></div>
-<div id="htmlwidget-9eb0129f5f54f1768a8d" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9eb0129f5f54f1768a8d">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1cb76dc356a8d62a729f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1cb76dc356a8d62a729f">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 
@@ -391,7 +389,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
