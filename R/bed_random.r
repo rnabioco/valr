@@ -45,5 +45,5 @@ bed_random <- function(genome, length = 1000, n = 1e6, seed = 0, sorted = TRUE) 
     out <- bed_sort(out)
   }
 
-  out
+  as_tibble(out)
 }
