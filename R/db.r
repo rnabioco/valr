@@ -27,12 +27,20 @@ NULL
 #'   tbl(ucsc, "chromInfo")
 #' }
 #' }
-#' @importFrom DBI dbConnect
-#' @importFrom RMariaDB MariaDB
 #' @export
 db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
                     user = "genomep", password = "password",
                     port = 3306, ...) {
+  db_pkgs <- c("dbplyr", "DBI", "RMariaDB")
+  pkgs_found <- sapply(db_pkgs, requireNamespace, quietly = TRUE)
+  if (!all(pkgs_found)) {
+    missing_pkg <- db_pkgs[!pkgs_found]
+
+    stop("package(s): ", paste(missing_pkg, collapse = " "),
+         " needed for this function, please install.",
+         call. = FALSE)
+  }
+
   DBI::dbConnect(RMariaDB::MariaDB(),
                  dbname = dbname,
                  user = user,
@@ -58,10 +66,20 @@ db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
 db_ensembl <- function(dbname, host = "ensembldb.ensembl.org",
                        user = "anonymous", password = "",
                        port = 3306, ...) {
+  db_pkgs <- c("dbplyr", "DBI", "RMariaDB")
+  pkgs_found <- sapply(db_pkgs, requireNamespace, quietly = TRUE)
+  if (!all(pkgs_found)) {
+    missing_pkg <- db_pkgs[!pkgs_found]
+
+    stop("package(s): ", paste(missing_pkg, collapse = " "),
+         " needed for this function, please install.",
+         call. = FALSE)
+  }
+
   DBI::dbConnect(RMariaDB::MariaDB(),
                  dbname = dbname,
                  user = user,
                  password = password,
                  host = host,
-                 post = port, ...) # nocov # nocov
+                 post = port, ...) # nocov
 }
