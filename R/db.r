@@ -17,7 +17,7 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' if(require(RMySQL)) {
+#' if(require(RMariaDB)) {
 #'   ucsc <- db_ucsc('hg38')
 #'
 #'   # fetch the `refGene` tbl
@@ -27,12 +27,18 @@ NULL
 #'   tbl(ucsc, "chromInfo")
 #' }
 #' }
-#'
+#' @importFrom DBI dbConnect
+#' @importFrom RMariaDB MariaDB
 #' @export
 db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
                     user = "genomep", password = "password",
                     port = 3306, ...) {
-  src_mysql(dbname, host, port, user, password, ...) # nocov
+  DBI::dbConnect(RMariaDB::MariaDB(),
+                 dbname = dbname,
+                 user = user,
+                 password = password,
+                 host = host,
+                 post = port, ...) # nocov
 }
 
 #' @rdname db
@@ -40,7 +46,7 @@ db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
 #'
 #' @examples
 #' \dontrun{
-#' if(require(RMySQL)) {
+#' if(require(RMariaDB)) {
 #'   # squirrel genome
 #'   ensembl <- db_ensembl('spermophilus_tridecemlineatus_core_67_2')
 #'
@@ -52,5 +58,10 @@ db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
 db_ensembl <- function(dbname, host = "ensembldb.ensembl.org",
                        user = "anonymous", password = "",
                        port = 3306, ...) {
-  src_mysql(dbname, host, port, user, password, ...) # nocov
+  DBI::dbConnect(RMariaDB::MariaDB(),
+                 dbname = dbname,
+                 user = user,
+                 password = password,
+                 host = host,
+                 post = port, ...) # nocov # nocov
 }
