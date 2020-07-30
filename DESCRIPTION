@@ -37,7 +37,6 @@ Suggests:
     microbenchmark,
     covr,
     curl,
-    RMySQL,
     purrr,
     tidyr,
     devtools,
@@ -47,6 +46,8 @@ Suggests:
     GenomicRanges,
     IRanges,
     S4Vectors,
+    DBI,
+    RMariaDB
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
 URL: http://github.com/rnabioco/valr, http://rnabioco.github.io/valr

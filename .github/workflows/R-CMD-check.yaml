@@ -18,8 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # RMySQL not available on devel
-          # - {os: macOS-latest,   r: 'devel'}
+          # failing due to missing tarball for devel on macOS https://github.com/r-lib/actions/issues/140
+          #- {os: macOS-latest,   r: 'devel'}
           - {os: macOS-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: '3.6'}
