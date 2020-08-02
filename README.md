@@ -74,3 +74,9 @@ nearby %>%
 #> 10 rs5747567   DQ571479        0 -1778
 #> # … with 1,037 more rows
 ```
+
+## Code of Conduct
+
+Please note that the valr project is released with a [Contributor Code
+of Conduct](https://rnabioco.github.io/valr/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.
