@@ -34,7 +34,7 @@ Suggests:
     knitr,
     rmarkdown,
     testthat,
-    microbenchmark,
+    bench,
     covr,
     curl,
     purrr,
