@@ -115,29 +115,34 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The latest stable version can be installed from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'valr'</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'valr'</span>)
+</pre></div>
 <p>The latest development version can be installed from github:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">'rnabioco/valr'</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># install.packages("devtools")</span>
+<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">'rnabioco/valr'</span>)
+</pre></div>
 </div>
 <div id="valr-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#valr-example" class="anchor"></a>valr Example</h2>
 <p>Functions in valr have similar names to their BEDtools counterparts, and so will be familiar to users coming from the BEDtools suite. Unlike other tools that wrap BEDtools and write temporary files to disk, valr tools run natively in memory. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools">pybedtools</a>, valr has a terse syntax:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">valr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://github.com/rnabioco/valr">valr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
 
-<span class="no">snps</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), <span class="kw">n_fields</span> <span class="kw">=</span> <span class="fl">6</span>)
-<span class="no">genes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="kw">n_fields</span> <span class="kw">=</span> <span class="fl">6</span>)
+<span class="kw">snps</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), n_fields = <span class="fl">6</span>)
+<span class="kw">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), n_fields = <span class="fl">6</span>)
 
 <span class="co"># find snps in intergenic regions</span>
-<span class="no">intergenic</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bed_subtract.html">bed_subtract</a></span>(<span class="no">snps</span>, <span class="no">genes</span>)
+<span class="kw">intergenic</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bed_subtract.html">bed_subtract</a></span>(<span class="kw">snps</span>, <span class="kw">genes</span>)
 <span class="co"># find distance from intergenic snps to nearest gene</span>
-<span class="no">nearby</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bed_closest.html">bed_closest</a></span>(<span class="no">intergenic</span>, <span class="no">genes</span>)
+<span class="kw">nearby</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bed_closest.html">bed_closest</a></span>(<span class="kw">intergenic</span>, <span class="kw">genes</span>)
 
-<span class="no">nearby</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), <span class="no">.overlap</span>, <span class="no">.dist</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">.dist</span>) <span class="kw">&lt;</span> <span class="fl">5000</span>)
+<span class="kw">nearby</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span>(<span class="st">'name'</span>), <span class="kw">.overlap</span>, <span class="kw">.dist</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw">.dist</span>) <span class="op">&lt;</span> <span class="fl">5000</span>)
 <span class="co">#&gt; # A tibble: 1,047 x 4</span>
 <span class="co">#&gt;    name.x      name.y   .overlap .dist</span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span>
@@ -151,7 +156,8 @@
 <span class="co">#&gt;  8 rs528403095 DQ571479        0  3309</span>
 <span class="co">#&gt;  9 rs555126291 DQ571479        0  2745</span>
 <span class="co">#&gt; 10 rs5747567   DQ571479        0 -1778</span>
-<span class="co">#&gt; # … with 1,037 more rows</span></pre></div>
+<span class="co">#&gt; # … with 1,037 more rows</span>
+</pre></div>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
@@ -223,7 +229,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

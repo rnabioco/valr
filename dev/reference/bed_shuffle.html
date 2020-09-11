@@ -157,13 +157,13 @@
     </div>
 
     <pre class="usage"><span class='fu'>bed_shuffle</span>(
-  <span class='no'>x</span>,
-  <span class='no'>genome</span>,
-  <span class='kw'>incl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>excl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>max_tries</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
-  <span class='kw'>within</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>0</span>
+  <span class='kw'>x</span>,
+  <span class='kw'>genome</span>,
+  incl = <span class='kw'>NULL</span>,
+  excl = <span class='kw'>NULL</span>,
+  max_tries = <span class='fl'>1000</span>,
+  within = <span class='fl'>FALSE</span>,
+  seed = <span class='fl'>0</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -209,16 +209,17 @@
 <code><a href='bed_random.html'>bed_random</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
- ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
+    <pre class="examples"><div class='input'><span class='kw'>genome</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
+ <span class='op'>~</span><span class='kw'>chrom</span>, <span class='op'>~</span><span class='kw'>size</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>1e6</span>,
  <span class='st'>"chr2"</span>, <span class='fl'>2e6</span>,
  <span class='st'>"chr3"</span>, <span class='fl'>4e6</span>
 )
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='kw'>genome</span>, seed = <span class='fl'>1010486</span>)
 
-<span class='fu'>bed_shuffle</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9830491</span>)</div><div class='output co'>#&gt;       chrom   start     end
+<span class='fu'>bed_shuffle</span>(<span class='kw'>x</span>, <span class='kw'>genome</span>, seed = <span class='fl'>9830491</span>)
+</div><div class='output co'>#&gt;       chrom   start     end
 #&gt; 1      chr2 1998650 1999650
 #&gt; 2      chr2 1775530 1776530
 #&gt; 3      chr2  715183  716183
@@ -33569,7 +33570,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

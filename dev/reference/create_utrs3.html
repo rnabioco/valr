@@ -156,7 +156,7 @@
     <p>Create 3' UTR features.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_utrs3</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>create_utrs3</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,9 +175,10 @@
 <code><a href='create_utrs5.html'>create_utrs5</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_bed.html'>read_bed12</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_bed.html'>read_bed12</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))
 
-<span class='fu'>create_utrs3</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 99 x 6</span><span>
+<span class='fu'>create_utrs3</span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 99 x 6</span><span>
 #&gt;    chrom   start     end name         score strand
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
 #&gt; </span><span style='color: #555555;'> 1</span><span> chr1  3</span><span style='text-decoration: underline;'>204</span><span>562 3</span><span style='text-decoration: underline;'>206</span><span>102 NM_001011874 0     -     
@@ -207,7 +208,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

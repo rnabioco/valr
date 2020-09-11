@@ -156,7 +156,7 @@
     <p>Sort a set of intervals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_sort</span>(<span class='kw'>x</span>, by_size = <span class='fl'>FALSE</span>, by_chrom = <span class='fl'>FALSE</span>, reverse = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,8 +184,8 @@
     <div class='dont-index'><p><a href='http://bedtools.readthedocs.org/en/latest/content/tools/sort.html'>http://bedtools.readthedocs.org/en/latest/content/tools/sort.html</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-   ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
+   <span class='op'>~</span><span class='kw'>chrom</span>, <span class='op'>~</span><span class='kw'>start</span>, <span class='op'>~</span><span class='kw'>end</span>,
    <span class='st'>"chr8"</span>, <span class='fl'>500</span>,    <span class='fl'>1000</span>,
    <span class='st'>"chr8"</span>, <span class='fl'>1000</span>,   <span class='fl'>5000</span>,
    <span class='st'>"chr8"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,
@@ -194,7 +194,8 @@
 )
 
 <span class='co'># sort by chrom and start</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 3</span><span>
+<span class='fu'>bed_sort</span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   chrom start   end
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr1    100   200
@@ -203,7 +204,8 @@
 #&gt; </span><span style='color: #555555;'>4</span><span> chr8    500  </span><span style='text-decoration: underline;'>1</span><span>000
 #&gt; </span><span style='color: #555555;'>5</span><span> chr8   </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>5</span><span>000</div><div class='input'>
 <span class='co'># reverse sort order</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
+<span class='fu'>bed_sort</span>(<span class='kw'>x</span>, reverse = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   chrom start   end
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr1    100   300
@@ -212,7 +214,8 @@
 #&gt; </span><span style='color: #555555;'>4</span><span> chr8    500  </span><span style='text-decoration: underline;'>1</span><span>000
 #&gt; </span><span style='color: #555555;'>5</span><span> chr8    100   200</div><div class='input'>
 <span class='co'># sort by interval size</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
+<span class='fu'>bed_sort</span>(<span class='kw'>x</span>, by_size = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   chrom start   end
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr8    100   200
@@ -221,7 +224,8 @@
 #&gt; </span><span style='color: #555555;'>4</span><span> chr8    500  </span><span style='text-decoration: underline;'>1</span><span>000
 #&gt; </span><span style='color: #555555;'>5</span><span> chr8   </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>5</span><span>000</div><div class='input'>
 <span class='co'># sort by decreasing interval size</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
+<span class='fu'>bed_sort</span>(<span class='kw'>x</span>, by_size = <span class='fl'>TRUE</span>, reverse = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   chrom start   end
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr8   </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>5</span><span>000
@@ -230,7 +234,8 @@
 #&gt; </span><span style='color: #555555;'>4</span><span> chr8    100   200
 #&gt; </span><span style='color: #555555;'>5</span><span> chr1    100   200</div><div class='input'>
 <span class='co'># sort by interval size within chrom</span>
-<span class='fu'>bed_sort</span>(<span class='no'>x</span>, <span class='kw'>by_size</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>by_chrom</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
+<span class='fu'>bed_sort</span>(<span class='kw'>x</span>, by_size = <span class='fl'>TRUE</span>, by_chrom = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   chrom start   end
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr1    100   200
@@ -254,7 +259,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

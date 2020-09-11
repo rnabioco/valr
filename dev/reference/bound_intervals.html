@@ -158,7 +158,7 @@ genome." />
 <code>genome</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bound_intervals</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>bound_intervals</span>(<span class='kw'>x</span>, <span class='kw'>genome</span>, trim = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,22 +189,24 @@ genome." />
 <code><a href='interval_spacing.html'>interval_spacing</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
- ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
- <span class='st'>"chr1"</span>, -<span class='fl'>100</span>,   <span class='fl'>500</span>,
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
+ <span class='op'>~</span><span class='kw'>chrom</span>, <span class='op'>~</span><span class='kw'>start</span>, <span class='op'>~</span><span class='kw'>end</span>,
+ <span class='st'>"chr1"</span>, <span class='op'>-</span><span class='fl'>100</span>,   <span class='fl'>500</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>1e9</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>500</span>,    <span class='fl'>1000</span>
 )
 
-<span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_genome.html'>read_genome</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'hg19.chrom.sizes.gz'</span>))
+<span class='kw'>genome</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_genome.html'>read_genome</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'hg19.chrom.sizes.gz'</span>))
 
 <span class='co'># out-of-bounds are removed by default ...</span>
-<span class='fu'>bound_intervals</span>(<span class='no'>x</span>, <span class='no'>genome</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 3</span><span>
+<span class='fu'>bound_intervals</span>(<span class='kw'>x</span>, <span class='kw'>genome</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 3</span><span>
 #&gt;   chrom start   end
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr1    500  </span><span style='text-decoration: underline;'>1</span><span>000</div><div class='input'>
 <span class='co'># ... or can be trimmed within the bounds of a genome</span>
-<span class='fu'>bound_intervals</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
+<span class='fu'>bound_intervals</span>(<span class='kw'>x</span>, <span class='kw'>genome</span>, trim = <span class='fl'>TRUE</span>)
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 3</span><span>
 #&gt;   chrom start       end
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr1      0       500
@@ -226,7 +228,7 @@ genome." />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

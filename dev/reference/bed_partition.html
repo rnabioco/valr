@@ -158,7 +158,7 @@ and end position in the set." />
 and end position in the set.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_partition</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,7 +178,7 @@ and end position in the set.</p>
     <p><code><a href='ivl_df.html'>ivl_df()</a></code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Summary operations, such as <code><a href='https://rdrr.io/r/base/Extremes.html'>min()</a></code> or <code>count()</code> can be performed
+    <p>Summary operations, such as <code><a href='https://rdrr.io/r/base/Extremes.html'>min()</a></code> or <code><a href='https://dplyr.tidyverse.org/reference/count.html'>count()</a></code> can be performed
 on elemental intervals by specifying name-value pairs.</p>
 <p>This function is useful for calculating summaries across overlapping intervals
 without merging the intervals.</p>
@@ -199,8 +199,8 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <code><a href='bed_slop.html'>bed_slop</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
+  <span class='op'>~</span><span class='kw'>chrom</span>, <span class='op'>~</span><span class='kw'>start</span>, <span class='op'>~</span><span class='kw'>end</span>, <span class='op'>~</span><span class='kw'>value</span>, <span class='op'>~</span><span class='kw'>strand</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>500</span>,  <span class='fl'>10</span>, <span class='st'>"+"</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>200</span>,    <span class='fl'>400</span>,  <span class='fl'>20</span>, <span class='st'>"-"</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>300</span>,    <span class='fl'>550</span>,  <span class='fl'>30</span>, <span class='st'>"+"</span>,
@@ -208,8 +208,11 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
  <span class='st'>'chr1'</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>,   <span class='fl'>5</span>, <span class='st'>"+"</span> )
 
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_partition</span>(<span class='no'>x</span>))</div><div class='img'><img src='bed_partition-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>value</span>)), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"value"</span>)</div><div class='img'><img src='bed_partition-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>bed_partition</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 7 x 3</span><span>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_partition</span>(<span class='kw'>x</span>))
+</div><div class='img'><img src='bed_partition-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_partition</span>(<span class='kw'>x</span>, value = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>value</span>)), label = <span class='st'>"value"</span>)
+</div><div class='img'><img src='bed_partition-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>bed_partition</span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 7 x 3</span><span>
 #&gt;   chrom start   end
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr1    100   200
@@ -220,7 +223,8 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; </span><span style='color: #555555;'>6</span><span> chr1    550   575
 #&gt; </span><span style='color: #555555;'>7</span><span> chr1    800   900</div><div class='input'>
 <span class='co'># compute summary over each elemental interval</span>
-<span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 4</span><span>
+<span class='fu'>bed_partition</span>(<span class='kw'>x</span>, value = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>value</span>))
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 7 x 4</span><span>
 #&gt;   chrom start   end value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr1    100   200    10
@@ -231,8 +235,9 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; </span><span style='color: #555555;'>6</span><span> chr1    550   575     2
 #&gt; </span><span style='color: #555555;'>7</span><span> chr1    800   900     5</div><div class='input'>
 <span class='co'># partition and compute summaries based on group</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>x</span>, <span class='no'>strand</span>)
-<span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 5</span><span>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='kw'>x</span>, <span class='kw'>strand</span>)
+<span class='fu'>bed_partition</span>(<span class='kw'>x</span>, value = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>value</span>))
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 5</span><span>
 #&gt;   chrom start   end strand value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> chr1    100   300 +         10
@@ -242,16 +247,17 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 #&gt; </span><span style='color: #555555;'>5</span><span> chr1    550   575 +          2
 #&gt; </span><span style='color: #555555;'>6</span><span> chr1    800   900 +          5</div><div class='input'>
 <span class='co'># combine values across multiple tibbles</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>, ~<span class='no'>strand</span>,
+<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='kw'>tibble</span>::<span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
+  <span class='op'>~</span><span class='kw'>chrom</span>, <span class='op'>~</span><span class='kw'>start</span>, <span class='op'>~</span><span class='kw'>end</span>, <span class='op'>~</span><span class='kw'>value</span>, <span class='op'>~</span><span class='kw'>strand</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>10</span>,     <span class='fl'>500</span>,  <span class='fl'>100</span>, <span class='st'>"+"</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>250</span>,    <span class='fl'>420</span>,  <span class='fl'>200</span>, <span class='st'>"-"</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>350</span>,    <span class='fl'>550</span>,  <span class='fl'>300</span>, <span class='st'>"+"</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>550</span>,    <span class='fl'>555</span>,   <span class='fl'>20</span>, <span class='st'>"+"</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>800</span>,    <span class='fl'>900</span>,   <span class='fl'>50</span>, <span class='st'>"+"</span> )
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)
-<span class='fu'>bed_partition</span>(<span class='no'>x</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>value</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 11 x 5</span><span>
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='kw'>dplyr</span>::<span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>)
+<span class='fu'>bed_partition</span>(<span class='kw'>x</span>, value = <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='kw'>value</span>))
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 11 x 5</span><span>
 #&gt;    chrom start   end strand value
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> chr1     10   100 +        100
@@ -281,7 +287,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

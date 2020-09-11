@@ -104,7 +104,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>valr overview</h1>
             
-            <h4 class="date">2020-08-02</h4>
+            <h4 class="date">2020-09-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/valr.Rmd"><code>vignettes/valr.Rmd</code></a></small>
       <div class="hidden name"><code>valr.Rmd</code></div>
@@ -121,7 +121,7 @@
 <li>Combines analysis and visualization in RStudio.</li>
 <li>Can be used to generate reports with Rmarkdown.</li>
 <li>Is highly extensible. New tools are quickly implemented on the R side.</li>
-<li>Leverages the “modern R” syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code><a href="https://dplyr.tidyverse.org/reference/reexports.html">%&gt;%</a></code>).</li>
+<li>Leverages the “modern R” syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></code>).</li>
 <li>Maximizes speed by implementing compute-intensive algorithms in <code>Rcpp</code>.</li>
 <li>Facilitates interactive visulaizations with <a href="http://shiny.rstudio.com/"><code>shiny</code></a>.</li>
 </ul>
@@ -130,20 +130,21 @@
 <h3 class="hasAnchor">
 <a href="#familiar-tools-natively-in-r" class="anchor"></a>Familiar tools, natively in R</h3>
 <p>The functions in <code>valr</code> have similar names to their <code>BEDtools</code> counterparts, and so will be familiar to users coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools"><code>pybedtools</code></a>, <code>valr</code> has a terse syntax:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">valr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://github.com/rnabioco/valr">valr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
 
-<span class="no">snps</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), <span class="kw">n_fields</span> <span class="kw">=</span> <span class="fl">6</span>)
-<span class="no">genes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), <span class="kw">n_fields</span> <span class="kw">=</span> <span class="fl">6</span>)
+<span class="kw">snps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.snps147.chr22.bed.gz'</span>), n_fields = <span class="fl">6</span>)
+<span class="kw">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>), n_fields = <span class="fl">6</span>)
 
 <span class="co"># find snps in intergenic regions</span>
-<span class="no">intergenic</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/bed_subtract.html">bed_subtract</a></span>(<span class="no">snps</span>, <span class="no">genes</span>)
+<span class="kw">intergenic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_subtract.html">bed_subtract</a></span>(<span class="kw">snps</span>, <span class="kw">genes</span>)
 <span class="co"># distance from intergenic snps to nearest gene</span>
-<span class="no">nearby</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/bed_closest.html">bed_closest</a></span>(<span class="no">intergenic</span>, <span class="no">genes</span>)
+<span class="kw">nearby</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_closest.html">bed_closest</a></span>(<span class="kw">intergenic</span>, <span class="kw">genes</span>)
 
-<span class="no">nearby</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">'name'</span>), <span class="no">.overlap</span>, <span class="no">.dist</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">.dist</span>) <span class="kw">&lt;</span> <span class="fl">1000</span>)
+<span class="kw">nearby</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span>(<span class="st">'name'</span>), <span class="kw">.overlap</span>, <span class="kw">.dist</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="kw">.dist</span>) <span class="op">&lt;</span> <span class="fl">1000</span>)
 <span class="co">#&gt; # A tibble: 285 x 4</span>
 <span class="co">#&gt;    name.x      name.y            .overlap .dist</span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                &lt;int&gt; &lt;int&gt;</span>
@@ -157,14 +158,16 @@
 <span class="co">#&gt;  8 rs114101676 GAB4                     0   474</span>
 <span class="co">#&gt;  9 rs62236167  CECR7                    0   262</span>
 <span class="co">#&gt; 10 rs5747023   CECR1                    0  -387</span>
-<span class="co">#&gt; # … with 275 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 275 more rows</span>
+</pre></div>
 </div>
 <div id="input-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#input-data" class="anchor"></a>Input data</h3>
 <p><code>valr</code> assigns common column names to facilitate comparisons between tbls. All tbls will have <code>chrom</code>, <code>start</code>, and <code>end</code> columns, and some tbls from multi-column formats will have additional pre-determined column names. See the <code><a href="../reference/read_bed.html">read_bed()</a></code> documentation for details.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">bed_file</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">"3fields.bed.gz"</span>)
-<span class="fu"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="no">bed_file</span>) <span class="co"># accepts filepaths or URLs</span>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">bed_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">"3fields.bed.gz"</span>)
+<span class="fu"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw">bed_file</span>) <span class="co"># accepts filepaths or URLs</span>
 <span class="co">#&gt; # A tibble: 10 x 3</span>
 <span class="co">#&gt;    chrom  start    end</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;</span>
@@ -177,89 +180,100 @@
 <span class="co">#&gt;  7 chr1  321083 321115</span>
 <span class="co">#&gt;  8 chr1  321145 321207</span>
 <span class="co">#&gt;  9 chr1  322036 326938</span>
-<span class="co">#&gt; 10 chr1  327545 328439</span></pre></body></html></div>
+<span class="co">#&gt; 10 chr1  327545 328439</span>
+</pre></div>
 <p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns named <code>chrom</code>, <code>start</code> and <code>end</code> are present. New tbls can also be contructed as either <code>tibbles</code> or base R <code>data.frames</code>.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">bed</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
-  ~<span class="no">chrom</span>, ~<span class="no">start</span>,  ~<span class="no">end</span>,
-  <span class="st">"chr1"</span>, <span class="fl">1657492</span>, <span class="fl">2657492</span>,
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw">bed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+  <span class="op">~</span><span class="kw">chrom</span>, <span class="op">~</span><span class="kw">start</span>,  <span class="op">~</span><span class="kw">end</span>, 
+  <span class="st">"chr1"</span>, <span class="fl">1657492</span>, <span class="fl">2657492</span>, 
   <span class="st">"chr2"</span>, <span class="fl">2501324</span>, <span class="fl">3094650</span>
 )
 
-<span class="no">bed</span>
+<span class="kw">bed</span>
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   chrom   start     end</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 chr1  1657492 2657492</span>
-<span class="co">#&gt; 2 chr2  2501324 3094650</span></pre></body></html></div>
+<span class="co">#&gt; 2 chr2  2501324 3094650</span>
+</pre></div>
 </div>
 <div id="interval-coordinates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#interval-coordinates" class="anchor"></a>Interval coordinates</h3>
 <p><code>valr</code> adheres to the BED <a href="http://genome.ucsc.edu/FAQ/FAQformat#format1">format</a> which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># a chromosome 100 basepairs in length</span>
-<span class="no">chrom</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
-  ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="co"># a chromosome 100 basepairs in length</span>
+<span class="kw">chrom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+  <span class="op">~</span><span class="kw">chrom</span>, <span class="op">~</span><span class="kw">start</span>, <span class="op">~</span><span class="kw">end</span>, 
   <span class="st">"chr1"</span>, <span class="fl">0</span>,      <span class="fl">100</span>
 )
 
-<span class="no">chrom</span>
+<span class="kw">chrom</span>
 <span class="co">#&gt; # A tibble: 1 x 3</span>
 <span class="co">#&gt;   chrom start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 chr1      0   100</span>
 
 <span class="co"># single basepair intervals</span>
-<span class="no">bases</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
-  ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
+<span class="kw">bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+  <span class="op">~</span><span class="kw">chrom</span>, <span class="op">~</span><span class="kw">start</span>, <span class="op">~</span><span class="kw">end</span>, 
   <span class="st">"chr1"</span>, <span class="fl">0</span>,      <span class="fl">1</span>, <span class="co"># first base of chromosome</span>
   <span class="st">"chr1"</span>, <span class="fl">1</span>,      <span class="fl">2</span>,  <span class="co"># second base of chromosome</span>
   <span class="st">"chr1"</span>, <span class="fl">99</span>,     <span class="fl">100</span> <span class="co"># last base of chromosome</span>
 )
 
-<span class="no">bases</span>
+<span class="kw">bases</span>
 <span class="co">#&gt; # A tibble: 3 x 3</span>
 <span class="co">#&gt;   chrom start   end</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 chr1      0     1</span>
 <span class="co">#&gt; 2 chr1      1     2</span>
-<span class="co">#&gt; 3 chr1     99   100</span></pre></body></html></div>
+<span class="co">#&gt; 3 chr1     99   100</span>
+</pre></div>
 </div>
 <div id="remote-databases" class="section level3">
 <h3 class="hasAnchor">
 <a href="#remote-databases" class="anchor"></a>Remote databases</h3>
 <p>Remote databases can be accessed with <code><a href="../reference/db.html">db_ucsc()</a></code> (to access the UCSC Browser) and <code><a href="../reference/db.html">db_ensembl()</a></code> (to access Ensembl databases).</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># access the `refGene` tbl on the `hg38` assembly.</span>
-<span class="kw">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">RMySQL</span>)) {
-  <span class="no">ucsc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span>(<span class="no">ucsc</span>, <span class="st">'refGene'</span>)
-}</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co"># access the `refGene` tbl on the `hg38` assembly.</span>
+<span class="co">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="kw">RMySQL</span>)) {
+  <span class="kw">ucsc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/db.html">db_ucsc</a></span>(<span class="st">'hg38'</span>)
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span>(<span class="kw">ucsc</span>, <span class="st">'refGene'</span>)
+}
+</pre></div>
 </div>
 <div id="visual-documentation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#visual-documentation" class="anchor"></a>Visual documentation</h3>
 <p>The <code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> tool illustrates the results of operations in <code>valr</code>, similar to those found in the <code>BEDtools</code> documentation. This glyph shows the result of intersecting <code>x</code> and <code>y</code> intervals with <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
-  ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+  <span class="op">~</span><span class="kw">chrom</span>, <span class="op">~</span><span class="kw">start</span>, <span class="op">~</span><span class="kw">end</span>,
   <span class="st">'chr1'</span>, <span class="fl">25</span>,     <span class="fl">50</span>,
   <span class="st">'chr1'</span>, <span class="fl">100</span>,    <span class="fl">125</span>
 )
 
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
-  ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
+<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+  <span class="op">~</span><span class="kw">chrom</span>, <span class="op">~</span><span class="kw">start</span>, <span class="op">~</span><span class="kw">end</span>,
   <span class="st">'chr1'</span>, <span class="fl">30</span>,     <span class="fl">75</span>
 )
 
-<span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(<span class="no">x</span>, <span class="no">y</span>))</pre></body></html></div>
+<span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(<span class="kw">x</span>, <span class="kw">y</span>))
+</pre></div>
 <p><img src="valr_files/figure-html/intersect_glyph-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
-  ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>,
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+  <span class="op">~</span><span class="kw">chrom</span>, <span class="op">~</span><span class="kw">start</span>, <span class="op">~</span><span class="kw">end</span>,
   <span class="st">'chr1'</span>,      <span class="fl">1</span>,      <span class="fl">50</span>,
   <span class="st">'chr1'</span>,      <span class="fl">10</span>,     <span class="fl">75</span>,
   <span class="st">'chr1'</span>,      <span class="fl">100</span>,    <span class="fl">120</span>
 )
 
-<span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="fu"><a href="../reference/bed_merge.html">bed_merge</a></span>(<span class="no">x</span>))</pre></body></html></div>
+<span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span>(<span class="fu"><a href="../reference/bed_merge.html">bed_merge</a></span>(<span class="kw">x</span>))
+</pre></div>
 <p><img src="valr_files/figure-html/merge_glyph-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="reproducible-reports" class="section level3">
@@ -272,43 +286,47 @@
 <h3 class="hasAnchor">
 <a href="#grouping-data" class="anchor"></a>Grouping data</h3>
 <p>The <code>group_by</code> function in dplyr can be used to perform fuctions on subsets of single and multiple <code>data_frame</code>s. Functions in <code>valr</code> leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by <code>strand</code> to perform comparisons among intervals on the same strand.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
-  ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>, ~<span class="no">strand</span>,
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+  <span class="op">~</span><span class="kw">chrom</span>, <span class="op">~</span><span class="kw">start</span>, <span class="op">~</span><span class="kw">end</span>, <span class="op">~</span><span class="kw">strand</span>,
   <span class="st">'chr1'</span>, <span class="fl">1</span>,      <span class="fl">100</span>,  <span class="st">'+'</span>,
   <span class="st">'chr1'</span>, <span class="fl">50</span>,     <span class="fl">150</span>,  <span class="st">'+'</span>,
   <span class="st">'chr2'</span>, <span class="fl">100</span>,    <span class="fl">200</span>,  <span class="st">'-'</span>
 )
 
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tribble</a></span>(
-  ~<span class="no">chrom</span>, ~<span class="no">start</span>, ~<span class="no">end</span>, ~<span class="no">strand</span>,
+<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span>(
+  <span class="op">~</span><span class="kw">chrom</span>, <span class="op">~</span><span class="kw">start</span>, <span class="op">~</span><span class="kw">end</span>, <span class="op">~</span><span class="kw">strand</span>,
   <span class="st">'chr1'</span>, <span class="fl">50</span>,     <span class="fl">125</span>,  <span class="st">'+'</span>,
   <span class="st">'chr1'</span>, <span class="fl">50</span>,     <span class="fl">150</span>,  <span class="st">'-'</span>,
   <span class="st">'chr2'</span>, <span class="fl">50</span>,     <span class="fl">150</span>,  <span class="st">'+'</span>
 )
 
 <span class="co"># intersect tbls by strand</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">x</span>, <span class="no">strand</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">y</span>, <span class="no">strand</span>)
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">x</span>, <span class="kw">strand</span>)
+<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">y</span>, <span class="kw">strand</span>)
 
-<span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(<span class="no">x</span>, <span class="no">y</span>)
+<span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(<span class="kw">x</span>, <span class="kw">y</span>)
 <span class="co">#&gt; # A tibble: 2 x 8</span>
 <span class="co">#&gt;   chrom start.x end.x strand.x start.y end.y strand.y .overlap</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;int&gt;</span>
 <span class="co">#&gt; 1 chr1        1   100 +             50   125 +              50</span>
-<span class="co">#&gt; 2 chr1       50   150 +             50   125 +              75</span></pre></body></html></div>
+<span class="co">#&gt; 2 chr1       50   150 +             50   125 +              75</span>
+</pre></div>
 <p>Comparisons between intervals on opposite strands are done using the <code><a href="../reference/flip_strands.html">flip_strands()</a></code> function:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">x</span>, <span class="no">strand</span>)
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">x</span>, <span class="kw">strand</span>)
 
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/flip_strands.html">flip_strands</a></span>(<span class="no">y</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">y</span>, <span class="no">strand</span>)
+<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/flip_strands.html">flip_strands</a></span>(<span class="kw">y</span>)
+<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">y</span>, <span class="kw">strand</span>)
 
-<span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(<span class="no">x</span>, <span class="no">y</span>)
+<span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span>(<span class="kw">x</span>, <span class="kw">y</span>)
 <span class="co">#&gt; # A tibble: 3 x 8</span>
 <span class="co">#&gt;   chrom start.x end.x strand.x start.y end.y strand.y .overlap</span>
 <span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;int&gt;</span>
 <span class="co">#&gt; 1 chr1        1   100 +             50   150 +              50</span>
 <span class="co">#&gt; 2 chr1       50   150 +             50   150 +             100</span>
-<span class="co">#&gt; 3 chr2      100   200 -             50   150 -              50</span></pre></body></html></div>
+<span class="co">#&gt; 3 chr2      100   200 -             50   150 -              50</span>
+</pre></div>
 <p>Both single set (e.g. <code><a href="../reference/bed_merge.html">bed_merge()</a></code>) and multi set operations will respect groupings in the input intervals.</p>
 </div>
 <div id="column-specification" class="section level3">
@@ -318,11 +336,13 @@
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># calculate the mean of column 6 for intervals in `b` that overlap with `a`</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="ex">bedtools</span> map -a a.bed -b b.bed -c 6 -o mean</span></code></pre></div>
 <p>In <code>valr</code>, columns are referred to by name and can be used in multiple name/value expressions for summaries.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># calculate the mean and variance for a `value` column</span>
-<span class="fu"><a href="../reference/bed_map.html">bed_map</a></span>(<span class="no">a</span>, <span class="no">b</span>, <span class="kw">.mean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">value</span>), <span class="kw">.var</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(<span class="no">value</span>))
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="co"># calculate the mean and variance for a `value` column</span>
+<span class="fu"><a href="../reference/bed_map.html">bed_map</a></span>(<span class="kw">a</span>, <span class="kw">b</span>, .mean = <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">value</span>), .var = <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(<span class="kw">value</span>))
 
 <span class="co"># report concatenated and max values for merged intervals</span>
-<span class="fu"><a href="../reference/bed_merge.html">bed_merge</a></span>(<span class="no">a</span>, <span class="kw">.concat</span> <span class="kw">=</span> <span class="fu"><a href="../reference/bed_map.html">concat</a></span>(<span class="no">value</span>), <span class="kw">.max</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">value</span>))</pre></body></html></div>
+<span class="fu"><a href="../reference/bed_merge.html">bed_merge</a></span>(<span class="kw">a</span>, .concat = <span class="fu"><a href="../reference/bed_map.html">concat</a></span>(<span class="kw">value</span>), .max = <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="kw">value</span>))
+</pre></div>
 </div>
 </div>
 <div id="getting-started" class="section level2">
@@ -333,31 +353,34 @@
 <a href="#meta-analysis" class="anchor"></a>Meta-analysis</h3>
 <p>This demonstration illustrates how to use <code>valr</code> tools to perform a “meta-analysis” of signals relative to genomic features. Here we to analyze the distribution of histone marks surrounding transcription start sites.</p>
 <p>First we load libraries and relevant data.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co"># `valr_example()` identifies the path of example files</span>
-<span class="no">bedfile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>)
-<span class="no">genomefile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>)
-<span class="no">bgfile</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hela.h3k4.chip.bg.gz'</span>)
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="co"># `valr_example()` identifies the path of example files</span>
+<span class="kw">bedfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'genes.hg19.chr22.bed.gz'</span>)
+<span class="kw">genomefile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hg19.chrom.sizes.gz'</span>)
+<span class="kw">bgfile</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span>(<span class="st">'hela.h3k4.chip.bg.gz'</span>)
 
-<span class="no">genes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="no">bedfile</span>, <span class="kw">n_fields</span> <span class="kw">=</span> <span class="fl">6</span>)
-<span class="no">genome</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="no">genomefile</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bedgraph</a></span>(<span class="no">bgfile</span>)</pre></body></html></div>
+<span class="kw">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span>(<span class="kw">bedfile</span>, n_fields = <span class="fl">6</span>)
+<span class="kw">genome</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_genome.html">read_genome</a></span>(<span class="kw">genomefile</span>)
+<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bedgraph</a></span>(<span class="kw">bgfile</span>)
+</pre></div>
 <p>Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code> strand genes, but <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> genes are easily accomodated by filtering them and using <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> with <code>reverse</code>d window numbers.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co"># generate 1 bp TSS intervals, `+` strand only</span>
-<span class="no">tss</span> <span class="kw">&lt;-</span> <span class="no">genes</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">strand</span> <span class="kw">==</span> <span class="st">'+'</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">end</span> <span class="kw">=</span> <span class="no">start</span> + <span class="fl">1</span>)
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="co"># generate 1 bp TSS intervals, `+` strand only</span>
+<span class="kw">tss</span> <span class="op">&lt;-</span> <span class="kw">genes</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">strand</span> <span class="op">==</span> <span class="st">'+'</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(end = <span class="kw">start</span> <span class="op">+</span> <span class="fl">1</span>)
 
 <span class="co"># 1000 bp up and downstream</span>
-<span class="no">region_size</span> <span class="kw">&lt;-</span> <span class="fl">1000</span>
+<span class="kw">region_size</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
 <span class="co"># 50 bp windows</span>
-<span class="no">win_size</span> <span class="kw">&lt;-</span> <span class="fl">50</span>
+<span class="kw">win_size</span> <span class="op">&lt;-</span> <span class="fl">50</span>
 
 <span class="co"># add slop to the TSS, break into windows and add a group</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="no">tss</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bed_slop.html">bed_slop</a></span>(<span class="no">genome</span>, <span class="kw">both</span> <span class="kw">=</span> <span class="no">region_size</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/bed_makewindows.html">bed_makewindows</a></span>(<span class="no">win_size</span>)
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="kw">tss</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/bed_slop.html">bed_slop</a></span>(<span class="kw">genome</span>, both = <span class="kw">region_size</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/bed_makewindows.html">bed_makewindows</a></span>(<span class="kw">win_size</span>)
 
-<span class="no">x</span>
+<span class="kw">x</span>
 <span class="co">#&gt; # A tibble: 13,530 x 7</span>
 <span class="co">#&gt;    chrom    start      end name      score strand .win_id</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;</span>
@@ -371,16 +394,18 @@
 <span class="co">#&gt;  8 chr22 16161415 16161465 LINC00516 3     +            8</span>
 <span class="co">#&gt;  9 chr22 16161465 16161515 LINC00516 3     +            9</span>
 <span class="co">#&gt; 10 chr22 16161515 16161565 LINC00516 3     +           10</span>
-<span class="co">#&gt; # … with 13,520 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 13,520 more rows</span>
+</pre></div>
 <p>Now we use the <code>.win_id</code> group with <code><a href="../reference/bed_map.html">bed_map()</a></code> to caluclate a sum by mapping <code>y</code> signals onto the intervals in <code>x</code>. These data are regrouped by <code>.win_id</code> and a summary with <code>mean</code> and <code>sd</code> values is calculated.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># map signals to TSS regions and calculate summary statistics.</span>
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/bed_map.html">bed_map</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="kw">win_sum</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">value</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="no">.win_id</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(<span class="kw">win_mean</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">win_sum</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>),
-            <span class="kw">win_sd</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="no">win_sum</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="co"># map signals to TSS regions and calculate summary statistics.</span>
+<span class="kw">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_map.html">bed_map</a></span>(<span class="kw">x</span>, <span class="kw">y</span>, win_sum = <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">value</span>, na.rm = <span class="fl">TRUE</span>)) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">.win_id</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span>(win_mean = <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">win_sum</span>, na.rm = <span class="fl">TRUE</span>),
+            win_sd = <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="kw">win_sum</span>, na.rm = <span class="fl">TRUE</span>))
 <span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span>
 
-<span class="no">res</span>
+<span class="kw">res</span>
 <span class="co">#&gt; # A tibble: 41 x 3</span>
 <span class="co">#&gt;    .win_id win_mean win_sd</span>
 <span class="co">#&gt;      &lt;int&gt;    &lt;dbl&gt;  &lt;dbl&gt;</span>
@@ -394,21 +419,24 @@
 <span class="co">#&gt;  8       8     128.   91.5</span>
 <span class="co">#&gt;  9       9     130.   95.7</span>
 <span class="co">#&gt; 10      10     130.   88.8</span>
-<span class="co">#&gt; # … with 31 more rows</span></pre></body></html></div>
+<span class="co">#&gt; # … with 31 more rows</span>
+</pre></div>
 <p>Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
 
-<span class="no">x_labels</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(-<span class="no">region_size</span>, <span class="no">region_size</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="no">win_size</span> * <span class="fl">5</span>)
-<span class="no">x_breaks</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">1</span>, <span class="fl">41</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">5</span>)
+<span class="kw">x_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="op">-</span><span class="kw">region_size</span>, <span class="kw">region_size</span>, by = <span class="kw">win_size</span> <span class="op">*</span> <span class="fl">5</span>)
+<span class="kw">x_breaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">1</span>, <span class="fl">41</span>, by = <span class="fl">5</span>)
 
-<span class="no">sd_limits</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">ymax</span> <span class="kw">=</span> <span class="no">win_mean</span> + <span class="no">win_sd</span>, <span class="kw">ymin</span> <span class="kw">=</span> <span class="no">win_mean</span> - <span class="no">win_sd</span>)
+<span class="kw">sd_limits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(ymax = <span class="kw">win_mean</span> <span class="op">+</span> <span class="kw">win_sd</span>, ymin = <span class="kw">win_mean</span> <span class="op">-</span> <span class="kw">win_sd</span>)
 
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">res</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">.win_id</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">win_mean</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span>(<span class="no">sd_limits</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span>(<span class="kw">labels</span> <span class="kw">=</span> <span class="no">x_labels</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="no">x_breaks</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span>(<span class="st">'Position (bp from TSS)'</span>) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">'Signal'</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">'Human H3K4me3 signal near transcription start sites'</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span>()</pre></body></html></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">res</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">.win_id</span>, y = <span class="kw">win_mean</span>)) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span>(<span class="kw">sd_limits</span>) <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span>(labels = <span class="kw">x_labels</span>, breaks = <span class="kw">x_breaks</span>) <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span>(<span class="st">'Position (bp from TSS)'</span>) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">'Signal'</span>) <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">'Human H3K4me3 signal near transcription start sites'</span>) <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span>()
+</pre></div>
 <p><img src="valr_files/figure-html/plot-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -511,7 +539,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
