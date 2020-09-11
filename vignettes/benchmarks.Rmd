@@ -33,7 +33,7 @@ library(ggplot2)
 library(tibble)
 library(scales)
 library(GenomicRanges)
-library(microbenchmark)
+library(bench)
 
 genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 
@@ -47,7 +47,7 @@ x <- bed_random(genome, n = n, seed = seed_x)
 seed_y <- 9283019
 y <- bed_random(genome, n = n, seed = seed_y)
 
-res <- microbenchmark(
+res <- mark(
   # randomizing functions
   bed_random(genome, n = n, seed = seed_x),
   bed_shuffle(x, genome, seed = seed_x),
@@ -73,26 +73,29 @@ res <- microbenchmark(
   bed_projection(x, y, genome),
   # utilities
   bed_makewindows(x, win_size = 100),
-  times = nrep,
-  unit = 's')
+  min_time = Inf,
+  iterations = nrep,
+  check = FALSE,
+  time_unit = 's')
 
 # covert nanoseconds to seconds
-res <- res %>%
+res2<- res %>%
   as_tibble() %>%
-  mutate(time = time / 1e9) %>%
+  mutate(expression = as.character(expression)) %>% 
+  tidyr::unnest(time) %>% 
   arrange(time)
 
 # futz with the x-axis
-maxs <- res %>%
-  group_by(expr) %>%
+maxs <- res2 %>%
+  group_by(expression) %>%
   summarize(max.time = max(boxplot.stats(time)$stats))
 
 # filter out outliers
-res <- res %>%
+res <- res2 %>%
   left_join(maxs) %>%
   filter(time <= max.time * 1.05)
 
-ggplot(res, aes(x=reorder(expr, time), y=time)) +
+ggplot(res, aes(x=reorder(expression, time), y=time)) +
   geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
   coord_flip() +
   theme_bw() +
@@ -101,7 +104,6 @@ ggplot(res, aes(x=reorder(expr, time), y=time)) +
     x='',
     title="valr benchmarks",
     subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repetitions"))
-
 ```
 
 ## Comparison to GenomicRanges
@@ -109,7 +111,6 @@ ggplot(res, aes(x=reorder(expr, time), y=time)) +
 Several functions in valr are comparable in speed to the equivalent function in GenomicRanges.
 
 ```{r valr_comparison, echo = FALSE, message = FALSE, warning = FALSE}
-
 # set up test for valr vs GenomicRanges
 seed_x <- 1010486
 x <- bed_random(genome, n = n, seed = seed_x)
@@ -129,7 +130,7 @@ z_gr <- GRanges(
   seqnames = Rle(z$chrom),
   ranges = IRanges(z$start + 1, end = z$end))
 
-res2 <- microbenchmark(
+res2 <- mark(
   # valr
   bed_flank(x, genome, both = 1000),
   bed_shift(x, genome),
@@ -150,25 +151,29 @@ res2 <- microbenchmark(
   setdiff(x_gr, y_gr),
   tile(x_gr, width = 100),
   sort(z_gr),
-  times = nrep,
-  unit = 's')
+  min_time = Inf,
+  iterations = nrep,
+  check = FALSE,
+  time_unit = 's')
 
 # label experiment pair and software
 comp <- as_tibble(summary(res2)) %>% 
-  mutate(pair = as.numeric(row_number()) %% (nrow(res2) / nrep / 2)) %>% 
-  mutate(software = rep(c("valr", "GR"), each = (nrow(res2) / nrep / 2))) %>%
-  select(expr, pair, software)
+  mutate(pair = as.numeric(row_number()) %% (nrow(res2) / 1 / 2)) %>% 
+  mutate(software = rep(c("valr", "GR"), each = (nrow(res2) / 1 / 2))) %>%
+  select(expression, pair, software) %>% 
+  mutate(expression = as.character(expression))
 
-# covert nanoseconds to seconds
+# convert time table
 res2 <- res2 %>%
+  mutate(expression = as.character(expression)) %>% 
   as_tibble() %>%
   left_join(comp) %>%
-  mutate(time = time / 1e9) %>%
+  tidyr::unnest(time) %>% 
   arrange(time)
 
 # futz with the x-axis
 maxs2 <- res2 %>%
-  group_by(expr) %>%
+  group_by(expression) %>%
   summarize(max.time = max(boxplot.stats(time)$stats))
 
 # filter out outliers
@@ -177,7 +182,7 @@ res2 <- res2 %>%
   filter(time <= max.time * 1.05)
 
 #label
-ggplot(res2, aes(x=reorder(expr, pair), y=time)) +
+ggplot(res2, aes(x=reorder(expression, pair), y=time)) +
   geom_boxplot(aes(fill = software), outlier.shape = NA, alpha = 0.5) +
   coord_flip() +
   theme_bw() +
