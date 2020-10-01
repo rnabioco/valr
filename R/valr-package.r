@@ -16,6 +16,7 @@
 #' @seealso Report bugs at \url{https://github.com/rnabioco/valr/issues}
 #'
 #' @useDynLib valr, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 #' @importFrom tibble tribble as_tibble is_tibble
 #' @importFrom readr read_tsv col_integer col_character col_double
 #' @importFrom stringr str_replace str_split str_c str_length fixed
