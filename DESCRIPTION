@@ -22,6 +22,7 @@ Imports:
     dplyr (>= 0.8.0),
     rlang,
     readr,
+    Rcpp (>= 1.0.0),
     stringr,
     tibble (>= 1.4.2),
     broom,
