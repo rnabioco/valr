@@ -160,15 +160,15 @@ local file or URLs. The read functions load data into tbls with consistent
 <code>chrom</code>, <code>start</code> and <code>end</code> colnames.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_bed</span>(<span class='kw'>filename</span>, n_fields = <span class='fl'>3</span>, col_types = <span class='kw'>bed12_coltypes</span>, sort = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>read_bed</span><span class='op'>(</span><span class='va'>filename</span>, n_fields <span class='op'>=</span> <span class='fl'>3</span>, col_types <span class='op'>=</span> <span class='va'>bed12_coltypes</span>, sort <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>read_bed12</span>(<span class='kw'>filename</span>, <span class='kw'>...</span>)
+<span class='fu'>read_bed12</span><span class='op'>(</span><span class='va'>filename</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>read_bedgraph</span>(<span class='kw'>filename</span>, <span class='kw'>...</span>)
+<span class='fu'>read_bedgraph</span><span class='op'>(</span><span class='va'>filename</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>read_narrowpeak</span>(<span class='kw'>filename</span>, <span class='kw'>...</span>)
+<span class='fu'>read_narrowpeak</span><span class='op'>(</span><span class='va'>filename</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>read_broadpeak</span>(<span class='kw'>filename</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>read_broadpeak</span><span class='op'>(</span><span class='va'>filename</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,7 +213,7 @@ local file or URLs. The read functions load data into tbls with consistent
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># read_bed assumes 3 field BED format.</span>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>))
+<span class='fu'>read_bed</span><span class='op'>(</span><span class='fu'><a href='valr_example.html'>valr_example</a></span><span class='op'>(</span><span class='st'>'3fields.bed.gz'</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 3</span><span>
 #&gt;    chrom  start    end
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -227,7 +227,7 @@ local file or URLs. The read functions load data into tbls with consistent
 #&gt; </span><span style='color: #555555;'> 8</span><span> chr1  </span><span style='text-decoration: underline;'>321</span><span>145 </span><span style='text-decoration: underline;'>321</span><span>207
 #&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938
 #&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439</div><div class='input'>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'6fields.bed.gz'</span>), n_fields = <span class='fl'>6</span>)
+<span class='fu'>read_bed</span><span class='op'>(</span><span class='fu'><a href='valr_example.html'>valr_example</a></span><span class='op'>(</span><span class='st'>'6fields.bed.gz'</span><span class='op'>)</span>, n_fields <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 6</span><span>
 #&gt;    chrom  start    end name         score strand
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
@@ -242,7 +242,7 @@ local file or URLs. The read functions load data into tbls with consistent
 #&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938 LOC100133331 3     +     
 #&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439 LOC388312    1     +     </div><div class='input'>
 <span class='co'># result is sorted by chrom and start unless `sort = FALSE`</span>
-<span class='fu'>read_bed</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'3fields.bed.gz'</span>), sort = <span class='fl'>FALSE</span>)
+<span class='fu'>read_bed</span><span class='op'>(</span><span class='fu'><a href='valr_example.html'>valr_example</a></span><span class='op'>(</span><span class='st'>'3fields.bed.gz'</span><span class='op'>)</span>, sort <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 3</span><span>
 #&gt;    chrom  start    end
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -257,7 +257,7 @@ local file or URLs. The read functions load data into tbls with consistent
 #&gt; </span><span style='color: #555555;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>322</span><span>036 </span><span style='text-decoration: underline;'>326</span><span>938
 #&gt; </span><span style='color: #555555;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>327</span><span>545 </span><span style='text-decoration: underline;'>328</span><span>439</div><div class='input'>
 
-<span class='fu'>read_bed12</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'mm9.refGene.bed.gz'</span>))
+<span class='fu'>read_bed12</span><span class='op'>(</span><span class='fu'><a href='valr_example.html'>valr_example</a></span><span class='op'>(</span><span class='st'>'mm9.refGene.bed.gz'</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 100 x 12</span><span>
 #&gt;    chrom  start    end name  score strand cds_start cds_end item_rgb exon_count
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -274,7 +274,7 @@ local file or URLs. The read functions load data into tbls with consistent
 #&gt; </span><span style='color: #555555;'># … with 90 more rows, and 2 more variables: exon_sizes </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   exon_starts </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 
-<span class='fu'>read_bedgraph</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'test.bg.gz'</span>))
+<span class='fu'>read_bedgraph</span><span class='op'>(</span><span class='fu'><a href='valr_example.html'>valr_example</a></span><span class='op'>(</span><span class='st'>'test.bg.gz'</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 4</span><span>
 #&gt;   chrom    start      end value
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -283,7 +283,7 @@ local file or URLs. The read functions load data into tbls with consistent
 #&gt; </span><span style='color: #555555;'>3</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>600 49</span><span style='text-decoration: underline;'>302</span><span>900 -</span><span style='color: #BB0000;'>0.5</span><span> 
 #&gt; </span><span style='color: #555555;'>4</span><span> chr19 49</span><span style='text-decoration: underline;'>302</span><span>900 49</span><span style='text-decoration: underline;'>303</span><span>200 -</span><span style='color: #BB0000;'>0.25</span><span></div><div class='input'>
 
-<span class='fu'>read_narrowpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.narrowPeak.gz'</span>))
+<span class='fu'>read_narrowpeak</span><span class='op'>(</span><span class='fu'><a href='valr_example.html'>valr_example</a></span><span class='op'>(</span><span class='st'>'sample.narrowPeak.gz'</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 570 x 10</span><span>
 #&gt;    chrom    start      end name  score strand signal pvalue qvalue  peak
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -299,7 +299,7 @@ local file or URLs. The read functions load data into tbls with consistent
 #&gt; </span><span style='color: #555555;'>10</span><span> chr22 18</span><span style='text-decoration: underline;'>268</span><span>020 18</span><span style='text-decoration: underline;'>268</span><span>170 .         0 .          14  13.0      -</span><span style='color: #BB0000;'>1</span><span>    -</span><span style='color: #BB0000;'>1</span><span>
 #&gt; </span><span style='color: #555555;'># … with 560 more rows</span><span></div><div class='input'>
 
-<span class='fu'>read_broadpeak</span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'sample.broadPeak.gz'</span>))
+<span class='fu'>read_broadpeak</span><span class='op'>(</span><span class='fu'><a href='valr_example.html'>valr_example</a></span><span class='op'>(</span><span class='st'>'sample.broadPeak.gz'</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1,181 x 9</span><span>
 #&gt;    chrom    start      end name  score strand signal pvalue qvalue
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -330,7 +330,7 @@ local file or URLs. The read functions load data into tbls with consistent
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
