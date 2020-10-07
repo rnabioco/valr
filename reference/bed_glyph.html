@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
       </span>
     </div>
 
@@ -156,7 +156,7 @@
     <p>Used to illustrate the output of valr functions with small examples.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bed_glyph</span>(<span class='no'>expr</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_glyph</span><span class='op'>(</span><span class='va'>expr</span>, label <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,27 +177,30 @@ result of the call.</p></td>
     <p><code><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot2::ggplot()</a></code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
- ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
+ <span class='op'>~</span><span class='va'>chrom</span>, <span class='op'>~</span><span class='va'>start</span>, <span class='op'>~</span><span class='va'>end</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>25</span>,     <span class='fl'>50</span>,
  <span class='st'>'chr1'</span>, <span class='fl'>100</span>,    <span class='fl'>125</span>
-)
+<span class='op'>)</span>
 
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>value</span>,
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
+  <span class='op'>~</span><span class='va'>chrom</span>, <span class='op'>~</span><span class='va'>start</span>, <span class='op'>~</span><span class='va'>end</span>, <span class='op'>~</span><span class='va'>value</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>75</span>,  <span class='fl'>50</span>
-)
+<span class='op'>)</span>
 
-<span class='fu'>bed_glyph</span>(<span class='fu'><a href='bed_intersect.html'>bed_intersect</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))</div><div class='img'><img src='bed_glyph-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>,
+<span class='fu'>bed_glyph</span><span class='op'>(</span><span class='fu'><a href='bed_intersect.html'>bed_intersect</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='bed_glyph-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
+  <span class='op'>~</span><span class='va'>chrom</span>, <span class='op'>~</span><span class='va'>start</span>, <span class='op'>~</span><span class='va'>end</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>30</span>,     <span class='fl'>75</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>50</span>,     <span class='fl'>90</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>91</span>,     <span class='fl'>120</span>
-)
+<span class='op'>)</span>
 
-<span class='fu'>bed_glyph</span>(<span class='fu'><a href='bed_merge.html'>bed_merge</a></span>(<span class='no'>x</span>))</div><div class='img'><img src='bed_glyph-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>bed_glyph</span>(<span class='fu'><a href='bed_cluster.html'>bed_cluster</a></span>(<span class='no'>x</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.id'</span>)</div><div class='img'><img src='bed_glyph-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>bed_glyph</span><span class='op'>(</span><span class='fu'><a href='bed_merge.html'>bed_merge</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='bed_glyph-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>bed_glyph</span><span class='op'>(</span><span class='fu'><a href='bed_cluster.html'>bed_cluster</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, label <span class='op'>=</span> <span class='st'>'.id'</span><span class='op'>)</span>
+</div><div class='img'><img src='bed_glyph-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -214,7 +217,7 @@ result of the call.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

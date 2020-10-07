@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
       </span>
     </div>
 
@@ -156,15 +156,15 @@
     <p>Shuffle input intervals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bed_shuffle</span>(
-  <span class='no'>x</span>,
-  <span class='no'>genome</span>,
-  <span class='kw'>incl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>excl</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>max_tries</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
-  <span class='kw'>within</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>0</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bed_shuffle</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>genome</span>,
+  incl <span class='op'>=</span> <span class='cn'>NULL</span>,
+  excl <span class='op'>=</span> <span class='cn'>NULL</span>,
+  max_tries <span class='op'>=</span> <span class='fl'>1000</span>,
+  within <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  seed <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,21 +204,22 @@
     <p><a href='ivl_df.html'>ivl_df</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html'>http://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html</a></p>
+    <div class='dont-index'><p><a href='https://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html'>https://bedtools.readthedocs.io/en/latest/content/tools/shuffle.html</a></p>
 <p>Other randomizing operations: 
 <code><a href='bed_random.html'>bed_random</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
- ~<span class='no'>chrom</span>, ~<span class='no'>size</span>,
+    <pre class="examples"><div class='input'><span class='va'>genome</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
+ <span class='op'>~</span><span class='va'>chrom</span>, <span class='op'>~</span><span class='va'>size</span>,
  <span class='st'>"chr1"</span>, <span class='fl'>1e6</span>,
  <span class='st'>"chr2"</span>, <span class='fl'>2e6</span>,
  <span class='st'>"chr3"</span>, <span class='fl'>4e6</span>
-)
+<span class='op'>)</span>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span><span class='op'>(</span><span class='va'>genome</span>, seed <span class='op'>=</span> <span class='fl'>1010486</span><span class='op'>)</span>
 
-<span class='fu'>bed_shuffle</span>(<span class='no'>x</span>, <span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9830491</span>)</div><div class='output co'>#&gt;       chrom   start     end
+<span class='fu'>bed_shuffle</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>genome</span>, seed <span class='op'>=</span> <span class='fl'>9830491</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       chrom   start     end
 #&gt; 1      chr2 1998650 1999650
 #&gt; 2      chr2 1775530 1776530
 #&gt; 3      chr2  715183  716183
@@ -33569,7 +33570,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
       </span>
     </div>
 
@@ -156,7 +156,7 @@
     <p>Compute relative distances between intervals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>detail</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>bed_reldist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, detail <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,7 +195,7 @@ statistics for subsets of data. See <code><a href='../articles/interval-stats.ht
 examples.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='http://bedtools.readthedocs.io/en/latest/content/tools/reldist.html'>http://bedtools.readthedocs.io/en/latest/content/tools/reldist.html</a></p>
+    <div class='dont-index'><p><a href='https://bedtools.readthedocs.io/en/latest/content/tools/reldist.html'>https://bedtools.readthedocs.io/en/latest/content/tools/reldist.html</a></p>
 <p>Other interval statistics: 
 <code><a href='bed_absdist.html'>bed_absdist</a>()</code>,
 <code><a href='bed_fisher.html'>bed_fisher</a>()</code>,
@@ -203,12 +203,13 @@ examples.</p>
 <code><a href='bed_projection.html'>bed_projection</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_genome.html'>read_genome</a></span>(<span class='fu'><a href='valr_example.html'>valr_example</a></span>(<span class='st'>'hg19.chrom.sizes.gz'</span>))
+    <pre class="examples"><div class='input'><span class='va'>genome</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_genome.html'>read_genome</a></span><span class='op'>(</span><span class='fu'><a href='valr_example.html'>valr_example</a></span><span class='op'>(</span><span class='st'>'hg19.chrom.sizes.gz'</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1010486</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span>(<span class='no'>genome</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>9203911</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span><span class='op'>(</span><span class='va'>genome</span>, seed <span class='op'>=</span> <span class='fl'>1010486</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span><span class='op'>(</span><span class='va'>genome</span>, seed <span class='op'>=</span> <span class='fl'>9203911</span><span class='op'>)</span>
 
-<span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 51 x 4</span><span>
+<span class='fu'>bed_reldist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 51 x 4</span><span>
 #&gt;    .reldist .counts .total  .freq
 #&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span>     0      </span><span style='text-decoration: underline;'>20</span><span>170 </span><span style='text-decoration: underline;'>999</span><span>954 0.020</span><span style='text-decoration: underline;'>2</span><span>
@@ -222,7 +223,8 @@ examples.</p>
 #&gt; </span><span style='color: #555555;'> 9</span><span>     0.08   </span><span style='text-decoration: underline;'>19</span><span>889 </span><span style='text-decoration: underline;'>999</span><span>954 0.019</span><span style='text-decoration: underline;'>9</span><span>
 #&gt; </span><span style='color: #555555;'>10</span><span>     0.09   </span><span style='text-decoration: underline;'>19</span><span>949 </span><span style='text-decoration: underline;'>999</span><span>954 0.019</span><span style='text-decoration: underline;'>9</span><span>
 #&gt; </span><span style='color: #555555;'># … with 41 more rows</span><span></div><div class='input'>
-<span class='fu'>bed_reldist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>detail</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 999,954 x 4</span><span>
+<span class='fu'>bed_reldist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, detail <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 999,954 x 4</span><span>
 #&gt;    chrom start   end .reldist
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> chr1    323  </span><span style='text-decoration: underline;'>1</span><span>323   0.060</span><span style='text-decoration: underline;'>8</span><span>
@@ -252,7 +254,7 @@ examples.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
       </span>
     </div>
 
@@ -156,14 +156,14 @@
     <p>Divide intervals into new sub-intervals ("windows").</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bed_makewindows</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>genome</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bed_makewindows</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  genome <span class='op'>=</span> <span class='cn'>NULL</span>,
+  win_size <span class='op'>=</span> <span class='fl'>0</span>,
+  step_size <span class='op'>=</span> <span class='fl'>0</span>,
+  num_win <span class='op'>=</span> <span class='fl'>0</span>,
+  reverse <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,14 +212,16 @@ interval names (see 'namenum' example below) or in subsequent
 <code><a href='interval_spacing.html'>interval_spacing</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span>(
-  ~<span class='no'>chrom</span>, ~<span class='no'>start</span>, ~<span class='no'>end</span>, ~<span class='no'>name</span>, ~<span class='no'>score</span>, ~<span class='no'>strand</span>,
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
+  <span class='op'>~</span><span class='va'>chrom</span>, <span class='op'>~</span><span class='va'>start</span>, <span class='op'>~</span><span class='va'>end</span>, <span class='op'>~</span><span class='va'>name</span>, <span class='op'>~</span><span class='va'>score</span>, <span class='op'>~</span><span class='va'>strand</span>,
   <span class='st'>"chr1"</span>, <span class='fl'>100</span>,    <span class='fl'>200</span>,  <span class='st'>'A'</span>,   <span class='st'>'.'</span>,    <span class='st'>'+'</span>
-)
+<span class='op'>)</span>
 
-<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span>(<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>10</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>'.win_id'</span>)</div><div class='img'><img src='bed_makewindows-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span><span class='op'>(</span><span class='fu'>bed_makewindows</span><span class='op'>(</span><span class='va'>x</span>, num_win <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>, label <span class='op'>=</span> <span class='st'>'.win_id'</span><span class='op'>)</span>
+</div><div class='img'><img src='bed_makewindows-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Fixed number of windows</span>
-<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='kw'>num_win</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 7</span><span>
+<span class='fu'>bed_makewindows</span><span class='op'>(</span><span class='va'>x</span>, num_win <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 7</span><span>
 #&gt;    chrom start   end name  score strand .win_id
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> chr1    100   110 A     .     +            1
@@ -233,7 +235,8 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt; </span><span style='color: #555555;'> 9</span><span> chr1    180   190 A     .     +            9
 #&gt; </span><span style='color: #555555;'>10</span><span> chr1    190   200 A     .     +           10</div><div class='input'>
 <span class='co'># Fixed window size</span>
-<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 7</span><span>
+<span class='fu'>bed_makewindows</span><span class='op'>(</span><span class='va'>x</span>, win_size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 7</span><span>
 #&gt;    chrom start   end name  score strand .win_id
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> chr1    100   110 A     .     +            1
@@ -247,7 +250,8 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt; </span><span style='color: #555555;'> 9</span><span> chr1    180   190 A     .     +            9
 #&gt; </span><span style='color: #555555;'>10</span><span> chr1    190   200 A     .     +           10</div><div class='input'>
 <span class='co'># Fixed window size with overlaps</span>
-<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 7</span><span>
+<span class='fu'>bed_makewindows</span><span class='op'>(</span><span class='va'>x</span>, win_size <span class='op'>=</span> <span class='fl'>10</span>, step_size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 7</span><span>
 #&gt;    chrom start   end name  score strand .win_id
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> chr1    100   110 A     .     +            1
@@ -271,7 +275,8 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt; </span><span style='color: #555555;'>19</span><span> chr1    190   200 A     .     +           19
 #&gt; </span><span style='color: #555555;'>20</span><span> chr1    195   200 A     .     +           20</div><div class='input'>
 <span class='co'># reverse win_id</span>
-<span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 7</span><span>
+<span class='fu'>bed_makewindows</span><span class='op'>(</span><span class='va'>x</span>, win_size <span class='op'>=</span> <span class='fl'>10</span>, reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 7</span><span>
 #&gt;    chrom start   end name  score strand .win_id
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'> 1</span><span> chr1    100   110 A     .     +           10
@@ -285,8 +290,9 @@ interval names (see 'namenum' example below) or in subsequent
 #&gt; </span><span style='color: #555555;'> 9</span><span> chr1    180   190 A     .     +            2
 #&gt; </span><span style='color: #555555;'>10</span><span> chr1    190   200 A     .     +            1</div><div class='input'>
 <span class='co'># bedtools 'namenum'</span>
-<span class='no'>wins</span> <span class='kw'>&lt;-</span> <span class='fu'>bed_makewindows</span>(<span class='no'>x</span>, <span class='kw'>win_size</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>wins</span>, <span class='kw'>namenum</span> <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span>(<span class='no'>name</span>, <span class='st'>'_'</span>, <span class='no'>.win_id</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 8</span><span>
+<span class='va'>wins</span> <span class='op'>&lt;-</span> <span class='fu'>bed_makewindows</span><span class='op'>(</span><span class='va'>x</span>, win_size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>wins</span>, namenum <span class='op'>=</span> <span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_c.html'>str_c</a></span><span class='op'>(</span><span class='va'>name</span>, <span class='st'>'_'</span>, <span class='va'>.win_id</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 8</span><span>
 #&gt;    chrom start   end name  score strand .win_id namenum
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
 #&gt; </span><span style='color: #555555;'> 1</span><span> chr1    100   110 A     .     +            1 A_1    
@@ -315,7 +321,7 @@ interval names (see 'namenum' example below) or in subsequent
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
