@@ -206,7 +206,7 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://genome.ucsc.edu/goldenpath/help/mysql.html'>https://genome.ucsc.edu/goldenpath/help/mysql.html</a></p>
-<p><a href='http://www.ensembl.org/info/data/mysql.html'>http://www.ensembl.org/info/data/mysql.html</a></p></div>
+<p><a href='https://www.ensembl.org/info/data/mysql.html'>https://www.ensembl.org/info/data/mysql.html</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
@@ -214,10 +214,10 @@
   <span class='va'>ucsc</span> <span class='op'>&lt;-</span> <span class='fu'>db_ucsc</span><span class='op'>(</span><span class='st'>'hg38'</span><span class='op'>)</span>
 
   <span class='co'># fetch the `refGene` tbl</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>ucsc</span>, <span class='st'>"refGene"</span><span class='op'>)</span>
+  <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>ucsc</span>, <span class='st'>"refGene"</span><span class='op'>)</span>
 
   <span class='co'># the `chromInfo` tbls have size information</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>ucsc</span>, <span class='st'>"chromInfo"</span><span class='op'>)</span>
+  <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>ucsc</span>, <span class='st'>"chromInfo"</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='op'>}</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
@@ -225,7 +225,7 @@
   <span class='co'># squirrel genome</span>
   <span class='va'>ensembl</span> <span class='op'>&lt;-</span> <span class='fu'>db_ensembl</span><span class='op'>(</span><span class='st'>'spermophilus_tridecemlineatus_core_67_2'</span><span class='op'>)</span>
 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>ensembl</span>, <span class='st'>"gene"</span><span class='op'>)</span>
+  <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>ensembl</span>, <span class='st'>"gene"</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='op'>}</span>
 

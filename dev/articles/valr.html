@@ -104,7 +104,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>valr overview</h1>
             
-            <h4 class="date">2020-10-01</h4>
+            <h4 class="date">2020-10-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/valr.Rmd"><code>vignettes/valr.Rmd</code></a></small>
       <div class="hidden name"><code>valr.Rmd</code></div>
@@ -123,7 +123,7 @@
 <li>Is highly extensible. New tools are quickly implemented on the R side.</li>
 <li>Leverages the “modern R” syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></code>).</li>
 <li>Maximizes speed by implementing compute-intensive algorithms in <code>Rcpp</code>.</li>
-<li>Facilitates interactive visulaizations with <a href="http://shiny.rstudio.com/"><code>shiny</code></a>.</li>
+<li>Facilitates interactive visulaizations with <a href="https://shiny.rstudio.com/"><code>shiny</code></a>.</li>
 </ul>
 <p><code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
 <div id="familiar-tools-natively-in-r" class="section level3">
@@ -131,7 +131,7 @@
 <a href="#familiar-tools-natively-in-r" class="anchor"></a>Familiar tools, natively in R</h3>
 <p>The functions in <code>valr</code> have similar names to their <code>BEDtools</code> counterparts, and so will be familiar to users coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.github.io/pybedtools/#why-pybedtools"><code>pybedtools</code></a>, <code>valr</code> has a terse syntax:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/rnabioco/valr">valr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rnabioco/valr">valr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
 <span class="va">snps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span><span class="op">(</span><span class="fu"><a href="../reference/valr_example.html">valr_example</a></span><span class="op">(</span><span class="st">'hg19.snps147.chr22.bed.gz'</span><span class="op">)</span>, n_fields <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
@@ -198,7 +198,7 @@
 <div id="interval-coordinates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#interval-coordinates" class="anchor"></a>Interval coordinates</h3>
-<p><code>valr</code> adheres to the BED <a href="http://genome.ucsc.edu/FAQ/FAQformat#format1">format</a> which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:</p>
+<p><code>valr</code> adheres to the BED <a href="https://genome.ucsc.edu/FAQ/FAQformat#format1">format</a> which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co"># a chromosome 100 basepairs in length</span>
 <span class="va">chrom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
@@ -268,12 +268,6 @@
 
 <span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu"><a href="../reference/bed_merge.html">bed_merge</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="valr_files/figure-html/merge_glyph-1.png" width="700" style="display: block; margin: auto;"></p>
-</div>
-<div id="reproducible-reports" class="section level3">
-<h3 class="hasAnchor">
-<a href="#reproducible-reports" class="anchor"></a>Reproducible reports</h3>
-<p><code>valr</code> can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because <code>valr</code> is reasonably fast (see the <a href="#benchmarks">benchmarks</a>), we now use it in lieu of other tools for exploratory analysis of genomic data sets in R.</p>
-<p>Command-line tools like <code>BEDtools</code> and <code>bedops</code> can be used in reproducible workflows (e.g., with <a href="https://bitbucket.org/snakemake/snakemake/wiki/Home"><code>snakemake</code></a>), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. <a href="https://pythonhosted.org/pybedtools/"><code>pybedtools</code></a> can be used within <code>ipython notebooks</code> to accomplish a similar goal, but others have pointed out <a href="https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/">issues with this approach</a>, including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g. notebook viewing) enable similar functionality to <code>ipython</code>.</p>
 </div>
 <div id="grouping-data" class="section level3">
 <h3 class="hasAnchor">
@@ -429,7 +423,7 @@
 <div id="api" class="section level2">
 <h2 class="hasAnchor">
 <a href="#api" class="anchor"></a>API</h2>
-<p>Function names are similar to their their <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a> counterparts, with some additions.</p>
+<p>Function names are similar to their their <a href="https://bedtools.readthedocs.io/en/latest/">BEDtools</a> counterparts, with some additions.</p>
 <div id="data-types" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-types" class="anchor"></a>Data types</h3>
@@ -503,9 +497,9 @@
 <h2 class="hasAnchor">
 <a href="#related-work" class="anchor"></a>Related work</h2>
 <ul>
-<li><p>Command-line tools <a href="http://bedtools.readthedocs.org/en/latest/">BEDtools</a> and <a href="http://bedops.readthedocs.org/en/latest/index.html">bedops</a>.</p></li>
+<li><p>Command-line tools <a href="https://bedtools.readthedocs.io/en/latest/">BEDtools</a> and <a href="https://bedops.readthedocs.io/en/latest/index.html">bedops</a>.</p></li>
 <li><p>The Python library <a href="https://pythonhosted.org/pybedtools/">pybedtools</a> wraps BEDtools.</p></li>
-<li><p>The R packages <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a>, <a href="https://CRAN.R-project.org/package=bedr">bedr</a>, <a href="https://bioconductor.org/packages/release/bioc/html/IRanges.html">IRanges</a> and <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">GenometriCorr</a> provide similar capability with a different philosophy.</p></li>
+<li><p>The R packages <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a>, <a href="https://CRAN.R-project.org/package=bedr">bedr</a>, <a href="https://bioconductor.org/packages/release/bioc/html/IRanges.html">IRanges</a> and <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529">GenometriCorr</a> provide similar capability with a different philosophy.</p></li>
 </ul>
 </div>
   </div>
