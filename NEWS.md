@@ -1,8 +1,10 @@
-# valr (development version)
+# valr 0.6.2
 
 ## Minor changes
 
-* `RMariaDB` has replaced the deprecated `RMySQL` package as the database backend. 
+* RMariaDB has replaced the deprecated RMySQL package as the database backend. 
+
+* Rcpp has been moved to Imports
 
 # valr 0.6.1
 
