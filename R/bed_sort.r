@@ -6,7 +6,7 @@
 #' @param reverse reverse sort order
 #'
 #' @seealso
-#' \url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
+#' \url{https://bedtools.readthedocs.io/en/latest/content/tools/sort.html}
 #'
 #' @examples
 #' x <- tibble::tribble(

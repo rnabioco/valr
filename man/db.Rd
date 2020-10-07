@@ -65,5 +65,5 @@ if(require(RMariaDB)) {
 \seealso{
 \url{https://genome.ucsc.edu/goldenpath/help/mysql.html}
 
-\url{http://www.ensembl.org/info/data/mysql.html}
+\url{https://www.ensembl.org/info/data/mysql.html}
 }

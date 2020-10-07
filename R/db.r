@@ -50,7 +50,7 @@ db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
 }
 
 #' @rdname db
-#' @seealso \url{http://www.ensembl.org/info/data/mysql.html}
+#' @seealso \url{https://www.ensembl.org/info/data/mysql.html}
 #'
 #' @examples
 #' \dontrun{

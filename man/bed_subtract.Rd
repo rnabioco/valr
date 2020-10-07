@@ -61,7 +61,7 @@ bed_subtract(x, y, any = TRUE)
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 
 Other multiple set operations: 
 \code{\link{bed_closest}()},

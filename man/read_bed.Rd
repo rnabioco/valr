@@ -23,11 +23,11 @@ read_broadpeak(filename, ...)
 
 \item{n_fields}{number fields in the BED file}
 
-\item{col_types}{column type spec for \code{\link[readr:read_tsv]{readr::read_tsv()}}}
+\item{col_types}{column type spec for \code{\link[readr:read_delim]{readr::read_tsv()}}}
 
 \item{sort}{sort the tbl by chrom and start}
 
-\item{...}{options to pass to \code{\link[readr:read_tsv]{readr::read_tsv()}}}
+\item{...}{options to pass to \code{\link[readr:read_delim]{readr::read_tsv()}}}
 }
 \value{
 \link{ivl_df}

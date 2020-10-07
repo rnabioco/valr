@@ -94,7 +94,7 @@ dplyr::mutate(bed_map(x, y, .counts = dplyr::n()), .counts = ifelse(is.na(.count
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 
 Other multiple set operations: 
 \code{\link{bed_closest}()},

@@ -82,7 +82,7 @@ bed
 
 ### Interval coordinates
 
-`valr` adheres to the BED [format](http://genome.ucsc.edu/FAQ/FAQformat#format1) which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:
+`valr` adheres to the BED [format](https://genome.ucsc.edu/FAQ/FAQformat#format1) which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:
 
 ```{r zero-based}
 # a chromosome 100 basepairs in length
@@ -360,16 +360,16 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 
 * The R packages [GenomicRanges][6], [bedr][7], [IRanges][8] and [GenometriCorr][9] provide similar capability with a different philosophy.
 
-[1]: http://bedtools.readthedocs.org/en/latest/
+[1]: https://bedtools.readthedocs.io/en/latest/
 [2]: https://github.com/hadley/dplyr
-[3]: http://www.rcpp.org/
+[3]: https://www.rcpp.org/
 [4]: https://pythonhosted.org/pybedtools/
-[5]: http://bedops.readthedocs.org/en/latest/index.html
+[5]: https://bedops.readthedocs.io/en/latest/index.html
 [6]: https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html
 [7]: https://CRAN.R-project.org/package=bedr
 [8]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
-[9]: http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
-[10]: http://rmarkdown.rstudio.com/
+[9]: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
+[10]: https://rmarkdown.rstudio.com/
 [11]: https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/
 [12]: https://bitbucket.org/snakemake/snakemake/wiki/Home
-[13]: http://shiny.rstudio.com/
+[13]: https://shiny.rstudio.com/

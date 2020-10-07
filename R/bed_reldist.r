@@ -20,7 +20,7 @@
 #'
 #' @template stats
 #'
-#' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}
+#' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}
 #'
 #' @examples
 #' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))

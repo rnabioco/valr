@@ -21,7 +21,7 @@
 #' @family multiple set operations
 #'
 #' @seealso
-#' \url{http://bedtools.readthedocs.io/en/latest/content/tools/map.html}
+#' \url{https://bedtools.readthedocs.io/en/latest/content/tools/map.html}
 #'
 #' @example inst/example/bed_map.r
 #'

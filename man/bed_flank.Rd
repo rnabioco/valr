@@ -76,7 +76,7 @@ bed_flank(x, genome, both = 0.5, fraction = TRUE)
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/flank.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/flank.html}
 
 Other single set operations: 
 \code{\link{bed_cluster}()},

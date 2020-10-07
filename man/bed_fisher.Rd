@@ -36,7 +36,7 @@ bed_fisher(x, y, genome)
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/fisher.html}
 
 Other interval statistics: 
 \code{\link{bed_absdist}()},

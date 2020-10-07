@@ -11,7 +11,7 @@
 #' @return [ivl_df]
 #'
 #' @family single set operations
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/shift.html}
+#' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/shift.html}
 #'
 #' @examples
 #' x <- tibble::tribble(

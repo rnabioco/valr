@@ -53,7 +53,7 @@ bed_glyph(bed_cluster(x), label = '.id')
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/cluster.html}
 
 Other single set operations: 
 \code{\link{bed_complement}()},

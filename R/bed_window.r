@@ -51,7 +51,7 @@
 #'
 #' bed_window(x, y, genome, both = 100)
 #'
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/window.html}
+#' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/window.html}
 #'
 #' @export
 bed_window <- function(x, y, genome, ...) {

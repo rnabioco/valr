@@ -56,7 +56,7 @@ bed_coverage(x, y)
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/coverage.html}
 
 Other multiple set operations: 
 \code{\link{bed_closest}()},

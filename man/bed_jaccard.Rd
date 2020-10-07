@@ -55,7 +55,7 @@ bed_jaccard(dplyr::group_by(x, chrom),
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html}
 
 Other interval statistics: 
 \code{\link{bed_absdist}()},

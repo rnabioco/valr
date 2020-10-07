@@ -50,7 +50,7 @@ bed_projection(x, y, genome, by_chrom = TRUE)
 
 }
 \seealso{
-\url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
+\url{https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 
 Other interval statistics: 
 \code{\link{bed_absdist}()},

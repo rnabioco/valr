@@ -15,7 +15,7 @@
 #'
 #' @family multiple set operations
 #'
-#' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
+#' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 #'
 #' @examples
 #' x <- tibble::tribble(

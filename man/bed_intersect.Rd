@@ -96,7 +96,7 @@ bed_intersect(x, list(exons = y, introns = z))
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html}
 
 Other multiple set operations: 
 \code{\link{bed_closest}()},

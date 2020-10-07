@@ -30,7 +30,7 @@
 #' If inputs are grouped, the return value will contain one set of values per group.
 #'
 #' @seealso
-#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/jaccard.html}
+#'   \url{https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html}
 #'
 #' @examples
 #' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))

@@ -82,7 +82,7 @@
 #' @family multiple set operations
 #'
 #' @seealso
-#' \url{http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html}
+#' \url{https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html}
 #'
 #' @export
 bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {

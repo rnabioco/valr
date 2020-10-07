@@ -12,7 +12,7 @@
 #' @family interval statistics
 #'
 #' @seealso
-#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/fisher.html}
+#'   \url{https://bedtools.readthedocs.io/en/latest/content/tools/fisher.html}
 #'
 #' @return [ivl_df]
 #'

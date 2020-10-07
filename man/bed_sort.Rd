@@ -45,5 +45,5 @@ bed_sort(x, by_size = TRUE, by_chrom = TRUE)
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/sort.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/sort.html}
 }

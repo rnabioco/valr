@@ -45,7 +45,7 @@ bed_random(genome, length = 500, n = 500, seed = 10104)
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/random.html}
 
 Other randomizing operations: 
 \code{\link{bed_shuffle}()}

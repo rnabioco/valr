@@ -37,7 +37,7 @@
 #'
 #' bed_coverage(x, y)
 #'
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html}
+#' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/coverage.html}
 #'
 #' @export
 bed_coverage <- function(x, y, ...) {

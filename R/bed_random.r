@@ -12,7 +12,7 @@
 #'
 #' @family randomizing operations
 #'
-#' @seealso \url{http://bedtools.readthedocs.org/en/latest/content/tools/random.html}
+#' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/random.html}
 #'
 #' @examples
 #' genome <- tibble::tribble(

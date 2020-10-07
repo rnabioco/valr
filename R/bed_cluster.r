@@ -14,7 +14,7 @@
 #' @family single set operations
 #'
 #' @seealso
-#' \url{http://bedtools.readthedocs.org/en/latest/content/tools/cluster.html}
+#' \url{https://bedtools.readthedocs.io/en/latest/content/tools/cluster.html}
 #'
 #' @examples
 #' x <- tibble::tribble(

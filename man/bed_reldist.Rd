@@ -47,7 +47,7 @@ bed_reldist(x, y, detail = TRUE)
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}
 
 Other interval statistics: 
 \code{\link{bed_absdist}()},

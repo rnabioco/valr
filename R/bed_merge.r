@@ -15,7 +15,7 @@
 #' @family single set operations
 #'
 #' @seealso
-#' \url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
+#' \url{https://bedtools.readthedocs.io/en/latest/content/tools/merge.html}
 #'
 #' @examples
 #' x <- tibble::tribble(

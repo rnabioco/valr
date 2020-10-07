@@ -10,7 +10,7 @@
 #'
 #' @family multiple set operations
 #'
-#' @seealso \url{http://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
+#' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/subtract.html}
 #'
 #' @examples
 #' x <- tibble::tribble(

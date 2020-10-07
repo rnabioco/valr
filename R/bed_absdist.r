@@ -27,7 +27,7 @@
 #' @family interval statistics
 #'
 #' @seealso
-#' \url{http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
+#' \url{https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #'
 #' @examples
 #' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))

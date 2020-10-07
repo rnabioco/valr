@@ -14,7 +14,7 @@
 #'
 #' @family single set operations
 #' @seealso
-#'   \url{http://bedtools.readthedocs.org/en/latest/content/tools/flank.html}
+#'   \url{https://bedtools.readthedocs.io/en/latest/content/tools/flank.html}
 #'
 #' @examples
 #' x <- tibble::tribble(

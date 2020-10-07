@@ -60,7 +60,7 @@ bed_merge(x, .value = sum(value))
 
 }
 \seealso{
-\url{http://bedtools.readthedocs.org/en/latest/content/tools/merge.html}
+\url{https://bedtools.readthedocs.io/en/latest/content/tools/merge.html}
 
 Other single set operations: 
 \code{\link{bed_cluster}()},
