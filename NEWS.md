@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.6.2
 
 ## Minor changes
 
