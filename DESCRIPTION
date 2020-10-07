@@ -50,8 +50,8 @@ Suggests:
     DBI,
     RMariaDB
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
-URL: http://github.com/rnabioco/valr, http://rnabioco.github.io/valr
+RoxygenNote: 7.1.1
+URL: https://github.com/rnabioco/valr, https://rnabioco.github.io/valr
 BugReports: https://github.com/rnabioco/valr/issues
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

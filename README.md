@@ -14,11 +14,11 @@ The valr package provides tools to read and manipulate genome intervals
 and signals, similar to the
 [BEDtools](https://bedtools.readthedocs.io/en/latest/) suite. valr
 enables analysis in the R/RStudio environment, leveraging modern R tools
-in the [tidyverse](https://tidyverse.org) for a terse, expressive
+in the [tidyverse](https://tidyverse.org/) for a terse, expressive
 syntax. Compute-intensive algorithms are implemented in
 [Rcpp](https://www.rcpp.org)/C++, and many methods take advantage of the
 speed and grouping capability provided by
-[dplyr](https://dplyr.tidyverse.org). See `vignette(valr)` for more
+[dplyr](https://dplyr.tidyverse.org/). See `vignette(valr)` for more
 details.
 
 Installation
