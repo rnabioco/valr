@@ -54,7 +54,3 @@ nearby %>%
   select(starts_with('name'), .overlap, .dist) %>%
   filter(abs(.dist) < 5000)
 ```
-
-## Code of Conduct
-
-Please note that the valr project is released with a [Contributor Code of Conduct](https://rnabioco.github.io/valr/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
