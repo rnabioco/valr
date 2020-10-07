@@ -1,5 +1,7 @@
 ## New patch version
 
+* Two more URLs were corrected.
+
 * This is a new patch version that imports Rcpp, which should have always been the case,
 but was masked by its Import by readr, which recently dropped use of Rcpp.
 
