@@ -1,8 +1,7 @@
 ## New patch version
 
-* This is a second resubmission with better Title and DOI added to Description, and a period at the end of the Description.
-
-* This is a new patch version that fixes an issue in the last release caught by CRAN rchk involving a misplaced UNPROTECT call.
+* This is a new patch version that imports Rcpp, which should have always been the case,
+but was masked by its Import by readr, which recently dropped use of Rcpp.
 
 ## Test environment
 
