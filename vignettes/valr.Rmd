@@ -148,12 +148,6 @@ x <- tribble(
 bed_glyph(bed_merge(x))
 ```
 
-### Reproducible reports 
-
-`valr` can be used in RMarkdown documents to generate reproducible work-flows for data processing. Because `valr` is reasonably fast (see the [benchmarks](#benchmarks)), we now use it in lieu of other tools for exploratory analysis of genomic data sets in R.
-
-Command-line tools like `BEDtools` and `bedops` can be used in reproducible workflows (e.g., with [`snakemake`][12]), but it is cumbersome to move from command-line tools to exploratory analysis and plotting software. [`pybedtools`][4] can be used within `ipython notebooks` to accomplish a similar goal, but others have pointed out [issues with this approach][11], including clunky version control. Because RMarkdown files are text files, they are readily kept under version control. Moreover, new features in RStudio (e.g. notebook viewing) enable similar functionality to `ipython`.
-
 ### Grouping data
 
 The `group_by` function in dplyr can be used to perform fuctions on subsets of single and multiple `data_frame`s. Functions in `valr` leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by `strand` to perform comparisons among intervals on the same strand.
@@ -370,6 +364,5 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 [8]: https://bioconductor.org/packages/release/bioc/html/IRanges.html
 [9]: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
 [10]: https://rmarkdown.rstudio.com/
-[11]: https://www.r-bloggers.com/why-i-dont-like-jupyter-fka-ipython-notebook/
 [12]: https://bitbucket.org/snakemake/snakemake/wiki/Home
 [13]: https://shiny.rstudio.com/
