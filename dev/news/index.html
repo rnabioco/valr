@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -154,12 +154,17 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#valr-development-version" class="anchor"></a>valr (development version)<small> Unreleased </small>
 </h1>
+</div>
+    <div id="valr-062" class="section level1">
+<h1 class="page-header" data-toc-text="0.6.2">
+<a href="#valr-062" class="anchor"></a>valr 0.6.2<small> Unreleased </small>
+</h1>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
 <ul>
-<li>
-<code>RMariaDB</code> has replaced the deprecated <code>RMySQL</code> package as the database backend.</li>
+<li><p><code>RMariaDB</code> has replaced the deprecated <code>RMySQL</code> package as the database backend.</p></li>
+<li><p>valr now imports Rcpp, which should have always been the case, but was masked by its Import by readr, which recently dropped use of Rcpp.</p></li>
 </ul>
 </div>
 </div>
