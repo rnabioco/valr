@@ -100,7 +100,7 @@ for subsets of data." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@ for subsets of data." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rnabioco/valr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -213,27 +213,27 @@ examples.</p>
 <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span><span class='op'>(</span><span class='va'>genome</span>, seed <span class='op'>=</span> <span class='fl'>9203911</span><span class='op'>)</span>
 
 <span class='fu'>bed_jaccard</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 4</span><span>
 #&gt;       len_i      len_u jaccard      n
-#&gt;       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 236</span><span style='text-decoration: underline;'>059</span><span>495 </span><span style='text-decoration: underline;'>1</span><span>709</span><span style='text-decoration: underline;'>233</span><span>073   0.160 </span><span style='text-decoration: underline;'>399</span><span>478</div><div class='input'>
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 236</span><span style='text-decoration: underline;'>059</span><span>495 </span><span style='text-decoration: underline;'>1</span><span>709</span><span style='text-decoration: underline;'>233</span><span>073   0.160 </span><span style='text-decoration: underline;'>399</span><span>478</div><div class='input'>
 <span class='co'># calculate jaccard per chromosome</span>
 <span class='fu'>bed_jaccard</span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>chrom</span><span class='op'>)</span>,
             <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='va'>chrom</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 25 x 5</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 25 x 5</span><span>
 #&gt;    chrom    len_i     len_u jaccard     n
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> chr1  19</span><span style='text-decoration: underline;'>013</span><span>821 137</span><span style='text-decoration: underline;'>669</span><span>498   0.160 </span><span style='text-decoration: underline;'>32</span><span>087
-#&gt; </span><span style='color: #555555;'> 2</span><span> chr10 10</span><span style='text-decoration: underline;'>471</span><span>352  75</span><span style='text-decoration: underline;'>102</span><span>550   0.162 </span><span style='text-decoration: underline;'>17</span><span>752
-#&gt; </span><span style='color: #555555;'> 3</span><span> chr11 10</span><span style='text-decoration: underline;'>221</span><span>596  74</span><span style='text-decoration: underline;'>407</span><span>682   0.159 </span><span style='text-decoration: underline;'>17</span><span>362
-#&gt; </span><span style='color: #555555;'> 4</span><span> chr12 10</span><span style='text-decoration: underline;'>132</span><span>944  73</span><span style='text-decoration: underline;'>478</span><span>730   0.160 </span><span style='text-decoration: underline;'>17</span><span>078
-#&gt; </span><span style='color: #555555;'> 5</span><span> chr13  8</span><span style='text-decoration: underline;'>912</span><span>455  64</span><span style='text-decoration: underline;'>140</span><span>662   0.161 </span><span style='text-decoration: underline;'>15</span><span>149
-#&gt; </span><span style='color: #555555;'> 6</span><span> chr14  8</span><span style='text-decoration: underline;'>232</span><span>867  59</span><span style='text-decoration: underline;'>341</span><span>464   0.161 </span><span style='text-decoration: underline;'>13</span><span>902
-#&gt; </span><span style='color: #555555;'> 7</span><span> chr15  7</span><span style='text-decoration: underline;'>765</span><span>611  56</span><span style='text-decoration: underline;'>428</span><span>414   0.160 </span><span style='text-decoration: underline;'>13</span><span>143
-#&gt; </span><span style='color: #555555;'> 8</span><span> chr16  6</span><span style='text-decoration: underline;'>833</span><span>852  49</span><span style='text-decoration: underline;'>562</span><span>929   0.160 </span><span style='text-decoration: underline;'>11</span><span>634
-#&gt; </span><span style='color: #555555;'> 9</span><span> chr17  6</span><span style='text-decoration: underline;'>210</span><span>996  44</span><span style='text-decoration: underline;'>901</span><span>313   0.161 </span><span style='text-decoration: underline;'>10</span><span>542
-#&gt; </span><span style='color: #555555;'>10</span><span> chr18  5</span><span style='text-decoration: underline;'>979</span><span>095  43</span><span style='text-decoration: underline;'>289</span><span>534   0.160 </span><span style='text-decoration: underline;'>10</span><span>113
-#&gt; </span><span style='color: #555555;'># … with 15 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> chr1  19</span><span style='text-decoration: underline;'>013</span><span>821 137</span><span style='text-decoration: underline;'>669</span><span>498   0.160 </span><span style='text-decoration: underline;'>32</span><span>087
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> chr10 10</span><span style='text-decoration: underline;'>471</span><span>352  75</span><span style='text-decoration: underline;'>102</span><span>550   0.162 </span><span style='text-decoration: underline;'>17</span><span>752
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> chr11 10</span><span style='text-decoration: underline;'>221</span><span>596  74</span><span style='text-decoration: underline;'>407</span><span>682   0.159 </span><span style='text-decoration: underline;'>17</span><span>362
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> chr12 10</span><span style='text-decoration: underline;'>132</span><span>944  73</span><span style='text-decoration: underline;'>478</span><span>730   0.160 </span><span style='text-decoration: underline;'>17</span><span>078
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> chr13  8</span><span style='text-decoration: underline;'>912</span><span>455  64</span><span style='text-decoration: underline;'>140</span><span>662   0.161 </span><span style='text-decoration: underline;'>15</span><span>149
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> chr14  8</span><span style='text-decoration: underline;'>232</span><span>867  59</span><span style='text-decoration: underline;'>341</span><span>464   0.161 </span><span style='text-decoration: underline;'>13</span><span>902
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> chr15  7</span><span style='text-decoration: underline;'>765</span><span>611  56</span><span style='text-decoration: underline;'>428</span><span>414   0.160 </span><span style='text-decoration: underline;'>13</span><span>143
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> chr16  6</span><span style='text-decoration: underline;'>833</span><span>852  49</span><span style='text-decoration: underline;'>562</span><span>929   0.160 </span><span style='text-decoration: underline;'>11</span><span>634
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> chr17  6</span><span style='text-decoration: underline;'>210</span><span>996  44</span><span style='text-decoration: underline;'>901</span><span>313   0.161 </span><span style='text-decoration: underline;'>10</span><span>542
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> chr18  5</span><span style='text-decoration: underline;'>979</span><span>095  43</span><span style='text-decoration: underline;'>289</span><span>534   0.160 </span><span style='text-decoration: underline;'>10</span><span>113
+#&gt; </span><span style='color: #949494;'># … with 15 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
