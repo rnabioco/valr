@@ -1,5 +1,7 @@
 # valr (development version)
 
+* Update to prepare for readr 2.0.0
+
 # valr 0.6.2
 
 ## Minor changes
