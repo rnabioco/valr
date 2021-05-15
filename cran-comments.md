@@ -1,9 +1,7 @@
 ## New patch version
 
-* Two more URLs were corrected.
-
-* This is a new patch version that imports Rcpp, which should have always been the case,
-but was masked by its Import by readr, which recently dropped use of Rcpp.
+* This is a new patch version that preemptively fixes an error raised
+by the forthcoming readr release.
 
 ## Test environment
 
@@ -27,12 +25,24 @@ but was masked by its Import by readr, which recently dropped use of Rcpp.
 * on win-builder (release and devel)
 
   Status: OK
-  0 errors | 0 warnings | 0 notes
+  0 errors | 0 warnings | 1 note
+  
+  installed size is 18.5Mb
+  sub-directories of 1Mb or more:
+    libs   17.1Mb
+    
+  This package uses Rcpp, which creates a large shared library on windows.
   
 * on OS X 
 
   Status: OK
-  0 errors | 0 warnings | 0 notes
+  0 errors | 0 warnings | 1 note
+  
+  installed size is 18.5Mb
+  sub-directories of 1Mb or more:
+    libs   17.1Mb
+    
+  This package uses Rcpp, which creates a large shared library on osx.
   
 * on ubuntu
 
@@ -43,7 +53,6 @@ but was masked by its Import by readr, which recently dropped use of Rcpp.
     libs   17.1Mb
 
   This package uses Rcpp, which creates a large shared library on linux.
-  This note is not present on OS X or windows (appveyor or win-builder).
   
 ## Reverse dependencies
 
