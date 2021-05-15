@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
       </span>
     </div>
 
@@ -97,7 +97,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -129,7 +129,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/rnabioco/valr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -150,16 +150,24 @@
       <small>Source: <a href='https://github.com/rnabioco/valr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="valr-063" class="section level1">
+<h1 class="page-header" data-toc-text="0.6.3">
+<a href="#valr-063" class="anchor"></a>valr 0.6.3<small> Unreleased </small>
+</h1>
+<ul>
+<li>Update to prepare for readr 2.0.0</li>
+</ul>
+</div>
     <div id="valr-062" class="section level1">
 <h1 class="page-header" data-toc-text="0.6.2">
-<a href="#valr-062" class="anchor"></a>valr 0.6.2<small> Unreleased </small>
+<a href="#valr-062" class="anchor"></a>valr 0.6.2<small> 2020-10-07 </small>
 </h1>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
 <ul>
-<li>
-<code>RMariaDB</code> has replaced the deprecated <code>RMySQL</code> package as the database backend.</li>
+<li><p><code>RMariaDB</code> has replaced the deprecated <code>RMySQL</code> package as the database backend.</p></li>
+<li><p>valr now imports Rcpp, which should have always been the case, but was masked by its Import by readr, which recently dropped use of Rcpp.</p></li>
 </ul>
 </div>
 </div>
