@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">valr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.6.3.9000</span>
       </span>
     </div>
 
@@ -214,10 +214,10 @@
   <span class='va'>ucsc</span> <span class='op'>&lt;-</span> <span class='fu'>db_ucsc</span><span class='op'>(</span><span class='st'>'hg38'</span><span class='op'>)</span>
 
   <span class='co'># fetch the `refGene` tbl</span>
-  <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>ucsc</span>, <span class='st'>"refGene"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>ucsc</span>, <span class='st'>"refGene"</span><span class='op'>)</span>
 
   <span class='co'># the `chromInfo` tbls have size information</span>
-  <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>ucsc</span>, <span class='st'>"chromInfo"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>ucsc</span>, <span class='st'>"chromInfo"</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='op'>}</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
@@ -225,7 +225,7 @@
   <span class='co'># squirrel genome</span>
   <span class='va'>ensembl</span> <span class='op'>&lt;-</span> <span class='fu'>db_ensembl</span><span class='op'>(</span><span class='st'>'spermophilus_tridecemlineatus_core_67_2'</span><span class='op'>)</span>
 
-  <span class='fu'>tbl</span><span class='op'>(</span><span class='va'>ensembl</span>, <span class='st'>"gene"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>ensembl</span>, <span class='st'>"gene"</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='op'>}</span>
 
