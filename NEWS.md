@@ -1,5 +1,7 @@
 # valr (development version)
 
+* Fixed intron score numbering error in `create_introns` (#377 @sheridar) 
+
 # valr 0.6.3
 
 * Update to prepare for readr 2.0.0

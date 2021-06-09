@@ -41,3 +41,10 @@ test_that("there is 1 feature from each gene", {
 test_that("TSS are single base features", {
   expect_true(all(tss$end - tss$start == 1))
 })
+
+test_that("intron numbers are not duplicated #377", {
+  expect_true(group_by(introns, name) %>%
+                summarize(no_duplicates = !any(duplicated(score))) %>%
+                pull(no_duplicates) %>%
+                all())
+})
