@@ -195,55 +195,55 @@
 
 <span class='co'># sort by chrom and start</span>
 <span class='fu'>bed_sort</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    100   200
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    100   300
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr8    100   200
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr8    500  </span><span style='text-decoration: underline;'>1</span><span>000
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr8   </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>5</span><span>000</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    100   200
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    100   300
+#&gt; <span style='color: #BCBCBC;'>3</span> chr8    100   200
+#&gt; <span style='color: #BCBCBC;'>4</span> chr8    500  <span style='text-decoration: underline;'>1</span>000
+#&gt; <span style='color: #BCBCBC;'>5</span> chr8   <span style='text-decoration: underline;'>1</span>000  <span style='text-decoration: underline;'>5</span>000</div><div class='input'>
 <span class='co'># reverse sort order</span>
 <span class='fu'>bed_sort</span><span class='op'>(</span><span class='va'>x</span>, reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    100   300
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    100   200
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr8   </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>5</span><span>000
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr8    500  </span><span style='text-decoration: underline;'>1</span><span>000
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr8    100   200</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    100   300
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    100   200
+#&gt; <span style='color: #BCBCBC;'>3</span> chr8   <span style='text-decoration: underline;'>1</span>000  <span style='text-decoration: underline;'>5</span>000
+#&gt; <span style='color: #BCBCBC;'>4</span> chr8    500  <span style='text-decoration: underline;'>1</span>000
+#&gt; <span style='color: #BCBCBC;'>5</span> chr8    100   200</div><div class='input'>
 <span class='co'># sort by interval size</span>
 <span class='fu'>bed_sort</span><span class='op'>(</span><span class='va'>x</span>, by_size <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr8    100   200
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    100   200
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr1    100   300
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr8    500  </span><span style='text-decoration: underline;'>1</span><span>000
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr8   </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>5</span><span>000</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr8    100   200
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    100   200
+#&gt; <span style='color: #BCBCBC;'>3</span> chr1    100   300
+#&gt; <span style='color: #BCBCBC;'>4</span> chr8    500  <span style='text-decoration: underline;'>1</span>000
+#&gt; <span style='color: #BCBCBC;'>5</span> chr8   <span style='text-decoration: underline;'>1</span>000  <span style='text-decoration: underline;'>5</span>000</div><div class='input'>
 <span class='co'># sort by decreasing interval size</span>
 <span class='fu'>bed_sort</span><span class='op'>(</span><span class='va'>x</span>, by_size <span class='op'>=</span> <span class='cn'>TRUE</span>, reverse <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr8   </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>5</span><span>000
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr8    500  </span><span style='text-decoration: underline;'>1</span><span>000
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr1    100   300
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr8    100   200
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr1    100   200</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr8   <span style='text-decoration: underline;'>1</span>000  <span style='text-decoration: underline;'>5</span>000
+#&gt; <span style='color: #BCBCBC;'>2</span> chr8    500  <span style='text-decoration: underline;'>1</span>000
+#&gt; <span style='color: #BCBCBC;'>3</span> chr1    100   300
+#&gt; <span style='color: #BCBCBC;'>4</span> chr8    100   200
+#&gt; <span style='color: #BCBCBC;'>5</span> chr1    100   200</div><div class='input'>
 <span class='co'># sort by interval size within chrom</span>
 <span class='fu'>bed_sort</span><span class='op'>(</span><span class='va'>x</span>, by_size <span class='op'>=</span> <span class='cn'>TRUE</span>, by_chrom <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    100   200
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    100   300
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr8    100   200
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr8    500  </span><span style='text-decoration: underline;'>1</span><span>000
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr8   </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>5</span><span>000</div><div class='input'>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    100   200
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    100   300
+#&gt; <span style='color: #BCBCBC;'>3</span> chr8    100   200
+#&gt; <span style='color: #BCBCBC;'>4</span> chr8    500  <span style='text-decoration: underline;'>1</span>000
+#&gt; <span style='color: #BCBCBC;'>5</span> chr8   <span style='text-decoration: underline;'>1</span>000  <span style='text-decoration: underline;'>5</span>000</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -255,7 +255,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://rockyrna.org'>RNA Bioscience Initiative</a>.</p>
+  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://medschool.cuanschutz.edu/rbi'>RNA Bioscience Initiative</a>.</p>
 </div>
 
 <div class="pkgdown">

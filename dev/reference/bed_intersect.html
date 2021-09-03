@@ -241,33 +241,33 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='op'>)</span>
 
 <span class='fu'>bed_intersect</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 7</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 7</span>
 #&gt;   chrom start.x end.x start.y end.y value.y .overlap
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1      100   500     150   400     100      250
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1      100   500     500   550     100        0
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr2      200   400     230   430     200      170
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr2      200   400     350   430     300       50
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr2      300   500     230   430     200      130
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr2      300   500     350   430     300       80</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1      100   500     150   400     100      250
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1      100   500     500   550     100        0
+#&gt; <span style='color: #BCBCBC;'>3</span> chr2      200   400     230   430     200      170
+#&gt; <span style='color: #BCBCBC;'>4</span> chr2      200   400     350   430     300       50
+#&gt; <span style='color: #BCBCBC;'>5</span> chr2      300   500     230   430     200      130
+#&gt; <span style='color: #BCBCBC;'>6</span> chr2      300   500     350   430     300       80</div><div class='input'>
 <span class='fu'>bed_intersect</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, invert <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr2    800   900</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr2    800   900</div><div class='input'>
 <span class='co'># start and end of each overlapping interval</span>
 <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>bed_intersect</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
 <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>res</span>, start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>pmax</a></span><span class='op'>(</span><span class='va'>start.x</span>, <span class='va'>start.y</span><span class='op'>)</span>,
                    end <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>pmin</a></span><span class='op'>(</span><span class='va'>end.x</span>, <span class='va'>end.y</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 9</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 9</span>
 #&gt;   chrom start.x end.x start.y end.y value.y .overlap start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1      100   500     150   400     100      250   150   400
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1      100   500     500   550     100        0   500   500
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr2      200   400     230   430     200      170   230   400
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr2      200   400     350   430     300       50   350   400
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr2      300   500     230   430     200      130   300   430
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr2      300   500     350   430     300       80   350   430</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1      100   500     150   400     100      250   150   400
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1      100   500     500   550     100        0   500   500
+#&gt; <span style='color: #BCBCBC;'>3</span> chr2      200   400     230   430     200      170   230   400
+#&gt; <span style='color: #BCBCBC;'>4</span> chr2      200   400     350   430     300       50   350   400
+#&gt; <span style='color: #BCBCBC;'>5</span> chr2      300   500     230   430     200      130   300   430
+#&gt; <span style='color: #BCBCBC;'>6</span> chr2      300   500     350   430     300       80   350   430</div><div class='input'>
 <span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
   <span class='op'>~</span><span class='va'>chrom</span>, <span class='op'>~</span><span class='va'>start</span>, <span class='op'>~</span><span class='va'>end</span>, <span class='op'>~</span><span class='va'>value</span>,
   <span class='st'>'chr1'</span>, <span class='fl'>150</span>,    <span class='fl'>400</span>,  <span class='fl'>100</span>,
@@ -277,52 +277,52 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='op'>)</span>
 
 <span class='fu'>bed_intersect</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 11 x 8</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 × 8</span>
 #&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> chr1      100   500     150   400     100 y            250
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> chr1      100   500     150   400     100 z            250
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> chr1      100   500     500   550     100 y              0
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> chr1      100   500     500   550     100 z              0
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> chr2      200   400     230   430     200 y            170
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> chr2      200   400     230   430     200 z            170
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> chr2      200   400     350   430     300 y             50
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> chr2      300   500     230   430     200 y            130
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> chr2      300   500     230   430     200 z            130
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> chr2      300   500     350   430     300 y             80
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> chr2      800   900     750   900     400 z            100</div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> chr1      100   500     150   400     100 y            250
+#&gt; <span style='color: #BCBCBC;'> 2</span> chr1      100   500     150   400     100 z            250
+#&gt; <span style='color: #BCBCBC;'> 3</span> chr1      100   500     500   550     100 y              0
+#&gt; <span style='color: #BCBCBC;'> 4</span> chr1      100   500     500   550     100 z              0
+#&gt; <span style='color: #BCBCBC;'> 5</span> chr2      200   400     230   430     200 y            170
+#&gt; <span style='color: #BCBCBC;'> 6</span> chr2      200   400     230   430     200 z            170
+#&gt; <span style='color: #BCBCBC;'> 7</span> chr2      200   400     350   430     300 y             50
+#&gt; <span style='color: #BCBCBC;'> 8</span> chr2      300   500     230   430     200 y            130
+#&gt; <span style='color: #BCBCBC;'> 9</span> chr2      300   500     230   430     200 z            130
+#&gt; <span style='color: #BCBCBC;'>10</span> chr2      300   500     350   430     300 y             80
+#&gt; <span style='color: #BCBCBC;'>11</span> chr2      800   900     750   900     400 z            100</div><div class='input'>
 <span class='fu'>bed_intersect</span><span class='op'>(</span><span class='va'>x</span>, exons <span class='op'>=</span> <span class='va'>y</span>, introns <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 11 x 8</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 × 8</span>
 #&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> chr1      100   500     150   400     100 exons        250
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> chr1      100   500     150   400     100 introns      250
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> chr1      100   500     500   550     100 exons          0
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> chr1      100   500     500   550     100 introns        0
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> chr2      200   400     230   430     200 exons        170
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> chr2      200   400     230   430     200 introns      170
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> chr2      200   400     350   430     300 exons         50
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> chr2      300   500     230   430     200 exons        130
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> chr2      300   500     230   430     200 introns      130
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> chr2      300   500     350   430     300 exons         80
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> chr2      800   900     750   900     400 introns      100</div><div class='input'>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> chr1      100   500     150   400     100 exons        250
+#&gt; <span style='color: #BCBCBC;'> 2</span> chr1      100   500     150   400     100 introns      250
+#&gt; <span style='color: #BCBCBC;'> 3</span> chr1      100   500     500   550     100 exons          0
+#&gt; <span style='color: #BCBCBC;'> 4</span> chr1      100   500     500   550     100 introns        0
+#&gt; <span style='color: #BCBCBC;'> 5</span> chr2      200   400     230   430     200 exons        170
+#&gt; <span style='color: #BCBCBC;'> 6</span> chr2      200   400     230   430     200 introns      170
+#&gt; <span style='color: #BCBCBC;'> 7</span> chr2      200   400     350   430     300 exons         50
+#&gt; <span style='color: #BCBCBC;'> 8</span> chr2      300   500     230   430     200 exons        130
+#&gt; <span style='color: #BCBCBC;'> 9</span> chr2      300   500     230   430     200 introns      130
+#&gt; <span style='color: #BCBCBC;'>10</span> chr2      300   500     350   430     300 exons         80
+#&gt; <span style='color: #BCBCBC;'>11</span> chr2      800   900     750   900     400 introns      100</div><div class='input'>
 <span class='co'># a list of tbl_intervals can also be passed</span>
 <span class='fu'>bed_intersect</span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>exons <span class='op'>=</span> <span class='va'>y</span>, introns <span class='op'>=</span> <span class='va'>z</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 11 x 8</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 × 8</span>
 #&gt;    chrom start.x end.x start.y end.y value.y .source .overlap
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> chr1      100   500     150   400     100 exons        250
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> chr1      100   500     150   400     100 introns      250
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> chr1      100   500     500   550     100 exons          0
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> chr1      100   500     500   550     100 introns        0
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> chr2      200   400     230   430     200 exons        170
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> chr2      200   400     230   430     200 introns      170
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> chr2      200   400     350   430     300 exons         50
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> chr2      300   500     230   430     200 exons        130
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> chr2      300   500     230   430     200 introns      130
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> chr2      300   500     350   430     300 exons         80
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> chr2      800   900     750   900     400 introns      100</div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> chr1      100   500     150   400     100 exons        250
+#&gt; <span style='color: #BCBCBC;'> 2</span> chr1      100   500     150   400     100 introns      250
+#&gt; <span style='color: #BCBCBC;'> 3</span> chr1      100   500     500   550     100 exons          0
+#&gt; <span style='color: #BCBCBC;'> 4</span> chr1      100   500     500   550     100 introns        0
+#&gt; <span style='color: #BCBCBC;'> 5</span> chr2      200   400     230   430     200 exons        170
+#&gt; <span style='color: #BCBCBC;'> 6</span> chr2      200   400     230   430     200 introns      170
+#&gt; <span style='color: #BCBCBC;'> 7</span> chr2      200   400     350   430     300 exons         50
+#&gt; <span style='color: #BCBCBC;'> 8</span> chr2      300   500     230   430     200 exons        130
+#&gt; <span style='color: #BCBCBC;'> 9</span> chr2      300   500     230   430     200 introns      130
+#&gt; <span style='color: #BCBCBC;'>10</span> chr2      300   500     350   430     300 exons         80
+#&gt; <span style='color: #BCBCBC;'>11</span> chr2      800   900     750   900     400 introns      100</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -334,7 +334,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://rockyrna.org'>RNA Bioscience Initiative</a>.</p>
+  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://medschool.cuanschutz.edu/rbi'>RNA Bioscience Initiative</a>.</p>
 </div>
 
 <div class="pkgdown">

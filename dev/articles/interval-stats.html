@@ -99,8 +99,8 @@
 
       
 
-      </header><script src="interval-stats_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="interval-stats_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="interval-stats_files/jquery-3.5.1/jquery.min.js"></script><link href="interval-stats_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="interval-stats_files/datatables-binding-0.18/datatables.js"></script><link href="interval-stats_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+      </header><script src="interval-stats_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="interval-stats_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><link href="interval-stats_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="interval-stats_files/datatables-binding-0.19/datatables.js"></script><script src="interval-stats_files/jquery-3.6.0/jquery-3.6.0.min.js"></script><link href="interval-stats_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="interval-stats_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet">
 <script src="interval-stats_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script><link href="interval-stats_files/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet">
 <script src="interval-stats_files/crosstalk-1.1.1/js/crosstalk.min.js"></script><div class="row">
@@ -108,7 +108,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Interval statistics</h1>
             
-            <h4 class="date">May 15 2021</h4>
+            <h4 class="date">September 03 2021</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/master/vignettes/interval-stats.Rmd"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="hidden name"><code>interval-stats.Rmd</code></div>
@@ -146,7 +146,7 @@
 <span class="va">tss</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_tss.html">create_tss</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span>
 
 <span class="va">tss</span>
-<span class="co">#&gt; # A tibble: 1,267 x 6</span>
+<span class="co">#&gt; # A tibble: 1,267 × 6</span>
 <span class="co">#&gt;    chrom    start      end name         score strand</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; </span>
 <span class="co">#&gt;  1 chr22 16193008 16193009 NR_122113    0     -     </span>
@@ -183,19 +183,19 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">obs_stats</span> <span class="op">&lt;-</span> <span class="fu">distance_stats</span><span class="op">(</span><span class="va">rpts</span>, <span class="va">tss</span>, <span class="va">genome</span>, <span class="st">'name'</span>, <span class="st">'obs'</span><span class="op">)</span>
 <span class="va">obs_stats</span>
-<span class="co">#&gt; # A tibble: 2,106 x 4</span>
-<span class="co">#&gt;    name       stat    value                 type </span>
-<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;   &lt;list&gt;                &lt;chr&gt;</span>
-<span class="co">#&gt;  1 (A)n       reldist &lt;tibble[,1] [27 × 1]&gt; obs  </span>
-<span class="co">#&gt;  2 (A)n       absdist &lt;tibble[,1] [28 × 1]&gt; obs  </span>
-<span class="co">#&gt;  3 (AAAAACA)n reldist &lt;tibble[,1] [1 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  4 (AAAAACA)n absdist &lt;tibble[,1] [1 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  5 (AAAAC)n   reldist &lt;tibble[,1] [6 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  6 (AAAAC)n   absdist &lt;tibble[,1] [7 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  7 (AAAAG)n   reldist &lt;tibble[,1] [2 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  8 (AAAAG)n   absdist &lt;tibble[,1] [2 × 1]&gt;  obs  </span>
-<span class="co">#&gt;  9 (AAAAT)n   reldist &lt;tibble[,1] [3 × 1]&gt;  obs  </span>
-<span class="co">#&gt; 10 (AAAAT)n   absdist &lt;tibble[,1] [4 × 1]&gt;  obs  </span>
+<span class="co">#&gt; # A tibble: 2,106 × 4</span>
+<span class="co">#&gt;    name       stat    value             type </span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;   &lt;list&gt;            &lt;chr&gt;</span>
+<span class="co">#&gt;  1 (A)n       reldist &lt;tibble [27 × 1]&gt; obs  </span>
+<span class="co">#&gt;  2 (A)n       absdist &lt;tibble [28 × 1]&gt; obs  </span>
+<span class="co">#&gt;  3 (AAAAACA)n reldist &lt;tibble [1 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  4 (AAAAACA)n absdist &lt;tibble [1 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  5 (AAAAC)n   reldist &lt;tibble [6 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  6 (AAAAC)n   absdist &lt;tibble [7 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  7 (AAAAG)n   reldist &lt;tibble [2 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  8 (AAAAG)n   absdist &lt;tibble [2 × 1]&gt;  obs  </span>
+<span class="co">#&gt;  9 (AAAAT)n   reldist &lt;tibble [3 × 1]&gt;  obs  </span>
+<span class="co">#&gt; 10 (AAAAT)n   absdist &lt;tibble [4 × 1]&gt;  obs  </span>
 <span class="co">#&gt; # … with 2,096 more rows</span></code></pre></div>
 <p>And the same is done for a set of shuffled group of data. <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code> is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -220,21 +220,21 @@
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">res</span>
-<span class="co">#&gt; # A tibble: 16,732 x 5</span>
-<span class="co">#&gt; # Groups:   name, stat [1,916]</span>
-<span class="co">#&gt;    name  stat      .id   obs   shuf</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 (A)n  reldist     1 0.363 0.413 </span>
-<span class="co">#&gt;  2 (A)n  reldist     2 0.429 0.433 </span>
-<span class="co">#&gt;  3 (A)n  reldist     3 0.246 0.272 </span>
-<span class="co">#&gt;  4 (A)n  reldist     4 0.478 0.206 </span>
-<span class="co">#&gt;  5 (A)n  reldist     5 0.260 0.0634</span>
-<span class="co">#&gt;  6 (A)n  reldist     6 0.286 0.0731</span>
-<span class="co">#&gt;  7 (A)n  reldist     7 0.498 0.0458</span>
-<span class="co">#&gt;  8 (A)n  reldist     8 0.237 0.0184</span>
-<span class="co">#&gt;  9 (A)n  reldist     9 0.314 0.451 </span>
-<span class="co">#&gt; 10 (A)n  reldist    10 0.149 0.0443</span>
-<span class="co">#&gt; # … with 16,722 more rows</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 16,828 × 5</span>
+<span class="co">#&gt; # Groups:   name, stat [1,912]</span>
+<span class="co">#&gt;    name  stat      .id   obs    shuf</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 (A)n  reldist     1 0.363 0.268  </span>
+<span class="co">#&gt;  2 (A)n  reldist     2 0.429 0.275  </span>
+<span class="co">#&gt;  3 (A)n  reldist     3 0.246 0.368  </span>
+<span class="co">#&gt;  4 (A)n  reldist     4 0.478 0.304  </span>
+<span class="co">#&gt;  5 (A)n  reldist     5 0.260 0.277  </span>
+<span class="co">#&gt;  6 (A)n  reldist     6 0.286 0.0657 </span>
+<span class="co">#&gt;  7 (A)n  reldist     7 0.498 0.0504 </span>
+<span class="co">#&gt;  8 (A)n  reldist     8 0.237 0.00285</span>
+<span class="co">#&gt;  9 (A)n  reldist     9 0.314 0.0870 </span>
+<span class="co">#&gt; 10 (A)n  reldist    10 0.149 0.0800 </span>
+<span class="co">#&gt; # … with 16,818 more rows</span></code></pre></div>
 <p>Now that the data are formatted, we can use the non-parametric <code><a href="https://rdrr.io/r/stats/ks.test.html">ks.test()</a></code> to determine whether there are significant differences between the observed and shuffled data for each group. <code><a href="https://generics.r-lib.org/reference/tidy.html">broom::tidy()</a></code> is used to reformat the results of each test into a <code>tibble</code>, and the results of each test are <code>pivot</code>ed to into a <code>type</code> column for each test type.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/">broom</a></span><span class="op">)</span>
@@ -295,7 +295,7 @@
 <span class="va">promoters_ncoding</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">promoters</span>, <span class="va">name</span> <span class="op">==</span> <span class="st">'non-coding'</span><span class="op">)</span>
 
 <span class="va">promoters_coding</span>
-<span class="co">#&gt; # A tibble: 973 x 6</span>
+<span class="co">#&gt; # A tibble: 973 × 6</span>
 <span class="co">#&gt;    chrom    start      end name   score strand</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; </span>
 <span class="co">#&gt;  1 chr22 16287937 16292937 coding 0     -     </span>
@@ -311,7 +311,7 @@
 <span class="co">#&gt; # … with 963 more rows</span>
 
 <span class="va">promoters_ncoding</span>
-<span class="co">#&gt; # A tibble: 294 x 6</span>
+<span class="co">#&gt; # A tibble: 294 × 6</span>
 <span class="co">#&gt;    chrom    start      end name       score strand</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; </span>
 <span class="co">#&gt;  1 chr22 16152078 16157078 non-coding 0     +     </span>
@@ -354,7 +354,7 @@
 <span class="va">pvals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">pvals</span>, q.value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span><span class="op">(</span><span class="va">p.value</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">pvals</span>
-<span class="co">#&gt; # A tibble: 179 x 7</span>
+<span class="co">#&gt; # A tibble: 179 × 7</span>
 <span class="co">#&gt;    name   n_repeats p.value obs_exp_ratio lower_tail type       q.value</span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;int&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 (A)n          28 0.00353         4.72  FALSE      non_coding   0.558</span>
@@ -381,8 +381,8 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span>
 
 <span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html">datatable</a></span><span class="op">(</span><span class="va">signif_tests</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-04be6e23ed9ff41ad710" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-04be6e23ed9ff41ad710">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-198a81b1429df131fe90" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-198a81b1429df131fe90">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </div>
 
@@ -397,7 +397,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://hesselberthlab.org">Jay Hesselberth</a>, Kent Riemondy, <a href="https://rockyrna.org">RNA Bioscience Initiative</a>.</p>
+  <p>Developed by <a href="https://hesselberthlab.org">Jay Hesselberth</a>, Kent Riemondy, <a href="https://medschool.cuanschutz.edu/rbi">RNA Bioscience Initiative</a>.</p>
 </div>
 
 <div class="pkgdown">

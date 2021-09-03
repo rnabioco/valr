@@ -211,21 +211,21 @@ examples.</p>
 <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bed_random.html'>bed_random</a></span><span class='op'>(</span><span class='va'>genome</span>, seed <span class='op'>=</span> <span class='fl'>9203911</span><span class='op'>)</span>
 
 <span class='fu'>bed_absdist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>genome</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,000,000 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,000,000 × 5</span>
 #&gt;    chrom start   end .absdist .absdist_scaled
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> chr1    323  </span><span style='text-decoration: underline;'>1</span><span>323      302          0.097</span><span style='text-decoration: underline;'>7</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> chr1   </span><span style='text-decoration: underline;'>2</span><span>032  </span><span style='text-decoration: underline;'>3</span><span>032     </span><span style='text-decoration: underline;'>2</span><span>011          0.651 
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> chr1   </span><span style='text-decoration: underline;'>2</span><span>475  </span><span style='text-decoration: underline;'>3</span><span>475     </span><span style='text-decoration: underline;'>2</span><span>454          0.794 
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> chr1   </span><span style='text-decoration: underline;'>2</span><span>759  </span><span style='text-decoration: underline;'>3</span><span>759     </span><span style='text-decoration: underline;'>2</span><span>226          0.720 
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> chr1   </span><span style='text-decoration: underline;'>2</span><span>766  </span><span style='text-decoration: underline;'>3</span><span>766     </span><span style='text-decoration: underline;'>2</span><span>219          0.718 
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> chr1   </span><span style='text-decoration: underline;'>3</span><span>528  </span><span style='text-decoration: underline;'>4</span><span>528     </span><span style='text-decoration: underline;'>1</span><span>457          0.471 
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> chr1   </span><span style='text-decoration: underline;'>8</span><span>394  </span><span style='text-decoration: underline;'>9</span><span>394      207          0.067</span><span style='text-decoration: underline;'>0</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> chr1   </span><span style='text-decoration: underline;'>8</span><span>819  </span><span style='text-decoration: underline;'>9</span><span>819      218          0.070</span><span style='text-decoration: underline;'>5</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> chr1  </span><span style='text-decoration: underline;'>12</span><span>963 </span><span style='text-decoration: underline;'>13</span><span>963      788          0.255 
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> chr1  </span><span style='text-decoration: underline;'>24</span><span>939 </span><span style='text-decoration: underline;'>25</span><span>939      270          0.087</span><span style='text-decoration: underline;'>3</span><span>
-#&gt; </span><span style='color: #949494;'># … with 999,990 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> chr1    323  <span style='text-decoration: underline;'>1</span>323      302          0.097<span style='text-decoration: underline;'>7</span>
+#&gt; <span style='color: #BCBCBC;'> 2</span> chr1   <span style='text-decoration: underline;'>2</span>032  <span style='text-decoration: underline;'>3</span>032     <span style='text-decoration: underline;'>2</span>011          0.651 
+#&gt; <span style='color: #BCBCBC;'> 3</span> chr1   <span style='text-decoration: underline;'>2</span>475  <span style='text-decoration: underline;'>3</span>475     <span style='text-decoration: underline;'>2</span>454          0.794 
+#&gt; <span style='color: #BCBCBC;'> 4</span> chr1   <span style='text-decoration: underline;'>2</span>759  <span style='text-decoration: underline;'>3</span>759     <span style='text-decoration: underline;'>2</span>226          0.720 
+#&gt; <span style='color: #BCBCBC;'> 5</span> chr1   <span style='text-decoration: underline;'>2</span>766  <span style='text-decoration: underline;'>3</span>766     <span style='text-decoration: underline;'>2</span>219          0.718 
+#&gt; <span style='color: #BCBCBC;'> 6</span> chr1   <span style='text-decoration: underline;'>3</span>528  <span style='text-decoration: underline;'>4</span>528     <span style='text-decoration: underline;'>1</span>457          0.471 
+#&gt; <span style='color: #BCBCBC;'> 7</span> chr1   <span style='text-decoration: underline;'>8</span>394  <span style='text-decoration: underline;'>9</span>394      207          0.067<span style='text-decoration: underline;'>0</span>
+#&gt; <span style='color: #BCBCBC;'> 8</span> chr1   <span style='text-decoration: underline;'>8</span>819  <span style='text-decoration: underline;'>9</span>819      218          0.070<span style='text-decoration: underline;'>5</span>
+#&gt; <span style='color: #BCBCBC;'> 9</span> chr1  <span style='text-decoration: underline;'>12</span>963 <span style='text-decoration: underline;'>13</span>963      788          0.255 
+#&gt; <span style='color: #BCBCBC;'>10</span> chr1  <span style='text-decoration: underline;'>24</span>939 <span style='text-decoration: underline;'>25</span>939      270          0.087<span style='text-decoration: underline;'>3</span>
+#&gt; <span style='color: #949494;'># … with 999,990 more rows</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -237,7 +237,7 @@ examples.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://rockyrna.org'>RNA Bioscience Initiative</a>.</p>
+  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://medschool.cuanschutz.edu/rbi'>RNA Bioscience Initiative</a>.</p>
 </div>
 
 <div class="pkgdown">

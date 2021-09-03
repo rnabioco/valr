@@ -222,41 +222,41 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 <span class='op'>)</span>
 
 <span class='fu'>bed_merge</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1      1    50
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    100   250
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr2      1    25
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr2    200   550</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1      1    50
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    100   250
+#&gt; <span style='color: #BCBCBC;'>3</span> chr2      1    25
+#&gt; <span style='color: #BCBCBC;'>4</span> chr2    200   550</div><div class='input'>
 <span class='fu'>bed_merge</span><span class='op'>(</span><span class='va'>x</span>, max_dist <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1      1   200
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr2      1    25
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr2    200   550</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1      1   200
+#&gt; <span style='color: #BCBCBC;'>2</span> chr2      1    25
+#&gt; <span style='color: #BCBCBC;'>3</span> chr2    200   550</div><div class='input'>
 <span class='co'># merge intervals on same strand</span>
 <span class='fu'>bed_merge</span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>strand</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 4</span><span>
-#&gt; </span><span style='color: #949494;'># Groups:   strand [2]</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
+#&gt; <span style='color: #949494;'># Groups:   strand [2]</span>
 #&gt;   chrom start   end strand
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    150   250 -     
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1      1    50 +     
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr1    100   200 +     
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr2    200   400 -     
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr2      1    25 +     
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr2    400   550 +     </div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    150   250 -     
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1      1    50 +     
+#&gt; <span style='color: #BCBCBC;'>3</span> chr1    100   200 +     
+#&gt; <span style='color: #BCBCBC;'>4</span> chr2    200   400 -     
+#&gt; <span style='color: #BCBCBC;'>5</span> chr2      1    25 +     
+#&gt; <span style='color: #BCBCBC;'>6</span> chr2    400   550 +     </div><div class='input'>
 <span class='fu'>bed_merge</span><span class='op'>(</span><span class='va'>x</span>, .value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 4 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 4</span>
 #&gt;   chrom start   end .value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1      1    50      1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    100   250      5
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr2      1    25      4
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr2    200   550     18</div><div class='input'>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1      1    50      1
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    100   250      5
+#&gt; <span style='color: #BCBCBC;'>3</span> chr2      1    25      4
+#&gt; <span style='color: #BCBCBC;'>4</span> chr2    200   550     18</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -268,7 +268,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://rockyrna.org'>RNA Bioscience Initiative</a>.</p>
+  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://medschool.cuanschutz.edu/rbi'>RNA Bioscience Initiative</a>.</p>
 </div>
 
 <div class="pkgdown">

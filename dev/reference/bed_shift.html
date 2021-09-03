@@ -229,38 +229,38 @@
 <span class='op'>)</span>
 
 <span class='fu'>bed_shift</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>genome</span>, <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
 #&gt;   chrom start   end strand
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    200   250 +     
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    300   350 +     
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr2    400   450 +     
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr2    500   550 -     
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr3    600   650 -     
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr3    700   750 -     </div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    200   250 +     
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    300   350 +     
+#&gt; <span style='color: #BCBCBC;'>3</span> chr2    400   450 +     
+#&gt; <span style='color: #BCBCBC;'>4</span> chr2    500   550 -     
+#&gt; <span style='color: #BCBCBC;'>5</span> chr3    600   650 -     
+#&gt; <span style='color: #BCBCBC;'>6</span> chr3    700   750 -     </div><div class='input'>
 <span class='fu'>bed_shift</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>genome</span>, fraction <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
 #&gt;   chrom start   end strand
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    125   175 +     
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    225   275 +     
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr2    325   375 +     
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr2    425   475 -     
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr3    525   575 -     
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr3    625   675 -     </div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    125   175 +     
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    225   275 +     
+#&gt; <span style='color: #BCBCBC;'>3</span> chr2    325   375 +     
+#&gt; <span style='color: #BCBCBC;'>4</span> chr2    425   475 -     
+#&gt; <span style='color: #BCBCBC;'>5</span> chr3    525   575 -     
+#&gt; <span style='color: #BCBCBC;'>6</span> chr3    625   675 -     </div><div class='input'>
 <span class='co'># shift with respect to strand</span>
 <span class='va'>stranded</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>strand</span><span class='op'>)</span>
 <span class='fu'>bed_shift</span><span class='op'>(</span><span class='va'>stranded</span>, <span class='va'>genome</span>, <span class='fl'>100</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
 #&gt;   chrom start   end strand
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    200   250 +     
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    300   350 +     
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr2    400   450 +     
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr2    300   350 -     
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr3    400   450 -     
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr3    500   550 -     </div><div class='input'>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    200   250 +     
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    300   350 +     
+#&gt; <span style='color: #BCBCBC;'>3</span> chr2    400   450 +     
+#&gt; <span style='color: #BCBCBC;'>4</span> chr2    300   350 -     
+#&gt; <span style='color: #BCBCBC;'>5</span> chr3    400   450 -     
+#&gt; <span style='color: #BCBCBC;'>6</span> chr3    500   550 -     </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -272,7 +272,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://rockyrna.org'>RNA Bioscience Initiative</a>.</p>
+  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://medschool.cuanschutz.edu/rbi'>RNA Bioscience Initiative</a>.</p>
 </div>
 
 <div class="pkgdown">

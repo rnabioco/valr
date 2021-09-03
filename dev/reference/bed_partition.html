@@ -212,40 +212,40 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 </div><div class='img'><img src='bed_partition-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='bed_glyph.html'>bed_glyph</a></span><span class='op'>(</span><span class='fu'>bed_partition</span><span class='op'>(</span><span class='va'>x</span>, value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>, label <span class='op'>=</span> <span class='st'>"value"</span><span class='op'>)</span>
 </div><div class='img'><img src='bed_partition-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>bed_partition</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 × 3</span>
 #&gt;   chrom start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    100   200
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    200   300
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr1    300   400
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr1    400   500
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr1    500   550
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr1    550   575
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> chr1    800   900</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    100   200
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    200   300
+#&gt; <span style='color: #BCBCBC;'>3</span> chr1    300   400
+#&gt; <span style='color: #BCBCBC;'>4</span> chr1    400   500
+#&gt; <span style='color: #BCBCBC;'>5</span> chr1    500   550
+#&gt; <span style='color: #BCBCBC;'>6</span> chr1    550   575
+#&gt; <span style='color: #BCBCBC;'>7</span> chr1    800   900</div><div class='input'>
 <span class='co'># compute summary over each elemental interval</span>
 <span class='fu'>bed_partition</span><span class='op'>(</span><span class='va'>x</span>, value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 7 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 × 4</span>
 #&gt;   chrom start   end value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    100   200    10
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    200   300    30
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr1    300   400    60
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr1    400   500    40
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr1    500   550    30
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr1    550   575     2
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> chr1    800   900     5</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    100   200    10
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    200   300    30
+#&gt; <span style='color: #BCBCBC;'>3</span> chr1    300   400    60
+#&gt; <span style='color: #BCBCBC;'>4</span> chr1    400   500    40
+#&gt; <span style='color: #BCBCBC;'>5</span> chr1    500   550    30
+#&gt; <span style='color: #BCBCBC;'>6</span> chr1    550   575     2
+#&gt; <span style='color: #BCBCBC;'>7</span> chr1    800   900     5</div><div class='input'>
 <span class='co'># partition and compute summaries based on group</span>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>strand</span><span class='op'>)</span>
 <span class='fu'>bed_partition</span><span class='op'>(</span><span class='va'>x</span>, value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 6 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 5</span>
 #&gt;   chrom start   end strand value
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> chr1    100   300 +         10
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> chr1    200   400 -         20
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> chr1    300   500 +         40
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> chr1    500   550 +         30
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> chr1    550   575 +          2
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> chr1    800   900 +          5</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> chr1    100   300 +         10
+#&gt; <span style='color: #BCBCBC;'>2</span> chr1    200   400 -         20
+#&gt; <span style='color: #BCBCBC;'>3</span> chr1    300   500 +         40
+#&gt; <span style='color: #BCBCBC;'>4</span> chr1    500   550 +         30
+#&gt; <span style='color: #BCBCBC;'>5</span> chr1    550   575 +          2
+#&gt; <span style='color: #BCBCBC;'>6</span> chr1    800   900 +          5</div><div class='input'>
 <span class='co'># combine values across multiple tibbles</span>
 <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
   <span class='op'>~</span><span class='va'>chrom</span>, <span class='op'>~</span><span class='va'>start</span>, <span class='op'>~</span><span class='va'>end</span>, <span class='op'>~</span><span class='va'>value</span>, <span class='op'>~</span><span class='va'>strand</span>,
@@ -257,21 +257,21 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
 <span class='fu'>bed_partition</span><span class='op'>(</span><span class='va'>x</span>, value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 11 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 11 × 5</span>
 #&gt;    chrom start   end strand value
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> chr1     10   100 +        100
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> chr1    100   300 +        110
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> chr1    200   250 -         20
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> chr1    250   400 -        220
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> chr1    300   350 +        140
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> chr1    350   500 +        440
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> chr1    400   420 -        200
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> chr1    500   550 +        330
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> chr1    550   555 +         22
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> chr1    555   575 +          2
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> chr1    800   900 +         55</div><div class='input'>
-</div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> chr1     10   100 +        100
+#&gt; <span style='color: #BCBCBC;'> 2</span> chr1    100   300 +        110
+#&gt; <span style='color: #BCBCBC;'> 3</span> chr1    200   250 -         20
+#&gt; <span style='color: #BCBCBC;'> 4</span> chr1    250   400 -        220
+#&gt; <span style='color: #BCBCBC;'> 5</span> chr1    300   350 +        140
+#&gt; <span style='color: #BCBCBC;'> 6</span> chr1    350   500 +        440
+#&gt; <span style='color: #BCBCBC;'> 7</span> chr1    400   420 -        200
+#&gt; <span style='color: #BCBCBC;'> 8</span> chr1    500   550 +        330
+#&gt; <span style='color: #BCBCBC;'> 9</span> chr1    550   555 +         22
+#&gt; <span style='color: #BCBCBC;'>10</span> chr1    555   575 +          2
+#&gt; <span style='color: #BCBCBC;'>11</span> chr1    800   900 +         55</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -283,7 +283,7 @@ first be inverted using <code><a href='flip_strands.html'>flip_strands()</a></co
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://rockyrna.org'>RNA Bioscience Initiative</a>.</p>
+  <p>Developed by <a href='https://hesselberthlab.org'>Jay Hesselberth</a>, Kent Riemondy, <a href='https://medschool.cuanschutz.edu/rbi'>RNA Bioscience Initiative</a>.</p>
 </div>
 
 <div class="pkgdown">
