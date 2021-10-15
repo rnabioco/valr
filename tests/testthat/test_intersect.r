@@ -345,3 +345,41 @@ test_that("0 length records", {
   expect_equal(res$start.x - res$end.x, c(0, 0))
   expect_equal(res$start.y - res$end.y, c(-470145, -1547))
 })
+
+
+test_that("list input is robustly handled #380", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    'chr1', 100,    500,
+    'chr2', 200,    400,
+    'chr2', 300,    500,
+    'chr2', 800,    900
+  )
+
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~value,
+    'chr1', 150,    400,  100,
+    'chr1', 500,    550,  100,
+    'chr2', 230,    430,  200,
+    'chr2', 350,    430,  300
+  )
+
+  z <- tibble::tribble(
+    ~chrom, ~start, ~end, ~value,
+    'chr1', 150,    400,  100,
+    'chr1', 500,    550,  100,
+    'chr2', 230,    430,  200,
+    'chr2', 750,    900,  400
+  )
+
+  lst <- list(y, z)
+
+  expect_equal(nrow(bed_intersect(x, y, z)), 11)
+  expect_equal(nrow(bed_intersect(x, list(y, z))), 11)
+  expect_equal(nrow(bed_intersect(x, lst[1:2])), 11)
+
+  expect_equal(nrow(bed_intersect(x, lst)), 11)
+  expect_equal(nrow(bed_intersect(x, lst[[1]], lst[[2]])), 11)
+  expect_equal(nrow(bed_intersect(x, lst[1])), 6)
+})
+

@@ -87,27 +87,7 @@
 #' @export
 bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
-  # determine if list supplied to ... or series of variables
-  if (typeof(substitute(...)) == "symbol") {
-    y_tbl <- list(...)
-    if (is.null(names(y_tbl))) {
-      # name each tbl based on supplied variable
-      dots <- eval(substitute(alist(...)))
-      names(y_tbl) <- dots
-    }
-  } else {
-    # extract out just a list not a list of lists
-    y_tbl <- list(...)[[1]]
-    if (is.null(names(y_tbl))) {
-      # name each tbl based on supplied variable
-      dots <- eval(substitute(alist(...)))[[1]]
-      # extract out variables from language object list(a, b, c)
-      dots <- as.character(dots)
-      dots <- dots[2:length(dots)]
-      names(y_tbl) <- as.character(dots)
-    }
-  }
-
+  y_tbl <- parse_dots(...)
   multiple_tbls <- FALSE
 
   if (length(y_tbl) > 1) {
@@ -169,5 +149,38 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
     colnames(res) <- ifelse(cols == source_col, replace_col, cols)
   }
 
+  res
+}
+
+# handle objects passed to ... in bed_intersect
+parse_dots <- function(...){
+  # determine if list supplied to ... or series of variables
+  n_inputs <- ...length()
+  res <- list(...)
+  if( typeof(substitute(...)) == "symbol"){
+    if(length(res) == 1 & inherits(res[[1]], 'list')){
+      # list was passed to ...
+      res <- res[[1]]
+    } else if (n_inputs > 1 & is.null(names(res))) {
+      # multiple objests passed e.g. ... == x, y or a = x, b = y
+      # name each tbl based on supplied variable
+      dots <- eval(substitute(alist(...)))
+      names(res) <- dots
+    }
+  } else if (n_inputs == 1) {
+    # handles list initialized in ...
+    # e.g. ...  = list(y, z) or lst[1]
+    res <- res[[1]]
+    if (is.null(names(res))) {
+      # name each tbl based on supplied variable if list initialized in dots
+      dots <- eval(substitute(alist(...)))[[1]]
+      # extract out variables from language object list(a, b, c)
+      dots <- as.character(dots)
+      if(dots[1] == "list"){
+        dots <- dots[2:length(dots)]
+        names(res) <- as.character(dots)
+      }
+    }
+  }
   res
 }
