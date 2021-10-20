@@ -26,7 +26,8 @@ Imports:
     stringr,
     tibble (>= 1.4.2),
     broom,
-    ggplot2
+    ggplot2,
+    rtracklayer
 SystemRequirements: 
     C++11
 LinkingTo:

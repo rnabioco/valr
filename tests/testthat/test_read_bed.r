@@ -6,6 +6,8 @@ bed12_path <- system.file("extdata", "mm9.refGene.bed.gz", package = "valr")
 bedgraph_path <- system.file("extdata", "test.bg.gz", package = "valr")
 narrowpeak_path <- system.file("extdata", "sample.narrowPeak.gz", package = "valr")
 broadpeak_path <- system.file("extdata", "sample.broadPeak.gz", package = "valr")
+bigwig_path <- system.file("extdata", "hg19.dnase1.bw", package = "valr")
+gtf_path <- system.file("extdata", "hg19.gencode.gtf.gz", package = "valr")
 
 bed3_tbl <- read_bed(bed3_path)
 
@@ -43,3 +45,16 @@ test_that("read broadPeak", {
   x <- read_broadpeak(broadpeak_path)
   expect_equal(ncol(x), 9)
 })
+
+test_that("read bigwig", {
+  skip_on_os("windows")
+  x <- read_bigwig(bigwig_path)
+  expect_equal(ncol(x), 5)
+})
+
+
+test_that("read gtf", {
+  x <- read_gtf(gtf_path)
+  expect_equal(ncol(x), 26)
+})
+

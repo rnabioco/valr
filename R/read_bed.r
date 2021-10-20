@@ -135,3 +135,65 @@ bed12_coltypes <- list(
   exon_sizes = readr::col_character(),
   exon_starts = readr::col_character()
 )
+
+
+#' Import and convert a bigwig file into a valr compatible tbl
+#'
+#' @description This function will output a 5 column tibble with
+#' zero-based chrom, start, end, score, and strand columns.
+#'
+#' @param path path to bigWig file
+#' @param set_strand strand to add to output (defaults to "+")
+#'
+#' @note This functions uses \code{rtracklayer} to import bigwigs which
+#' has unstable support for the windows platform and therefore may error
+#' for windows users (particularly for 32 bit window users).
+#'
+#' @examples
+#' \dontrun{
+#' if (.Platform$OS.type != "windows") {
+#'   bw <- read_bigwig(valr_example('hg19.dnase1.bw'))
+#'   head(bw)
+#' }
+#' }
+#' @importFrom rtracklayer import
+#' @export
+read_bigwig <- function(path, set_strand = "+") {
+  # note that rtracklayer will produce a one-based GRanges object
+  res <- rtracklayer::import(path)
+  res <- dplyr::as_tibble(res)
+  res <- dplyr::mutate(res,
+                       chrom = as.character(seqnames),
+                       start = start - 1L,
+                       strand = set_strand)
+  dplyr::select(res, chrom, start, end, score, strand)
+}
+
+#' Import and convert a GTF/GFF file into a valr compatible bed tbl format
+#'
+#' @description This function will output a tibble with the
+#' required chrom, start, and end columns, as well as other columns depending
+#' on content in GTF/GFF file.
+#'
+#' @param path path to gtf or gff file
+#' @param zero_based if TRUE, convert to zero based
+#'
+#' @examples
+#'
+#' gtf <- read_gtf(valr_example('hg19.gencode.gtf.gz'))
+#' head(gtf)
+#'
+#' @importFrom rtracklayer import
+#' @export
+read_gtf <- function(path, zero_based = TRUE){
+  gtf <- rtracklayer::import(path)
+  gtf <- as.data.frame(gtf)
+  gtf <- dplyr::mutate_if(gtf, is.factor, as.character)
+  res <- dplyr::rename(gtf, chrom = seqnames)
+
+  if(zero_based) {
+    res <- dplyr::mutate(res, start = start - 1L)
+  }
+
+  tibble::as_tibble(res)
+}

@@ -1,7 +1,10 @@
 # valr (development version)
 
-* Fixed intron score numbering error in `create_introns` (#377 @sheridar)  
-* Fixed bug in handling of list inputs for `bed_intersect()`(#380 @sheridar)  
+* Fixed intron score numbering error in `create_introns` (#377 @sheridar) 
+
+* Fixed bug in handling of list inputs for `bed_intersect()`(#380 @sheridar)   
+
+* Added `read_bigwig` and `read_gtf` functions to import data into valr compatible tibbles (#379)  
 
 # valr 0.6.3
 

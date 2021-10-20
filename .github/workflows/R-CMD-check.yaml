@@ -18,15 +18,9 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # failing due to missing tarball for devel on macOS https://github.com/r-lib/actions/issues/140
-          #- {os: macOS-latest,   r: 'devel'}
           - {os: macOS-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: '3.6'}
-         # failing due to bioconductor release cycle matched to R 4.1 not R 4.2
-         #- {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -71,7 +65,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("BiocManager")
-          BiocManager::install(c('GenomicRanges', 'IRanges', 'S4Vectors'))
+          BiocManager::install(c('GenomicRanges', 'IRanges', 'S4Vectors', 'rtracklayer'))
         shell: Rscript {0}
 
       - name: Session info
