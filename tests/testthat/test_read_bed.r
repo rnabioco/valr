@@ -47,6 +47,7 @@ test_that("read broadPeak", {
 })
 
 test_that("read bigwig", {
+  skip_on_os("windows")
   x <- read_bigwig(bigwig_path)
   expect_equal(ncol(x), 5)
 })

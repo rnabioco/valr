@@ -137,33 +137,42 @@ bed12_coltypes <- list(
 )
 
 
-#' Read in a bigwig file into a valr compatible tbl
+#' Import and convert a bigwig file into a valr compatible tbl
+#'
 #' @description This function will output a 5 column tibble with
 #' zero-based chrom, start, end, score, and strand columns.
 #'
 #' @param path path to bigWig file
 #' @param set_strand strand to add to output (defaults to "+")
 #'
+#' @note This functions uses \code{rtracklayer} to import bigwigs which
+#' has unstable support for the windows platform and therefore may error
+#' for windows users (particularly for 32 bit window users).
+#'
 #' @examples
-#'
-#' bw <- read_bigwig(valr_example('hg19.dnase1.bw'))
-#' head(bw)
-#'
+#' \dontrun{
+#' if (.Platform$OS.type != "windows") {
+#'   bw <- read_bigwig(valr_example('hg19.dnase1.bw'))
+#'   head(bw)
+#' }
+#' }
 #' @importFrom rtracklayer import
 #' @export
 read_bigwig <- function(path, set_strand = "+") {
   # note that rtracklayer will produce a one-based GRanges object
-  rtracklayer::import(path) %>%
-    dplyr::as_tibble(.) %>%
-    dplyr::mutate(chrom = as.character(seqnames),
-                  start = start - 1L,
-                  strand = set_strand) %>%
-    dplyr::select(chrom, start, end, score, strand)
+  res <- rtracklayer::import(path)
+  res <- dplyr::as_tibble(res)
+  res <- dplyr::mutate(res,
+                       chrom = as.character(seqnames),
+                       start = start - 1L,
+                       strand = set_strand)
+  dplyr::select(res, chrom, start, end, score, strand)
 }
 
-#' Import and convert GTF/GFF into valr compatible bed tbl format
-#' @description This function will output a tibble with
-#' required chrom, start, and end, as well as other columns depending
+#' Import and convert a GTF/GFF file into a valr compatible bed tbl format
+#'
+#' @description This function will output a tibble with the
+#' required chrom, start, and end columns, as well as other columns depending
 #' on content in GTF/GFF file.
 #'
 #' @param path path to gtf or gff file

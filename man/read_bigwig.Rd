@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_bed.r
 \name{read_bigwig}
 \alias{read_bigwig}
-\title{Read in a bigwig file into a valr compatible tbl}
+\title{Import and convert a bigwig file into a valr compatible tbl}
 \usage{
 read_bigwig(path, set_strand = "+")
 }
@@ -15,9 +15,16 @@ read_bigwig(path, set_strand = "+")
 This function will output a 5 column tibble with
 zero-based chrom, start, end, score, and strand columns.
 }
+\note{
+This functions uses \code{rtracklayer} to import bigwigs which
+has unstable support for the windows platform and therefore may error
+for windows users (particularly for 32 bit window users).
+}
 \examples{
-
-bw <- read_bigwig(valr_example('hg19.dnase1.bw'))
-head(bw)
-
+\dontrun{
+if (.Platform$OS.type != "windows") {
+  bw <- read_bigwig(valr_example('hg19.dnase1.bw'))
+  head(bw)
+}
+}
 }

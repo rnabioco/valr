@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_bed.r
 \name{read_gtf}
 \alias{read_gtf}
-\title{Import and convert GTF/GFF into valr compatible bed tbl format}
+\title{Import and convert a GTF/GFF file into a valr compatible bed tbl format}
 \usage{
 read_gtf(path, zero_based = TRUE)
 }
@@ -12,8 +12,8 @@ read_gtf(path, zero_based = TRUE)
 \item{zero_based}{if TRUE, convert to zero based}
 }
 \description{
-This function will output a tibble with
-required chrom, start, and end, as well as other columns depending
+This function will output a tibble with the
+required chrom, start, and end columns, as well as other columns depending
 on content in GTF/GFF file.
 }
 \examples{

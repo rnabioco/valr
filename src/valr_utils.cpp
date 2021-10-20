@@ -101,7 +101,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
       }
     }
 
-    if(Rf_isFactor(x[j])){
+    if (Rf_isFactor(x[j])) {
       // set levels on output factor
       IntegerVector tmp = x[j] ;
       SEXP levels = PROTECT(tmp.attr("levels")) ;
@@ -200,7 +200,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
       }
     }
 
-    if(Rf_isFactor(x[j])){
+    if (Rf_isFactor(x[j])) {
       // set levels on output factor
       IntegerVector tmp = x[j] ;
       SEXP levels = PROTECT(tmp.attr("levels")) ;
