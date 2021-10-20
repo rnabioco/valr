@@ -135,3 +135,56 @@ bed12_coltypes <- list(
   exon_sizes = readr::col_character(),
   exon_starts = readr::col_character()
 )
+
+
+#' Read in a bigwig file into a valr compatible tbl
+#' @description This function will output a 5 column tibble with
+#' zero-based chrom, start, end, score, and strand columns.
+#'
+#' @param path path to bigWig file
+#' @param set_strand strand to add to output (defaults to "+")
+#'
+#' @examples
+#'
+#' bw <- read_bigwig(valr_example('hg19.dnase1.bw'))
+#' head(bw)
+#'
+#' @importFrom rtracklayer import
+#' @export
+read_bigwig <- function(path, set_strand = "+") {
+  # note that rtracklayer will produce a one-based GRanges object
+  rtracklayer::import(path) %>%
+    dplyr::as_tibble(.) %>%
+    dplyr::mutate(chrom = as.character(seqnames),
+                  start = start - 1L,
+                  strand = set_strand) %>%
+    dplyr::select(chrom, start, end, score, strand)
+}
+
+#' Import and convert GTF/GFF into valr compatible bed tbl format
+#' @description This function will output a tibble with
+#' required chrom, start, and end, as well as other columns depending
+#' on content in GTF/GFF file.
+#'
+#' @param path path to gtf or gff file
+#' @param zero_based if TRUE, convert to zero based
+#'
+#' @examples
+#'
+#' gtf <- read_gtf(valr_example('hg19.gencode.gtf.gz'))
+#' head(gtf)
+#'
+#' @importFrom rtracklayer import
+#' @export
+read_gtf <- function(path, zero_based = TRUE){
+  gtf <- rtracklayer::import(path)
+  gtf <- as.data.frame(gtf)
+  gtf <- dplyr::mutate_if(gtf, is.factor, as.character)
+  res <- dplyr::rename(gtf, chrom = seqnames)
+
+  if(zero_based) {
+    res <- dplyr::mutate(res, start = start - 1L)
+  }
+
+  tibble::as_tibble(res)
+}

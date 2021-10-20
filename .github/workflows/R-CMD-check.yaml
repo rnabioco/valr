@@ -71,7 +71,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("BiocManager")
-          BiocManager::install(c('GenomicRanges', 'IRanges', 'S4Vectors'))
+          BiocManager::install(c('GenomicRanges', 'IRanges', 'S4Vectors', 'rtracklayer'))
         shell: Rscript {0}
 
       - name: Session info
