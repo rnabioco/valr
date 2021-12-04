@@ -7,6 +7,7 @@
 status](https://github.com/rnabioco/valr/workflows/R-CMD-check/badge.svg)](https://github.com/rnabioco/valr/actions)
 [![codecov](https://codecov.io/gh/rnabioco/valr/branch/master/graph/badge.svg)](https://codecov.io/gh/rnabioco/valr)
 [![](https://www.r-pkg.org/badges/version/valr)](https://CRAN.R-project.org/package=valr)
+[![R-CMD-check](https://github.com/rnabioco/valr/workflows/R-CMD-check/badge.svg)](https://github.com/rnabioco/valr/actions)
 <!-- badges: end -->
 
 The valr package provides tools to read and manipulate genome intervals
@@ -59,7 +60,7 @@ nearby <- bed_closest(intergenic, genes)
 nearby %>%
   select(starts_with('name'), .overlap, .dist) %>%
   filter(abs(.dist) < 5000)
-#> # A tibble: 1,047 x 4
+#> # A tibble: 1,047 × 4
 #>    name.x      name.y   .overlap .dist
 #>    <chr>       <chr>       <int> <int>
 #>  1 rs530458610 P704P           0  2579

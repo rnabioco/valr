@@ -4,9 +4,13 @@ development:
   mode: auto
 
 template:
+  bootstrap: 5
+  bootswatch: cosmo
   params:
-    bootswatch: cosmo
     ganalytics: UA-54095998-3
+
+navbar:
+  bg: dark
 
 authors:
   Jay Hesselberth:
