@@ -77,5 +77,6 @@ reference:
     - bed_glyph
     - bound_intervals
     - flip_strands
+    - gr_to_bed
     - interval_spacing
     - valr_example
