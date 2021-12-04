@@ -79,4 +79,6 @@ reference:
     - flip_strands
     - gr_to_bed
     - interval_spacing
+    - ivl_df
+    - valr
     - valr_example
