@@ -6,6 +6,8 @@
 
 * Added `read_bigwig` and `read_gtf` functions to import data into valr compatible tibbles (#379)  
 
+* Kent Riemondy is now maintainer.
+
 # valr 0.6.3
 
 * Update to prepare for readr 2.0.0
