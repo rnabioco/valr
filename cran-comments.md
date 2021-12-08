@@ -13,44 +13,6 @@
 ## R CMD check results
 
 
-* on rhub (windows, release)
-
-  Status: 1 Note
-  
-   * checking CRAN incoming feasibility ... NOTE
-     Maintainer: 'Kent Riemondy '
-   
-     Version contains large components (0.6.3.9000)
-
-     New maintainer:
-       Kent Riemondy
-     Old maintainer(s):
-       Jay Hesselberth
-     
-     - This package uses Rcpp, which creates a large shared library on windows.
-
-* on rub (windows devel version)
-  
-  Status 1 ERROR, 1 NOTE
-  * checking CRAN incoming feasibility ... NOTE
-     Maintainer: 'Kent Riemondy '
-   
-     Version contains large components (0.6.3.9000)
-
-     New maintainer:
-       Kent Riemondy
-     Old maintainer(s):
-       Jay Hesselberth
-     
-  * checking package dependencies ... ERROR
-    Package required but not available: 'rtracklayer'
-
-    Packages suggested but not available:
-      'GenomicRanges', 'IRanges', 'S4Vectors'
-      
-    - rtracklayer, GenomicRanges, IRanges, and S4Vectors are available as bioconductor packages
-    -  This package uses Rcpp, which creates a large shared library on windows.
-    
 * on win-builder (release and devel)
 
   Status: 1 NOTE
