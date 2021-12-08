@@ -20,3 +20,4 @@
 ^\.github$
 ^CODE_OF_CONDUCT\.md$
 ^bench$
+^revdep$
