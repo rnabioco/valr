@@ -15,7 +15,7 @@ bed_cluster(x, max_dist = 0)
 \link{ivl_df} with \code{.id} column specifying sets of clustered intervals.
 }
 \description{
-The ouput \code{.id} column can be used in downstream grouping operations. Default
+The output \code{.id} column can be used in downstream grouping operations. Default
 \code{max_dist = 0} means that both overlapping and book-ended intervals will be
 clustered.
 }

@@ -11,7 +11,7 @@ bed_shift(x, genome, size = 0, fraction = 0, trim = FALSE)
 
 \item{genome}{\link{ivl_df}}
 
-\item{size}{number of bases to shift. postive numbers shift right, negative shift left.}
+\item{size}{number of bases to shift. positive numbers shift right, negative shift left.}
 
 \item{fraction}{define \code{size} as a fraction of interval}
 

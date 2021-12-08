@@ -1,6 +1,6 @@
 #' Cluster neighboring intervals.
 #'
-#' The ouput `.id` column can be used in downstream grouping operations. Default
+#' The output `.id` column can be used in downstream grouping operations. Default
 #' `max_dist = 0` means that both overlapping and book-ended intervals will be
 #' clustered.
 #'

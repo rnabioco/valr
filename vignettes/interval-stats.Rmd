@@ -121,7 +121,7 @@ pvals <- res %>% do(twosided = tidy(ks.test(.$obs, .$shuf)),
 
 ```
 
-Histgrams of the different stats help visulaize the distribution of p.values.
+Histgrams of the different stats help visualize the distribution of p.values.
 
 ```{r pvalue_viz}
 ggplot(pvals, aes(p.value)) +

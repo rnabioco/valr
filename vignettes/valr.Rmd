@@ -34,7 +34,7 @@ library(tibble)
 * Is highly extensible. New tools are quickly implemented on the R side.
 * Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`%>%`).
 * Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
-* Facilitates interactive visulaizations with [`shiny`][13].
+* Facilitates interactive visualizations with [`shiny`][13].
 
 `valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
@@ -68,7 +68,7 @@ bed_file <- valr_example("3fields.bed.gz")
 read_bed(bed_file) # accepts filepaths or URLs
 ```
 
-`valr` can also operate on BED-like data.frames already constructed in R, provided that columns named `chrom`, `start` and `end` are present. New tbls can also be contructed as either `tibbles` or base R `data.frames`.
+`valr` can also operate on BED-like data.frames already constructed in R, provided that columns named `chrom`, `start` and `end` are present. New tbls can also be constructed as either `tibbles` or base R `data.frames`.
 
 ```{r trbl_ivls}
 bed <- tribble(
@@ -150,7 +150,7 @@ bed_glyph(bed_merge(x))
 
 ### Grouping data
 
-The `group_by` function in dplyr can be used to perform fuctions on subsets of single and multiple `data_frame`s. Functions in `valr` leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by `strand` to perform comparisons among intervals on the same strand.
+The `group_by` function in dplyr can be used to perform functions on subsets of single and multiple `data_frame`s. Functions in `valr` leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by `strand` to perform comparisons among intervals on the same strand.
 
 ```{r strand}
 x <- tribble(
@@ -225,7 +225,7 @@ genome <- read_genome(genomefile)
 y <- read_bedgraph(bgfile)
 ```
 
-Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on `+` strand genes, but `-` genes are easily accomodated by filtering them and using `bed_makewindows()` with `reverse`d window numbers.
+Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on `+` strand genes, but `-` genes are easily accommodated by filtering them and using `bed_makewindows()` with `reversed` window numbers.
 
 ```{r tss}
 # generate 1 bp TSS intervals, `+` strand only
@@ -246,7 +246,7 @@ x <- tss %>%
 x
 ```
 
-Now we use the `.win_id` group with `bed_map()` to caluclate a sum by mapping `y` signals onto the intervals in `x`. These data are regrouped by `.win_id` and a summary with `mean` and `sd` values is calculated.
+Now we use the `.win_id` group with `bed_map()` to calculate a sum by mapping `y` signals onto the intervals in `x`. These data are regrouped by `.win_id` and a summary with `mean` and `sd` values is calculated.
 
 ```{r map}
 # map signals to TSS regions and calculate summary statistics.

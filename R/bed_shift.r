@@ -4,7 +4,7 @@
 #'
 #' @param x [ivl_df]
 #' @param genome [ivl_df]
-#' @param size number of bases to shift. postive numbers shift right, negative shift left.
+#' @param size number of bases to shift. positive numbers shift right, negative shift left.
 #' @param fraction define `size` as a fraction of interval
 #' @param trim adjust coordinates for out-of-bounds intervals
 #'
