@@ -103,7 +103,7 @@
 <li>Is highly extensible. New tools are quickly implemented on the R side.</li>
 <li>Leverages the “modern R” syntax, using <code>dplyr</code> and the pipe operator from <code>magrittr</code> (<code>%&gt;%</code>).</li>
 <li>Maximizes speed by implementing compute-intensive algorithms in <code>Rcpp</code>.</li>
-<li>Facilitates interactive visulaizations with <a href="https://shiny.rstudio.com/" class="external-link"><code>shiny</code></a>.</li>
+<li>Facilitates interactive visualizations with <a href="https://shiny.rstudio.com/" class="external-link"><code>shiny</code></a>.</li>
 </ul>
 <p><code>valr</code> can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.</p>
 <div class="section level3">
@@ -160,7 +160,7 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> chr1  <span style="text-decoration: underline;">321</span>145 <span style="text-decoration: underline;">321</span>207</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> chr1  <span style="text-decoration: underline;">322</span>036 <span style="text-decoration: underline;">326</span>938</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">10</span> chr1  <span style="text-decoration: underline;">327</span>545 <span style="text-decoration: underline;">328</span>439</span></code></pre></div>
-<p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns named <code>chrom</code>, <code>start</code> and <code>end</code> are present. New tbls can also be contructed as either <code>tibbles</code> or base R <code>data.frames</code>.</p>
+<p><code>valr</code> can also operate on BED-like data.frames already constructed in R, provided that columns named <code>chrom</code>, <code>start</code> and <code>end</code> are present. New tbls can also be constructed as either <code>tibbles</code> or base R <code>data.frames</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
   <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>,  <span class="op">~</span><span class="va">end</span>, 
@@ -252,7 +252,7 @@
 <div class="section level3">
 <h3 id="grouping-data">Grouping data<a class="anchor" aria-label="anchor" href="#grouping-data"></a>
 </h3>
-<p>The <code>group_by</code> function in dplyr can be used to perform fuctions on subsets of single and multiple <code>data_frame</code>s. Functions in <code>valr</code> leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by <code>strand</code> to perform comparisons among intervals on the same strand.</p>
+<p>The <code>group_by</code> function in dplyr can be used to perform functions on subsets of single and multiple <code>data_frame</code>s. Functions in <code>valr</code> leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by <code>strand</code> to perform comparisons among intervals on the same strand.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
   <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">strand</span>,
@@ -326,7 +326,7 @@
 <span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span><span class="op">(</span><span class="va">bedfile</span>, n_fields <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
 <span class="va">genome</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_genome.html">read_genome</a></span><span class="op">(</span><span class="va">genomefile</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bedgraph</a></span><span class="op">(</span><span class="va">bgfile</span><span class="op">)</span></code></pre></div>
-<p>Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on <code>+</code> strand genes, but <code>-</code> genes are easily accomodated by filtering them and using <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> with <code>reverse</code>d window numbers.</p>
+<p>Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on <code>+</code> strand genes, but <code>-</code> genes are easily accommodated by filtering them and using <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> with <code>reversed</code> window numbers.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># generate 1 bp TSS intervals, `+` strand only</span>
 <span class="va">tss</span> <span class="op">&lt;-</span> <span class="va">genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -358,7 +358,7 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> chr22 16<span style="text-decoration: underline;">161</span>465 16<span style="text-decoration: underline;">161</span>515 LINC00516 3     +            9</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">10</span> chr22 16<span style="text-decoration: underline;">161</span>515 16<span style="text-decoration: underline;">161</span>565 LINC00516 3     +           10</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 13,520 more rows</span></span></code></pre></div>
-<p>Now we use the <code>.win_id</code> group with <code><a href="../reference/bed_map.html">bed_map()</a></code> to caluclate a sum by mapping <code>y</code> signals onto the intervals in <code>x</code>. These data are regrouped by <code>.win_id</code> and a summary with <code>mean</code> and <code>sd</code> values is calculated.</p>
+<p>Now we use the <code>.win_id</code> group with <code><a href="../reference/bed_map.html">bed_map()</a></code> to calculate a sum by mapping <code>y</code> signals onto the intervals in <code>x</code>. These data are regrouped by <code>.win_id</code> and a summary with <code>mean</code> and <code>sd</code> values is calculated.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># map signals to TSS regions and calculate summary statistics.</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_map.html">bed_map</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, win_sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
