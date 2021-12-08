@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.6.4
 
 * Fixed intron score numbering error in `create_introns` (#377 @sheridar) 
 
