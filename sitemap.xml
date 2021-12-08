@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://rnabioco.github.io/valr/404.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/ISSUE_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/articles/interval-stats.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/articles/valr.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/authors.html</loc>
+  </url>
+  <url>
     <loc>https://rnabioco.github.io/valr/index.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/news/index.html</loc>
   </url>
   <url>
     <loc>https://rnabioco.github.io/valr/reference/bed12_to_exons.html</loc>
@@ -106,6 +139,9 @@
     <loc>https://rnabioco.github.io/valr/reference/id_var.html</loc>
   </url>
   <url>
+    <loc>https://rnabioco.github.io/valr/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://rnabioco.github.io/valr/reference/interval_spacing.html</loc>
   </url>
   <url>
@@ -115,7 +151,13 @@
     <loc>https://rnabioco.github.io/valr/reference/read_bed.html</loc>
   </url>
   <url>
+    <loc>https://rnabioco.github.io/valr/reference/read_bigwig.html</loc>
+  </url>
+  <url>
     <loc>https://rnabioco.github.io/valr/reference/read_genome.html</loc>
+  </url>
+  <url>
+    <loc>https://rnabioco.github.io/valr/reference/read_gtf.html</loc>
   </url>
   <url>
     <loc>https://rnabioco.github.io/valr/reference/read_vcf.html</loc>
@@ -125,14 +167,5 @@
   </url>
   <url>
     <loc>https://rnabioco.github.io/valr/reference/valr_example.html</loc>
-  </url>
-  <url>
-    <loc>https://rnabioco.github.io/valr/articles/benchmarks.html</loc>
-  </url>
-  <url>
-    <loc>https://rnabioco.github.io/valr/articles/interval-stats.html</loc>
-  </url>
-  <url>
-    <loc>https://rnabioco.github.io/valr/articles/valr.html</loc>
   </url>
 </urlset>
