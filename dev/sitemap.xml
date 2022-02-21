@@ -1,168 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rnabioco.github.io/valr/CODE_OF_CONDUCT.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/CONTRIBUTING.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/ISSUE_TEMPLATE.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/ISSUE_TEMPLATE.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/LICENSE-text.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/LICENSE.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/articles/index.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/articles/interval-stats.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/articles/interval-stats.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/articles/valr.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/articles/valr.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/authors.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/authors.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/index.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/index.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/news/index.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/news/index.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed12_to_exons.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed12_to_exons.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_absdist.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_absdist.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_closest.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_closest.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_cluster.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_cluster.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_complement.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_complement.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_coverage.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_coverage.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_fisher.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_fisher.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_flank.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_flank.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_glyph.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_glyph.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_intersect.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_intersect.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_jaccard.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_jaccard.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_makewindows.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_makewindows.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_map.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_map.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_merge.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_merge.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_partition.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_partition.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_projection.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_projection.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_random.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_random.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_reldist.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_reldist.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_shift.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_shift.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_shuffle.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_shuffle.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_slop.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_slop.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_sort.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_sort.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_subtract.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_subtract.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bed_window.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bed_window.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/bound_intervals.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/bound_intervals.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/create_introns.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/create_introns.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/create_tss.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/create_tss.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/create_utrs3.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/create_utrs3.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/create_utrs5.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/create_utrs5.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/db.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/db.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/flip_strands.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/flip_strands.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/gr_to_bed.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/gr_to_bed.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/id.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/id.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/id_var.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/id_var.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/index.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/interval_spacing.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/interval_spacing.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/ivl_df.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/ivl_df.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/read_bed.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/read_bed.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/read_bigwig.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/read_bigwig.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/read_genome.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/read_genome.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/read_gtf.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/read_gtf.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/read_vcf.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/read_vcf.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/valr.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/valr.html</loc>
   </url>
   <url>
-    <loc>https://rnabioco.github.io/valr/reference/valr_example.html</loc>
+    <loc>https://rnabioco.github.io/valr/dev/reference/valr_example.html</loc>
   </url>
 </urlset>
