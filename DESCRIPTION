@@ -57,5 +57,3 @@ SystemRequirements: C++11
 Config/Needs/website:
     pkgdown,
     rnabioco/rbitemplate
-
-

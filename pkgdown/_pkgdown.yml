@@ -1,5 +1,8 @@
 url: https://rnabioco.github.io/valr
 
+template:
+  bootstrap: 5
+
 development:
   mode: auto
 
