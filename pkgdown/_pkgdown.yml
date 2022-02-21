@@ -3,21 +3,6 @@ url: https://rnabioco.github.io/valr
 development:
   mode: auto
 
-template:
-  bootstrap: 5
-  bootswatch: cosmo
-  params:
-    ganalytics: UA-54095998-3
-
-navbar:
-  bg: dark
-
-authors:
-  Jay Hesselberth:
-    href: https://hesselberthlab.org
-  RNA Bioscience Initiative:
-    href: https://medschool.cuanschutz.edu/rbi
-
 home:
   links:
   - text: External data sets
