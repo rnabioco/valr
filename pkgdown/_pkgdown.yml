@@ -1,6 +1,7 @@
 url: https://rnabioco.github.io/valr
 
 template:
+  package: rbitemplate
   bootstrap: 5
 
 development:
