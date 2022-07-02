@@ -23,11 +23,11 @@ Imports:
     dplyr (>= 0.8.0),
     ggplot2,
     Rcpp (>= 1.0.0),
-    readr,
     rlang,
     rtracklayer,
     stringr,
-    tibble (>= 1.4.2)
+    tibble (>= 1.4.2),
+    vroom
 Suggests:
     bench,
     covr,
@@ -52,7 +52,7 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 SystemRequirements: C++11
 Config/Needs/website:
     pkgdown,

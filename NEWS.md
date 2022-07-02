@@ -1,5 +1,8 @@
 # valr (development version)
 
+* `read_*` functions now use vroom instead of readr. This shouldn't cause probmles unless you 
+  are passing readr-specific params in `...` (`lazy = FALSE`).
+
 # valr 0.6.4
 
 * Fixed intron score numbering error in `create_introns` (#377 @sheridar) 

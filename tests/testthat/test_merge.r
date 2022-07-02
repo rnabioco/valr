@@ -163,10 +163,8 @@ test_that("Test that precision default is high enough for formatting not to give
 })
 
 test_that("Test stranded merge with bedPlus files that have strand", {
-  skip_if(packageVersion("readr") <= "1.4.0")
-
-  expect_warning(x <- read_bed(valr_example("bug254_e.bed"), n_fields = 7, skip = 1, lazy = FALSE))
+  x <- read_bed(valr_example("bug254_e.bed"), n_fields = 7, skip = 1)
   x <- x %>% group_by(strand)
-  res <- bed_merge(x, 200) %>% arrange(end)
+  expect_warning(res <- bed_merge(x, 200) %>% arrange(end))
   expect_equal(res$end, c(20000, 25000))
 })

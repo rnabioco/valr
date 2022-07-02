@@ -6,9 +6,9 @@
 #'
 #' @param filename file or URL
 #' @param n_fields number fields in the BED file
-#' @param col_types column type spec for [readr::read_tsv()]
+#' @param col_types column type spec for [vroom::vroom()]
 #' @param sort sort the tbl by chrom and start
-#' @param ... options to pass to [readr::read_tsv()]
+#' @param ... options to pass to [vroom::vroom()]
 #'
 #' @return [ivl_df]
 #'
@@ -31,7 +31,7 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
 
-  out <- readr::read_tsv(
+  out <- vroom::vroom(
     filename,
     col_names = colnames,
     col_types = coltypes, ...
@@ -52,8 +52,7 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 #'
 #' @export
 read_bed12 <- function(filename, ...) {
-  bed12_tbl <- read_bed(filename, n_fields = 12)
-  bed12_tbl
+  read_bed(filename, n_fields = 12)
 }
 
 #' @rdname read_bed
@@ -84,12 +83,11 @@ read_bedgraph <- function(filename, ...) {
 #' @export
 read_narrowpeak <- function(filename, ...) {
   colnames <- names(peak_coltypes)
-  out <- readr::read_tsv(
+  vroom::vroom(
     filename,
     col_types = peak_coltypes,
     col_names = colnames
   )
-  out
 }
 
 #' @rdname read_bed
@@ -104,36 +102,35 @@ read_narrowpeak <- function(filename, ...) {
 read_broadpeak <- function(filename, ...) {
   coltypes <- peak_coltypes[1:length(peak_coltypes) - 1]
   colnames <- names(coltypes)
-  out <- readr::read_tsv(filename, col_names = colnames, col_types = coltypes)
-  out
+  vroom::vroom(filename, col_names = colnames, col_types = coltypes)
 }
 
 peak_coltypes <- list(
-  chrom = readr::col_character(),
-  start = readr::col_integer(),
-  end = readr::col_integer(),
-  name = readr::col_character(),
-  score = readr::col_integer(),
-  strand = readr::col_character(),
-  signal = readr::col_double(),
-  pvalue = readr::col_double(),
-  qvalue = readr::col_double(),
-  peak = readr::col_integer()
+  chrom = vroom::col_character(),
+  start = vroom::col_integer(),
+  end = vroom::col_integer(),
+  name = vroom::col_character(),
+  score = vroom::col_integer(),
+  strand = vroom::col_character(),
+  signal = vroom::col_double(),
+  pvalue = vroom::col_double(),
+  qvalue = vroom::col_double(),
+  peak = vroom::col_integer()
 )
 
 bed12_coltypes <- list(
-  chrom = readr::col_character(),
-  start = readr::col_integer(),
-  end = readr::col_integer(),
-  name = readr::col_character(),
-  score = readr::col_character(),
-  strand = readr::col_character(),
-  cds_start = readr::col_integer(),
-  cds_end = readr::col_integer(),
-  item_rgb = readr::col_character(),
-  exon_count = readr::col_integer(),
-  exon_sizes = readr::col_character(),
-  exon_starts = readr::col_character()
+  chrom = vroom::col_character(),
+  start = vroom::col_integer(),
+  end = vroom::col_integer(),
+  name = vroom::col_character(),
+  score = vroom::col_character(),
+  strand = vroom::col_character(),
+  cds_start = vroom::col_integer(),
+  cds_end = vroom::col_integer(),
+  item_rgb = vroom::col_character(),
+  exon_count = vroom::col_integer(),
+  exon_sizes = vroom::col_character(),
+  exon_starts = vroom::col_character()
 )
 
 
