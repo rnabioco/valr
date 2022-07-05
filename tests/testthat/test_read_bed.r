@@ -57,4 +57,3 @@ test_that("read gtf", {
   x <- read_gtf(gtf_path)
   expect_equal(ncol(x), 26)
 })
-

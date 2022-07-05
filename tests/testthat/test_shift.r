@@ -1,7 +1,7 @@
 context("bed_shift")
 
 bed_tbl <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ strand,
+  ~chrom, ~start, ~end, ~strand,
   "chr1", 100, 150, "+",
   "chr1", 200, 250, "+",
   "chr2", 300, 350, "+",
@@ -11,7 +11,7 @@ bed_tbl <- tibble::tribble(
 )
 
 genome <- tibble::tribble(
-  ~ chrom, ~ size,
+  ~chrom, ~size,
   "chr1", 1000,
   "chr2", 2000,
   "chr3", 3000
@@ -113,13 +113,13 @@ test_that("shift by strand and fraction works", {
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/shift/test-shift.sh
 a <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100, 200, "a1", 1, "+",
   "chr1", 100, 200, "a2", 2, "-"
 )
 
 tiny.genome <- tibble::tribble(
-  ~ chrom, ~ size,
+  ~chrom, ~size,
   "chr1", 1000
 )
 
@@ -157,12 +157,12 @@ test_that("test shift being larger than a signed int", {
 
 test_that("test chrom boundaries", {
   tiny2.genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 10
   )
 
   b <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 5, 10, "cds1", 0, "+"
   )
   out <- bed_shift(b, tiny2.genome, size = 2, trim = TRUE)
@@ -174,12 +174,12 @@ test_that("test chrom boundaries", {
 
 test_that("test shift huge genome", {
   tiny2.genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 249250621
   )
 
   b <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 66999638L, 67216822L, "NM_032291", 0L, "+",
     "chr1", 92145899L, 92351836L, "NR_036634", 0L, "-"
   )

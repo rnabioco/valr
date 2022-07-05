@@ -2,14 +2,14 @@ context("tbls")
 
 test_that("invalid column names throw error", {
   x <- tibble::tribble(
-    ~ pork, ~ pie, ~ hat,
+    ~pork, ~pie, ~hat,
     "chr1", 1, 50
   )
   expect_error(check_interval(x), "expected 3 required names, missing: chrom, start, end")
 
   # missing 1 only
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ oops,
+    ~chrom, ~start, ~oops,
     "chr1", 1, 50
   )
   expect_error(check_interval(x), "expected 3 required names, missing: end")
@@ -17,7 +17,7 @@ test_that("invalid column names throw error", {
 
 test_that("invalid column names throw error", {
   genome <- tibble::tribble(
-    ~ foo, ~ bar,
+    ~foo, ~bar,
     "chr1", 1e4
   )
   expect_error(check_genome(genome), "expected 2 required names, missing: chrom, size")
@@ -25,7 +25,7 @@ test_that("invalid column names throw error", {
 
 test_that("duplicate chromosomes refs throw error", {
   genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 1e4,
     "chr1", 1e4
   )

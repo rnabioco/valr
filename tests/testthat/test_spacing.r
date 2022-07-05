@@ -3,7 +3,7 @@ context("spacing")
 
 test_that("start intervals are NA", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 1, 100,
     "chr1", 150, 200,
     "chr2", 200, 300
@@ -25,7 +25,7 @@ test_that("start intervals are NA", {
 # from bedtools2
 test_that("bt test succeeds", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 20, 30,
     "chr1", 25, 40,
     "chr1", 40, 50,

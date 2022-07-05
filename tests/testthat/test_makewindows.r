@@ -1,7 +1,7 @@
 context("bed_makewindows")
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ name,
+  ~chrom, ~start, ~end, ~name,
   "chr1", 100, 200, "A",
   "chr2", 300, 350, "B"
 )
@@ -96,7 +96,7 @@ test_that("interval is smaller than n windows", {
 # from https://github.com/arq5x/bedtools2/blob/master/test/makewindows/test-makewindows.sh
 test_that("always get the number of requested windows. issue #322", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name,
+    ~chrom, ~start, ~end, ~name,
     "chr1", 11, 44, "A"
   )
   res <- bed_makewindows(x, num_win = 10)
@@ -112,7 +112,7 @@ test_that("report error if negative value win_size or num_win arguments supplied
 
 test_that("check num_win reported correctly for additional intervals (related to #322)", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 9437053, 9438070,
     "chr1", 75360291, 75368579,
     "chr1", 86351980, 86352127

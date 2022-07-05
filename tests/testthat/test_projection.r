@@ -1,20 +1,20 @@
 context("bed_projection")
 
 genome <- tibble::tribble(
-  ~ chrom, ~ size,
+  ~chrom, ~size,
   "chr1", 1000,
   "chr2", 1000
 )
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 50, 75,
   "chr1", 250, 400,
   "chr1", 500, 600
 )
 
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 100, 200,
   "chr1", 200, 800
 )
@@ -34,13 +34,13 @@ test_that("basic projection test works", {
 
 test_that("projection per chromosome works (by_chrom = TRUE)", {
   genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 2000,
     "chr2", 2000
   )
 
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 100, 200,
     "chr1", 250, 400,
     "chr1", 500, 600,
@@ -49,7 +49,7 @@ test_that("projection per chromosome works (by_chrom = TRUE)", {
   )
 
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 150, 175,
     "chr1", 525, 575,
     "chr1", 1100, 1200,
@@ -64,13 +64,13 @@ test_that("report significant when intervals are underrepresented, .lower_tail =
   sig <- pbinom(0, 4, .7)
 
   genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 1000,
     "chr2", 1000
   )
 
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 10, 20,
     "chr1", 25, 40,
     "chr1", 50, 60,
@@ -78,7 +78,7 @@ test_that("report significant when intervals are underrepresented, .lower_tail =
   )
 
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 200, 275,
     "chr1", 525, 575,
     "chr1", 200, 900
@@ -92,13 +92,13 @@ test_that("report significant when intervals are underrepresented, .lower_tail =
 test_that("report significant when intervals are overrepresented, .lower_tail = FALSE", {
   sig <- 1 - pbinom(4, 4, .7)
   genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 1000,
     "chr2", 1000
   )
 
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 200, 225,
     "chr1", 250, 400,
     "chr1", 500, 600,
@@ -106,7 +106,7 @@ test_that("report significant when intervals are overrepresented, .lower_tail = 
   )
 
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 200, 275,
     "chr1", 525, 575,
     "chr1", 200, 900

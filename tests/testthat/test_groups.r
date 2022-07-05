@@ -36,6 +36,3 @@ test_that("mismatched groups are dropped by two table verbs", {
   expect_equal(res1, res2)
   expect_equal(nrow(res1), 16)
 })
-
-
-

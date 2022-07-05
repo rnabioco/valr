@@ -1,7 +1,7 @@
 context("flip_strands")
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ strand,
+  ~chrom, ~start, ~end, ~strand,
   "chr1", 1, 100, "+",
   "chr2", 1, 100, "-"
 )
@@ -12,7 +12,7 @@ test_that("strands are flipped", {
 })
 
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 1, 100,
   "chr2", 1, 100
 )

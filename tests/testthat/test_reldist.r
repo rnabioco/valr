@@ -1,12 +1,12 @@
 context("bed_reldist")
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 75, 125
 )
 
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 50, 100,
   "chr1", 100, 150
 )
@@ -28,7 +28,7 @@ test_that("detail argument works", {
 
 test_that("reldist respects groups (#108)", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group,
+    ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "B",
     "chr1", 200, 400, "A",
     "chr1", 500, 600, "C",
@@ -37,7 +37,7 @@ test_that("reldist respects groups (#108)", {
     "chr3", 100, 300, "A"
   )
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group,
+    ~chrom, ~start, ~end, ~group,
     "chr1", 100, 199, "A",
     "chr1", 200, 400, "B",
     "chr1", 500, 600, "A",
@@ -47,7 +47,7 @@ test_that("reldist respects groups (#108)", {
   )
 
   genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 10000,
     "chr2", 10000
   )

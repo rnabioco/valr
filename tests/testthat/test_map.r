@@ -2,7 +2,7 @@ context("bed_map")
 
 test_that("x/y groupings are respected", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ id,
+    ~chrom, ~start, ~end, ~id,
     "chr1", 100, 250, 1,
     "chr2", 250, 500, 2,
     "chr2", 250, 500, 3
@@ -10,7 +10,7 @@ test_that("x/y groupings are respected", {
     group_by(id)
 
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ value, ~ id,
+    ~chrom, ~start, ~end, ~value, ~id,
     "chr1", 100, 250, 10, 1,
     "chr1", 150, 250, 20, 2,
     "chr2", 250, 500, 500, 3
@@ -18,7 +18,7 @@ test_that("x/y groupings are respected", {
     group_by(id)
 
   pred <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ id, ~ vals,
+    ~chrom, ~start, ~end, ~id, ~vals,
     "chr1", 100, 250, 1, 10,
     "chr2", 250, 500, 3, 500,
     "chr2", 250, 500, 2, NA
@@ -29,12 +29,12 @@ test_that("x/y groupings are respected", {
 
 test_that("values_unique works correctly", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 100, 250
   )
 
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ value,
+    ~chrom, ~start, ~end, ~value,
     "chr1", 100, 250, 10,
     "chr1", 150, 250, 20,
     "chr1", 100, 250, 10,
@@ -46,14 +46,14 @@ test_that("values_unique works correctly", {
 })
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ id,
+  ~chrom, ~start, ~end, ~id,
   "chr1", 100, 200, 1,
   "chr1", 250, 500, 2,
   "chr2", 250, 500, 3
 )
 
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ value,
+  ~chrom, ~start, ~end, ~value,
   "chr1", 100, 150, 10,
   "chr1", 150, 250, 20,
   "chr1", 140, 250, 30,
@@ -86,18 +86,18 @@ test_that("last works correctly", {
 
 test_that("book-ended intervals are not reported", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 100, 200
   )
 
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ value,
+    ~chrom, ~start, ~end, ~value,
     "chr1", 100, 150, 10,
     "chr1", 200, 250, 20
   )
 
   expected <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ value,
+    ~chrom, ~start, ~end, ~value,
     "chr1", 100, 200, 10
   )
   res <- bed_map(x, y, value = sum(value))
@@ -106,7 +106,7 @@ test_that("book-ended intervals are not reported", {
 
 test_that("ensure that mapping is calculated with respect to input tbls issue#108", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group,
+    ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "B",
     "chr1", 200, 400, "A",
     "chr1", 500, 600, "C",
@@ -115,7 +115,7 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
     "chr3", 100, 300, "A"
   )
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group, ~ value,
+    ~chrom, ~start, ~end, ~group, ~value,
     "chr1", 100, 199, "A", 10,
     "chr1", 200, 400, "B", 20,
     "chr1", 500, 600, "A", 30,
@@ -125,7 +125,7 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
   )
 
   pred <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group, ~ total,
+    ~chrom, ~start, ~end, ~group, ~total,
     "chr1", 100, 200, "B", NA,
     "chr1", 200, 400, "A", NA,
     "chr1", 500, 600, "C", NA,
@@ -145,7 +145,7 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/map/test-map.sh
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 0L, 100L,
   "chr1", 100L, 200L,
   "chr2", 0L, 100L,
@@ -154,7 +154,7 @@ x <- tibble::tribble(
   "chr3", 100L, 200L
 )
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ group, ~ value, ~ strand,
+  ~chrom, ~start, ~end, ~group, ~value, ~strand,
   "chr1", 0L, 10L, "a1", 10L, "+",
   "chr1", 10L, 20L, "a2", 5L, "+",
   "chr1", 20L, 30L, "a3", 15L, "+",
@@ -185,7 +185,7 @@ test_that("test mode", {
 
 test_that("Test GFF column extraction", {
   z <- tibble::tribble(
-    ~ chrom, ~ seqid, ~ type, ~ start, ~ end, ~ score, ~ strand, ~ phase, ~ attributes,
+    ~chrom, ~seqid, ~type, ~start, ~end, ~score, ~strand, ~phase, ~attributes,
     "chr1", "hg19_ccdsGene", "start_codon", 1L, 9L, 0, "+", ".", "gene_id..CCDS30744.1...transcript_id..CCDS30744.1..",
     "chr1", "hg19_ccdsGene", "CDS", 2L, 11L, 0, "+", "0", "gene_id \"CCDS30744.1\"; transcript_id \"CCDS30744.1\";",
     "chr1", "hg19_ccdsGene", "exon", 8L, 20L, 0, "+", ".", "gene_id \"CCDS30744.1\"; transcript_id \"CCDS30744.1\";",

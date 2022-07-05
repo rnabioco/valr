@@ -22,7 +22,7 @@ id <- function(.variables, drop = FALSE) {
   if (length(.variables) == 0) {
     # inlined "%||%" function to avoid packaging
     nvars <- nrow(.variables)
-    n <- if(is.null(nvars)){
+    n <- if (is.null(nvars)) {
       0L
     } else {
       nvars
@@ -40,11 +40,13 @@ id <- function(.variables, drop = FALSE) {
   p <- length(ids)
 
   # Calculate dimensions
-  ndistinct <- vapply(ids, attr, "n", FUN.VALUE = numeric(1),
-                      USE.NAMES = FALSE)
+  ndistinct <- vapply(ids, attr, "n",
+    FUN.VALUE = numeric(1),
+    USE.NAMES = FALSE
+  )
 
   n <- prod(ndistinct)
-  if (n > 2 ^ 31) {
+  if (n > 2^31) {
     # Too big for integers, have to use strings, which will be much slower :(
 
     char_id <- do.call("paste", c(ids, sep = "\r"))
@@ -69,8 +71,12 @@ id <- function(.variables, drop = FALSE) {
 #' Numeric id for a vector.
 #' @keywords internal
 id_var <- function(x, drop = FALSE) {
-  if (length(x) == 0) return(structure(integer(), n = 0L))
-  if (!is.null(attr(x, "n")) && !drop) return(x)
+  if (length(x) == 0) {
+    return(structure(integer(), n = 0L))
+  }
+  if (!is.null(attr(x, "n")) && !drop) {
+    return(x)
+  }
 
   if (is.factor(x) && !drop) {
     x <- addNA(x, ifany = TRUE)

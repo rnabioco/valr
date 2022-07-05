@@ -33,7 +33,6 @@ test_that("factors with no entries are handled ", {
   expect_warning(res_x <- bed_intersect(x_facs_grpd, x_empty_groups))
   expect_true(all(res_x$chrom == "chr1"))
   expect_true(all(res_x$strand.x == "+" & res_x$strand.y == "+"))
-
 })
 
 test_that("complex, raw, and other types are not supported", {
@@ -44,7 +43,6 @@ test_that("complex, raw, and other types are not supported", {
   tmp <- x
   tmp$raw <- as.raw(42)
   expect_error(bed_intersect(tmp, tmp))
-
 })
 
 test_that("list columns are supported", {
@@ -54,13 +52,17 @@ test_that("list columns are supported", {
 })
 
 test_that("input factor columns that are not grouped are preserved in output #360", {
-  x <- tibble(chrom = rep('chr1', 100),
-                 start = 0:99,
-                 end = 1:100,
-                grps = factor(rep(LETTERS[1:10], times = 10)))
-  y <- tibble(chrom = "chr1",
-              start = 1,
-              end = 5)
+  x <- tibble(
+    chrom = rep("chr1", 100),
+    start = 0:99,
+    end = 1:100,
+    grps = factor(rep(LETTERS[1:10], times = 10))
+  )
+  y <- tibble(
+    chrom = "chr1",
+    start = 1,
+    end = 5
+  )
   res <- bed_intersect(x, y)
 
   expect_true(is.factor(res$grps.x))

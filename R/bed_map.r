@@ -53,16 +53,17 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!! groups_vars)
-  y <- group_by(y, !!! groups_vars)
+  x <- group_by(x, !!!groups_vars)
+  y <- group_by(y, !!!groups_vars)
 
   grp_indexes <- shared_group_indexes(x, y)
 
   res <- intersect_impl(x, y,
-                        grp_indexes$x,
-                        grp_indexes$y,
-                        invert = TRUE,
-                        suffix_x = ".x", suffix_y = "")
+    grp_indexes$x,
+    grp_indexes$y,
+    invert = TRUE,
+    suffix_x = ".x", suffix_y = ""
+  )
 
   ## filter for rows that don't intersect. The `duplicated` call is required
   ## because book-ended intervals in the intersect_impl result can
@@ -84,9 +85,9 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
 
   ## map supplied functions to each set of intersecting intervals
   ## group_by .id_col_out to ensure that duplicated input x intervals are reported
- # res_int <- group_by(res_int, !!! syms(c("chrom", x_nms, .id_col_out)))
-  res_int <- group_by(res_int, !!! syms(.id_col_out))
-  res_int <- summarize(res_int, !!! quos(...))
+  # res_int <- group_by(res_int, !!! syms(c("chrom", x_nms, .id_col_out)))
+  res_int <- group_by(res_int, !!!syms(.id_col_out))
+  res_int <- summarize(res_int, !!!quos(...))
   res_int <- ungroup(res_int)
 
   ## join summarize data with intervals based on .id

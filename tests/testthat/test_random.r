@@ -26,7 +26,7 @@ test_that("all ends are less or equal to than chrom size", {
 
 test_that("chrom sizes less than length throws an error", {
   genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 125
   )
   expect_error(bed_random(genome, seed = seed))

@@ -1,13 +1,13 @@
 context("bed_jaccard")
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 10, 20,
   "chr1", 30, 40
 )
 
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 15, 20
 )
 
@@ -50,7 +50,7 @@ test_that("Test symmetry", {
 
 test_that("Test jaccard with mixed strand files", {
   a <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 10L, 50L, "a1f", 2L, "+",
     "chr1", 20L, 60L, "b1r", 4L, "-",
     "chr1", 25L, 70L, "c1q", 8L, ".",
@@ -65,7 +65,7 @@ test_that("Test jaccard with mixed strand files", {
     "chr2", 39L, 80L, "f2r", 64L, "-"
   )
   b <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
+    ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 10L, 50L, "2a1r", 2L, "-",
     "chr1", 40L, 70L, "2b1q", 4L, ".",
     "chr1", 60L, 100L, "2c1f", 8L, "+",

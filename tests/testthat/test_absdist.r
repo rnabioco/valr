@@ -1,19 +1,19 @@
 context("bed_absdist")
 
 genome <- tibble::tribble(
-  ~ chrom, ~ size,
+  ~chrom, ~size,
   "chr1", 10000,
   "chr2", 10000,
   "chr3", 10000
 )
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 75, 125
 )
 
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 50, 100,
   "chr1", 100, 150
 )
@@ -25,7 +25,7 @@ test_that("absdist calculation is correct", {
 
 test_that("self absdist is 0", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 5, 15,
     "chr1", 50, 150,
     "chr2", 1000, 2000,
@@ -38,7 +38,7 @@ test_that("self absdist is 0", {
 
 test_that("x ivls without matching y-ivls chroms are reported with absdist = NA", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 5, 15,
     "chr1", 50, 150,
     "chr2", 1000, 2000,
@@ -46,7 +46,7 @@ test_that("x ivls without matching y-ivls chroms are reported with absdist = NA"
   )
 
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 25, 125,
     "chr1", 150, 250,
     "chr1", 550, 580,
@@ -62,7 +62,7 @@ test_that("x ivls without matching y-ivls chroms are reported with absdist = NA"
 
 test_that("ensure that absdist is calculated with respect to input tbls issue#108", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group,
+    ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "A",
     "chr1", 200, 400, "B",
     "chr1", 300, 500, "C",
@@ -70,7 +70,7 @@ test_that("ensure that absdist is calculated with respect to input tbls issue#10
     "chr2", 150, 200, "A"
   )
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group,
+    ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "C",
     "chr1", 200, 400, "B",
     "chr1", 300, 500, "A",
@@ -79,7 +79,7 @@ test_that("ensure that absdist is calculated with respect to input tbls issue#10
   )
 
   genome <- tibble::tribble(
-    ~ chrom, ~ size,
+    ~chrom, ~size,
     "chr1", 10000,
     "chr2", 10000
   )

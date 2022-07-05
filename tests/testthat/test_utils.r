@@ -1,12 +1,12 @@
 context("utils")
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 1, 100,
   "chr1", 200, 500
 )
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 1, 100,
   "chr1", 200, 500
 ) %>%
@@ -19,7 +19,7 @@ test_that("NULL is return when there are no shared groups, shared_groups()", {
 
 test_that("only shared groups are return, shared_groups()", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 1, 100,
     "chr1", 200, 500
   ) %>%
@@ -31,12 +31,12 @@ test_that("only shared groups are return, shared_groups()", {
 
 
 x <- tibble::tribble(
-  ~ end, ~ chrom, ~ start, ~ value,
+  ~end, ~chrom, ~start, ~value,
   75, "chr1", 125, 10
 )
 
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ scores,
+  ~chrom, ~start, ~end, ~scores,
   "chr1", 50, 100, 1.2,
   "chr1", 100, 150, 2.4
 )

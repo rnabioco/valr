@@ -1,19 +1,19 @@
 context("bed_coverage")
 
 x <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 0, 10,
   "chr1", 15, 20,
   "chr1", 21, 25
 )
 
 y <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 3, 15
 )
 
 a <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 20, 70, 6, 25, "+",
   "chr1", 50, 100, 1, 25, "-",
   "chr1", 200, 250, 3, 25, "+",
@@ -23,7 +23,7 @@ a <- tibble::tribble(
 )
 
 b <- tibble::tribble(
-  ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand,
+  ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 0, 75, 19, 75, "+",
   "chr1", 3, 78, 15, 75, "+",
   "chr1", 74, 149, 7, 75, "+",
@@ -47,14 +47,14 @@ b <- tibble::tribble(
 )
 
 c <- tibble::tribble(
-  ~ chrom, ~ start, ~ end,
+  ~chrom, ~start, ~end,
   "chr1", 0, 50,
   "chr1", 12, 20
 )
 
 test_that("default coverage works", {
   pred <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand, ~ .ints, ~ .cov, ~ .len, ~ .frac,
+    ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1", 20, 70, 6, 25, "+", 2, 50, 50, 1.0000000,
     "chr1", 50, 100, 1, 25, "-", 5, 50, 50, 1.0000000,
     "chr1", 200, 250, 3, 25, "+", 4, 38, 50, 0.7600000,
@@ -68,7 +68,7 @@ test_that("default coverage works", {
 
 test_that("coverage of stranded tbls can be calc", {
   pred <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand, ~ .ints, ~ .cov, ~ .len, ~ .frac,
+    ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1", 20, 70, 6, 25, "+", 2, 50, 50, 1.0000000,
     "chr1", 50, 100, 1, 25, "-", 1, 23, 50, 0.4600000,
     "chr1", 200, 250, 3, 25, "+", 0, 0, 50, 0.000000,
@@ -83,7 +83,7 @@ test_that("coverage of stranded tbls can be calc", {
 
 test_that(" strand_opp coverage works (strand_opp = TRUE)", {
   pred <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand, ~ .ints, ~ .cov, ~ .len, ~ .frac,
+    ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1", 20, 70, 6, 25, "+", 0, 0, 50, 0.0000000,
     "chr1", 50, 100, 1, 25, "-", 4, 50, 50, 1.0000000,
     "chr1", 200, 250, 3, 25, "+", 4, 38, 50, 0.760000,
@@ -98,7 +98,7 @@ test_that(" strand_opp coverage works (strand_opp = TRUE)", {
 
 test_that("ensure that coverage is calculated with respect to input tbls issue#108", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group,
+    ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "B",
     "chr1", 200, 400, "A",
     "chr1", 500, 600, "C",
@@ -107,7 +107,7 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
     "chr3", 100, 300, "A"
   )
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group,
+    ~chrom, ~start, ~end, ~group,
     "chr1", 100, 199, "A",
     "chr1", 200, 400, "B",
     "chr1", 500, 600, "A",
@@ -128,13 +128,13 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
 # from https://github.com/arq5x/bedtools2/blob/master/test/coverage/test-coverage.sh
 test_that("Test the last record in file with no overlaps is reported", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 0, 10,
     "chr1", 15, 20,
     "chr1", 21, 25
   )
   y <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 3, 15
   )
   res <- bed_coverage(x, y)
@@ -143,7 +143,7 @@ test_that("Test the last record in file with no overlaps is reported", {
 
 test_that("Test that simple chr	0	100 works", {
   z <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 0, 100
   )
   res <- bed_coverage(z, z)

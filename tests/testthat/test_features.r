@@ -44,7 +44,7 @@ test_that("TSS are single base features", {
 
 test_that("intron numbers are not duplicated #377", {
   expect_true(group_by(introns, name) %>%
-                summarize(no_duplicates = !any(duplicated(score))) %>%
-                pull(no_duplicates) %>%
-                all())
+    summarize(no_duplicates = !any(duplicated(score))) %>%
+    pull(no_duplicates) %>%
+    all())
 })

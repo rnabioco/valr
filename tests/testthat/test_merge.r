@@ -2,7 +2,7 @@ context("bed_merge")
 
 test_that("merge on 1 chrom", {
   bed_df <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 100, 200,
     "chr1", 150, 250,
     "chr1", 200, 350
@@ -14,7 +14,7 @@ test_that("merge on 1 chrom", {
 
 test_that("merge with interval at start", {
   bed_df <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 1, 50,
     "chr1", 100, 200,
     "chr1", 150, 250
@@ -26,7 +26,7 @@ test_that("merge with interval at start", {
 
 test_that("merge with two chroms", {
   bed_df <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 1, 50,
     "chr1", 25, 75,
     "chr2", 100, 200,
@@ -39,7 +39,7 @@ test_that("merge with two chroms", {
 
 test_that("book-ended intervals are merged", {
   bed_df <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 1, 50,
     "chr1", 50, 100
   )
@@ -50,7 +50,7 @@ test_that("book-ended intervals are merged", {
 
 test_that("max_dist is enforced", {
   bed_df <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 1, 50,
     "chr1", 50, 100
   )
@@ -61,7 +61,7 @@ test_that("max_dist is enforced", {
 
 test_that("max_dist is a positive value", {
   bed_df <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 1, 50,
     "chr1", 50, 100
   )
@@ -71,7 +71,7 @@ test_that("max_dist is a positive value", {
 
 test_that("input groups are maintained in the output tbl issue #108", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ group,
+    ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "A",
     "chr1", 200, 400, "A",
     "chr1", 300, 500, "A",
@@ -87,7 +87,7 @@ test_that("input groups are maintained in the output tbl issue #108", {
 
 test_that("intervals can be merged by strand", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ strand,
+    ~chrom, ~start, ~end, ~strand,
     "chr1", 100, 200, "+",
     "chr1", 200, 400, "+",
     "chr1", 300, 500, "+",
@@ -102,7 +102,7 @@ test_that("intervals can be merged by strand", {
 
 test_that("summaries can be computed issue #132", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ value, ~ strand,
+    ~chrom, ~start, ~end, ~value, ~strand,
     "chr1", 1, 50, 1, "+",
     "chr1", 100, 200, 2, "+",
     "chr1", 150, 250, 3, "-",
@@ -119,7 +119,7 @@ test_that("summaries can be computed issue #132", {
 
 test_that("multiple summaries can be computed issue #132", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ value, ~ strand,
+    ~chrom, ~start, ~end, ~value, ~strand,
     "chr1", 1, 50, 1, "+",
     "chr1", 100, 200, 2, "+",
     "chr1", 150, 250, 3, "-",
@@ -137,7 +137,7 @@ test_that("multiple summaries can be computed issue #132", {
 
 test_that("contained intervals are merged issue #176", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end,
+    ~chrom, ~start, ~end,
     "chr1", 1, 10,
     "chr1", 2, 5,
     "chr1", 7, 9
@@ -150,7 +150,7 @@ test_that("contained intervals are merged issue #176", {
 # from https://github.com/arq5x/bedtools2/blob/master/test/merge/test-merge.sh
 test_that("Test that precision default is high enough for formatting not to give scientific notation", {
   x <- tibble::tribble(
-    ~ chrom, ~ start, ~ end, ~ name, ~ score, ~ strand, ~ val1, ~ val2,
+    ~chrom, ~start, ~end, ~name, ~score, ~strand, ~val1, ~val2,
     "chr1", 5333587L, 5344172L, "line1", 0L, "-", 5334680L, 5344172L,
     "chr1", 5481008L, 5484749L, "line2", 0L, "-", 5481796L, 5484749L,
     "chr1", 5481008L, 5484749L, "line3", 0L, "-", 5481796L, 5484749L,
