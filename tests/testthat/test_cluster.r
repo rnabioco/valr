@@ -52,3 +52,26 @@ test_that("cluster ids are not repeated per group issue #171", {
   shared_ids <- intersect(chr1_ids, chr2_ids)
   expect_equal(length(shared_ids), 0)
 })
+
+
+test_that("guard against max_dist argument preventing clustering first interval in contig issue #388", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "a", 1, 10,
+    "a", 20, 50,
+    "b", 20, 50,
+    "c", 100, 100
+  )
+
+  res <- bed_cluster(x, max_dist=0)
+  expect_equal(res$.id, 1L:4L)
+
+  res <- bed_cluster(x, max_dist=100)
+  expect_equal(res$.id, c(1, 1, 2, 3))
+
+  res <- bed_cluster(x, max_dist=10)
+  expect_equal(res$.id, c(1, 1, 2, 3))
+
+  res <- bed_cluster(x, max_dist=9)
+  expect_equal(res$.id,  1L:4L)
+})

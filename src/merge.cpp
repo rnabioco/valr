@@ -80,19 +80,21 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
   ListView idx(gdf.indices()) ;
 
   // approach from http://www.geeksforgeeks.org/merging-intervals/
-
-  std::vector<ivl_t> s ;
-
   for (int i = 0; i < ng; i++) {
 
     IntegerVector indices ;
     indices = idx[i];
+    int ni = indices.size();
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
-    // set dummy first interval to ensure first interval maintained
+
+    // store a first interval to ensure first interval maintained
     ivl_t last_interval = ivl_t(0, 0, 0) ;
+    std::vector<ivl_t> s ;
     s.push_back(last_interval) ;
-    for (auto it : intervals) {
+
+    for (int j = 0; j < ni ; j++) {
+      ivl_t it = intervals[j];
       // get index to store cluster ids in vector
       auto idx = it.value ;
 
@@ -102,7 +104,7 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
 
       last_interval = it ; // set interval to compare
       auto top = s.back() ; // last good interval
-      if (top.stop + max_dist < it.start) {
+      if ( j == 0 || top.stop + max_dist < it.start) {
         // no overlap push to end of vector and get new id
         s.push_back(it) ;
         cluster_id++ ;
@@ -115,7 +117,7 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
         top.stop = it.stop ; // update end position
         s.pop_back() ; // remove best end
         s.push_back(top) ; // update end interval
-        ids[idx] = cluster_id ; // assign cluster id at proper inde
+        ids[idx] = cluster_id ; // assign cluster id at proper index
       }
 
       else {
