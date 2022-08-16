@@ -72,4 +72,5 @@ nearby %>%
 #>  9 rs555126291 DQ571479        0  2745
 #> 10 rs5747567   DQ571479        0 -1778
 #> # … with 1,037 more rows
+#> # ℹ Use `print(n = ...)` to see more rows
 ```
