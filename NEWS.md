@@ -1,6 +1,6 @@
 # valr (development version)
 
-* Fixed bug in handling the max_dist argument for first intervals in a contig with `bed_cluster()` (#388) 
+* Handle `max_dist` for first intervals in `bed_cluster()` (#388) 
 
 # valr 0.6.4
 
