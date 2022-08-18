@@ -1,14 +1,14 @@
 ## New patch version
 
-* This is a new patch version that provides two new data import functions, fixes for two errors, and names Kent Riemondy as the new maintainer of the package. 
+* This is a new patch version that fixes an error.
 
 ## Test environment
 
-* win-builder (R-devel and  R 4.1.2)
-* local OS X install, R 4.1.2 
-* Windows (on Github Actions), R 4.1.2
-* macOS (on Github Actions), R 4.1.2
-* ubuntu 20.04.3 (on Github Actions), (devel and R 4.1.2)
+* win-builder (R-devel and  R 4.2.1)
+* local OS X install, R 4.2.0 
+* Windows (on Github Actions), 4.2.1 (2022-06-23 ucrt)
+* macOS (on Github Actions), R  4.2.1
+* ubuntu 20.04.3 (on Github Actions), (devel and R  4.2.1)
 
 ## R CMD check results
 
@@ -21,13 +21,7 @@
   * checking CRAN incoming feasibility ... NOTE
     Maintainer: 'Kent Riemondy <kent.riemondy@cuanschutz.edu>'
 
-    Version contains large components (0.6.3.9000)
-    
-    New maintainer:
-      Kent Riemondy <kent.riemondy@cuanschutz.edu>
-    
-    Old maintainer(s):
-      Jay Hesselberth <jay.hesselberth@gmail.com>
+    Version contains large components (0.6.4.9000)
   
     - This package uses Rcpp, which creates a large shared library on windows.
   
@@ -36,7 +30,7 @@
   Status: OK
   0 errors | 0 warnings | 0 notes
 
-* on ubuntu
+* on ubuntu (release and devel)
 
   Status: 1 NOTE
   
@@ -49,7 +43,7 @@
   
 ## Reverse dependencies
 
-We checked 1 reverse dependencies (0 from CRAN + 1 from Bioconductor (RLSeq v1.0.0)), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 1 reverse dependencies (0 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 0 new problems
  * We failed to check 0 packages
