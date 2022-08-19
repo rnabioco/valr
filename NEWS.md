@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.6.5
 
 * Handle `max_dist` for first intervals in `bed_cluster()` (#388) 
 
