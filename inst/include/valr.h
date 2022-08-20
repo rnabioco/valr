@@ -19,6 +19,7 @@ using namespace Rcpp ;
 #include "grouped_dataframe.h"
 #include "IntervalTree.h"
 #include "intervals.h"
+#include "intervalTree_ext.h"
 #include "group_apply.h"
 #include "genome.h"
 #include "random.h"

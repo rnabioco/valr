@@ -51,12 +51,13 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes, bool invert = false) {
 
-  ivl_tree_t tree_y(vy) ;
+  // do not call vy after std::move
+  ivl_tree_t tree_y(std::move(vy)) ;
   ivl_vector_t overlaps ;
 
   for (auto it : vx) {
 
-    tree_y.findOverlapping(it.start, it.stop, overlaps) ;
+    overlaps = tree_y.findOverlapping(it.start, it.stop) ;
 
     if (overlaps.empty() && invert) {
       indices_x.push_back(it.value) ;

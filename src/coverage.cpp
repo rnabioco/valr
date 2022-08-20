@@ -14,7 +14,7 @@ void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
                     std::vector<int>& x_ivl_lengths, std::vector<double>& fractions_covered,
                     std::vector<int>& indices_x) {
 
-  ivl_tree_t tree_y(vy) ;
+  ivl_tree_t tree_y(std::move(vy)) ;
   ivl_vector_t overlaps ;
   IntervalSorterDesc<int, int> intervalSorterDesc;
 
@@ -22,7 +22,7 @@ void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
 
     indices_x.push_back(it.value);
 
-    tree_y.findOverlapping(it.start, it.stop, overlaps) ;
+    overlaps = tree_y.findOverlapping(it.start, it.stop) ;
 
     // compute number of overlaps
     int overlap_count = overlaps.size();
