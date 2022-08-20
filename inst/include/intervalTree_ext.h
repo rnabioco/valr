@@ -1,4 +1,4 @@
-// intervalTree_ext.h
+// IntervalTree_ext.h
 //
 // Copyright (C) 2022 Jay Hesselberth and Kent Riemondy
 //
@@ -11,7 +11,6 @@
 #define valr__intervalTree_ext_H
 
 #include "valr.h"
-
 
 template <class T, typename K = int>
 K intervalOverlap(const Interval<T, K>& a, const Interval<T, K>& b) {
@@ -33,4 +32,5 @@ public:
     return a.start > b.start;
   }
 };
+
 #endif
