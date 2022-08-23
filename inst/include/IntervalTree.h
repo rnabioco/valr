@@ -362,10 +362,10 @@ public:
     }
     return os;
   }
-
-  friend void findClosest(const IntervalTree& tree, int start, int stop,
-                                     interval_vector& closest,
-                                     std::pair<int, interval_vector>& min_dist);
+  template<class T, typename K>
+  friend void findClosestIvls(const IntervalTree<T, K>& tree, int start, int stop,
+                              interval_vector& closest,
+                              std::pair<int, interval_vector>& min_dist);
 private:
   interval_vector intervals;
   std::unique_ptr<IntervalTree> left;
