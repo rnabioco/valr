@@ -16,82 +16,6 @@ void findClosest(const IntervalTree<int, int>& tree, int start, int stop,
   findClosestIvls(tree, start, stop, closest, min_dist);
 }
 
-
-// template<class T, typename K>
-// void findClosest(const IntervalTree<T, K>& tree, int start, int stop,
-//                  ivl_vector_t& closest,
-//                  std::pair<int, ivl_vector_t>& min_dist) {
-//
-//   ivl_vector_t intervals = tree.intervals;
-//   typedef ivl_t interval;
-//   if (!intervals.empty() && !(stop < intervals.front().start)) {
-//     for (typename ivl_vector_t::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-//       const interval& interval = *i;
-//       if (interval.stop > start && interval.start < stop) {
-//         // adjacent intervals are considered non-overlappping
-//         closest.push_back(interval);
-//       } else if (stop <= interval.start) {
-//         // find distance on left
-//         int ivl_dist_l = interval.start - stop ;
-//         // if smaller than best min dist found update pair with dist and intervals
-//         if (ivl_dist_l < min_dist.first) {
-//           min_dist.first = ivl_dist_l ;
-//           min_dist.second.clear() ;
-//           min_dist.second.push_back(interval) ;
-//         } else if (ivl_dist_l == min_dist.first) {
-//           // if same dist append intervals
-//           min_dist.second.push_back(interval) ;
-//         }
-//       } else if (start >= interval.stop) {
-//         // find distance on right
-//         int ivl_dist_r = start - interval.stop ;
-//         // if smaller than best min dist found update pair with dist and intervals
-//         if (ivl_dist_r < min_dist.first) {
-//           min_dist.first = ivl_dist_r ;
-//           min_dist.second.clear() ;
-//           min_dist.second.push_back(interval) ;
-//         } else if (ivl_dist_r == min_dist.first) {
-//           // if same dist append interval
-//           min_dist.second.push_back(interval) ;
-//         }
-//       }
-//     }
-//   }  else if (!intervals.empty()  && (stop <= intervals.front().start)) {
-//     for (typename ivl_vector_t::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-//       const interval& interval = *i;
-//       if (interval.start > intervals.front().start) {
-//         continue ;
-//       } else {
-//         // find distance on left
-//         int ivl_dist_l = interval.start - stop ;
-//         // if smaller than best min dist found update pair with dist and intervals
-//         if (ivl_dist_l <= min_dist.first) {
-//           min_dist.first = ivl_dist_l;
-//           min_dist.second.clear() ;
-//           min_dist.second.push_back(interval) ;
-//         } else if (ivl_dist_l == min_dist.first) {
-//           // if same dist append intervals
-//           min_dist.second.push_back(interval) ;
-//         }
-//       }
-//     }
-//   }
-//
-//
-//   if (tree.left && start <= tree.center) {
-//     findClosest(*tree.left, start, stop, closest, min_dist);
-//   }
-//
-//   if (tree.right && stop >= tree.center) {
-//     findClosest(*tree.right, start, stop,closest, min_dist);
-//   }
-//
-//   // Finally report all of the non-overlapping closest intervals, only if at a left_node
-//   if (!(tree.right && tree.left)) {
-//     closest.insert(closest.end(), min_dist.second.begin(), min_dist.second.end())  ;
-//   }
-// }
-
 void closest_grouped(const ivl_vector_t& vx, ivl_vector_t& vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes, std::vector<int>& distance_sizes) {
@@ -169,8 +93,12 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   out.add_df(subset_y, suffix_y, true) ;
 
   // overlaps and distances
-  out.add_vec(".overlap", wrap(overlap_sizes)) ;
-  out.add_vec(".dist", wrap(distance_sizes)) ;
+  out.names.push_back(".overlap") ;
+  out.data.push_back(overlap_sizes) ;
+
+  out.names.push_back(".dist") ;
+  out.data.push_back(distance_sizes) ;
+
 
   auto nrows = subset_x.nrows() ;
   auto res = out.format_df(nrows) ;

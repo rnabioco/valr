@@ -115,7 +115,8 @@ DataFrame dist_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
 
   // distances
   std::string distname = distcalc == "absdist" ? ".absdist" : ".reldist" ;
-  out.add_vec(distname, wrap(distances)) ;
+  out.names.push_back(distname);
+  out.data.push_back(distances);
 
   auto nrows = subset_x.nrows() ;
   auto res = out.format_df(nrows) ;

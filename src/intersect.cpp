@@ -120,7 +120,8 @@ DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   out.add_df(subset_y, suffix_y, true) ;
 
   // overlaps
-  out.add_vec(".overlap", wrap(overlap_sizes)) ;
+  out.names.push_back(".overlap");
+  out.data.push_back(overlap_sizes);
 
   auto nrows = subset_x.nrows() ;
   auto res = out.format_df(nrows) ;

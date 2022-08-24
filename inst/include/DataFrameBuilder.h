@@ -1,6 +1,6 @@
 // DataFrameBuilder.h
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -15,24 +15,16 @@
 class DataFrameBuilder {
 public:
   std::vector<std::string> names ;
-  std::vector<SEXP> data ; // set to SEXP to handle any R type vector
+  List data ;
   DataFrameBuilder() {} ;
 
   // output List with:  List out = DataFrameBuilder
   inline operator List() const {
-    List out = wrap(data) ;
-    return out ;
+    return data ;
   }
 
   inline size_t size() const {
     return data.size() ;
-  }
-
-  // add vector to DataFrameBuilder
-  // non-SEXP objects should be passed with Rcpp::wrap(obj)
-  inline void add_vec(std::string name, SEXP x) {
-    names.push_back(name) ;
-    data.push_back(x) ;
   }
 
   // add dataframe to DataFrameBuilder with suffix
@@ -50,8 +42,8 @@ public:
       } else if (drop_chrom) {
         continue ;
       }
-
-      this->add_vec(name, df[i]) ;
+      this->names.push_back(name) ;
+      this->data.push_back(df[i]) ;
     }
   }
 
@@ -69,25 +61,25 @@ public:
       if (name == "chrom" && drop_chrom) {
         continue ;
       }
-      this->add_vec(name, df[i]) ;
+      this->names.push_back(name) ;
+      this->data.push_back(df[i]) ;
     }
   }
 
   // apply common attributes to output dataframe
   // by default groups are stripped and tbl_df is returned
   inline List format_df(int nrow) {
-    List res = *this ;
     auto names = this->names ;
 
-    set_rownames(res, nrow) ;
-    res.attr("names") = names ;
+    set_rownames(this->data, nrow) ;
+    this->data.attr("names") = names ;
 
-    if (Rf_inherits(res, "grouped_df")) {
-      ValrGroupedDataFrame::strip_groups(res) ;
+    if (Rf_inherits(this->data, "grouped_df")) {
+      ValrGroupedDataFrame::strip_groups(this->data) ;
     }
 
-    res.attr("class") = Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame") ;
-    return res ;
+    this->data.attr("class") = Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame") ;
+    return this->data ;
   }
 };
 
