@@ -62,11 +62,11 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   genome <- check_genome(genome)
 
   if (!any(c(both, left, right) > 0)) {
-    cli::cli_abort("specify one of both, left, right")
+    cli::cli_abort("one of {.var both}, {.var left}, or {.var right} must be a positive value")
   }
 
   if (strand && !"strand" %in% colnames(x)) {
-    cli::cli_abort("expected `strand` column in `x`")
+    cli::cli_abort("expected {.var strand} column in {.var x}")
   }
 
   if (both != 0 && (left != 0 || right != 0)) {
