@@ -87,12 +87,10 @@
 #' @export
 bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
-  if (missing(x)) {
-    cli::cli_abort("{.var x} is missing, with no default")
-  }
+  check_required(x)
 
-  if (rlang::dots_n(...) == 0) {
-    cli::cli_abort("One or more tbls are expect in {.var ...}")
+  if (dots_n(...) == 0) {
+    cli::cli_abort("One or more tbls required in {.var ...}")
   }
 
   y_tbl <- parse_dots(...)

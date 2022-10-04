@@ -23,6 +23,7 @@
 #'
 #' @export
 read_genome <- function(path) {
+  check_required(path)
   colnames <- c("chrom", "size")
   genome <- readr::read_tsv(path, col_names = colnames, show_col_types = FALSE)
   genome <- arrange(genome, desc(size))

@@ -20,7 +20,7 @@
 #' @importFrom tibble tribble as_tibble is_tibble
 #' @importFrom readr read_tsv col_integer col_character col_double
 #' @importFrom stringr str_replace str_split str_c str_length fixed
-#' @importFrom rlang quos sym syms
+#' @importFrom rlang quos sym syms dots_n check_required
 #' @importFrom stats fisher.test na.omit
 #' @importFrom utils head tail packageVersion
 #' @importFrom broom tidy

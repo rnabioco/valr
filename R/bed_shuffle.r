@@ -29,6 +29,10 @@
 #' @export
 bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
                         max_tries = 1000, within = FALSE, seed = 0) {
+
+  check_required(x)
+  check_required(genome)
+
   x <- check_interval(x)
   genome <- check_genome(genome)
 

@@ -46,6 +46,8 @@ bed_makewindows <- function(x,
                             num_win = 0,
                             reverse = FALSE) {
 
+  check_required(x)
+
   x <- check_interval(x)
 
   if (win_size == 0 && num_win == 0) {

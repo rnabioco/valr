@@ -73,6 +73,7 @@ check_interval <- function(x) {
 #'
 #' @export
 check_genome <- function(x) {
+
   expect_names <- c("chrom", "size")
   check_names(x, expect_names)
 

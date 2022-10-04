@@ -27,6 +27,14 @@
 #'
 #' @export
 bed_map <- function(x, y, ..., min_overlap = 1) {
+
+  check_required(x)
+  check_required(y)
+
+  if (rlang::dots_n(...) == 0) {
+    cli::cli_warn("expected a name=expression pairs passed in dots")
+  }
+
   x <- check_interval(x)
   y <- check_interval(y)
 

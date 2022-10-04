@@ -74,6 +74,9 @@
 #' @export
 bed_closest <- function(x, y, overlap = TRUE,
                         suffix = c(".x", ".y")) {
+  check_required(x)
+  check_required(y)
+
   x <- check_interval(x)
   y <- check_interval(y)
 

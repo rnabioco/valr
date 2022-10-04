@@ -49,6 +49,9 @@
 #'
 #' @export
 bed_merge <- function(x, max_dist = 0, ...) {
+
+  check_required(x)
+
   x <- check_interval(x)
 
   if (max_dist < 0) {

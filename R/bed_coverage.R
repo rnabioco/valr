@@ -41,6 +41,10 @@
 #'
 #' @export
 bed_coverage <- function(x, y, ...) {
+
+  check_required(x)
+  check_required(y)
+
   x <- check_interval(x)
   y <- check_interval(y)
 

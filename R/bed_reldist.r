@@ -34,6 +34,10 @@
 #'
 #' @export
 bed_reldist <- function(x, y, detail = FALSE) {
+
+  check_required(x)
+  check_required(y)
+
   x <- check_interval(x)
   y <- check_interval(y)
 

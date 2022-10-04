@@ -54,6 +54,10 @@
 #'
 #' @export
 bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
+
+  check_required(x)
+  check_required(genome)
+
   x <- check_interval(x)
   genome <- check_genome(genome)
 

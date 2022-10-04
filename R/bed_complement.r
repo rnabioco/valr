@@ -42,6 +42,10 @@
 #'
 #' @export
 bed_complement <- function(x, genome) {
+
+  check_required(x)
+  check_required(genome)
+
   x <- check_interval(x)
   genome <- check_genome(genome)
 
