@@ -15,6 +15,7 @@
 #'
 #' @export
 bed12_to_exons <- function(x) {
+  check_required(x)
   x <- check_interval(x)
 
   if (!ncol(x) == 12) {
