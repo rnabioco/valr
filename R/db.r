@@ -36,9 +36,8 @@ db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
   if (!all(pkgs_found)) {
     missing_pkg <- db_pkgs[!pkgs_found]
 
-    stop("package(s): ", paste(missing_pkg, collapse = " "),
-         " needed for this function, please install.",
-         call. = FALSE)
+    cli::cli_abort("package(s): ", paste(missing_pkg, collapse = " "),
+         " needed for this function, please install.",)
   }
 
   DBI::dbConnect(RMariaDB::MariaDB(),
@@ -71,9 +70,8 @@ db_ensembl <- function(dbname, host = "ensembldb.ensembl.org",
   if (!all(pkgs_found)) {
     missing_pkg <- db_pkgs[!pkgs_found]
 
-    stop("package(s): ", paste(missing_pkg, collapse = " "),
-         " needed for this function, please install.",
-         call. = FALSE)
+    cli::cli_abort("package(s): ", paste(missing_pkg, collapse = " "),
+         " needed for this function, please install.")
   }
 
   DBI::dbConnect(RMariaDB::MariaDB(),

@@ -29,12 +29,6 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
     if (num_win > 0) {
       int ivl_len = end - start ;
       if (ivl_len < num_win) {
-        CharacterVector chroms = df["chrom"] ;
-        auto chrom = as<std::string>(chroms[i]) ;
-        warning("Interval %s:%d-%d, "
-                "smaller than requested number "
-                "of windows. skipping",
-                chrom, start, end);
         continue ;
       }
       win_size = round((ivl_len) / num_win) ;

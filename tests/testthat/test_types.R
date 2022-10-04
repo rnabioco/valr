@@ -1,5 +1,3 @@
-context("factors")
-
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 
 x <- read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
@@ -8,19 +6,21 @@ x_facs <- x
 x_facs$chrom <- factor(x_facs$chrom)
 x_facs$strand <- factor(x_facs$strand)
 
-x_grpd <- group_by(x, strand)
-x_facs_grpd <- group_by(x_facs, strand)
+x_grpd <- dplyr::group_by(x, strand)
+x_facs_grpd <- dplyr::group_by(x_facs, strand)
 
 test_that("factor types for groups are handled the same as character", {
   res_x <- bed_intersect(x_grpd, x_grpd)
-  expect_warning(res_xfacs <- bed_intersect(x_facs_grpd, x_facs_grpd))
+  # throws 2 warnings
+  expect_warning(expect_warning(res_xfacs <- bed_intersect(x_facs_grpd, x_facs_grpd)))
   expect_true(all(res_xfacs == res_x))
 })
 
 
 test_that("mixing factor and character vectors for grouping works", {
   res_x <- bed_intersect(x_grpd, x_grpd)
-  expect_warning(res_mixed <- bed_intersect(x_grpd, x_facs_grpd))
+  expect_warning(bed_intersect(x_grpd, x_facs_grpd))
+  res_mixed <- suppressWarnings(bed_intersect(x_grpd, x_facs_grpd))
   expect_true(all(res_x == res_mixed))
 })
 
@@ -30,7 +30,9 @@ test_that("factors with no entries are handled ", {
     filter(strand == "+", chrom == "chr1") %>%
     group_by(strand)
 
-  expect_warning(res_x <- bed_intersect(x_facs_grpd, x_empty_groups))
+  # throws 2 warnings
+  expect_warning(expect_warning(bed_intersect(x_facs_grpd, x_empty_groups)))
+  res_x <- suppressWarnings(bed_intersect(x_facs_grpd, x_empty_groups))
   expect_true(all(res_x$chrom == "chr1"))
   expect_true(all(res_x$strand.x == "+" & res_x$strand.y == "+"))
 })

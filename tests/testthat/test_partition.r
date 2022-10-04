@@ -1,6 +1,4 @@
 # https://github.com/bedops/bedops/blob/master/applications/bed/bedops/test/TestPlan.xml#L1541
-context("bed_partition")
-
 test_that("basic partition works (bedops partition1 test)", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
@@ -32,7 +30,7 @@ test_that("basic partition works (bedops partition1 test)", {
   )
 
   res <- bed_partition(x)
-  expect_equivalent(res, pred)
+  expect_equal(res, pred, ignore_attr = TRUE)
 })
 
 
@@ -114,7 +112,7 @@ test_that("extended partition works (bedops partition2 test)", {
   )
 
   res <- bed_partition(x)
-  expect_equivalent(res, pred)
+  expect_equal(res, pred, ignore_attr = TRUE)
 })
 
 
@@ -143,7 +141,7 @@ test_that("partition drops non-grouped cols (bedops partition3 test)", {
   )
 
   res <- bed_partition(x)
-  expect_equivalent(res, pred)
+  expect_equal(res, pred, ignore_attr = TRUE)
 })
 
 
@@ -175,7 +173,7 @@ test_that("partition drops non-grouped cols (bedops partition4 test)", {
   )
 
   res <- bed_partition(x)
-  expect_equivalent(res, pred)
+  expect_equal(res, pred, ignore_attr = TRUE)
 })
 
 

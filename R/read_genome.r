@@ -24,7 +24,7 @@
 #' @export
 read_genome <- function(path) {
   colnames <- c("chrom", "size")
-  genome <- suppressMessages(readr::read_tsv(path, col_names = colnames))
+  genome <- readr::read_tsv(path, col_names = colnames, show_col_types = FALSE)
   genome <- arrange(genome, desc(size))
   genome
 }
@@ -84,10 +84,10 @@ bound_intervals <- function(x, genome, trim = FALSE) {
   }
 
   if (any(res$start == res$end)) {
-    warning(paste0(
-      sum(res$start == res$end),
-      " intervals generated with same start and end were discarded"
-    ))
+    n <- sum(res$start == res$end)
+    cli::cli_warn(
+      "{n} intervals generated with same start and end were discarded"
+    )
   }
 
   res <- res[res$start != res$end, ]

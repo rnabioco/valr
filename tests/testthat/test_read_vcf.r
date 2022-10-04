@@ -1,5 +1,3 @@
-context("read_vcf")
-
 v <- system.file("extdata", "test.vcf.gz", package = "valr")
 x <- read_vcf(v)
 

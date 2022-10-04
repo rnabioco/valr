@@ -4,19 +4,10 @@
 \alias{bed_makewindows}
 \title{Divide intervals into new sub-intervals ("windows").}
 \usage{
-bed_makewindows(
-  x,
-  genome = NULL,
-  win_size = 0,
-  step_size = 0,
-  num_win = 0,
-  reverse = FALSE
-)
+bed_makewindows(x, win_size = 0, step_size = 0, num_win = 0, reverse = FALSE)
 }
 \arguments{
 \item{x}{\link{ivl_df}}
-
-\item{genome}{this argument has been deprecated and is not used}
 
 \item{win_size}{divide intervals into fixed-size windows}
 

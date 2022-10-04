@@ -1,5 +1,3 @@
-context("bed_sort")
-
 test_that("intervals can be sorted by size", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
@@ -86,7 +84,7 @@ test_that("ties in start are sorted by end", {
   )
 
   res <- bed_sort(x)
-  expect_equivalent(res, pred)
+  expect_equal(res, pred, ignore_attr = TRUE)
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/sort/test-sort.sh

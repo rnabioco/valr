@@ -1,5 +1,3 @@
-context("flip_strands")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
   "chr1", 1, 100, "+",

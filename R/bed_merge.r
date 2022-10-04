@@ -52,7 +52,7 @@ bed_merge <- function(x, max_dist = 0, ...) {
   x <- check_interval(x)
 
   if (max_dist < 0) {
-    stop("max_dist must be positive", call. = FALSE)
+    cli::cli_abort("{.var max_dist} must be 0 or greater")
   }
 
   groups_x <- group_vars(x)

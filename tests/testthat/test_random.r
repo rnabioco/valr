@@ -1,5 +1,3 @@
-context("bed_random")
-
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 
 # Seed for reproducible bed_random tests

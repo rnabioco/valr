@@ -1,5 +1,3 @@
-context("bed_absdist")
-
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 10000,

@@ -1,5 +1,3 @@
-context("bed_projection")
-
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 1000,

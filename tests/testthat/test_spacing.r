@@ -1,6 +1,3 @@
-context("spacing")
-
-
 test_that("start intervals are NA", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,

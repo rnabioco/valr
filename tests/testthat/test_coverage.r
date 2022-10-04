@@ -1,5 +1,3 @@
-context("bed_coverage")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 0, 10,

@@ -1,5 +1,3 @@
-context("bed_cluster")
-
 # https://github.com/arq5x/bedtools2/blob/master/test/cluster/test-cluster.sh
 
 x <- tibble::tribble(

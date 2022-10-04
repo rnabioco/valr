@@ -1,5 +1,3 @@
-context("bed_intersect")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 100, 200,
@@ -71,7 +69,7 @@ test_that("no overlaps returns empty df", {
     "chr1", 300, 400
   )
   res <- bed_intersect(x, y)
-  expect_is(res, "data.frame")
+  expect_true("data.frame" %in% class(res))
   expect_equal(nrow(res), 0)
 })
 
@@ -326,7 +324,7 @@ test_that("unmatched groups are included when invert = TRUE", {
   )
 
   res <- bed_intersect(x, y, invert = TRUE)
-  expect_equivalent(res, pred)
+  expect_equal(res, pred, ignore_attr = TRUE)
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/intersect/test-intersect.sh

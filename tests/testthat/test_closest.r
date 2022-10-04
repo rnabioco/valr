@@ -1,7 +1,4 @@
 # https://github.com/arq5x/bedtools2/blob/master/test/closest/test-closest.sh
-context("bed_closest")
-
-
 test_that("1bp closer, check for off-by-one errors", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end,

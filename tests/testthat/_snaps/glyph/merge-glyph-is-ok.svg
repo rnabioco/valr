@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMjcuMTN8NzE0LjAyfDI0Ljg1fDQxOC43Ng=='>
+    <rect x='27.13' y='24.85' width='686.89' height='393.91' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjcuMTN8NzE0LjAyfDI0Ljg1fDQxOC43Ng==)'>
+<rect x='58.35' y='281.49' width='312.22' height='119.37' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #F0F0F0; fill-opacity: 0.75;' />
+<rect x='370.58' y='42.76' width='312.22' height='119.37' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #F0F0F0; fill-opacity: 0.75;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMjcuMTN8NzE0LjAyfDQyNC43NHw1NTYuMDQ='>
+    <rect x='27.13' y='424.74' width='686.89' height='131.30' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjcuMTN8NzE0LjAyfDQyNC43NHw1NTYuMDQ=)'>
+<rect x='58.35' y='430.71' width='624.45' height='119.37' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #BDBDBD; fill-opacity: 0.75;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpOC45N3wyNy4xM3wyNC44NXw0MTguNzY='>
+    <rect x='8.97' y='24.85' width='18.16' height='393.91' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpOC45N3wyNy4xM3wyNC44NXw0MTguNzY=)'>
+<rect x='8.97' y='24.85' width='18.16' height='393.91' style='stroke-width: 1.16; stroke: #333333; fill: #D9D9D9;' />
+<text transform='translate(21.35,221.81) rotate(-90)' text-anchor='middle' style='font-size: 9.60px; fill: #1A1A1A; font-family: sans;' textLength='4.80px' lengthAdjust='spacingAndGlyphs'>x</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpOC45N3wyNy4xM3w0MjQuNzR8NTU2LjA0'>
+    <rect x='8.97' y='424.74' width='18.16' height='131.30' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpOC45N3wyNy4xM3w0MjQuNzR8NTU2LjA0)'>
+<rect x='8.97' y='424.74' width='18.16' height='131.30' style='stroke-width: 1.16; stroke: #333333; fill: #D9D9D9;' />
+<text transform='translate(21.35,490.39) rotate(-90)' text-anchor='middle' style='font-size: 9.60px; fill: #1A1A1A; font-family: sans;' textLength='23.48px' lengthAdjust='spacingAndGlyphs'>result</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<polyline points='58.35,559.03 58.35,556.04 ' style='stroke-width: 1.16; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='214.46,559.03 214.46,556.04 ' style='stroke-width: 1.16; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='370.58,559.03 370.58,556.04 ' style='stroke-width: 1.16; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='526.69,559.03 526.69,556.04 ' style='stroke-width: 1.16; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='682.80,559.03 682.80,556.04 ' style='stroke-width: 1.16; stroke: #333333; stroke-linecap: butt;' />
+<text x='58.35' y='568.03' text-anchor='middle' style='font-size: 9.60px; fill: #4D4D4D; font-family: sans;' textLength='16.02px' lengthAdjust='spacingAndGlyphs'>500</text>
+<text x='214.46' y='568.03' text-anchor='middle' style='font-size: 9.60px; fill: #4D4D4D; font-family: sans;' textLength='16.02px' lengthAdjust='spacingAndGlyphs'>750</text>
+<text x='370.58' y='568.03' text-anchor='middle' style='font-size: 9.60px; fill: #4D4D4D; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>1000</text>
+<text x='526.69' y='568.03' text-anchor='middle' style='font-size: 9.60px; fill: #4D4D4D; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>1250</text>
+<text x='682.80' y='568.03' text-anchor='middle' style='font-size: 9.60px; fill: #4D4D4D; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>1500</text>
+<text x='27.13' y='15.89' style='font-size: 14.40px; font-family: sans;' textLength='89.66px' lengthAdjust='spacingAndGlyphs'>bed_merge(x)</text>
+</g>
+</svg>

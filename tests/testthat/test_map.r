@@ -1,5 +1,3 @@
-context("bed_map")
-
 test_that("x/y groupings are respected", {
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~id,
@@ -101,7 +99,7 @@ test_that("book-ended intervals are not reported", {
     "chr1", 100, 200, 10
   )
   res <- bed_map(x, y, value = sum(value))
-  expect_equivalent(res, expected)
+  expect_equal(res, expected, ignore_attr = TRUE)
 })
 
 test_that("ensure that mapping is calculated with respect to input tbls issue#108", {
