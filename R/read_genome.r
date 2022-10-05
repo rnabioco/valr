@@ -87,7 +87,7 @@ bound_intervals <- function(x, genome, trim = FALSE) {
   if (any(res$start == res$end)) {
     n <- sum(res$start == res$end)
     cli::cli_warn(
-      "{n} intervals generated with same start and end were discarded"
+      "{n} interval{?s} discarded with same start and end after bounding"
     )
   }
 
