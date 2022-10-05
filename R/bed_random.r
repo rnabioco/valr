@@ -39,7 +39,7 @@ bed_random <- function(genome, length = 1000, n = 1e6, seed = 0, sorted = TRUE) 
   genome <- check_genome(genome)
 
   if (!all(genome$size > length)) {
-    cli::cli_abort("`length` must be smaller than all chrom sizes")
+    cli::cli_abort("{.var length} must be smaller than all chrom sizes")
   }
 
   out <- random_impl(genome, length, n, seed)

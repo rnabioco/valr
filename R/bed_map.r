@@ -6,8 +6,9 @@
 #' input columns from `x` and `y` columns must take these suffixes into account.
 #'
 #' Book-ended intervals can be included by setting `min_overlap = 0`.
+#'
 #' Non-intersecting intervals from `x` are included in the result with `NA`
-#' values
+#' values.
 #'
 #' @param x [ivl_df]
 #' @param y  [ivl_df]
@@ -32,7 +33,7 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   check_required(y)
 
   if (rlang::dots_n(...) == 0) {
-    cli::cli_warn("expected a name=expression pairs passed in dots")
+    cli::cli_alert_info("{.fun bed_map} expects {.var name=expression} pairs passed in {.var ...}")
   }
 
   x <- check_interval(x)

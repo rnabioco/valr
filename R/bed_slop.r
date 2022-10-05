@@ -54,7 +54,7 @@ bed_slop <- function(x, genome, both = 0, left = 0,
   genome <- check_genome(genome)
 
   if (strand && !"strand" %in% colnames(x)) {
-    cli::cli_abort("expected `strand` in `x`")
+    cli::cli_abort("expected {.var strand} in {.var x}")
   }
 
   if (both != 0 && (left != 0 || right != 0)) {
