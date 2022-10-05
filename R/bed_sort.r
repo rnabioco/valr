@@ -35,6 +35,7 @@
 #'
 #' @export
 bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
+  check_required(x)
   x <- check_interval(x)
 
   if (by_size) {

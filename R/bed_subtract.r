@@ -50,6 +50,9 @@
 #'
 #' @export
 bed_subtract <- function(x, y, any = FALSE) {
+  check_required(x)
+  check_required(y)
+
   x <- check_interval(x)
   y <- check_interval(y)
 

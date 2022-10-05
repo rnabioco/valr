@@ -73,18 +73,18 @@ check_interval <- function(x) {
 #'
 #' @export
 check_genome <- function(x) {
+
   expect_names <- c("chrom", "size")
   check_names(x, expect_names)
 
   # check for unique refs
   chroms <- x[["chrom"]]
-  dups <- duplicated(chroms)
+  dups <- unique(chroms[duplicated(chroms)])
 
-  if (any(dups)) {
-    stop(sprintf(
-      "duplicate chroms in genome: %s",
-      paste0(chroms[dups], collapse = ", ")
-    ))
+  if (length(dups) > 0) {
+    cli::cli_abort(
+      "duplicate chroms in genome: {dups}"
+    )
   }
 
   if(!tibble::is_tibble(x)){
@@ -97,11 +97,10 @@ check_genome <- function(x) {
 check_names <- function(x, expected) {
   missing <- setdiff(expected, names(x))
   if (length(missing) != 0) {
-    stop(sprintf(
-      "expected %d required names, missing: %s",
-      length(expected),
-      paste0(missing, collapse = ", ")
-    ))
+    n <- length(expected)
+    cli::cli_abort(
+      "expected {n} required names, missing: {missing}",
+    )
   }
 }
 

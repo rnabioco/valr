@@ -28,6 +28,9 @@
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
                      sort = TRUE, ...) {
+
+  check_required(filename)
+
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
 
@@ -52,6 +55,7 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 #'
 #' @export
 read_bed12 <- function(filename, ...) {
+  check_required(filename)
   bed12_tbl <- read_bed(filename, n_fields = 12)
   bed12_tbl
 }
@@ -67,6 +71,7 @@ read_bed12 <- function(filename, ...) {
 #' @export
 read_bedgraph <- function(filename, ...) {
   # load as bed4, rename `value` column and covert to double
+  check_required(filename)
   out <- read_bed(filename, n_fields = 4, sort = FALSE)
   out <- select(out, everything(), value = name)
   out <- mutate(out, value = as.double(value))
@@ -83,6 +88,7 @@ read_bedgraph <- function(filename, ...) {
 #'
 #' @export
 read_narrowpeak <- function(filename, ...) {
+  check_required(filename)
   colnames <- names(peak_coltypes)
   out <- readr::read_tsv(
     filename,
@@ -102,6 +108,7 @@ read_narrowpeak <- function(filename, ...) {
 #'
 #' @export
 read_broadpeak <- function(filename, ...) {
+  check_required(filename)
   coltypes <- peak_coltypes[1:length(peak_coltypes) - 1]
   colnames <- names(coltypes)
   out <- readr::read_tsv(filename, col_names = colnames, col_types = coltypes)
@@ -159,6 +166,7 @@ bed12_coltypes <- list(
 #' @importFrom rtracklayer import
 #' @export
 read_bigwig <- function(path, set_strand = "+") {
+  check_required(path)
   # note that rtracklayer will produce a one-based GRanges object
   res <- rtracklayer::import(path)
   res <- dplyr::as_tibble(res)

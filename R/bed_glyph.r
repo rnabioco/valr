@@ -58,7 +58,7 @@ bed_glyph <- function(expr, label = NULL) {
   # bail if the result is too big
   max_rows <- 100
   if (nrow(res) > max_rows) {
-    stop("max_rows exceeded in bed_glyph.", call. = FALSE)
+    cli::cli_abort("max_rows exceeded in bed_glyph.")
   }
 
   # get default columns

@@ -1,5 +1,3 @@
-context("bed_shift")
-
 bed_tbl <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
   "chr1", 100, 150, "+",

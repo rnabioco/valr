@@ -1,5 +1,3 @@
-context("bed_shuffle")
-
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 1e6,

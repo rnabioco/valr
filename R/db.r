@@ -18,6 +18,7 @@ NULL
 #' @examples
 #' \dontrun{
 #' if(require(RMariaDB)) {
+#'   library(dplyr)
 #'   ucsc <- db_ucsc('hg38')
 #'
 #'   # fetch the `refGene` tbl
@@ -31,15 +32,7 @@ NULL
 db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
                     user = "genomep", password = "password",
                     port = 3306, ...) {
-  db_pkgs <- c("dbplyr", "DBI", "RMariaDB")
-  pkgs_found <- sapply(db_pkgs, requireNamespace, quietly = TRUE)
-  if (!all(pkgs_found)) {
-    missing_pkg <- db_pkgs[!pkgs_found]
-
-    stop("package(s): ", paste(missing_pkg, collapse = " "),
-         " needed for this function, please install.",
-         call. = FALSE)
-  }
+  check_db_packages()
 
   DBI::dbConnect(RMariaDB::MariaDB(),
                  dbname = dbname,
@@ -55,6 +48,7 @@ db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
 #' @examples
 #' \dontrun{
 #' if(require(RMariaDB)) {
+#'   library(dplyr)
 #'   # squirrel genome
 #'   ensembl <- db_ensembl('spermophilus_tridecemlineatus_core_67_2')
 #'
@@ -66,15 +60,7 @@ db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
 db_ensembl <- function(dbname, host = "ensembldb.ensembl.org",
                        user = "anonymous", password = "",
                        port = 3306, ...) {
-  db_pkgs <- c("dbplyr", "DBI", "RMariaDB")
-  pkgs_found <- sapply(db_pkgs, requireNamespace, quietly = TRUE)
-  if (!all(pkgs_found)) {
-    missing_pkg <- db_pkgs[!pkgs_found]
-
-    stop("package(s): ", paste(missing_pkg, collapse = " "),
-         " needed for this function, please install.",
-         call. = FALSE)
-  }
+  check_db_packages()
 
   DBI::dbConnect(RMariaDB::MariaDB(),
                  dbname = dbname,
@@ -82,4 +68,16 @@ db_ensembl <- function(dbname, host = "ensembldb.ensembl.org",
                  password = password,
                  host = host,
                  post = port, ...) # nocov
+}
+
+check_db_packages <- function() {
+  db_pkgs <- c("dbplyr", "DBI", "RMariaDB")
+
+  pkgs_found <- sapply(db_pkgs, requireNamespace, quietly = TRUE)
+
+  if (!all(pkgs_found)) {
+    missing <- db_pkgs[!pkgs_found]
+    n <- length(missing)
+    cli::cli_abort("install {n} package{?s} {.pkg {missing}} for db functions.")
+  }
 }

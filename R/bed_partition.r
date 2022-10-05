@@ -57,6 +57,8 @@
 #'
 #' @export
 bed_partition <- function(x, ...) {
+
+  check_required(x)
   x <- check_interval(x)
 
   groups_df <- group_vars(x)

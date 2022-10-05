@@ -1,5 +1,3 @@
-context("bed_reldist")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 75, 125

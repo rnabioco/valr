@@ -14,6 +14,7 @@
 #'
 #' @export
 read_vcf <- function(vcf) {
+  check_required(vcf)
   res <- suppressMessages(readr::read_tsv(vcf, comment = "##"))
   colnames(res) <- stringr::str_replace(colnames(res), "^#", "")
 
