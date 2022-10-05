@@ -1,5 +1,3 @@
-context("bed_fisher")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 10, 20,
@@ -20,5 +18,5 @@ genome <- tibble::tribble(
 
 test_that("fisher p.value is correct", {
   res <- bed_fisher(x, y, genome)
-  expect_equal(res$p.value, 0.003846154)
+  expect_equal(round(res$p.value, 5), 0.00385)
 })

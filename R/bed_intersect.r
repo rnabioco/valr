@@ -87,6 +87,12 @@
 #' @export
 bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 
+  check_required(x)
+
+  if (dots_n(...) == 0) {
+    cli::cli_abort("One or more tbls required in {.var ...}")
+  }
+
   y_tbl <- parse_dots(...)
   multiple_tbls <- FALSE
 

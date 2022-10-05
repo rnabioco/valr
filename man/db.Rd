@@ -43,6 +43,7 @@ Currently \code{db_ucsc} and \code{db_ensembl} are available for connections.
 \examples{
 \dontrun{
 if(require(RMariaDB)) {
+  library(dplyr)
   ucsc <- db_ucsc('hg38')
 
   # fetch the `refGene` tbl
@@ -54,6 +55,7 @@ if(require(RMariaDB)) {
 }
 \dontrun{
 if(require(RMariaDB)) {
+  library(dplyr)
   # squirrel genome
   ensembl <- db_ensembl('spermophilus_tridecemlineatus_core_67_2')
 

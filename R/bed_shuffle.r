@@ -29,6 +29,10 @@
 #' @export
 bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
                         max_tries = 1000, within = FALSE, seed = 0) {
+
+  check_required(x)
+  check_required(genome)
+
   x <- check_interval(x)
   genome <- check_genome(genome)
 
@@ -55,7 +59,7 @@ bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
   }
 
   if (nrow(incl) == 0 || is.null(incl)) {
-    stop("no intervals to sample from", call. = FALSE)
+    cli::cli_abort("no intervals to sample from.")
   }
 
   res <- shuffle_impl(x, incl, within, max_tries, seed)

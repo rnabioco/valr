@@ -12,6 +12,12 @@
 
 #include "valr.h"
 
+/* intervalOverlap and IntervalStartSorter
+ * from https://github.com/ekg/intervaltree
+ * circa commit 8fc4be9 Dec 13, 2015
+ * see inst/include/intervalTree.h for copyright
+ */
+
 template <class T, typename K = int>
 K intervalOverlap(const Interval<T, K>& a, const Interval<T, K>& b) {
   return std::min(a.stop, b.stop) - std::max(a.start, b.start) ;
@@ -24,6 +30,8 @@ public:
     return a.start < b.start;
   }
 };
+
+/* valr code below */
 
 template <class T, typename K = int>
 class IntervalSorterDesc {

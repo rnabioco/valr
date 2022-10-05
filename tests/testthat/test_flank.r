@@ -1,5 +1,3 @@
-context("bed_flank")
-
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 5000

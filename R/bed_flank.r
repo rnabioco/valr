@@ -54,19 +54,23 @@
 bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE, ...) {
+
+  check_required(x)
+  check_required(genome)
+
   x <- check_interval(x)
   genome <- check_genome(genome)
 
   if (!any(c(both, left, right) > 0)) {
-    stop("specify one of both, left, right", call. = FALSE)
+    cli::cli_abort("one of {.var both}, {.var left}, or {.var right} must be a positive value")
   }
 
   if (strand && !"strand" %in% colnames(x)) {
-    stop("expected `strand` column in `x`", call. = FALSE)
+    cli::cli_abort("expected {.var strand} column in {.var x}")
   }
 
   if (both != 0 && (left != 0 || right != 0)) {
-    stop("ambiguous side spec for bed_flank", call. = FALSE)
+    cli::cli_abort("ambiguous side spec for bed_flank")
   }
 
   if (both) left <- right <- both

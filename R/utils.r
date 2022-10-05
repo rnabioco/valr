@@ -94,7 +94,7 @@ shared_groups <- function(x, y) {
 # dplyr::check_suffix
 check_suffix <- function(suffix) {
   if (!is.character(suffix) || length(suffix) != 2) {
-    stop("`suffix` must be a character vector of length 2.", call. = FALSE)
+    cli::cli_abort("{.var suffix} must be a character vector of length 2.")
   }
 }
 
@@ -117,12 +117,8 @@ convert_factors <- function(x, group_cols){
 
   contains_factor <- sapply(x[, group_cols], is.factor)
   if (any(contains_factor)){
-
-    warning("Factors are not allowed for grouping: ",
-            paste(group_cols[contains_factor],
-                  collapse = ","),
-            " will be treated as characters",
-            call. = FALSE)
+    fcts <- group_cols[contains_factor]
+    cli::cli_warn("Factors are not allowed for grouping. {.vars {fcts}} will be treated as characters")
 
     x <- ungroup(x)
     convert_cols <- group_cols[contains_factor]

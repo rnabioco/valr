@@ -1,5 +1,3 @@
-context("bed_jaccard")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 10, 20,

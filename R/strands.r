@@ -19,7 +19,7 @@
 #' @export
 flip_strands <- function(x) {
   if (!"strand" %in% colnames(x)) {
-    stop("`strand` column not found in `x`", call. = FALSE)
+    cli::cli_abort("{.var strand} not found in {.var x}")
   }
 
   x <- check_interval(x)

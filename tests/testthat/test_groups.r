@@ -1,5 +1,3 @@
-context("dplyr grouping")
-
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 

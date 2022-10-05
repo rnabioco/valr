@@ -1,5 +1,3 @@
-context("bed_complement")
-
 test_that("complement with covering interval", {
   genome <- tibble::tribble(
     ~chrom, ~size,

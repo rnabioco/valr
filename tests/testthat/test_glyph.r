@@ -1,5 +1,3 @@
-context("glyph")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 500, 1000, ".", ".", "+",
@@ -7,8 +5,7 @@ x <- tibble::tribble(
 )
 
 test_that("glyphs are rendered", {
-  res <- bed_glyph(bed_merge(x))
-  expect_is(res, "ggplot")
+  expect_doppelganger("merge glyph is ok", bed_glyph(bed_merge(x)))
 })
 
 test_that("glyph labels are applied", {
@@ -28,8 +25,7 @@ b <- tibble::tribble(
 )
 
 test_that("expr arguments do not need to be x and/or y", {
-  res <- bed_glyph(bed_intersect(a, b))
-  expect_is(res, "ggplot")
+  expect_doppelganger("intersect glyph is ok", bed_glyph(bed_intersect(a, b)))
 })
 
 genome <- tibble::tribble(

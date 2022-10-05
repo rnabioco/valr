@@ -1,5 +1,3 @@
-context("bed_subtract")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 100, 200,
@@ -175,7 +173,7 @@ test_that("test baseline subtraction", {
     "chr1", 50, 70, "a2", 2, "-"
   )
   res <- bed_subtract(a, b)
-  expect_equivalent(res, c)
+  expect_equal(res, c, ignore_attr = FALSE)
 })
 
 test_that("test any = TRUE subtraction", {
@@ -201,5 +199,5 @@ test_that("test with 2 DBs", {
     "chr1", 65, 70, "a2", 2, "-"
   )
   res <- bed_subtract(bed_subtract(a, b), b2)
-  expect_equivalent(res, c)
+  expect_equal(res, c, ignore_attr = FALSE)
 })

@@ -1,5 +1,3 @@
-context("bed_merge")
-
 test_that("merge on 1 chrom", {
   bed_df <- tibble::tribble(
     ~chrom, ~start, ~end,

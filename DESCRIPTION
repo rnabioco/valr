@@ -20,6 +20,7 @@ Depends:
     R (>= 3.1.2)
 Imports:
     broom,
+    cli,
     dplyr (>= 0.8.0),
     ggplot2,
     Rcpp (>= 1.0.0),
@@ -44,7 +45,8 @@ Suggests:
     RMariaDB,
     rmarkdown,
     S4Vectors,
-    testthat,
+    testthat (>= 3.0.0),
+    vdiffr (>= 1.0.0),
     tidyr
 LinkingTo:
     Rcpp (>= 1.0.0)
@@ -52,8 +54,9 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 SystemRequirements: C++11
 Config/Needs/website:
     pkgdown,
     rnabioco/rbitemplate
+Config/testthat/edition: 3

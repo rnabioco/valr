@@ -19,10 +19,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/* Notes for valr:
+/* Notes for valr maintenance:
+  Interval tree code copied from ekg/intervaltree
   https://github.com/ekg/intervaltree/blob/master/IntervalTree.h
   commit id f0c4046514f41072be20da07b69d8a92220c9294
-  Added a friend function declaration for findClosest() to enable
+
+  - Added a friend function declaration for findClosest() to enable
     access to private class members
 */
 

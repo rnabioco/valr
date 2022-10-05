@@ -5,7 +5,6 @@
 #' @param step_size size to step before next window
 #' @param num_win divide intervals to fixed number of windows
 #' @param reverse reverse window numbers
-#' @param genome this argument has been deprecated and is not used
 #'
 #' @note The `name` and `.win_id` columns can be used to create new
 #'   interval names (see 'namenum' example below) or in subsequent
@@ -42,33 +41,25 @@
 #'
 #' @export
 bed_makewindows <- function(x,
-                            genome = NULL,
                             win_size = 0,
                             step_size = 0,
                             num_win = 0,
                             reverse = FALSE) {
 
-  # handle deprecated genome argument
-  if (!is.null(genome)) {
-    if (is.list(genome)) {
-      warning("genome argument has been deprecated, ignoring",
-        call. = FALSE
-      )
-    } else if (is.numeric(genome)) {
-      # if win_size is passed as positional argument it will be genome
-      # reassign to win_size
-      win_size <- genome
-    }
-  }
+  check_required(x)
 
   x <- check_interval(x)
 
   if (win_size == 0 && num_win == 0) {
-    stop("specify either `win_size` or `num_win`", call. = FALSE)
+    cli::cli_abort("specify either {.var win_size} or {.var num_win}")
   }
 
   if (win_size < 0 || num_win < 0) {
-    stop("`win_size` or `num_win` must be positive values", call. = FALSE)
+    cli::cli_abort("{.var win_size} and {.var num_win} must be >= 0")
+  }
+
+  if (any(x$end - x$start < num_win)) {
+    cli::cli_alert_warning("interval lengths < {.var num_win} will be skipped.")
   }
 
   # dummy win_ids

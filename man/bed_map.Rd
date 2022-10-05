@@ -39,8 +39,9 @@ input columns from \code{x} and \code{y} columns must take these suffixes into a
 }
 \details{
 Book-ended intervals can be included by setting \code{min_overlap = 0}.
+
 Non-intersecting intervals from \code{x} are included in the result with \code{NA}
-values
+values.
 
 input tbls are grouped by \code{chrom} by default, and additional
 groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For example,

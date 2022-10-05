@@ -40,6 +40,11 @@
 #'
 #' @export
 bed_projection <- function(x, y, genome, by_chrom = FALSE) {
+
+  check_required(x)
+  check_required(y)
+  check_required(genome)
+
   x <- check_interval(x)
   y <- check_interval(y)
   genome <- check_genome(genome)

@@ -1,5 +1,3 @@
-context("utils")
-
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 1, 100,

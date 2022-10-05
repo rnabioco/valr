@@ -46,15 +46,19 @@
 bed_slop <- function(x, genome, both = 0, left = 0,
                      right = 0, fraction = FALSE,
                      strand = FALSE, trim = FALSE, ...) {
+
+  check_required(x)
+  check_required(genome)
+
   x <- check_interval(x)
   genome <- check_genome(genome)
 
   if (strand && !"strand" %in% colnames(x)) {
-    stop("expected `strand` in `x`", call. = FALSE)
+    cli::cli_abort("expected {.var strand} in {.var x}")
   }
 
   if (both != 0 && (left != 0 || right != 0)) {
-    stop("ambiguous side spec for bed_slop", call. = FALSE)
+    cli::cli_abort("ambiguous side spec for bed_slop")
   }
 
   if (fraction) x <- mutate(x, .size = end - start)
