@@ -1,6 +1,7 @@
 # valr (development version)
 
-* valr now uses [cli](https://cli.r-lib.org/index.html) for all messages and warnings.
+* valr now uses [cli](https://cli.r-lib.org/index.html) for more consistent
+  errors and messages during interactive use.
 
 * deprecated `genome` argument to `bed_makewindows()` was removed.
 
