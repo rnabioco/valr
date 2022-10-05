@@ -1,6 +1,6 @@
 // coverage.cpp
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -14,7 +14,7 @@ void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
                     std::vector<int>& x_ivl_lengths, std::vector<double>& fractions_covered,
                     std::vector<int>& indices_x) {
 
-  ivl_tree_t tree_y(vy) ;
+  ivl_tree_t tree_y(std::move(vy)) ;
   ivl_vector_t overlaps ;
   IntervalSorterDesc<int, int> intervalSorterDesc;
 
@@ -22,7 +22,7 @@ void coverage_group(ivl_vector_t vx, ivl_vector_t vy,
 
     indices_x.push_back(it.value);
 
-    tree_y.findOverlapping(it.start, it.stop, overlaps) ;
+    overlaps = tree_y.findOverlapping(it.start, it.stop) ;
 
     // compute number of overlaps
     int overlap_count = overlaps.size();
@@ -160,10 +160,17 @@ DataFrame coverage_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   out.add_df(subset_x, false) ;
 
   // additional columns
-  out.add_vec(".ints", wrap(overlap_counts)) ;
-  out.add_vec(".cov", wrap(ivls_bases_covered)) ;
-  out.add_vec(".len", wrap(x_ivl_lengths)) ;
-  out.add_vec(".frac", wrap(fractions_covered)) ;
+  out.names.push_back(".ints") ;
+  out.data.push_back(overlap_counts) ;
+
+  out.names.push_back(".cov") ;
+  out.data.push_back(ivls_bases_covered) ;
+
+  out.names.push_back(".len") ;
+  out.data.push_back(x_ivl_lengths) ;
+
+  out.names.push_back(".frac") ;
+  out.data.push_back(fractions_covered) ;
 
   auto nrows = subset_x.nrows() ;
   auto res = out.format_df(nrows) ;

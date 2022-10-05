@@ -24,7 +24,7 @@ chrom_tree_t makeIntervalTrees(DataFrame incl, interval_map_t interval_map) {
     std::string chrom = kv.first ;
     ivl_vector_t iv = kv.second ;
 
-    chrom_trees[chrom] = ivl_tree_t(iv) ;
+    chrom_trees[chrom] = ivl_tree_t(std::move(iv)) ;
 
   }
   return chrom_trees ;

@@ -1,6 +1,6 @@
 // intervals.h
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -13,9 +13,9 @@
 #include "valr.h"
 
 // main interval types used in valr
-typedef Interval<int>      ivl_t ;
+typedef Interval<int, int>      ivl_t ;
 typedef std::vector<ivl_t> ivl_vector_t ;
-typedef IntervalTree<int>  ivl_tree_t ;
+typedef IntervalTree<int, int>  ivl_tree_t ;
 
 inline ivl_vector_t makeIntervalVector(const DataFrame& df,
                                        const IntegerVector& si,

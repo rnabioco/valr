@@ -1,6 +1,6 @@
 // intersect.cpp
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -51,12 +51,13 @@ void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes, bool invert = false) {
 
-  ivl_tree_t tree_y(vy) ;
+  // do not call vy after std::move
+  ivl_tree_t tree_y(std::move(vy)) ;
   ivl_vector_t overlaps ;
 
   for (auto it : vx) {
 
-    tree_y.findOverlapping(it.start, it.stop, overlaps) ;
+    overlaps = tree_y.findOverlapping(it.start, it.stop) ;
 
     if (overlaps.empty() && invert) {
       indices_x.push_back(it.value) ;
@@ -119,7 +120,8 @@ DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   out.add_df(subset_y, suffix_y, true) ;
 
   // overlaps
-  out.add_vec(".overlap", wrap(overlap_sizes)) ;
+  out.names.push_back(".overlap");
+  out.data.push_back(overlap_sizes);
 
   auto nrows = subset_x.nrows() ;
   auto res = out.format_df(nrows) ;

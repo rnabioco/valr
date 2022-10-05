@@ -1,6 +1,6 @@
 // subtract.cpp
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -13,7 +13,7 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
                     std::vector<int>& indices_out,
                     std::vector<int>& starts_out, std::vector<int>& ends_out) {
 
-  ivl_tree_t tree_y(vy) ;
+  ivl_tree_t tree_y(std::move(vy)) ;
   ivl_vector_t overlaps ;
   IntervalStartSorter<int, int> ivl_sorter ;
 
@@ -22,7 +22,7 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
     auto x_start = it.start;
     auto x_stop = it.stop;
 
-    tree_y.findOverlapping(it.start, it.stop, overlaps) ;
+    overlaps = tree_y.findOverlapping(it.start, it.stop) ;
 
     // compute number of overlaps
     int overlap_count = overlaps.size();

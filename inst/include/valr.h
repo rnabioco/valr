@@ -1,6 +1,6 @@
 // valr.h
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -19,6 +19,7 @@ using namespace Rcpp ;
 #include "grouped_dataframe.h"
 #include "IntervalTree.h"
 #include "intervals.h"
+#include "IntervalTree_ext.h"
 #include "group_apply.h"
 #include "genome.h"
 #include "random.h"

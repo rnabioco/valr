@@ -19,307 +19,365 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+/* Notes for valr maintenance:
+  Interval tree code copied from ekg/intervaltree
+  https://github.com/ekg/intervaltree/blob/master/IntervalTree.h
+  commit id f0c4046514f41072be20da07b69d8a92220c9294
+
+  - Added a friend function declaration for findClosest() to enable
+    access to private class members
+*/
+
 #ifndef valr__INTERVAL_TREE_H
 #define valr__INTERVAL_TREE_H
+
+#ifndef __INTERVAL_TREE_H
+#define __INTERVAL_TREE_H
 
 #include <vector>
 #include <algorithm>
 #include <iostream>
 #include <memory>
+#include <cassert>
+#include <limits>
 
-template <class T, typename K = int>
+#ifdef USE_INTERVAL_TREE_NAMESPACE
+namespace interval_tree {
+#endif
+template <class Scalar, typename Value>
 class Interval {
 public:
-  K start;
-  K stop;
-  T value;
-  Interval(K s, K e, const T& v)
-    : start(s)
-    , stop(e)
+  Scalar start;
+  Scalar stop;
+  Value value;
+  Interval(const Scalar& s, const Scalar& e, const Value& v)
+    : start(std::min(s, e))
+    , stop(std::max(s, e))
     , value(v)
-  { }
+  {}
 };
 
-template <class T, typename K>
-K intervalStart(const Interval<T, K>& i) {
+template <class Scalar, typename Value>
+Value intervalStart(const Interval<Scalar,Value>& i) {
   return i.start;
 }
 
-template <class T, typename K>
-K intervalStop(const Interval<T, K>& i) {
+template <class Scalar, typename Value>
+Value intervalStop(const Interval<Scalar, Value>& i) {
   return i.stop;
 }
 
-template <class T, typename K>
-std::ostream& operator<<(std::ostream& out, Interval<T, K>& i) {
+template <class Scalar, typename Value>
+std::ostream& operator<<(std::ostream& out, const Interval<Scalar, Value>& i) {
   out << "Interval(" << i.start << ", " << i.stop << "): " << i.value;
   return out;
 }
 
-
-template <class T, typename K = int>
-K intervalOverlap(const Interval<T, K>& a, const Interval<T, K>& b) {
-  return std::min(a.stop, b.stop) - std::max(a.start, b.start) ;
-}
-
-template <class T, typename K = int>
-class IntervalStartSorter {
-public:
-  bool operator()(const Interval<T, K>& a, const Interval<T, K>& b) {
-    return a.start < b.start;
-  }
-};
-
-template <class T, typename K = int>
-class IntervalSorterDesc {
-public:
-  bool operator()(const Interval<T, K>& a, const Interval<T, K>& b) {
-    return a.start > b.start;
-  }
-};
-
-template <class T, typename K = int>
+template <class Scalar, class Value>
 class IntervalTree {
-
 public:
-  typedef Interval<T, K> interval;
-  typedef std::vector<interval> intervalVector;
-  typedef IntervalTree<T, K> intervalTree;
+  typedef Interval<Scalar, Value> interval;
+  typedef std::vector<interval> interval_vector;
 
-  intervalVector intervals;
-  std::unique_ptr<intervalTree> left;
-  std::unique_ptr<intervalTree> right;
-  K center;
 
-  IntervalTree<T, K>(void)
+  struct IntervalStartCmp {
+    bool operator()(const interval& a, const interval& b) {
+      return a.start < b.start;
+    }
+  };
+
+  struct IntervalStopCmp {
+    bool operator()(const interval& a, const interval& b) {
+      return a.stop < b.stop;
+    }
+  };
+
+  IntervalTree()
     : left(nullptr)
     , right(nullptr)
     , center(0)
-  { }
+  {}
 
-private:
-  std::unique_ptr<intervalTree> copyTree(const intervalTree& orig) {
-    return std::unique_ptr<intervalTree>(new intervalTree(orig));
+  ~IntervalTree() = default;
+
+  std::unique_ptr<IntervalTree> clone() const {
+    return std::unique_ptr<IntervalTree>(new IntervalTree(*this));
   }
 
-public:
-
-  IntervalTree<T, K>(const intervalTree& other)
+  IntervalTree(const IntervalTree& other)
     :   intervals(other.intervals),
-        left(other.left ? copyTree(*other.left) : nullptr),
-        right(other.right ? copyTree(*other.right) : nullptr),
+        left(other.left ? other.left->clone() : nullptr),
+        right(other.right ? other.right->clone() : nullptr),
         center(other.center)
-  {
-  }
+  {}
 
-public:
+  IntervalTree& operator=(IntervalTree&&) = default;
+  IntervalTree(IntervalTree&&) = default;
 
-  IntervalTree<T, K>& operator=(const intervalTree& other) {
-    center = other.center ;
+  IntervalTree& operator=(const IntervalTree& other) {
+    center = other.center;
     intervals = other.intervals;
-    left = other.left ? copyTree(*other.left) : nullptr;
-    right = other.right ? copyTree(*other.right) : nullptr;
+    left = other.left ? other.left->clone() : nullptr;
+    right = other.right ? other.right->clone() : nullptr;
     return *this;
   }
 
-  // Note: changes the order of ivals
-  IntervalTree<T, K>(
-    intervalVector& ivals,
+  IntervalTree(
+    interval_vector&& ivals,
     std::size_t depth = 16,
     std::size_t minbucket = 64,
-    K leftextent = 0,
-    K rightextent = 0,
-    std::size_t maxbucket = 512
-  )
+    std::size_t maxbucket = 512,
+    Scalar leftextent = 0,
+    Scalar rightextent = 0)
     : left(nullptr)
     , right(nullptr)
   {
-
     --depth;
-    IntervalStartSorter<T, K> intervalStartSorter;
-    if (depth == 0 || (ivals.size() < minbucket && ivals.size() < maxbucket)) {
-      std::sort(ivals.begin(), ivals.end(), intervalStartSorter);
-      intervals = ivals;
-      center = ivals.at(ivals.size() / 2).start;
+    const auto minmaxStop = std::minmax_element(ivals.begin(), ivals.end(),
+                                                IntervalStopCmp());
+    const auto minmaxStart = std::minmax_element(ivals.begin(), ivals.end(),
+                                                 IntervalStartCmp());
+    if (!ivals.empty()) {
+      center = (minmaxStart.first->start + minmaxStop.second->stop) / 2;
+    }
+    if (leftextent == 0 && rightextent == 0) {
+      // sort intervals by start
+      std::sort(ivals.begin(), ivals.end(), IntervalStartCmp());
     } else {
-      if (leftextent == 0 && rightextent == 0) {
-        // sort intervals by start
-        std::sort(ivals.begin(), ivals.end(), intervalStartSorter);
-      }
-
-      K leftp = 0;
-      K rightp = 0;
-      K centerp = 0;
+      assert(std::is_sorted(ivals.begin(), ivals.end(), IntervalStartCmp()));
+    }
+    if (depth == 0 || (ivals.size() < minbucket && ivals.size() < maxbucket)) {
+      std::sort(ivals.begin(), ivals.end(), IntervalStartCmp());
+      intervals = std::move(ivals);
+      assert(is_valid().first);
+      return;
+    } else {
+      Scalar leftp = 0;
+      Scalar rightp = 0;
 
       if (leftextent || rightextent) {
         leftp = leftextent;
         rightp = rightextent;
       } else {
         leftp = ivals.front().start;
-        std::vector<K> stops;
-        stops.resize(ivals.size());
-        transform(ivals.begin(), ivals.end(), stops.begin(), intervalStop<T, K>);
-        rightp = *max_element(stops.begin(), stops.end());
+        rightp = std::max_element(ivals.begin(), ivals.end(),
+                                  IntervalStopCmp())->stop;
       }
 
-      //centerp = ( leftp + rightp ) / 2;
-      centerp = ivals.at(ivals.size() / 2).start;
-      center = centerp;
+      interval_vector lefts;
+      interval_vector rights;
 
-      intervalVector lefts;
-      intervalVector rights;
-
-      for (typename intervalVector::const_iterator i = ivals.begin(); i != ivals.end(); ++i) {
+      for (typename interval_vector::const_iterator i = ivals.begin();
+           i != ivals.end(); ++i) {
         const interval& interval = *i;
-        if (centerp > interval.stop) {
+        if (interval.stop < center) {
           lefts.push_back(interval);
-        } else if (interval.start > centerp) {
+        } else if (interval.start > center) {
           rights.push_back(interval);
         } else {
+          assert(interval.start <= center);
+          assert(center <= interval.stop);
           intervals.push_back(interval);
         }
       }
 
       if (!lefts.empty()) {
-        left = std::unique_ptr<intervalTree>(new intervalTree(lefts, depth, minbucket, leftp, centerp));
+        left.reset(new IntervalTree(std::move(lefts),
+                                    depth, minbucket, maxbucket,
+                                    leftp, center));
       }
       if (!rights.empty()) {
-        right = std::unique_ptr<intervalTree>(new intervalTree(rights, depth, minbucket, centerp, rightp));
+        right.reset(new IntervalTree(std::move(rights),
+                                     depth, minbucket, maxbucket,
+                                     center, rightp));
       }
     }
+    assert(is_valid().first);
   }
 
-  intervalVector findOverlapping(K start, K stop) const {
-    intervalVector ov;
-    this->findOverlapping(start, stop, ov);
-    return ov;
-  }
-
-  void findOverlapping(K start, K stop, intervalVector& overlapping) const {
-    if (!intervals.empty() && !(stop < intervals.front().start)) {
-      for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-        const interval& interval = *i;
-        if (interval.stop >= start && interval.start <= stop) {
-          overlapping.push_back(interval);
-        }
+  // Call f on all intervals near the range [start, stop]:
+  template <class UnaryFunction>
+  void visit_near(const Scalar& start, const Scalar& stop, UnaryFunction f) const {
+    if (!intervals.empty() && ! (stop < intervals.front().start)) {
+      for (auto & i : intervals) {
+        f(i);
       }
     }
-
     if (left && start <= center) {
-      left->findOverlapping(start, stop, overlapping);
+      left->visit_near(start, stop, f);
     }
-
     if (right && stop >= center) {
-      right->findOverlapping(start, stop, overlapping);
+      right->visit_near(start, stop, f);
     }
-
   }
 
-  intervalVector findContained(K start, K stop) const {
-    intervalVector contained;
-    this->findContained(start, stop, contained);
-    return contained;
+  // Call f on all intervals crossing pos
+  template <class UnaryFunction>
+  void visit_overlapping(const Scalar& pos, UnaryFunction f) const {
+    visit_overlapping(pos, pos, f);
   }
 
-  void findContained(K start, K stop, intervalVector& contained) const {
-    if (!intervals.empty() && !(stop < intervals.front().start)) {
-      for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-        const interval& interval = *i;
-        if (interval.start >= start && interval.stop <= stop) {
-          contained.push_back(interval);
-        }
+  // Call f on all intervals overlapping [start, stop]
+  template <class UnaryFunction>
+  void visit_overlapping(const Scalar& start, const Scalar& stop, UnaryFunction f) const {
+    auto filterF = [&](const interval& interval) {
+      if (interval.stop >= start && interval.start <= stop) {
+        // Only apply f if overlapping
+        f(interval);
+      }
+    };
+    visit_near(start, stop, filterF);
+  }
+
+  // Call f on all intervals contained within [start, stop]
+  template <class UnaryFunction>
+  void visit_contained(const Scalar& start, const Scalar& stop, UnaryFunction f) const {
+    auto filterF = [&](const interval& interval) {
+      if (start <= interval.start && interval.stop <= stop) {
+        f(interval);
+      }
+    };
+    visit_near(start, stop, filterF);
+  }
+
+  interval_vector findOverlapping(const Scalar& start, const Scalar& stop) const {
+    interval_vector result;
+    visit_overlapping(start, stop,
+                      [&](const interval& interval) {
+                        result.emplace_back(interval);
+                      });
+    return result;
+  }
+
+  interval_vector findContained(const Scalar& start, const Scalar& stop) const {
+    interval_vector result;
+    visit_contained(start, stop,
+                    [&](const interval& interval) {
+                      result.push_back(interval);
+                    });
+    return result;
+  }
+
+  bool empty() const {
+    if (left && !left->empty()) {
+      return false;
+    }
+    if (!intervals.empty()) {
+      return false;
+    }
+    if (right && !right->empty()) {
+      return false;
+    }
+    return true;
+  }
+
+  template <class UnaryFunction>
+  void visit_all(UnaryFunction f) const {
+    if (left) {
+      left->visit_all(f);
+    }
+    std::for_each(intervals.begin(), intervals.end(), f);
+    if (right) {
+      right->visit_all(f);
+    }
+  }
+
+  std::pair<Scalar, Scalar> extentBruitForce() const {
+    struct Extent {
+      std::pair<Scalar, Scalar> x = {std::numeric_limits<Scalar>::max(),
+                                     std::numeric_limits<Scalar>::min() };
+      void operator()(const interval & interval) {
+        x.first  = std::min(x.first,  interval.start);
+        x.second = std::max(x.second, interval.stop);
+      }
+    };
+    Extent extent;
+
+    visit_all([&](const interval & interval) { extent(interval); });
+    return extent.x;
+  }
+
+  // Check all constraints.
+  // If first is false, second is invalid.
+  std::pair<bool, std::pair<Scalar, Scalar>> is_valid() const {
+    const auto minmaxStop = std::minmax_element(intervals.begin(), intervals.end(),
+                                                IntervalStopCmp());
+    const auto minmaxStart = std::minmax_element(intervals.begin(), intervals.end(),
+                                                 IntervalStartCmp());
+
+    std::pair<bool, std::pair<Scalar, Scalar>> result = {true, { std::numeric_limits<Scalar>::max(),
+                                                                 std::numeric_limits<Scalar>::min() }};
+    if (!intervals.empty()) {
+      result.second.first   = std::min(result.second.first,  minmaxStart.first->start);
+      result.second.second  = std::min(result.second.second, minmaxStop.second->stop);
+    }
+    if (left) {
+      auto valid = left->is_valid();
+      result.first &= valid.first;
+      result.second.first   = std::min(result.second.first,  valid.second.first);
+      result.second.second  = std::min(result.second.second, valid.second.second);
+      if (!result.first) { return result; }
+      if (valid.second.second >= center) {
+        result.first = false;
+        return result;
       }
     }
-
-    if (left && start <= center) {
-      left->findContained(start, stop, contained);
-    }
-
-    if (right && stop >= center) {
-      right->findContained(start, stop, contained);
-    }
-
-  }
-
-  intervalVector findClosest(K start, K stop) const {
-    intervalVector closest ;
-    std::pair<int, intervalVector> min_dist;
-    this->findClosest(start, stop, closest, min_dist) ;
-    return closest;
-  }
-
-  void findClosest(K start, K stop, intervalVector&  closest,
-                   std::pair<int, intervalVector>& min_dist) const {
-
-    if (!intervals.empty() && !(stop < intervals.front().start)) {
-      for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-        const interval& interval = *i;
-        if (interval.stop > start && interval.start < stop) {
-          // adjacent intervals are considered non-overlappping
-          closest.push_back(interval);
-        } else if (stop <= interval.start) {
-          // find distance on left
-          int ivl_dist_l = interval.start - stop ;
-          // if smaller than best min dist found update pair with dist and intervals
-          if (ivl_dist_l < min_dist.first) {
-            min_dist.first = ivl_dist_l ;
-            min_dist.second.clear() ;
-            min_dist.second.push_back(interval) ;
-          } else if (ivl_dist_l == min_dist.first) {
-            // if same dist append intervals
-            min_dist.second.push_back(interval) ;
-          }
-        } else if (start >= interval.stop) {
-          // find distance on right
-          int ivl_dist_r = start - interval.stop ;
-          // if smaller than best min dist found update pair with dist and intervals
-          if (ivl_dist_r < min_dist.first) {
-            min_dist.first = ivl_dist_r ;
-            min_dist.second.clear() ;
-            min_dist.second.push_back(interval) ;
-          } else if (ivl_dist_r == min_dist.first) {
-            // if same dist append interval
-            min_dist.second.push_back(interval) ;
-          }
-        }
-      }
-    }  else if (!intervals.empty()  && (stop <= intervals.front().start)) {
-      for (typename intervalVector::const_iterator i = intervals.begin(); i != intervals.end(); ++i) {
-        const interval& interval = *i;
-        if (interval.start > intervals.front().start) {
-          continue ;
-        } else {
-          // find distance on left
-          int ivl_dist_l = interval.start - stop ;
-          // if smaller than best min dist found update pair with dist and intervals
-          if (ivl_dist_l <= min_dist.first) {
-            min_dist.first = ivl_dist_l;
-            min_dist.second.clear() ;
-            min_dist.second.push_back(interval) ;
-          } else if (ivl_dist_l == min_dist.first) {
-            // if same dist append intervals
-            min_dist.second.push_back(interval) ;
-          }
-        }
+    if (right) {
+      auto valid = right->is_valid();
+      result.first &= valid.first;
+      result.second.first   = std::min(result.second.first,  valid.second.first);
+      result.second.second  = std::min(result.second.second, valid.second.second);
+      if (!result.first) { return result; }
+      if (valid.second.first <= center) {
+        result.first = false;
+        return result;
       }
     }
-
-
-    if (left && start <= center) {
-      left->findClosest(start, stop,  closest, min_dist);
+    if (!std::is_sorted(intervals.begin(), intervals.end(), IntervalStartCmp())) {
+      result.first = false;
     }
-
-    if (right && stop >= center) {
-      right->findClosest(start, stop,  closest, min_dist);
-    }
-
-    // Finally report all of the non-overlapping closest intervals, only if at a left_node
-    if (!(right && left)) {
-      closest.insert(closest.end(), min_dist.second.begin(), min_dist.second.end())  ;
-    }
+    return result;
   }
-  ~IntervalTree(void) = default;
 
+  friend std::ostream& operator<<(std::ostream& os, const IntervalTree& itree) {
+    return writeOut(os, itree);
+  }
+
+  friend std::ostream& writeOut(std::ostream& os, const IntervalTree& itree,
+                                std::size_t depth = 0) {
+    auto pad = [&]() { for (std::size_t i = 0; i != depth; ++i) { os << ' '; } };
+    pad(); os << "center: " << itree.center << '\n';
+    for (const interval & inter : itree.intervals) {
+      pad(); os << inter << '\n';
+    }
+    if (itree.left) {
+      pad(); os << "left:\n";
+      writeOut(os, *itree.left, depth + 1);
+    } else {
+      pad(); os << "left: nullptr\n";
+    }
+    if (itree.right) {
+      pad(); os << "right:\n";
+      writeOut(os, *itree.right, depth + 1);
+    } else {
+      pad(); os << "right: nullptr\n";
+    }
+    return os;
+  }
+  template<class T, typename K>
+  friend void findClosestIvls(const IntervalTree<T, K>& tree, int start, int stop,
+                              interval_vector& closest,
+                              std::pair<int, interval_vector>& min_dist);
+private:
+  interval_vector intervals;
+  std::unique_ptr<IntervalTree> left;
+  std::unique_ptr<IntervalTree> right;
+  Scalar center;
 };
+#ifdef USE_INTERVAL_TREE_NAMESPACE
+}
+#endif
+
+#endif
 
 #endif

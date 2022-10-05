@@ -1,6 +1,6 @@
 // closest.cpp
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -9,22 +9,31 @@
 
 #include "valr.h"
 
-void closest_grouped(ivl_vector_t& vx, ivl_vector_t& vy,
+
+void findClosest(const IntervalTree<int, int>& tree, int start, int stop,
+                                  ivl_vector_t& closest,
+                                  std::pair<int, ivl_vector_t>& min_dist) {
+  findClosestIvls(tree, start, stop, closest, min_dist);
+}
+
+void closest_grouped(const ivl_vector_t& vx, ivl_vector_t& vy,
                      std::vector<int>& indices_x, std::vector<int>& indices_y,
                      std::vector<int>& overlap_sizes, std::vector<int>& distance_sizes) {
 
-  ivl_tree_t tree_y(vy) ;
-
   std::pair<int, ivl_vector_t> min_dist;
-  // initiatialize maximum left and right distances to minimize for closest
+
+  // initialize maximum left and right distances to minimize for closest
   int max_end = std::max(vx.back().stop, vy.back().stop) ;
+
+  // vy should not be referenced after std::move
+  ivl_tree_t tree_y(std::move(vy)) ;
 
   for (auto const& vx_it : vx) {
     ivl_vector_t closest ;
     ivl_vector_t closest_ivls ;
 
     min_dist = std::make_pair(max_end, closest_ivls) ;
-    tree_y.findClosest(vx_it.start, vx_it.stop, closest, min_dist) ;
+    findClosest(tree_y, vx_it.start, vx_it.stop, closest, min_dist) ;
 
     for (auto const& ov_it : closest) {
 
@@ -84,8 +93,12 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   out.add_df(subset_y, suffix_y, true) ;
 
   // overlaps and distances
-  out.add_vec(".overlap", wrap(overlap_sizes)) ;
-  out.add_vec(".dist", wrap(distance_sizes)) ;
+  out.names.push_back(".overlap") ;
+  out.data.push_back(overlap_sizes) ;
+
+  out.names.push_back(".dist") ;
+  out.data.push_back(distance_sizes) ;
+
 
   auto nrows = subset_x.nrows() ;
   auto res = out.format_df(nrows) ;

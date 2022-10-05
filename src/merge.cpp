@@ -133,8 +133,11 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
   out.add_df(df, false) ;
 
   // ids and overlaps
-  out.add_vec(".id_merge", wrap(ids)) ;
-  out.add_vec(".overlap_merge", wrap(overlaps)) ;
+  out.names.push_back(".id_merge");
+  out.data.push_back(ids);
+
+  out.names.push_back(".overlap_merge");
+  out.data.push_back(overlaps);
 
   auto nrows = df.nrows() ;
   auto res = out.format_df(nrows) ;
