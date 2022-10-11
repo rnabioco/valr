@@ -1,6 +1,7 @@
 ## New patch version
 
-* This is a new patch version that fixes an error.
+* This is a new patch version that updates a third-party C++ library included in 
+the package and adds error reporting via the cli R package.
 
 ## Test environment
 
@@ -35,9 +36,9 @@
   Status: 1 NOTE
   
   * checking installed package size ... NOTE
-    installed size is 19.8Mb
+    installed size is 19.6Mb
     sub-directories of 1Mb or more:
-      libs  18.7Mb
+      libs  18.5Mb
 
   - This package uses Rcpp, which creates a large shared library on linux.
   

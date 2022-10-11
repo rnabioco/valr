@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.6.6 
 
 * Updated [intervalTree](https://github.com/ekg/intervaltree) header to commit f0c4046
 
@@ -6,7 +6,6 @@
   errors and messages during interactive use.
 
 * deprecated `genome` argument to `bed_makewindows()` was removed.
-
 
 # valr 0.6.5
 
