@@ -1,4 +1,4 @@
-# valr 0.6.6 
+# valr 0.6.6
 
 * Updated [intervalTree](https://github.com/ekg/intervaltree) header to commit f0c4046
 
