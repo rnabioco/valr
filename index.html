@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">valr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +90,7 @@
 </h1>
 </div>
 <!-- badges: start -->
-<p>The valr package provides tools to read and manipulate genome intervals and signals, similar to the <a href="https://bedtools.readthedocs.io/en/latest/" class="external-link">BEDtools</a> suite. valr enables analysis in the R/RStudio environment, leveraging modern R tools in the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a> for a terse, expressive syntax. Compute-intensive algorithms are implemented in <a href="https://www.rcpp.org" class="external-link">Rcpp</a>/C++, and many methods take advantage of the speed and grouping capability provided by <a href="https://dplyr.tidyverse.org/" class="external-link">dplyr</a>. See <code>vignette(valr)</code> for more details.</p>
+<p>valr provides tools to read and manipulate genome intervals and signals, similar to the <a href="https://bedtools.readthedocs.io/en/latest/" class="external-link">BEDtools</a> suite.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -121,7 +121,7 @@
 <span><span class="va">nearby</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">'name'</span><span class="op">)</span>, <span class="va">.overlap</span>, <span class="va">.dist</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">.dist</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">5000</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1,047 × 4</span></span>
+<span><span class="co">#&gt; # A tibble: 1,045 × 4</span></span>
 <span><span class="co">#&gt;    name.x      name.y   .overlap .dist</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;int&gt; &lt;int&gt;</span></span>
 <span><span class="co">#&gt;  1 rs530458610 P704P           0  2579</span></span>
@@ -134,8 +134,7 @@
 <span><span class="co">#&gt;  8 rs528403095 DQ571479        0  3309</span></span>
 <span><span class="co">#&gt;  9 rs555126291 DQ571479        0  2745</span></span>
 <span><span class="co">#&gt; 10 rs5747567   DQ571479        0 -1778</span></span>
-<span><span class="co">#&gt; # … with 1,037 more rows</span></span>
-<span><span class="co">#&gt; # ℹ Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # … with 1,035 more rows</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

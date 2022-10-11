@@ -16,7 +16,7 @@ input columns from x and y columns must take these suffixes into account."><meta
     
     <a class="navbar-brand me-2" href="../index.html">valr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,9 +114,9 @@ input columns from <code>x</code> and <code>y</code> columns must take these suf
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Book-ended intervals can be included by setting <code>min_overlap = 0</code>.
-Non-intersecting intervals from <code>x</code> are included in the result with <code>NA</code>
-values</p>
+    <p>Book-ended intervals can be included by setting <code>min_overlap = 0</code>.</p>
+<p>Non-intersecting intervals from <code>x</code> are included in the result with <code>NA</code>
+values.</p>
 <p>input tbls are grouped by <code>chrom</code> by default, and additional
 groups can be added using <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code>. For example,
 grouping by <code>strand</code> will constrain analyses to the same strand. To
