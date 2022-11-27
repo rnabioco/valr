@@ -137,10 +137,10 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
 
   glyph <- ggplot(.data) +
     geom_rect(
-      aes_string(
-        xmin = "start", xmax = "end",
-        ymin = ".y", ymax = ".y + 0.5",
-        fill = ".facet"
+      aes(
+        xmin = .data[["start"]], xmax = .data[["end"]],
+        ymin = .data[[".y"]], ymax = .data[['.y']] + 0.5,
+        fill = .data[[".facet"]]
       ),
       color = "black", alpha = 0.75
     ) +
@@ -154,10 +154,10 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
 
   if (!is.null(label)) {
     label <- as.name(label)
-    aes_label <- aes_(
-      x = quote((end - start) / 2 + start),
-      y = quote(.y + 0.25),
-      label = substitute(label)
+    aes_label <- aes(
+      x = (.data[['end']] - .data[['start']]) / 2 + .data[['start']],
+      y = .data[['.y']] + 0.25,
+      label = !! label
     )
     glyph <- glyph + geom_label(aes_label, na.rm = TRUE)
   }
