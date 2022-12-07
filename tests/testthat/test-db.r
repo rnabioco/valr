@@ -13,7 +13,7 @@ test_that("ucsc connection works", {
 
   db <- db_ucsc("hg38")
   refgene <- tbl(db, "refGene")
-  expect_is(refgene, "tbl_dbi")
+  expect_true("tbl_dbi" %in% class(refgene))
   expect_equal(ncol(refgene), 16)
 })
 
@@ -28,6 +28,6 @@ test_that("ensembl connection works", {
 
   db <- db_ensembl("spermophilus_tridecemlineatus_core_67_2")
   gene <- tbl(db, "gene")
-  expect_is(gene, "tbl_dbi")
+  expect_true("tbl_dbi" %in% class(refgene))
   expect_equal(ncol(gene), 18)
 })
