@@ -89,7 +89,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Interval statistics</h1>
             
-            <h4 data-toc-skip class="date">November 27 2022</h4>
+            <h4 data-toc-skip class="date">December 07 2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/HEAD/vignettes/interval-stats.Rmd" class="external-link"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="d-none name"><code>interval-stats.Rmd</code></div>
@@ -219,21 +219,21 @@ test. This involves:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">res</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16,778 × 5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   name, stat [1,923]</span></span></span>
-<span><span class="co">#&gt;    name  stat      .id   obs    shuf</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> (A)n  reldist     1 0.363 0.200  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> (A)n  reldist     2 0.429 0.448  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> (A)n  reldist     3 0.246 0.317  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> (A)n  reldist     4 0.478 0.228  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> (A)n  reldist     5 0.260 0.271  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> (A)n  reldist     6 0.286 0.245  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> (A)n  reldist     7 0.498 0.005<span style="text-decoration: underline;">28</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> (A)n  reldist     8 0.237 0.049<span style="text-decoration: underline;">2</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> (A)n  reldist     9 0.314 0.316  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> (A)n  reldist    10 0.149 0.251  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 16,768 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16,795 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   name, stat [1,900]</span></span></span>
+<span><span class="co">#&gt;    name  stat      .id   obs   shuf</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> (A)n  reldist     1 0.363 0.405 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> (A)n  reldist     2 0.429 0.245 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> (A)n  reldist     3 0.246 0.444 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> (A)n  reldist     4 0.478 0.377 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> (A)n  reldist     5 0.260 0.201 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> (A)n  reldist     6 0.286 0.407 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> (A)n  reldist     7 0.498 0.328 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> (A)n  reldist     8 0.237 0.433 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> (A)n  reldist     9 0.314 0.067<span style="text-decoration: underline;">4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> (A)n  reldist    10 0.149 0.073<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 16,785 more rows</span></span></span></code></pre></div>
 <p>Now that the data are formatted, we can use the non-parametric
 <code><a href="https://rdrr.io/r/stats/ks.test.html" class="external-link">ks.test()</a></code> to determine whether there are significant
 differences between the observed and shuffled data for each group.
@@ -400,8 +400,8 @@ query intervals are enriched.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">datatable</a></span><span class="op">(</span><span class="va">signif_tests</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-7aa702dcfaa6a0ef811a" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7aa702dcfaa6a0ef811a">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-06d9a89862af696c9fbd" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-06d9a89862af696c9fbd">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
