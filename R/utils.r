@@ -176,3 +176,12 @@ get_group_data <- function(df){
   grps <- attr(df, "groups")
   grps[, -ncol(grps)]
 }
+
+#' Get a unique column id
+#' @param x data.frame
+#' @param col desired column name
+#' @return unique column name
+#' @noRd
+get_id_col <- function(df, col = ".id"){
+  make.unique(c(colnames(df), col))[ncol(df) + 1]
+}

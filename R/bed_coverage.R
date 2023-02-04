@@ -51,6 +51,10 @@ bed_coverage <- function(x, y, ...) {
   x <- bed_sort(x)
   y <- bed_sort(y)
 
+  ## add integer .id to track each input x ivl
+  .id_col <- get_id_col(x)
+  x[[.id_col]] <- seq_len(nrow(x))
+
   # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
   groups_xy <- unique(as.character(c("chrom", groups_xy)))
@@ -68,5 +72,23 @@ bed_coverage <- function(x, y, ...) {
                        grp_indexes$x,
                        grp_indexes$y)
 
+  # get x ivls from groups not found in y
+  mi <- get_missing_ivls(res, x, .id_col)
+  res <- bind_rows(res, mi)
+
+  # reorder by index
+  res <- res[order(res[[.id_col]]), ]
+  res[[.id_col]] <- NULL
   res
 }
+
+get_missing_ivls <- function(res, x, .id_col){
+  x <- ungroup(x)
+  mi <- x[!x[[.id_col]] %in% res[[.id_col]], ]
+  mi[[".ints"]] <- 0L
+  mi[[".cov"]] <- 0L
+  mi[[".len"]] <- mi[["end"]] - mi[["start"]]
+  mi[[".frac"]] <- 0
+  mi
+}
+
