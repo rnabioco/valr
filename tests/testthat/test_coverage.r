@@ -147,3 +147,38 @@ test_that("Test that simple chr	0	100 works", {
   res <- bed_coverage(z, z)
   expect_equal(nrow(res), 1)
 })
+
+test_that("all input x intervals are returned, issue #395 ", {
+  # x has a chr3 entry not in y
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end, ~strand,
+    "chr1", 100,    500,  '+',
+    "chr2", 200,    400,  '+',
+    "chr2", 300,    500,  '-',
+    "chr2", 800,    900,  '-',
+    "chr3", 800,    900,  '-'
+  )
+
+  y <- tibble::tribble(
+    ~chrom, ~start, ~end, ~value, ~strand,
+    "chr1", 150,    400,  100,    '+',
+    "chr1", 500,    550,  100,    '+',
+    "chr2", 230,    430,  200,    '-',
+    "chr2", 350,    430,  300,    '-'
+  )
+  res <- bed_coverage(x, y)
+  expect_equal(nrow(res), nrow(x))
+  expect_true("chr3" %in% res$chrom)
+
+  x <- group_by(x, strand)
+  y <- group_by(y, strand)
+  res <- bed_coverage(x, y)
+  expect_equal(nrow(res), nrow(x))
+
+  gnome <- read_genome(valr_example("genome.txt.gz"))
+  x <- bed_random(gnome[1:3, ], n = 1e5, seed = 10104)
+  y <- bed_random(gnome[2:4, ], n = 1e5, seed = 10104)
+  res <- bed_coverage(x, y)
+  expect_true(identical(x[, 1:3], res[, 1:3]))
+  expect_true(any(res$.frac > 0))
+})
