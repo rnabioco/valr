@@ -1,6 +1,6 @@
 # valr (development version)
 
-* Fixed bug in `bed_complement()` whereby intervals from x were not reported if there was not a matching group in y. (#395).  
+* Fixed bug in `bed_coverage()` whereby intervals from x were not reported if there was not a matching group in y. (#395).  
 
 # valr 0.6.6
 
