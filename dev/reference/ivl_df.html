@@ -92,9 +92,9 @@ validated using <code>check_genome()</code>.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># using tibble</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>,  <span class="fl">1</span>,     <span class="fl">50</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>,  <span class="fl">10</span>,    <span class="fl">75</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>,  <span class="fl">100</span>,   <span class="fl">120</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">1</span>, <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">10</span>, <span class="fl">75</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">100</span>, <span class="fl">120</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">check_interval</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
@@ -106,10 +106,11 @@ validated using <code>check_genome()</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> chr1    100   120</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># using base R data.frame</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>chrom <span class="op">=</span> <span class="st">"chr1"</span>,</span></span>
-<span class="r-in"><span>           start <span class="op">=</span> <span class="fl">0</span>,</span></span>
-<span class="r-in"><span>           end <span class="op">=</span> <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>           stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  chrom <span class="op">=</span> <span class="st">"chr1"</span>,</span></span>
+<span class="r-in"><span>  start <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  end <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">check_interval</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
@@ -122,7 +123,7 @@ validated using <code>check_genome()</code>.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">size</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">1e6</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">1e6</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">check_genome</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>

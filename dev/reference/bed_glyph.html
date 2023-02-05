@@ -86,14 +86,14 @@ result of the call.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span> <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span></span>
-<span class="r-in"><span> <span class="st">'chr1'</span>, <span class="fl">25</span>,     <span class="fl">50</span>,</span></span>
-<span class="r-in"><span> <span class="st">'chr1'</span>, <span class="fl">100</span>,    <span class="fl">125</span></span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">25</span>,     <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">100</span>,    <span class="fl">125</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">value</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">30</span>,     <span class="fl">75</span>,  <span class="fl">50</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">30</span>, <span class="fl">75</span>, <span class="fl">50</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">bed_glyph</span><span class="op">(</span><span class="fu"><a href="bed_intersect.html">bed_intersect</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -101,15 +101,15 @@ result of the call.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">30</span>,     <span class="fl">75</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">50</span>,     <span class="fl">90</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">91</span>,     <span class="fl">120</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">30</span>,     <span class="fl">75</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">50</span>,     <span class="fl">90</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">91</span>,     <span class="fl">120</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">bed_glyph</span><span class="op">(</span><span class="fu"><a href="bed_merge.html">bed_merge</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bed_glyph-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">bed_glyph</span><span class="op">(</span><span class="fu"><a href="bed_cluster.html">bed_cluster</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">'.id'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">bed_glyph</span><span class="op">(</span><span class="fu"><a href="bed_cluster.html">bed_cluster</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">".id"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bed_glyph-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

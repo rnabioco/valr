@@ -126,13 +126,13 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">25</span>,      <span class="fl">50</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">100</span>,     <span class="fl">125</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">25</span>, <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">100</span>, <span class="fl">125</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">30</span>,     <span class="fl">75</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">30</span>,     <span class="fl">75</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu">bed_intersect</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -143,18 +143,18 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">100</span>,    <span class="fl">500</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>, <span class="fl">200</span>,    <span class="fl">400</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>, <span class="fl">300</span>,    <span class="fl">500</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>, <span class="fl">800</span>,    <span class="fl">900</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">100</span>,    <span class="fl">500</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr2"</span>, <span class="fl">200</span>,    <span class="fl">400</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr2"</span>, <span class="fl">300</span>,    <span class="fl">500</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr2"</span>, <span class="fl">800</span>,    <span class="fl">900</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">value</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">150</span>,    <span class="fl">400</span>,  <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">500</span>,    <span class="fl">550</span>,  <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>, <span class="fl">230</span>,    <span class="fl">430</span>,  <span class="fl">200</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>, <span class="fl">350</span>,    <span class="fl">430</span>,  <span class="fl">300</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">150</span>,    <span class="fl">400</span>,  <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">500</span>,    <span class="fl">550</span>,  <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr2"</span>, <span class="fl">230</span>,    <span class="fl">430</span>,  <span class="fl">200</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr2"</span>, <span class="fl">350</span>,    <span class="fl">430</span>,  <span class="fl">300</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">bed_intersect</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
@@ -176,8 +176,10 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># start and end of each overlapping interval</span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">bed_intersect</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">res</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax</a></span><span class="op">(</span><span class="va">start.x</span>, <span class="va">start.y</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                   end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="va">end.x</span>, <span class="va">end.y</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">res</span>,</span></span>
+<span class="r-in"><span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax</a></span><span class="op">(</span><span class="va">start.x</span>, <span class="va">start.y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="va">end.x</span>, <span class="va">end.y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   chrom start.x end.x start.y end.y value.y .overlap start   end</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -190,10 +192,10 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">value</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">150</span>,    <span class="fl">400</span>,  <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>, <span class="fl">500</span>,    <span class="fl">550</span>,  <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>, <span class="fl">230</span>,    <span class="fl">430</span>,  <span class="fl">200</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>, <span class="fl">750</span>,    <span class="fl">900</span>,  <span class="fl">400</span></span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">150</span>,    <span class="fl">400</span>,  <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr1"</span>, <span class="fl">500</span>,    <span class="fl">550</span>,  <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr2"</span>, <span class="fl">230</span>,    <span class="fl">430</span>,  <span class="fl">200</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"chr2"</span>, <span class="fl">750</span>,    <span class="fl">900</span>,  <span class="fl">400</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">bed_intersect</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span></span></span>
