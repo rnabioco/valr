@@ -10,12 +10,12 @@
 #'
 #' @examples
 #' x <- tibble::tribble(
-#'    ~chrom, ~start, ~end,
-#'    "chr8", 500,    1000,
-#'    "chr8", 1000,   5000,
-#'    "chr8", 100,    200,
-#'    "chr1", 100,    300,
-#'    "chr1", 100,    200
+#'   ~chrom, ~start, ~end,
+#'   "chr8", 500,    1000,
+#'   "chr8", 1000,   5000,
+#'   "chr8", 100,    200,
+#'   "chr1", 100,    300,
+#'   "chr1", 100,    200
 #' )
 #'
 #' # sort by chrom and start
@@ -61,10 +61,12 @@ bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
     # sort by coordinate
     if (reverse) {
       res <- x[order(x$chrom, -x$start,
-                       method = "radix"), ]
+        method = "radix"
+      ), ]
     } else {
       res <- x[order(x$chrom, x$start, x$end,
-                       method = "radix"), ]
+        method = "radix"
+      ), ]
     }
   }
 

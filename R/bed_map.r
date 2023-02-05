@@ -28,7 +28,6 @@
 #'
 #' @export
 bed_map <- function(x, y, ..., min_overlap = 1) {
-
   check_required(x)
   check_required(y)
 

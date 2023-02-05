@@ -18,10 +18,10 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-#'   "chr1", 100,    200,  'A',   '.',    '+'
+#'   "chr1", 100,    200,  "A",   ".",    "+"
 #' )
 #'
-#' bed_glyph(bed_makewindows(x, num_win = 10), label = '.win_id')
+#' bed_glyph(bed_makewindows(x, num_win = 10), label = ".win_id")
 #'
 #' # Fixed number of windows
 #' bed_makewindows(x, num_win = 10)
@@ -37,7 +37,7 @@
 #'
 #' # bedtools 'namenum'
 #' wins <- bed_makewindows(x, win_size = 10)
-#' dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
+#' dplyr::mutate(wins, namenum = stringr::str_c(name, "_", .win_id))
 #'
 #' @export
 bed_makewindows <- function(x,
@@ -45,7 +45,6 @@ bed_makewindows <- function(x,
                             step_size = 0,
                             num_win = 0,
                             reverse = FALSE) {
-
   check_required(x)
 
   x <- check_interval(x)

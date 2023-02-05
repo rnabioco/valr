@@ -17,7 +17,7 @@
 #' @return [ivl_df]
 #'
 #' @examples
-#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+#' genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 #'
 #' x <- bed_random(genome, n = 1e4, seed = 1010486)
 #' y <- bed_random(genome, n = 1e4, seed = 9203911)
@@ -26,7 +26,6 @@
 #'
 #' @export
 bed_fisher <- function(x, y, genome) {
-
   check_required(x)
   check_required(y)
   check_required(genome)

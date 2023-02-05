@@ -61,15 +61,15 @@ test_that("guard against max_dist argument preventing clustering first interval 
     "c", 100, 100
   )
 
-  res <- bed_cluster(x, max_dist=0)
+  res <- bed_cluster(x, max_dist = 0)
   expect_equal(res$.id, 1L:4L)
 
-  res <- bed_cluster(x, max_dist=100)
+  res <- bed_cluster(x, max_dist = 100)
   expect_equal(res$.id, c(1, 1, 2, 3))
 
-  res <- bed_cluster(x, max_dist=10)
+  res <- bed_cluster(x, max_dist = 10)
   expect_equal(res$.id, c(1, 1, 2, 3))
 
-  res <- bed_cluster(x, max_dist=9)
-  expect_equal(res$.id,  1L:4L)
+  res <- bed_cluster(x, max_dist = 9)
+  expect_equal(res$.id, 1L:4L)
 })

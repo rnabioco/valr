@@ -33,7 +33,6 @@
 #'
 #' @export
 bed_random <- function(genome, length = 1000, n = 1e6, seed = 0, sorted = TRUE) {
-
   check_required(genome)
 
   genome <- check_genome(genome)

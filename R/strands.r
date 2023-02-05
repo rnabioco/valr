@@ -10,8 +10,8 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~strand,
-#'   'chr1', 1,      100,  '+',
-#'   'chr2', 1,      100,  '-'
+#'   "chr1", 1,      100,  "+",
+#'   "chr2", 1,      100,  "-"
 #' )
 #'
 #' flip_strands(x)
@@ -32,6 +32,6 @@ flip_strands <- function(x) {
   res <- select(res, -strand)
   res <- select(res, everything(), strand = .strand)
 
-  res <- group_by(res, !!! groups_x)
+  res <- group_by(res, !!!groups_x)
   res
 }

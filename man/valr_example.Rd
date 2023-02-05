@@ -13,6 +13,6 @@ valr_example(path)
 Provide working directory for valr example files.
 }
 \examples{
-valr_example('hg19.chrom.sizes.gz')
+valr_example("hg19.chrom.sizes.gz")
 
 }

@@ -20,13 +20,13 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 100,    125
+#'   "chr1", 100,    125
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 25,     50,
-#'   'chr1', 140,    175
+#'   "chr1", 25,     50,
+#'   "chr1", 140,    175
 #' )
 #'
 #' bed_glyph(bed_closest(x, y))
@@ -52,13 +52,13 @@
 #' # Report distance based on strand
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-#'   "chr1", 10,	   20,   "a",   1,      "-"
+#'   "chr1", 10, 20, "a", 1, "-"
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-#'   "chr1", 8,	     9,	   "b",   1,      "+",
-#'   "chr1", 21,	   22,	 "b",   1,      "-"
+#'   "chr1", 8, 9, "b", 1, "+",
+#'   "chr1", 21, 22, "b", 1, "-"
 #' )
 #'
 #' res <- bed_closest(x, y)
@@ -94,18 +94,20 @@ bed_closest <- function(x, y, overlap = TRUE,
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!! groups_vars)
-  y <- group_by(y, !!! groups_vars)
+  x <- group_by(x, !!!groups_vars)
+  y <- group_by(y, !!!groups_vars)
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
   grp_indexes <- shared_group_indexes(x, y)
 
-  res <- closest_impl(x, y,
-                      grp_indexes$x,
-                      grp_indexes$y,
-                      suffix$x,
-                      suffix$y)
+  res <- closest_impl(
+    x, y,
+    grp_indexes$x,
+    grp_indexes$y,
+    suffix$x,
+    suffix$y
+  )
 
   if (!overlap) {
     res <- filter(res, .overlap < 1)

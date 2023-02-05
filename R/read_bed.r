@@ -18,17 +18,16 @@
 #'
 #' @examples
 #' # read_bed assumes 3 field BED format.
-#' read_bed(valr_example('3fields.bed.gz'))
+#' read_bed(valr_example("3fields.bed.gz"))
 #'
-#' read_bed(valr_example('6fields.bed.gz'), n_fields = 6)
+#' read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
 #'
 #' # result is sorted by chrom and start unless `sort = FALSE`
-#' read_bed(valr_example('3fields.bed.gz'), sort = FALSE)
+#' read_bed(valr_example("3fields.bed.gz"), sort = FALSE)
 #'
 #' @export
 read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
                      sort = TRUE, ...) {
-
   check_required(filename)
 
   coltypes <- col_types[1:n_fields]
@@ -51,7 +50,7 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 #'
 #' @examples
 #'
-#' read_bed12(valr_example('mm9.refGene.bed.gz'))
+#' read_bed12(valr_example("mm9.refGene.bed.gz"))
 #'
 #' @export
 read_bed12 <- function(filename, ...) {
@@ -66,7 +65,7 @@ read_bed12 <- function(filename, ...) {
 #'
 #' @examples
 #'
-#' read_bedgraph(valr_example('test.bg.gz'))
+#' read_bedgraph(valr_example("test.bg.gz"))
 #'
 #' @export
 read_bedgraph <- function(filename, ...) {
@@ -84,7 +83,7 @@ read_bedgraph <- function(filename, ...) {
 #'
 #' @examples
 #'
-#' read_narrowpeak(valr_example('sample.narrowPeak.gz'))
+#' read_narrowpeak(valr_example("sample.narrowPeak.gz"))
 #'
 #' @export
 read_narrowpeak <- function(filename, ...) {
@@ -104,7 +103,7 @@ read_narrowpeak <- function(filename, ...) {
 #'
 #' @examples
 #'
-#' read_broadpeak(valr_example('sample.broadPeak.gz'))
+#' read_broadpeak(valr_example("sample.broadPeak.gz"))
 #'
 #' @export
 read_broadpeak <- function(filename, ...) {
@@ -159,7 +158,7 @@ bed12_coltypes <- list(
 #' @examples
 #' \dontrun{
 #' if (.Platform$OS.type != "windows") {
-#'   bw <- read_bigwig(valr_example('hg19.dnase1.bw'))
+#'   bw <- read_bigwig(valr_example("hg19.dnase1.bw"))
 #'   head(bw)
 #' }
 #' }
@@ -171,9 +170,10 @@ read_bigwig <- function(path, set_strand = "+") {
   res <- rtracklayer::import(path)
   res <- dplyr::as_tibble(res)
   res <- dplyr::mutate(res,
-                       chrom = as.character(seqnames),
-                       start = start - 1L,
-                       strand = set_strand)
+    chrom = as.character(seqnames),
+    start = start - 1L,
+    strand = set_strand
+  )
   dplyr::select(res, chrom, start, end, score, strand)
 }
 
@@ -188,18 +188,18 @@ read_bigwig <- function(path, set_strand = "+") {
 #'
 #' @examples
 #'
-#' gtf <- read_gtf(valr_example('hg19.gencode.gtf.gz'))
+#' gtf <- read_gtf(valr_example("hg19.gencode.gtf.gz"))
 #' head(gtf)
 #'
 #' @importFrom rtracklayer import
 #' @export
-read_gtf <- function(path, zero_based = TRUE){
+read_gtf <- function(path, zero_based = TRUE) {
   gtf <- rtracklayer::import(path)
   gtf <- as.data.frame(gtf)
   gtf <- dplyr::mutate_if(gtf, is.factor, as.character)
   res <- dplyr::rename(gtf, chrom = seqnames)
 
-  if(zero_based) {
+  if (zero_based) {
     res <- dplyr::mutate(res, start = start - 1L)
   }
 

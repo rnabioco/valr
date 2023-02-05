@@ -26,13 +26,13 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 25,      50,
-#'   'chr1', 100,     125
+#'   "chr1", 25, 50,
+#'   "chr1", 100, 125
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 30,     75
+#'   "chr1", 30,     75
 #' )
 #'
 #' bed_glyph(bed_intersect(x, y))
@@ -41,18 +41,18 @@
 #'
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 100,    500,
-#'   'chr2', 200,    400,
-#'   'chr2', 300,    500,
-#'   'chr2', 800,    900
+#'   "chr1", 100,    500,
+#'   "chr2", 200,    400,
+#'   "chr2", 300,    500,
+#'   "chr2", 800,    900
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
-#'   'chr1', 150,    400,  100,
-#'   'chr1', 500,    550,  100,
-#'   'chr2', 230,    430,  200,
-#'   'chr2', 350,    430,  300
+#'   "chr1", 150,    400,  100,
+#'   "chr1", 500,    550,  100,
+#'   "chr2", 230,    430,  200,
+#'   "chr2", 350,    430,  300
 #' )
 #'
 #' bed_intersect(x, y)
@@ -61,15 +61,17 @@
 #'
 #' # start and end of each overlapping interval
 #' res <- bed_intersect(x, y)
-#' dplyr::mutate(res, start = pmax(start.x, start.y),
-#'                    end = pmin(end.x, end.y))
+#' dplyr::mutate(res,
+#'   start = pmax(start.x, start.y),
+#'   end = pmin(end.x, end.y)
+#' )
 #'
 #' z <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
-#'   'chr1', 150,    400,  100,
-#'   'chr1', 500,    550,  100,
-#'   'chr2', 230,    430,  200,
-#'   'chr2', 750,    900,  400
+#'   "chr1", 150,    400,  100,
+#'   "chr1", 500,    550,  100,
+#'   "chr2", 230,    430,  200,
+#'   "chr2", 750,    900,  400
 #' )
 #'
 #' bed_intersect(x, y, z)
@@ -86,7 +88,6 @@
 #'
 #' @export
 bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
-
   check_required(x)
 
   if (dots_n(...) == 0) {
@@ -101,7 +102,7 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
     # bind_rows preserves grouping
     y <- bind_rows(y_tbl, .id = ".source")
     select_vars <- list(quo(-one_of(".source")), quo(everything()), ".source")
-    y <- select(y, !!! select_vars)
+    y <- select(y, !!!select_vars)
   } else {
     # only one tbl supplied, so extract out single tbl from list
     y <- y_tbl[[1]]
@@ -121,19 +122,21 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!! groups_vars)
-  y <- group_by(y, !!! groups_vars)
+  x <- group_by(x, !!!groups_vars)
+  y <- group_by(y, !!!groups_vars)
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
   grp_indexes <- shared_group_indexes(x, y)
 
-  res <- intersect_impl(x, y,
-                        grp_indexes$x,
-                        grp_indexes$y,
-                        invert,
-                        suffix$x,
-                        suffix$y)
+  res <- intersect_impl(
+    x, y,
+    grp_indexes$x,
+    grp_indexes$y,
+    invert,
+    suffix$x,
+    suffix$y
+  )
 
   if (invert) {
     res <- filter(res, is.na(.overlap))
@@ -159,12 +162,12 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
 }
 
 # handle objects passed to ... in bed_intersect
-parse_dots <- function(...){
+parse_dots <- function(...) {
   # determine if list supplied to ... or series of variables
   n_inputs <- ...length()
   res <- list(...)
-  if( typeof(substitute(...)) == "symbol"){
-    if(length(res) == 1 & inherits(res[[1]], 'list')){
+  if (typeof(substitute(...)) == "symbol") {
+    if (length(res) == 1 & inherits(res[[1]], "list")) {
       # list was passed to ...
       res <- res[[1]]
     } else if (n_inputs > 1 & is.null(names(res))) {
@@ -182,7 +185,7 @@ parse_dots <- function(...){
       dots <- eval(substitute(alist(...)))[[1]]
       # extract out variables from language object list(a, b, c)
       dots <- as.character(dots)
-      if(dots[1] == "list"){
+      if (dots[1] == "list") {
         dots <- dots[2:length(dots)]
         names(res) <- as.character(dots)
       }

@@ -24,11 +24,12 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value, ~strand,
-#'  'chr1', 100,    500,  10, "+",
-#'  'chr1', 200,    400,  20, "-",
-#'  'chr1', 300,    550,  30, "+",
-#'  'chr1', 550,    575,   2, "+",
-#'  'chr1', 800,    900,   5, "+" )
+#'   "chr1", 100, 500, 10, "+",
+#'   "chr1", 200, 400, 20, "-",
+#'   "chr1", 300, 550, 30, "+",
+#'   "chr1", 550, 575, 2, "+",
+#'   "chr1", 800, 900, 5, "+"
+#' )
 #'
 #'
 #' bed_glyph(bed_partition(x))
@@ -46,18 +47,18 @@
 #' # combine values across multiple tibbles
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value, ~strand,
-#'  'chr1', 10,     500,  100, "+",
-#'  'chr1', 250,    420,  200, "-",
-#'  'chr1', 350,    550,  300, "+",
-#'  'chr1', 550,    555,   20, "+",
-#'  'chr1', 800,    900,   50, "+" )
+#'   "chr1", 10, 500, 100, "+",
+#'   "chr1", 250, 420, 200, "-",
+#'   "chr1", 350, 550, 300, "+",
+#'   "chr1", 550, 555, 20, "+",
+#'   "chr1", 800, 900, 50, "+"
+#' )
 #'
 #' x <- dplyr::bind_rows(x, y)
 #' bed_partition(x, value = sum(value))
 #'
 #' @export
 bed_partition <- function(x, ...) {
-
   check_required(x)
   x <- check_interval(x)
 
@@ -65,7 +66,7 @@ bed_partition <- function(x, ...) {
   x <- bed_sort(x)
 
   groups <- rlang::syms(unique(c("chrom", groups_df)))
-  x <- group_by(x, !!! groups)
+  x <- group_by(x, !!!groups)
 
   res <- partition_impl(x)
 
@@ -76,7 +77,7 @@ bed_partition <- function(x, ...) {
 
   # if dots are passed then map values
   if (!is.null(substitute(...))) {
-    res <- group_by(res, !!! syms(groups_df))
+    res <- group_by(res, !!!syms(groups_df))
     res <- bed_map(res, x, ...)
   }
   res

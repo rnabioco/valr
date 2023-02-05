@@ -20,27 +20,27 @@ Used to illustrate the output of valr functions with small examples.
 }
 \examples{
 x <- tibble::tribble(
- ~chrom, ~start, ~end,
- 'chr1', 25,     50,
- 'chr1', 100,    125
+  ~chrom, ~start, ~end,
+  "chr1", 25,     50,
+  "chr1", 100,    125
 )
 
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~value,
-  'chr1', 30,     75,  50
+  "chr1", 30, 75, 50
 )
 
 bed_glyph(bed_intersect(x, y))
 
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1', 30,     75,
-  'chr1', 50,     90,
-  'chr1', 91,     120
+  "chr1", 30,     75,
+  "chr1", 50,     90,
+  "chr1", 91,     120
 )
 
 bed_glyph(bed_merge(x))
 
-bed_glyph(bed_cluster(x), label = '.id')
+bed_glyph(bed_cluster(x), label = ".id")
 
 }

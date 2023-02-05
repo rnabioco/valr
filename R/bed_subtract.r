@@ -15,33 +15,33 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 1,      100
+#'   "chr1", 1,      100
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 50,     75
+#'   "chr1", 50,     75
 #' )
 #'
 #' bed_glyph(bed_subtract(x, y))
 #'
 #' x <- tibble::tribble(
-#'  ~chrom, ~start, ~end,
-#'  'chr1', 100,    200,
-#'  'chr1', 250,    400,
-#'  'chr1', 500,    600,
-#'  'chr1', 1000,   1200,
-#'  'chr1', 1300,   1500
+#'   ~chrom, ~start, ~end,
+#'   "chr1", 100,    200,
+#'   "chr1", 250,    400,
+#'   "chr1", 500,    600,
+#'   "chr1", 1000,   1200,
+#'   "chr1", 1300,   1500
 #' )
 #'
 #' y <- tibble::tribble(
-#'  ~chrom, ~start, ~end,
-#'  'chr1', 150,    175,
-#'  'chr1', 510,    525,
-#'  'chr1', 550,    575,
-#'  'chr1', 900,    1050,
-#'  'chr1', 1150,   1250,
-#'  'chr1', 1299,   1501
+#'   ~chrom, ~start, ~end,
+#'   "chr1", 150,    175,
+#'   "chr1", 510,    525,
+#'   "chr1", 550,    575,
+#'   "chr1", 900,    1050,
+#'   "chr1", 1150,   1250,
+#'   "chr1", 1299,   1501
 #' )
 #'
 #' bed_subtract(x, y)
@@ -65,8 +65,8 @@ bed_subtract <- function(x, y, any = FALSE) {
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!! groups_vars)
-  y <- group_by(y, !!! groups_vars)
+  x <- group_by(x, !!!groups_vars)
+  y <- group_by(y, !!!groups_vars)
 
   # find groups not in y
   not_y_grps <- setdiff(get_labels(x), get_labels(y))
@@ -78,18 +78,21 @@ bed_subtract <- function(x, y, any = FALSE) {
   if (any) {
     # collect and return x intervals without overlaps
     res <- intersect_impl(x, y,
-                          grp_indexes$x,
-                          grp_indexes$y,
-                          invert = TRUE)
+      grp_indexes$x,
+      grp_indexes$y,
+      invert = TRUE
+    )
     anti <- filter(res, is.na(.overlap))
     anti <- select(anti, chrom, start = start.x, end = end.x)
 
     return(anti)
   }
 
-  res <- subtract_impl(x, y,
-                       grp_indexes$x,
-                       grp_indexes$y)
+  res <- subtract_impl(
+    x, y,
+    grp_indexes$x,
+    grp_indexes$y
+  )
   res <- ungroup(res)
   res <- bind_rows(res, res_no_y)
   res <- bed_sort(res)

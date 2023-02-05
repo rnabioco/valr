@@ -14,11 +14,11 @@
 #' @family read functions
 #'
 #' @examples
-#' read_genome(valr_example('hg19.chrom.sizes.gz'))
+#' read_genome(valr_example("hg19.chrom.sizes.gz"))
 #'
 #' \dontrun{
 #' # `read_genome` accepts a URL
-#' read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+#' read_genome("https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes")
 #' }
 #'
 #' @export
@@ -45,13 +45,13 @@ read_genome <- function(path) {
 #'
 #' @examples
 #' x <- tibble::tribble(
-#'  ~chrom, ~start, ~end,
-#'  "chr1", -100,   500,
-#'  "chr1", 100,    1e9,
-#'  "chr1", 500,    1000
+#'   ~chrom, ~start, ~end,
+#'   "chr1", -100,   500,
+#'   "chr1", 100,    1e9,
+#'   "chr1", 500,    1000
 #' )
 #'
-#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+#' genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 #'
 #' # out-of-bounds are removed by default ...
 #' bound_intervals(x, genome)

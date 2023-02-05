@@ -23,7 +23,7 @@
 #' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/reldist.html}
 #'
 #' @examples
-#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+#' genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 #'
 #' x <- bed_random(genome, seed = 1010486)
 #' y <- bed_random(genome, seed = 9203911)
@@ -34,7 +34,6 @@
 #'
 #' @export
 bed_reldist <- function(x, y, detail = FALSE) {
-
   check_required(x)
   check_required(y)
 
@@ -50,17 +49,20 @@ bed_reldist <- function(x, y, detail = FALSE) {
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!! groups_vars)
-  y <- group_by(y, !!! groups_vars)
+  x <- group_by(x, !!!groups_vars)
+  y <- group_by(y, !!!groups_vars)
 
   grp_indexes <- shared_group_indexes(x, y)
 
   res <- dist_impl(x, y,
-                   grp_indexes$x,
-                   grp_indexes$y,
-                   distcalc = "reldist")
+    grp_indexes$x,
+    grp_indexes$y,
+    distcalc = "reldist"
+  )
 
-  if (detail) return(res)
+  if (detail) {
+    return(res)
+  }
 
   res[[".reldist"]] <- floor(res[[".reldist"]] * 100) / 100
   nr <- nrow(res)

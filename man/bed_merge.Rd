@@ -31,22 +31,22 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 \examples{
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1',  1,      50,
-  'chr1',  10,     75,
-  'chr1',  100,    120
+  "chr1", 1, 50,
+  "chr1", 10, 75,
+  "chr1", 100, 120
 )
 
 bed_glyph(bed_merge(x))
 
 x <- tibble::tribble(
- ~chrom, ~start, ~end, ~value, ~strand,
- "chr1", 1,      50,   1,      '+',
- "chr1", 100,    200,  2,      '+',
- "chr1", 150,    250,  3,      '-',
- "chr2", 1,      25,   4,      '+',
- "chr2", 200,    400,  5,      '-',
- "chr2", 400,    500,  6,      '+',
- "chr2", 450,    550,  7,      '+'
+  ~chrom, ~start, ~end, ~value, ~strand,
+  "chr1", 1,      50,   1,      "+",
+  "chr1", 100,    200,  2,      "+",
+  "chr1", 150,    250,  3,      "-",
+  "chr2", 1,      25,   4,      "+",
+  "chr2", 200,    400,  5,      "-",
+  "chr2", 400,    500,  6,      "+",
+  "chr2", 450,    550,  7,      "+"
 )
 
 bed_merge(x)

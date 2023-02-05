@@ -11,29 +11,29 @@
 #' @family multiple set operations
 #' @examples
 #' x <- tibble::tribble(
-#'  ~chrom, ~start, ~end,
-#'  'chr1', 25,     50,
-#'  'chr1', 100,    125
+#'   ~chrom, ~start, ~end,
+#'   "chr1", 25,     50,
+#'   "chr1", 100,    125
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 60,     75
+#'   "chr1", 60,     75
 #' )
 #'
 #' genome <- tibble::tribble(
 #'   ~chrom, ~size,
-#'   'chr1', 125
+#'   "chr1", 125
 #' )
 #'
 #' bed_glyph(bed_window(x, y, genome, both = 15))
 #'
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   "chr1", 10,    100,
-#'   "chr2", 200,    400,
-#'   "chr2", 300,    500,
-#'   "chr2", 800,    900
+#'   "chr1", 10, 100,
+#'   "chr2", 200, 400,
+#'   "chr2", 300, 500,
+#'   "chr2", 800, 900
 #' )
 #'
 #' y <- tibble::tribble(
@@ -55,7 +55,6 @@
 #'
 #' @export
 bed_window <- function(x, y, genome, ...) {
-
   check_required(x)
   check_required(y)
   check_required(genome)

@@ -18,7 +18,7 @@ on content in GTF/GFF file.
 }
 \examples{
 
-gtf <- read_gtf(valr_example('hg19.gencode.gtf.gz'))
+gtf <- read_gtf(valr_example("hg19.gencode.gtf.gz"))
 head(gtf)
 
 }

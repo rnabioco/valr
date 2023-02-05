@@ -36,7 +36,7 @@ statistics for subsets of data. See \code{vignette('interval-stats')} for
 examples.
 }
 \examples{
-genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 
 x <- bed_random(genome, seed = 1010486)
 y <- bed_random(genome, seed = 9203911)

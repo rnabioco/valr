@@ -4,10 +4,11 @@ output: github_document
 
 ```{r, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(
-  fig.align = 'center',
+  fig.align = "center",
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-")
+  fig.path = "man/figures/README-"
+)
 ```
 
 # valr <img src="man/figures/logo.png" align="right" />
@@ -42,8 +43,8 @@ Functions in valr have similar names to their BEDtools counterparts, and so will
 library(valr)
 library(dplyr)
 
-snps <- read_bed(valr_example('hg19.snps147.chr22.bed.gz'), n_fields = 6)
-genes <- read_bed(valr_example('genes.hg19.chr22.bed.gz'), n_fields = 6)
+snps <- read_bed(valr_example("hg19.snps147.chr22.bed.gz"), n_fields = 6)
+genes <- read_bed(valr_example("genes.hg19.chr22.bed.gz"), n_fields = 6)
 
 # find snps in intergenic regions
 intergenic <- bed_subtract(snps, genes)
@@ -51,6 +52,6 @@ intergenic <- bed_subtract(snps, genes)
 nearby <- bed_closest(intergenic, genes)
 
 nearby %>%
-  select(starts_with('name'), .overlap, .dist) %>%
+  select(starts_with("name"), .overlap, .dist) %>%
   filter(abs(.dist) < 5000)
 ```

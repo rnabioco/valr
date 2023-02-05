@@ -124,7 +124,7 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
   ex1 <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1",   100L, 200L,    "B",     1L,    0L,  100L,     0L
-    )
+  )
 
   ex2 <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~.ints, ~.cov, ~.len, ~.frac,
@@ -134,7 +134,7 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
   # chr1:100-200 grp B has coverage
   expect_equal(res[1, ], ex1)
   # chr1:200-400 grp A has no coverage
-  expect_equal(res[2, ],  ex2)
+  expect_equal(res[2, ], ex2)
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/coverage/test-coverage.sh
@@ -166,19 +166,19 @@ test_that("all input x intervals are returned, issue #395 ", {
   # x has a chr3 entry not in y
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand,
-    "chr1", 100,    500,  '+',
-    "chr2", 200,    400,  '+',
-    "chr2", 300,    500,  '-',
-    "chr2", 800,    900,  '-',
-    "chr3", 800,    900,  '-'
+    "chr1", 100,    500,  "+",
+    "chr2", 200,    400,  "+",
+    "chr2", 300,    500,  "-",
+    "chr2", 800,    900,  "-",
+    "chr3", 800,    900,  "-"
   )
 
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~strand,
-    "chr1", 150,    400,  100,    '+',
-    "chr1", 500,    550,  100,    '+',
-    "chr2", 230,    430,  200,    '-',
-    "chr2", 350,    430,  300,    '-'
+    "chr1", 150,    400,  100,    "+",
+    "chr1", 500,    550,  100,    "+",
+    "chr2", 230,    430,  200,    "-",
+    "chr2", 350,    430,  300,    "-"
   )
   res <- bed_coverage(x, y)
   expect_equal(nrow(res), nrow(x))

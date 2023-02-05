@@ -22,11 +22,11 @@ computed intervals that have coordinates outside of the genome bounds.
 URLs to genome files can also be used.
 }
 \examples{
-read_genome(valr_example('hg19.chrom.sizes.gz'))
+read_genome(valr_example("hg19.chrom.sizes.gz"))
 
 \dontrun{
 # `read_genome` accepts a URL
-read_genome('https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes')
+read_genome("https://genome.ucsc.edu/goldenpath/help/hg19.chrom.sizes")
 }
 
 }

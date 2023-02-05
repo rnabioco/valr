@@ -36,13 +36,13 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 \examples{
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1', 100,    125
+  "chr1", 100,    125
 )
 
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1', 25,     50,
-  'chr1', 140,    175
+  "chr1", 25,     50,
+  "chr1", 140,    175
 )
 
 bed_glyph(bed_closest(x, y))
@@ -68,13 +68,13 @@ bed_closest(x, y, overlap = FALSE)
 # Report distance based on strand
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 10,	   20,   "a",   1,      "-"
+  "chr1", 10, 20, "a", 1, "-"
 )
 
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 8,	     9,	   "b",   1,      "+",
-  "chr1", 21,	   22,	 "b",   1,      "-"
+  "chr1", 8, 9, "b", 1, "+",
+  "chr1", 21, 22, "b", 1, "-"
 )
 
 res <- bed_closest(x, y)

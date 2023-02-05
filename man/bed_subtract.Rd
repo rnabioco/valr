@@ -26,33 +26,33 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 \examples{
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1', 1,      100
+  "chr1", 1,      100
 )
 
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1', 50,     75
+  "chr1", 50,     75
 )
 
 bed_glyph(bed_subtract(x, y))
 
 x <- tibble::tribble(
- ~chrom, ~start, ~end,
- 'chr1', 100,    200,
- 'chr1', 250,    400,
- 'chr1', 500,    600,
- 'chr1', 1000,   1200,
- 'chr1', 1300,   1500
+  ~chrom, ~start, ~end,
+  "chr1", 100,    200,
+  "chr1", 250,    400,
+  "chr1", 500,    600,
+  "chr1", 1000,   1200,
+  "chr1", 1300,   1500
 )
 
 y <- tibble::tribble(
- ~chrom, ~start, ~end,
- 'chr1', 150,    175,
- 'chr1', 510,    525,
- 'chr1', 550,    575,
- 'chr1', 900,    1050,
- 'chr1', 1150,   1250,
- 'chr1', 1299,   1501
+  ~chrom, ~start, ~end,
+  "chr1", 150,    175,
+  "chr1", 510,    525,
+  "chr1", 550,    575,
+  "chr1", 900,    1050,
+  "chr1", 1150,   1250,
+  "chr1", 1299,   1501
 )
 
 bed_subtract(x, y)
