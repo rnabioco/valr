@@ -38,6 +38,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// closest_impl2
+DataFrame closest_impl2(ValrGroupedDataFrame x, ValrGroupedDataFrame y, IntegerVector grp_idx_x, IntegerVector grp_idx_y, const std::string& suffix_x, const std::string& suffix_y);
+RcppExport SEXP _valr_closest_impl2(SEXP xSEXP, SEXP ySEXP, SEXP grp_idx_xSEXP, SEXP grp_idx_ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type x(xSEXP);
+    Rcpp::traits::input_parameter< ValrGroupedDataFrame >::type y(ySEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type grp_idx_x(grp_idx_xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type grp_idx_y(grp_idx_ySEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type suffix_x(suffix_xSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type suffix_y(suffix_ySEXP);
+    rcpp_result_gen = Rcpp::wrap(closest_impl2(x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y));
+    return rcpp_result_gen;
+END_RCPP
+}
 // complement_impl
 DataFrame complement_impl(ValrGroupedDataFrame gdf, DataFrame genome);
 RcppExport SEXP _valr_complement_impl(SEXP gdfSEXP, SEXP genomeSEXP) {

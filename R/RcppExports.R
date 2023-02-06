@@ -9,6 +9,10 @@ closest_impl <- function(x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y) {
     .Call(`_valr_closest_impl`, x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y)
 }
 
+closest_impl2 <- function(x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y) {
+    .Call(`_valr_closest_impl2`, x, y, grp_idx_x, grp_idx_y, suffix_x, suffix_y)
+}
+
 complement_impl <- function(gdf, genome) {
     .Call(`_valr_complement_impl`, gdf, genome)
 }

@@ -72,45 +72,86 @@
 #' res
 #'
 #' @export
-bed_closest <- function(x, y, overlap = TRUE,
-                        suffix = c(".x", ".y")) {
-  check_required(x)
-  check_required(y)
+bed_closest <- function(x, y,
+                         overlap = TRUE,
+                         suffix = c(".x", ".y")) {
 
-  x <- check_interval(x)
-  y <- check_interval(y)
-
-  check_suffix(suffix)
+  x <- valr:::check_interval(x)
+  y <- valr:::check_interval(y)
 
   x <- bed_sort(x)
   y <- bed_sort(y)
 
+  # id_x <- get_id_col(x)
+  id <- ".id"
+  x[[id]] <- seq_len(nrow(x))
+  x_id_out <- paste0(id, suffix[1])
+
   # establish grouping with shared groups (and chrom)
-  groups_xy <- shared_groups(x, y)
+  groups_xy <- valr:::shared_groups(x, y)
   groups_xy <- unique(as.character(c("chrom", groups_xy)))
   groups_vars <- rlang::syms(groups_xy)
-
-  # type convert grouping factors to characters if necessary and ungroup
-  x <- convert_factors(x, groups_xy)
-  y <- convert_factors(y, groups_xy)
 
   x <- group_by(x, !!! groups_vars)
   y <- group_by(y, !!! groups_vars)
 
+  ol_ivls <- bed_intersect(x, y, suffix = suffix)
+
+  grp_indexes <- valr:::shared_group_indexes(x, y)
+
   suffix <- list(x = suffix[1], y = suffix[2])
 
-  grp_indexes <- shared_group_indexes(x, y)
+  res <- closest_impl2(x,
+                       y,
+                       grp_indexes$x,
+                       grp_indexes$y,
+                       suffix$x,
+                       suffix$y)
 
-  res <- closest_impl(x, y,
-                      grp_indexes$x,
-                      grp_indexes$y,
-                      suffix$x,
-                      suffix$y)
+  res$.dist <- calc_dist(res, suffix)
+  res$.overlap <- 0
 
-  if (!overlap) {
-    res <- filter(res, .overlap < 1)
-    res <- select(res, -.overlap)
+  ol_ivls$.dist <- 0
+  res <- res[colnames(ol_ivls)]
+  res <- bind_rows(ol_ivls, res)
+
+  # get x ivls from groups not found in y
+  x <- add_colname_suffix(x, suffix$x)
+  mi <- get_no_group_ivls(x, res, x_id_out)
+  res <- bind_rows(res, mi)
+
+  if(!overlap) {
+    res <- res[which(res$.overlap <= 0), ]
+    res[[".overlap"]] <- NULL
   }
-
+  # reorder by index
+  res <- res[order(res[[x_id_out]]), ]
+  res[[x_id_out]] <- NULL
   res
+}
+
+
+calc_dist <- function(x, suffix){
+  xs <- x[[paste0("start", suffix$x)]]
+  xe <- x[[paste0("end", suffix$x)]]
+
+  ys <- x[[paste0("start", suffix$y)]]
+  ye <- x[[paste0("end", suffix$y)]]
+  max_start <- pmax.int(xs, ys)
+  min_end <- pmin.int(xe, ye)
+  x <- pmax.int(max_start - min_end, 0)
+  x[ye <= xs] <- -x[ye <= xs]
+  x
+}
+
+add_colname_suffix <- function(x, s){
+  cidx <- which(names(x) != "chrom")
+  new_ids <- str_c(colnames(x), s)
+  colnames(x)[cidx] <- new_ids[cidx]
+  x
+}
+get_no_group_ivls <- function(x, y, cid) {
+  x <- ungroup(x)
+  mi <- x[!x[[cid]] %in% y[[cid]], ]
+  mi
 }
