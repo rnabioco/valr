@@ -12,9 +12,9 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 1,      100,
-#'   'chr1', 150,    200,
-#'   'chr2', 200,    300
+#'   "chr1", 1,      100,
+#'   "chr1", 150,    200,
+#'   "chr2", 200,    300
 #' )
 #'
 #' interval_spacing(x)
@@ -30,7 +30,7 @@ interval_spacing <- function(x) {
   res <- group_by(res, chrom)
   res <- mutate(res, .spacing = start - lag(end))
 
-  res <- group_by(res, !!! gx)
+  res <- group_by(res, !!!gx)
 
   res
 }

@@ -19,26 +19,26 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',      25,      50,
-#'   'chr1',      100,     125
+#'   "chr1", 25, 50,
+#'   "chr1", 100, 125
 #' )
 #'
 #' genome <- tibble::tribble(
 #'   ~chrom, ~size,
-#'   'chr1', 130
+#'   "chr1", 130
 #' )
 #'
 #' bed_glyph(bed_flank(x, genome, both = 20))
 #'
 #' x <- tibble::tribble(
-#'  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-#'  'chr1', 500,    1000, '.',   '.',    '+',
-#'  'chr1', 1000,   1500, '.',   '.',    '-'
+#'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
+#'   "chr1", 500,    1000, ".",   ".",    "+",
+#'   "chr1", 1000,   1500, ".",   ".",    "-"
 #' )
 #'
 #' genome <- tibble::tribble(
 #'   ~chrom, ~size,
-#'   'chr1', 5000
+#'   "chr1", 5000
 #' )
 #'
 #' bed_flank(x, genome, left = 100)
@@ -54,7 +54,6 @@
 bed_flank <- function(x, genome, both = 0, left = 0,
                       right = 0, fraction = FALSE,
                       strand = FALSE, trim = FALSE, ...) {
-
   check_required(x)
   check_required(genome)
 

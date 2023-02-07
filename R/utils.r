@@ -3,7 +3,7 @@
 #' @param path path to file
 #'
 #' @examples
-#' valr_example('hg19.chrom.sizes.gz')
+#' valr_example("hg19.chrom.sizes.gz")
 #'
 #' @export
 valr_example <- function(path) {
@@ -113,10 +113,9 @@ get_labels <- function(grp_tbl) {
 #' @param group_cols group columns to type convert if factors
 #' @return ungrouped dataframe
 #' @noRd
-convert_factors <- function(x, group_cols){
-
+convert_factors <- function(x, group_cols) {
   contains_factor <- sapply(x[, group_cols], is.factor)
-  if (any(contains_factor)){
+  if (any(contains_factor)) {
     fcts <- group_cols[contains_factor]
     cli::cli_warn("Factors are not allowed for grouping. {.vars {fcts}} will be treated as characters")
 
@@ -136,7 +135,7 @@ convert_factors <- function(x, group_cols){
 #' @param y grouped data.frame
 #' @return named list with integer vector of indexes of groups shared between data.frames
 #' @noRd
-shared_group_indexes <- function(x, y){
+shared_group_indexes <- function(x, y) {
   x <- get_group_data(x)
   y <- get_group_data(y)
   shared_rows(x, y)
@@ -151,7 +150,7 @@ shared_group_indexes <- function(x, y){
 #' @param y data.frame
 #' @return named list with integer vector of indexes shared between data.frames
 #' @noRd
-shared_rows <- function(x, y){
+shared_rows <- function(x, y) {
   # based on plyr::match_df
   shared_cols <- intersect(colnames(x), colnames(y))
   combined_df <- bind_rows(x[shared_cols], y[shared_cols])
@@ -159,20 +158,33 @@ shared_rows <- function(x, y){
   keys <- id(combined_df, drop = TRUE)
   n_x <- nrow(x)
   n_y <- nrow(y)
-  keys <- list(x = keys[seq_len(n_x)],
-               y = keys[n_x + seq_len(n_y)],
-               n = attr(keys, "n"))
+  keys <- list(
+    x = keys[seq_len(n_x)],
+    y = keys[n_x + seq_len(n_y)],
+    n = attr(keys, "n")
+  )
   x_indexes <- which(keys$x %in% keys$y)
   y_indexes <- which(keys$y %in% keys$x)
-  list(x = x_indexes,
-       y = y_indexes)
+  list(
+    x = x_indexes,
+    y = y_indexes
+  )
 }
 
 #' Get data.frame from groups attribute without .rows column
 #' @param x data.frame
 #' @return data.frame without the .rows column
 #' @noRd
-get_group_data <- function(df){
+get_group_data <- function(df) {
   grps <- attr(df, "groups")
   grps[, -ncol(grps)]
+}
+
+#' Get a unique column id
+#' @param x data.frame
+#' @param col desired column name
+#' @return unique column name
+#' @noRd
+get_id_col <- function(df, col = ".id") {
+  make.unique(c(colnames(df), col))[ncol(df) + 1]
 }

@@ -30,7 +30,7 @@
 #' \url{https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #'
 #' @examples
-#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+#' genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 #'
 #' x <- bed_random(genome, seed = 1010486)
 #' y <- bed_random(genome, seed = 9203911)
@@ -39,7 +39,6 @@
 #'
 #' @export
 bed_absdist <- function(x, y, genome) {
-
   check_required(x)
   check_required(y)
   check_required(genome)
@@ -57,14 +56,15 @@ bed_absdist <- function(x, y, genome) {
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!! groups_vars)
-  y <- group_by(y, !!! groups_vars)
+  x <- group_by(x, !!!groups_vars)
+  y <- group_by(y, !!!groups_vars)
 
 
   grp_indexes <- shared_group_indexes(x, y)
   res <- dist_impl(x, y,
-                   grp_indexes$x, grp_indexes$y,
-                   distcalc = "absdist")
+    grp_indexes$x, grp_indexes$y,
+    distcalc = "absdist"
+  )
 
   # convert groups_xy to character vector
   if (!is.null(groups_xy)) {

@@ -20,13 +20,13 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 100,    125
+#'   "chr1", 100,    125
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 25,     50,
-#'   'chr1', 140,    175
+#'   "chr1", 25,     50,
+#'   "chr1", 140,    175
 #' )
 #'
 #' bed_glyph(bed_closest(x, y))
@@ -52,13 +52,13 @@
 #' # Report distance based on strand
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-#'   "chr1", 10,	   20,   "a",   1,      "-"
+#'   "chr1", 10, 20, "a", 1, "-"
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-#'   "chr1", 8,	     9,	   "b",   1,      "+",
-#'   "chr1", 21,	   22,	 "b",   1,      "-"
+#'   "chr1", 8, 9, "b", 1, "+",
+#'   "chr1", 21, 22, "b", 1, "-"
 #' )
 #'
 #' res <- bed_closest(x, y)
@@ -73,17 +73,15 @@
 #'
 #' @export
 bed_closest <- function(x, y,
-                         overlap = TRUE,
-                         suffix = c(".x", ".y")) {
-
+                        overlap = TRUE,
+                        suffix = c(".x", ".y")) {
   x <- valr:::check_interval(x)
   y <- valr:::check_interval(y)
 
   x <- bed_sort(x)
   y <- bed_sort(y)
 
-  # id_x <- get_id_col(x)
-  id <- ".id"
+  id <- get_id_col(x)
   x[[id]] <- seq_len(nrow(x))
   x_id_out <- paste0(id, suffix[1])
 
@@ -92,8 +90,12 @@ bed_closest <- function(x, y,
   groups_xy <- unique(as.character(c("chrom", groups_xy)))
   groups_vars <- rlang::syms(groups_xy)
 
-  x <- group_by(x, !!! groups_vars)
-  y <- group_by(y, !!! groups_vars)
+  # type convert grouping factors to characters if necessary and ungroup
+  x <- convert_factors(x, groups_xy)
+  y <- convert_factors(y, groups_xy)
+
+  x <- group_by(x, !!!groups_vars)
+  y <- group_by(y, !!!groups_vars)
 
   ol_ivls <- bed_intersect(x, y, suffix = suffix)
 
@@ -101,17 +103,18 @@ bed_closest <- function(x, y,
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
-  res <- closest_impl2(x,
-                       y,
-                       grp_indexes$x,
-                       grp_indexes$y,
-                       suffix$x,
-                       suffix$y)
+  res <- closest_impl(
+    x,
+    y,
+    grp_indexes$x,
+    grp_indexes$y,
+    suffix$x,
+    suffix$y
+  )
 
-  res$.dist <- calc_dist(res, suffix)
   res$.overlap <- 0
-
   ol_ivls$.dist <- 0
+
   res <- res[colnames(ol_ivls)]
   res <- bind_rows(ol_ivls, res)
 
@@ -120,7 +123,7 @@ bed_closest <- function(x, y,
   mi <- get_no_group_ivls(x, res, x_id_out)
   res <- bind_rows(res, mi)
 
-  if(!overlap) {
+  if (!overlap) {
     res <- res[which(res$.overlap <= 0), ]
     res[[".overlap"]] <- NULL
   }
@@ -131,7 +134,7 @@ bed_closest <- function(x, y,
 }
 
 
-calc_dist <- function(x, suffix){
+calc_dist <- function(x, suffix) {
   xs <- x[[paste0("start", suffix$x)]]
   xe <- x[[paste0("end", suffix$x)]]
 
@@ -144,7 +147,7 @@ calc_dist <- function(x, suffix){
   x
 }
 
-add_colname_suffix <- function(x, s){
+add_colname_suffix <- function(x, s) {
   cidx <- which(names(x) != "chrom")
   new_ids <- str_c(colnames(x), s)
   colnames(x)[cidx] <- new_ids[cidx]

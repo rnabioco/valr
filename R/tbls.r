@@ -24,18 +24,19 @@ NULL
 #' # using tibble
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',  1,     50,
-#'   'chr1',  10,    75,
-#'   'chr1',  100,   120
+#'   "chr1", 1, 50,
+#'   "chr1", 10, 75,
+#'   "chr1", 100, 120
 #' )
 #'
 #' check_interval(x)
 #'
 #' # using base R data.frame
-#' x <- data.frame(chrom = "chr1",
-#'            start = 0,
-#'            end = 100,
-#'            stringsAsFactors = FALSE
+#' x <- data.frame(
+#'   chrom = "chr1",
+#'   start = 0,
+#'   end = 100,
+#'   stringsAsFactors = FALSE
 #' )
 #'
 #' check_interval(x)
@@ -45,7 +46,7 @@ check_interval <- function(x) {
   expect_names <- c("chrom", "start", "end")
   check_names(x, expect_names)
 
-  if(!tibble::is_tibble(x)){
+  if (!tibble::is_tibble(x)) {
     x <- tibble::as_tibble(x)
   }
   x
@@ -66,14 +67,13 @@ check_interval <- function(x) {
 #'
 #' x <- tibble::tribble(
 #'   ~chrom, ~size,
-#'   'chr1', 1e6
+#'   "chr1", 1e6
 #' )
 #'
 #' check_genome(x)
 #'
 #' @export
 check_genome <- function(x) {
-
   expect_names <- c("chrom", "size")
   check_names(x, expect_names)
 
@@ -87,7 +87,7 @@ check_genome <- function(x) {
     )
   }
 
-  if(!tibble::is_tibble(x)){
+  if (!tibble::is_tibble(x)) {
     x <- tibble::as_tibble(x)
   }
 
@@ -114,33 +114,36 @@ check_names <- function(x, expected) {
 #' @examples
 #' \dontrun{
 #' gr <- GenomicRanges::GRanges(
-#'         seqnames = S4Vectors::Rle(
-#'                      c("chr1", "chr2", "chr1", "chr3"),
-#'                      c(1, 1, 1, 1)),
-#'         ranges   = IRanges::IRanges(
-#'                      start = c(1, 10, 50, 100),
-#'                      end = c(100, 500, 1000, 2000),
-#'                      names = head(letters, 4)),
-#'         strand   = S4Vectors::Rle(
-#'                      c("-", "+"), c(2, 2))
-#'       )
+#'   seqnames = S4Vectors::Rle(
+#'     c("chr1", "chr2", "chr1", "chr3"),
+#'     c(1, 1, 1, 1)
+#'   ),
+#'   ranges = IRanges::IRanges(
+#'     start = c(1, 10, 50, 100),
+#'     end = c(100, 500, 1000, 2000),
+#'     names = head(letters, 4)
+#'   ),
+#'   strand = S4Vectors::Rle(
+#'     c("-", "+"), c(2, 2)
+#'   )
+#' )
 #'
 #' gr_to_bed(gr)
 #'
 #' # There are two ways to convert a bed-like data.frame to GRanges:
 #'
 #' gr <- GenomicRanges::GRanges(
-#'         seqnames = S4Vectors::Rle(x$chrom),
-#'         ranges   = IRanges::IRanges(
-#'                      start = x$start + 1,
-#'                      end = x$end,
-#'                      names = x$name),
-#'         strand   = S4Vectors::Rle(x$strand)
-#'         )
+#'   seqnames = S4Vectors::Rle(x$chrom),
+#'   ranges = IRanges::IRanges(
+#'     start = x$start + 1,
+#'     end = x$end,
+#'     names = x$name
+#'   ),
+#'   strand = S4Vectors::Rle(x$strand)
+#' )
 #' # or:
 #'
-#' gr <- GenomicRanges::makeGRangesFromDataFrame(dplyr::mutate(x, start = start +1))
-#'
+#' gr <- GenomicRanges::makeGRangesFromDataFrame(dplyr::mutate(x, start = start + 1))
 #' }
 #'
 #' @export
@@ -158,4 +161,3 @@ gr_to_bed <- function(x) {
   res <- mutate(res, strand = ifelse(strand == "*", ".", strand))
   res
 }
-

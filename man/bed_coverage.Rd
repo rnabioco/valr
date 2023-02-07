@@ -38,18 +38,18 @@ Book-ended intervals are included in coverage calculations.
 \examples{
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
-  "chr1", 100,    500,  '+',
-  "chr2", 200,    400,  '+',
-  "chr2", 300,    500,  '-',
-  "chr2", 800,    900,  '-'
+  "chr1", 100,    500,  "+",
+  "chr2", 200,    400,  "+",
+  "chr2", 300,    500,  "-",
+  "chr2", 800,    900,  "-"
 )
 
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~value, ~strand,
-  "chr1", 150,    400,  100,    '+',
-  "chr1", 500,    550,  100,    '+',
-  "chr2", 230,    430,  200,    '-',
-  "chr2", 350,    430,  300,    '-'
+  "chr1", 150,    400,  100,    "+",
+  "chr1", 500,    550,  100,    "+",
+  "chr2", 230,    430,  200,    "-",
+  "chr2", 350,    430,  300,    "-"
 )
 
 bed_coverage(x, y)

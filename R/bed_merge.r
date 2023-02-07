@@ -20,22 +20,22 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1',  1,      50,
-#'   'chr1',  10,     75,
-#'   'chr1',  100,    120
+#'   "chr1", 1, 50,
+#'   "chr1", 10, 75,
+#'   "chr1", 100, 120
 #' )
 #'
 #' bed_glyph(bed_merge(x))
 #'
 #' x <- tibble::tribble(
-#'  ~chrom, ~start, ~end, ~value, ~strand,
-#'  "chr1", 1,      50,   1,      '+',
-#'  "chr1", 100,    200,  2,      '+',
-#'  "chr1", 150,    250,  3,      '-',
-#'  "chr2", 1,      25,   4,      '+',
-#'  "chr2", 200,    400,  5,      '-',
-#'  "chr2", 400,    500,  6,      '+',
-#'  "chr2", 450,    550,  7,      '+'
+#'   ~chrom, ~start, ~end, ~value, ~strand,
+#'   "chr1", 1,      50,   1,      "+",
+#'   "chr1", 100,    200,  2,      "+",
+#'   "chr1", 150,    250,  3,      "-",
+#'   "chr2", 1,      25,   4,      "+",
+#'   "chr2", 200,    400,  5,      "-",
+#'   "chr2", 400,    500,  6,      "+",
+#'   "chr2", 450,    550,  7,      "+"
 #' )
 #'
 #' bed_merge(x)
@@ -49,7 +49,6 @@
 #'
 #' @export
 bed_merge <- function(x, max_dist = 0, ...) {
-
   check_required(x)
 
   x <- check_interval(x)
@@ -63,15 +62,15 @@ bed_merge <- function(x, max_dist = 0, ...) {
   res <- bed_sort(x)
 
   group_vars <- rlang::syms(unique(c("chrom", groups_x)))
-  res <- group_by(res, !!! group_vars)
+  res <- group_by(res, !!!group_vars)
 
   # if no dots are passed then use fast internal merge
   if (!is.null(substitute(...))) {
     res <- merge_impl(res, max_dist, collapse = FALSE)
     group_vars <- rlang::syms(unique(c("chrom", ".id_merge", groups_x)))
-    res <- group_by(res, !!! group_vars)
+    res <- group_by(res, !!!group_vars)
 
-    res <- summarize(res, !!! rlang::quos(
+    res <- summarize(res, !!!rlang::quos(
       .start = min(start),
       .end = max(end),
       ...
@@ -79,15 +78,15 @@ bed_merge <- function(x, max_dist = 0, ...) {
     res <- select(res, everything(), start = .start, end = .end)
 
     res <- ungroup(res)
-    res <- select(res, !! quo(-one_of(".id_merge")))
+    res <- select(res, !!quo(-one_of(".id_merge")))
   } else {
     res <- merge_impl(res, max_dist, collapse = TRUE)
-    res <- select(res, !!! rlang::syms(c("chrom", "start", "end", groups_x)))
+    res <- select(res, !!!rlang::syms(c("chrom", "start", "end", groups_x)))
   }
   res <- ungroup(res)
   # restore original grouping
-  if(!is.null(groups_x)){
-    res <- group_by(res, !!! rlang::syms(groups_x))
+  if (!is.null(groups_x)) {
+    res <- group_by(res, !!!rlang::syms(groups_x))
   }
 
   res <- reorder_names(res, x)

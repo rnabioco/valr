@@ -33,7 +33,7 @@
 #'   \url{https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html}
 #'
 #' @examples
-#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+#' genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 #'
 #' x <- bed_random(genome, seed = 1010486)
 #' y <- bed_random(genome, seed = 9203911)
@@ -41,12 +41,13 @@
 #' bed_jaccard(x, y)
 #'
 #' # calculate jaccard per chromosome
-#' bed_jaccard(dplyr::group_by(x, chrom),
-#'             dplyr::group_by(y, chrom))
+#' bed_jaccard(
+#'   dplyr::group_by(x, chrom),
+#'   dplyr::group_by(y, chrom)
+#' )
 #'
 #' @export
 bed_jaccard <- function(x, y) {
-
   check_required(x)
   check_required(y)
 
@@ -61,10 +62,10 @@ bed_jaccard <- function(x, y) {
   res_intersect <- bed_intersect(x, y)
 
   if (!is.null(groups_shared)) {
-    x <- group_by(x, !!! syms(groups_shared))
-    y <- group_by(y, !!! syms(groups_shared))
+    x <- group_by(x, !!!syms(groups_shared))
+    y <- group_by(y, !!!syms(groups_shared))
 
-    res_intersect <- group_by(res_intersect, !!! syms(groups_shared))
+    res_intersect <- group_by(res_intersect, !!!syms(groups_shared))
   }
 
   res_intersect <- summarize(
@@ -84,7 +85,7 @@ bed_jaccard <- function(x, y) {
     res <- left_join(res, res_y, by = as.character(groups_shared))
 
     res <- mutate(res, sum_xy = sum_x + sum_y)
-    group_cols <- select(res, !!! syms(groups_shared))
+    group_cols <- select(res, !!!syms(groups_shared))
 
     res <- transmute(
       res,

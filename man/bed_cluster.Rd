@@ -29,12 +29,12 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 \examples{
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1', 100,    200,
-  'chr1', 180,    250,
-  'chr1', 250,    500,
-  'chr1', 501,    1000,
-  'chr2', 1,      100,
-  'chr2', 150,    200
+  "chr1", 100,    200,
+  "chr1", 180,    250,
+  "chr1", 250,    500,
+  "chr1", 501,    1000,
+  "chr2", 1,      100,
+  "chr2", 150,    200
 )
 
 bed_cluster(x)
@@ -42,14 +42,14 @@ bed_cluster(x)
 # glyph illustrating clustering of overlapping and book-ended intervals
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1', 1,      10,
-  'chr1', 5,      20,
-  'chr1', 30,     40,
-  'chr1', 40,     50,
-  'chr1', 80,     90
+  "chr1", 1,      10,
+  "chr1", 5,      20,
+  "chr1", 30,     40,
+  "chr1", 40,     50,
+  "chr1", 80,     90
 )
 
-bed_glyph(bed_cluster(x), label = '.id')
+bed_glyph(bed_cluster(x), label = ".id")
 
 }
 \seealso{

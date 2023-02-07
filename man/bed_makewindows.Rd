@@ -32,10 +32,10 @@ interval names (see 'namenum' example below) or in subsequent
 \examples{
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 100,    200,  'A',   '.',    '+'
+  "chr1", 100,    200,  "A",   ".",    "+"
 )
 
-bed_glyph(bed_makewindows(x, num_win = 10), label = '.win_id')
+bed_glyph(bed_makewindows(x, num_win = 10), label = ".win_id")
 
 # Fixed number of windows
 bed_makewindows(x, num_win = 10)
@@ -51,7 +51,7 @@ bed_makewindows(x, win_size = 10, reverse = TRUE)
 
 # bedtools 'namenum'
 wins <- bed_makewindows(x, win_size = 10)
-dplyr::mutate(wins, namenum = stringr::str_c(name, '_', .win_id))
+dplyr::mutate(wins, namenum = stringr::str_c(name, "_", .win_id))
 
 }
 \seealso{

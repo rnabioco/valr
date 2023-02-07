@@ -23,7 +23,7 @@ for windows users (particularly for 32 bit window users).
 \examples{
 \dontrun{
 if (.Platform$OS.type != "windows") {
-  bw <- read_bigwig(valr_example('hg19.dnase1.bw'))
+  bw <- read_bigwig(valr_example("hg19.dnase1.bw"))
   head(bw)
 }
 }

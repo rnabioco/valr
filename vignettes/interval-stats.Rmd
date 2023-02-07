@@ -40,11 +40,11 @@ library(tidyr)
 
 # load repeats and genes. Data in the valr package is restricted to chr22; the entire
 # files can be downloaded from UCSC.
-rpts <- read_bed(valr_example('hg19.rmsk.chr22.bed.gz'), n_fields = 6) 
-genes <- read_bed(valr_example('hg19.refGene.chr22.bed.gz'), n_fields = 12)
+rpts <- read_bed(valr_example("hg19.rmsk.chr22.bed.gz"), n_fields = 6)
+genes <- read_bed(valr_example("hg19.refGene.chr22.bed.gz"), n_fields = 12)
 
 # load chrom sizes
-genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 
 # create 1 bp intervals representing transcription start sites
 tss <- create_tss(genes)
@@ -60,22 +60,24 @@ First we define a function that takes `x` and `y` intervals and computes distanc
 distance_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) %>%
     do(
-       reldist = bed_reldist(., y, detail = TRUE) %>%
-         select(.value = .reldist),
-       absdist = bed_absdist(., y, genome) %>%
-         select(.value = .absdist)
-       ) %>% 
-    tidyr::pivot_longer(cols = -name, 
-                        names_to = 'stat',
-                        values_to = 'value') %>% 
+      reldist = bed_reldist(., y, detail = TRUE) %>%
+        select(.value = .reldist),
+      absdist = bed_absdist(., y, genome) %>%
+        select(.value = .absdist)
+    ) %>%
+    tidyr::pivot_longer(
+      cols = -name,
+      names_to = "stat",
+      values_to = "value"
+    ) %>%
     mutate(type = type)
-} 
+}
 ```
 
 We use the `distance_stats()` function to apply the `bed_absdist()` function to each group of data.
 
 ```{r compute_obs}
-obs_stats <- distance_stats(rpts, tss, genome, 'name', 'obs')
+obs_stats <- distance_stats(rpts, tss, genome, "name", "obs")
 obs_stats
 ```
 
@@ -83,7 +85,7 @@ And the same is done for a set of  shuffled group of data. `bed_shuffle()` is us
 
 ```{r compute_shf}
 shfs <- bed_shuffle(rpts, genome, within = TRUE)
-shf_stats <- distance_stats(shfs, tss, genome, 'name', 'shuf')
+shf_stats <- distance_stats(shfs, tss, genome, "name", "shuf")
 ```
 
 Now we can bind the observed and shuffled data together, and do some tidying to put the data into a format appropriate for a statistical test. This involves:
@@ -96,11 +98,13 @@ Now we can bind the observed and shuffled data together, and do some tidying to 
 
 ```{r bind_res}
 res <- bind_rows(obs_stats, shf_stats) %>%
-  tidyr::unnest(value) %>% 
+  tidyr::unnest(value) %>%
   group_by(name, stat, type) %>%
   mutate(.id = row_number()) %>%
-  tidyr::pivot_wider(names_from = "type",
-                     values_from = ".value") %>%
+  tidyr::pivot_wider(
+    names_from = "type",
+    values_from = ".value"
+  ) %>%
   na.omit()
 
 res
@@ -111,14 +115,16 @@ Now that the data are formatted, we can use the non-parametric `ks.test()` to de
 ```{r pvalues, warning=FALSE}
 library(broom)
 
-pvals <- res %>% do(twosided = tidy(ks.test(.$obs, .$shuf)),
-                    less = tidy(ks.test(.$obs, .$shuf, alternative = 'less')),
-                    greater = tidy(ks.test(.$obs, .$shuf, alternative = 'greater'))) %>%
+pvals <- res %>%
+  do(
+    twosided = tidy(ks.test(.$obs, .$shuf)),
+    less = tidy(ks.test(.$obs, .$shuf, alternative = "less")),
+    greater = tidy(ks.test(.$obs, .$shuf, alternative = "greater"))
+  ) %>%
   tidyr::pivot_longer(cols = -c(name, stat), names_to = "alt", values_to = "type") %>%
   unnest(type) %>%
   select(name:p.value) %>%
   arrange(p.value)
-
 ```
 
 Histgrams of the different stats help visualize the distribution of p.values.
@@ -126,7 +132,8 @@ Histgrams of the different stats help visualize the distribution of p.values.
 ```{r pvalue_viz}
 ggplot(pvals, aes(p.value)) +
   geom_histogram(binwidth = 0.05) +
-  facet_grid(stat ~ alt) + theme_cowplot()
+  facet_grid(stat ~ alt) +
+  theme_cowplot()
 ```
 
 We can also assess false discovery rates (q.values) using `p.adjust()`.
@@ -142,21 +149,24 @@ pvals <-
 Finally we can visualize these results using `stat_ecdf()`.
 
 ```{r ecfs}
-res_gather <- tidyr::pivot_longer(res, 
-                                  cols = -c(name, stat, .id),
-                                  names_to = "type",
-                                  values_to = "value")
+res_gather <- tidyr::pivot_longer(res,
+  cols = -c(name, stat, .id),
+  names_to = "type",
+  values_to = "value"
+)
 
 signif <- head(pvals, 5)
 
 res_signif <-
   signif %>%
-  left_join(res_gather, by = c('name', 'stat'))
+  left_join(res_gather, by = c("name", "stat"))
 
 ggplot(res_signif, aes(x = value, color = type)) +
-  stat_ecdf() + 
-  facet_grid(stat ~ name) + theme_cowplot() + scale_x_log10() +
-  scale_color_brewer(palette = 'Set1')
+  stat_ecdf() +
+  facet_grid(stat ~ name) +
+  theme_cowplot() +
+  scale_x_log10() +
+  scale_color_brewer(palette = "Set1")
 ```
 
 ## Projection test
@@ -169,12 +179,12 @@ First we'll extract 5 kb regions upstream of the transcription start sites to re
 # create intervals 5kb upstream of tss representing promoters
 promoters <-
   bed_flank(genes, genome, left = 5000, strand = TRUE) %>%
-  mutate(name = ifelse(grepl('NR_', name), 'non-coding', 'coding')) %>%
+  mutate(name = ifelse(grepl("NR_", name), "non-coding", "coding")) %>%
   select(chrom:strand)
-  
+
 # select coding and non-coding promoters
-promoters_coding <- filter(promoters, name == 'coding')
-promoters_ncoding <- filter(promoters, name == 'non-coding')
+promoters_coding <- filter(promoters, name == "coding")
+promoters_ncoding <- filter(promoters, name == "non-coding")
 
 promoters_coding
 
@@ -184,30 +194,33 @@ promoters_ncoding
 Next we'll apply the `bed_projection()` test for each repeat class for both coding and non-coding regions. 
 
 ```{r get_projections}
-
 # function to apply bed_projection to groups
 projection_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) %>%
-    do(n_repeats = nrow(.),
-       projection = bed_projection(., y, genome)) %>%
+    do(
+      n_repeats = nrow(.),
+      projection = bed_projection(., y, genome)
+    ) %>%
     mutate(type = type)
-} 
+}
 
-pvals_coding <- projection_stats(rpts, promoters_coding, genome, 'name', 'coding')
-pvals_ncoding <- projection_stats(rpts, promoters_ncoding, genome, 'name', 'non_coding')
+pvals_coding <- projection_stats(rpts, promoters_coding, genome, "name", "coding")
+pvals_ncoding <- projection_stats(rpts, promoters_ncoding, genome, "name", "non_coding")
 
 pvals <-
   bind_rows(pvals_ncoding, pvals_coding) %>%
-  ungroup() %>% 
+  ungroup() %>%
   tidyr::unnest(cols = c(n_repeats, projection)) %>%
   select(-chrom)
 
 # filter for repeat classes with at least 10 intervals
-pvals <- filter(pvals,
-                n_repeats > 10,
-                obs_exp_ratio != 0)
+pvals <- filter(
+  pvals,
+  n_repeats > 10,
+  obs_exp_ratio != 0
+)
 
-# adjust pvalues 
+# adjust pvalues
 pvals <- mutate(pvals, q.value = p.adjust(p.value))
 
 pvals
@@ -220,7 +233,7 @@ library(DT)
 
 # find and show top 5 most significant repeats
 signif_tests <-
-  pvals %>% 
+  pvals %>%
   arrange(q.value) %>%
   group_by(type) %>%
   top_n(-5, q.value) %>%

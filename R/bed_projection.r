@@ -29,7 +29,7 @@
 #'   \url{https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529}
 #'
 #' @examples
-#' genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+#' genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 #'
 #' x <- bed_random(genome, seed = 1010486)
 #' y <- bed_random(genome, seed = 9203911)
@@ -40,7 +40,6 @@
 #'
 #' @export
 bed_projection <- function(x, y, genome, by_chrom = FALSE) {
-
   check_required(x)
   check_required(y)
   check_required(genome)

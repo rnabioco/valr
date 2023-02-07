@@ -16,8 +16,8 @@ and vice-versa. Facilitates comparisons among intervals on opposing strands.
 \examples{
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
-  'chr1', 1,      100,  '+',
-  'chr2', 1,      100,  '-'
+  "chr1", 1,      100,  "+",
+  "chr2", 1,      100,  "-"
 )
 
 flip_strands(x)

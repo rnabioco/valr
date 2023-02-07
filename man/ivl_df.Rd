@@ -28,18 +28,19 @@ validated using \code{check_genome()}.
 # using tibble
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
-  'chr1',  1,     50,
-  'chr1',  10,    75,
-  'chr1',  100,   120
+  "chr1", 1, 50,
+  "chr1", 10, 75,
+  "chr1", 100, 120
 )
 
 check_interval(x)
 
 # using base R data.frame
-x <- data.frame(chrom = "chr1",
-           start = 0,
-           end = 100,
-           stringsAsFactors = FALSE
+x <- data.frame(
+  chrom = "chr1",
+  start = 0,
+  end = 100,
+  stringsAsFactors = FALSE
 )
 
 check_interval(x)
@@ -48,7 +49,7 @@ check_interval(x)
 
 x <- tibble::tribble(
   ~chrom, ~size,
-  'chr1', 1e6
+  "chr1", 1e6
 )
 
 check_genome(x)

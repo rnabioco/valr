@@ -15,7 +15,7 @@ strand. I.e., the first introns for \code{+} and \code{-} strand genes both have
 values of \code{1}.
 }
 \examples{
-x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
+x <- read_bed12(valr_example("mm9.refGene.bed.gz"))
 
 create_introns(x)
 

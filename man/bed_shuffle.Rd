@@ -37,10 +37,10 @@ Shuffle input intervals.
 }
 \examples{
 genome <- tibble::tribble(
- ~chrom, ~size,
- "chr1", 1e6,
- "chr2", 2e6,
- "chr3", 4e6
+  ~chrom, ~size,
+  "chr1", 1e6,
+  "chr2", 2e6,
+  "chr3", 4e6
 )
 
 x <- bed_random(genome, seed = 1010486)

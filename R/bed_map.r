@@ -28,7 +28,6 @@
 #'
 #' @export
 bed_map <- function(x, y, ..., min_overlap = 1) {
-
   check_required(x)
   check_required(y)
 
@@ -43,12 +42,7 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   x_nms <- str_c(names(x)[!names(x) %in% "chrom"], ".x")
 
   ## add integer .id to track each input x ivl
-  ## don't use mutate, in order to ignore input grouping
-  ## don't overwrite .id if it exists
-  .id_col <- ".id"
-  if (.id_col %in% names(x)) {
-    .id_col <- str_c(.id_col, ".x")
-  }
+  .id_col <- get_id_col(x)
   x[[.id_col]] <- seq_len(nrow(x))
 
   .id_col_out <- str_c(.id_col, ".x")

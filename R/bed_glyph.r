@@ -10,28 +10,28 @@
 #'
 #' @examples
 #' x <- tibble::tribble(
-#'  ~chrom, ~start, ~end,
-#'  'chr1', 25,     50,
-#'  'chr1', 100,    125
+#'   ~chrom, ~start, ~end,
+#'   "chr1", 25,     50,
+#'   "chr1", 100,    125
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value,
-#'   'chr1', 30,     75,  50
+#'   "chr1", 30, 75, 50
 #' )
 #'
 #' bed_glyph(bed_intersect(x, y))
 #'
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 30,     75,
-#'   'chr1', 50,     90,
-#'   'chr1', 91,     120
+#'   "chr1", 30,     75,
+#'   "chr1", 50,     90,
+#'   "chr1", 91,     120
 #' )
 #'
 #' bed_glyph(bed_merge(x))
 #'
-#' bed_glyph(bed_cluster(x), label = '.id')
+#' bed_glyph(bed_cluster(x), label = ".id")
 #'
 #' @export
 bed_glyph <- function(expr, label = NULL) {
@@ -67,7 +67,7 @@ bed_glyph <- function(expr, label = NULL) {
   if ("end" %in% names(res)) cols_default <- c(cols_default, "end")
 
   cols_vars <- rlang::syms(cols_default)
-  cols_out <- select(res, !!! cols_vars)
+  cols_out <- select(res, !!!cols_vars)
 
   # get cols that are now suffixed in the result. This is a reasonable default
   # for bed_intersect and functions that call bed_intersect.
@@ -131,16 +131,15 @@ bed_glyph <- function(expr, label = NULL) {
 #' plot for bed_glyph
 #' @noRd
 glyph_plot <- function(.data, title = NULL, label = NULL) {
-
   # Colorbrewer 3-class `Greys`
   fill_colors <- c("#f0f0f0", "#bdbdbd", "#636363")
 
   glyph <- ggplot(.data) +
     geom_rect(
-      aes_string(
-        xmin = "start", xmax = "end",
-        ymin = ".y", ymax = ".y + 0.5",
-        fill = ".facet"
+      aes(
+        xmin = .data[["start"]], xmax = .data[["end"]],
+        ymin = .data[[".y"]], ymax = .data[[".y"]] + 0.5,
+        fill = .data[[".facet"]]
       ),
       color = "black", alpha = 0.75
     ) +
@@ -154,10 +153,10 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
 
   if (!is.null(label)) {
     label <- as.name(label)
-    aes_label <- aes_(
-      x = quote((end - start) / 2 + start),
-      y = quote(.y + 0.25),
-      label = substitute(label)
+    aes_label <- aes(
+      x = (.data[["end"]] - .data[["start"]]) / 2 + .data[["start"]],
+      y = .data[[".y"]] + 0.25,
+      label = !!label
     )
     glyph <- glyph + geom_label(aes_label, na.rm = TRUE)
   }

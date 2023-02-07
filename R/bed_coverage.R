@@ -21,18 +21,18 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~strand,
-#'   "chr1", 100,    500,  '+',
-#'   "chr2", 200,    400,  '+',
-#'   "chr2", 300,    500,  '-',
-#'   "chr2", 800,    900,  '-'
+#'   "chr1", 100,    500,  "+",
+#'   "chr2", 200,    400,  "+",
+#'   "chr2", 300,    500,  "-",
+#'   "chr2", 800,    900,  "-"
 #' )
 #'
 #' y <- tibble::tribble(
 #'   ~chrom, ~start, ~end, ~value, ~strand,
-#'   "chr1", 150,    400,  100,    '+',
-#'   "chr1", 500,    550,  100,    '+',
-#'   "chr2", 230,    430,  200,    '-',
-#'   "chr2", 350,    430,  300,    '-'
+#'   "chr1", 150,    400,  100,    "+",
+#'   "chr1", 500,    550,  100,    "+",
+#'   "chr2", 230,    430,  200,    "-",
+#'   "chr2", 350,    430,  300,    "-"
 #' )
 #'
 #' bed_coverage(x, y)
@@ -41,7 +41,6 @@
 #'
 #' @export
 bed_coverage <- function(x, y, ...) {
-
   check_required(x)
   check_required(y)
 
@@ -50,6 +49,10 @@ bed_coverage <- function(x, y, ...) {
 
   x <- bed_sort(x)
   y <- bed_sort(y)
+
+  ## add integer .id to track each input x ivl
+  .id_col <- get_id_col(x)
+  x[[.id_col]] <- seq_len(nrow(x))
 
   # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
@@ -60,13 +63,32 @@ bed_coverage <- function(x, y, ...) {
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!! groups_vars)
-  y <- group_by(y, !!! groups_vars)
+  x <- group_by(x, !!!groups_vars)
+  y <- group_by(y, !!!groups_vars)
 
   grp_indexes <- shared_group_indexes(x, y)
-  res <- coverage_impl(x, y,
-                       grp_indexes$x,
-                       grp_indexes$y)
+  res <- coverage_impl(
+    x, y,
+    grp_indexes$x,
+    grp_indexes$y
+  )
 
+  # get x ivls from groups not found in y
+  mi <- get_missing_ivls(res, x, .id_col)
+  res <- bind_rows(res, mi)
+
+  # reorder by index
+  res <- res[order(res[[.id_col]]), ]
+  res[[.id_col]] <- NULL
   res
+}
+
+get_missing_ivls <- function(res, x, .id_col) {
+  x <- ungroup(x)
+  mi <- x[!x[[.id_col]] %in% res[[.id_col]], ]
+  mi[[".ints"]] <- 0L
+  mi[[".cov"]] <- 0L
+  mi[[".len"]] <- mi[["end"]] - mi[["start"]]
+  mi[[".frac"]] <- 0
+  mi
 }

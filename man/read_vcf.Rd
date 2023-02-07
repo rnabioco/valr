@@ -20,7 +20,7 @@ return value has \code{chrom}, \code{start} and \code{end} columns.
 Interval lengths are the size of the 'REF' field.
 }
 \examples{
-vcf_file <- valr_example('test.vcf.gz')
+vcf_file <- valr_example("test.vcf.gz")
 read_vcf(vcf_file)
 
 }

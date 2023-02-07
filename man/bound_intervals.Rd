@@ -22,13 +22,13 @@ Used to remove out-of-bounds intervals, or trim interval coordinates using a
 }
 \examples{
 x <- tibble::tribble(
- ~chrom, ~start, ~end,
- "chr1", -100,   500,
- "chr1", 100,    1e9,
- "chr1", 500,    1000
+  ~chrom, ~start, ~end,
+  "chr1", -100,   500,
+  "chr1", 100,    1e9,
+  "chr1", 500,    1000
 )
 
-genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
+genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 
 # out-of-bounds are removed by default ...
 bound_intervals(x, genome)

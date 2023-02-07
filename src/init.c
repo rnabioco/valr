@@ -10,7 +10,6 @@
 /* .Call calls */
 extern SEXP _valr_bed12toexons_impl(void *);
 extern SEXP _valr_closest_impl(void *, void *, void *, void *, void *, void *);
-extern SEXP _valr_closest_impl2(void *, void *, void *, void *, void *, void *);
 extern SEXP _valr_complement_impl(void *, void *);
 extern SEXP _valr_coverage_impl(void *, void *, void *, void *);
 extern SEXP _valr_dist_impl(void *, void *, void *, void *, void *);
@@ -26,7 +25,6 @@ extern SEXP _valr_subtract_impl(void *, void *, void *, void *);
 static const R_CallMethodDef CallEntries[] = {
     {"_valr_bed12toexons_impl", (DL_FUNC) &_valr_bed12toexons_impl, 1},
     {"_valr_closest_impl",      (DL_FUNC) &_valr_closest_impl,      6},
-    {"_valr_closest_impl2",     (DL_FUNC) &_valr_closest_impl2,     6},
     {"_valr_complement_impl",   (DL_FUNC) &_valr_complement_impl,   2},
     {"_valr_coverage_impl",     (DL_FUNC) &_valr_coverage_impl,     4},
     {"_valr_dist_impl",         (DL_FUNC) &_valr_dist_impl,         5},

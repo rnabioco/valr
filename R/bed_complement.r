@@ -10,31 +10,31 @@
 #' @examples
 #' x <- tibble::tribble(
 #'   ~chrom, ~start, ~end,
-#'   'chr1', 0,      10,
-#'   'chr1', 75,     100
+#'   "chr1", 0,      10,
+#'   "chr1", 75,     100
 #' )
 #'
 #' genome <- tibble::tribble(
 #'   ~chrom, ~size,
-#'   'chr1', 200
+#'   "chr1", 200
 #' )
 #'
 #' bed_glyph(bed_complement(x, genome))
 #'
 #' genome <- tibble::tribble(
-#'    ~chrom,  ~size,
-#'    'chr1',  500,
-#'    'chr2',  600,
-#'    'chr3',  800
+#'   ~chrom,  ~size,
+#'   "chr1",  500,
+#'   "chr2",  600,
+#'   "chr3",  800
 #' )
 #'
 #' x <- tibble::tribble(
-#'    ~chrom, ~start, ~end,
-#'    'chr1', 100,    300,
-#'    'chr1', 200,    400,
-#'    'chr2', 0,      100,
-#'    'chr2', 200,    400,
-#'    'chr3', 500,    600
+#'   ~chrom, ~start, ~end,
+#'   "chr1", 100,    300,
+#'   "chr1", 200,    400,
+#'   "chr2", 0,      100,
+#'   "chr2", 200,    400,
+#'   "chr3", 500,    600
 #' )
 #'
 #' # intervals not covered by x
@@ -42,7 +42,6 @@
 #'
 #' @export
 bed_complement <- function(x, genome) {
-
   check_required(x)
   check_required(genome)
 

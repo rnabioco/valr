@@ -20,12 +20,12 @@ Sort a set of intervals.
 }
 \examples{
 x <- tibble::tribble(
-   ~chrom, ~start, ~end,
-   "chr8", 500,    1000,
-   "chr8", 1000,   5000,
-   "chr8", 100,    200,
-   "chr1", 100,    300,
-   "chr1", 100,    200
+  ~chrom, ~start, ~end,
+  "chr8", 500,    1000,
+  "chr8", 1000,   5000,
+  "chr8", 100,    200,
+  "chr1", 100,    300,
+  "chr1", 100,    200
 )
 
 # sort by chrom and start

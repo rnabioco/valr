@@ -25,8 +25,8 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMjcuMTN8NzE0LjAyfDI0Ljg1fDQxOC43Ng==)'>
-<rect x='58.35' y='281.49' width='312.22' height='119.37' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #F0F0F0; fill-opacity: 0.75;' />
-<rect x='370.58' y='42.76' width='312.22' height='119.37' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #F0F0F0; fill-opacity: 0.75;' />
+<rect x='58.35' y='281.49' width='312.22' height='119.37' style='stroke-width: 1.07; stroke-linecap: butt; stroke-linejoin: miter; fill: #F0F0F0; fill-opacity: 0.75;' />
+<rect x='370.58' y='42.76' width='312.22' height='119.37' style='stroke-width: 1.07; stroke-linecap: butt; stroke-linejoin: miter; fill: #F0F0F0; fill-opacity: 0.75;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
@@ -36,7 +36,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMjcuMTN8NzE0LjAyfDQyNC43NHw1NTYuMDQ=)'>
-<rect x='58.35' y='430.71' width='624.45' height='119.37' style='stroke-width: 1.07; stroke-linecap: square; stroke-linejoin: miter; fill: #BDBDBD; fill-opacity: 0.75;' />
+<rect x='58.35' y='430.71' width='624.45' height='119.37' style='stroke-width: 1.07; stroke-linecap: butt; stroke-linejoin: miter; fill: #BDBDBD; fill-opacity: 0.75;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
