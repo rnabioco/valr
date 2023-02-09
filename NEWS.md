@@ -2,7 +2,7 @@
 
 * Removed `SystemRequirements` from DESCRIPTION to eliminate a NOTE on CRAN.
 
-* Fixed bug in `bed_coverage()` whereby intervals from x were not reported if there was not a matching group in y. (#395).  
+* `bed_coverage()` now reports intervals from `x` with no matching group in `y` (#395).  
 
 # valr 0.6.6
 
