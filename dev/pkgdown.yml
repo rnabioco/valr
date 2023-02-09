@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   interval-stats: interval-stats.html
   valr: valr.html
-last_built: 2023-02-09T11:10Z
+last_built: 2023-02-09T11:20Z
 urls:
   reference: https://rnabioco.github.io/valr/reference
   article: https://rnabioco.github.io/valr/articles
