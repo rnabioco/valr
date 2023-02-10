@@ -73,7 +73,13 @@ bed_absdist <- function(x, y, genome) {
 
   # calculate reference sizes
   genome <- filter(genome, genome$chrom %in% res$chrom)
-  genome <- inner_join(genome, get_labels(y), by = c("chrom"))
+
+  if (utils::packageVersion("dplyr") > "1.0.10") {
+    genome <- inner_join(genome, get_labels(y),
+                         by = c("chrom"), multiple = "all")
+  } else {
+    genome <- inner_join(genome, get_labels(y), by = c("chrom"))
+  }
 
   ref_points <- summarize(y, .ref_points = n())
   genome <- inner_join(genome, ref_points, by = c(groups_xy))
