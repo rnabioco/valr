@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.6.7
 
 * Removed `SystemRequirements` from DESCRIPTION to eliminate a NOTE on CRAN.
 
