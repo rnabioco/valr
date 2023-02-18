@@ -1,30 +1,26 @@
 ## New patch version
 
-* This is a new patch version that fixes a minor bug in the bed_coverage() function, and removes C++11 from the `SystemRequirements` field.   
+* This is a new patch version that fixes a minor bug in the bed_coverage() function, and removes C++11 specifications from the `SystemRequirements` field and Makevar files.   
 
 ## Test environment
 
 * win-builder (R-devel)
-* local OS X install, R-devel 
+* local OS X install, (4.2.2) 
 * Windows (on Github Actions), 4.2.2 (2022-10-31 ucrt)
 * macOS (on Github Actions), R 4.2.2
 * ubuntu 22.04.1 (on Github Actions), (devel and R 4.2.2)
 
 ## R CMD check results
 
-
 * on win-builder (devel)
 
-  Status: 2 NOTE
-  0 errors | 0 warnings | 2 note
+  Status: 1 NOTE
+  0 errors | 0 warnings | 1 note
   
-  * checking CRAN incoming feasibility ... NOTE
-    Maintainer: 'Kent Riemondy <kent.riemondy@cuanschutz.edu>'
+  * checking CRAN incoming feasibility ... [18s] NOTE
+  Maintainer: 'Kent Riemondy <kent.riemondy@cuanschutz.edu>'
 
-  * checking C++ specification ... NOTE
-    Specified C++11: please drop specification unless essential
-    
-    - We use C++11 features in our C++ code. 
+  Version contains large components (0.6.6.9000)
 
 * on windows github actions (R 4.2.2)
 
@@ -37,13 +33,8 @@
 
 * on ubuntu (devel)
 
-  Status: 2 NOTEs
+  Status: 1 NOTE
   
-  * checking C++ specification ... NOTE
-  Specified C++11: please drop specification unless essential
-      
-  - We use C++11 features in our C++ code. 
-    
   * checking installed package size ... NOTE
   installed size is 14.2Mb
   sub-directories of 1Mb or more:
