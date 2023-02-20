@@ -98,6 +98,7 @@ bed_closest <- function(x, y,
   y <- group_by(y, !!!groups_vars)
 
   ol_ivls <- bed_intersect(x, y, suffix = suffix)
+  ol_ivls$.overlap <- ol_ivls$.overlap
 
   grp_indexes <- valr:::shared_group_indexes(x, y)
 
@@ -113,7 +114,7 @@ bed_closest <- function(x, y,
   )
 
   res$.overlap <- 0
-  ol_ivls$.dist <- 0
+  ol_ivls$.dist <- ifelse(ol_ivls$.overlap == 0, 1, 0)
 
   res <- res[colnames(ol_ivls)]
   res <- bind_rows(ol_ivls, res)
@@ -124,7 +125,7 @@ bed_closest <- function(x, y,
   res <- bind_rows(res, mi)
 
   if (!overlap) {
-    res <- res[which(res$.overlap <= 0), ]
+    res <- res[which(res$.overlap <= 0 | is.na(res$.overlap)), ]
     res[[".overlap"]] <- NULL
   }
   # reorder by index
