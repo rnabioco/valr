@@ -1,7 +1,7 @@
 Type: Package
 Package: valr
 Title: Genome Interval Arithmetic
-Version: 0.6.6.9000
+Version: 0.6.7.9000
 Authors@R: c(
     person("Jay", "Hesselberth", , "jay.hesselberth@cuanschutz.edu", role = c("aut"),
            comment = c(ORCID = "0000-0002-6299-179X")),
@@ -55,7 +55,6 @@ VignetteBuilder:
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-SystemRequirements: C++11
 Config/Needs/website:
     pkgdown,
     rnabioco/rbitemplate
