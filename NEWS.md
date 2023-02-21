@@ -1,5 +1,11 @@
 # valr (development version)
 
+* `bed_closest()` reports all x intervals, even when there are no closest y intervals (e.g. when there is no matching chromosome in y intervals). These intervals are returned populated with `NA` for `.overlap`, `.dist` and y interval locations. 
+
+* `bed_closest()` reports book-ended features as having a zero-length distance. 
+
+* Reimplemented `bed_closest()` to use binary search rather than interval tree. The closest y interval can be missed with previous search strategy in high depth interval trees. 
+
 # valr 0.6.7
 
 * Removed `SystemRequirements` from DESCRIPTION to eliminate a NOTE on CRAN.

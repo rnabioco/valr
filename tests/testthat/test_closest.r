@@ -13,7 +13,8 @@ test_that("1bp closer, check for off-by-one errors", {
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
-  expect_true(all(c(1, 0, 1) %in% res$.dist))
+  expect_true(all(c(0, 0, 0) %in% res$.dist))
+  expect_true(all(c(0, 1, 0) %in% res$.overlap))
 })
 
 test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
@@ -30,7 +31,8 @@ test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
   )
   res <- bed_closest(y, x)
   expect_equal(nrow(res), 3)
-  expect_true(all(c(1, 0, 1) %in% res$.dist))
+  expect_true(all(c(0, 0, 0) %in% res$.dist))
+  expect_true(all(c(0, 1, 0) %in% res$.overlap))
 })
 
 test_that("0bp apart closer, check for off-by-one errors", {
@@ -47,7 +49,8 @@ test_that("0bp apart closer, check for off-by-one errors", {
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
-  expect_true(all(c(1, 0, 1) %in% res$.dist))
+  expect_true(all(c(0, 0, 0) %in% res$.dist))
+  expect_true(all(c(0, 1, 0) %in% res$.overlap))
 })
 
 test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
@@ -66,7 +69,8 @@ test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
   res2 <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
   expect_equal(nrow(res), 3)
-  expect_true(all(c(1, 0, 1) %in% res$.dist))
+  expect_true(all(c(0, 0, 0) %in% res$.dist))
+  expect_true(all(c(0, 1, 0) %in% res$.overlap))
 })
 
 test_that("check that first left interval at index 0 is not lost", {

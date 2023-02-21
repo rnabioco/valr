@@ -16,9 +16,10 @@
 #'
 #' @return
 #' [ivl_df] with additional columns:
-#'   - `.overlap` amount of overlap with overlapping interval
+#'   - `.overlap` amount of overlap with overlapping interval. Non-overlapping
+#'   or adjacent intervals have an overlap of 0.
 #'   - `.dist` distance to closest interval. Negative distances
-#'     denote upstream intervals.
+#'   denote upstream intervals. Book-ended intervals have a distance of 0.
 #'
 #' @family multiple set operations
 #'
@@ -123,7 +124,7 @@ bed_closest <- function(x, y,
   )
 
   res$.overlap <- 0
-  ol_ivls$.dist <- ifelse(ol_ivls$.overlap == 0, 1, 0)
+  ol_ivls$.dist <- 0
 
   res <- res[colnames(ol_ivls)]
   res <- bind_rows(ol_ivls, res)
