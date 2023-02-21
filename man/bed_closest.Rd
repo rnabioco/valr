@@ -18,9 +18,9 @@ bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"))
 \value{
 \link{ivl_df} with additional columns:
 \itemize{
+\item \code{.overlap} amount of overlap with overlapping interval
 \item \code{.dist} distance to closest interval. Negative distances
 denote upstream intervals.
-\item \code{.overlap} overlap with closest interval
 }
 }
 \description{
@@ -32,6 +32,14 @@ groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For e
 grouping by \code{strand} will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
+}
+\note{
+For each interval in x \code{bed_closest()} returns overlapping intervals from y
+and the closest non-intersecting y interval. Setting \code{overlap = FALSE} will
+report the closest non-intersecting y intervals, ignoring any overlapping y
+intervals. To return the closest y intervals for x intervals that do
+not also have any overlapping y intervals, set \code{overlap = TRUE}, then post-hoc
+filter to exclude.
 }
 \examples{
 x <- tibble::tribble(

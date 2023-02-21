@@ -5,13 +5,20 @@
 #' @param overlap report overlapping intervals
 #' @param suffix colname suffixes in output
 #'
+#' @note For each interval in x `bed_closest()` returns overlapping intervals from y
+#' and the closest non-intersecting y interval. Setting `overlap = FALSE` will
+#' report the closest non-intersecting y intervals, ignoring any overlapping y
+#' intervals. To return the closest y intervals for x intervals that do
+#' not also have any overlapping y intervals, set `overlap = TRUE`, then post-hoc
+#' filter to exclude.
+#'
 #' @template groups
 #'
 #' @return
 #' [ivl_df] with additional columns:
+#'   - `.overlap` amount of overlap with overlapping interval
 #'   - `.dist` distance to closest interval. Negative distances
 #'     denote upstream intervals.
-#'   - `.overlap` overlap with closest interval
 #'
 #' @family multiple set operations
 #'
@@ -75,8 +82,10 @@
 bed_closest <- function(x, y,
                         overlap = TRUE,
                         suffix = c(".x", ".y")) {
-  x <- valr:::check_interval(x)
-  y <- valr:::check_interval(y)
+  x <- check_interval(x)
+  y <- check_interval(y)
+
+  check_suffix(suffix)
 
   x <- bed_sort(x)
   y <- bed_sort(y)
@@ -100,7 +109,7 @@ bed_closest <- function(x, y,
   ol_ivls <- bed_intersect(x, y, suffix = suffix)
   ol_ivls$.overlap <- ol_ivls$.overlap
 
-  grp_indexes <- valr:::shared_group_indexes(x, y)
+  grp_indexes <- shared_group_indexes(x, y)
 
   suffix <- list(x = suffix[1], y = suffix[2])
 
@@ -128,24 +137,11 @@ bed_closest <- function(x, y,
     res <- res[which(res$.overlap <= 0 | is.na(res$.overlap)), ]
     res[[".overlap"]] <- NULL
   }
-  # reorder by index
+
+  # reorder by input x ivls
   res <- res[order(res[[x_id_out]]), ]
   res[[x_id_out]] <- NULL
   res
-}
-
-
-calc_dist <- function(x, suffix) {
-  xs <- x[[paste0("start", suffix$x)]]
-  xe <- x[[paste0("end", suffix$x)]]
-
-  ys <- x[[paste0("start", suffix$y)]]
-  ye <- x[[paste0("end", suffix$y)]]
-  max_start <- pmax.int(xs, ys)
-  min_end <- pmin.int(xe, ye)
-  x <- pmax.int(max_start - min_end, 0)
-  x[ye <= xs] <- -x[ye <= xs]
-  x
 }
 
 add_colname_suffix <- function(x, s) {
