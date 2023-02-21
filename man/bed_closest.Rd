@@ -21,7 +21,7 @@ bed_closest(x, y, overlap = TRUE, suffix = c(".x", ".y"))
 \item \code{.overlap} amount of overlap with overlapping interval. Non-overlapping
 or adjacent intervals have an overlap of 0.
 \item \code{.dist} distance to closest interval. Negative distances
-denote upstream intervals. Bookended intervals have a distance of 0.
+denote upstream intervals. Book-ended intervals have a distance of 0.
 }
 }
 \description{

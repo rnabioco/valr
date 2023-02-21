@@ -96,7 +96,7 @@ bed_closest <- function(x, y,
   x_id_out <- paste0(id, suffix[1])
 
   # establish grouping with shared groups (and chrom)
-  groups_xy <- valr:::shared_groups(x, y)
+  groups_xy <- shared_groups(x, y)
   groups_xy <- unique(as.character(c("chrom", groups_xy)))
   groups_vars <- rlang::syms(groups_xy)
 
