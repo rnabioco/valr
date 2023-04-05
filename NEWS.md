@@ -1,5 +1,7 @@
 # valr (development version)
 
+* Fix off by one error when using `max_dist` argument in `bed_cluster()` (#401).
+
 # valr 0.6.7
 
 * Removed `SystemRequirements` from DESCRIPTION to eliminate a NOTE on CRAN.
