@@ -73,3 +73,28 @@ test_that("guard against max_dist argument preventing clustering first interval 
   res <- bed_cluster(x, max_dist = 9)
   expect_equal(res$.id, 1L:4L)
 })
+
+test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
+ x <- tibble::tribble(
+   ~chrom, ~start, ~end,
+   "chr1", 1,      10,
+   "chr1", 5,      20,
+   "chr1", 30,     40
+ )
+ res <- bed_cluster(x, max_dist = 10)
+ expect_equal(res$.id, c(1L, 1L, 1L))
+
+ x <- tibble::tribble(
+   ~chrom, ~start, ~end,
+   "chr1", 1,      3,
+   "chr1", 2,      4,
+   "chr1", 5,      10,
+   "chr1", 12,     14
+ )
+ res <- bed_cluster(x, max_dist = 0)
+ expect_equal(res$.id, c(1L, 1L, 2L, 3L))
+
+ res <- bed_cluster(x, max_dist = 1)
+ expect_equal(res$.id, c(1L, 1L, 1L, 2L))
+
+})

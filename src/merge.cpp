@@ -88,7 +88,7 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
 
-    // store a first interval to ensure first interval maintained
+    // store an interval to ensure first interval maintained
     ivl_t last_interval = ivl_t(0, 0, 0) ;
     std::vector<ivl_t> s ;
     s.push_back(last_interval) ;
@@ -104,6 +104,7 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
 
       last_interval = it ; // set interval to compare
       auto top = s.back() ; // last good interval
+
       if ( j == 0 || top.stop + max_dist < it.start) {
         // no overlap push to end of vector and get new id
         s.push_back(it) ;
@@ -111,13 +112,13 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
         ids[idx] = cluster_id ; // assign cluster id at proper index
       }
 
-      else if (top.stop + max_dist < it.stop) {
-        // overlaps and need to update stack top position
+      else if (top.stop + max_dist <= it.stop) {
+        // overlaps, update stack top position
         // do not update id
         top.stop = it.stop ; // update end position
         s.pop_back() ; // remove best end
         s.push_back(top) ; // update end interval
-        ids[idx] = cluster_id ; // assign cluster id at proper index
+        ids[idx] = cluster_id ;
       }
 
       else {
