@@ -168,3 +168,61 @@ test_that("Test stranded merge with bedPlus files that have strand", {
   res <- bed_merge(x, 200) %>% arrange(end)
   expect_equal(res$end, c(20000, 25000))
 })
+
+
+test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,      10,
+    "chr1", 5,      20,
+    "chr1", 30,     40
+  )
+  res <- bed_merge(x, max_dist = 10)
+  ex <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,      40
+  )
+  expect_equal(res, ex)
+
+  x <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,      3,
+    "chr1", 2,      4,
+    "chr1", 5,      10,
+    "chr1", 12,     14
+  )
+
+  ex <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,      4,
+    "chr1", 5,      10,
+    "chr1", 12,     14
+  )
+  res <- bed_merge(x, max_dist = 0)
+  expect_equal(res, ex)
+
+  ex <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "chr1", 1,      10,
+    "chr1", 12,     14
+  )
+  res <- bed_merge(x, max_dist = 1)
+  expect_equal(res, ex)
+
+  x <- tibble::tribble(
+    ~chrom, ~start,  ~end,
+    "scaffold_66",  27262, 70396,
+    "scaffold_66",  66594, 67647,
+    "scaffold_66",  82218, 85280,
+    "scaffold_66",  85878, 87553,
+    "scaffold_66",  87831, 89885,
+    "scaffold_66",  90498, 91996
+  )
+
+  ex <- tibble::tribble(
+    ~chrom, ~start, ~end,
+    "scaffold_66", 27262,      91996
+  )
+  res <- bed_merge(x, max_dist = 20000)
+  expect_equal(res, ex)
+})
