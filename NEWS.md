@@ -6,6 +6,8 @@
 
 * Reimplemented `bed_closest()` to use binary search rather than interval tree. The closest y interval can be missed with previous search strategy in high depth interval trees. 
 
+* Fix off by one error when using `max_dist` argument in `bed_cluster()` (#401).
+
 # valr 0.6.7
 
 * Removed `SystemRequirements` from DESCRIPTION to eliminate a NOTE on CRAN.

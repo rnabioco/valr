@@ -73,3 +73,72 @@ test_that("guard against max_dist argument preventing clustering first interval 
   res <- bed_cluster(x, max_dist = 9)
   expect_equal(res$.id, 1L:4L)
 })
+
+test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
+ x <- tibble::tribble(
+   ~chrom, ~start, ~end,
+   "chr1", 1,      10,
+   "chr1", 5,      20,
+   "chr1", 30,     40
+ )
+ res <- bed_cluster(x, max_dist = 10)
+ expect_equal(res$.id, c(1L, 1L, 1L))
+
+ x <- tibble::tribble(
+   ~chrom, ~start, ~end,
+   "chr1", 1,      3,
+   "chr1", 2,      4,
+   "chr1", 5,      10,
+   "chr1", 12,     14
+ )
+ res <- bed_cluster(x, max_dist = 0)
+ expect_equal(res$.id, c(1L, 1L, 2L, 3L))
+
+ res <- bed_cluster(x, max_dist = 1)
+ expect_equal(res$.id, c(1L, 1L, 1L, 2L))
+
+})
+
+test_that("check for additional errors, related to issue #401 @kcamnairb ", {
+
+  x <- tibble::tribble(
+    ~chrom, ~start,  ~end,
+    "scaffold_66",  27262, 70396,
+    "scaffold_66",  66594, 67647,
+    "scaffold_66",  82218, 85280,
+    "scaffold_66",  85878, 87553,
+    "scaffold_66",  87831, 89885,
+    "scaffold_66",  90498, 91996
+  )
+  res <- bed_cluster(x, max_dist = 20000)
+  expect_true(all(res$.id == 1))
+
+  x <- tibble::tribble(
+    ~chrom, ~start,  ~end,
+    "chr1",  1, 10,
+    "chr1",  1, 11,
+    "chr1",  1, 9,
+    "chr1",  1, 9,
+    "chr1",  3, 4,
+    "chr1",  3, 12,
+    "chr1",  10, 14,
+    "chr1",  100, 200,
+    "chr2",  1, 10,
+    "chr2",  1, 11,
+    "chr2",  1, 9,
+    "chr2",  1, 9,
+    "chr2",  3, 4,
+    "chr2",  3, 12,
+    "chr2",  10, 14,
+    "chr2",  100, 200)
+
+  res <- bed_cluster(x, max_dist = 0)
+  expect_true(max(res$.id) == 4)
+
+  res <- bed_cluster(x, max_dist = 100)
+  expect_equal(res$.id, c(rep(1, 8), rep(2, 8)))
+
+  res <- bed_cluster(x, max_dist = -3)
+  expect_true(max(res$.id) == 6)
+})
+

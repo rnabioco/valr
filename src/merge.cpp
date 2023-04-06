@@ -33,13 +33,12 @@ DataFrame collapseMergedIntervals(const ValrGroupedDataFrame& gdf,
 
       auto top = s.back() ;
       if (top.stop + max_dist < it.start) {
-        // no overlap push to stack and get new id
+        // no overlap push to stack
         s.push_back(it) ;
       }
 
-      else if (top.stop + max_dist < it.stop) {
+      else if (top.stop < it.stop) {
         // overlaps and need to update stack top position
-        // do not update id
         top.stop = it.stop ;
         s.pop_back() ;
         s.push_back(top) ;
@@ -73,13 +72,10 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
   auto nr = df.nrows() ;
 
   IntegerVector ids(nr) ;      // store ids
-  IntegerVector overlaps(nr) ; // store overlap values
-
-  std::size_t cluster_id = 0;  //store counter for cluster id
+  std::size_t cluster_id = 0;  // counter for cluster id
 
   ListView idx(gdf.indices()) ;
 
-  // approach from http://www.geeksforgeeks.org/merging-intervals/
   for (int i = 0; i < ng; i++) {
 
     IntegerVector indices ;
@@ -88,41 +84,26 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
 
     ivl_vector_t intervals = makeIntervalVector(df, indices);
 
-    // store a first interval to ensure first interval maintained
+    // store an interval to ensure first interval maintained
     ivl_t last_interval = ivl_t(0, 0, 0) ;
-    std::vector<ivl_t> s ;
-    s.push_back(last_interval) ;
+    ivl_t top = last_interval;
 
     for (int j = 0; j < ni ; j++) {
       ivl_t it = intervals[j];
       // get index to store cluster ids in vector
       auto idx = it.value ;
-
-      // get overlap distances and assign at proper index
-      int overlap = intervalOverlap(it, last_interval) ;
-      overlaps[idx] = overlap ;
-
       last_interval = it ; // set interval to compare
-      auto top = s.back() ; // last good interval
+
       if ( j == 0 || top.stop + max_dist < it.start) {
-        // no overlap push to end of vector and get new id
-        s.push_back(it) ;
+        // no overlap, update interval and cluster id
+        top = it ;
         cluster_id++ ;
-        ids[idx] = cluster_id ; // assign cluster id at proper index
-      }
-
-      else if (top.stop + max_dist < it.stop) {
-        // overlaps and need to update stack top position
-        // do not update id
-        top.stop = it.stop ; // update end position
-        s.pop_back() ; // remove best end
-        s.push_back(top) ; // update end interval
-        ids[idx] = cluster_id ; // assign cluster id at proper index
-      }
-
-      else {
-        // overlaps but contained in stack top ivl
-        // do not update id
+        ids[idx] = cluster_id ;
+      } else {
+        // overlaps or contained in stack top ivl
+        if(it.stop > top.stop){
+          top.stop = it.stop ; // update end position
+        }
         ids[idx] = cluster_id ;
       }
     }
@@ -132,12 +113,9 @@ DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
   // x names, data
   out.add_df(df, false) ;
 
-  // ids and overlaps
+  // ids
   out.names.push_back(".id_merge");
   out.data.push_back(ids);
-
-  out.names.push_back(".overlap_merge");
-  out.data.push_back(overlaps);
 
   auto nrows = df.nrows() ;
   auto res = out.format_df(nrows) ;
@@ -177,5 +155,5 @@ DataFrame merge_impl(ValrGroupedDataFrame gdf,
     "chr3", 500,    600,  9
   ) %>% group_by(chrom)
 
-  merge_impl(bed_tbl) %>% as_data_frame
+  merge_impl(bed_tbl)
 */
