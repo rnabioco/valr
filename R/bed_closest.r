@@ -8,18 +8,17 @@
 #' @note For each interval in x `bed_closest()` returns overlapping intervals from y
 #' and the closest non-intersecting y interval. Setting `overlap = FALSE` will
 #' report the closest non-intersecting y intervals, ignoring any overlapping y
-#' intervals. To return the closest y intervals for x intervals that do
-#' not also have any overlapping y intervals, set `overlap = TRUE`, then post-hoc
-#' filter to exclude.
+#' intervals.
 #'
 #' @template groups
 #'
 #' @return
 #' [ivl_df] with additional columns:
 #'   - `.overlap` amount of overlap with overlapping interval. Non-overlapping
-#'   or adjacent intervals have an overlap of 0.
+#'   or adjacent intervals have an overlap of 0. `.overlap` will not be included
+#'   in the output if `overlap = FALSE`.
 #'   - `.dist` distance to closest interval. Negative distances
-#'   denote upstream intervals. Book-ended intervals have a distance of 0.
+#'   denote upstream intervals. Book-ended intervals have a distance of 1.
 #'
 #' @family multiple set operations
 #'
@@ -108,31 +107,34 @@ bed_closest <- function(x, y,
   y <- group_by(y, !!!groups_vars)
 
   ol_ivls <- bed_intersect(x, y, suffix = suffix)
-  ol_ivls$.overlap <- ol_ivls$.overlap
 
   grp_indexes <- shared_group_indexes(x, y)
-
-  suffix <- list(x = suffix[1], y = suffix[2])
 
   res <- closest_impl(
     x,
     y,
     grp_indexes$x,
     grp_indexes$y,
-    suffix$x,
-    suffix$y
+    suffix[1],
+    suffix[2]
   )
 
-  res$.overlap <- 0
-  ol_ivls$.dist <- 0
+  res$.overlap <- 0L
+  ol_ivls <- mutate(ol_ivls,
+                    .dist = case_when(
+                      .overlap > 0 ~ 0L,
+                      ol_ivls$end.y <= ol_ivls$start.x ~ -1L,
+                      TRUE ~ 1L))
 
   res <- res[colnames(ol_ivls)]
   res <- bind_rows(ol_ivls, res)
 
   # get x ivls from groups not found in y
-  x <- add_colname_suffix(x, suffix$x)
+  x <- add_colname_suffix(x, suffix[1])
   mi <- get_no_group_ivls(x, res, x_id_out)
-  res <- bind_rows(res, mi)
+  if(nrow(mi) > 0) {
+    res <- bind_rows(res, mi)
+  }
 
   if (!overlap) {
     res <- res[which(res$.overlap <= 0 | is.na(res$.overlap)), ]
@@ -151,6 +153,7 @@ add_colname_suffix <- function(x, s) {
   colnames(x)[cidx] <- new_ids[cidx]
   x
 }
+
 get_no_group_ivls <- function(x, y, cid) {
   x <- ungroup(x)
   mi <- x[!x[[cid]] %in% y[[cid]], ]

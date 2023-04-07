@@ -9,11 +9,15 @@
 
 #include "valr.h"
 
-// check overlaps
-inline int ivl_overlaps(int xs, int xe, int ys, int ye) {
+// get overlap distance
+inline int ivl_overlap(int xs, int xe, int ys, int ye) {
   return std::min(xe, ye) - std::max(xs, ys) ;
 }
 
+// class to store run-length encoding
+// l = lengths
+// v = values
+// s = start positions for each value
 template <typename T>
 class RLE {
   public:
@@ -41,6 +45,7 @@ class RLE {
     }
 };
 
+// obtain indexes of sorted vector
 // adapted from user Lukasz Wiklendt https://stackoverflow.com/a/12399290/6276041
 std::vector<int> sort_indexes(const IntegerVector& v) {
   size_t n = v.size();
@@ -52,10 +57,9 @@ std::vector<int> sort_indexes(const IntegerVector& v) {
   return idx;
 }
 
-// this is similar to Rs findInterval. it might be more performant
-// to use the C function findInterval provided in R_exts/Utils.h
+// binary search
 std::vector<int> findClosest(const IntegerVector& x,
-                           const std::vector<int>& breaks) {
+                             const std::vector<int>& breaks) {
   std::size_t n = x.size();
   std::vector<int> out(n);
   auto breaks_it = breaks.begin();
@@ -150,23 +154,16 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
     std::vector<int> before(nx);
     std::vector<int> after(nx);
 
-    // index of y interval such that x ivl is before y ivl
-    // handle x ivl after all y ivls
+    // compare x-ivl ends to y-ivl starts
     before = findClosest(q_ends - 1, sstr_rle.v);
-    for (auto &x:before){
-      x += 1;
-    }
 
     for(int j = 0; j < nx; j++){
-      if(before[j] > sstr_n){
+      if(before[j] >= sstr_n){
         before[j] = NA_INTEGER;
-      } else {
-        before[j] -= 1;
       }
     }
 
-    // index of y interval such that x ivl is after y ivl
-    // handle x ivl before all y ivls
+    // compare x-ivl starts to y-ivl ends
     after = findClosest(q_starts, send_rle.v);
     for(int j = 0; j < nx; j++){
       if(after[j] == 0){
@@ -178,6 +175,7 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
 
     int ld, rd, ni, idx, idx_l, ol, d;
     bool a_is_na, b_is_na, min_is_before;
+
     for(int j = 0; j < nx; j++){
 
       a_is_na = b_is_na = false;
@@ -209,8 +207,8 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
         ni = before[j];
         idx = sstr_rle.s[ni];
         idx_l = sstr_rle.l[ni];
-        ol = ivl_overlaps(q_starts[j], q_ends[j],
-                          s_starts[idx], s_ends[idx]);
+        ol = ivl_overlap(q_starts[j], q_ends[j],
+                         s_starts[idx], s_ends[idx]);
         if(ol < 0) {
           ol -= 1;
           d = s_ends[idx] <= q_starts[j] ? ol : -ol;
@@ -228,7 +226,7 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
           ni = before[j];
           idx = sstr_rle.s[ni];
           idx_l = sstr_rle.l[ni];
-          ol = ivl_overlaps(q_starts[j], q_ends[j],
+          ol = ivl_overlap(q_starts[j], q_ends[j],
                             s_starts[idx], s_ends[idx]);
           if(ol < 0) {
             ol -= 1;
@@ -245,7 +243,7 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
         idx = send_rle.s[ni];
         idx_l = send_rle.l[ni];
         idx = e_is_sorted ? idx : s_ord_ends[idx];
-        ol = ivl_overlaps(q_starts[j], q_ends[j], s_starts[idx], s_ends[idx]);
+        ol = ivl_overlap(q_starts[j], q_ends[j], s_starts[idx], s_ends[idx]);
         if(ol < 0) {
           ol -= 1;
           d = s_ends[idx] <= q_starts[j] ? ol : -ol;

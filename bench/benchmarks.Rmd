@@ -40,7 +40,7 @@ genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
 # number of intervals
 n <- 1e6
 # number of timing reps
-nrep <- 10
+nrep <- 5
 
 seed_x <- 1010486
 x <- bed_random(genome, n = n, seed = seed_x)
