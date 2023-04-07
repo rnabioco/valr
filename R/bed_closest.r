@@ -142,7 +142,7 @@ bed_closest <- function(x, y,
   }
 
   # reorder by input x ivls
-  res <- res[order(res[[x_id_out]]), ]
+  res <- res[order(res[[x_id_out]], method = "radix"), ]
   res[[x_id_out]] <- NULL
   res
 }
