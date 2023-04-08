@@ -59,12 +59,10 @@ private:
 DataFrame extract_groups(const DataFrame& x) ;
 
 DataFrame rowwise_subset_df(const DataFrame& x,
-                            IntegerVector row_indices,
-                            bool r_index) ;
+                            IntegerVector row_indices) ;
 
 DataFrame rowwise_subset_df(const DataFrame& x,
-                            std::vector<int> row_indices,
-                            bool r_index) ;
+                            std::vector<int> row_indices) ;
 
 inline bool compare_rows(DataFrame df_x, DataFrame df_y,
                          int idx_x, int idx_y) {
