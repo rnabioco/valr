@@ -23,9 +23,6 @@ SOFTWARE.
   Interval tree code copied from ekg/intervaltree
   https://github.com/ekg/intervaltree/blob/master/IntervalTree.h
   commit id f0c4046514f41072be20da07b69d8a92220c9294
-
-  - Added a friend function declaration for findClosest() to enable
-    access to private class members
 */
 
 #ifndef valr__INTERVAL_TREE_H
@@ -364,10 +361,7 @@ public:
     }
     return os;
   }
-  template<class T, typename K>
-  friend void findClosestIvls(const IntervalTree<T, K>& tree, int start, int stop,
-                              interval_vector& closest,
-                              std::pair<int, interval_vector>& min_dist);
+
 private:
   interval_vector intervals;
   std::unique_ptr<IntervalTree> left;

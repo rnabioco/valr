@@ -13,7 +13,8 @@ test_that("1bp closer, check for off-by-one errors", {
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
-  expect_true(all(c(0, -1, 1) %in% res$.dist))
+  expect_true(all(c(-1, 0, 1) == res$.dist))
+  expect_true(all(c(0, 1, 0) == res$.overlap))
 })
 
 test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
@@ -30,7 +31,8 @@ test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
   )
   res <- bed_closest(y, x)
   expect_equal(nrow(res), 3)
-  expect_true(all(c(0, -1, 1) %in% res$.dist))
+  expect_true(all(c(1, 0, -1) == res$.dist))
+  expect_true(all(c(0, 1, 0) == res$.overlap))
 })
 
 test_that("0bp apart closer, check for off-by-one errors", {
@@ -47,7 +49,8 @@ test_that("0bp apart closer, check for off-by-one errors", {
   )
   res <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
-  expect_true(all(c(0, -1, 1) %in% res$.dist))
+  expect_true(all(c(-1, 0, 1) == res$.dist))
+  expect_true(all(c(0, 1, 0) == res$.overlap))
 })
 
 test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
@@ -66,7 +69,8 @@ test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
   res2 <- bed_closest(x, y)
   expect_equal(nrow(res), 3)
   expect_equal(nrow(res), 3)
-  expect_true(all(c(0, -1, 1) %in% res$.dist))
+  expect_true(all(c(1, 0, -1) == res$.dist))
+  expect_true(all(c(0, 1, 0) == res$.overlap))
 })
 
 test_that("check that first left interval at index 0 is not lost", {
@@ -107,7 +111,9 @@ test_that("check that strand closest works (strand = TRUE)", {
   )
 
   res <- bed_closest(group_by(x, strand), group_by(y, strand))
-  expect_equal(nrow(res), 0)
+  # report NA
+  expect_equal(nrow(res), 1)
+  expect_equal(nrow(na.omit(res)), 0)
 })
 
 test_that("check that same strand is reported (strand = TRUE", {
@@ -249,10 +255,12 @@ test_that("test reporting of first overlapping feature and
     "chr1", 200, 201, 100, 101, -100,
     "chr1", 300, 301, 150, 201, -100,
     "chr1", 100000, 100010, 175, 375, -99626,
-    "chr1", 100020, 100040, 175, 375, -99646
+    "chr1", 100020, 100040, 175, 375, -99646,
+    "chr2", 1, 10, NA, NA, NA,
+    "chr2", 20, 30, NA, NA, NA
   )
   res <- bed_closest(x, y, overlap = F)
-  expect_true(all(pred == res))
+  expect_equal(res, pred)
 })
 
 ### test distance reporting conditions ###
@@ -375,11 +383,11 @@ b2 <- tibble::tribble(
 test_that("Make sure non-overlapping ties are reported ", {
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
-    "chr1", 10, 20, "a1", 1, "-", 8, 9, "b1", 1, "+", 0, -2,
-    "chr1", 10, 20, "a1", 1, "-", 21, 22, "b2", 1, "-", 0, 2
+    "chr1", 10, 20, "a1", 1, "-", 21, 22, "b2", 1, "-", 0, 2,
+    "chr1", 10, 20, "a1", 1, "-", 8, 9, "b1", 1, "+", 0, -2
   )
   res <- bed_closest(a2, b2)
-  expect_true(all(pred == res))
+  expect_equal(pred, res)
 })
 
 test_that("Make sure non-overlapping ties are reported with strand = T ", {
@@ -413,7 +421,7 @@ test_that("Make sure that closest intervals are captured when intervals span mul
 })
 
 test_that("test that a max of two duplicated x ivls are returned, assuming non-overlapping, and non-duplicate y ivls #105", {
-  # ed
+
   snps <- read_bed(valr_example("hg19.snps147.chr22.bed.gz"), n_fields = 6, n_max = 10)
   genes <- read_bed(valr_example("genes.hg19.chr22.bed.gz"), n_fields = 6, n_max = 64)
   # make sure there are no repeated y ivls (otherwise more than 2 x ivls should be reported)
@@ -425,9 +433,39 @@ test_that("test that a max of two duplicated x ivls are returned, assuming non-o
 
   res <- bed_closest(snps, genes, overlap = FALSE)
   res <- group_by(res, chrom, start.x, end.x)
-  res <- summarize(res, n = n())
+  res <- summarize(res, n = n(), .groups = "keep")
   # there should not be more than 2 possible closest ivls.
   expect_true(all(res$n <= 2))
+
+  genome <- tibble::tribble(
+    ~chrom,  ~size,
+    "chr1",  10000000,
+    "chr2",  50000000,
+    "chr3",  60000000,
+    "chrX",  5000000
+  )
+
+  x <- bed_random(genome, n = 1e5, seed = 1)
+  y <- bed_random(genome, n = 1e5, seed = 2)
+
+  x$idx <- seq_len(nrow(x))
+  y$idx <- seq_len(nrow(y))
+
+  res <- bed_closest(x, y, overlap = FALSE)
+  res <- group_by(res, idx.x)
+  res_grps <- summarize(res, n = n(), .groups = "keep")
+
+  # if more than 1 x ivl reported, then it is due to duplicated y ivls in input
+  multi_grps <- res_grps[res_grps$n > 1, ]
+  if(nrow(multi_grps) > 0){
+    grps <- res[res$idx.x %in% multi_grps$idx.x, ]
+    grps <- group_by(grps, idx.x)
+    res <- summarize(grps,
+                     n_res = n(),
+                     same_abs_dist = length(unique(abs(.dist))) == 1,
+                     idx_y_distinct = length(unique(idx.y)) == n_res)
+    expect_true(all(res$same_abs_dist & res$idx_y_distinct))
+  }
 })
 
 
@@ -467,7 +505,8 @@ test_that("test closest forcing -s yet no matching strands on chrom", {
     "chr1", 90, 120, "b", 1, "-"
   )
   res <- bed_closest(group_by(x, strand), group_by(y, strand))
-  expect_true(nrow(res) == 0)
+  expect_true(nrow(res) == 1)
+  expect_true(nrow(na.omit(res)) == 0)
 })
 
 test_that("test closest forcing -S with only an opp strands on chrom", {

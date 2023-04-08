@@ -259,3 +259,16 @@ DataFrame extract_groups(const DataFrame& x) {
   res.attr("class") = "data.frame" ;
   return res;
 }
+
+
+// debug utility to print out interval tree structure
+// add export declaration when needed for debugging from R
+void print_ivl_tree(const DataFrame& x, int depth = 16,
+                    int minbucket = 64, int maxbucket = 512){;
+  int nx = x.nrow() ;
+  IntegerVector si = seq_len(nx);
+  ivl_vector_t vx = makeIntervalVector(x, si) ;
+  IntervalTree<int, int> itree(std::move(vx), depth, minbucket, maxbucket) ;
+  Rcout << itree << "\n";
+}
+

@@ -5,13 +5,20 @@
 #' @param overlap report overlapping intervals
 #' @param suffix colname suffixes in output
 #'
+#' @note For each interval in x `bed_closest()` returns overlapping intervals from y
+#' and the closest non-intersecting y interval. Setting `overlap = FALSE` will
+#' report the closest non-intersecting y intervals, ignoring any overlapping y
+#' intervals.
+#'
 #' @template groups
 #'
 #' @return
 #' [ivl_df] with additional columns:
+#'   - `.overlap` amount of overlap with overlapping interval. Non-overlapping
+#'   or adjacent intervals have an overlap of 0. `.overlap` will not be included
+#'   in the output if `overlap = FALSE`.
 #'   - `.dist` distance to closest interval. Negative distances
-#'     denote upstream intervals.
-#'   - `.overlap` overlap with closest interval
+#'   denote upstream intervals. Book-ended intervals have a distance of 1.
 #'
 #' @family multiple set operations
 #'
@@ -72,11 +79,9 @@
 #' res
 #'
 #' @export
-bed_closest <- function(x, y, overlap = TRUE,
+bed_closest <- function(x, y,
+                        overlap = TRUE,
                         suffix = c(".x", ".y")) {
-  check_required(x)
-  check_required(y)
-
   x <- check_interval(x)
   y <- check_interval(y)
 
@@ -84,6 +89,10 @@ bed_closest <- function(x, y, overlap = TRUE,
 
   x <- bed_sort(x)
   y <- bed_sort(y)
+
+  id <- get_id_col(x)
+  x[[id]] <- seq_len(nrow(x))
+  x_id_out <- paste0(id, suffix[1])
 
   # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
@@ -97,22 +106,56 @@ bed_closest <- function(x, y, overlap = TRUE,
   x <- group_by(x, !!!groups_vars)
   y <- group_by(y, !!!groups_vars)
 
-  suffix <- list(x = suffix[1], y = suffix[2])
+  ol_ivls <- bed_intersect(x, y, suffix = suffix)
 
   grp_indexes <- shared_group_indexes(x, y)
 
   res <- closest_impl(
-    x, y,
+    x,
+    y,
     grp_indexes$x,
     grp_indexes$y,
-    suffix$x,
-    suffix$y
+    suffix[1],
+    suffix[2]
   )
 
-  if (!overlap) {
-    res <- filter(res, .overlap < 1)
-    res <- select(res, -.overlap)
+  res$.overlap <- 0L
+  ol_ivls <- mutate(ol_ivls,
+                    .dist = case_when(
+                      .overlap > 0 ~ 0L,
+                      ol_ivls$end.y <= ol_ivls$start.x ~ -1L,
+                      TRUE ~ 1L))
+
+  res <- res[colnames(ol_ivls)]
+  res <- bind_rows(ol_ivls, res)
+
+  # get x ivls from groups not found in y
+  x <- add_colname_suffix(x, suffix[1])
+  mi <- get_no_group_ivls(x, res, x_id_out)
+  if(nrow(mi) > 0) {
+    res <- bind_rows(res, mi)
   }
 
+  if (!overlap) {
+    res <- res[which(res$.overlap <= 0 | is.na(res$.overlap)), ]
+    res[[".overlap"]] <- NULL
+  }
+
+  # reorder by input x ivls
+  res <- res[order(res[[x_id_out]], method = "radix"), ]
+  res[[x_id_out]] <- NULL
   res
+}
+
+add_colname_suffix <- function(x, s) {
+  cidx <- which(names(x) != "chrom")
+  new_ids <- str_c(colnames(x), s)
+  colnames(x)[cidx] <- new_ids[cidx]
+  x
+}
+
+get_no_group_ivls <- function(x, y, cid) {
+  x <- ungroup(x)
+  mi <- x[!x[[cid]] %in% y[[cid]], ]
+  mi
 }

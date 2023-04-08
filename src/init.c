@@ -8,19 +8,19 @@
 */
 
 /* .Call calls */
-extern SEXP _valr_bed12toexons_impl(SEXP);
-extern SEXP _valr_closest_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_complement_impl(SEXP, SEXP);
-extern SEXP _valr_coverage_impl(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_dist_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_flank_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_intersect_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_makewindows_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_merge_impl(SEXP, SEXP, SEXP);
-extern SEXP _valr_partition_impl(SEXP, SEXP);
-extern SEXP _valr_random_impl(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_shuffle_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_subtract_impl(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _valr_bed12toexons_impl(void *);
+extern SEXP _valr_closest_impl(void *, void *, void *, void *, void *, void *);
+extern SEXP _valr_complement_impl(void *, void *);
+extern SEXP _valr_coverage_impl(void *, void *, void *, void *);
+extern SEXP _valr_dist_impl(void *, void *, void *, void *, void *);
+extern SEXP _valr_flank_impl(void *, void *, void *, void *, void *, void *, void *, void *);
+extern SEXP _valr_intersect_impl(void *, void *, void *, void *, void *, void *, void *);
+extern SEXP _valr_makewindows_impl(void *, void *, void *, void *, void *);
+extern SEXP _valr_merge_impl(void *, void *, void *);
+extern SEXP _valr_partition_impl(void *, void *);
+extern SEXP _valr_random_impl(void *, void *, void *, void *);
+extern SEXP _valr_shuffle_impl(void *, void *, void *, void *, void *);
+extern SEXP _valr_subtract_impl(void *, void *, void *, void *);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_valr_bed12toexons_impl", (DL_FUNC) &_valr_bed12toexons_impl, 1},
