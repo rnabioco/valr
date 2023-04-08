@@ -29,15 +29,10 @@ void init_factor(SEXP x, SEXP levels) {
 // http://kevinushey.github.io/blog/2015/01/24/understanding-data-frame-subsetting/
 // Input row indices are assumed to be zero-based
 DataFrame rowwise_subset_df(const DataFrame& x,
-                            IntegerVector row_indices,
-                            bool r_index = false) {
+                            IntegerVector row_indices) {
 
   int column_indices_n = x.ncol();
   int row_indices_n = row_indices.size();
-
-  if (r_index) {
-    row_indices = row_indices - 1;
-  }
 
   List output = no_init(column_indices_n);
 
@@ -125,17 +120,10 @@ DataFrame rowwise_subset_df(const DataFrame& x,
 
 // use std::vector<int> indices rather than IntegerVector
 DataFrame rowwise_subset_df(const DataFrame& x,
-                            std::vector<int> row_indices,
-                            bool r_index = false) {
+                            std::vector<int> row_indices) {
 
   int column_indices_n = x.ncol();
   int row_indices_n = row_indices.size();
-
-  if (r_index) {
-    for (auto i:row_indices) {
-      i--;
-    }
-  }
 
   List output = no_init(column_indices_n);
 
@@ -224,14 +212,14 @@ DataFrame rowwise_subset_df(const DataFrame& x,
 DataFrame subset_dataframe(const DataFrame& df,
                            std::vector<int> indices) {
 
-  DataFrame out = rowwise_subset_df(df, indices, false);
+  DataFrame out = rowwise_subset_df(df, indices);
   return (out) ;
 }
 
 DataFrame subset_dataframe(const DataFrame& df,
                            IntegerVector indices) {
 
-  DataFrame out = rowwise_subset_df(df, indices, false);
+  DataFrame out = rowwise_subset_df(df, indices);
   return (out) ;
 }
 
