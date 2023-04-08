@@ -55,7 +55,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="valr-development-version">valr (development version)<a class="anchor" aria-label="anchor" href="#valr-development-version"></a></h2>
-<ul><li>Fix off by one error when using <code>max_dist</code> argument in <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code> (<a href="https://github.com/rnabioco/valr/issues/401" class="external-link">#401</a>).</li>
+<ul><li><p><code><a href="../reference/bed_closest.html">bed_closest()</a></code> now reports all x intervals, even when there are no closest y intervals (e.g. when there is no matching chromosome in y intervals). These intervals are returned populated with <code>NA</code> for <code>.overlap</code>, <code>.dist</code> and y interval locations.</p></li>
+<li><p>Reimplemented <code><a href="../reference/bed_closest.html">bed_closest()</a></code> to use binary search rather than interval tree. The closest y interval can be missed with previous search strategy in high depth interval trees.</p></li>
+<li><p>Fix off by one error when using <code>max_dist</code> argument in <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code> (<a href="https://github.com/rnabioco/valr/issues/401" class="external-link">#401</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.7" id="valr-067">valr 0.6.7<a class="anchor" aria-label="anchor" href="#valr-067"></a></h2><p class="text-muted">CRAN release: 2023-02-18</p>

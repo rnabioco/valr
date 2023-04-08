@@ -85,9 +85,11 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p><a href="ivl_df.html">ivl_df</a> with additional columns:</p><ul><li><p><code>.dist</code> distance to closest interval. Negative distances
-denote upstream intervals.</p></li>
-<li><p><code>.overlap</code> overlap with closest interval</p></li>
+<p><a href="ivl_df.html">ivl_df</a> with additional columns:</p><ul><li><p><code>.overlap</code> amount of overlap with overlapping interval. Non-overlapping
+or adjacent intervals have an overlap of 0. <code>.overlap</code> will not be included
+in the output if <code>overlap = FALSE</code>.</p></li>
+<li><p><code>.dist</code> distance to closest interval. Negative distances
+denote upstream intervals. Book-ended intervals have a distance of 1.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -96,6 +98,13 @@ groups can be added using <code><a href="https://dplyr.tidyverse.org/reference/g
 grouping by <code>strand</code> will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the <code>y</code> tbl can
 first be inverted using <code><a href="flip_strands.html">flip_strands()</a></code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>For each interval in x <code>bed_closest()</code> returns overlapping intervals from y
+and the closest non-intersecting y interval. Setting <code>overlap = FALSE</code> will
+report the closest non-intersecting y intervals, ignoring any overlapping y
+intervals.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -175,8 +184,8 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 14</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   chrom start.x end.x name.x score.x strand.x start.y end.y name.y score.y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> chr1       10    20 a            1 -              8     9 b            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> chr1       10    20 a            1 -             21    22 b            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> chr1       10    20 a            1 -             21    22 b            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> chr1       10    20 a            1 -              8     9 b            1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: strand.y &lt;chr&gt;, .overlap &lt;int&gt;, .dist &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   .dist_strand &lt;int&gt;</span></span>
 <span class="r-in"><span></span></span>
@@ -186,8 +195,8 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 15</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   chrom start.x end.x name.x score.x strand.x start.y end.y name.y score.y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> chr1       10    20 a            1 -              8     9 b            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> chr1       10    20 a            1 -             21    22 b            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> chr1       10    20 a            1 -             21    22 b            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> chr1       10    20 a            1 -              8     9 b            1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5 more variables: strand.y &lt;chr&gt;, .overlap &lt;int&gt;, .dist &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   .dist_strand &lt;int&gt;, .abs_dist &lt;int&gt;</span></span>
 <span class="r-in"><span></span></span>
