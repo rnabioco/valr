@@ -369,4 +369,4 @@ Function names are similar to their their [BEDtools][1] counterparts, with some 
 [9]: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002529
 [10]: https://rmarkdown.rstudio.com/
 [12]: https://bitbucket.org/snakemake/snakemake/wiki/Home
-[13]: https://shiny.rstudio.com/
+[13]: https://shiny.posit.co/
