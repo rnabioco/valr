@@ -2,7 +2,7 @@
 
 * `bed_closest()` now reports all x intervals, even when there are no closest y intervals (e.g. when there is no matching chromosome in y intervals). These intervals are returned populated with `NA` for `.overlap`, `.dist` and y interval locations. 
 
-* Reimplemented `bed_closest()` to use binary search rather than interval tree. The closest y interval can be missed with previous search strategy in high depth interval trees. 
+* Reimplemented `bed_closest()` to use binary search rather than an interval tree search. The closest y interval can be missed with the previous search strategy in high depth interval trees. 
 
 * Fix off by one error when using `max_dist` argument in `bed_cluster()` (#401).
 
