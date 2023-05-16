@@ -1,7 +1,7 @@
 Type: Package
 Package: valr
 Title: Genome Interval Arithmetic
-Version: 0.6.8
+Version: 0.6.8.9000
 Authors@R: c(
     person("Jay", "Hesselberth", , "jay.hesselberth@cuanschutz.edu", role = c("aut"),
            comment = c(ORCID = "0000-0002-6299-179X")),
