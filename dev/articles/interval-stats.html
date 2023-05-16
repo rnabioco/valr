@@ -89,7 +89,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Interval statistics</h1>
             
-            <h4 data-toc-skip class="date">May 15 2023</h4>
+            <h4 data-toc-skip class="date">May 16 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/HEAD/vignettes/interval-stats.Rmd" class="external-link"><code>vignettes/interval-stats.Rmd</code></a></small>
       <div class="d-none name"><code>interval-stats.Rmd</code></div>
@@ -223,21 +223,21 @@ test. This involves:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">res</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16,797 × 5</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   name, stat [1,894]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16,726 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   name, stat [1,931]</span></span></span>
 <span><span class="co">#&gt;    name  stat      .id   obs   shuf</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> (A)n  reldist     1 0.363 0.409 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> (A)n  reldist     2 0.429 0.084<span style="text-decoration: underline;">2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> (A)n  reldist     3 0.246 0.122 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> (A)n  reldist     4 0.478 0.462 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> (A)n  reldist     5 0.260 0.311 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> (A)n  reldist     6 0.286 0.326 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> (A)n  reldist     7 0.498 0.021<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> (A)n  reldist     8 0.237 0.412 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> (A)n  reldist     9 0.314 0.350 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> (A)n  reldist    10 0.149 0.194 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 16,787 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> (A)n  reldist     1 0.363 0.128 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> (A)n  reldist     2 0.429 0.208 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> (A)n  reldist     3 0.246 0.266 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> (A)n  reldist     4 0.478 0.121 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> (A)n  reldist     5 0.260 0.349 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> (A)n  reldist     6 0.286 0.045<span style="text-decoration: underline;">1</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> (A)n  reldist     7 0.498 0.469 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> (A)n  reldist     8 0.237 0.282 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> (A)n  reldist     9 0.314 0.425 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> (A)n  reldist    10 0.149 0.249 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 16,716 more rows</span></span></span></code></pre></div>
 <p>Now that the data are formatted, we can use the non-parametric
 <code><a href="https://rdrr.io/r/stats/ks.test.html" class="external-link">ks.test()</a></code> to determine whether there are significant
 differences between the observed and shuffled data for each group.
@@ -290,7 +290,7 @@ p.values.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">res_gather</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"stat"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in left_join(., res_gather, by = c("name", "stat")): Detected an unexpected many-to-many relationship between `x` and `y`.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 1 of `x` matches multiple rows in `y`.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 29111 of `y` matches multiple rows in `x`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 10419 of `y` matches multiple rows in `x`.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> If a many-to-many relationship is expected, set `relationship =</span></span>
 <span><span class="co">#&gt;   "many-to-many"` to silence this warning.</span></span>
 <span></span>
@@ -419,8 +419,8 @@ query intervals are enriched.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">DT</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">datatable</a></span><span class="op">(</span><span class="va">signif_tests</span><span class="op">)</span></span></code></pre></div>
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3867f52da5c1512b70b1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3867f52da5c1512b70b1">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-03895431b78be12dd3c9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-03895431b78be12dd3c9">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["AluSx1","AluSx3","AluJb","Charlie4z","AluSz","MER3","L1MC4a","L1ME1","G-rich","L1MC5"],[364,95,271,11,259,27,23,38,54,29],[1.13727959125676e-05,0.000142248310274207,0.00022198786170069,0.00122898000927452,0.00131822309756457,2.70117007751258e-05,0.000144755028319676,0.000203406678286999,0.000217198716728206,0.000456128135381095],[2.10614752188776,2.91411990455348,2.04310989618141,5.80786134823596,1.89110543256589,8.14944717831681,7.65339387181057,5.79039667933037,4.88966830699009,6.06993307074632],["FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE","FALSE"],["coding","coding","coding","coding","coding","non_coding","non_coding","non_coding","non_coding","non_coding"],[0.00203573046834959,0.0251779509185346,0.0384039000742193,0.205239661548844,0.218825034195719,0.0048080827379724,0.025476884984263,0.0355961687002249,0.0377925767107079,0.0784540392855484]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>name<\/th>\n      <th>n_repeats<\/th>\n      <th>p.value<\/th>\n      <th>obs_exp_ratio<\/th>\n      <th>lower_tail<\/th>\n      <th>type<\/th>\n      <th>q.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
