@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.6.8
 
 * `bed_closest()` now reports all x intervals, even when there are no closest y intervals (e.g. when there is no matching chromosome in y intervals). These intervals are returned populated with `NA` for `.overlap`, `.dist` and y interval locations. 
 
