@@ -1,6 +1,6 @@
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 
-x <- read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
+x <- read_bed(valr_example("6fields.bed.gz"))
 x_facs <- x
 
 x_facs$chrom <- factor(x_facs$chrom)

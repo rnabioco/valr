@@ -46,8 +46,8 @@ The functions in `valr` have similar names to their `BEDtools` counterparts, and
 library(valr)
 library(dplyr)
 
-snps <- read_bed(valr_example("hg19.snps147.chr22.bed.gz"), n_fields = 6)
-genes <- read_bed(valr_example("genes.hg19.chr22.bed.gz"), n_fields = 6)
+snps <- read_bed(valr_example("hg19.snps147.chr22.bed.gz"))
+genes <- read_bed(valr_example("genes.hg19.chr22.bed.gz"))
 
 # find snps in intergenic regions
 intergenic <- bed_subtract(snps, genes)
@@ -220,7 +220,7 @@ bedfile <- valr_example("genes.hg19.chr22.bed.gz")
 genomefile <- valr_example("hg19.chrom.sizes.gz")
 bgfile <- valr_example("hela.h3k4.chip.bg.gz")
 
-genes <- read_bed(bedfile, n_fields = 6)
+genes <- read_bed(bedfile)
 genome <- read_genome(genomefile)
 y <- read_bedgraph(bgfile)
 ```
@@ -279,76 +279,6 @@ ggplot(res, aes(x = .win_id, y = win_mean)) +
   ggtitle("Human H3K4me3 signal near transcription start sites") +
   theme_classic()
 ```
-
-## API
-
-Function names are similar to their their [BEDtools][1] counterparts, with some additions.
-
-### Data types
-
-* Validate interval sets with `check_interval()` and `check_genome()`, which enforce strict column naming.
-
-### Reading data
-
-* Read BED and related files with `read_bed()`, `read_bed12()`, `read_bedgraph()`, `read_narrowpeak()` and `read_broadpeak()`.
-  
-* Read genome files containing chromosome name and size information with `read_genome()`.
-  
-* Load VCF files with `read_vcf()`.
-
-* Access remote databases with `db_ucsc()` and `db_ensembl()`.
-
-### Transforming single interval sets
-
-* Adjust interval coordinates with `bed_slop()` and `bed_shift()`, and create new flanking intervals with `bed_flank()`.
-
-* Combine nearby intervals with `bed_merge()` and identify nearby intervals with `bed_cluster()`.  
-
-* Generate intervals not covered by a query with `bed_complement()`.
-
-* Order intervals with `dplyr::arrange()`.
-
-### Comparing multiple interval sets
-
-* Find overlaps between sets of intervals with `bed_intersect()`.
-
-* Apply functions to overlapping sets of intervals with `bed_map()`.
-
-* Remove intervals based on overlaps with `bed_subtract()`.
-
-* Find overlapping intervals within a window with `bed_window()`.
-
-* Find closest intervals independent of overlaps with `bed_closest()`.
-
-### Randomizing intervals
-
-* Generate random intervals with `bed_random()`.
-
-* Shuffle the coordinates of intervals with `bed_shuffle()`.
-
-* Sample input intervals with `dplyr::sample_n()` and `dplyr::sample_frac()`.
-
-### Interval statistics
-
-* Calculate significance of overlaps between sets of intervals with `bed_fisher()` and  `bed_projection()`.
-
-* Quantify relative and absolute distances between sets of intervals with `bed_reldist()` and `bed_absdist()`.
-
-* Quantify extent of overlap between sets of intervals with `bed_jaccard()`.
-
-### Utilities
-
-* Create features from BED12 files with `create_introns()`, `create_tss()`, `create_utrs5()`, and `create_utrs3()`.
-
-* Visualize the actions of valr functions with `bed_glyph()`.
-
-* Constrain intervals to a genome reference with `bound_intervals()`.
-
-* Subdivide intervals with `bed_makewindows()`.
-
-* Convert BED12 to BED6 format with `bed12_to_exons()`.
-
-* Calculate spacing between intervals with `interval_spacing()`.
 
 ## Related work
 

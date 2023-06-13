@@ -35,9 +35,6 @@ sniff_fields <- function(filename) {
 #' # result is sorted by chrom and start unless `sort = FALSE`
 #' read_bed(valr_example("3fields.bed.gz"), sort = FALSE)
 #'
-#' # use of `n_fields` is deprecated. n_fields are determined automatically.
-#' read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
-#'
 #' @export
 read_bed <- function(filename, col_types = bed12_coltypes,
                      sort = TRUE, ..., n_fields = NULL) {

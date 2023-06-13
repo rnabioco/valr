@@ -8,7 +8,13 @@
 \alias{read_broadpeak}
 \title{Read BED and related files.}
 \usage{
-read_bed(filename, col_types = bed12_coltypes, sort = TRUE, ..., n_fields)
+read_bed(
+  filename,
+  col_types = bed12_coltypes,
+  sort = TRUE,
+  ...,
+  n_fields = NULL
+)
 
 read_bed12(filename, ...)
 
@@ -54,9 +60,6 @@ read_bed(valr_example("3fields.bed.gz"))
 
 # result is sorted by chrom and start unless `sort = FALSE`
 read_bed(valr_example("3fields.bed.gz"), sort = FALSE)
-
-# use of `n_fields` is deprecated. n_fields are determined automatically.
-read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
 
 
 read_bed12(valr_example("mm9.refGene.bed.gz"))

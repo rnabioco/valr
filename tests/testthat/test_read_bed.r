@@ -17,7 +17,7 @@ test_that("read BED3", {
 
 
 test_that("read BED6", {
-  bed6_tbl <- read_bed(bed6_path, n_fields = 6)
+  bed6_tbl <- read_bed(bed6_path)
   expect_equal(ncol(bed6_tbl), 6)
   expect_equal(nrow(bed6_tbl), 10)
 })
