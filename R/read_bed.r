@@ -40,8 +40,16 @@ sniff_fields <- function(filename) {
 #'
 #' @export
 read_bed <- function(filename, col_types = bed12_coltypes,
-                     sort = TRUE, ..., n_fields) {
+                     sort = TRUE, ..., n_fields = NULL) {
   check_required(filename)
+
+  if (!is.null(n_fields)) {
+    lifecycle::deprecate_warn(
+      "0.6.9",
+      "read_bed(n_fields)",
+      details = "fields are now determined automatically from the file"
+    )
+  }
 
   n_fields <- sniff_fields(filename)
 
