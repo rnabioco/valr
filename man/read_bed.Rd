@@ -8,7 +8,13 @@
 \alias{read_broadpeak}
 \title{Read BED and related files.}
 \usage{
-read_bed(filename, n_fields = 3, col_types = bed12_coltypes, sort = TRUE, ...)
+read_bed(
+  filename,
+  col_types = bed12_coltypes,
+  sort = TRUE,
+  ...,
+  n_fields = NULL
+)
 
 read_bed12(filename, ...)
 
@@ -21,13 +27,13 @@ read_broadpeak(filename, ...)
 \arguments{
 \item{filename}{file or URL}
 
-\item{n_fields}{number fields in the BED file}
-
 \item{col_types}{column type spec for \code{\link[readr:read_delim]{readr::read_tsv()}}}
 
 \item{sort}{sort the tbl by chrom and start}
 
 \item{...}{options to pass to \code{\link[readr:read_delim]{readr::read_tsv()}}}
+
+\item{n_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \value{
 \link{ivl_df}
@@ -51,8 +57,6 @@ local file or URLs. The read functions load data into tbls with consistent
 \examples{
 # read_bed assumes 3 field BED format.
 read_bed(valr_example("3fields.bed.gz"))
-
-read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
 
 # result is sorted by chrom and start unless `sort = FALSE`
 read_bed(valr_example("3fields.bed.gz"), sort = FALSE)

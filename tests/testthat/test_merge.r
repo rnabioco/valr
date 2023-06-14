@@ -163,7 +163,7 @@ test_that("Test that precision default is high enough for formatting not to give
 test_that("Test stranded merge with bedPlus files that have strand", {
   skip_if(packageVersion("readr") <= "1.4.0")
 
-  expect_warning(x <- read_bed(valr_example("bug254_e.bed"), n_fields = 7, skip = 1, lazy = FALSE))
+  expect_warning(x <- read_bed(valr_example("bug254_e.bed"), skip = 1, lazy = FALSE))
   x <- x %>% group_by(strand)
   res <- bed_merge(x, 200) %>% arrange(end)
   expect_equal(res$end, c(20000, 25000))
@@ -210,18 +210,18 @@ test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
   expect_equal(res, ex)
 
   x <- tibble::tribble(
-    ~chrom, ~start,  ~end,
-    "scaffold_66",  27262, 70396,
-    "scaffold_66",  66594, 67647,
-    "scaffold_66",  82218, 85280,
-    "scaffold_66",  85878, 87553,
-    "scaffold_66",  87831, 89885,
-    "scaffold_66",  90498, 91996
+    ~chrom, ~start, ~end,
+    "scaffold_66", 27262, 70396,
+    "scaffold_66", 66594, 67647,
+    "scaffold_66", 82218, 85280,
+    "scaffold_66", 85878, 87553,
+    "scaffold_66", 87831, 89885,
+    "scaffold_66", 90498, 91996
   )
 
   ex <- tibble::tribble(
     ~chrom, ~start, ~end,
-    "scaffold_66", 27262,      91996
+    "scaffold_66", 27262, 91996
   )
   res <- bed_merge(x, max_dist = 20000)
   expect_equal(res, ex)

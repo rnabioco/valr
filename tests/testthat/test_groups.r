@@ -1,7 +1,7 @@
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))
 
-x <- read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
+x <- read_bed(valr_example("6fields.bed.gz"))
 y <- x
 
 x_grpd <- group_by(x, strand)

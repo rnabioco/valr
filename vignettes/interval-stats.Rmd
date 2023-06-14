@@ -40,8 +40,8 @@ library(tidyr)
 
 # load repeats and genes. Data in the valr package is restricted to chr22; the entire
 # files can be downloaded from UCSC.
-rpts <- read_bed(valr_example("hg19.rmsk.chr22.bed.gz"), n_fields = 6)
-genes <- read_bed(valr_example("hg19.refGene.chr22.bed.gz"), n_fields = 12)
+rpts <- read_bed(valr_example("hg19.rmsk.chr22.bed.gz"))
+genes <- read_bed12(valr_example("hg19.refGene.chr22.bed.gz"))
 
 # load chrom sizes
 genome <- read_genome(valr_example("hg19.chrom.sizes.gz"))

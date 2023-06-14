@@ -1,3 +1,16 @@
+#' sniff number of fields in a bed file
+#' @noRd
+sniff_fields <- function(filename) {
+  ncol(
+    readr::read_tsv(
+      filename,
+      n_max = 10, comment = "#",
+      show_col_types = FALSE,
+      name_repair = "minimal"
+    )
+  )
+}
+
 #' @title Read BED and related files.
 #'
 #' @description read functions for BED and related formats. Filenames can be
@@ -5,10 +18,10 @@
 #'   `chrom`, `start` and `end` colnames.
 #'
 #' @param filename file or URL
-#' @param n_fields number fields in the BED file
 #' @param col_types column type spec for [readr::read_tsv()]
 #' @param sort sort the tbl by chrom and start
 #' @param ... options to pass to [readr::read_tsv()]
+#' @param n_fields `r lifecycle::badge("deprecated")`
 #'
 #' @return [ivl_df]
 #'
@@ -20,15 +33,23 @@
 #' # read_bed assumes 3 field BED format.
 #' read_bed(valr_example("3fields.bed.gz"))
 #'
-#' read_bed(valr_example("6fields.bed.gz"), n_fields = 6)
-#'
 #' # result is sorted by chrom and start unless `sort = FALSE`
 #' read_bed(valr_example("3fields.bed.gz"), sort = FALSE)
 #'
 #' @export
-read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
-                     sort = TRUE, ...) {
+read_bed <- function(filename, col_types = bed12_coltypes,
+                     sort = TRUE, ..., n_fields = NULL) {
   check_required(filename)
+
+  if (!is.null(n_fields)) {
+    lifecycle::deprecate_warn(
+      "0.6.9",
+      "read_bed(n_fields)",
+      details = "fields are now determined automatically from the file"
+    )
+  }
+
+  n_fields <- sniff_fields(filename)
 
   coltypes <- col_types[1:n_fields]
   colnames <- names(coltypes)
@@ -55,7 +76,11 @@ read_bed <- function(filename, n_fields = 3, col_types = bed12_coltypes,
 #' @export
 read_bed12 <- function(filename, ...) {
   check_required(filename)
-  bed12_tbl <- read_bed(filename, n_fields = 12)
+  n_fields <- sniff_fields(filename)
+  if (n_fields != 12) {
+    cli::cli_abort("expected 12 columns in bed12")
+  }
+  bed12_tbl <- read_bed(filename)
   bed12_tbl
 }
 
@@ -71,7 +96,11 @@ read_bed12 <- function(filename, ...) {
 read_bedgraph <- function(filename, ...) {
   # load as bed4, rename `value` column and covert to double
   check_required(filename)
-  out <- read_bed(filename, n_fields = 4, sort = FALSE)
+  n_fields <- sniff_fields(filename)
+  if (n_fields != 4) {
+    cli::cli_abort("expected 4 columns in bedgraph")
+  }
+  out <- read_bed(filename, sort = FALSE)
   out <- select(out, everything(), value = name)
   out <- mutate(out, value = as.double(value))
   out
@@ -88,6 +117,7 @@ read_bedgraph <- function(filename, ...) {
 #' @export
 read_narrowpeak <- function(filename, ...) {
   check_required(filename)
+  n_fields <- sniff_fields(filename)
   colnames <- names(peak_coltypes)
   out <- readr::read_tsv(
     filename,
@@ -108,6 +138,7 @@ read_narrowpeak <- function(filename, ...) {
 #' @export
 read_broadpeak <- function(filename, ...) {
   check_required(filename)
+  n_fields <- sniff_fields(filename)
   coltypes <- peak_coltypes[1:length(peak_coltypes) - 1]
   colnames <- names(coltypes)
   out <- readr::read_tsv(filename, col_names = colnames, col_types = coltypes)
