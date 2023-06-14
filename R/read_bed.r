@@ -3,9 +3,10 @@
 sniff_fields <- function(filename) {
   ncol(
     readr::read_tsv(
-      filename, n_max = 10, comment = '#',
+      filename,
+      n_max = 10, comment = "#",
       show_col_types = FALSE,
-      name_repair = 'minimal'
+      name_repair = "minimal"
     )
   )
 }
@@ -77,7 +78,7 @@ read_bed12 <- function(filename, ...) {
   check_required(filename)
   n_fields <- sniff_fields(filename)
   if (n_fields != 12) {
-    cli::cli_abort('expected 12 columns in bed12')
+    cli::cli_abort("expected 12 columns in bed12")
   }
   bed12_tbl <- read_bed(filename)
   bed12_tbl
@@ -97,7 +98,7 @@ read_bedgraph <- function(filename, ...) {
   check_required(filename)
   n_fields <- sniff_fields(filename)
   if (n_fields != 4) {
-    cli::cli_abort('expected 4 columns in bedgraph')
+    cli::cli_abort("expected 4 columns in bedgraph")
   }
   out <- read_bed(filename, sort = FALSE)
   out <- select(out, everything(), value = name)

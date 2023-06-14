@@ -76,7 +76,8 @@ bed_absdist <- function(x, y, genome) {
 
   if (utils::packageVersion("dplyr") > "1.0.10") {
     genome <- inner_join(genome, get_labels(y),
-                         by = c("chrom"), multiple = "all")
+      by = c("chrom"), multiple = "all"
+    )
   } else {
     genome <- inner_join(genome, get_labels(y), by = c("chrom"))
   }

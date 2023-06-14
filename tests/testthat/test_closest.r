@@ -421,7 +421,6 @@ test_that("Make sure that closest intervals are captured when intervals span mul
 })
 
 test_that("test that a max of two duplicated x ivls are returned, assuming non-overlapping, and non-duplicate y ivls #105", {
-
   snps <- read_bed(valr_example("hg19.snps147.chr22.bed.gz"), n_max = 10)
   genes <- read_bed(valr_example("genes.hg19.chr22.bed.gz"), n_max = 64)
   # make sure there are no repeated y ivls (otherwise more than 2 x ivls should be reported)
@@ -457,13 +456,14 @@ test_that("test that a max of two duplicated x ivls are returned, assuming non-o
 
   # if more than 1 x ivl reported, then it is due to duplicated y ivls in input
   multi_grps <- res_grps[res_grps$n > 1, ]
-  if(nrow(multi_grps) > 0){
+  if (nrow(multi_grps) > 0) {
     grps <- res[res$idx.x %in% multi_grps$idx.x, ]
     grps <- group_by(grps, idx.x)
     res <- summarize(grps,
-                     n_res = n(),
-                     same_abs_dist = length(unique(abs(.dist))) == 1,
-                     idx_y_distinct = length(unique(idx.y)) == n_res)
+      n_res = n(),
+      same_abs_dist = length(unique(abs(.dist))) == 1,
+      idx_y_distinct = length(unique(idx.y)) == n_res
+    )
     expect_true(all(res$same_abs_dist & res$idx_y_distinct))
   }
 })

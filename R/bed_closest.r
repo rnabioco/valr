@@ -121,10 +121,12 @@ bed_closest <- function(x, y,
 
   res$.overlap <- 0L
   ol_ivls <- mutate(ol_ivls,
-                    .dist = case_when(
-                      .overlap > 0 ~ 0L,
-                      ol_ivls$end.y <= ol_ivls$start.x ~ -1L,
-                      TRUE ~ 1L))
+    .dist = case_when(
+      .overlap > 0 ~ 0L,
+      ol_ivls$end.y <= ol_ivls$start.x ~ -1L,
+      TRUE ~ 1L
+    )
+  )
 
   res <- res[colnames(ol_ivls)]
   res <- bind_rows(ol_ivls, res)
@@ -132,7 +134,7 @@ bed_closest <- function(x, y,
   # get x ivls from groups not found in y
   x <- add_colname_suffix(x, suffix[1])
   mi <- get_no_group_ivls(x, res, x_id_out)
-  if(nrow(mi) > 0) {
+  if (nrow(mi) > 0) {
     res <- bind_rows(res, mi)
   }
 
