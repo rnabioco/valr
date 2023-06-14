@@ -55,7 +55,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="valr-development-version">valr (development version)<a class="anchor" aria-label="anchor" href="#valr-development-version"></a></h2>
-</div>
+<ul><li>
+<code>read_bed</code> and related functions now automatically calculate the fields. Use of <code>n_fields</code> was deprecated.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.8" id="valr-068">valr 0.6.8<a class="anchor" aria-label="anchor" href="#valr-068"></a></h2><p class="text-muted">CRAN release: 2023-05-16</p>
 <ul><li><p><code><a href="../reference/bed_closest.html">bed_closest()</a></code> now reports all x intervals, even when there are no closest y intervals (e.g. when there is no matching chromosome in y intervals). These intervals are returned populated with <code>NA</code> for <code>.overlap</code>, <code>.dist</code> and y interval locations.</p></li>
