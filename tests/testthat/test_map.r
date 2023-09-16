@@ -4,7 +4,7 @@ test_that("x/y groupings are respected", {
     "chr1", 100, 250, 1,
     "chr2", 250, 500, 2,
     "chr2", 250, 500, 3
-  ) %>%
+  ) |>
     group_by(id)
 
   y <- tibble::tribble(
@@ -12,7 +12,7 @@ test_that("x/y groupings are respected", {
     "chr1", 100, 250, 10, 1,
     "chr1", 150, 250, 20, 2,
     "chr2", 250, 500, 500, 3
-  ) %>%
+  ) |>
     group_by(id)
 
   pred <- tibble::tribble(
@@ -167,7 +167,7 @@ y <- tibble::tribble(
 test_that("test count", {
   res <- bed_map(x, y, vals = n())
   expect_equal(res$vals, c(3, 1, NA, NA, 3, 1))
-  res2 <- bed_map(x, y, vals = n()) %>% mutate(vals = ifelse(is.na(vals), 0, vals))
+  res2 <- bed_map(x, y, vals = n()) |> mutate(vals = ifelse(is.na(vals), 0, vals))
   expect_equal(res2$vals, c(3, 1, 0, 0, 3, 1))
 })
 

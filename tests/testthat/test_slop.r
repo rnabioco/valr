@@ -11,21 +11,21 @@ x <- tibble::tribble(
 
 test_that("left arg works", {
   dist <- 100
-  out <- x %>%
+  out <- x |>
     bed_slop(genome, left = dist)
   expect_true(all(x$start - out$start == dist))
 })
 
 test_that("right arg works", {
   dist <- 100
-  out <- x %>%
+  out <- x |>
     bed_slop(genome, right = dist)
   expect_true(all(out$end - x$end == dist))
 })
 
 test_that("both arg works", {
   dist <- 100
-  out <- x %>%
+  out <- x |>
     bed_slop(genome, both = dist)
   expect_true(all(x$start - out$start == dist))
   expect_true(all(out$end - x$end == dist))

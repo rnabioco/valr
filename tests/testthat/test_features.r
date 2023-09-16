@@ -17,22 +17,22 @@ test_that("feature lengths are valid", {
 
 test_that("introns and exons don't overlap", {
   # substracting exons from introns should be empty
-  expect_equal(nrow(introns %>%
+  expect_equal(nrow(introns |>
     bed_subtract(x)), 0)
 })
 
 test_that("there is 1 feature from each gene", {
-  expect_true(all(utrs5 %>%
-    group_by(name) %>%
-    tally() %>%
+  expect_true(all(utrs5 |>
+    group_by(name) |>
+    tally() |>
     pull(n) == 1))
-  expect_true(all(utrs3 %>%
-    group_by(name) %>%
-    tally() %>%
+  expect_true(all(utrs3 |>
+    group_by(name) |>
+    tally() |>
     pull(n) == 1))
-  expect_true(all(tss %>%
-    group_by(name) %>%
-    tally() %>%
+  expect_true(all(tss |>
+    group_by(name) |>
+    tally() |>
     pull(n) == 1))
 })
 
@@ -41,8 +41,8 @@ test_that("TSS are single base features", {
 })
 
 test_that("intron numbers are not duplicated #377", {
-  expect_true(group_by(introns, name) %>%
-    summarize(no_duplicates = !any(duplicated(score))) %>%
-    pull(no_duplicates) %>%
+  expect_true(group_by(introns, name) |>
+    summarize(no_duplicates = !any(duplicated(score))) |>
+    pull(no_duplicates) |>
     all())
 })

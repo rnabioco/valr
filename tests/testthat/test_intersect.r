@@ -292,10 +292,10 @@ test_that("same intervals are reported with single and multiple intersection", {
   )
   a <- bed_intersect(x, y)
   b <- bed_intersect(x, z)
-  orig <- bind_rows(a, b) %>%
+  orig <- bind_rows(a, b) |>
     arrange(chrom, start.x, start.y)
-  new <- bed_intersect(x, y, z) %>%
-    arrange(chrom, start.x, start.y) %>%
+  new <- bed_intersect(x, y, z) |>
+    arrange(chrom, start.x, start.y) |>
     select(-.source)
   expect_true(all(orig == new))
 })
@@ -307,7 +307,7 @@ test_that("unmatched groups are included when invert = TRUE", {
     "chr2", 200, 400, "B", # unmatched
     "chr2", 300, 500, "A",
     "chr2", 800, 900, "A"
-  ) %>% group_by(chrom, group)
+  ) |> group_by(chrom, group)
 
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
@@ -315,7 +315,7 @@ test_that("unmatched groups are included when invert = TRUE", {
     "chr1", 500, 550, "A",
     "chr2", 230, 430, "A",
     "chr2", 350, 430, "A"
-  ) %>% group_by(chrom, group)
+  ) |> group_by(chrom, group)
 
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,

@@ -79,20 +79,20 @@ res <- mark(
   time_unit = 's')
 
 # covert nanoseconds to seconds
-res2<- res %>%
-  as_tibble() %>%
-  mutate(expression = as.character(expression)) %>% 
-  tidyr::unnest(time) %>% 
+res2<- res |>
+  as_tibble() |>
+  mutate(expression = as.character(expression)) |> 
+  tidyr::unnest(time) |> 
   arrange(time)
 
 # futz with the x-axis
-maxs <- res2 %>%
-  group_by(expression) %>%
+maxs <- res2 |>
+  group_by(expression) |>
   summarize(max.time = max(boxplot.stats(time)$stats))
 
 # filter out outliers
-res <- res2 %>%
-  left_join(maxs) %>%
+res <- res2 |>
+  left_join(maxs) |>
   filter(time <= max.time * 1.05)
 
 ggplot(res, aes(x=reorder(expression, time), y=time)) +
@@ -157,28 +157,28 @@ res2 <- mark(
   time_unit = 's')
 
 # label experiment pair and software
-comp <- as_tibble(summary(res2)) %>% 
-  mutate(pair = as.numeric(row_number()) %% (nrow(res2) / 1 / 2)) %>% 
-  mutate(software = rep(c("valr", "GR"), each = (nrow(res2) / 1 / 2))) %>%
-  select(expression, pair, software) %>% 
+comp <- as_tibble(summary(res2)) |> 
+  mutate(pair = as.numeric(row_number()) %% (nrow(res2) / 1 / 2)) |> 
+  mutate(software = rep(c("valr", "GR"), each = (nrow(res2) / 1 / 2))) |>
+  select(expression, pair, software) |> 
   mutate(expression = as.character(expression))
 
 # convert time table
-res2 <- res2 %>%
-  mutate(expression = as.character(expression)) %>% 
-  as_tibble() %>%
-  left_join(comp) %>%
-  tidyr::unnest(time) %>% 
+res2 <- res2 |>
+  mutate(expression = as.character(expression)) |> 
+  as_tibble() |>
+  left_join(comp) |>
+  tidyr::unnest(time) |> 
   arrange(time)
 
 # futz with the x-axis
-maxs2 <- res2 %>%
-  group_by(expression) %>%
+maxs2 <- res2 |>
+  group_by(expression) |>
   summarize(max.time = max(boxplot.stats(time)$stats))
 
 # filter out outliers
-res2 <- res2 %>%
-  left_join(maxs2) %>%
+res2 <- res2 |>
+  left_join(maxs2) |>
   filter(time <= max.time * 1.05)
 
 #label

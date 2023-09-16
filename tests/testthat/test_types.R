@@ -26,8 +26,8 @@ test_that("mixing factor and character vectors for grouping works", {
 
 
 test_that("factors with no entries are handled ", {
-  x_empty_groups <- x_facs_grpd %>%
-    filter(strand == "+", chrom == "chr1") %>%
+  x_empty_groups <- x_facs_grpd |>
+    filter(strand == "+", chrom == "chr1") |>
     group_by(strand)
 
   # throws 2 warnings

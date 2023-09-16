@@ -16,8 +16,8 @@ test_that("returns correctly sized intervals", {
 
 test_that("all ends are less or equal to than chrom size", {
   len <- 1000
-  res <- bed_random(genome, length = len, n = 1e4, seed = seed) %>%
-    mutate(chrom = as.character(chrom)) %>%
+  res <- bed_random(genome, length = len, n = 1e4, seed = seed) |>
+    mutate(chrom = as.character(chrom)) |>
     left_join(genome, by = "chrom")
   expect_true(all(res$end <= res$size))
 })
@@ -36,7 +36,7 @@ test_that("intervals are sorted by default", {
   expect_false(all(x == y))
 
   # default sort
-  x_sort <- x %>%
+  x_sort <- x |>
     arrange(chrom, start)
   expect_true(all(x == x_sort))
 })

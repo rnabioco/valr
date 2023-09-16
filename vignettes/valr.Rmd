@@ -32,7 +32,7 @@ library(tibble)
 * Combines analysis and visualization in RStudio.
 * Can be used to generate reports with Rmarkdown.
 * Is highly extensible. New tools are quickly implemented on the R side.
-* Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`%>%`).
+* Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`|>`).
 * Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
 * Facilitates interactive visualizations with [`shiny`][13].
 
@@ -54,8 +54,8 @@ intergenic <- bed_subtract(snps, genes)
 # distance from intergenic snps to nearest gene
 nearby <- bed_closest(intergenic, genes)
 
-nearby %>%
-  select(starts_with("name"), .overlap, .dist) %>%
+nearby |>
+  select(starts_with("name"), .overlap, .dist) |>
   filter(abs(.dist) < 1000)
 ```
 
@@ -229,8 +229,8 @@ Then we generate 1 bp intervals to represent transcription start sites (TSSs). W
 
 ```{r tss}
 # generate 1 bp TSS intervals, `+` strand only
-tss <- genes %>%
-  filter(strand == "+") %>%
+tss <- genes |>
+  filter(strand == "+") |>
   mutate(end = start + 1)
 
 # 1000 bp up and downstream
@@ -239,8 +239,8 @@ region_size <- 1000
 win_size <- 50
 
 # add slop to the TSS, break into windows and add a group
-x <- tss %>%
-  bed_slop(genome, both = region_size) %>%
+x <- tss |>
+  bed_slop(genome, both = region_size) |>
   bed_makewindows(win_size)
 
 x
@@ -250,8 +250,8 @@ Now we use the `.win_id` group with `bed_map()` to calculate a sum by mapping `y
 
 ```{r map}
 # map signals to TSS regions and calculate summary statistics.
-res <- bed_map(x, y, win_sum = sum(value, na.rm = TRUE)) %>%
-  group_by(.win_id) %>%
+res <- bed_map(x, y, win_sum = sum(value, na.rm = TRUE)) |>
+  group_by(.win_id) |>
   summarize(
     win_mean = mean(win_sum, na.rm = TRUE),
     win_sd = sd(win_sum, na.rm = TRUE)

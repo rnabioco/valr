@@ -8,12 +8,12 @@ test_that("start intervals are NA", {
 
   res <- interval_spacing(x)
 
-  first <- res %>%
-    group_by(chrom) %>%
-    slice(1) %>%
+  first <- res |>
+    group_by(chrom) |>
+    slice(1) |>
     select(chrom:end)
 
-  nas <- filter(res, is.na(.spacing)) %>%
+  nas <- filter(res, is.na(.spacing)) |>
     select(chrom:end)
 
   expect_true(all(first == nas))

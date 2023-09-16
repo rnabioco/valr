@@ -41,7 +41,7 @@ test_that("starts forced to 0", {
 
 test_that("end forced to chrom length", {
   size <- 1675
-  out <- bed_shift(bed_tbl, genome, size) %>%
+  out <- bed_shift(bed_tbl, genome, size) |>
     left_join(genome, by = "chrom")
   expect_true(all(out$end <= out$size))
 })

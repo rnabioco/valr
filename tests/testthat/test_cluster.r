@@ -39,13 +39,13 @@ x <- tibble::tribble(
 test_that("cluster ids are not repeated per group issue #171", {
   res <- bed_cluster(x)
   # test that groups have unique ids
-  chr1_ids <- filter(res, chrom == "chr1") %>%
-    select(.id) %>%
-    unique() %>%
+  chr1_ids <- filter(res, chrom == "chr1") |>
+    select(.id) |>
+    unique() |>
     unlist()
-  chr2_ids <- filter(res, chrom == "chr2") %>%
-    select(.id) %>%
-    unique() %>%
+  chr2_ids <- filter(res, chrom == "chr2") |>
+    select(.id) |>
+    unique() |>
     unlist()
   shared_ids <- intersect(chr1_ids, chr2_ids)
   expect_equal(length(shared_ids), 0)

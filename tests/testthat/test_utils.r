@@ -7,7 +7,7 @@ y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 1, 100,
   "chr1", 200, 500
-) %>%
+) |>
   group_by(chrom)
 
 test_that("NULL is return when there are no shared groups, shared_groups()", {
@@ -20,7 +20,7 @@ test_that("only shared groups are return, shared_groups()", {
     ~chrom, ~start, ~end,
     "chr1", 1, 100,
     "chr1", 200, 500
-  ) %>%
+  ) |>
     group_by(chrom, start, end)
 
   res <- shared_groups(x, y)

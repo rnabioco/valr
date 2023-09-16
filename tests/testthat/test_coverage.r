@@ -74,7 +74,7 @@ test_that("coverage of stranded tbls can be calc", {
     "chr2", 150, 200, 4, 25, "+", 3, 50, 50, 1.0000000,
     "chr2", 180, 230, 2, 25, "-", 4, 34, 50, 0.6800000
   )
-  res <- bed_coverage(group_by(a, strand), group_by(b, strand)) %>%
+  res <- bed_coverage(group_by(a, strand), group_by(b, strand)) |>
     arrange(chrom, start)
   expect_true(all(res == pred))
 })
@@ -89,7 +89,7 @@ test_that(" strand_opp coverage works (strand_opp = TRUE)", {
     "chr2", 150, 200, 4, 25, "+", 4, 50, 50, 1.0000000,
     "chr2", 180, 230, 2, 25, "-", 2, 50, 50, 1.0000000
   )
-  res <- bed_coverage(group_by(a, strand), group_by(flip_strands(b), strand)) %>%
+  res <- bed_coverage(group_by(a, strand), group_by(flip_strands(b), strand)) |>
     arrange(chrom, start)
   expect_true(all(res == pred))
 })
