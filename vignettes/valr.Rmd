@@ -11,7 +11,9 @@ output:
       %\VignetteEncoding{UTF-8}
 ---
 
-```{r knitr_opts, echo = FALSE}
+```{r}
+#| label: knitr-opts
+#| echo: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -19,30 +21,23 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r init, echo = FALSE, message = FALSE}
+```{r}
+#| label: init
+#| echo: false
+#| message: false
 library(valr)
 library(dplyr)
 library(ggplot2)
 library(tibble)
 ```
-## Why `valr`?
-
-**Why another tool set for interval manipulations?** There are several [other software packages](#related_work) available for genome interval analysis. However, based on our experiences teaching genome analysis, we were motivated to develop a toolset that:
-
-* Combines analysis and visualization in RStudio.
-* Can be used to generate reports with Rmarkdown.
-* Is highly extensible. New tools are quickly implemented on the R side.
-* Leverages the "modern R" syntax, using `dplyr` and the pipe operator from `magrittr` (`|>`).
-* Maximizes speed by implementing compute-intensive algorithms in `Rcpp`.
-* Facilitates interactive visualizations with [`shiny`][13].
-
-`valr` can currently be used for analysis of pre-processed data in BED and related formats. We plan to support BAM and VCF files soon via tabix indexes.
 
 ### Familiar tools, natively in R
 
 The functions in `valr` have similar names to their `BEDtools` counterparts, and so will be familiar to users coming from the `BEDtools` suite. Similar to [`pybedtools`](https://daler.github.io/pybedtools/#why-pybedtools), `valr` has a terse syntax:
 
-```{r syntax_demo, message = FALSE}
+```{r}
+#| label: valr-demo
+#| message: false
 library(valr)
 library(dplyr)
 
@@ -63,14 +58,16 @@ nearby |>
 
 `valr` assigns common column names to facilitate comparisons between tbls. All tbls will have `chrom`, `start`, and `end` columns, and some tbls from multi-column formats will have additional pre-determined column names. See the `read_bed()` documentation for details.
 
-```{r file_io}
+```{r}
+#| label: file-io
 bed_file <- valr_example("3fields.bed.gz")
 read_bed(bed_file) # accepts filepaths or URLs
 ```
 
 `valr` can also operate on BED-like data.frames already constructed in R, provided that columns named `chrom`, `start` and `end` are present. New tbls can also be constructed as either `tibbles` or base R `data.frames`.
 
-```{r trbl_ivls}
+```{r}
+#| label: trbl-ivls
 bed <- tribble(
   ~chrom, ~start,  ~end,
   "chr1", 1657492, 2657492,
@@ -84,7 +81,8 @@ bed
 
 `valr` adheres to the BED [format](https://genome.ucsc.edu/FAQ/FAQformat#format1) which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:
 
-```{r zero-based}
+```{r}
+#| label: zero-based
 # a chromosome 100 basepairs in length
 chrom <- tribble(
   ~chrom, ~start, ~end,
@@ -93,7 +91,7 @@ chrom <- tribble(
 
 chrom
 
-# single basepair intervals
+# single base-pair intervals
 bases <- tribble(
   ~chrom, ~start, ~end,
   "chr1", 0,      1, # first base of chromosome
@@ -108,7 +106,9 @@ bases
 
 Remote databases can be accessed with `db_ucsc()` (to access the UCSC Browser) and `db_ensembl()` (to access Ensembl databases).
 
-```{r db, warning = FALSE, eval = FALSE}
+```{r}
+#| label: db
+#| eval: false
 # access the `refGene` tbl on the `hg38` assembly.
 if (require(RMariaDB)) {
   ucsc <- db_ucsc("hg38")
@@ -120,7 +120,8 @@ if (require(RMariaDB)) {
 
 The `bed_glyph()` tool illustrates the results of operations in `valr`, similar to those found in the `BEDtools` documentation. This glyph shows the result of intersecting `x` and `y` intervals with `bed_intersect()`:
 
-```{r intersect_glyph}
+```{r}
+#| label: intersect-glyph
 x <- tribble(
   ~chrom, ~start, ~end,
   "chr1", 25,     50,
@@ -137,7 +138,8 @@ bed_glyph(bed_intersect(x, y))
 
 And this glyph illustrates `bed_merge()`:
 
-```{r merge_glyph}
+```{r}
+#| label: merge-glyph
 x <- tribble(
   ~chrom, ~start, ~end,
   "chr1", 1, 50,
@@ -152,7 +154,8 @@ bed_glyph(bed_merge(x))
 
 The `group_by` function in dplyr can be used to perform functions on subsets of single and multiple `data_frame`s. Functions in `valr` leverage grouping to enable a variety of comparisons. For example, intervals can be grouped by `strand` to perform comparisons among intervals on the same strand.
 
-```{r strand}
+```{r}
+#| label: group-strand
 x <- tribble(
   ~chrom, ~start, ~end, ~strand,
   "chr1", 1,      100,  "+",
@@ -176,7 +179,8 @@ bed_intersect(x, y)
 
 Comparisons between intervals on opposite strands are done using the `flip_strands()` function:
 
-```{r strand_opp}
+```{r}
+#| label: strand-opp
 x <- group_by(x, strand)
 
 y <- flip_strands(y)
@@ -191,14 +195,16 @@ Both single set (e.g. `bed_merge()`) and multi set operations will respect group
 
 Columns in `BEDtools` are referred to by position:
 
-```bash
+``` bash
 # calculate the mean of column 6 for intervals in `b` that overlap with `a`
 bedtools map -a a.bed -b b.bed -c 6 -o mean
 ```
 
 In `valr`, columns are referred to by name and can be used in multiple name/value expressions for summaries.
 
-```{r NSE, eval = FALSE}
+```{r}
+#| label: tidy-eval
+#| eval: false
 # calculate the mean and variance for a `value` column
 bed_map(a, b, .mean = mean(value), .var = var(value))
 
@@ -214,7 +220,10 @@ This demonstration illustrates how to use `valr` tools to perform a "meta-analys
 
 First we load libraries and relevant data.
 
-```{r demo-tss, warning = FALSE, message = FALSE}
+```{r}
+#| label: tss-demo
+#| warning: false
+#| message: false
 # `valr_example()` identifies the path of example files
 bedfile <- valr_example("genes.hg19.chr22.bed.gz")
 genomefile <- valr_example("hg19.chrom.sizes.gz")
@@ -227,7 +236,8 @@ y <- read_bedgraph(bgfile)
 
 Then we generate 1 bp intervals to represent transcription start sites (TSSs). We focus on `+` strand genes, but `-` genes are easily accommodated by filtering them and using `bed_makewindows()` with `reversed` window numbers.
 
-```{r tss}
+```{r}
+#| label: make-tss
 # generate 1 bp TSS intervals, `+` strand only
 tss <- genes |>
   filter(strand == "+") |>
@@ -248,7 +258,8 @@ x
 
 Now we use the `.win_id` group with `bed_map()` to calculate a sum by mapping `y` signals onto the intervals in `x`. These data are regrouped by `.win_id` and a summary with `mean` and `sd` values is calculated.
 
-```{r map}
+```{r}
+#| label: bed-map
 # map signals to TSS regions and calculate summary statistics.
 res <- bed_map(x, y, win_sum = sum(value, na.rm = TRUE)) |>
   group_by(.win_id) |>
@@ -262,21 +273,41 @@ res
 
 Finally, these summary statistics are used to construct a plot that illustrates histone density surrounding TSSs.
 
-```{r plot, warning = FALSE, message = FALSE, fig.align='center', fig.width=6}
-library(ggplot2)
+```{r}
+#| lable: plot-tss
+#| warning: false
+#| message: false
+x_labels <- seq(
+  -region_size,
+  region_size,
+  by = win_size * 5
+)
 
-x_labels <- seq(-region_size, region_size, by = win_size * 5)
 x_breaks <- seq(1, 41, by = 5)
 
-sd_limits <- aes(ymax = win_mean + win_sd, ymin = win_mean - win_sd)
+sd_limits <- aes(
+  ymax = win_mean + win_sd,
+  ymin = win_mean - win_sd
+)
 
-ggplot(res, aes(x = .win_id, y = win_mean)) +
+ggplot(
+  res,
+  aes(
+    x = .win_id,
+    y = win_mean
+    )
+  ) +
   geom_point() +
   geom_pointrange(sd_limits) +
-  scale_x_continuous(labels = x_labels, breaks = x_breaks) +
-  xlab("Position (bp from TSS)") +
-  ylab("Signal") +
-  ggtitle("Human H3K4me3 signal near transcription start sites") +
+  scale_x_continuous(
+    labels = x_labels,
+    breaks = x_breaks
+    ) +
+  labs(
+    x = "Position (bp from TSS)",
+    y = "Signal",
+    title = "Human H3K4me3 signal near transcription start sites"
+  ) +
   theme_classic()
 ```
 
