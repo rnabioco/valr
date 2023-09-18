@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.6/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.6/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.7/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.7/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="valr overview">
@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">valr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +85,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>valr overview</h1>
             
-            <h4 data-toc-skip class="date">2023-05-16</h4>
+            <h4 data-toc-skip class="date">2023-09-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/HEAD/vignettes/valr.Rmd" class="external-link"><code>vignettes/valr.Rmd</code></a></small>
       <div class="d-none name"><code>valr.Rmd</code></div>
@@ -93,34 +93,10 @@
 
     
     
-<pre><code><span><span class="co">#&gt; Warning: replacing previous import 'S4Arrays::read_block' by</span></span>
-<span><span class="co">#&gt; 'DelayedArray::read_block' when loading 'SummarizedExperiment'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import</span></span>
+<pre><code><span><span class="co">#&gt; Warning: replacing previous import</span></span>
 <span><span class="co">#&gt; 'S4Arrays::makeNindexFromArrayViewport' by</span></span>
 <span><span class="co">#&gt; 'DelayedArray::makeNindexFromArrayViewport' when loading</span></span>
 <span><span class="co">#&gt; 'SummarizedExperiment'</span></span></code></pre>
-<div class="section level2">
-<h2 id="why-valr">Why <code>valr</code>?<a class="anchor" aria-label="anchor" href="#why-valr"></a>
-</h2>
-<p><strong>Why another tool set for interval manipulations?</strong>
-There are several <a href="#related_work">other software packages</a>
-available for genome interval analysis. However, based on our
-experiences teaching genome analysis, we were motivated to develop a
-toolset that:</p>
-<ul>
-<li>Combines analysis and visualization in RStudio.</li>
-<li>Can be used to generate reports with Rmarkdown.</li>
-<li>Is highly extensible. New tools are quickly implemented on the R
-side.</li>
-<li>Leverages the “modern R” syntax, using <code>dplyr</code> and the
-pipe operator from <code>magrittr</code> (<code>%&gt;%</code>).</li>
-<li>Maximizes speed by implementing compute-intensive algorithms in
-<code>Rcpp</code>.</li>
-<li>Facilitates interactive visualizations with <a href="https://shiny.posit.co/" class="external-link"><code>shiny</code></a>.</li>
-</ul>
-<p><code>valr</code> can currently be used for analysis of pre-processed
-data in BED and related formats. We plan to support BAM and VCF files
-soon via tabix indexes.</p>
 <div class="section level3">
 <h3 id="familiar-tools-natively-in-r">Familiar tools, natively in R<a class="anchor" aria-label="anchor" href="#familiar-tools-natively-in-r"></a>
 </h3>
@@ -132,16 +108,16 @@ coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.g
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rnabioco/valr/" class="external-link">valr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">snps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span><span class="op">(</span><span class="fu"><a href="../reference/valr_example.html">valr_example</a></span><span class="op">(</span><span class="st">"hg19.snps147.chr22.bed.gz"</span><span class="op">)</span>, n_fields <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
-<span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span><span class="op">(</span><span class="fu"><a href="../reference/valr_example.html">valr_example</a></span><span class="op">(</span><span class="st">"genes.hg19.chr22.bed.gz"</span><span class="op">)</span>, n_fields <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="va">snps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span><span class="op">(</span><span class="fu"><a href="../reference/valr_example.html">valr_example</a></span><span class="op">(</span><span class="st">"hg19.snps147.chr22.bed.gz"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span><span class="op">(</span><span class="fu"><a href="../reference/valr_example.html">valr_example</a></span><span class="op">(</span><span class="st">"genes.hg19.chr22.bed.gz"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># find snps in intergenic regions</span></span>
 <span><span class="va">intergenic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_subtract.html">bed_subtract</a></span><span class="op">(</span><span class="va">snps</span>, <span class="va">genes</span><span class="op">)</span></span>
 <span><span class="co"># distance from intergenic snps to nearest gene</span></span>
 <span><span class="va">nearby</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_closest.html">bed_closest</a></span><span class="op">(</span><span class="va">intergenic</span>, <span class="va">genes</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">nearby</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"name"</span><span class="op">)</span>, <span class="va">.overlap</span>, <span class="va">.dist</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">nearby</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"name"</span><span class="op">)</span>, <span class="va">.overlap</span>, <span class="va">.dist</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">.dist</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 285 × 4</span></span></span>
 <span><span class="co">#&gt;    name.x      name.y            .overlap .dist</span></span>
@@ -222,7 +198,7 @@ is not included in the interval. For example:</p>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> chr1      0   100</span></span>
 <span></span>
-<span><span class="co"># single basepair intervals</span></span>
+<span><span class="co"># single base-pair intervals</span></span>
 <span><span class="va">bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span>
 <span>  <span class="st">"chr1"</span>, <span class="fl">0</span>,      <span class="fl">1</span>, <span class="co"># first base of chromosome</span></span>
@@ -272,7 +248,7 @@ intersecting <code>x</code> and <code>y</code> intervals with
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="valr_files/figure-html/intersect_glyph-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="valr_files/figure-html/intersect-glyph-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
@@ -283,7 +259,7 @@ intersecting <code>x</code> and <code>y</code> intervals with
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu"><a href="../reference/bed_merge.html">bed_merge</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="valr_files/figure-html/merge_glyph-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="valr_files/figure-html/merge-glyph-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="grouping-data">Grouping data<a class="anchor" aria-label="anchor" href="#grouping-data"></a>
@@ -352,7 +328,6 @@ in multiple name/value expressions for summaries.</p>
 <span><span class="co"># report concatenated and max values for merged intervals</span></span>
 <span><span class="fu"><a href="../reference/bed_merge.html">bed_merge</a></span><span class="op">(</span><span class="va">a</span>, .concat <span class="op">=</span> <span class="fu"><a href="../reference/bed_map.html">concat</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, .max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-</div>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
@@ -370,7 +345,7 @@ transcription start sites.</p>
 <span><span class="va">genomefile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span><span class="op">(</span><span class="st">"hg19.chrom.sizes.gz"</span><span class="op">)</span></span>
 <span><span class="va">bgfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/valr_example.html">valr_example</a></span><span class="op">(</span><span class="st">"hela.h3k4.chip.bg.gz"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span><span class="op">(</span><span class="va">bedfile</span>, n_fields <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bed</a></span><span class="op">(</span><span class="va">bedfile</span><span class="op">)</span></span>
 <span><span class="va">genome</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_genome.html">read_genome</a></span><span class="op">(</span><span class="va">genomefile</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_bed.html">read_bedgraph</a></span><span class="op">(</span><span class="va">bgfile</span><span class="op">)</span></span></code></pre></div>
 <p>Then we generate 1 bp intervals to represent transcription start
@@ -380,8 +355,8 @@ sites (TSSs). We focus on <code>+</code> strand genes, but
 numbers.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate 1 bp TSS intervals, `+` strand only</span></span>
-<span><span class="va">tss</span> <span class="op">&lt;-</span> <span class="va">genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">strand</span> <span class="op">==</span> <span class="st">"+"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">tss</span> <span class="op">&lt;-</span> <span class="va">genes</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">strand</span> <span class="op">==</span> <span class="st">"+"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>end <span class="op">=</span> <span class="va">start</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 1000 bp up and downstream</span></span>
@@ -390,8 +365,8 @@ numbers.</p>
 <span><span class="va">win_size</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
 <span></span>
 <span><span class="co"># add slop to the TSS, break into windows and add a group</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">tss</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/bed_slop.html">bed_slop</a></span><span class="op">(</span><span class="va">genome</span>, both <span class="op">=</span> <span class="va">region_size</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">tss</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/bed_slop.html">bed_slop</a></span><span class="op">(</span><span class="va">genome</span>, both <span class="op">=</span> <span class="va">region_size</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/bed_makewindows.html">bed_makewindows</a></span><span class="op">(</span><span class="va">win_size</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">x</span></span>
@@ -416,8 +391,8 @@ a summary with <code>mean</code> and <code>sd</code> values is
 calculated.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># map signals to TSS regions and calculate summary statistics.</span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_map.html">bed_map</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, win_sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">.win_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_map.html">bed_map</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, win_sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">.win_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
 <span>    win_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">win_sum</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    win_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">win_sum</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -441,124 +416,39 @@ calculated.</p>
 <p>Finally, these summary statistics are used to construct a plot that
 illustrates histone density surrounding TSSs.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">x_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span></span>
+<span>  <span class="op">-</span><span class="va">region_size</span>,</span>
+<span>  <span class="va">region_size</span>,</span>
+<span>  by <span class="op">=</span> <span class="va">win_size</span> <span class="op">*</span> <span class="fl">5</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">x_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="va">region_size</span>, <span class="va">region_size</span>, by <span class="op">=</span> <span class="va">win_size</span> <span class="op">*</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">x_breaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">41</span>, by <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sd_limits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymax <span class="op">=</span> <span class="va">win_mean</span> <span class="op">+</span> <span class="va">win_sd</span>, ymin <span class="op">=</span> <span class="va">win_mean</span> <span class="op">-</span> <span class="va">win_sd</span><span class="op">)</span></span>
+<span><span class="va">sd_limits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span>
+<span>  ymax <span class="op">=</span> <span class="va">win_mean</span> <span class="op">+</span> <span class="va">win_sd</span>,</span>
+<span>  ymin <span class="op">=</span> <span class="va">win_mean</span> <span class="op">-</span> <span class="va">win_sd</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">res</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.win_id</span>, y <span class="op">=</span> <span class="va">win_mean</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
+<span>  <span class="va">res</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">.win_id</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">win_mean</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_pointrange</a></span><span class="op">(</span><span class="va">sd_limits</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">x_labels</span>, breaks <span class="op">=</span> <span class="va">x_breaks</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Position (bp from TSS)"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Signal"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Human H3K4me3 signal near transcription start sites"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span></span>
+<span>    labels <span class="op">=</span> <span class="va">x_labels</span>,</span>
+<span>    breaks <span class="op">=</span> <span class="va">x_breaks</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Position (bp from TSS)"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Signal"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Human H3K4me3 signal near transcription start sites"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="valr_files/figure-html/plot-1.png" width="576" style="display: block; margin: auto;"></p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="api">API<a class="anchor" aria-label="anchor" href="#api"></a>
-</h2>
-<p>Function names are similar to their their <a href="https://bedtools.readthedocs.io/en/latest/" class="external-link">BEDtools</a>
-counterparts, with some additions.</p>
-<div class="section level3">
-<h3 id="data-types">Data types<a class="anchor" aria-label="anchor" href="#data-types"></a>
-</h3>
-<ul>
-<li>Validate interval sets with <code><a href="../reference/ivl_df.html">check_interval()</a></code> and
-<code><a href="../reference/ivl_df.html">check_genome()</a></code>, which enforce strict column naming.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="reading-data">Reading data<a class="anchor" aria-label="anchor" href="#reading-data"></a>
-</h3>
-<ul>
-<li><p>Read BED and related files with <code><a href="../reference/read_bed.html">read_bed()</a></code>,
-<code><a href="../reference/read_bed.html">read_bed12()</a></code>, <code><a href="../reference/read_bed.html">read_bedgraph()</a></code>,
-<code><a href="../reference/read_bed.html">read_narrowpeak()</a></code> and
-<code><a href="../reference/read_bed.html">read_broadpeak()</a></code>.</p></li>
-<li><p>Read genome files containing chromosome name and size information
-with <code><a href="../reference/read_genome.html">read_genome()</a></code>.</p></li>
-<li><p>Load VCF files with <code><a href="../reference/read_vcf.html">read_vcf()</a></code>.</p></li>
-<li><p>Access remote databases with <code><a href="../reference/db.html">db_ucsc()</a></code> and
-<code><a href="../reference/db.html">db_ensembl()</a></code>.</p></li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="transforming-single-interval-sets">Transforming single interval sets<a class="anchor" aria-label="anchor" href="#transforming-single-interval-sets"></a>
-</h3>
-<ul>
-<li><p>Adjust interval coordinates with <code><a href="../reference/bed_slop.html">bed_slop()</a></code> and
-<code><a href="../reference/bed_shift.html">bed_shift()</a></code>, and create new flanking intervals with
-<code><a href="../reference/bed_flank.html">bed_flank()</a></code>.</p></li>
-<li><p>Combine nearby intervals with <code><a href="../reference/bed_merge.html">bed_merge()</a></code> and
-identify nearby intervals with <code><a href="../reference/bed_cluster.html">bed_cluster()</a></code>.</p></li>
-<li><p>Generate intervals not covered by a query with
-<code><a href="../reference/bed_complement.html">bed_complement()</a></code>.</p></li>
-<li><p>Order intervals with <code><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">dplyr::arrange()</a></code>.</p></li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="comparing-multiple-interval-sets">Comparing multiple interval sets<a class="anchor" aria-label="anchor" href="#comparing-multiple-interval-sets"></a>
-</h3>
-<ul>
-<li><p>Find overlaps between sets of intervals with
-<code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>.</p></li>
-<li><p>Apply functions to overlapping sets of intervals with
-<code><a href="../reference/bed_map.html">bed_map()</a></code>.</p></li>
-<li><p>Remove intervals based on overlaps with
-<code><a href="../reference/bed_subtract.html">bed_subtract()</a></code>.</p></li>
-<li><p>Find overlapping intervals within a window with
-<code><a href="../reference/bed_window.html">bed_window()</a></code>.</p></li>
-<li><p>Find closest intervals independent of overlaps with
-<code><a href="../reference/bed_closest.html">bed_closest()</a></code>.</p></li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="randomizing-intervals">Randomizing intervals<a class="anchor" aria-label="anchor" href="#randomizing-intervals"></a>
-</h3>
-<ul>
-<li><p>Generate random intervals with
-<code><a href="../reference/bed_random.html">bed_random()</a></code>.</p></li>
-<li><p>Shuffle the coordinates of intervals with
-<code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code>.</p></li>
-<li><p>Sample input intervals with <code><a href="https://dplyr.tidyverse.org/reference/sample_n.html" class="external-link">dplyr::sample_n()</a></code> and
-<code><a href="https://dplyr.tidyverse.org/reference/sample_n.html" class="external-link">dplyr::sample_frac()</a></code>.</p></li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="interval-statistics">Interval statistics<a class="anchor" aria-label="anchor" href="#interval-statistics"></a>
-</h3>
-<ul>
-<li><p>Calculate significance of overlaps between sets of intervals with
-<code><a href="../reference/bed_fisher.html">bed_fisher()</a></code> and <code><a href="../reference/bed_projection.html">bed_projection()</a></code>.</p></li>
-<li><p>Quantify relative and absolute distances between sets of
-intervals with <code><a href="../reference/bed_reldist.html">bed_reldist()</a></code> and
-<code><a href="../reference/bed_absdist.html">bed_absdist()</a></code>.</p></li>
-<li><p>Quantify extent of overlap between sets of intervals with
-<code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code>.</p></li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a>
-</h3>
-<ul>
-<li><p>Create features from BED12 files with
-<code><a href="../reference/create_introns.html">create_introns()</a></code>, <code><a href="../reference/create_tss.html">create_tss()</a></code>,
-<code><a href="../reference/create_utrs5.html">create_utrs5()</a></code>, and <code><a href="../reference/create_utrs3.html">create_utrs3()</a></code>.</p></li>
-<li><p>Visualize the actions of valr functions with
-<code><a href="../reference/bed_glyph.html">bed_glyph()</a></code>.</p></li>
-<li><p>Constrain intervals to a genome reference with
-<code><a href="../reference/bound_intervals.html">bound_intervals()</a></code>.</p></li>
-<li><p>Subdivide intervals with <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code>.</p></li>
-<li><p>Convert BED12 to BED6 format with
-<code><a href="../reference/bed12_to_exons.html">bed12_to_exons()</a></code>.</p></li>
-<li><p>Calculate spacing between intervals with
-<code><a href="../reference/interval_spacing.html">interval_spacing()</a></code>.</p></li>
-</ul>
+<p><img src="valr_files/figure-html/unnamed-chunk-16-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
