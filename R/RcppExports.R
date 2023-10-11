@@ -25,6 +25,10 @@ flank_impl <- function(df, genome, both = 0, left = 0, right = 0, fraction = FAL
     .Call(`_valr_flank_impl`, df, genome, both, left, right, fraction, stranded, trim)
 }
 
+gcoverage_impl <- function(gdf, max_coords) {
+    .Call(`_valr_gcoverage_impl`, gdf, max_coords)
+}
+
 intersect_impl <- function(x, y, x_grp_indexes, y_grp_indexes, invert = FALSE, suffix_x = ".x", suffix_y = ".y") {
     .Call(`_valr_intersect_impl`, x, y, x_grp_indexes, y_grp_indexes, invert, suffix_x, suffix_y)
 }

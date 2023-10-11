@@ -30,6 +30,7 @@ reference:
     - bed_cluster
     - bed_complement
     - bed_flank
+    - bed_genomecov
     - bed_merge
     - bed_partition
     - bed_slop

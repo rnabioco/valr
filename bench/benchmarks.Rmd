@@ -59,6 +59,7 @@ res <- mark(
   bed_partition(x),
   bed_cluster(x),
   bed_complement(x, genome),
+  bed_genomecov(x, genome),
   # multi tbl functions
   bed_closest(x, y),
   bed_intersect(x, y),
@@ -141,6 +142,7 @@ res2 <- mark(
   bed_subtract(x, y),
   bed_makewindows(x, win_size = 100),
   bed_sort(z),
+  bed_genomecov(x, genome),
   # GRanges
   flank(x_gr, 1000),
   shift(x_gr,0),
@@ -151,6 +153,7 @@ res2 <- mark(
   setdiff(x_gr, y_gr),
   tile(x_gr, width = 100),
   sort(z_gr),
+  coverage(x_gr),
   min_time = Inf,
   iterations = nrep,
   check = FALSE,
