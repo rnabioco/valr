@@ -109,7 +109,7 @@ DataFrame gcoverage_impl(const ValrGroupedDataFrame& gdf,
 
   subset_x["start"] = starts ;
   subset_x["end"] = ends ;
-  subset_x["depth"] = depths ;
+  subset_x[".depth"] = depths ;
 
   return subset_x ;
 }

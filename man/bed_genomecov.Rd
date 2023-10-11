@@ -15,10 +15,13 @@ bed_genomecov(x, genome, zero_depth = FALSE)
 be reported with respect to groups.}
 }
 \value{
-\code{\link[=ivl_df]{ivl_df()}}
+\link{ivl_df} with the an additional column:
+\itemize{
+\item \code{.depth} depth of interval coverage
+}
 }
 \description{
-This function is useful for calculating interval coverage across across an entire genome.
+This function is useful for calculating interval coverage across an entire genome.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional

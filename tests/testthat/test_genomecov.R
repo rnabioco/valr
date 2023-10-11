@@ -14,7 +14,7 @@ genome <- tibble::tribble(
 test_that("bed_genomecov works", {
 
   ex <- tibble::tribble(
-           ~chrom, ~start, ~end, ~depth,
+           ~chrom, ~start, ~end, ~.depth,
            "chr1",    20L,  50L,     1L,
            "chr1",    50L,  70L,     2L,
            "chr1",    70L, 100L,     1L,
@@ -25,13 +25,13 @@ test_that("bed_genomecov works", {
   expect_identical(obs, ex)
 
   res <- bed_genomecov(x, genome, zero_depth = TRUE)
-  expect_true(sum(res$depth == 0) > 0)
+  expect_true(sum(res$.depth == 0) > 0)
 })
 
 test_that("groups are respected", {
 
   ex <- tibble::tribble(
-           ~chrom, ~start, ~end, ~strand, ~depth,
+           ~chrom, ~start, ~end, ~strand, ~.depth,
            "chr1",    20L,  70L,     "+",     1L,
            "chr1",   200L, 220L,     "+",     1L,
            "chr1",   220L, 250L,     "+",     2L,
@@ -79,7 +79,7 @@ test_that("grouping is retained for zero depth intervals", {
 test_that("chroms in bed, not in genome, are dropped", {
 
   xx <- tibble::tribble(
-    ~chrom, ~start, ~end, ~strand, ~depth,
+    ~chrom, ~start, ~end, ~strand, ~.depth,
     "hello",    20L,  70L,     "+",     1L,
     "world",   200L, 220L,     "+",     1L,
     "chr1",    220L, 250L,     "+",     2L
@@ -91,7 +91,7 @@ test_that("chroms in bed, not in genome, are dropped", {
 
 test_that("zero length input is handled", {
   xx <- tibble::tribble(
-    ~chrom, ~start, ~end, ~strand, ~depth,
+    ~chrom, ~start, ~end, ~strand, ~.depth,
     "hello",    20L,  70L,     "+",     1L,
   )
 
@@ -115,13 +115,13 @@ test_that("check edge cases with 1 bp intervals", {
   ivls <- bed_random(genome, length = 1, n = 1e3, seed = seed)
 
   res <- bed_genomecov(ivls, genome)
-  expect_true(sum(res$depth) == 1e3)
+  expect_true(sum(res$.depth) == 1e3)
 
   ivls <- tibble(chrom = "chr1",
                  start = seq(0, 999),
                  end   = start + 2)
   res <- bed_genomecov(ivls, genome)
-  expect_true(sum(res$depth) == (1e3 * 2))
+  expect_true(sum(res$.depth) == (1e3 * 2))
 
   set.seed(seed)
   ivls <- tibble(chrom = "chr1",
@@ -130,7 +130,7 @@ test_that("check edge cases with 1 bp intervals", {
 
   res <- bed_genomecov(ivls, genome)
   n_bp <- sum(ivls$end - ivls$start)
-  n_cov <- sum(res$depth * (res$end - res$start))
+  n_cov <- sum(res$.depth * (res$end - res$start))
   expect_equal(n_bp, n_cov)
 
 })
@@ -141,7 +141,7 @@ test_that("check edge cases at beginning and end", {
     "chr1", 1000
   )
   ex <- tibble::tribble(
-          ~chrom, ~start,  ~end, ~depth,
+          ~chrom, ~start,  ~end, ~.depth,
           "chr1",     0L,    1L,     3L,
           "chr1",     1L,    2L,     1L,
           "chr1",   999L, 1000L,     1L
@@ -176,7 +176,7 @@ genome <- tibble::tribble(
 
 test_that("Test with chroms that have no coverage", {
   ex <- tibble::tribble(
-           ~chrom, ~start, ~end, ~depth,
+           ~chrom, ~start, ~end, ~.depth,
             "1", 15L, 17L,  1L,
             "1", 17L, 20L,  2L,
             "1", 20L, 22L,  1L
@@ -188,7 +188,7 @@ test_that("Test with chroms that have no coverage", {
 test_that("Test with chroms that have no coverage", {
 
   ex <- tibble::tribble(
-    ~chrom, ~start, ~end, ~depth,
+    ~chrom, ~start, ~end, ~.depth,
     "1",  0L,  15L,  0L,
     "1", 15L,  17L,  1L,
     "1", 17L,  20L,  2L,

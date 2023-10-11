@@ -1,6 +1,6 @@
 #' Calculate coverage across a genome
 #'
-#' This function is useful for calculating interval coverage across across an entire genome.
+#' This function is useful for calculating interval coverage across an entire genome.
 #'
 #' @param x [ivl_df]
 #' @param genome [genome_df]
@@ -9,7 +9,10 @@
 #'
 #' @template groups
 #'
-#' @return [ivl_df()]
+#' @return
+#' [ivl_df] with the an additional column:
+#'
+#'   - `.depth` depth of interval coverage
 #'
 #' @family single set operations
 #'
@@ -53,7 +56,7 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
                     paste0(
                         non_genome_chroms,
                         sep = "\n")))
-    x <- x[!x$chrom %in% non_genome_chroms, ]
+    x <- x[!x[["chrom"]] %in% non_genome_chroms, ]
   }
 
   grp_cols <- group_vars(x)
@@ -68,17 +71,18 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
   res <- tibble::as_tibble(res)
 
   # drop non-grouped cols as values no longer match ivls
-  res <- select(res, chrom, start, end, one_of(grp_cols), depth)
+  res <- select(res, chrom, start, end, one_of(grp_cols), .depth)
 
   if(!zero_depth) {
-    res <- filter(res, depth > 0)
+    res <- res[res[[".depth"]] > 0, ]
   } else {
     # handle any missing chromosome, zero depth intervals handled on cpp side
     missing_chroms <- setdiff(genome$chrom, group_data(x)$chrom)
     if(length(missing_chroms) > 0) {
-      missing_chrom_ivls <- filter(genome, chrom %in% missing_chroms)
-      missing_chrom_ivls <- mutate(missing_chrom_ivls, start = 0, depth = 0)
-      missing_chrom_ivls <- select(missing_chrom_ivls, chrom, start, end = size, depth)
+      missing_chrom_ivls <- genome[genome[["chrom"]] %in% missing_chroms, ]
+      missing_chrom_ivls[["start"]] <- 0L
+      missing_chrom_ivls[[".depth"]] <- 0L
+      missing_chrom_ivls <- select(missing_chrom_ivls, chrom, start, end = size, .depth)
 
       if(length(groups) > 1) {
         missing_chrom_ivls <- fill_missing_grouping(missing_chrom_ivls, x)
