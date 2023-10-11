@@ -14,6 +14,7 @@ extern SEXP _valr_complement_impl(void *, void *);
 extern SEXP _valr_coverage_impl(void *, void *, void *, void *);
 extern SEXP _valr_dist_impl(void *, void *, void *, void *, void *);
 extern SEXP _valr_flank_impl(void *, void *, void *, void *, void *, void *, void *, void *);
+extern SEXP _valr_gcoverage_impl(void *, void *);
 extern SEXP _valr_intersect_impl(void *, void *, void *, void *, void *, void *, void *);
 extern SEXP _valr_makewindows_impl(void *, void *, void *, void *, void *);
 extern SEXP _valr_merge_impl(void *, void *, void *);
@@ -29,6 +30,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_valr_coverage_impl",     (DL_FUNC) &_valr_coverage_impl,     4},
     {"_valr_dist_impl",         (DL_FUNC) &_valr_dist_impl,         5},
     {"_valr_flank_impl",        (DL_FUNC) &_valr_flank_impl,        8},
+    {"_valr_gcoverage_impl",    (DL_FUNC) &_valr_gcoverage_impl,    2},
     {"_valr_intersect_impl",    (DL_FUNC) &_valr_intersect_impl,    7},
     {"_valr_makewindows_impl",  (DL_FUNC) &_valr_makewindows_impl,  5},
     {"_valr_merge_impl",        (DL_FUNC) &_valr_merge_impl,        3},

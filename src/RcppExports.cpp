@@ -97,6 +97,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// gcoverage_impl
+DataFrame gcoverage_impl(const ValrGroupedDataFrame& gdf, const IntegerVector& max_coords);
+RcppExport SEXP _valr_gcoverage_impl(SEXP gdfSEXP, SEXP max_coordsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const ValrGroupedDataFrame& >::type gdf(gdfSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector& >::type max_coords(max_coordsSEXP);
+    rcpp_result_gen = Rcpp::wrap(gcoverage_impl(gdf, max_coords));
+    return rcpp_result_gen;
+END_RCPP
+}
 // intersect_impl
 DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, IntegerVector x_grp_indexes, IntegerVector y_grp_indexes, bool invert, const std::string& suffix_x, const std::string& suffix_y);
 RcppExport SEXP _valr_intersect_impl(SEXP xSEXP, SEXP ySEXP, SEXP x_grp_indexesSEXP, SEXP y_grp_indexesSEXP, SEXP invertSEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {

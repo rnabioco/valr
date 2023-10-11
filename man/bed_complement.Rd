@@ -55,6 +55,7 @@ bed_complement(x, genome)
 Other single set operations: 
 \code{\link{bed_cluster}()},
 \code{\link{bed_flank}()},
+\code{\link{bed_genomecov}()},
 \code{\link{bed_merge}()},
 \code{\link{bed_partition}()},
 \code{\link{bed_shift}()},
