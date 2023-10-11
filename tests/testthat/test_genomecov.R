@@ -12,15 +12,14 @@ genome <- tibble::tribble(
   "chr2", 1000
 )
 test_that("bed_genomecov works", {
-
   ex <- tibble::tribble(
-           ~chrom, ~start, ~end, ~.depth,
-           "chr1",    20L,  50L,     1L,
-           "chr1",    50L,  70L,     2L,
-           "chr1",    70L, 100L,     1L,
-           "chr1",   200L, 220L,     1L,
-           "chr1",   220L, 250L,     2L
-           )
+    ~chrom, ~start, ~end, ~.depth,
+    "chr1", 20L, 50L, 1L,
+    "chr1", 50L, 70L, 2L,
+    "chr1", 70L, 100L, 1L,
+    "chr1", 200L, 220L, 1L,
+    "chr1", 220L, 250L, 2L
+  )
   obs <- bed_genomecov(x, genome)
   expect_identical(obs, ex)
 
@@ -29,14 +28,13 @@ test_that("bed_genomecov works", {
 })
 
 test_that("groups are respected", {
-
   ex <- tibble::tribble(
-           ~chrom, ~start, ~end, ~strand, ~.depth,
-           "chr1",    20L,  70L,     "+",     1L,
-           "chr1",   200L, 220L,     "+",     1L,
-           "chr1",   220L, 250L,     "+",     2L,
-           "chr1",    50L, 100L,     "-",     1L
-           )
+    ~chrom, ~start, ~end, ~strand, ~.depth,
+    "chr1", 20L, 70L, "+", 1L,
+    "chr1", 200L, 220L, "+", 1L,
+    "chr1", 220L, 250L, "+", 2L,
+    "chr1", 50L, 100L, "-", 1L
+  )
   obs <- bed_genomecov(group_by(x, strand), genome)
   expect_identical(obs, ex)
 
@@ -45,13 +43,12 @@ test_that("groups are respected", {
 })
 
 test_that("grouping is retained for zero depth intervals", {
-
   xx <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand, ~grp,
-    "chr1",    20L,  70L,     "+",   1,
-    "chr1",   200L, 220L,     "-",   1,
-    "chr1",    20L,  70L,     "+",   2,
-    "chr1",   200L, 220L,     "-",   2
+    "chr1", 20L, 70L, "+", 1,
+    "chr1", 200L, 220L, "-", 1,
+    "chr1", 20L, 70L, "+", 2,
+    "chr1", 200L, 220L, "-", 2
   ) |>
     group_by(strand, grp)
 
@@ -64,35 +61,36 @@ test_that("grouping is retained for zero depth intervals", {
   expect_equal(length(setdiff(many_chroms_genome$chrom, res$chrom)), 0L)
 
   ex <- tibble::tribble(
-          ~strand, ~grp,  ~n,
-              "+",   1, 26L,
-              "+",   2, 26L,
-              "-",   1, 26L,
-              "-",   2, 26L
-          )
+    ~strand, ~grp, ~n,
+    "+", 1, 26L,
+    "+", 2, 26L,
+    "-", 1, 26L,
+    "-", 2, 26L
+  )
 
   lr <- res[res$chrom %in% LETTERS, ]
-  nlr <- lr |> group_by(strand, grp) |> summarize(n = n()) |> ungroup()
+  nlr <- lr |>
+    group_by(strand, grp) |>
+    summarize(n = n()) |>
+    ungroup()
   expect_identical(nlr, ex)
 })
 
 test_that("chroms in bed, not in genome, are dropped", {
-
   xx <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand, ~.depth,
-    "hello",    20L,  70L,     "+",     1L,
-    "world",   200L, 220L,     "+",     1L,
-    "chr1",    220L, 250L,     "+",     2L
+    "hello", 20L, 70L, "+", 1L,
+    "world", 200L, 220L, "+", 1L,
+    "chr1", 220L, 250L, "+", 2L
   )
   expect_warning(res <- bed_genomecov(xx, genome))
   expect_true(all(res$chrom == "chr1"))
-
 })
 
 test_that("zero length input is handled", {
   xx <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand, ~.depth,
-    "hello",    20L,  70L,     "+",     1L,
+    "hello", 20L, 70L, "+", 1L,
   )
 
   expect_warning(res <- bed_genomecov(xx, genome))
@@ -102,7 +100,6 @@ test_that("zero length input is handled", {
 
   res <- bed_genomecov(xx, genome)
   expect_true(nrow(res) == 0)
-
 })
 
 test_that("check edge cases with 1 bp intervals", {
@@ -117,22 +114,25 @@ test_that("check edge cases with 1 bp intervals", {
   res <- bed_genomecov(ivls, genome)
   expect_true(sum(res$.depth) == 1e3)
 
-  ivls <- tibble(chrom = "chr1",
-                 start = seq(0, 999),
-                 end   = start + 2)
+  ivls <- tibble(
+    chrom = "chr1",
+    start = seq(0, 999),
+    end = start + 2
+  )
   res <- bed_genomecov(ivls, genome)
   expect_true(sum(res$.depth) == (1e3 * 2))
 
   set.seed(seed)
-  ivls <- tibble(chrom = "chr1",
-                 start = seq(0, 999),
-                 end   = start + sample(1:100, length(start), replace = TRUE))
+  ivls <- tibble(
+    chrom = "chr1",
+    start = seq(0, 999),
+    end = start + sample(1:100, length(start), replace = TRUE)
+  )
 
   res <- bed_genomecov(ivls, genome)
   n_bp <- sum(ivls$end - ivls$start)
   n_cov <- sum(res$.depth * (res$end - res$start))
   expect_equal(n_bp, n_cov)
-
 })
 
 test_that("check edge cases at beginning and end", {
@@ -141,61 +141,61 @@ test_that("check edge cases at beginning and end", {
     "chr1", 1000
   )
   ex <- tibble::tribble(
-          ~chrom, ~start,  ~end, ~.depth,
-          "chr1",     0L,    1L,     3L,
-          "chr1",     1L,    2L,     1L,
-          "chr1",   999L, 1000L,     1L
-          )
+    ~chrom, ~start, ~end, ~.depth,
+    "chr1", 0L, 1L, 3L,
+    "chr1", 1L, 2L, 1L,
+    "chr1", 999L, 1000L, 1L
+  )
 
   # oob intervals are ignored with a warning
-  ivls <- tibble(chrom = "chr1",
-                 start = c(rep(0, 3), 1, 999, 1000),
-                 end   = start + 1)
+  ivls <- tibble(
+    chrom = "chr1",
+    start = c(rep(0, 3), 1, 999, 1000),
+    end = start + 1
+  )
 
   expect_warning(res <- bed_genomecov(ivls, genome))
   expect_true(all(res$start < 1000))
 
   expect_identical(res, ex)
-
 })
 
 # bed related tests from #https://github.com/arq5x/bedtools2/blob/master/test/genomecov/test-genomecov.sh
 
 y <- tibble::tribble(
-  ~chrom, ~start, ~end,  ~group, ~score, ~strand,
-   "1", 15L, 20L, "y1",  1L, "+",
-   "1", 17L, 22L, "y2",  2L, "+"
+  ~chrom, ~start, ~end, ~group, ~score, ~strand,
+  "1", 15L, 20L, "y1", 1L, "+",
+  "1", 17L, 22L, "y2", 2L, "+"
 )
 
 genome <- tibble::tribble(
-            ~chrom,  ~size,
-             "1", 100L,
-             "2", 100L,
-             "3", 100L
-            )
+  ~chrom, ~size,
+  "1", 100L,
+  "2", 100L,
+  "3", 100L
+)
 
 test_that("Test with chroms that have no coverage", {
   ex <- tibble::tribble(
-           ~chrom, ~start, ~end, ~.depth,
-            "1", 15L, 17L,  1L,
-            "1", 17L, 20L,  2L,
-            "1", 20L, 22L,  1L
-           )
+    ~chrom, ~start, ~end, ~.depth,
+    "1", 15L, 17L, 1L,
+    "1", 17L, 20L, 2L,
+    "1", 20L, 22L, 1L
+  )
   obs <- bed_genomecov(y, genome)
   expect_equal(ex, obs)
 })
 
 test_that("Test with chroms that have no coverage", {
-
   ex <- tibble::tribble(
     ~chrom, ~start, ~end, ~.depth,
-    "1",  0L,  15L,  0L,
-    "1", 15L,  17L,  1L,
-    "1", 17L,  20L,  2L,
-    "1", 20L,  22L,  1L,
-    "1", 22L, 100L,  0L,
-    "2",  0L, 100L,  0L,
-    "3",  0L, 100L,  0L
+    "1", 0L, 15L, 0L,
+    "1", 15L, 17L, 1L,
+    "1", 17L, 20L, 2L,
+    "1", 20L, 22L, 1L,
+    "1", 22L, 100L, 0L,
+    "2", 0L, 100L, 0L,
+    "3", 0L, 100L, 0L
   )
 
   obs <- bed_genomecov(y, genome, zero_depth = TRUE)

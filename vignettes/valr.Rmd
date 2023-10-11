@@ -295,14 +295,14 @@ ggplot(
   aes(
     x = .win_id,
     y = win_mean
-    )
-  ) +
+  )
+) +
   geom_point() +
   geom_pointrange(sd_limits) +
   scale_x_continuous(
     labels = x_labels,
     breaks = x_breaks
-    ) +
+  ) +
   labs(
     x = "Position (bp from TSS)",
     y = "Signal",

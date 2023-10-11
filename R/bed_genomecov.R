@@ -40,7 +40,6 @@
 #'
 #' bed_genomecov(dplyr::group_by(x, strand), genome, zero_depth = TRUE)
 #'
-#'
 #' @export
 bed_genomecov <- function(x, genome, zero_depth = FALSE) {
   check_required(x)
@@ -50,12 +49,17 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
   genome <- check_genome(genome)
 
   non_genome_chroms <- setdiff(unique(x$chrom), genome$chrom)
-  if(length(non_genome_chroms) > 0) {
-    cli::cli_warn(c(paste0("The following chromosomes in bed intervals are not",
-                           " in the genome and will be ignored:"),
-                    paste0(
-                        non_genome_chroms,
-                        sep = "\n")))
+  if (length(non_genome_chroms) > 0) {
+    cli::cli_warn(c(
+      paste0(
+        "The following chromosomes in bed intervals are not",
+        " in the genome and will be ignored:"
+      ),
+      paste0(
+        non_genome_chroms,
+        sep = "\n"
+      )
+    ))
     x <- x[!x[["chrom"]] %in% non_genome_chroms, ]
   }
 
@@ -73,18 +77,18 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
   # drop non-grouped cols as values no longer match ivls
   res <- select(res, chrom, start, end, one_of(grp_cols), .depth)
 
-  if(!zero_depth) {
+  if (!zero_depth) {
     res <- res[res[[".depth"]] > 0, ]
   } else {
     # handle any missing chromosome, zero depth intervals handled on cpp side
     missing_chroms <- setdiff(genome$chrom, group_data(x)$chrom)
-    if(length(missing_chroms) > 0) {
+    if (length(missing_chroms) > 0) {
       missing_chrom_ivls <- genome[genome[["chrom"]] %in% missing_chroms, ]
       missing_chrom_ivls[["start"]] <- 0L
       missing_chrom_ivls[[".depth"]] <- 0L
       missing_chrom_ivls <- select(missing_chrom_ivls, chrom, start, end = size, .depth)
 
-      if(length(groups) > 1) {
+      if (length(groups) > 1) {
         missing_chrom_ivls <- fill_missing_grouping(missing_chrom_ivls, x)
       }
       res <- bind_rows(res, missing_chrom_ivls)
@@ -107,7 +111,7 @@ fill_missing_grouping <- function(df, grp_df) {
   grps <- grps[, setdiff(colnames(grps), "chrom")]
 
   # expand df rows for new groups
-  df_grown <- df[rep(seq_len(nrow(df)), nrow(grps)),]
+  df_grown <- df[rep(seq_len(nrow(df)), nrow(grps)), ]
   # expand groups df for new groups
   grp_grown <- grps[rep(seq_len(nrow(grps)), nrow(df)), ]
 
