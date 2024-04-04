@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.8.0
 
 * Added `bed_genomecov()` to compute interval coverage across a genome.
 
