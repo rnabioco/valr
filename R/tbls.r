@@ -2,13 +2,11 @@
 #' Bed-like data.frame requirements for valr functions
 #'
 #' @name ivl_df
-#' @docType package
 NULL
 
 #' Bed-like data.frame requirements for valr functions
 #' @rdname ivl_df
 #' @name genome_df
-#' @docType package
 NULL
 
 #' Check bed-like data.frame requirements for valr compatibility

@@ -2,8 +2,8 @@
 % Please edit documentation in R/valr-package.r
 \docType{package}
 \name{valr}
-\alias{valr}
 \alias{valr-package}
+\alias{valr}
 \title{valr: genome interval arithmetic in R}
 \description{
 valr provides tools to read and manipulate intervals and signals on a genome

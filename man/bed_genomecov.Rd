@@ -51,7 +51,6 @@ bed_genomecov(dplyr::group_by(x, strand), genome)
 
 bed_genomecov(dplyr::group_by(x, strand), genome, zero_depth = TRUE)
 
-
 }
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html}
