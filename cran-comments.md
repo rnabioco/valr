@@ -1,6 +1,6 @@
-## New minor version
+## New patch version
 
-* This is a new minor version with limited updates to package functionality.
+* This is a new patch version to address package check errors on CRAN, specifically a noSuggests package check error. 
 
 ## Test environment
 
@@ -18,7 +18,7 @@
   * checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Kent Riemondy <kent.riemondy@cuanschutz.edu>'
 
-  Version contains large components (0.7.0.9000)
+  Version contains large components (0.8.0.9000)
 
 * on Windows (4.3.3)
   
@@ -30,7 +30,7 @@
   Status: OK
   0 errors | 0 warnings | 0 notes
 
-* on ubuntu (R 4.3.3)
+* on ubuntu (R 4.3.3 and R devel)
 
   Status: 1 NOTE
   * checking installed package size ... NOTE
