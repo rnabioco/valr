@@ -49,6 +49,7 @@ Suggests:
     testthat (>= 3.0.0),
     vdiffr (>= 1.0.0),
     tidyr
+biocViews:
 LinkingTo:
     Rcpp (>= 1.0.0)
 VignetteBuilder: 
