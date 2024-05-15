@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/rnabioco/valr/workflows/R-CMD-check/badge.svg)](https://github.com/rnabioco/valr/actions)
+[![R-CMD-check](https://github.com/rnabioco/valr/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rnabioco/valr/actions/workflows/check-standard.yaml)
 [![codecov](https://codecov.io/gh/rnabioco/valr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rnabioco/valr)
 [![](https://www.r-pkg.org/badges/version/valr)](https://CRAN.R-project.org/package=valr)
 <!-- badges: end -->
