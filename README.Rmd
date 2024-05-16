@@ -23,18 +23,20 @@ valr provides tools to read and manipulate genome intervals and signals, similar
 
 ## Installation
 
-The latest stable version can be installed from CRAN:
-
-``` r
-install.packages('valr')
+::: .pkgdown-release
+```{r, eval = FALSE}
+# Install released version from CRAN
+install.packages("valr")
 ```
+:::
 
-The latest development version can be installed from github:
-
-``` r
-# install.packages("devtools")
-devtools::install_github('rnabioco/valr')
+::: .pkgdown-devel
+```{r, eval = FALSE}
+# Install development version from GitHub
+# install.packages("pak")
+pak::pak("rnabioco/valr")
 ```
+:::
 
 ## valr Example
 Functions in valr have similar names to their BEDtools counterparts, and so will be familiar to users coming from the BEDtools suite. Unlike other tools that wrap BEDtools and write temporary files to disk, valr tools run natively in memory. Similar to [pybedtools](https://daler.github.io/pybedtools/#why-pybedtools), valr has a terse syntax:

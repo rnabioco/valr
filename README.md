@@ -14,18 +14,24 @@ suite.
 
 ## Installation
 
-The latest stable version can be installed from CRAN:
+<div class=".pkgdown-release">
 
 ``` r
-install.packages('valr')
+# Install released version from CRAN
+install.packages("valr")
 ```
 
-The latest development version can be installed from github:
+</div>
+
+<div class=".pkgdown-devel">
 
 ``` r
-# install.packages("devtools")
-devtools::install_github('rnabioco/valr')
+# Install development version from GitHub
+# install.packages("pak")
+pak::pak("rnabioco/valr")
 ```
+
+</div>
 
 ## valr Example
 
