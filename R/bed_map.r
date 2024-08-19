@@ -1,6 +1,6 @@
 #' Calculate summaries from overlapping intervals.
 #'
-#' Apply functions like [min()] and [count()] to intersecting intervals.
+#' Apply functions like [min()] and [max()] to intersecting intervals.
 #' [bed_map()] uses [bed_intersect()] to identify intersecting intervals, so
 #' output columns will be suffixed with `.x` and `.y`. Expressions that refer to
 #' input columns from `x` and `y` columns must take these suffixes into account.

@@ -1,5 +1,7 @@
 # valr (development version)
 
+* Address NOTE on CRAN about Rd link targets.
+
 # valr 0.8.1
 
 * Make vdiffr dependency optional during package testing. 

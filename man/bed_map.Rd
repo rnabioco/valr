@@ -32,7 +32,7 @@ values(.data, sep = ",")
 \link{ivl_df}
 }
 \description{
-Apply functions like \code{\link[=min]{min()}} and \code{\link[=count]{count()}} to intersecting intervals.
+Apply functions like \code{\link[=min]{min()}} and \code{\link[=max]{max()}} to intersecting intervals.
 \code{\link[=bed_map]{bed_map()}} uses \code{\link[=bed_intersect]{bed_intersect()}} to identify intersecting intervals, so
 output columns will be suffixed with \code{.x} and \code{.y}. Expressions that refer to
 input columns from \code{x} and \code{y} columns must take these suffixes into account.

@@ -19,7 +19,7 @@ Convert a set of intervals into elemental intervals that contain each start
 and end position in the set.
 }
 \details{
-Summary operations, such as \code{\link[=min]{min()}} or \code{\link[=count]{count()}} can be performed
+Summary operations, such as \code{\link[=min]{min()}} or \code{\link[=max]{max()}} can be performed
 on elemental intervals by specifying name-value pairs.
 
 This function is useful for calculating summaries across overlapping intervals

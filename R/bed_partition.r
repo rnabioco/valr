@@ -3,7 +3,7 @@
 #' Convert a set of intervals into elemental intervals that contain each start
 #' and end position in the set.
 #'
-#' Summary operations, such as [min()] or [count()] can be performed
+#' Summary operations, such as [min()] or [max()] can be performed
 #' on elemental intervals by specifying name-value pairs.
 #'
 #' This function is useful for calculating summaries across overlapping intervals
