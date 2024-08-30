@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.8.2
 
 * Address NOTE on CRAN about Rd link targets.  
 
