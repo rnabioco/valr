@@ -1,6 +1,8 @@
 # valr (development version)
 
-* Address NOTE on CRAN about Rd link targets.
+* Address NOTE on CRAN about Rd link targets.  
+
+* Change maintainer email address. 
 
 # valr 0.8.1
 

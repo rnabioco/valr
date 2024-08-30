@@ -1,6 +1,7 @@
 ## New patch version
 
-* This is a new patch version to address package check errors on CRAN, specifically a noSuggests package check error. 
+* This is a new patch version to address NOTE on CRAN about Rd link targets, and 
+to update the maintainer email address. 
 
 ## Test environment
 
@@ -15,33 +16,49 @@
 * on Windows (win-builder, devel)
 
   Status: 1 NOTE
-  * checking CRAN incoming feasibility ... NOTE
-  Maintainer: 'Kent Riemondy <kent.riemondy@cuanschutz.edu>'
+ * checking CRAN incoming feasibility ... [11s] NOTE
+   Maintainer: 'Kent Riemondy <kent.riemondy@gmail.com>'
 
-  Version contains large components (0.8.0.9000)
+   Version contains large components (0.8.1.9000)
 
-* on Windows (4.3.3)
+  New maintainer:
+   Kent Riemondy <kent.riemondy@gmail.com>
+  Old maintainer(s):
+   Kent Riemondy <kent.riemondy@cuanschutz.edu>
+
+* on Windows (4.4.1)
   
   Status: OK
   0 errors | 0 warnings | 0 notes
    
-* on OS X (R 4.3.3)
+* on OS X (R 4.4.1)
 
   Status: OK
-  0 errors | 0 warnings | 0 notes
+  0 errors | 0 warnings | 1 notes
+  
+  Maintainer: ‘Kent Riemondy <kent.riemondy@gmail.com>’
+  
+  Version contains large components (0.8.1.9000)
+  
+  New maintainer:
+    Kent Riemondy <kent.riemondy@gmail.com>
+  Old maintainer(s):
+    Kent Riemondy <kent.riemondy@cuanschutz.edu>
 
-* on ubuntu (R 4.3.3 and R devel)
+* on ubuntu (R 4.4.1 and R devel)
 
   Status: 1 NOTE
   * checking installed package size ... NOTE
-  installed size is 15.1Mb
+  installed size is 15.6Mb
   sub-directories of 1Mb or more:
-    libs  13.9Mb
+    libs  14.4Mb
     
-## Reverse dependencies
+## revdepcheck results
 
-We checked 1 reverse dependencies (0 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 2 reverse dependencies (1 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 0 new problems
  * We failed to check 0 packages
+
+
 
