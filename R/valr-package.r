@@ -24,6 +24,7 @@
 #' @importFrom stats fisher.test na.omit
 #' @importFrom utils head tail packageVersion
 #' @importFrom broom tidy
+#' @importFrom lifecycle deprecated
 #' @import ggplot2
 #' @import dplyr
 "_PACKAGE"
