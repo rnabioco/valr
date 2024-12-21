@@ -176,7 +176,10 @@ bed12_coltypes <- list(
 
 #' Import and convert a bigwig file into a valr compatible tbl
 #'
-#' @description This function will output a 5 column tibble with
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function will output a 5 column tibble with
 #' zero-based chrom, start, end, score, and strand columns.
 #'
 #' @param path path to bigWig file
@@ -196,21 +199,28 @@ bed12_coltypes <- list(
 #' @importFrom rtracklayer import
 #' @export
 read_bigwig <- function(path, set_strand = "+") {
-  check_required(path)
-  # note that rtracklayer will produce a one-based GRanges object
-  res <- rtracklayer::import(path)
-  res <- dplyr::as_tibble(res)
-  res <- dplyr::mutate(res,
-    chrom = as.character(seqnames),
-    start = start - 1L,
-    strand = set_strand
+  lifecycle::deprecate_stop(
+    when = "0.8.2",
+    what = "read_bigwig()",
+    details = c(
+      x = paste0(
+        "read_bigwig() was removed because rtracklayer is",
+        "no longer available on CRAN"
+      ),
+      i = paste0(
+        "use `bigWigToBedGraph` to convert bw to bedGraph,",
+        "and then `read_bedgraph()`."
+      )
+    )
   )
-  dplyr::select(res, chrom, start, end, score, strand)
 }
 
 #' Import and convert a GTF/GFF file into a valr compatible bed tbl format
 #'
-#' @description This function will output a tibble with the
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function will output a tibble with the
 #' required chrom, start, and end columns, as well as other columns depending
 #' on content in GTF/GFF file.
 #'
@@ -225,14 +235,15 @@ read_bigwig <- function(path, set_strand = "+") {
 #' @importFrom rtracklayer import
 #' @export
 read_gtf <- function(path, zero_based = TRUE) {
-  gtf <- rtracklayer::import(path)
-  gtf <- as.data.frame(gtf)
-  gtf <- dplyr::mutate_if(gtf, is.factor, as.character)
-  res <- dplyr::rename(gtf, chrom = seqnames)
-
-  if (zero_based) {
-    res <- dplyr::mutate(res, start = start - 1L)
-  }
-
-  tibble::as_tibble(res)
+  lifecycle::deprecate_stop(
+    when = "0.8.2",
+    what = "read_gtf()",
+    details = c(
+      x = paste0(
+        "read_gtf() was removed because rtracklayer is",
+        "no longer available on CRAN"
+      ),
+      i = "convert GTF to BED, and then `read_bed()`."
+    )
+  )
 }
