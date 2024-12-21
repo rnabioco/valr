@@ -196,7 +196,6 @@ bed12_coltypes <- list(
 #'   head(bw)
 #' }
 #' }
-#' @importFrom rtracklayer import
 #' @export
 read_bigwig <- function(path, set_strand = "+") {
   lifecycle::deprecate_stop(
@@ -232,7 +231,6 @@ read_bigwig <- function(path, set_strand = "+") {
 #' gtf <- read_gtf(valr_example("hg19.gencode.gtf.gz"))
 #' head(gtf)
 #'
-#' @importFrom rtracklayer import
 #' @export
 read_gtf <- function(path, zero_based = TRUE) {
   lifecycle::deprecate_stop(
