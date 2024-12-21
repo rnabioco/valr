@@ -197,7 +197,7 @@ bed12_coltypes <- list(
 #' @export
 read_bigwig <- function(path, set_strand = "+") {
   lifecycle::deprecate_stop(
-    when = "0.8.2",
+    when = "0.8.3",
     what = "read_bigwig()",
     details = c(
       x = paste0(
@@ -234,7 +234,7 @@ read_bigwig <- function(path, set_strand = "+") {
 #' @export
 read_gtf <- function(path, zero_based = TRUE) {
   lifecycle::deprecate_stop(
-    when = "0.8.2",
+    when = "0.8.3",
     what = "read_gtf()",
     details = c(
       x = paste0(
