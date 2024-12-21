@@ -191,10 +191,8 @@ bed12_coltypes <- list(
 #'
 #' @examples
 #' \dontrun{
-#' if (.Platform$OS.type != "windows") {
 #'   bw <- read_bigwig(valr_example("hg19.dnase1.bw"))
 #'   head(bw)
-#' }
 #' }
 #' @export
 read_bigwig <- function(path, set_strand = "+") {
@@ -228,8 +226,10 @@ read_bigwig <- function(path, set_strand = "+") {
 #'
 #' @examples
 #'
+#' \dontrun{
 #' gtf <- read_gtf(valr_example("hg19.gencode.gtf.gz"))
 #' head(gtf)
+#' }
 #'
 #' @export
 read_gtf <- function(path, zero_based = TRUE) {
