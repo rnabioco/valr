@@ -12,6 +12,8 @@ read_bigwig(path, set_strand = "+")
 \item{set_strand}{strand to add to output (defaults to "+")}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 This function will output a 5 column tibble with
 zero-based chrom, start, end, score, and strand columns.
 }
@@ -22,9 +24,7 @@ for windows users (particularly for 32 bit window users).
 }
 \examples{
 \dontrun{
-if (.Platform$OS.type != "windows") {
   bw <- read_bigwig(valr_example("hg19.dnase1.bw"))
   head(bw)
-}
 }
 }

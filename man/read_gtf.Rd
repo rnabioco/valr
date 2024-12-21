@@ -12,13 +12,17 @@ read_gtf(path, zero_based = TRUE)
 \item{zero_based}{if TRUE, convert to zero based}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 This function will output a tibble with the
 required chrom, start, and end columns, as well as other columns depending
 on content in GTF/GFF file.
 }
 \examples{
 
+\dontrun{
 gtf <- read_gtf(valr_example("hg19.gencode.gtf.gz"))
 head(gtf)
+}
 
 }

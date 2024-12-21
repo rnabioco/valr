@@ -27,7 +27,6 @@ Imports:
     Rcpp (>= 1.0.0),
     readr,
     rlang,
-    rtracklayer,
     stringr,
     tibble (>= 1.4.2)
 Suggests:
