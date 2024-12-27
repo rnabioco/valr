@@ -1,6 +1,8 @@
 # valr (development version)
 
-* `read_bigwig()` and `read_gtf()` were deprecated as rtracklayer is no longer avilable on CRAN.
+* `read_bigwig()` and `read_gtf()` were deprecated. The rtracklayer package used
+for this functionality is no longer a dependency of valr due to errors from 
+CRAN AddressSantizer checks of the UCSC c-library code vendored in rtracklayer.
 
 * valr now depends on R >= 4.0.0.
 

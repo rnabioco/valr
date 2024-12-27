@@ -201,12 +201,14 @@ read_bigwig <- function(path, set_strand = "+") {
     what = "read_bigwig()",
     details = c(
       x = paste0(
-        "read_bigwig() was removed because rtracklayer is",
-        "no longer available on CRAN"
+        "read_bigwig() was removed because rtracklayer does not pass ",
+        "CRAN AddressSantizer checks of the UCSC C-library code vendored ",
+        "in rtracklayer."
       ),
       i = paste0(
         "use `bigWigToBedGraph` to convert bw to bedGraph,",
-        "and then `read_bedgraph()`."
+        " and then `read_bedgraph()`. Alternatively use ",
+        "`rtracklayer::import()` then `gr_to_bed()`."
       )
     )
   )
@@ -238,10 +240,14 @@ read_gtf <- function(path, zero_based = TRUE) {
     what = "read_gtf()",
     details = c(
       x = paste0(
-        "read_gtf() was removed because rtracklayer is",
-        "no longer available on CRAN"
+        "read_gtf() was removed because rtracklayer does not pass ",
+        "CRAN AddressSantizer checks of the UCSC C-library code vendored ",
+        "in rtracklayer."
       ),
-      i = "convert GTF to BED, and then `read_bed()`."
+      i = paste0(
+        "convert GTF to BED, and then `read_bed()`, ",
+        "or use `rtracklayer::import()` then `gr_to_bed()`."
+      )
     )
   )
 }
