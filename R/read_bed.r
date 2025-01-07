@@ -174,44 +174,22 @@ bed12_coltypes <- list(
 )
 
 
-#' Import and convert a bigwig file into a valr compatible tbl
+#' Read a bigwig file into a valr compatible tbl
 #'
-#' @description
-#' `r lifecycle::badge("deprecated")`
-#'
-#' This function will output a 5 column tibble with
-#' zero-based chrom, start, end, score, and strand columns.
+#' This function will output a 4 column tibble with
+#' zero-based chrom, start, end, value columns.
 #'
 #' @param path path to bigWig file
-#' @param set_strand strand to add to output (defaults to "+")
-#'
-#' @note This functions uses \code{rtracklayer} to import bigwigs which
-#' has unstable support for the windows platform and therefore may error
-#' for windows users (particularly for 32 bit window users).
+#' @param ... params for `cpp11bigwig::read_bigwig()`
 #'
 #' @examples
-#' \dontrun{
-#'   bw <- read_bigwig(valr_example("hg19.dnase1.bw"))
-#'   head(bw)
-#' }
+#' read_bigwig(valr_example("hg19.dnase1.bw"))
+#'
+#' read_bigwig(valr_example("hg19.dnase1.bw"), as = "GRanges")
+#'
 #' @export
-read_bigwig <- function(path, set_strand = "+") {
-  lifecycle::deprecate_stop(
-    when = "0.8.3",
-    what = "read_bigwig()",
-    details = c(
-      x = paste0(
-        "read_bigwig() was removed because rtracklayer does not pass ",
-        "CRAN AddressSantizer checks of the UCSC C-library code vendored ",
-        "in rtracklayer."
-      ),
-      i = paste0(
-        "use `bigWigToBedGraph` to convert bw to bedGraph,",
-        " and then `read_bedgraph()`. Alternatively use ",
-        "`rtracklayer::import()` then `gr_to_bed()`."
-      )
-    )
-  )
+read_bigwig <- function(path, ...) {
+  cpp11bigwig::read_bigwig(path, ...)
 }
 
 #' Import and convert a GTF/GFF file into a valr compatible bed tbl format
