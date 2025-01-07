@@ -1,20 +1,23 @@
 # valr (development version)
 
-* `read_bigwig()` and `read_gtf()` were deprecated. The rtracklayer package used
-for this functionality is no longer a dependency of valr due to errors from 
+* `read_bigwig()` now uses cpp11bigwig on CRAN. The `set_strand` param was removed to be
+  more consistent with expected bigWig contents.
+
+* `read_gtf()` was deprecated. The rtracklayer package used
+for this functionality is no longer a dependency of valr due to errors from
 CRAN AddressSantizer checks of the UCSC c-library code vendored in rtracklayer.
 
 * valr now depends on R >= 4.0.0.
 
 # valr 0.8.2
 
-* Address NOTE on CRAN about Rd link targets.  
+* Address NOTE on CRAN about Rd link targets.
 
-* Change maintainer email address. 
+* Change maintainer email address.
 
 # valr 0.8.1
 
-* Make vdiffr dependency optional during package testing. 
+* Make vdiffr dependency optional during package testing.
 
 # valr 0.8.0
 
@@ -26,9 +29,9 @@ CRAN AddressSantizer checks of the UCSC c-library code vendored in rtracklayer.
 
 # valr 0.6.8
 
-* `bed_closest()` now reports all x intervals, even when there are no closest y intervals (e.g. when there is no matching chromosome in y intervals). These intervals are returned populated with `NA` for `.overlap`, `.dist` and y interval locations. 
+* `bed_closest()` now reports all x intervals, even when there are no closest y intervals (e.g. when there is no matching chromosome in y intervals). These intervals are returned populated with `NA` for `.overlap`, `.dist` and y interval locations.
 
-* Reimplemented `bed_closest()` to use binary search rather than an interval tree search. The closest y interval can be missed with the previous search strategy in high depth interval trees. 
+* Reimplemented `bed_closest()` to use binary search rather than an interval tree search. The closest y interval can be missed with the previous search strategy in high depth interval trees.
 
 * Fix off by one error when using `max_dist` argument in `bed_cluster()` (#401).
 
@@ -36,7 +39,7 @@ CRAN AddressSantizer checks of the UCSC c-library code vendored in rtracklayer.
 
 * Removed `SystemRequirements` from DESCRIPTION to eliminate a NOTE on CRAN.
 
-* `bed_coverage()` now reports intervals from `x` with no matching group in `y` (#395).  
+* `bed_coverage()` now reports intervals from `x` with no matching group in `y` (#395).
 
 # valr 0.6.6
 
@@ -49,15 +52,15 @@ CRAN AddressSantizer checks of the UCSC c-library code vendored in rtracklayer.
 
 # valr 0.6.5
 
-* Handle `max_dist` for first intervals in `bed_cluster()` (#388) 
+* Handle `max_dist` for first intervals in `bed_cluster()` (#388)
 
 # valr 0.6.4
 
-* Fixed intron score numbering error in `create_introns` (#377 @sheridar) 
+* Fixed intron score numbering error in `create_introns` (#377 @sheridar)
 
-* Fixed bug in handling of list inputs for `bed_intersect()`(#380 @sheridar)   
+* Fixed bug in handling of list inputs for `bed_intersect()`(#380 @sheridar)
 
-* Added `read_bigwig` and `read_gtf` functions to import data into valr compatible tibbles (#379)  
+* Added `read_bigwig` and `read_gtf` functions to import data into valr compatible tibbles (#379)
 
 * Kent Riemondy is now maintainer.
 
@@ -69,7 +72,7 @@ CRAN AddressSantizer checks of the UCSC c-library code vendored in rtracklayer.
 
 ## Minor changes
 
-* `RMariaDB` has replaced the deprecated `RMySQL` package as the database backend. 
+* `RMariaDB` has replaced the deprecated `RMySQL` package as the database backend.
 
 * valr now imports Rcpp, which should have always been the case,
 but was masked by its Import by readr, which recently dropped use of Rcpp.
@@ -84,9 +87,9 @@ but was masked by its Import by readr, which recently dropped use of Rcpp.
 
 ## Major changes
 
-* `trbl_interval()` and `trbl_genome()` custom `tibble` subclasses have been deemed unnecessary and have been removed from the package. 
+* `trbl_interval()` and `trbl_genome()` custom `tibble` subclasses have been deemed unnecessary and have been removed from the package.
 
-* coercing `GRanges` to a `valr` compatible data.frame now uses the `gr_to_bed()` function rather than `as.trbl_interal()` methods. 
+* coercing `GRanges` to a `valr` compatible data.frame now uses the `gr_to_bed()` function rather than `as.trbl_interal()` methods.
 
 ## Minor changes
 
@@ -94,7 +97,7 @@ but was masked by its Import by readr, which recently dropped use of Rcpp.
 
 * The `sort_by` argument of `bed_random()` has been changed to `sorted`, and will now by default
 use `bed_sort()` to sort the output, rather than rely on naming the sorting columns. Sorting can
-be suppressed by using `sorted = FALSE`. 
+be suppressed by using `sorted = FALSE`.
 
 * `bed_sort()` now uses base R sorting with the `radix` method for increased speed. (#353)
 
@@ -108,13 +111,13 @@ be suppressed by using `sorted = FALSE`.
 
 # valr 0.5.0
 
-## Major changes 
+## Major changes
 
-* Internal `Rcpp` functions have been reorganized to remove all dependencies on `dplyr` C++ functions. 
+* Internal `Rcpp` functions have been reorganized to remove all dependencies on `dplyr` C++ functions.
 
 ## Minor changes
 
-* Due to internal refactoring of Rcpp functions, only data.frames containing Numeric, Logical, Integer, Character, and List column types are supported. Columns containing Raw, Complex, or other R classes are not supported and will issue an error. 
+* Due to internal refactoring of Rcpp functions, only data.frames containing Numeric, Logical, Integer, Character, and List column types are supported. Columns containing Raw, Complex, or other R classes are not supported and will issue an error.
 
 * Factors are now disallowed from grouping variables in multiset operations to avoid sort order discrepancies, and compatibility with factor handling in `dplyr` v.0.8.0. Factors will now be internally type-converted to character and a warning is issued.
 
@@ -199,7 +202,7 @@ be suppressed by using `sorted = FALSE`.
 ## Minor changes
 
 * intervals returned from `bed_random()` are sorted by `chrom` and `start` by default.
-  
+
 ## Bug fixes
 
 * Merge intervals in `bed_jaccard()` and use numeric values for calculation (fixes #204).
