@@ -2,29 +2,22 @@
 % Please edit documentation in R/read_bed.r
 \name{read_bigwig}
 \alias{read_bigwig}
-\title{Import and convert a bigwig file into a valr compatible tbl}
+\title{Read a bigwig file into a valr compatible tbl}
 \usage{
-read_bigwig(path, set_strand = "+")
+read_bigwig(path, ...)
 }
 \arguments{
 \item{path}{path to bigWig file}
 
-\item{set_strand}{strand to add to output (defaults to "+")}
+\item{...}{params for \code{cpp11bigwig::read_bigwig()}}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-
-This function will output a 5 column tibble with
-zero-based chrom, start, end, score, and strand columns.
-}
-\note{
-This functions uses \code{rtracklayer} to import bigwigs which
-has unstable support for the windows platform and therefore may error
-for windows users (particularly for 32 bit window users).
+This function will output a 4 column tibble with
+zero-based chrom, start, end, value columns.
 }
 \examples{
-\dontrun{
-  bw <- read_bigwig(valr_example("hg19.dnase1.bw"))
-  head(bw)
-}
+read_bigwig(valr_example("hg19.dnase1.bw"))
+
+read_bigwig(valr_example("hg19.dnase1.bw"), as = "GRanges")
+
 }

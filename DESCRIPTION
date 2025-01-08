@@ -21,6 +21,7 @@ Depends:
 Imports:
     broom,
     cli,
+    cpp11bigwig,
     dplyr (>= 0.8.0),
     ggplot2,
     lifecycle,
