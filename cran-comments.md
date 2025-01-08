@@ -2,7 +2,8 @@
 
 * This is a new patch version to address UBSAN/ASAN errors from C code in 
 a library used by the rtracklayer bioconductor dependency. The rtracklayer 
-package has been removed as a dependency to address these errors. 
+package has been removed as a dependency to address these errors. We now instead 
+depend on cpp11bigwig to provide bigwig file reading capabilities. 
 
 ## Test environment
 
