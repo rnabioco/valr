@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.8.3
 
 * `read_bigwig()` now uses cpp11bigwig on CRAN. The `set_strand` param was removed to be
   more consistent with expected bigWig contents.
