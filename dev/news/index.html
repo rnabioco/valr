@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">valr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.3.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="valr-development-version">valr (development version)<a class="anchor" aria-label="anchor" href="#valr-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.3" id="valr-083">valr 0.8.3<a class="anchor" aria-label="anchor" href="#valr-083"></a></h2><p class="text-muted">CRAN release: 2025-01-11</p>
 <ul><li><p><code><a href="../reference/read_bigwig.html">read_bigwig()</a></code> now uses cpp11bigwig on CRAN. The <code>set_strand</code> param was removed to be more consistent with expected bigWig contents.</p></li>
 <li><p><code><a href="../reference/read_gtf.html">read_gtf()</a></code> was deprecated. The rtracklayer package used for this functionality is no longer a dependency of valr due to errors from CRAN AddressSantizer checks of the UCSC c-library code vendored in rtracklayer.</p></li>
 <li><p>valr now depends on R &gt;= 4.0.0.</p></li>
