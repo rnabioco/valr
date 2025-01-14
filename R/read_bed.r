@@ -194,38 +194,19 @@ read_bigwig <- function(path, ...) {
 
 #' Import and convert a GTF/GFF file into a valr compatible bed tbl format
 #'
-#' @description
-#' `r lifecycle::badge("deprecated")`
-#'
 #' This function will output a tibble with the
 #' required chrom, start, and end columns, as well as other columns depending
 #' on content in GTF/GFF file.
 #'
-#' @param path path to gtf or gff file
-#' @param zero_based if TRUE, convert to zero based
+#' Based on the GTF specification at <https://useast.ensembl.org/info/website/upload/gff.html>
+#'
+#' @param path path to gtf file
 #'
 #' @examples
-#'
-#' \dontrun{
 #' gtf <- read_gtf(valr_example("hg19.gencode.gtf.gz"))
 #' head(gtf)
-#' }
 #'
 #' @export
-read_gtf <- function(path, zero_based = TRUE) {
-  lifecycle::deprecate_stop(
-    when = "0.8.3",
-    what = "read_gtf()",
-    details = c(
-      x = paste0(
-        "read_gtf() was removed because rtracklayer does not pass ",
-        "CRAN AddressSantizer checks of the UCSC C-library code vendored ",
-        "in rtracklayer."
-      ),
-      i = paste0(
-        "convert GTF to BED, and then `read_bed()`, ",
-        "or use `rtracklayer::import()` then `gr_to_bed()`."
-      )
-    )
-  )
+read_gtf <- function(path) {
+  as_tibble(read_gtf_impl(path))
 }

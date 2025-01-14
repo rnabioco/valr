@@ -180,6 +180,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// read_gtf_impl
+DataFrame read_gtf_impl(std::string filename);
+RcppExport SEXP _valr_read_gtf_impl(SEXP filenameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_gtf_impl(filename));
+    return rcpp_result_gen;
+END_RCPP
+}
 // shuffle_impl
 DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within, int max_tries, int seed);
 RcppExport SEXP _valr_shuffle_impl(SEXP dfSEXP, SEXP inclSEXP, SEXP withinSEXP, SEXP max_triesSEXP, SEXP seedSEXP) {

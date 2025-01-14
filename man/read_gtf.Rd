@@ -4,25 +4,21 @@
 \alias{read_gtf}
 \title{Import and convert a GTF/GFF file into a valr compatible bed tbl format}
 \usage{
-read_gtf(path, zero_based = TRUE)
+read_gtf(path, ...)
 }
 \arguments{
-\item{path}{path to gtf or gff file}
-
-\item{zero_based}{if TRUE, convert to zero based}
+\item{path}{path to gtf file}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-
 This function will output a tibble with the
 required chrom, start, and end columns, as well as other columns depending
 on content in GTF/GFF file.
 }
+\details{
+Based on the GTF specification at \url{https://useast.ensembl.org/info/website/upload/gff.html}
+}
 \examples{
-
-\dontrun{
 gtf <- read_gtf(valr_example("hg19.gencode.gtf.gz"))
 head(gtf)
-}
 
 }

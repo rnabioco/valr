@@ -49,6 +49,10 @@ random_impl <- function(genome, length, n, seed = 0L) {
     .Call(`_valr_random_impl`, genome, length, n, seed)
 }
 
+read_gtf_impl <- function(filename) {
+    .Call(`_valr_read_gtf_impl`, filename)
+}
+
 shuffle_impl <- function(df, incl, within = FALSE, max_tries = 1000L, seed = 0L) {
     .Call(`_valr_shuffle_impl`, df, incl, within, max_tries, seed)
 }

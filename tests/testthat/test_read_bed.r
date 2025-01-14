@@ -51,6 +51,6 @@ test_that("read bigwig", {
 
 
 test_that("read gtf", {
-  expect_error(read_gtf(gtf_path))
-  # expect_equal(ncol(x), 26)
+  x <- read_gtf(gtf_path)
+  expect_equal(ncol(x), 26)
 })
