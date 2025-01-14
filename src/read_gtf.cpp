@@ -5,10 +5,38 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <zlib.h>
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
+std::istream* open_file(std::string filename, std::ifstream& file_stream, gzFile& gz_file, bool& is_gzip) {
+  if (filename.size() > 3 && filename.substr(filename.size() - 3) == ".gz") {
+    is_gzip = true;
+    gz_file = gzopen(filename.c_str(), "r");
+    if (!gz_file) stop("Unable to open gzip file: " + filename);
+    return nullptr; // Placeholder for gzip stream
+  } else {
+    is_gzip = false;
+    file_stream.open(filename);
+    if (!file_stream.is_open()) stop("Unable to open file: " + filename);
+    return &file_stream;
+  }
+}
+
+std::string gz_getline(gzFile gz_file) {
+  char buffer[4096];
+  std::string line;
+  while (gzgets(gz_file, buffer, sizeof(buffer))) {
+    line += buffer;
+    if (!line.empty() && line.back() == '\n') {
+      line.pop_back();
+      break;
+    }
+  }
+  return line;
+}
+
+// [[Rcpp::export]]
 DataFrame read_gtf_impl(std::string filename) {
   // Cols for the GTF file
   std::vector<std::string> seqname, source, feature;
@@ -20,14 +48,21 @@ DataFrame read_gtf_impl(std::string filename) {
   std::set<std::string> all_keys;
   std::vector<std::unordered_map<std::string, std::string>> row_attrs;
 
-  std::ifstream file(filename);
-  if (!file.is_open()) {
-    stop("Unable to open file: " + filename);
-  }
+  std::ifstream file_stream;
+  gzFile gz_file = nullptr;
+  bool is_gzip;
+  std::istream* input_stream = open_file(filename, file_stream, gz_file, is_gzip);
 
   std::string line;
-  while (std::getline(file, line)) {
-    if (line[0] == '#') continue; // Skip comments
+  while (true) {
+    if (is_gzip) {
+      line = gz_getline(gz_file);
+      if (line.empty() && gzeof(gz_file)) break;
+    } else {
+      if (!std::getline(*input_stream, line)) break;
+    }
+
+    if (line.empty() || line[0] == '#') continue; // Skip comments
 
     std::istringstream linestream(line);
     std::string seq, src, feat, attr;
@@ -74,7 +109,9 @@ DataFrame read_gtf_impl(std::string filename) {
     }
     row_attrs.push_back(attr_map);
   }
-  file.close();
+
+  if (is_gzip) gzclose(gz_file);
+  if (file_stream.is_open()) file_stream.close();
 
   // Initialize attr cols
   std::unordered_map<std::string, std::vector<std::string>> attr_cols;
