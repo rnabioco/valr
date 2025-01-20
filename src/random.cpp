@@ -24,7 +24,7 @@ writable::data_frame random_impl(data_frame genome, int length, int n, int seed 
   auto generator = ENGINE(seed) ;
 
   // calculate weights for chrom distribution
-  double mass = std::accumulate(sizes.begin(), sizes.end(), 0); ;
+  double mass = std::accumulate(sizes.begin(), sizes.end(), 0.0); ;
 
   std::vector<double> weights(nchrom) ;
   for (int i = 0; i < nchrom; ++i) {
