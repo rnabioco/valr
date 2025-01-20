@@ -10,10 +10,10 @@
 #include "valr.h"
 
 [[cpp11::register]]
-writable::data_frame random_impl(DataFrame genome, int length, int n, int seed = 0) {
+writable::data_frame random_impl(data_frame genome, int length, int n, int seed = 0) {
 
-  std::vector<std::string> chroms = genome["chrom"] ;
-  std::vector<int> sizes = genome["size"] ;
+  strings chroms = genome["chrom"] ;
+  doubles sizes = genome["size"] ;
 
   int nchrom = chroms.size() ;
 
@@ -31,7 +31,11 @@ writable::data_frame random_impl(DataFrame genome, int length, int n, int seed =
     weights[i] = sizes[i] / mass ;
   }
 
-  Range chromidx(0, nchrom) ;
+  std::vector<int> chromidx;
+  for (int i = 0; i < nchrom; ++i) {
+    chromidx.push_back(i);
+  }
+
   PCONST_DIST chrom_dist(chromidx.begin(), chromidx.end(), weights.begin()) ;
 
   // make and store a DIST for each chrom size
@@ -50,7 +54,7 @@ writable::data_frame random_impl(DataFrame genome, int length, int n, int seed =
 
   for (int i = 0; i < n; ++i) {
 
-    auto chrom_idx = chrom_dist(generator) ;
+    int chrom_idx = chrom_dist(generator) ;
     rand_chroms[i] = chroms[chrom_idx] ;
 
     UINT_DIST size_dist = size_rngs[chrom_idx] ;
