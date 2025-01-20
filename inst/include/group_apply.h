@@ -28,7 +28,7 @@ inline void GroupApply(const ValrGroupedDataFrame& x,
   int ng_y = shared_grps_y.size() ;
 
   if (ng_x != ng_y) {
-    stop("incompatible groups found between x and y dataframes") ;
+    Rcpp::stop("incompatible groups found between x and y dataframes") ;
   }
 
   // access the group .rows list

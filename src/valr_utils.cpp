@@ -91,7 +91,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
         }
         break;
       default: {
-        stop("Incompatible column type detected");
+        Rcpp::stop("Incompatible column type detected");
       }
       }
     }
@@ -183,7 +183,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
         }
         break;
       default: {
-        stop("Incompatible column type detected");
+        Rcpp::stop("Incompatible column type detected");
       }
       }
     }
@@ -259,4 +259,3 @@ void print_ivl_tree(const DataFrame& x, int depth = 16,
   IntervalTree<int, int> itree(std::move(vx), depth, minbucket, maxbucket) ;
   Rcout << itree << "\n";
 }
-
