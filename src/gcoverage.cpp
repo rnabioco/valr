@@ -21,7 +21,7 @@ posTracker collatePositions(const IntegerVector& starts,
   auto n = starts.size() ;
 
   if (n != ends.size()) {
-    stop("incompatible start and end vector supplied") ;
+    cpp11::stop("incompatible start and end vector supplied") ;
   }
 
   for (int i = 0; i < n; i++) {
@@ -46,7 +46,7 @@ DataFrame gcoverage_impl(const ValrGroupedDataFrame& gdf,
   ListView idx(gdf.indices()) ;
 
   if(max_coords.size() != ng) {
-    stop("max_coords must equal the number of groups in data.frame");
+    cpp11::stop("max_coords must equal the number of groups in data.frame");
   }
 
   std::vector<int> out_indices, depths, starts, ends;
@@ -74,9 +74,9 @@ DataFrame gcoverage_impl(const ValrGroupedDataFrame& gdf,
 
     for (auto p:pos) {
       if (p.first > max_coord) {
-        warning("Out of bounds interval detected at position: %s \n"
-                "  Out of bounds intervals will be ignored",
-                p.first);
+        Rcpp::warning(
+          "Out of bounds interval detected and will be ignored"
+        );
         break;
       }
 
@@ -113,21 +113,3 @@ DataFrame gcoverage_impl(const ValrGroupedDataFrame& gdf,
 
   return subset_x ;
 }
-
-/*** R
-library(dplyr)
-x <- tibble::tribble(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 20, 70, 6, 25, "+",
-  "chr1", 50, 100, 1, 25, "-",
-  "chr1", 200, 250, 3, 25, "+",
-  "chr1", 220, 250, 3, 25, "+",
-  "chr2", 80, 130, 5, 25, "-",
-  "chr2", 150, 200, 4, 25, "+",
-  "chr2", 180, 230, 2, 25, "-",
-  "chr2", 190, 230, 2, 25, "-"
-) |>  group_by(chrom)
-
-gcoverage_impl(x, max_coords = c(1000, 500)) |> as.data.frame()
-
-*/

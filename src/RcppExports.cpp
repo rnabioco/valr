@@ -166,20 +166,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// random_impl
-DataFrame random_impl(DataFrame genome, int length, int n, int seed);
-RcppExport SEXP _valr_random_impl(SEXP genomeSEXP, SEXP lengthSEXP, SEXP nSEXP, SEXP seedSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
-    Rcpp::traits::input_parameter< int >::type length(lengthSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(random_impl(genome, length, n, seed));
-    return rcpp_result_gen;
-END_RCPP
-}
 // shuffle_impl
 DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within, int max_tries, int seed);
 RcppExport SEXP _valr_shuffle_impl(SEXP dfSEXP, SEXP inclSEXP, SEXP withinSEXP, SEXP max_triesSEXP, SEXP seedSEXP) {

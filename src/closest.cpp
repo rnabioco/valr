@@ -233,7 +233,7 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   int ng_y = grp_idx_y.size() ;
 
   if (ng_x != ng_y) {
-    stop("incompatible groups found between x and y dataframes") ;
+    Rcpp::stop("incompatible groups found between x and y dataframes") ;
   }
 
   // access the group .rows list
@@ -297,4 +297,3 @@ DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
   return res ;
 
 }
-

@@ -223,7 +223,7 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
       niter++ ;
       if (niter > max_tries) {
         // tried too many times to find an overlap, bail
-        stop("maximum iterations exceeded in bed_shuffle") ;
+        Rcpp::stop("maximum iterations exceeded in bed_shuffle") ;
       }
 
       // get a random interval index
@@ -264,35 +264,3 @@ DataFrame shuffle_impl(DataFrame df, DataFrame incl, bool within = false,
                            _("end") = ends_out,
                            _("stringsAsFactors") = false) ;
 }
-
-/***R
-library(dplyr)
-library(valr)
-library(testthat)
-library(microbenchmark)
-
-genome <- tibble::tribble(
-   ~chrom,  ~size,
-   "chr1", 50000000,
-   "chr2", 60000000,
-   "chr3", 80000000
-)
-
-incl <- tibble::tribble(
-   ~chrom, ~start, ~end,
-   "chr1", 1, 5000000,
-   "chr1", 5000000, 50000000,
-   "chr2", 1, 60000000,
-   "chr3", 1, 80000000
-)
-
-x <- bed_random(genome, n = 100) %>% bed_sort()
-
-shuffle_impl(x, incl) %>%
-  group_by(chrom) %>%
-  summarize(count = n())
-
-library(microbenchmark)
-# microbenchmark(shuffle_impl(x, incl), n = 10, unit = 's')
-
-*/

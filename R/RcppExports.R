@@ -45,10 +45,6 @@ partition_impl <- function(gdf, max_dist = -1L) {
     .Call(`_valr_partition_impl`, gdf, max_dist)
 }
 
-random_impl <- function(genome, length, n, seed = 0L) {
-    .Call(`_valr_random_impl`, genome, length, n, seed)
-}
-
 shuffle_impl <- function(df, incl, within = FALSE, max_tries = 1000L, seed = 0L) {
     .Call(`_valr_shuffle_impl`, df, incl, within, max_tries, seed)
 }

@@ -51,7 +51,8 @@ Suggests:
     tidyr
 biocViews:
 LinkingTo:
-    Rcpp (>= 1.0.0)
+    Rcpp (>= 1.0.0),
+    cpp11
 VignetteBuilder:
     knitr
 Encoding: UTF-8

@@ -10,10 +10,11 @@
 #ifndef valr__valr_H
 #define valr__valr_H
 
-// [[Rcpp::plugins(cpp11)]]
-
 #include <Rcpp.h>
 using namespace Rcpp ;
+
+#include <cpp11.hpp>
+using namespace cpp11;
 
 #include "utils.h"
 #include "grouped_dataframe.h"
