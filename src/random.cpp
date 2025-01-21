@@ -10,7 +10,7 @@
 #include "valr.h"
 
 [[cpp11::register]]
-writable::data_frame random_impl(data_frame genome, int length, int n, int seed = 0) {
+writable::data_frame random_impl(data_frame genome, double length, int n, int seed = 0) {
 
   strings chroms = genome["chrom"] ;
   doubles sizes = genome["size"] ;
@@ -49,8 +49,8 @@ writable::data_frame random_impl(data_frame genome, int length, int n, int seed 
     size_rngs.push_back(size_dist) ;
   }
 
-  std::vector<std::string> rand_chroms(n) ;
-  std::vector<int> rand_starts(n) ;
+  writable::strings rand_chroms(n) ;
+  writable::doubles rand_starts(n) ;
 
   for (int i = 0; i < n; ++i) {
 
@@ -63,7 +63,7 @@ writable::data_frame random_impl(data_frame genome, int length, int n, int seed 
     rand_starts[i] = rand_start ;
   }
 
-  std::vector<int> rand_ends(rand_starts.size()) ;
+  writable::doubles rand_ends(rand_starts.size()) ;
   for (int i = 0; i < rand_starts.size(); ++i) {
     rand_ends[i] = rand_starts[i] + length ;
   }
