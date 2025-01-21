@@ -8,10 +8,10 @@ using namespace Rcpp;
 #include <R_ext/Visibility.h>
 
 // random.cpp
-writable::data_frame random_impl(data_frame genome, int length, int n, int seed);
+writable::data_frame random_impl(data_frame genome, double length, int n, int seed);
 extern "C" SEXP _valr_random_impl(SEXP genome, SEXP length, SEXP n, SEXP seed) {
   BEGIN_CPP11
-    return cpp11::as_sexp(random_impl(cpp11::as_cpp<cpp11::decay_t<data_frame>>(genome), cpp11::as_cpp<cpp11::decay_t<int>>(length), cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(seed)));
+    return cpp11::as_sexp(random_impl(cpp11::as_cpp<cpp11::decay_t<data_frame>>(genome), cpp11::as_cpp<cpp11::decay_t<double>>(length), cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(seed)));
   END_CPP11
 }
 
