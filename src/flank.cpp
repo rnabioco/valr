@@ -1,6 +1,6 @@
 // flank.cpp
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2025 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -9,10 +9,10 @@
 
 #include "valr.h"
 
-void check_coords(int start, int end,
-                  int chrom_size, int idx, bool trim,
-                  std::vector<int>& starts_out,
-                  std::vector<int>& ends_out,
+void check_coords(double start, double end,
+                  double chrom_size, int idx, bool trim,
+                  writable::doubles& starts_out,
+                  writable::doubles& ends_out,
                   std::vector<int>& df_idx) {
 
   if (start == end) return ;
@@ -42,18 +42,18 @@ void check_coords(int start, int end,
   } // else trim
 }
 
-//[[Rcpp::export]]
-DataFrame flank_impl(DataFrame df, DataFrame genome,
+[[cpp11::register]]
+writable::data_frame flank_impl(data_frame df, data_frame genome,
                      double both = 0, double left = 0, double right = 0,
                      bool fraction = false, bool stranded = false, bool trim = false) {
 
-  std::vector<std::string> chroms = df["chrom"];
-  IntegerVector starts = df["start"];
-  IntegerVector ends = df["end"];
+  strings chroms = df["chrom"];
+  doubles starts = df["start"];
+  doubles ends = df["end"];
 
   // storage for outputs
-  std::vector<int> starts_out;
-  std::vector<int> ends_out;
+  writable::doubles starts_out;
+  writable::doubles ends_out;
   std::vector<int> df_idx;
 
   genome_map_t chrom_sizes = makeChromSizes(genome);
@@ -61,7 +61,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
 
   if (stranded) {
 
-    std::vector<std::string> strands = df["strand"];
+    strings strand = df["strand"];
 
     for (int i = 0; i < starts.size(); i++) {
 
@@ -70,7 +70,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
       double size = end - start;
 
       if (fraction) {
-        if (strands[i] == "+") {
+        if (strand[i] == "+") {
           lstart = start - std::round(size * left);
           lend = start;
           rstart = end;
@@ -82,7 +82,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
           rend = start ;
         }
       } else {
-        if (strands[i] == "+") {
+        if (strand[i] == "+") {
           lstart = start - left;
           lend = start;
           rstart = end;
@@ -96,7 +96,7 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
       }
 
       std::string chrom = chroms[i];
-      int chrom_size = chrom_sizes[chrom];
+      double chrom_size = chrom_sizes[chrom];
 
       // check and save coordinates
       check_coords(lstart, lend, chrom_size, i, trim,
@@ -136,23 +136,20 @@ DataFrame flank_impl(DataFrame df, DataFrame genome,
     }
   }
 
-  DataFrame out = subset_dataframe(df, df_idx) ;
+  writable::data_frame subset = subset_dataframe(df, df_idx) ;
 
-  out["start"] = starts_out;
-  out["end"] = ends_out;
-
-  return out;
+  if (stranded) {
+    return writable::data_frame({
+      "chrom"_nm = subset["chrom"],
+      "start"_nm = starts_out,
+      "end"_nm = ends_out,
+      "strand"_nm = subset["strand"]
+    }) ;
+  } else {
+    return writable::data_frame({
+      "chrom"_nm = subset["chrom"],
+      "start"_nm = starts_out,
+      "end"_nm = ends_out
+    }) ;
+  }
 }
-
-
-/*** R
-library(valr)
-library(dplyr)
-
-genome <- read_genome(valr_example('hg19.chrom.sizes.gz'))
-x <- bed_random(genome)
-
-devtools::load_all()
-flank_impl(x, genome, both = 100) %>% as_data_frame()
-*/
-

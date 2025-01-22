@@ -1,6 +1,6 @@
 // makewindows.cpp
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2025 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -9,17 +9,17 @@
 
 #include "valr.h"
 
-//[[Rcpp::export]]
-DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
+[[cpp11::register]]
+writable::data_frame makewindows_impl(data_frame df, int win_size = 0, int num_win = 0,
                            int step_size = 0, bool reverse = false) {
 
-  NumericVector starts = df["start"] ;
-  NumericVector ends = df["end"] ;
+  doubles starts = df["start"] ;
+  doubles ends = df["end"] ;
 
-  std::vector<int> starts_out ;
-  std::vector<int> ends_out ;
+  writable::doubles starts_out ;
+  writable::doubles ends_out ;
   std::vector<int> df_idxs ;
-  std::vector<int> win_ids;
+  writable::integers win_ids;
 
   for (int i = 0; i < starts.size(); ++i) {
 
@@ -72,25 +72,12 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
     }
   }
 
-  DataFrame out = subset_dataframe(df, df_idxs) ;
+  writable::data_frame subset = subset_dataframe(df, df_idxs) ;
 
-  // replace original starts, ends, and .win_id
-  out["start"] = starts_out ;
-  out["end"] = ends_out ;
-  out[".win_id"] = win_ids ;
-
-  return out ;
+  return writable::data_frame({
+    "chrom"_nm = subset["chrom"],
+    "start"_nm = starts_out,
+    "end"_nm = ends_out,
+    ".win_id"_nm = win_ids
+  }) ;
 }
-
-/*** R
-library(valr)
-library(dplyr)
-
-x <- trbl_interval(
-  ~chrom, ~start, ~end,
-  "chr1", 100,    200
-)
-
-bed_makewindows(x, win_size = 10)
-bed_makewindows(x, win_size = 10, reverse = TRUE)
-*/

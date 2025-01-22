@@ -21,20 +21,12 @@ dist_impl <- function(x, y, x_grp_indexes, y_grp_indexes, distcalc) {
     .Call(`_valr_dist_impl`, x, y, x_grp_indexes, y_grp_indexes, distcalc)
 }
 
-flank_impl <- function(df, genome, both = 0, left = 0, right = 0, fraction = FALSE, stranded = FALSE, trim = FALSE) {
-    .Call(`_valr_flank_impl`, df, genome, both, left, right, fraction, stranded, trim)
-}
-
 gcoverage_impl <- function(gdf, max_coords) {
     .Call(`_valr_gcoverage_impl`, gdf, max_coords)
 }
 
 intersect_impl <- function(x, y, x_grp_indexes, y_grp_indexes, invert = FALSE, suffix_x = ".x", suffix_y = ".y") {
     .Call(`_valr_intersect_impl`, x, y, x_grp_indexes, y_grp_indexes, invert, suffix_x, suffix_y)
-}
-
-makewindows_impl <- function(df, win_size = 0L, num_win = 0L, step_size = 0L, reverse = FALSE) {
-    .Call(`_valr_makewindows_impl`, df, win_size, num_win, step_size, reverse)
 }
 
 merge_impl <- function(gdf, max_dist = 0L, collapse = TRUE) {

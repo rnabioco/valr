@@ -45,9 +45,7 @@ DataFrame rowwise_subset_df(const DataFrame& x,
   {
     SEXP element = VECTOR_ELT(x, j);
 
-    SEXP vec = PROTECT(
-                 Rf_allocVector(TYPEOF(element), row_indices_n)
-               );
+    SEXP vec = PROTECT(Rf_allocVector(TYPEOF(element), row_indices_n));
 
     for (int i = 0; i < row_indices_n; ++i)
     {
@@ -209,6 +207,67 @@ DataFrame rowwise_subset_df(const DataFrame& x,
 
 }
 
+writable::data_frame rowwise_subset_df(const data_frame& x, std::vector<int> row_indices) {
+    int column_indices_n = x.ncol();
+    int row_indices_n = row_indices.size();
+
+    writable::list output(column_indices_n);
+
+    // Extract column names
+    SEXP x_names = Rf_getAttrib(x, R_NamesSymbol);
+    Rf_setAttrib(output, R_NamesSymbol, x_names);
+
+    for (int j = 0; j < column_indices_n; ++j) {
+        SEXP element = VECTOR_ELT(x, j);
+        SEXP vec = PROTECT(Rf_allocVector(TYPEOF(element), row_indices_n));
+
+        for (int i = 0; i < row_indices_n; ++i) {
+            switch (TYPEOF(vec)) {
+                case REALSXP:
+                    REAL(vec)[i] = (row_indices[i] == NA_INTEGER) ? NA_REAL : REAL(element)[row_indices[i]];
+                    break;
+                case INTSXP:
+                case LGLSXP:
+                    INTEGER(vec)[i] = (row_indices[i] == NA_INTEGER) ? NA_INTEGER : INTEGER(element)[row_indices[i]];
+                    break;
+                case STRSXP:
+                    SET_STRING_ELT(vec, i, (row_indices[i] == NA_INTEGER) ? NA_STRING : STRING_ELT(element, row_indices[i]));
+                    break;
+                case VECSXP:
+                    SET_VECTOR_ELT(vec, i, (row_indices[i] == NA_INTEGER) ? R_NilValue : VECTOR_ELT(element, row_indices[i]));
+                    break;
+                default:
+                    cpp11::stop("Incompatible column type detected");
+            }
+        }
+
+        // Handle factor levels
+        if (Rf_inherits(element, "factor")) {
+            SEXP levels = PROTECT(Rf_getAttrib(element, R_LevelsSymbol));
+            Rf_setAttrib(vec, R_LevelsSymbol, levels);
+            UNPROTECT(1);  // Unprotect factor levels
+        }
+
+        SET_VECTOR_ELT(output, j, vec);
+        UNPROTECT(1);  // Unprotect `vec`
+    }
+
+    // Copy attributes from `x` to `output`
+    Rf_copyMostAttrib(x, output);
+
+    // Set row names properly
+    SEXP row_names = PROTECT(Rf_allocVector(INTSXP, 2));
+    INTEGER(row_names)[0] = NA_INTEGER;
+    INTEGER(row_names)[1] = -row_indices_n;
+    Rf_setAttrib(output, R_RowNamesSymbol, row_names);
+    UNPROTECT(1);  // Unprotect row names
+
+    // Convert list to data frame
+    Rf_setAttrib(output, R_ClassSymbol, Rf_mkString("data.frame"));
+
+    return writable::data_frame(output);
+}
+
 DataFrame subset_dataframe(const DataFrame& df,
                            std::vector<int> indices) {
 
@@ -220,6 +279,13 @@ DataFrame subset_dataframe(const DataFrame& df,
                            IntegerVector indices) {
 
   DataFrame out = rowwise_subset_df(df, indices);
+  return (out) ;
+}
+
+writable::data_frame subset_dataframe(const data_frame& df,
+                           std::vector<int>indices) {
+
+  writable::data_frame out = rowwise_subset_df(df, indices);
   return (out) ;
 }
 

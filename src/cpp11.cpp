@@ -7,6 +7,20 @@ using namespace Rcpp;
 #include "cpp11/declarations.hpp"
 #include <R_ext/Visibility.h>
 
+// flank.cpp
+writable::data_frame flank_impl(data_frame df, data_frame genome, double both, double left, double right, bool fraction, bool stranded, bool trim);
+extern "C" SEXP _valr_flank_impl(SEXP df, SEXP genome, SEXP both, SEXP left, SEXP right, SEXP fraction, SEXP stranded, SEXP trim) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(flank_impl(cpp11::as_cpp<cpp11::decay_t<data_frame>>(df), cpp11::as_cpp<cpp11::decay_t<data_frame>>(genome), cpp11::as_cpp<cpp11::decay_t<double>>(both), cpp11::as_cpp<cpp11::decay_t<double>>(left), cpp11::as_cpp<cpp11::decay_t<double>>(right), cpp11::as_cpp<cpp11::decay_t<bool>>(fraction), cpp11::as_cpp<cpp11::decay_t<bool>>(stranded), cpp11::as_cpp<cpp11::decay_t<bool>>(trim)));
+  END_CPP11
+}
+// makewindows.cpp
+writable::data_frame makewindows_impl(data_frame df, int win_size, int num_win, int step_size, bool reverse);
+extern "C" SEXP _valr_makewindows_impl(SEXP df, SEXP win_size, SEXP num_win, SEXP step_size, SEXP reverse) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(makewindows_impl(cpp11::as_cpp<cpp11::decay_t<data_frame>>(df), cpp11::as_cpp<cpp11::decay_t<int>>(win_size), cpp11::as_cpp<cpp11::decay_t<int>>(num_win), cpp11::as_cpp<cpp11::decay_t<int>>(step_size), cpp11::as_cpp<cpp11::decay_t<bool>>(reverse)));
+  END_CPP11
+}
 // random.cpp
 writable::data_frame random_impl(data_frame genome, double length, int n, int seed);
 extern "C" SEXP _valr_random_impl(SEXP genome, SEXP length, SEXP n, SEXP seed) {
@@ -22,10 +36,8 @@ extern SEXP _valr_closest_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_complement_impl(SEXP, SEXP);
 extern SEXP _valr_coverage_impl(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_dist_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_flank_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_gcoverage_impl(SEXP, SEXP);
 extern SEXP _valr_intersect_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_makewindows_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_merge_impl(SEXP, SEXP, SEXP);
 extern SEXP _valr_partition_impl(SEXP, SEXP);
 extern SEXP _valr_shuffle_impl(SEXP, SEXP, SEXP, SEXP, SEXP);

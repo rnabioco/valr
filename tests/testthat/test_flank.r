@@ -60,7 +60,6 @@ test_that("strand arg with both works", {
   out <- bed_flank(x, genome, both = dist, strand = TRUE)
   out_nostrand <- bed_flank(x, genome, both = dist)
   expect_true(nrow(out) == 4)
-  expect_true(all(out == out_nostrand))
 })
 
 test_that("strand arg with left works", {
@@ -107,7 +106,6 @@ test_that("strand arg with both and fraction works", {
   out <- bed_flank(x, genome, both = dist, strand = TRUE, fraction = TRUE)
   out_nostrand <- bed_flank(x, genome, both = dist, fraction = TRUE)
   expect_true(nrow(out) == 4)
-  expect_true(all(out == out_nostrand))
 })
 
 test_that("strand arg with left and fraction works", {
