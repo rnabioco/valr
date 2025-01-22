@@ -7,6 +7,13 @@ using namespace Rcpp;
 #include "cpp11/declarations.hpp"
 #include <R_ext/Visibility.h>
 
+// bed12toexons.cpp
+writable::data_frame bed12toexons_impl(data_frame x);
+extern "C" SEXP _valr_bed12toexons_impl(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bed12toexons_impl(cpp11::as_cpp<cpp11::decay_t<data_frame>>(x)));
+  END_CPP11
+}
 // flank.cpp
 writable::data_frame flank_impl(data_frame df, data_frame genome, double both, double left, double right, bool fraction, bool stranded, bool trim);
 extern "C" SEXP _valr_flank_impl(SEXP df, SEXP genome, SEXP both, SEXP left, SEXP right, SEXP fraction, SEXP stranded, SEXP trim) {
@@ -31,7 +38,6 @@ extern "C" SEXP _valr_random_impl(SEXP genome, SEXP length, SEXP n, SEXP seed) {
 
 extern "C" {
 /* .Call calls */
-extern SEXP _valr_bed12toexons_impl(SEXP);
 extern SEXP _valr_closest_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_complement_impl(SEXP, SEXP);
 extern SEXP _valr_coverage_impl(SEXP, SEXP, SEXP, SEXP);

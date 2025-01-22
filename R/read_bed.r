@@ -160,8 +160,8 @@ peak_coltypes <- list(
 
 bed12_coltypes <- list(
   chrom = readr::col_character(),
-  start = readr::col_integer(),
-  end = readr::col_integer(),
+  start = readr::col_double(),
+  end = readr::col_double(),
   name = readr::col_character(),
   score = readr::col_character(),
   strand = readr::col_character(),
