@@ -1,0 +1,9 @@
+---
+title: quarto vignettes
+vignette: >
+  %\VignetteIndexEntry{testing quarto}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Testing 123
