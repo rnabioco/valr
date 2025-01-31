@@ -10,7 +10,11 @@ test_that("glyphs are rendered", {
 
 test_that("glyph labels are applied", {
   res <- bed_glyph(bed_merge(x, id = dplyr::n()), label = "id")
-  expect_equal(res$labels$label, "id")
+  if ("get_labs" %in% getNamespaceExports("ggplot2")) {
+    expect_equal(ggplot2::get_labs(res)$label, "id")
+  } else {
+    expect_equal(res$labels$label, "id")
+  }
 })
 
 a <- tibble::tribble(
