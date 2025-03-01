@@ -8,6 +8,7 @@ test_that("genomes are correctly read", {
 })
 
 test_that("unbounded intervals are removed", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", -100, 500,
@@ -18,6 +19,7 @@ test_that("unbounded intervals are removed", {
 })
 
 test_that("trim param removes dangling intervals", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 249250721
@@ -27,12 +29,14 @@ test_that("trim param removes dangling intervals", {
 })
 
 test_that("duplicate chroms throw an error.", {
+  # fmt: skip
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 1000,
     "chr1", 1000
   )
 
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 10000

@@ -1,4 +1,5 @@
 test_that("intervals can be sorted by size", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1000, 2000,
@@ -11,6 +12,7 @@ test_that("intervals can be sorted by size", {
 })
 
 test_that("intervals can be sorted by size and chrom", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1000, 2000,
@@ -23,6 +25,7 @@ test_that("intervals can be sorted by size and chrom", {
 })
 
 test_that("intervals can be reverse sorted by size", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1000, 2000,
@@ -35,6 +38,7 @@ test_that("intervals can be reverse sorted by size", {
 })
 
 test_that("intervals can be reverse sorted by size and chrom", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1000, 2000,
@@ -47,6 +51,7 @@ test_that("intervals can be reverse sorted by size and chrom", {
 })
 
 test_that("intervals can be sorted by chrom", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1000, 2000,
@@ -59,6 +64,7 @@ test_that("intervals can be sorted by chrom", {
 })
 
 test_that("intervals can be reverse sorted by start and chrom", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1000, 2000,
@@ -71,12 +77,14 @@ test_that("intervals can be reverse sorted by start and chrom", {
 })
 
 test_that("ties in start are sorted by end", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1000, 2000,
     "chr1", 1000, 400
   )
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1000, 400,
@@ -88,6 +96,7 @@ test_that("ties in start are sorted by end", {
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/sort/test-sort.sh
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr7", 240L, 560L, "x", "86", "-",
@@ -102,6 +111,7 @@ x <- tibble::tribble(
 )
 
 test_that("Test default", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr3", 10L, 220L, "f", "12", "+",
@@ -120,6 +130,7 @@ test_that("Test default", {
 })
 
 test_that("Test by_size = TRUE", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr9", 110L, 120L, "a", "81", "-",
@@ -138,6 +149,7 @@ test_that("Test by_size = TRUE", {
 })
 
 test_that("Test by_size = TRUE, reverse = TRUE", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr7", 240L, 560L, "x", "86", "-",
@@ -156,6 +168,7 @@ test_that("Test by_size = TRUE, reverse = TRUE", {
 })
 
 test_that("Test by_chrom = TRUE", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr3", 10L, 220L, "f", "12", "+",
@@ -174,6 +187,7 @@ test_that("Test by_chrom = TRUE", {
 })
 
 test_that("Test by_size = TRUE, by_chrom = TRUE", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr3", 10L, 220L, "f", "12", "+",
@@ -192,6 +206,7 @@ test_that("Test by_size = TRUE, by_chrom = TRUE", {
 })
 
 test_that("Test by_size = TRUE, by_chrom = TRUE, reverse = TRUE", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr3", 40L, 260L, "p", "41", "-",
@@ -210,6 +225,7 @@ test_that("Test by_size = TRUE, by_chrom = TRUE, reverse = TRUE", {
 })
 
 test_that("Test by_size = TRUE, by_chrom = TRUE, reverse = TRUE", {
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 30L, 40L, "RegionD", 0L, "+",
@@ -217,6 +233,7 @@ test_that("Test by_size = TRUE, by_chrom = TRUE, reverse = TRUE", {
     "chr1", 10L, 20L, "RegionA", 0L, "+",
     "chr1", 24L, 30L, "RegionB", 0L, "+"
   )
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 10L, 20L, "RegionA", 0L, "+",

@@ -12,7 +12,9 @@ x_facs_grpd <- dplyr::group_by(x_facs, strand)
 test_that("factor types for groups are handled the same as character", {
   res_x <- bed_intersect(x_grpd, x_grpd)
   # throws 2 warnings
-  expect_warning(expect_warning(res_xfacs <- bed_intersect(x_facs_grpd, x_facs_grpd)))
+  expect_warning(expect_warning(
+    res_xfacs <- bed_intersect(x_facs_grpd, x_facs_grpd)
+  ))
   expect_true(all(res_xfacs == res_x))
 })
 

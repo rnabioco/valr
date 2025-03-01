@@ -79,9 +79,7 @@
 #' res
 #'
 #' @export
-bed_closest <- function(x, y,
-                        overlap = TRUE,
-                        suffix = c(".x", ".y")) {
+bed_closest <- function(x, y, overlap = TRUE, suffix = c(".x", ".y")) {
   x <- check_interval(x)
   y <- check_interval(y)
 
@@ -120,7 +118,8 @@ bed_closest <- function(x, y,
   )
 
   res$.overlap <- 0L
-  ol_ivls <- mutate(ol_ivls,
+  ol_ivls <- mutate(
+    ol_ivls,
     .dist = case_when(
       .overlap > 0 ~ 0L,
       ol_ivls$end.y <= ol_ivls$start.x ~ -1L,

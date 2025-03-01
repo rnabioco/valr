@@ -70,11 +70,14 @@ bed_merge <- function(x, max_dist = 0, ...) {
     group_vars <- rlang::syms(unique(c("chrom", ".id_merge", groups_x)))
     res <- group_by(res, !!!group_vars)
 
-    res <- summarize(res, !!!rlang::quos(
-      .start = min(start),
-      .end = max(end),
-      ...
-    ))
+    res <- summarize(
+      res,
+      !!!rlang::quos(
+        .start = min(start),
+        .end = max(end),
+        ...
+      )
+    )
     res <- select(res, everything(), start = .start, end = .end)
 
     res <- ungroup(res)

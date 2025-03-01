@@ -1,9 +1,11 @@
+# fmt: skip
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 1000,
   "chr2", 1000
 )
 
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 50, 75,
@@ -11,6 +13,7 @@ x <- tibble::tribble(
   "chr1", 500, 600
 )
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 100, 200,
@@ -31,12 +34,14 @@ test_that("basic projection test works", {
 })
 
 test_that("projection per chromosome works (by_chrom = TRUE)", {
+  # fmt: skip
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 2000,
     "chr2", 2000
   )
 
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200,
@@ -46,6 +51,7 @@ test_that("projection per chromosome works (by_chrom = TRUE)", {
     "chr2", 100, 200
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 150, 175,
@@ -61,12 +67,14 @@ test_that("projection per chromosome works (by_chrom = TRUE)", {
 test_that("report significant when intervals are underrepresented, .lower_tail = TRUE", {
   sig <- pbinom(0, 4, .7)
 
+  # fmt: skip
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 1000,
     "chr2", 1000
   )
 
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20,
@@ -75,6 +83,7 @@ test_that("report significant when intervals are underrepresented, .lower_tail =
     "chr1", 100, 150
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 200, 275,
@@ -89,12 +98,14 @@ test_that("report significant when intervals are underrepresented, .lower_tail =
 
 test_that("report significant when intervals are overrepresented, .lower_tail = FALSE", {
   sig <- 1 - pbinom(4, 4, .7)
+  # fmt: skip
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 1000,
     "chr2", 1000
   )
 
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 200, 225,
@@ -103,6 +114,7 @@ test_that("report significant when intervals are overrepresented, .lower_tail = 
     "chr1", 300, 350
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 200, 275,

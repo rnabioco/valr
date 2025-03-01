@@ -23,6 +23,7 @@ test_that("all ends are less or equal to than chrom size", {
 })
 
 test_that("chrom sizes less than length throws an error", {
+  # fmt: skip
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 125

@@ -1,3 +1,4 @@
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
   "chr1", 20, 70, "+",
@@ -6,12 +7,14 @@ x <- tibble::tribble(
   "chr1", 220, 250, "+"
 )
 
+# fmt: skip
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 500,
   "chr2", 1000
 )
 test_that("bed_genomecov works", {
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end, ~.depth,
     "chr1", 20L, 50L, 1L,
@@ -28,6 +31,7 @@ test_that("bed_genomecov works", {
 })
 
 test_that("groups are respected", {
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand, ~.depth,
     "chr1", 20L, 70L, "+", 1L,
@@ -43,6 +47,7 @@ test_that("groups are respected", {
 })
 
 test_that("grouping is retained for zero depth intervals", {
+  # fmt: skip
   xx <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand, ~grp,
     "chr1", 20L, 70L, "+", 1,
@@ -54,12 +59,13 @@ test_that("grouping is retained for zero depth intervals", {
 
   many_chroms_genome <- tibble(
     chrom = c("chr1", LETTERS),
-    size  = 500
+    size = 500
   )
 
   res <- bed_genomecov(xx, many_chroms_genome, zero_depth = TRUE)
   expect_equal(length(setdiff(many_chroms_genome$chrom, res$chrom)), 0L)
 
+  # fmt: skip
   ex <- tibble::tribble(
     ~strand, ~grp, ~n,
     "+", 1, 26L,
@@ -77,6 +83,7 @@ test_that("grouping is retained for zero depth intervals", {
 })
 
 test_that("chroms in bed, not in genome, are dropped", {
+  # fmt: skip
   xx <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand, ~.depth,
     "hello", 20L, 70L, "+", 1L,
@@ -88,6 +95,7 @@ test_that("chroms in bed, not in genome, are dropped", {
 })
 
 test_that("zero length input is handled", {
+  # fmt: skip
   xx <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand, ~.depth,
     "hello", 20L, 70L, "+", 1L,
@@ -104,6 +112,7 @@ test_that("zero length input is handled", {
 
 test_that("check edge cases with 1 bp intervals", {
   # base-level coverage equals number of basepairs in input intervals
+  # fmt: skip
   genome <- tribble(
     ~chrom, ~size,
     "chr1", 1e5
@@ -136,10 +145,12 @@ test_that("check edge cases with 1 bp intervals", {
 })
 
 test_that("check edge cases at beginning and end", {
+  # fmt: skip
   genome <- tribble(
     ~chrom, ~size,
     "chr1", 1000
   )
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end, ~.depth,
     "chr1", 0L, 1L, 3L,
@@ -162,12 +173,14 @@ test_that("check edge cases at beginning and end", {
 
 # bed related tests from #https://github.com/arq5x/bedtools2/blob/master/test/genomecov/test-genomecov.sh
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~group, ~score, ~strand,
   "1", 15L, 20L, "y1", 1L, "+",
   "1", 17L, 22L, "y2", 2L, "+"
 )
 
+# fmt: skip
 genome <- tibble::tribble(
   ~chrom, ~size,
   "1", 100L,
@@ -176,6 +189,7 @@ genome <- tibble::tribble(
 )
 
 test_that("Test with chroms that have no coverage", {
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end, ~.depth,
     "1", 15L, 17L, 1L,
@@ -187,6 +201,7 @@ test_that("Test with chroms that have no coverage", {
 })
 
 test_that("Test with chroms that have no coverage", {
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end, ~.depth,
     "1", 0L, 15L, 0L,

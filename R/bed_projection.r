@@ -73,10 +73,7 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   obs_counts <- full_join(obs_counts, total_counts, by = "chrom")
   obs_counts <- mutate(
     obs_counts,
-    .obs_counts = if_else(is.na(.obs_counts),
-      as.integer(0),
-      .obs_counts
-    )
+    .obs_counts = if_else(is.na(.obs_counts), as.integer(0), .obs_counts)
   )
 
   # calculate probabilty of overlap by chance
@@ -127,14 +124,8 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
 
   res <- mutate(
     res,
-    lower_tail = if_else(p.value < .5,
-      "TRUE",
-      "FALSE"
-    ),
-    p.value = if_else(p.value < .5,
-      p.value,
-      1 - p.value
-    )
+    lower_tail = if_else(p.value < .5, "TRUE", "FALSE"),
+    p.value = if_else(p.value < .5, p.value, 1 - p.value)
   )
   res
 }

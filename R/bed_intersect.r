@@ -130,7 +130,8 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   grp_indexes <- shared_group_indexes(x, y)
 
   res <- intersect_impl(
-    x, y,
+    x,
+    y,
     grp_indexes$x,
     grp_indexes$y,
     invert,
@@ -141,7 +142,9 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
   if (invert) {
     res <- filter(res, is.na(.overlap))
     res <- select(
-      res, chrom, ends_with(".x")
+      res,
+      chrom,
+      ends_with(".x")
     )
     names(res) <- str_replace(names(res), fixed(".x"), "")
     return(res)
@@ -152,7 +155,8 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
     source_col <- paste0(".source", suffix$y)
     replace_col <- str_replace(
       source_col,
-      fixed(suffix$y), ""
+      fixed(suffix$y),
+      ""
     )
     cols <- colnames(res)
     colnames(res) <- ifelse(cols == source_col, replace_col, cols)

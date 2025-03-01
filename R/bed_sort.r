@@ -60,13 +60,9 @@ bed_sort <- function(x, by_size = FALSE, by_chrom = FALSE, reverse = FALSE) {
   } else {
     # sort by coordinate
     if (reverse) {
-      res <- x[order(x$chrom, -x$start,
-        method = "radix"
-      ), ]
+      res <- x[order(x$chrom, -x$start, method = "radix"), ]
     } else {
-      res <- x[order(x$chrom, x$start, x$end,
-        method = "radix"
-      ), ]
+      res <- x[order(x$chrom, x$start, x$end, method = "radix"), ]
     }
   }
 
