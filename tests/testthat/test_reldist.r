@@ -1,8 +1,10 @@
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 75, 125
 )
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 50, 100,
@@ -25,6 +27,7 @@ test_that("detail argument works", {
 })
 
 test_that("reldist respects groups (#108)", {
+# fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "B",
@@ -34,6 +37,7 @@ test_that("reldist respects groups (#108)", {
     "chr2", 150, 200, "A",
     "chr3", 100, 300, "A"
   )
+# fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 199, "A",
@@ -44,6 +48,7 @@ test_that("reldist respects groups (#108)", {
     "chr3", 500, 600, "A"
   )
 
+# fmt: skip
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 10000,
@@ -67,6 +72,7 @@ test_that("reldist respects groups (#108)", {
 #
 # test_that("Test intervals that are randomly distributed. The relative distances should equally represented .", {
 #   res <- bed_reldist(a, b)
+# fmt: skip
 #   d <- tibble::tribble(
 #          ~reldist, ~count, ~total, ~fraction,
 #                 0,   164L, 43408L,     0.004,
@@ -126,6 +132,7 @@ test_that("reldist respects groups (#108)", {
 #
 # test_that("Test intervals that are consistently closer to one another than expected.  The distances should be biased towards 0.", {
 #   res <- bed_reldist(a, c)
+# fmt: skip
 #   d <- tibble::tribble(
 #          ~reldist, ~count, ~total, ~fraction,
 #                 0, 20629L, 43422L,     0.475,

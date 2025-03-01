@@ -1,9 +1,11 @@
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 10, 20,
   "chr1", 30, 40
 )
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 15, 20
@@ -47,6 +49,7 @@ test_that("Test symmetry", {
 })
 
 test_that("Test jaccard with mixed strand files", {
+  # fmt: skip
   a <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 10L, 50L, "a1f", 2L, "+",
@@ -62,6 +65,7 @@ test_that("Test jaccard with mixed strand files", {
     "chr2", 35L, 65L, "e2q", 32L, ".",
     "chr2", 39L, 80L, "f2r", 64L, "-"
   )
+  # fmt: skip
   b <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 10L, 50L, "2a1r", 2L, "-",

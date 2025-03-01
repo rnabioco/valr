@@ -69,14 +69,8 @@ bound_intervals <- function(x, genome, trim = FALSE) {
   if (trim) {
     res <- mutate(
       res,
-      start = ifelse(start < 0,
-        0,
-        pmin(start, size - 1)
-      ),
-      end = ifelse(end > size,
-        size,
-        pmax(1, end)
-      )
+      start = ifelse(start < 0, 0, pmin(start, size - 1)),
+      end = ifelse(end > size, size, pmax(1, end))
     )
     res <- select(res, -size)
   } else {

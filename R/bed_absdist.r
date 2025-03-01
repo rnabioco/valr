@@ -59,12 +59,8 @@ bed_absdist <- function(x, y, genome) {
   x <- group_by(x, !!!groups_vars)
   y <- group_by(y, !!!groups_vars)
 
-
   grp_indexes <- shared_group_indexes(x, y)
-  res <- dist_impl(x, y,
-    grp_indexes$x, grp_indexes$y,
-    distcalc = "absdist"
-  )
+  res <- dist_impl(x, y, grp_indexes$x, grp_indexes$y, distcalc = "absdist")
 
   # convert groups_xy to character vector
   if (!is.null(groups_xy)) {
@@ -75,8 +71,11 @@ bed_absdist <- function(x, y, genome) {
   genome <- filter(genome, genome$chrom %in% res$chrom)
 
   if (utils::packageVersion("dplyr") > "1.0.10") {
-    genome <- inner_join(genome, get_labels(y),
-      by = c("chrom"), multiple = "all"
+    genome <- inner_join(
+      genome,
+      get_labels(y),
+      by = c("chrom"),
+      multiple = "all"
     )
   } else {
     genome <- inner_join(genome, get_labels(y), by = c("chrom"))

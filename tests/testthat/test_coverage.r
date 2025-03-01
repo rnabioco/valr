@@ -1,3 +1,5 @@
+# fmt: skip
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 0, 10,
@@ -5,11 +7,15 @@ x <- tibble::tribble(
   "chr1", 21, 25
 )
 
+# fmt: skip
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 3, 15
 )
 
+# fmt: skip
+# fmt: skip
 a <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 20, 70, 6, 25, "+",
@@ -20,6 +26,8 @@ a <- tibble::tribble(
   "chr2", 180, 230, 2, 25, "-"
 )
 
+# fmt: skip
+# fmt: skip
 b <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 0, 75, 19, 75, "+",
@@ -44,6 +52,8 @@ b <- tibble::tribble(
   "chr2", 163, 238, 14, 75, "+"
 )
 
+# fmt: skip
+# fmt: skip
 c <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 0, 50,
@@ -51,6 +61,8 @@ c <- tibble::tribble(
 )
 
 test_that("default coverage works", {
+  # fmt: skip
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1", 20, 70, 6, 25, "+", 2, 50, 50, 1.0000000,
@@ -65,6 +77,8 @@ test_that("default coverage works", {
 })
 
 test_that("coverage of stranded tbls can be calc", {
+  # fmt: skip
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1", 20, 70, 6, 25, "+", 2, 50, 50, 1.0000000,
@@ -80,6 +94,8 @@ test_that("coverage of stranded tbls can be calc", {
 })
 
 test_that(" strand_opp coverage works (strand_opp = TRUE)", {
+  # fmt: skip
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1", 20, 70, 6, 25, "+", 0, 0, 50, 0.0000000,
@@ -95,6 +111,8 @@ test_that(" strand_opp coverage works (strand_opp = TRUE)", {
 })
 
 test_that("ensure that coverage is calculated with respect to input tbls issue#108", {
+  # fmt: skip
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "B",
@@ -104,6 +122,8 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
     "chr2", 150, 200, "A",
     "chr3", 100, 300, "A"
   )
+  # fmt: skip
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 199, "A",
@@ -121,11 +141,15 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
 
   res <- bed_coverage(x, y)
 
+  # fmt: skip
+  # fmt: skip
   ex1 <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1",   100L, 200L,    "B",     1L,    0L,  100L,     0L
   )
 
+  # fmt: skip
+  # fmt: skip
   ex2 <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~.ints, ~.cov, ~.len, ~.frac,
     "chr1",   200L, 400L,    "A",     0L,    0L,  200L,     0L
@@ -139,12 +163,16 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/coverage/test-coverage.sh
 test_that("Test the last record in file with no overlaps is reported", {
+  # fmt: skip
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 0, 10,
     "chr1", 15, 20,
     "chr1", 21, 25
   )
+  # fmt: skip
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 3, 15
@@ -154,6 +182,8 @@ test_that("Test the last record in file with no overlaps is reported", {
 })
 
 test_that("Test that simple chr	0	100 works", {
+  # fmt: skip
+  # fmt: skip
   z <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 0, 100
@@ -164,6 +194,8 @@ test_that("Test that simple chr	0	100 works", {
 
 test_that("all input x intervals are returned, issue #395 ", {
   # x has a chr3 entry not in y
+  # fmt: skip
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand,
     "chr1", 100,    500,  "+",
@@ -173,6 +205,8 @@ test_that("all input x intervals are returned, issue #395 ", {
     "chr3", 800,    900,  "-"
   )
 
+  # fmt: skip
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~strand,
     "chr1", 150,    400,  100,    "+",

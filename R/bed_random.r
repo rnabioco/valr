@@ -32,7 +32,13 @@
 #' bed_random(genome, length = 500, n = 500, seed = 10104)
 #'
 #' @export
-bed_random <- function(genome, length = 1000, n = 1e6, seed = 0, sorted = TRUE) {
+bed_random <- function(
+  genome,
+  length = 1000,
+  n = 1e6,
+  seed = 0,
+  sorted = TRUE
+) {
   check_required(genome)
 
   genome <- check_genome(genome)

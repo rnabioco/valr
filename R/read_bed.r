@@ -4,7 +4,8 @@ sniff_fields <- function(filename) {
   ncol(
     readr::read_tsv(
       filename,
-      n_max = 10, comment = "#",
+      n_max = 10,
+      comment = "#",
       show_col_types = FALSE,
       name_repair = "minimal"
     )
@@ -37,8 +38,13 @@ sniff_fields <- function(filename) {
 #' read_bed(valr_example("3fields.bed.gz"), sort = FALSE)
 #'
 #' @export
-read_bed <- function(filename, col_types = bed12_coltypes,
-                     sort = TRUE, ..., n_fields = NULL) {
+read_bed <- function(
+  filename,
+  col_types = bed12_coltypes,
+  sort = TRUE,
+  ...,
+  n_fields = NULL
+) {
   check_required(filename)
 
   if (!is.null(n_fields)) {
@@ -57,7 +63,8 @@ read_bed <- function(filename, col_types = bed12_coltypes,
   out <- readr::read_tsv(
     filename,
     col_names = colnames,
-    col_types = coltypes, ...
+    col_types = coltypes,
+    ...
   )
 
   if (sort) out <- bed_sort(out)

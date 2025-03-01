@@ -1,9 +1,11 @@
+# fmt: skip
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 5000,
   "chr2", 10000
 )
 
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 500, 1000, ".", ".", "+",
@@ -11,6 +13,7 @@ x <- tibble::tribble(
   "chr2", 1000, 1200, ".", ".", "-"
 )
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 400, 450, ".", ".", "+",

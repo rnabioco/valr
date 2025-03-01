@@ -1,3 +1,4 @@
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name,
   "chr1", 100, 200, "A",
@@ -40,8 +41,14 @@ test_that("win_size +step_size fwd", {
   # test forward window numbering
   expect_true(all(res$.win_id == c(1:20, 1:10)))
   # test interval size
-  expect_true(all(res[1:19, "end"] - res[1:19, "start"] == 10 & res$end[20] - res$start[20] == 5))
-  expect_true(all(res[21:29, "end"] - res[21:29, "start"] == 10 & res$end[30] - res$start[30] == 5))
+  expect_true(all(
+    res[1:19, "end"] - res[1:19, "start"] == 10 &
+      res$end[20] - res$start[20] == 5
+  ))
+  expect_true(all(
+    res[21:29, "end"] - res[21:29, "start"] == 10 &
+      res$end[30] - res$start[30] == 5
+  ))
 })
 
 # Fixed win_size +step_size with reverse numbering
@@ -52,8 +59,14 @@ test_that("win_size +step_size rev", {
   # test forward window numbering
   expect_true(all(res$.win_id == c(20:1, 10:1)))
   # test interval size
-  expect_true(all(res[1:19, "end"] - res[1:19, "start"] == 10 & res$end[20] - res$start[20] == 5))
-  expect_true(all(res[21:29, "end"] - res[21:29, "start"] == 10 & res$end[30] - res$start[30] == 5))
+  expect_true(all(
+    res[1:19, "end"] - res[1:19, "start"] == 10 &
+      res$end[20] - res$start[20] == 5
+  ))
+  expect_true(all(
+    res[21:29, "end"] - res[21:29, "start"] == 10 &
+      res$end[30] - res$start[30] == 5
+  ))
 })
 
 # Fixed number of windows with forward numbering
@@ -90,6 +103,7 @@ test_that("interval is smaller than n windows", {
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/makewindows/test-makewindows.sh
 test_that("always get the number of requested windows. issue #322", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name,
     "chr1", 11, 44, "A"
@@ -106,6 +120,7 @@ test_that("report error if negative value win_size or num_win arguments supplied
 })
 
 test_that("check num_win reported correctly for additional intervals (related to #322)", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 9437053, 9438070,

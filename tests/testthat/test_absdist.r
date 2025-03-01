@@ -1,3 +1,4 @@
+# fmt: skip
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 10000,
@@ -5,11 +6,13 @@ genome <- tibble::tribble(
   "chr3", 10000
 )
 
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 75, 125
 )
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 50, 100,
@@ -22,6 +25,7 @@ test_that("absdist calculation is correct", {
 })
 
 test_that("self absdist is 0", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 5, 15,
@@ -35,6 +39,7 @@ test_that("self absdist is 0", {
 })
 
 test_that("x ivls without matching y-ivls chroms are reported with absdist = NA", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 5, 15,
@@ -43,6 +48,7 @@ test_that("x ivls without matching y-ivls chroms are reported with absdist = NA"
     "chr3", 3000, 4000
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 25, 125,
@@ -59,6 +65,7 @@ test_that("x ivls without matching y-ivls chroms are reported with absdist = NA"
 
 
 test_that("ensure that absdist is calculated with respect to input tbls issue#108", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "A",
@@ -67,6 +74,7 @@ test_that("ensure that absdist is calculated with respect to input tbls issue#10
     "chr2", 125, 175, "C",
     "chr2", 150, 200, "A"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "C",
@@ -76,6 +84,7 @@ test_that("ensure that absdist is calculated with respect to input tbls issue#10
     "chr2", 350, 500, "A"
   )
 
+  # fmt: skip
   genome <- tibble::tribble(
     ~chrom, ~size,
     "chr1", 10000,

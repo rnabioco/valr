@@ -51,9 +51,17 @@
 #'
 #' @export
 
-bed_flank <- function(x, genome, both = 0, left = 0,
-                      right = 0, fraction = FALSE,
-                      strand = FALSE, trim = FALSE, ...) {
+bed_flank <- function(
+  x,
+  genome,
+  both = 0,
+  left = 0,
+  right = 0,
+  fraction = FALSE,
+  strand = FALSE,
+  trim = FALSE,
+  ...
+) {
   check_required(x)
   check_required(genome)
 
@@ -61,7 +69,9 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   genome <- check_genome(genome)
 
   if (!any(c(both, left, right) > 0)) {
-    cli::cli_abort("one of {.var both}, {.var left}, or {.var right} must be a positive value")
+    cli::cli_abort(
+      "one of {.var both}, {.var left}, or {.var right} must be a positive value"
+    )
   }
 
   if (strand && !"strand" %in% colnames(x)) {
@@ -75,8 +85,14 @@ bed_flank <- function(x, genome, both = 0, left = 0,
   if (both) left <- right <- both
 
   res <- flank_impl(
-    x, genome, both, left,
-    right, fraction, strand, trim
+    x,
+    genome,
+    both,
+    left,
+    right,
+    fraction,
+    strand,
+    trim
   )
 
   res <- bed_sort(res)

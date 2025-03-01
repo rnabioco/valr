@@ -1,4 +1,5 @@
 test_that("x/y groupings are respected", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~id,
     "chr1", 100, 250, 1,
@@ -7,6 +8,7 @@ test_that("x/y groupings are respected", {
   ) |>
     group_by(id)
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~id,
     "chr1", 100, 250, 10, 1,
@@ -15,6 +17,7 @@ test_that("x/y groupings are respected", {
   ) |>
     group_by(id)
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~id, ~vals,
     "chr1", 100, 250, 1, 10,
@@ -26,11 +29,13 @@ test_that("x/y groupings are respected", {
 })
 
 test_that("values_unique works correctly", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 250
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 250, 10,
@@ -43,6 +48,7 @@ test_that("values_unique works correctly", {
   expect_equal(res$vals, c("10,20"))
 })
 
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~id,
   "chr1", 100, 200, 1,
@@ -50,6 +56,7 @@ x <- tibble::tribble(
   "chr2", 250, 500, 3
 )
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~value,
   "chr1", 100, 150, 10,
@@ -83,17 +90,20 @@ test_that("last works correctly", {
 })
 
 test_that("book-ended intervals are not reported", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 150, 10,
     "chr1", 200, 250, 20
   )
 
+  # fmt: skip
   expected <- tibble::tribble(
     ~chrom, ~start, ~end, ~value,
     "chr1", 100, 200, 10
@@ -103,6 +113,7 @@ test_that("book-ended intervals are not reported", {
 })
 
 test_that("ensure that mapping is calculated with respect to input tbls issue#108", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "B",
@@ -112,6 +123,7 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
     "chr2", 150, 200, "A",
     "chr3", 100, 300, "A"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~value,
     "chr1", 100, 199, "A", 10,
@@ -122,6 +134,7 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
     "chr3", 500, 600, "A", 100
   )
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~total,
     "chr1", 100, 200, "B", NA,
@@ -142,6 +155,7 @@ test_that("ensure that mapping is calculated with respect to input tbls issue#10
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/map/test-map.sh
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 0L, 100L,
@@ -151,6 +165,7 @@ x <- tibble::tribble(
   "chr3", 0L, 100L,
   "chr3", 100L, 200L
 )
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end, ~group, ~value, ~strand,
   "chr1", 0L, 10L, "a1", 10L, "+",
@@ -167,7 +182,8 @@ y <- tibble::tribble(
 test_that("test count", {
   res <- bed_map(x, y, vals = n())
   expect_equal(res$vals, c(3, 1, NA, NA, 3, 1))
-  res2 <- bed_map(x, y, vals = n()) |> mutate(vals = ifelse(is.na(vals), 0, vals))
+  res2 <- bed_map(x, y, vals = n()) |>
+    mutate(vals = ifelse(is.na(vals), 0, vals))
   expect_equal(res2$vals, c(3, 1, 0, 0, 3, 1))
 })
 
@@ -182,6 +198,7 @@ test_that("test mode", {
 })
 
 test_that("Test GFF column extraction", {
+  # fmt: skip
   z <- tibble::tribble(
     ~chrom, ~seqid, ~type, ~start, ~end, ~score, ~strand, ~phase, ~attributes,
     "chr1", "hg19_ccdsGene", "start_codon", 1L, 9L, 0, "+", ".", "gene_id..CCDS30744.1...transcript_id..CCDS30744.1..",

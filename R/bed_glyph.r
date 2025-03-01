@@ -137,16 +137,20 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
   glyph <- ggplot(.data) +
     geom_rect(
       aes(
-        xmin = .data[["start"]], xmax = .data[["end"]],
-        ymin = .data[[".y"]], ymax = .data[[".y"]] + 0.5,
+        xmin = .data[["start"]],
+        xmax = .data[["end"]],
+        ymin = .data[[".y"]],
+        ymax = .data[[".y"]] + 0.5,
         fill = .data[[".facet"]]
       ),
-      color = "black", alpha = 0.75
+      color = "black",
+      alpha = 0.75
     ) +
     facet_grid(
       .facet ~ .,
       switch = "y",
-      scales = "free_y", space = "free_y"
+      scales = "free_y",
+      space = "free_y"
     ) +
     scale_fill_manual(values = fill_colors) +
     labs(title = title, x = NULL, y = NULL)

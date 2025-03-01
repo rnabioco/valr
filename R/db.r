@@ -29,17 +29,24 @@ NULL
 #' }
 #' }
 #' @export
-db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
-                    user = "genomep", password = "password",
-                    port = 3306, ...) {
+db_ucsc <- function(
+  dbname,
+  host = "genome-mysql.cse.ucsc.edu",
+  user = "genomep",
+  password = "password",
+  port = 3306,
+  ...
+) {
   check_db_packages()
 
-  DBI::dbConnect(RMariaDB::MariaDB(),
+  DBI::dbConnect(
+    RMariaDB::MariaDB(),
     dbname = dbname,
     user = user,
     password = password,
     host = host,
-    post = port, ...
+    post = port,
+    ...
   ) # nocov
 }
 
@@ -58,17 +65,24 @@ db_ucsc <- function(dbname, host = "genome-mysql.cse.ucsc.edu",
 #' }
 #'
 #' @export
-db_ensembl <- function(dbname, host = "ensembldb.ensembl.org",
-                       user = "anonymous", password = "",
-                       port = 3306, ...) {
+db_ensembl <- function(
+  dbname,
+  host = "ensembldb.ensembl.org",
+  user = "anonymous",
+  password = "",
+  port = 3306,
+  ...
+) {
   check_db_packages()
 
-  DBI::dbConnect(RMariaDB::MariaDB(),
+  DBI::dbConnect(
+    RMariaDB::MariaDB(),
     dbname = dbname,
     user = user,
     password = password,
     host = host,
-    post = port, ...
+    post = port,
+    ...
   ) # nocov
 }
 

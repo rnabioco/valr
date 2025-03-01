@@ -1,8 +1,10 @@
+# fmt: skip
 genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 5000
 )
 
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 500, 1000, ".", ".", "+",
@@ -134,7 +136,14 @@ test_that("strand arg with right and fraction works", {
 test_that("strand arg with left and right and fraction works", {
   dist_l <- 0.2
   dist_r <- 0.1
-  out <- bed_flank(x, genome, left = dist_l, right = dist_r, strand = TRUE, fraction = TRUE)
+  out <- bed_flank(
+    x,
+    genome,
+    left = dist_l,
+    right = dist_r,
+    strand = TRUE,
+    fraction = TRUE
+  )
   expect_true(nrow(out) == 4)
   # test left side plus strand
   expect_true(x$start[1] - out$start[1] == 100)
@@ -160,11 +169,13 @@ test_that("intervals are not reported off of chromosomes", {
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/flank/test-flank.sh
+# fmt: skip
 tiny.genome <- tibble::tribble(
   ~chrom, ~size,
   "chr1", 1000
 )
 
+# fmt: skip
 a <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 100, 200, "a1", "1", "+",

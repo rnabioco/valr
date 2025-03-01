@@ -1,3 +1,4 @@
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 100, 200,
@@ -7,6 +8,7 @@ x <- tibble::tribble(
 ) |>
   group_by(chrom)
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 150, 175,
@@ -18,6 +20,7 @@ y <- tibble::tribble(
 
 test_that("any = TRUE eliminates overlapping intervals", {
   res <- bed_subtract(x, y, any = TRUE)
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 250, 400
@@ -31,12 +34,14 @@ test_that("fully contained y intervals generate new intervals", {
 })
 
 test_that("left dangling y intervals adjust x starts", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200
   ) |>
     group_by(chrom)
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 75, 150
@@ -48,12 +53,14 @@ test_that("left dangling y intervals adjust x starts", {
 })
 
 test_that("right dangling y intervals adjust x ends", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200
   ) |>
     group_by(chrom)
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 175, 250
@@ -65,12 +72,14 @@ test_that("right dangling y intervals adjust x ends", {
 })
 
 test_that("fully contained x intervals are removed", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200
   ) |>
     group_by(chrom)
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 50, 250
@@ -82,12 +91,14 @@ test_that("fully contained x intervals are removed", {
 })
 
 test_that("subtractions from x bed_tbl with more chroms than y are captured", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200,
     "chr3", 400, 500
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr3", 425, 475
@@ -98,12 +109,14 @@ test_that("subtractions from x bed_tbl with more chroms than y are captured", {
 })
 
 test_that("non-overlapping intervals from different chrom are not dropped", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200,
     "chr3", 400, 500
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr3", 425, 475
@@ -113,12 +126,14 @@ test_that("non-overlapping intervals from different chrom are not dropped", {
   expect_true("chr1" %in% res$chrom)
 })
 
+# fmt: skip
 a <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 10, 20, "a1", 1, "+",
   "chr1", 50, 70, "a2", 2, "-"
 )
 
+# fmt: skip
 b <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 18, 25, "b1", 1, "-",
@@ -132,11 +147,13 @@ test_that("tbls grouped by strand are processed", {
 })
 
 test_that("longest merged y intervals are used for subtraction", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 500, 600
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 510, 580,
@@ -154,12 +171,14 @@ test_that("all intervals are dropped in large dataset", {
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/subtract/test-subtract.sh
+# fmt: skip
 a <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 10, 20, "a1", 1, "+",
   "chr1", 50, 70, "a2", 2, "-"
 )
 
+# fmt: skip
 b <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 18, 25, "b1", 1, "-",
@@ -167,6 +186,7 @@ b <- tibble::tribble(
 )
 
 test_that("test baseline subtraction", {
+  # fmt: skip
   c <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 10, 18, "a1", 1, "+",
@@ -177,6 +197,7 @@ test_that("test baseline subtraction", {
 })
 
 test_that("test any = TRUE subtraction", {
+  # fmt: skip
   c <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 50, 70
@@ -186,12 +207,14 @@ test_that("test any = TRUE subtraction", {
 })
 
 test_that("test with 2 DBs", {
+  # fmt: skip
   b2 <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 5, 15,
     "chr1", 55, 65
   )
 
+  # fmt: skip
   c <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 15, 18, "a1", 1, "+",

@@ -32,7 +32,9 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   check_required(y)
 
   if (rlang::dots_n(...) == 0) {
-    cli::cli_alert_info("{.fun bed_map} expects {.var name=expression} pairs passed in {.var ...}")
+    cli::cli_alert_info(
+      "{.fun bed_map} expects {.var name=expression} pairs passed in {.var ...}"
+    )
   }
 
   x <- check_interval(x)
@@ -61,11 +63,14 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
 
   grp_indexes <- shared_group_indexes(x, y)
 
-  res <- intersect_impl(x, y,
+  res <- intersect_impl(
+    x,
+    y,
     grp_indexes$x,
     grp_indexes$y,
     invert = TRUE,
-    suffix_x = ".x", suffix_y = ""
+    suffix_x = ".x",
+    suffix_y = ""
   )
 
   ## filter for rows that don't intersect. The `duplicated` call is required
@@ -83,7 +88,9 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   ## this prevents duplicate reporting of an x interval if it both bookends
   ## and overlaps y intervals. Using base R logical indexing here is ~ 7x faster
   ## than dplyr::anti_join()
-  res_noint <- res_noint[!res_noint[[.id_col_out]] %in% res_int[[.id_col_out]], ]
+  res_noint <- res_noint[
+    !res_noint[[.id_col_out]] %in% res_int[[.id_col_out]],
+  ]
   res_noint <- select(res_noint, -contains(.id_col_out))
 
   ## map supplied functions to each set of intersecting intervals

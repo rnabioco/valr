@@ -19,9 +19,11 @@ create_introns <- function(x) {
   res <- group_by(res, name)
   res <- mutate(
     res,
-    .start = end, .end = lead(start),
+    .start = end,
+    .end = lead(start),
     score = ifelse(strand == "+", score, score - 1),
-    start = .start, end = .end
+    start = .start,
+    end = .end
   )
   res <- select(res, -.start, -.end)
   res <- ungroup(res)
