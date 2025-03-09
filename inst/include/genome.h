@@ -24,7 +24,7 @@ inline genome_map_t makeChromSizes(DataFrame genome,
   IntegerVector sizes = genome[col_size] ;
 
   if (unique(refs).length() != refs.length())
-    stop("duplicate reference names in genome file.") ;
+    Rcpp::stop("duplicate reference names in genome file.") ;
 
   int nchrom = genome.nrows() ;
   for (int i = 0; i < nchrom; ++i) {
