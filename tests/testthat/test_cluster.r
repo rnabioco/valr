@@ -1,5 +1,6 @@
 # https://github.com/arq5x/bedtools2/blob/master/test/cluster/test-cluster.sh
 
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~id, ~strand,
   "chr1", 72017, 884436, "a", 1, "+",
@@ -28,6 +29,7 @@ test_that("stranded cluster works", {
   expect_equal(res$.id, c(1, 1, 2, 3, 3, 4, 4, 4, 5, 6))
 })
 
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~id, ~strand,
   "chr1", 72017, 884436, "a", 1, "+",
@@ -53,6 +55,7 @@ test_that("cluster ids are not repeated per group issue #171", {
 
 
 test_that("guard against max_dist argument preventing clustering first interval in contig issue #388", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "a", 1, 10,
@@ -75,6 +78,7 @@ test_that("guard against max_dist argument preventing clustering first interval 
 })
 
 test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1,      10,
@@ -84,6 +88,7 @@ test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
   res <- bed_cluster(x, max_dist = 10)
   expect_equal(res$.id, c(1L, 1L, 1L))
 
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1,      3,
@@ -99,6 +104,7 @@ test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
 })
 
 test_that("check for additional errors, related to issue #401 @kcamnairb ", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "scaffold_66", 27262, 70396,
@@ -111,6 +117,7 @@ test_that("check for additional errors, related to issue #401 @kcamnairb ", {
   res <- bed_cluster(x, max_dist = 20000)
   expect_true(all(res$.id == 1))
 
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 10,

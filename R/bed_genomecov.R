@@ -86,7 +86,13 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
       missing_chrom_ivls <- genome[genome[["chrom"]] %in% missing_chroms, ]
       missing_chrom_ivls[["start"]] <- 0L
       missing_chrom_ivls[[".depth"]] <- 0L
-      missing_chrom_ivls <- select(missing_chrom_ivls, chrom, start, end = size, .depth)
+      missing_chrom_ivls <- select(
+        missing_chrom_ivls,
+        chrom,
+        start,
+        end = size,
+        .depth
+      )
 
       if (length(groups) > 1) {
         missing_chrom_ivls <- fill_missing_grouping(missing_chrom_ivls, x)

@@ -117,7 +117,9 @@ convert_factors <- function(x, group_cols) {
   contains_factor <- sapply(x[, group_cols], is.factor)
   if (any(contains_factor)) {
     fcts <- group_cols[contains_factor]
-    cli::cli_warn("Factors are not allowed for grouping. {.vars {fcts}} will be treated as characters")
+    cli::cli_warn(
+      "Factors are not allowed for grouping. {.vars {fcts}} will be treated as characters"
+    )
 
     x <- ungroup(x)
     convert_cols <- group_cols[contains_factor]

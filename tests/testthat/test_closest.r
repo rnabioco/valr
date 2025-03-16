@@ -1,10 +1,12 @@
 # https://github.com/arq5x/bedtools2/blob/master/test/closest/test-closest.sh
 test_that("1bp closer, check for off-by-one errors", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 9, 10,
@@ -18,11 +20,13 @@ test_that("1bp closer, check for off-by-one errors", {
 })
 
 test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 9, 10,
@@ -36,11 +40,13 @@ test_that("reciprocal test of 1bp closer, check for off-by-one errors", {
 })
 
 test_that("0bp apart closer, check for off-by-one errors", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 9, 10,
@@ -54,11 +60,13 @@ test_that("0bp apart closer, check for off-by-one errors", {
 })
 
 test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 9, 10,
@@ -74,10 +82,12 @@ test_that("reciprocal of 0bp apart closer, check for off-by-one errors", {
 })
 
 test_that("check that first left interval at index 0 is not lost", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 9, 10
@@ -87,10 +97,12 @@ test_that("check that first left interval at index 0 is not lost", {
 })
 
 test_that("check that first right interval at index 0 is not lost", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 20, 21
@@ -100,11 +112,13 @@ test_that("check that first right interval at index 0 is not lost", {
 })
 
 test_that("check that strand closest works (strand = TRUE)", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10, "+"
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 90, 120, "b", 1, "-"
@@ -117,11 +131,13 @@ test_that("check that strand closest works (strand = TRUE)", {
 })
 
 test_that("check that same strand is reported (strand = TRUE", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 80, 100, "q1", 1, "+"
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 5, 15, "d1.1", 1, "+",
@@ -129,6 +145,7 @@ test_that("check that same strand is reported (strand = TRUE", {
     "chr1", 200, 220, "d1.3", 3, "-"
   )
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.distance,
     "chr1", 80, 100, "q1", 1, "+", 5, 15, "d1.1", 1, "+", 0, -66
@@ -139,11 +156,13 @@ test_that("check that same strand is reported (strand = TRUE", {
 })
 
 test_that("check that different strand is reported (strand_opp = TRUE", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 80, 100, "q1", 1, "+"
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 5, 15, "d1.1", 1, "+",
@@ -151,6 +170,7 @@ test_that("check that different strand is reported (strand_opp = TRUE", {
     "chr1", 200, 220, "d1.3", 3, "-"
   )
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "q1", 1, "+", 20, 60, "d1.2", 2, "+", 0, -21
@@ -161,11 +181,13 @@ test_that("check that different strand is reported (strand_opp = TRUE", {
 })
 
 test_that("check that reciprocal strand closest works (strand_opp = TRUE) ", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 100, 200, "a", 10, "+"
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand,
     "chr1", 80, 90, "b", 1, "-"
@@ -176,11 +198,13 @@ test_that("check that reciprocal strand closest works (strand_opp = TRUE) ", {
 })
 
 test_that("overlapping intervals are removed (overlap = F)", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 9, 10,
@@ -193,11 +217,13 @@ test_that("overlapping intervals are removed (overlap = F)", {
 })
 
 test_that("duplicate intervals are not reported", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200,
@@ -210,11 +236,13 @@ test_that("duplicate intervals are not reported", {
 })
 
 test_that("all overlapping features are reported", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200,
@@ -222,6 +250,7 @@ test_that("all overlapping features are reported", {
     "chr1", 50, 100,
     "chr1", 200, 300
   )
+  # fmt: skip
   exp <- tibble::tribble(
     ~chrom, ~start.x, ~start.y,
     "chr1", 100, 200
@@ -232,6 +261,7 @@ test_that("all overlapping features are reported", {
 
 test_that("test reporting of first overlapping feature and
            overlap = F excludes overlapping intervals", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 101,
@@ -243,12 +273,14 @@ test_that("test reporting of first overlapping feature and
     "chr2", 20, 30
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 101,
     "chr1", 150, 201,
     "chr1", 175, 375
   )
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~start.y, ~end.y, ~.dist,
     "chr1", 100, 101, 150, 201, 50,
@@ -266,37 +298,44 @@ test_that("test reporting of first overlapping feature and
 ### test distance reporting conditions ###
 
 ### tbls to test
+# fmt: skip
 d_q1 <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 80, 100, "d_q1.1", 5, "+"
 )
 
+# fmt: skip
 d_q2 <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 80, 100, "d_q2.1", 5, "-"
 )
 
+# fmt: skip
 d_d1F <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 40, 60, "d1F.1", 10, "+"
 )
 
+# fmt: skip
 d_d1R <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 40, 60, "d1R.1", 10, "-"
 )
 
+# fmt: skip
 d_d2F <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 140, 160, "d2F.1", 10, "+"
 )
 
+# fmt: skip
 d_d2R <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 140, 160, "d2R.1", 10, "-"
 )
 
 test_that("default distance reporting works for forward hit on left, forward query", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "d_q1.1", 5, "+", 40, 60, "d1F.1", 10, "+", 0, -21
@@ -306,6 +345,7 @@ test_that("default distance reporting works for forward hit on left, forward que
 })
 
 test_that("default distance reporting works for reverse hit on left, forward query", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "d_q1.1", 5, "+", 40, 60, "d1R.1", 10, "-", 0, -21
@@ -315,6 +355,7 @@ test_that("default distance reporting works for reverse hit on left, forward que
 })
 
 test_that("default distance reporting works for forward hit on left, reverse query", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "d_q2.1", 5, "-", 40, 60, "d1F.1", 10, "+", 0, -21
@@ -324,6 +365,7 @@ test_that("default distance reporting works for forward hit on left, reverse que
 })
 
 test_that("default distance reporting works for reverse hit on left, reverse query", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "d_q2.1", 5, "-", 40, 60, "d1R.1", 10, "-", 0, -21
@@ -333,6 +375,7 @@ test_that("default distance reporting works for reverse hit on left, reverse que
 })
 
 test_that("default distance reporting works for forward hit on right, forward query", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "d_q1.1", 5, "+", 140, 160, "d2F.1", 10, "+", 0, 41
@@ -342,6 +385,7 @@ test_that("default distance reporting works for forward hit on right, forward qu
 })
 
 test_that("default distance reporting works for reverse hit on right, forward query", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "d_q1.1", 5, "+", 140, 160, "d2R.1", 10, "-", 0, 41
@@ -351,6 +395,7 @@ test_that("default distance reporting works for reverse hit on right, forward qu
 })
 
 test_that("default distance reporting works for forward hit on right, reverse query", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "d_q2.1", 5, "-", 140, 160, "d2F.1", 10, "+", 0, 41
@@ -360,6 +405,7 @@ test_that("default distance reporting works for forward hit on right, reverse qu
 })
 
 test_that("default distance reporting works for reverse hit on right, reverse query", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 80, 100, "d_q2.1", 5, "-", 140, 160, "d2R.1", 10, "-", 0, 41
@@ -369,11 +415,13 @@ test_that("default distance reporting works for reverse hit on right, reverse qu
 })
 
 ### additional tbls for tests ###
+# fmt: skip
 a2 <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 10, 20, "a1", 1, "-"
 )
 
+# fmt: skip
 b2 <- tibble::tribble(
   ~chrom, ~start, ~end, ~name, ~score, ~strand,
   "chr1", 8, 9, "b1", 1, "+",
@@ -381,6 +429,7 @@ b2 <- tibble::tribble(
 )
 
 test_that("Make sure non-overlapping ties are reported ", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 10, 20, "a1", 1, "-", 21, 22, "b2", 1, "-", 0, 2,
@@ -391,6 +440,7 @@ test_that("Make sure non-overlapping ties are reported ", {
 })
 
 test_that("Make sure non-overlapping ties are reported with strand = T ", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 10, 20, "a1", 1, "-", 21, 22, "b2", 1, "-", 0, 2
@@ -400,6 +450,7 @@ test_that("Make sure non-overlapping ties are reported with strand = T ", {
 })
 
 test_that("Make sure non-overlapping ties are reported with strand_opp = T ", {
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start.x, ~end.x, ~name.x, ~score.x, ~strand.x, ~start.y, ~end.y, ~name.y, ~score.y, ~strand.y, ~.overlap, ~.dist,
     "chr1", 10, 20, "a1", 1, "-", 8, 9, "b1", 1, "-", 0, -2
@@ -411,8 +462,14 @@ test_that("Make sure non-overlapping ties are reported with strand_opp = T ", {
 test_that("Make sure that closest intervals are captured when intervals span multiple interval tree nodes issue #105", {
   # when the y tbl has >= 64 intervals two nodes of the interval tree will be generated
   snps <- read_bed(valr_example("hg19.snps147.chr22.bed.gz"), n_max = 10)
-  genes_one_node <- read_bed(valr_example("genes.hg19.chr22.bed.gz"), n_max = 63)
-  genes_two_nodes <- read_bed(valr_example("genes.hg19.chr22.bed.gz"), n_max = 64)
+  genes_one_node <- read_bed(
+    valr_example("genes.hg19.chr22.bed.gz"),
+    n_max = 63
+  )
+  genes_two_nodes <- read_bed(
+    valr_example("genes.hg19.chr22.bed.gz"),
+    n_max = 64
+  )
 
   res_expt_one_node <- bed_closest(snps, genes_one_node)
   res_expt_two_nodes <- bed_closest(snps, genes_two_nodes)
@@ -436,6 +493,7 @@ test_that("test that a max of two duplicated x ivls are returned, assuming non-o
   # there should not be more than 2 possible closest ivls.
   expect_true(all(res$n <= 2))
 
+  # fmt: skip
   genome <- tibble::tribble(
     ~chrom,  ~size,
     "chr1",  10000000,
@@ -459,7 +517,8 @@ test_that("test that a max of two duplicated x ivls are returned, assuming non-o
   if (nrow(multi_grps) > 0) {
     grps <- res[res$idx.x %in% multi_grps$idx.x, ]
     grps <- group_by(grps, idx.x)
-    res <- summarize(grps,
+    res <- summarize(
+      grps,
       n_res = n(),
       same_abs_dist = length(unique(abs(.dist))) == 1,
       idx_y_distinct = length(unique(idx.y)) == n_res
@@ -470,6 +529,7 @@ test_that("test that a max of two duplicated x ivls are returned, assuming non-o
 
 
 test_that("ensure that subtraction is done with respect to input tbls issue#108", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "A",
@@ -478,6 +538,7 @@ test_that("ensure that subtraction is done with respect to input tbls issue#108"
     "chr1", 125, 175, "C",
     "chr1", 150, 200, "B"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "A",
@@ -496,10 +557,12 @@ test_that("ensure that subtraction is done with respect to input tbls issue#108"
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/closest/test-closest.sh
 test_that("test closest forcing -s yet no matching strands on chrom", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 100, 200, "a", 10, "+"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 90, 120, "b", 1, "-"
@@ -510,10 +573,12 @@ test_that("test closest forcing -s yet no matching strands on chrom", {
 })
 
 test_that("test closest forcing -S with only an opp strands on chrom", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 100, 200, "a", 10, "+"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 90, 120, "b", 1, "-"
@@ -523,10 +588,12 @@ test_that("test closest forcing -S with only an opp strands on chrom", {
 })
 
 test_that("Make sure non-overlapping ties are reported", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 10, 20, "a1", 1, "-"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 8, 9, "b1", 1, "+",
@@ -537,10 +604,12 @@ test_that("Make sure non-overlapping ties are reported", {
 })
 
 test_that("Make sure non-overlapping ties are reported, with strand option", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 10, 20, "a1", 1, "-"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 8, 9, "b1", 1, "+",
@@ -551,10 +620,12 @@ test_that("Make sure non-overlapping ties are reported, with strand option", {
 })
 
 test_that("Make sure non-overlapping ties are reported, with strand-oppo option", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 10, 20, "a1", 1, "-"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 8, 9, "b1", 1, "+",
@@ -565,10 +636,12 @@ test_that("Make sure non-overlapping ties are reported, with strand-oppo option"
 })
 
 test_that("check ties, single db", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 10, 20, "a1", 1, "-"
   )
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end, ~group, ~score, ~strand,
     "chr1", 8, 9, "b1", 1, "+",
@@ -579,11 +652,13 @@ test_that("check ties, single db", {
 })
 
 test_that("check reporting of adjacent intervals issue #348", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10, 20
   )
 
+  # fmt: skip
   y <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 8, 9,

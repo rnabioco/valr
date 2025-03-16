@@ -86,14 +86,8 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   if (stranded && !fraction) {
     res <- mutate(
       x,
-      start = ifelse(strand == "+",
-        start + size,
-        start - size
-      ),
-      end = ifelse(strand == "+",
-        end + size,
-        end - size
-      )
+      start = ifelse(strand == "+", start + size, start - size),
+      end = ifelse(strand == "+", end + size, end - size)
     )
   }
 
@@ -102,11 +96,13 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
     res <- mutate(x, .size = end - start)
     res <- mutate(
       res,
-      start = ifelse(strand == "+",
+      start = ifelse(
+        strand == "+",
         start + round(.size * fraction),
         start - round(.size * fraction)
       ),
-      end = ifelse(strand == "+",
+      end = ifelse(
+        strand == "+",
         end + round(.size * fraction),
         end - round(.size * fraction)
       )

@@ -1,4 +1,5 @@
 test_that("merge on 1 chrom", {
+  # fmt: skip
   bed_df <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100, 200,
@@ -11,6 +12,7 @@ test_that("merge on 1 chrom", {
 })
 
 test_that("merge with interval at start", {
+  # fmt: skip
   bed_df <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 50,
@@ -23,6 +25,7 @@ test_that("merge with interval at start", {
 })
 
 test_that("merge with two chroms", {
+  # fmt: skip
   bed_df <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 50,
@@ -36,6 +39,7 @@ test_that("merge with two chroms", {
 })
 
 test_that("book-ended intervals are merged", {
+  # fmt: skip
   bed_df <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 50,
@@ -47,6 +51,7 @@ test_that("book-ended intervals are merged", {
 })
 
 test_that("max_dist is enforced", {
+  # fmt: skip
   bed_df <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 50,
@@ -58,6 +63,7 @@ test_that("max_dist is enforced", {
 })
 
 test_that("max_dist is a positive value", {
+  # fmt: skip
   bed_df <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 50,
@@ -68,6 +74,7 @@ test_that("max_dist is a positive value", {
 })
 
 test_that("input groups are maintained in the output tbl issue #108", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~group,
     "chr1", 100, 200, "A",
@@ -84,6 +91,7 @@ test_that("input groups are maintained in the output tbl issue #108", {
 })
 
 test_that("intervals can be merged by strand", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand,
     "chr1", 100, 200, "+",
@@ -99,6 +107,7 @@ test_that("intervals can be merged by strand", {
 })
 
 test_that("summaries can be computed issue #132", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~strand,
     "chr1", 1, 50, 1, "+",
@@ -116,6 +125,7 @@ test_that("summaries can be computed issue #132", {
 })
 
 test_that("multiple summaries can be computed issue #132", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~value, ~strand,
     "chr1", 1, 50, 1, "+",
@@ -134,6 +144,7 @@ test_that("multiple summaries can be computed issue #132", {
 })
 
 test_that("contained intervals are merged issue #176", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 10,
@@ -147,6 +158,7 @@ test_that("contained intervals are merged issue #176", {
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/merge/test-merge.sh
 test_that("Test that precision default is high enough for formatting not to give scientific notation", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~val1, ~val2,
     "chr1", 5333587L, 5344172L, "line1", 0L, "-", 5334680L, 5344172L,
@@ -163,7 +175,9 @@ test_that("Test that precision default is high enough for formatting not to give
 test_that("Test stranded merge with bedPlus files that have strand", {
   skip_if(packageVersion("readr") <= "1.4.0")
 
-  expect_warning(x <- read_bed(valr_example("bug254_e.bed"), skip = 1, lazy = FALSE))
+  expect_warning(
+    x <- read_bed(valr_example("bug254_e.bed"), skip = 1, lazy = FALSE)
+  )
   x <- x |> group_by(strand)
   res <- bed_merge(x, 200) |> arrange(end)
   expect_equal(res$end, c(20000, 25000))
@@ -171,6 +185,7 @@ test_that("Test stranded merge with bedPlus files that have strand", {
 
 
 test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1,      10,
@@ -178,12 +193,14 @@ test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
     "chr1", 30,     40
   )
   res <- bed_merge(x, max_dist = 10)
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1,      40
   )
   expect_equal(res, ex)
 
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1,      3,
@@ -192,6 +209,7 @@ test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
     "chr1", 12,     14
   )
 
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1,      4,
@@ -201,6 +219,7 @@ test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
   res <- bed_merge(x, max_dist = 0)
   expect_equal(res, ex)
 
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1,      10,
@@ -209,6 +228,7 @@ test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
   res <- bed_merge(x, max_dist = 1)
   expect_equal(res, ex)
 
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "scaffold_66", 27262, 70396,
@@ -219,6 +239,7 @@ test_that("check for off by one errors, related to issue #401 @kcamnairb ", {
     "scaffold_66", 90498, 91996
   )
 
+  # fmt: skip
   ex <- tibble::tribble(
     ~chrom, ~start, ~end,
     "scaffold_66", 27262, 91996

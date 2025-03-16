@@ -51,16 +51,34 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
 x <- tibble::tribble(
- ~chrom, ~start, ~end,
- 'chr1', 100,    250,
- 'chr2', 250,    500
+  ~chrom,
+  ~start,
+  ~end,
+  'chr1',
+  100,
+  250,
+  'chr2',
+  250,
+  500
 )
 
 y <- tibble::tribble(
- ~chrom, ~start, ~end, ~value,
- 'chr1', 100,    250,  10,
- 'chr1', 150,    250,  20,
- 'chr2', 250,    500,  500
+  ~chrom,
+  ~start,
+  ~end,
+  ~value,
+  'chr1',
+  100,
+  250,
+  10,
+  'chr1',
+  150,
+  250,
+  20,
+  'chr2',
+  250,
+  500,
+  500
 )
 
 bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')
@@ -91,8 +109,10 @@ bed_map(x, y, .vals = values(value))
 bed_map(x, y, .counts = dplyr::n())
 
 # ... but NA counts can be coverted to 0's
-dplyr::mutate(bed_map(x, y, .counts = dplyr::n()), .counts = ifelse(is.na(.counts), 0, .counts))
-
+dplyr::mutate(
+  bed_map(x, y, .counts = dplyr::n()),
+  .counts = ifelse(is.na(.counts), 0, .counts)
+)
 }
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/map.html}

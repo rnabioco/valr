@@ -1,4 +1,5 @@
 test_that("start intervals are NA", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 1, 100,
@@ -21,6 +22,7 @@ test_that("start intervals are NA", {
 
 # from bedtools2
 test_that("bt test succeeds", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 20, 30,

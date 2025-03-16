@@ -27,8 +27,15 @@
 #' bed_shuffle(x, genome, seed = 9830491)
 #'
 #' @export
-bed_shuffle <- function(x, genome, incl = NULL, excl = NULL,
-                        max_tries = 1000, within = FALSE, seed = 0) {
+bed_shuffle <- function(
+  x,
+  genome,
+  incl = NULL,
+  excl = NULL,
+  max_tries = 1000,
+  within = FALSE,
+  seed = 0
+) {
   check_required(x)
   check_required(genome)
 

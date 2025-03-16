@@ -1,3 +1,4 @@
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~strand,
   "chr1", 1, 100, "+",
@@ -9,6 +10,7 @@ test_that("strands are flipped", {
   expect_equal(res$strand, c("-", "+"))
 })
 
+# fmt: skip
 y <- tibble::tribble(
   ~chrom, ~start, ~end,
   "chr1", 1, 100,

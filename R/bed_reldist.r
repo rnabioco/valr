@@ -54,11 +54,7 @@ bed_reldist <- function(x, y, detail = FALSE) {
 
   grp_indexes <- shared_group_indexes(x, y)
 
-  res <- dist_impl(x, y,
-    grp_indexes$x,
-    grp_indexes$y,
-    distcalc = "reldist"
-  )
+  res <- dist_impl(x, y, grp_indexes$x, grp_indexes$y, distcalc = "reldist")
 
   if (detail) {
     return(res)

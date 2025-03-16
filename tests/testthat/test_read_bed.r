@@ -2,8 +2,16 @@ bed3_path <- system.file("extdata", "3fields.bed.gz", package = "valr")
 bed6_path <- system.file("extdata", "6fields.bed.gz", package = "valr")
 bed12_path <- system.file("extdata", "mm9.refGene.bed.gz", package = "valr")
 bedgraph_path <- system.file("extdata", "test.bg.gz", package = "valr")
-narrowpeak_path <- system.file("extdata", "sample.narrowPeak.gz", package = "valr")
-broadpeak_path <- system.file("extdata", "sample.broadPeak.gz", package = "valr")
+narrowpeak_path <- system.file(
+  "extdata",
+  "sample.narrowPeak.gz",
+  package = "valr"
+)
+broadpeak_path <- system.file(
+  "extdata",
+  "sample.broadPeak.gz",
+  package = "valr"
+)
 bigwig_path <- system.file("extdata", "hg19.dnase1.bw", package = "valr")
 gtf_path <- system.file("extdata", "hg19.gencode.gtf.gz", package = "valr")
 

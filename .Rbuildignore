@@ -21,3 +21,5 @@
 ^CODE_OF_CONDUCT\.md$
 ^bench$
 ^revdep$
+^\.vscode$
+^[\.]?air\.toml$

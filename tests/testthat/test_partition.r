@@ -1,5 +1,6 @@
 # https://github.com/bedops/bedops/blob/master/applications/bed/bedops/test/TestPlan.xml#L1541
 test_that("basic partition works (bedops partition1 test)", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10L, 100L,
@@ -14,6 +15,7 @@ test_that("basic partition works (bedops partition1 test)", {
     "chr1", 2000L, 2500L
   )
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr0", 100L, 250L,
@@ -35,6 +37,7 @@ test_that("basic partition works (bedops partition1 test)", {
 
 
 test_that("extended partition works (bedops partition2 test)", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 10L, 100L,
@@ -72,6 +75,7 @@ test_that("extended partition works (bedops partition2 test)", {
     "chr1", 20L, 30L
   )
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr0", 100L, 300L,
@@ -117,6 +121,7 @@ test_that("extended partition works (bedops partition2 test)", {
 
 
 test_that("partition drops non-grouped cols (bedops partition3 test)", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~name, ~score, ~strand, ~seq,
     "chr1", 33657L, 33687L, "+MA0068.1-Pax4", 8.67655e-06, "+", "TAATGCTATCCCTCCCCCAGCCCCCCACCC",
@@ -127,6 +132,7 @@ test_that("partition drops non-grouped cols (bedops partition3 test)", {
     "chr1", 34377L, 34390L, "+MA0114.1-HNF4A", 5.44281e-06, "+", "TGGGCAAAGGGCA"
   )
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 33657L, 33666L,
@@ -146,6 +152,7 @@ test_that("partition drops non-grouped cols (bedops partition3 test)", {
 
 
 test_that("partition drops non-grouped cols (bedops partition4 test)", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 279L, 280L,
@@ -159,6 +166,7 @@ test_that("partition drops non-grouped cols (bedops partition4 test)", {
     "chr1", 313L, 314L
   )
 
+  # fmt: skip
   pred <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 279L, 280L,
@@ -178,6 +186,7 @@ test_that("partition drops non-grouped cols (bedops partition4 test)", {
 
 
 test_that("grouping is respected", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end, ~strand,
     "chr1", 33657L, 33687L, "+",
@@ -196,6 +205,7 @@ test_that("grouping is respected", {
 })
 
 test_that("book-ended intervals are not merged", {
+  # fmt: skip
   x <- tibble::tribble(
     ~chrom, ~start, ~end,
     "chr1", 100L, 200L,
@@ -206,6 +216,7 @@ test_that("book-ended intervals are not merged", {
   expect_equal(res, x)
 })
 
+# fmt: skip
 x <- tibble::tribble(
   ~chrom, ~start, ~end, ~value, ~id,
   "chr1", 100L, 200L, 1L, "A",
@@ -224,19 +235,14 @@ test_that("summary functions are executed", {
 })
 
 test_that("summary functions are executed per group", {
-  res <- bed_partition(group_by(x, id),
-    count = sum(value, na.rm = T)
-  )
+  res <- bed_partition(group_by(x, id), count = sum(value, na.rm = T))
 
   expect_equal(sum(res$count), 196)
   expect_equal(nrow(res), 7)
 })
 
 test_that("Tests for multiple columns and operations", {
-  res <- bed_partition(x,
-    count = sum(value),
-    max = max(value)
-  )
+  res <- bed_partition(x, count = sum(value), max = max(value))
   expect_true(all(c("count", "max") %in% colnames(res)))
   expect_equal(sum(res$count), 198)
   expect_equal(sum(res$max), 115)

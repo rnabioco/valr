@@ -40,11 +40,13 @@
 #' dplyr::mutate(wins, namenum = stringr::str_c(name, "_", .win_id))
 #'
 #' @export
-bed_makewindows <- function(x,
-                            win_size = 0,
-                            step_size = 0,
-                            num_win = 0,
-                            reverse = FALSE) {
+bed_makewindows <- function(
+  x,
+  win_size = 0,
+  step_size = 0,
+  num_win = 0,
+  reverse = FALSE
+) {
   check_required(x)
 
   x <- check_interval(x)

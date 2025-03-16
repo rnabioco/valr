@@ -1,5 +1,7 @@
 # valr (development version)
 
+* Update a test for compatibility with forthcoming ggplot2 3.6.0 (#431)
+
 # valr 0.8.3
 
 * `read_bigwig()` now uses cpp11bigwig on CRAN. The `set_strand` param was removed to be
