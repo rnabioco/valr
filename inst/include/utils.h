@@ -18,6 +18,9 @@ DataFrame subset_dataframe(const DataFrame& df,
 DataFrame subset_dataframe(const DataFrame& df,
                            IntegerVector indices) ;
 
+writable::data_frame subset_dataframe(const data_frame& df,
+                           std::vector<int> indices) ;
+
 inline DataFrame check_is_grouped(const DataFrame& x) {
   bool is_grouped(Rf_inherits(x, "grouped_df")) ;
 
