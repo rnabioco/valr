@@ -44,7 +44,9 @@ bed_glyph <- function(expr, label = NULL) {
   args_req <- names(args_all[sapply(args_all, is.name)])
 
   # for bed_intersect replace ... with y
-  if (expr[[1]] == "bed_intersect") args_req[args_req == "..."] <- "y"
+  if (expr[[1]] == "bed_intersect") {
+    args_req[args_req == "..."] <- "y"
+  }
 
   args_excl <- c("genome", "...")
   args_req <- args_req[!args_req %in% args_excl]
@@ -63,8 +65,12 @@ bed_glyph <- function(expr, label = NULL) {
 
   # get default columns
   cols_default <- c("chrom")
-  if ("start" %in% names(res)) cols_default <- c(cols_default, "start")
-  if ("end" %in% names(res)) cols_default <- c(cols_default, "end")
+  if ("start" %in% names(res)) {
+    cols_default <- c(cols_default, "start")
+  }
+  if ("end" %in% names(res)) {
+    cols_default <- c(cols_default, "end")
+  }
 
   cols_vars <- rlang::syms(cols_default)
   cols_out <- select(res, !!!cols_vars)

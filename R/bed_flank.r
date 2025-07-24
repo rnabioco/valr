@@ -82,7 +82,9 @@ bed_flank <- function(
     cli::cli_abort("ambiguous side spec for bed_flank")
   }
 
-  if (both) left <- right <- both
+  if (both) {
+    left <- right <- both
+  }
 
   res <- flank_impl(
     x,

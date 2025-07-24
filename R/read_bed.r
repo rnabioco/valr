@@ -67,7 +67,9 @@ read_bed <- function(
     ...
   )
 
-  if (sort) out <- bed_sort(out)
+  if (sort) {
+    out <- bed_sort(out)
+  }
 
   out
 }

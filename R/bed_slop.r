@@ -68,7 +68,9 @@ bed_slop <- function(
     cli::cli_abort("ambiguous side spec for bed_slop")
   }
 
-  if (fraction) x <- mutate(x, .size = end - start)
+  if (fraction) {
+    x <- mutate(x, .size = end - start)
+  }
 
   if (both != 0) {
     if (fraction) {
@@ -125,7 +127,9 @@ bed_slop <- function(
     }
   }
 
-  if (fraction) res <- select(res, -.size)
+  if (fraction) {
+    res <- select(res, -.size)
+  }
 
   res <- bound_intervals(res, genome, trim)
   res <- bed_sort(res)
