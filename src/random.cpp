@@ -9,25 +9,33 @@
 
 #include "valr.h"
 
-// [[Rcpp::export]]
-DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
+[[cpp11::register]]
+writable::data_frame random_impl(data_frame genome, double length, int n, int seed = 0) {
 
-  CharacterVector chroms = genome["chrom"] ;
-  NumericVector sizes = genome["size"] ;
+  strings chroms = genome["chrom"] ;
+  doubles sizes = genome["size"] ;
 
   int nchrom = chroms.size() ;
 
   if (seed == 0)
-    seed = round(R::runif(0, RAND_MAX)) ;
+    seed = round(Rf_runif(0, RAND_MAX)) ;
 
   // seed the generator
   auto generator = ENGINE(seed) ;
 
   // calculate weights for chrom distribution
-  float mass = sum(sizes) ;
-  NumericVector weights = sizes / mass ;
+  double mass = std::accumulate(sizes.begin(), sizes.end(), 0.0); ;
 
-  Range chromidx(0, nchrom) ;
+  std::vector<double> weights(nchrom) ;
+  for (int i = 0; i < nchrom; ++i) {
+    weights[i] = sizes[i] / mass ;
+  }
+
+  std::vector<int> chromidx;
+  for (int i = 0; i < nchrom; ++i) {
+    chromidx.push_back(i);
+  }
+
   PCONST_DIST chrom_dist(chromidx.begin(), chromidx.end(), weights.begin()) ;
 
   // make and store a DIST for each chrom size
@@ -41,12 +49,12 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
     size_rngs.push_back(size_dist) ;
   }
 
-  CharacterVector rand_chroms(n) ;
-  IntegerVector rand_starts(n) ;
+  writable::strings rand_chroms(n) ;
+  writable::doubles rand_starts(n) ;
 
   for (int i = 0; i < n; ++i) {
 
-    auto chrom_idx = chrom_dist(generator) ;
+    int chrom_idx = chrom_dist(generator) ;
     rand_chroms[i] = chroms[chrom_idx] ;
 
     UINT_DIST size_dist = size_rngs[chrom_idx] ;
@@ -55,31 +63,15 @@ DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
     rand_starts[i] = rand_start ;
   }
 
-  IntegerVector rand_ends = rand_starts + length ;
+  writable::doubles rand_ends(rand_starts.size()) ;
+  for (int i = 0; i < rand_starts.size(); ++i) {
+    rand_ends[i] = rand_starts[i] + length ;
+  }
 
-  return DataFrame::create(_("chrom") = rand_chroms,
-                           _("start") = rand_starts,
-                           _("end") = rand_ends,
-                           _("stringsAsFactors") = false) ;
+  return writable::data_frame({
+    "chrom"_nm = rand_chroms,
+    "start"_nm = rand_starts,
+    "end"_nm = rand_ends,
+  });
 
 }
-
-/***R
-library(dplyr)
-genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 191822,
-  "chr2", 17127713,
-  "chr3", 11923987
-)
-
-# show chrom disribution
-random_impl(genome, length = 1000, n = 1e6, seed = 0) %>%
-  group_by(chrom) %>% summarize(n = n())
-
-library(microbenchmark)
-microbenchmark(
-  random_impl(genome, length = 1000, n = 1e6, seed = 0),
-  times = 10
-)
-*/
