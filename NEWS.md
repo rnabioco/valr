@@ -1,5 +1,7 @@
 # valr (development version)
 
+* `bed_slop()` and `bed_flank()` now retain the sort order of the input intervals (#457).
+
 # valr 0.8.4
 
 * Update a test for compatibility with forthcoming ggplot2 3.6.0 (#431)

@@ -97,7 +97,5 @@ bed_flank <- function(
     trim
   )
 
-  res <- bed_sort(res)
-
   res
 }
