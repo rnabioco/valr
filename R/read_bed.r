@@ -201,6 +201,24 @@ read_bigwig <- function(path, ...) {
   cpp11bigwig::read_bigwig(path, ...)
 }
 
+#' Read a bigBed file into a valr compatible tbl
+#'
+#' This function will output a tibble
+#' zero-based chrom, start, end, value columns,
+#' as well as any additional columns in the bigBed file.
+#'
+#' @param path path to bigBed file
+#' @param ... params for `cpp11bigwig::read_bigbed()`
+#'
+#' @examples
+#' read_bigbed(valr_example("test.bb"))
+#'
+#' @export
+read_bigbed <- function(path, ...) {
+  cpp11bigwig::read_bigbed(path, ...)
+}
+
+
 #' Import and convert a GTF/GFF file into a valr compatible bed tbl format
 #'
 #' @description
