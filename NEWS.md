@@ -1,5 +1,7 @@
 # valr (development version)
 
+* `bed_slop()` and `bed_flank()` now retain the sort order of the input intervals (#457).
+
 * `read_bigbed()` is now re-exported from the `cpp11bigwig` package.
 
 # valr 0.8.4

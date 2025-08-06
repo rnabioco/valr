@@ -275,3 +275,22 @@ test_that("test edge cases", {
   expect_equal(res$start, 0)
   expect_equal(res$end, 1)
 })
+
+test_that("output remains sorted as input", {
+  genome <- tibble(
+    chrom = c("chr1", "chr2"),
+    size = c(5000, 6000)
+  )
+
+  x <- tribble(
+    ~ chrom, ~ start, ~end, ~id,
+    "chr1", 3000, 4000, 1,
+    "chr1", 3500, 4500, 2,
+    "chr1", 100, 200, 4,
+    "chr1", 150, 250, 3,
+  )
+
+  res <- bed_slop(x, both = 100, genome)
+
+  expect_equal(x$id, res$id)
+})
