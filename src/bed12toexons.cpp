@@ -27,14 +27,14 @@ std::vector<int> csv_values(std::string csv) {
   return values ;
 }
 
-// [[Rcpp::export]]
-DataFrame bed12toexons_impl(DataFrame x) {
+[[cpp11::register]]
+writable::data_frame bed12toexons_impl(data_frame x) {
 
   // input
-  IntegerVector starts = x["start"] ;
-  std::vector<std::string> exon_sizes = x["exon_sizes"] ;
-  std::vector<std::string> exon_starts = x["exon_starts"] ;
-  std::vector<std::string> strands = x["strand"] ;
+  doubles starts = x["start"] ;
+  strings exon_sizes = x["exon_sizes"] ;
+  strings exon_starts = x["exon_starts"] ;
+  strings strands = x["strand"] ;
 
   // storage
   std::vector<int> starts_out ;
@@ -66,18 +66,23 @@ DataFrame bed12toexons_impl(DataFrame x) {
     }
   }
 
-  DataFrame out = subset_dataframe(x, df_idx) ;
+  writable::data_frame out = subset_dataframe(x, df_idx) ;
 
-  out["start"] = starts_out ;
-  out["end"] = ends_out ;
-  out["score"] = nums_out ;
-
-  return out ;
+  return writable::data_frame({
+    "chrom"_nm = out["chrom"],
+    "start"_nm = starts_out,
+    "end"_nm = ends_out,
+    "score"_nm = nums_out,
+    "strand"_nm = out["strand"],
+    "name"_nm = out["name"],
+    "cdsStart"_nm = out["cdsStart"],
+    "cdsEnd"_nm = out["cdsEnd"],
+    "exonCount"_nm = out["exonCount"],
+    "exonSizes"_nm = out["exonSizes"],
+    "exonStarts"_nm = out["exonStarts"],
+    "itemRgb"_nm = out["itemRgb"],
+    "blockCount"_nm = out["blockCount"],
+    "blockSizes"_nm = out["blockSizes"],
+    "blockStarts"_nm = out["blockStarts"]
+  }) ;
 }
-
-/***R
-library(valr)
-library(dplyr)
-x <- read_bed12(valr_example('mm9.refGene.bed.gz'))
-bed12_to_exons(x)
-*/
