@@ -9,66 +9,70 @@ development:
 
 home:
   links:
-  - text: External data sets
-    href: http://github.com/rnabioco/valrdata
+    - text: External data sets
+      href: http://github.com/rnabioco/valrdata
 
 reference:
   - title: Data types
     contents:
-    - starts_with("tbl_")
-    - starts_with("trbl_")
-    - starts_with("is.")
-    - starts_with("as.")
+      - starts_with("tbl_")
+      - starts_with("trbl_")
+      - starts_with("is.")
+      - starts_with("as.")
+      - tibble::tibble
+      - tibble::tribble
 
   - title: Load data
     contents:
-    - starts_with("read_")
-    - starts_with("db_")
+      - starts_with("read_")
+      - starts_with("db_")
+      - cpp11bigwig::read_bigwig
+      - cpp11bigwig::read_bigbed
 
   - title: Single set operations
     contents:
-    - bed_cluster
-    - bed_complement
-    - bed_flank
-    - bed_genomecov
-    - bed_merge
-    - bed_partition
-    - bed_slop
-    - bed_shift
-    - bed_sort
+      - bed_cluster
+      - bed_complement
+      - bed_flank
+      - bed_genomecov
+      - bed_merge
+      - bed_partition
+      - bed_slop
+      - bed_shift
+      - bed_sort
 
   - title: Multiple set operations
     contents:
-    - bed_closest
-    - bed_coverage
-    - bed_intersect
-    - bed_map
-    - bed_subtract
-    - bed_window
+      - bed_closest
+      - bed_coverage
+      - bed_intersect
+      - bed_map
+      - bed_subtract
+      - bed_window
 
   - title: Randomizing intervals
     contents:
-    - bed_random
-    - bed_shuffle
+      - bed_random
+      - bed_shuffle
 
   - title: Interval statistics
     contents:
-    - bed_absdist
-    - bed_reldist
-    - bed_fisher
-    - bed_jaccard
-    - bed_projection
+      - bed_absdist
+      - bed_reldist
+      - bed_fisher
+      - bed_jaccard
+      - bed_projection
 
   - title: Utilities
     contents:
-    - starts_with("create_")
-    - bed_makewindows
-    - bed12_to_exons
-    - bed_glyph
-    - bound_intervals
-    - flip_strands
-    - gr_to_bed
-    - interval_spacing
-    - ivl_df
-    - valr
-    - valr_example
+      - starts_with("create_")
+      - bed_makewindows
+      - bed12_to_exons
+      - bed_glyph
+      - bound_intervals
+      - flip_strands
+      - gr_to_bed
+      - interval_spacing
+      - ivl_df
+      - valr
+      - valr_example
