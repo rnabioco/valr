@@ -1,5 +1,7 @@
 # valr (development version)
 
+* Select methods (`tibble`, `tribble`) are now re-exported from the `tibble` package.
+
 * `read_bigbed()` is now re-exported from the `cpp11bigwig` package.
 
 # valr 0.8.4
