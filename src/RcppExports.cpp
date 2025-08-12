@@ -11,17 +11,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// bed12toexons_impl
-DataFrame bed12toexons_impl(DataFrame x);
-RcppExport SEXP _valr_bed12toexons_impl(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(bed12toexons_impl(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // closest_impl
 DataFrame closest_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y, IntegerVector grp_idx_x, IntegerVector grp_idx_y, const std::string& suffix_x, const std::string& suffix_y);
 RcppExport SEXP _valr_closest_impl(SEXP xSEXP, SEXP ySEXP, SEXP grp_idx_xSEXP, SEXP grp_idx_ySEXP, SEXP suffix_xSEXP, SEXP suffix_ySEXP) {
@@ -79,24 +68,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// flank_impl
-DataFrame flank_impl(DataFrame df, DataFrame genome, double both, double left, double right, bool fraction, bool stranded, bool trim);
-RcppExport SEXP _valr_flank_impl(SEXP dfSEXP, SEXP genomeSEXP, SEXP bothSEXP, SEXP leftSEXP, SEXP rightSEXP, SEXP fractionSEXP, SEXP strandedSEXP, SEXP trimSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
-    Rcpp::traits::input_parameter< double >::type both(bothSEXP);
-    Rcpp::traits::input_parameter< double >::type left(leftSEXP);
-    Rcpp::traits::input_parameter< double >::type right(rightSEXP);
-    Rcpp::traits::input_parameter< bool >::type fraction(fractionSEXP);
-    Rcpp::traits::input_parameter< bool >::type stranded(strandedSEXP);
-    Rcpp::traits::input_parameter< bool >::type trim(trimSEXP);
-    rcpp_result_gen = Rcpp::wrap(flank_impl(df, genome, both, left, right, fraction, stranded, trim));
-    return rcpp_result_gen;
-END_RCPP
-}
 // gcoverage_impl
 DataFrame gcoverage_impl(const ValrGroupedDataFrame& gdf, const IntegerVector& max_coords);
 RcppExport SEXP _valr_gcoverage_impl(SEXP gdfSEXP, SEXP max_coordsSEXP) {
@@ -126,21 +97,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// makewindows_impl
-DataFrame makewindows_impl(DataFrame df, int win_size, int num_win, int step_size, bool reverse);
-RcppExport SEXP _valr_makewindows_impl(SEXP dfSEXP, SEXP win_sizeSEXP, SEXP num_winSEXP, SEXP step_sizeSEXP, SEXP reverseSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame >::type df(dfSEXP);
-    Rcpp::traits::input_parameter< int >::type win_size(win_sizeSEXP);
-    Rcpp::traits::input_parameter< int >::type num_win(num_winSEXP);
-    Rcpp::traits::input_parameter< int >::type step_size(step_sizeSEXP);
-    Rcpp::traits::input_parameter< bool >::type reverse(reverseSEXP);
-    rcpp_result_gen = Rcpp::wrap(makewindows_impl(df, win_size, num_win, step_size, reverse));
-    return rcpp_result_gen;
-END_RCPP
-}
 // merge_impl
 DataFrame merge_impl(ValrGroupedDataFrame gdf, int max_dist, bool collapse);
 RcppExport SEXP _valr_merge_impl(SEXP gdfSEXP, SEXP max_distSEXP, SEXP collapseSEXP) {
@@ -163,20 +119,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const ValrGroupedDataFrame& >::type gdf(gdfSEXP);
     Rcpp::traits::input_parameter< int >::type max_dist(max_distSEXP);
     rcpp_result_gen = Rcpp::wrap(partition_impl(gdf, max_dist));
-    return rcpp_result_gen;
-END_RCPP
-}
-// random_impl
-DataFrame random_impl(DataFrame genome, int length, int n, int seed);
-RcppExport SEXP _valr_random_impl(SEXP genomeSEXP, SEXP lengthSEXP, SEXP nSEXP, SEXP seedSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame >::type genome(genomeSEXP);
-    Rcpp::traits::input_parameter< int >::type length(lengthSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
-    rcpp_result_gen = Rcpp::wrap(random_impl(genome, length, n, seed));
     return rcpp_result_gen;
 END_RCPP
 }
