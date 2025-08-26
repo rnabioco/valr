@@ -145,7 +145,7 @@ test_that("step_size creates correct overlapping windows (#438)", {
   expect_equal(res$start[2], 50)
   expect_equal(res$end[2], 250)
 
-  # Test with step_size=10 case, accepting actual behavior
+  # Test that using step_size=10 generates windows starting every 10 bases (regression test for correct window stepping)
   res_10 <- bed_makewindows(bed, win_size = 100, step_size = 10)
 
   # Verify the step size is correct by checking differences
