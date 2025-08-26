@@ -1,6 +1,6 @@
 # valr (development version)
 
-* Fixed `bed_makewindows()` step size calculation when `step_size` parameter is used. Previously, overlapping windows stepped by `win_size - step_size` instead of the specified `step_size`(#438).
+* Fixed `bed_makewindows()` step size calculation when `step_size` parameter is used. Previously, overlapping windows stepped by `win_size - step_size` instead of the specified `step_size` (#438).
 
 * Select methods (`tibble`, `tribble`) are now re-exported from the `tibble` package.
 
