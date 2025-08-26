@@ -52,6 +52,7 @@
 #' bed_window(x, y, genome, both = 100)
 #'
 #' # add a `.dist` column to the output
+#' \dontrun{
 #' bed_window(x, y, genome, both = 200) |>
 #'  mutate(
 #'    .dist = case_when(
@@ -59,6 +60,7 @@
 #'      .default = 0
 #'    )
 #'  )
+#' }
 #'
 #' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/window.html}
 #'
