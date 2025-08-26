@@ -142,6 +142,16 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> chr2      300   500     230   430 1            200</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> chr2      300   500     350   430 1             80</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add a `.dist` column to the output</span></span></span>
+<span class="r-in"><span><span class="fu">bed_window</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">genome</span>, both <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   .dist <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>     <span class="va">.overlap</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax</a></span><span class="op">(</span><span class="va">start.x</span>, <span class="va">start.y</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="va">end.x</span>, <span class="va">end.y</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     .default <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span>   <span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mutate(bed_window(x, y, genome, both = 200), .dist = case_when(.overlap ==     0 ~ abs(pmax(start.x, start.y) - pmin(end.x, end.y)), .default = 0)):</span> could not find function "mutate"</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
