@@ -67,6 +67,15 @@ genome <- tibble::tribble(
 
 bed_window(x, y, genome, both = 100)
 
+# add a `.dist` column to the output
+bed_window(x, y, genome, both = 200) |>
+ mutate(
+   .dist = case_when(
+     .overlap == 0 ~ abs(pmax(start.x, start.y) - pmin(end.x, end.y)),
+     .default = 0
+   )
+ )
+
 }
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/window.html}
