@@ -22,7 +22,7 @@
 #' @importFrom stringr str_replace str_split str_c str_length fixed
 #' @importFrom rlang quos sym syms dots_n check_required
 #' @importFrom stats fisher.test na.omit
-#' @importFrom utils head tail packageVersion
+#' @importFrom utils head tail packageVersion globalVariables
 #' @importFrom broom tidy
 #' @importFrom lifecycle deprecated
 #' @import ggplot2
