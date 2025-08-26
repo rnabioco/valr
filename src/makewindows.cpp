@@ -34,7 +34,7 @@ DataFrame makewindows_impl(DataFrame df, int win_size = 0, int num_win = 0,
       win_size = round((ivl_len) / num_win) ;
     }
 
-    int by = win_size - step_size ;
+    int by = step_size > 0 ? step_size : win_size ;
 
     // create candidate starts
     std::vector<int> starts_by ;

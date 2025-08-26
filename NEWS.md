@@ -1,5 +1,7 @@
 # valr (development version)
 
+* Fixed `bed_makewindows()` step size calculation when `step_size` parameter is used. Previously, overlapping windows stepped by `win_size - step_size` instead of the specified `step_size` (#438).
+
 * Select methods (`tibble`, `tribble`) are now re-exported from the `tibble` package.
 
 * `read_bigbed()` is now re-exported from the `cpp11bigwig` package.
@@ -231,9 +233,9 @@ be suppressed by using `sorted = FALSE`.
 
 * Make `.id` values sequential across chroms in `bed_cluster()` output (#171)
 
-* Transfer repository to http://github.com/rnabioco/valr, update links and docs.
+* Transfer repository to <http://github.com/rnabioco/valr>, update links and docs.
 
-* Move shiny app to new repo (http://github.com/rnabioco/valrdata).
+* Move shiny app to new repo (<http://github.com/rnabioco/valrdata>).
 
 * Add Kent Riemondy to LICENSE file.
 
@@ -245,14 +247,14 @@ be suppressed by using `sorted = FALSE`.
 
 ## Minor changes
 
-- test / vignette guards for Suggested RMySQL
+* test / vignette guards for Suggested RMySQL
 
-- fixed memory leak in absdist.cpp
+* fixed memory leak in absdist.cpp
 
-- fixed vignette entry names
+* fixed vignette entry names
 
 # valr 0.1.0
 
 ## Major changes
 
-- initial release on CRAN
+* initial release on CRAN
