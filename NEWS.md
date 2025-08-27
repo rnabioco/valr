@@ -1,5 +1,7 @@
 # valr (development version)
 
+* Eliminated all global variable dependencies by replacing bare column names with explicit `.data[["column"]]` syntax in data manipulation operations and `all_of()` in column selection operations.
+
 * Fixed `bed_makewindows()` step size calculation when `step_size` parameter is used. Previously, overlapping windows stepped by `win_size - step_size` instead of the specified `step_size` (#438).
 
 * Select methods (`tibble`, `tribble`) are now re-exported from the `tibble` package.
