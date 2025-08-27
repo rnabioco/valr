@@ -44,7 +44,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="valr-development-version">valr (development version)<a class="anchor" aria-label="anchor" href="#valr-development-version"></a></h2>
-<ul><li><p>Fixed <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> step size calculation when <code>step_size</code> parameter is used. Previously, overlapping windows stepped by <code>win_size - step_size</code> instead of the specified <code>step_size</code> (<a href="https://github.com/rnabioco/valr/issues/438" class="external-link">#438</a>).</p></li>
+<ul><li><p>Eliminated all global variable dependencies by replacing bare column names with explicit <code>.data[["column"]]</code> syntax in data manipulation operations and <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of()</a></code> in column selection operations.</p></li>
+<li><p>Fixed <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> step size calculation when <code>step_size</code> parameter is used. Previously, overlapping windows stepped by <code>win_size - step_size</code> instead of the specified <code>step_size</code> (<a href="https://github.com/rnabioco/valr/issues/438" class="external-link">#438</a>).</p></li>
 <li><p>Select methods (<code>tibble</code>, <code>tribble</code>) are now re-exported from the <code>tibble</code> package.</p></li>
 <li><p><code><a href="https://rnabioco.github.io/cpp11bigwig/reference/read_bigbed.html" class="external-link">read_bigbed()</a></code> is now re-exported from the <code>cpp11bigwig</code> package.</p></li>
 </ul></div>
