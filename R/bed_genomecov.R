@@ -75,14 +75,8 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
   res <- tibble::as_tibble(res)
 
   # drop non-grouped cols as values no longer match ivls
-  res <- select(
-    res,
-    all_of("chrom"),
-    all_of("start"),
-    all_of("end"),
-    any_of(grp_cols),
-    all_of(".depth")
-  )
+  select_cols <- c("chrom", "start", "end", grp_cols, ".depth")
+  res <- select(res, all_of(select_cols))
 
   if (!zero_depth) {
     res <- res[res[[".depth"]] > 0, ]
