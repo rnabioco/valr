@@ -26,7 +26,7 @@ read_genome <- function(path) {
   check_required(path)
   colnames <- c("chrom", "size")
   genome <- readr::read_tsv(path, col_names = colnames, show_col_types = FALSE)
-  genome <- arrange(genome, desc(size))
+  genome <- arrange(genome, desc(.data[["size"]]))
   genome
 }
 
@@ -69,23 +69,37 @@ bound_intervals <- function(x, genome, trim = FALSE) {
   if (trim) {
     res <- mutate(
       res,
-      start = ifelse(start < 0, 0, pmin(start, size - 1)),
-      end = ifelse(end > size, size, pmax(1, end))
+      start = ifelse(
+        .data[["start"]] < 0,
+        0,
+        pmin(.data[["start"]], .data[["size"]] - 1)
+      ),
+      end = ifelse(
+        .data[["end"]] > .data[["size"]],
+        .data[["size"]],
+        pmax(1, .data[["end"]])
+      )
     )
-    res <- select(res, -size)
+    res <- select(res, -all_of("size"))
   } else {
-    res <- filter(res, start >= 0 & start < size & end <= size & end > 0)
-    res <- select(res, -size)
+    res <- filter(
+      res,
+      .data[["start"]] >= 0 &
+        .data[["start"]] < .data[["size"]] &
+        .data[["end"]] <= .data[["size"]] &
+        .data[["end"]] > 0
+    )
+    res <- select(res, -all_of("size"))
   }
 
-  if (any(res$start == res$end)) {
-    n <- sum(res$start == res$end)
+  if (any(res[["start"]] == res[["end"]])) {
+    n <- sum(res[["start"]] == res[["end"]])
     cli::cli_warn(
       "{n} interval{?s} discarded with same start and end after bounding"
     )
   }
 
-  res <- res[res$start != res$end, ]
+  res <- res[res[["start"]] != res[["end"]], ]
 
   res
 }

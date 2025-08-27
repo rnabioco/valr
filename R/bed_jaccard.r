@@ -70,29 +70,30 @@ bed_jaccard <- function(x, y) {
 
   res_intersect <- summarize(
     res_intersect,
-    sum_overlap = sum(as.numeric(.overlap)),
+    sum_overlap = sum(as.numeric(.data[[".overlap"]])),
     n_int = as.numeric(n())
   )
 
-  res_x <- mutate(x, .size = end - start)
-  res_x <- summarize(res_x, sum_x = sum(as.numeric(.size)))
+  res_x <- mutate(x, .size = .data[["end"]] - .data[["start"]])
+  res_x <- summarize(res_x, sum_x = sum(as.numeric(.data[[".size"]])))
 
-  res_y <- mutate(y, .size = end - start)
-  res_y <- summarize(res_y, sum_y = sum(as.numeric(.size)))
+  res_y <- mutate(y, .size = .data[["end"]] - .data[["start"]])
+  res_y <- summarize(res_y, sum_y = sum(as.numeric(.data[[".size"]])))
 
   if (!is.null(groups_shared)) {
     res <- left_join(res_intersect, res_x, by = as.character(groups_shared))
     res <- left_join(res, res_y, by = as.character(groups_shared))
 
-    res <- mutate(res, sum_xy = sum_x + sum_y)
+    res <- mutate(res, sum_xy = .data[["sum_x"]] + .data[["sum_y"]])
     group_cols <- select(res, !!!syms(groups_shared))
 
     res <- transmute(
       res,
-      len_i = sum_overlap,
-      len_u = sum_xy,
-      jaccard = sum_overlap / (sum_xy - sum_overlap),
-      n = n_int
+      len_i = .data[["sum_overlap"]],
+      len_u = .data[["sum_xy"]],
+      jaccard = .data[["sum_overlap"]] /
+        (.data[["sum_xy"]] - .data[["sum_overlap"]]),
+      n = .data[["n_int"]]
     )
 
     res <- bind_cols(group_cols, res)

@@ -75,7 +75,14 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
   res <- tibble::as_tibble(res)
 
   # drop non-grouped cols as values no longer match ivls
-  res <- select(res, chrom, start, end, one_of(grp_cols), .depth)
+  res <- select(
+    res,
+    all_of("chrom"),
+    all_of("start"),
+    all_of("end"),
+    any_of(grp_cols),
+    all_of(".depth")
+  )
 
   if (!zero_depth) {
     res <- res[res[[".depth"]] > 0, ]
@@ -88,10 +95,10 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
       missing_chrom_ivls[[".depth"]] <- 0L
       missing_chrom_ivls <- select(
         missing_chrom_ivls,
-        chrom,
-        start,
-        end = size,
-        .depth
+        all_of("chrom"),
+        all_of("start"),
+        end = all_of("size"),
+        all_of(".depth")
       )
 
       if (length(groups) > 1) {

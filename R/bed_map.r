@@ -77,12 +77,18 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
   ## because book-ended intervals in the intersect_impl result can
   ## book-end multiple `y` intervals, causing them to be duplicated after the
   ## `select`. base::duplicated is ~10x faster than dplyr::distinct
-  res_noint <- filter(res, is.na(.overlap) | .overlap < min_overlap)
-  res_noint <- select(res_noint, chrom, ends_with(".x"))
+  res_noint <- filter(
+    res,
+    is.na(.data[[".overlap"]]) | .data[[".overlap"]] < min_overlap
+  )
+  res_noint <- select(res_noint, all_of("chrom"), ends_with(".x"))
   res_noint <- res_noint[!duplicated(res_noint[[.id_col_out]]), ]
 
   ## identify intersecting intervals
-  res_int <- filter(res, !is.na(.overlap) & .overlap >= min_overlap)
+  res_int <- filter(
+    res,
+    !is.na(.data[[".overlap"]]) & .data[[".overlap"]] >= min_overlap
+  )
 
   ## drop non-intersecting intervals that are also in the intersecting set
   ## this prevents duplicate reporting of an x interval if it both bookends

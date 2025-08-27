@@ -85,7 +85,7 @@ bed_fisher <- function(x, y, genome) {
 #' @noRd
 interval_union <- function(x) {
   res <- bed_merge(x)
-  res <- mutate(res, .size = end - start)
+  res <- mutate(res, .size = .data[["end"]] - .data[["start"]])
 
   sum(res$.size)
 }

@@ -78,8 +78,13 @@ bed_subtract <- function(x, y, any = FALSE) {
   if (any) {
     # collect and return x intervals without overlaps
     res <- intersect_impl(x, y, grp_indexes$x, grp_indexes$y, invert = TRUE)
-    anti <- filter(res, is.na(.overlap))
-    anti <- select(anti, chrom, start = start.x, end = end.x)
+    anti <- filter(res, is.na(.data[[".overlap"]]))
+    anti <- select(
+      anti,
+      all_of("chrom"),
+      start = all_of("start.x"),
+      end = all_of("end.x")
+    )
 
     return(anti)
   }

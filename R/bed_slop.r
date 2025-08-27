@@ -69,21 +69,21 @@ bed_slop <- function(
   }
 
   if (fraction) {
-    x <- mutate(x, .size = end - start)
+    x <- mutate(x, .size = .data[["end"]] - .data[["start"]])
   }
 
   if (both != 0) {
     if (fraction) {
       res <- mutate(
         x,
-        start = start - round(both * .size),
-        end = end + round(both * .size)
+        start = .data[["start"]] - round(both * .data[[".size"]]),
+        end = .data[["end"]] + round(both * .data[[".size"]])
       )
     } else {
       res <- mutate(
         x,
-        start = start - both,
-        end = end + both
+        start = .data[["start"]] - both,
+        end = .data[["end"]] + both
       )
     }
   } else {
@@ -93,56 +93,76 @@ bed_slop <- function(
         res <- mutate(
           x,
           start = ifelse(
-            strand == "+",
-            start - round(left * .size),
-            start - round(right * .size)
+            .data[["strand"]] == "+",
+            .data[["start"]] - round(left * .data[[".size"]]),
+            .data[["start"]] - round(right * .data[[".size"]])
           ),
           end = ifelse(
-            strand == "+",
-            end + round(right * .size),
-            end + round(left * .size)
+            .data[["strand"]] == "+",
+            .data[["end"]] + round(right * .data[[".size"]]),
+            .data[["end"]] + round(left * .data[[".size"]])
           )
         )
       } else {
         res <- mutate(
           x,
-          start = ifelse(strand == "+", start - left, start - right),
-          end = ifelse(strand == "+", end + right, end + left)
+          start = ifelse(
+            .data[["strand"]] == "+",
+            .data[["start"]] - left,
+            .data[["start"]] - right
+          ),
+          end = ifelse(
+            .data[["strand"]] == "+",
+            .data[["end"]] + right,
+            .data[["end"]] + left
+          )
         )
       }
     } else {
       if (fraction) {
         res <- mutate(
           x,
-          start = start - round(left * .size),
-          end = end + round(right * .size)
+          start = .data[["start"]] - round(left * .data[[".size"]]),
+          end = .data[["end"]] + round(right * .data[[".size"]])
         )
       } else {
         res <- mutate(
           x,
-          start = start - left,
-          end = end + right
+          start = .data[["start"]] - left,
+          end = .data[["end"]] + right
         )
       }
     }
   }
 
   if (fraction) {
-    res <- select(res, -.size)
+    res <- select(res, -all_of(".size"))
   }
 
   res <- bound_intervals(res, genome, trim)
   res <- bed_sort(res)
 
-  res <- mutate(res, temp_start = start, temp_end = end)
+  res <- mutate(
+    res,
+    temp_start = .data[["start"]],
+    temp_end = .data[["end"]]
+  )
 
   res <- mutate(
     res,
-    start = ifelse(temp_start - temp_end < 0, temp_start, temp_end),
-    end = ifelse(temp_start - temp_end < 0, temp_end, temp_start)
+    start = ifelse(
+      .data[["temp_start"]] - .data[["temp_end"]] < 0,
+      .data[["temp_start"]],
+      .data[["temp_end"]]
+    ),
+    end = ifelse(
+      .data[["temp_start"]] - .data[["temp_end"]] < 0,
+      .data[["temp_end"]],
+      .data[["temp_start"]]
+    )
   )
 
-  res <- select(res, -temp_start, -temp_end)
+  res <- select(res, -all_of(c("temp_start", "temp_end")))
 
   res
 }

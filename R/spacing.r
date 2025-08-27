@@ -27,8 +27,8 @@ interval_spacing <- function(x) {
 
   gx <- groups(x)
 
-  res <- group_by(res, chrom)
-  res <- mutate(res, .spacing = start - lag(end))
+  res <- group_by(res, .data[["chrom"]])
+  res <- mutate(res, .spacing = .data[["start"]] - lag(.data[["end"]]))
 
   res <- group_by(res, !!!gx)
 

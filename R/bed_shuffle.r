@@ -51,8 +51,13 @@ bed_shuffle <- function(
   }
 
   # make genome into an interval tbl
-  genome_incl <- mutate(genome, start = 0, end = size)
-  genome_incl <- select(genome_incl, chrom, start, end)
+  genome_incl <- mutate(genome, start = 0, end = .data[["size"]])
+  genome_incl <- select(
+    genome_incl,
+    all_of("chrom"),
+    all_of("start"),
+    all_of("end")
+  )
 
   # find the included intervals bounds. case where only incl intervals are
   # defined is not evaluated explicitly, so is the default

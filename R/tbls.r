@@ -156,6 +156,9 @@ gr_to_bed <- function(x) {
     strand = as.character(x@strand)
   )
 
-  res <- mutate(res, strand = ifelse(strand == "*", ".", strand))
+  res <- mutate(
+    res,
+    strand = ifelse(.data[["strand"]] == "*", ".", .data[["strand"]])
+  )
   res
 }

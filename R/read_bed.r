@@ -110,8 +110,8 @@ read_bedgraph <- function(filename, ...) {
     cli::cli_abort("expected 4 columns in bedgraph")
   }
   out <- read_bed(filename, sort = FALSE)
-  out <- select(out, everything(), value = name)
-  out <- mutate(out, value = as.double(value))
+  out <- select(out, everything(), value = all_of("name"))
+  out <- mutate(out, value = as.double(.data[["value"]]))
   out
 }
 

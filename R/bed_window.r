@@ -74,7 +74,7 @@ bed_window <- function(x, y, genome, ...) {
   y <- check_interval(y)
   genome <- check_genome(genome)
 
-  x <- mutate(x, .start = start, .end = end)
+  x <- mutate(x, .start = .data[["start"]], .end = .data[["end"]])
 
   # capture command line args
   cmd_args <- list(...)
@@ -99,11 +99,11 @@ bed_window <- function(x, y, genome, ...) {
     c(list("x" = slop_x, "y" = y), intersect_args)
   )
 
-  res <- mutate(res, start.x = .start.x, end.x = .end.x)
+  res <- mutate(res, start.x = .data[[".start.x"]], end.x = .data[[".end.x"]])
 
   res <- ungroup(res)
 
-  res <- select(res, -.start.x, -.end.x)
+  res <- select(res, -all_of(c(".start.x", ".end.x")))
 
   res
 }

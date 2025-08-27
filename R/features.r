@@ -16,21 +16,25 @@
 #' @export
 create_introns <- function(x) {
   res <- bed12_to_exons(x)
-  res <- group_by(res, name)
+  res <- group_by(res, .data[["name"]])
   res <- mutate(
     res,
-    .start = end,
-    .end = lead(start),
-    score = ifelse(strand == "+", score, score - 1),
-    start = .start,
-    end = .end
+    .start = .data[["end"]],
+    .end = lead(.data[["start"]]),
+    score = ifelse(
+      .data[["strand"]] == "+",
+      .data[["score"]],
+      .data[["score"]] - 1
+    ),
+    start = .data[[".start"]],
+    end = .data[[".end"]]
   )
-  res <- select(res, -.start, -.end)
+  res <- select(res, -all_of(c(".start", ".end")))
   res <- ungroup(res)
   res <- na.omit(res)
 
   # remove zero length intervals
-  res <- filter(res, start < end)
+  res <- filter(res, .data[["start"]] < .data[["end"]])
 
   res
 }
@@ -48,17 +52,21 @@ create_introns <- function(x) {
 #'
 #' @export
 create_utrs5 <- function(x) {
-  res <- group_by(x, name)
+  res <- group_by(x, .data[["name"]])
   res <- mutate(
     res,
-    start = ifelse(strand == "+", start, cds_end),
-    end = ifelse(strand == "+", cds_start, end)
+    start = ifelse(
+      .data[["strand"]] == "+",
+      .data[["start"]],
+      .data[["cds_end"]]
+    ),
+    end = ifelse(.data[["strand"]] == "+", .data[["cds_start"]], .data[["end"]])
   )
   res <- ungroup(res)
-  res <- select(res, chrom:strand)
+  res <- select(res, all_of("chrom"):all_of("strand"))
 
   # remove zero length intervals
-  res <- filter(res, start < end)
+  res <- filter(res, .data[["start"]] < .data[["end"]])
 
   res
 }
@@ -76,17 +84,21 @@ create_utrs5 <- function(x) {
 #'
 #' @export
 create_utrs3 <- function(x) {
-  res <- group_by(x, name)
+  res <- group_by(x, .data[["name"]])
   res <- mutate(
     res,
-    start = ifelse(strand == "+", cds_end, start),
-    end = ifelse(strand == "+", end, cds_start)
+    start = ifelse(
+      .data[["strand"]] == "+",
+      .data[["cds_end"]],
+      .data[["start"]]
+    ),
+    end = ifelse(.data[["strand"]] == "+", .data[["end"]], .data[["cds_start"]])
   )
   res <- ungroup(res)
-  res <- select(res, chrom:strand)
+  res <- select(res, all_of("chrom"):all_of("strand"))
 
   # remove zero length intervals
-  res <- filter(res, start < end)
+  res <- filter(res, .data[["start"]] < .data[["end"]])
 
   res
 }
@@ -104,13 +116,17 @@ create_utrs3 <- function(x) {
 #'
 #' @export
 create_tss <- function(x) {
-  res <- group_by(x, name)
+  res <- group_by(x, .data[["name"]])
   res <- mutate(
     res,
-    start = ifelse(strand == "+", start, end - 1),
-    end = ifelse(strand == "+", start + 1, end)
+    start = ifelse(
+      .data[["strand"]] == "+",
+      .data[["start"]],
+      .data[["end"]] - 1
+    ),
+    end = ifelse(.data[["strand"]] == "+", .data[["start"]] + 1, .data[["end"]])
   )
   res <- ungroup(res)
-  res <- select(res, chrom:strand)
+  res <- select(res, all_of("chrom"):all_of("strand"))
   res
 }

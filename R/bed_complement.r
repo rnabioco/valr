@@ -53,12 +53,17 @@ bed_complement <- function(x, genome) {
   # non-overlapping chroms
   chroms_no_overlaps <- anti_join(genome, res, by = "chrom")
   chroms_no_overlaps <- mutate(chroms_no_overlaps, start = 0)
-  chroms_no_overlaps <- select(chroms_no_overlaps, chrom, start, end = size)
+  chroms_no_overlaps <- select(
+    chroms_no_overlaps,
+    all_of("chrom"),
+    all_of("start"),
+    end = all_of("size")
+  )
 
   # remove rows from x that are not in genome
   res <- semi_join(res, genome, by = "chrom")
 
-  res <- group_by(res, chrom)
+  res <- group_by(res, .data[["chrom"]])
 
   res <- complement_impl(res, genome)
 

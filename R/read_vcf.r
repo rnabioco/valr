@@ -20,9 +20,9 @@ read_vcf <- function(vcf) {
 
   res <- mutate(
     res,
-    chrom = stringr::str_c("chr", CHROM),
-    start = POS,
-    end = POS + stringr::str_length(REF)
+    chrom = stringr::str_c("chr", .data[["CHROM"]]),
+    start = .data[["POS"]],
+    end = .data[["POS"]] + stringr::str_length(.data[["REF"]])
   )
 
   res

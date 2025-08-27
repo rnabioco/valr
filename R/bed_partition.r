@@ -73,7 +73,13 @@ bed_partition <- function(x, ...) {
   res <- tibble::as_tibble(res)
 
   # drop non-grouped cols as values no longer match ivls
-  res <- select(res, chrom, start, end, one_of(groups_df))
+  res <- select(
+    res,
+    all_of("chrom"),
+    all_of("start"),
+    all_of("end"),
+    any_of(groups_df)
+  )
 
   # if dots are passed then map values
   if (!is.null(substitute(...))) {

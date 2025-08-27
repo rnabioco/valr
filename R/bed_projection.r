@@ -51,11 +51,11 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   # find midpoints
   x <- mutate(
     x,
-    .midpoint = round((end + start) / 2),
-    start = .midpoint,
-    end = .midpoint + 1
+    .midpoint = round((.data[["end"]] + .data[["start"]]) / 2),
+    start = .data[[".midpoint"]],
+    end = .data[[".midpoint"]] + 1
   )
-  x <- select(x, -.midpoint)
+  x <- select(x, -all_of(".midpoint"))
 
   # flatten y intervals
   y <- bed_merge(y)
@@ -64,68 +64,81 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   obs_counts <- bed_intersect(x, y)
 
   # count overlaps
-  obs_counts <- group_by(obs_counts, chrom)
+  obs_counts <- group_by(obs_counts, .data[["chrom"]])
   obs_counts <- summarize(obs_counts, .obs_counts = n())
 
   # total x intervals tested
-  total_counts <- group_by(x, chrom)
+  total_counts <- group_by(x, .data[["chrom"]])
   total_counts <- summarize(total_counts, .total_trials = n())
   obs_counts <- full_join(obs_counts, total_counts, by = "chrom")
   obs_counts <- mutate(
     obs_counts,
-    .obs_counts = if_else(is.na(.obs_counts), as.integer(0), .obs_counts)
+    .obs_counts = if_else(
+      is.na(.data[[".obs_counts"]]),
+      as.integer(0),
+      .data[[".obs_counts"]]
+    )
   )
 
   # calculate probabilty of overlap by chance
-  y <- mutate(y, .length = end - start)
-  y <- group_by(y, chrom)
-  y <- summarize(y, .reference_coverage = sum(.length))
+  y <- mutate(y, .length = .data[["end"]] - .data[["start"]])
+  y <- group_by(y, .data[["chrom"]])
+  y <- summarize(y, .reference_coverage = sum(.data[[".length"]]))
 
   # add in any missing chromosomes
   y <- full_join(y, genome, by = "chrom")
 
-  null_dist <- mutate(y, .exp_prob = .reference_coverage / size)
+  null_dist <- mutate(
+    y,
+    .exp_prob = .data[[".reference_coverage"]] / .data[["size"]]
+  )
 
   res <- inner_join(obs_counts, null_dist, by = "chrom")
 
   # binomial test and obs/exp
   if (by_chrom) {
-    res <- group_by(res, chrom)
+    res <- group_by(res, .data[["chrom"]])
     res <- summarize(
       res,
       p.value = stats::pbinom(
-        q = .obs_counts,
-        size = .total_trials,
-        prob = .exp_prob
+        q = .data[[".obs_counts"]],
+        size = .data[[".total_trials"]],
+        prob = .data[[".exp_prob"]]
       ),
-      obs_exp_ratio = (.obs_counts / .total_trials) / .exp_prob
+      obs_exp_ratio = (.data[[".obs_counts"]] / .data[[".total_trials"]]) /
+        .data[[".exp_prob"]]
     )
   } else {
     res <- ungroup(res)
     res <- summarize(
       res,
-      .obs_counts = sum(.obs_counts),
-      .total_trials = sum(.total_trials),
-      .exp_prob = sum(.reference_coverage) /
-        sum(as.numeric(size))
+      .obs_counts = sum(.data[[".obs_counts"]]),
+      .total_trials = sum(.data[[".total_trials"]]),
+      .exp_prob = sum(.data[[".reference_coverage"]]) /
+        sum(as.numeric(.data[["size"]]))
     )
 
     res <- summarize(
       res,
       chrom = "whole_genome",
       p.value = stats::pbinom(
-        q = .obs_counts,
-        size = .total_trials,
-        prob = .exp_prob
+        q = .data[[".obs_counts"]],
+        size = .data[[".total_trials"]],
+        prob = .data[[".exp_prob"]]
       ),
-      obs_exp_ratio = (.obs_counts / .total_trials) / .exp_prob
+      obs_exp_ratio = (.data[[".obs_counts"]] / .data[[".total_trials"]]) /
+        .data[[".exp_prob"]]
     )
   }
 
   res <- mutate(
     res,
-    lower_tail = if_else(p.value < .5, "TRUE", "FALSE"),
-    p.value = if_else(p.value < .5, p.value, 1 - p.value)
+    lower_tail = if_else(.data[["p.value"]] < .5, "TRUE", "FALSE"),
+    p.value = if_else(
+      .data[["p.value"]] < .5,
+      .data[["p.value"]],
+      1 - .data[["p.value"]]
+    )
   )
   res
 }

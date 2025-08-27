@@ -66,48 +66,56 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   if (!stranded && !fraction) {
     res <- mutate(
       x,
-      start = start + size,
-      end = end + size
+      start = .data[["start"]] + size,
+      end = .data[["end"]] + size
     )
   }
 
   # shift by percent of interval size
   if (!stranded && fraction) {
-    res <- mutate(x, .size = end - start)
+    res <- mutate(x, .size = .data[["end"]] - .data[["start"]])
     res <- mutate(
       res,
-      start = start + round(.size * fraction),
-      end = end + round(.size * fraction)
+      start = .data[["start"]] + round(.data[[".size"]] * fraction),
+      end = .data[["end"]] + round(.data[[".size"]] * fraction)
     )
-    res <- select(res, -.size)
+    res <- select(res, -all_of(".size"))
   }
 
   # shift by strand
   if (stranded && !fraction) {
     res <- mutate(
       x,
-      start = ifelse(strand == "+", start + size, start - size),
-      end = ifelse(strand == "+", end + size, end - size)
+      start = ifelse(
+        .data[["strand"]] == "+",
+        .data[["start"]] + size,
+        .data[["start"]] - size
+      ),
+      end = ifelse(
+        .data[["strand"]] == "+",
+        .data[["end"]] + size,
+        .data[["end"]] - size
+      )
     )
   }
 
   # shift by strand and percent
   if (stranded && fraction) {
-    res <- mutate(x, .size = end - start)
+    res <- mutate(x, .size = .data[["end"]] - .data[["start"]])
     res <- mutate(
       res,
       start = ifelse(
-        strand == "+",
-        start + round(.size * fraction),
-        start - round(.size * fraction)
+        .data[["strand"]] == "+",
+        .data[["start"]] + round(.data[[".size"]] * fraction),
+        .data[["start"]] - round(.data[[".size"]] * fraction)
       ),
       end = ifelse(
-        strand == "+",
-        end + round(.size * fraction),
-        end - round(.size * fraction)
+        .data[["strand"]] == "+",
+        .data[["end"]] + round(.data[[".size"]] * fraction),
+        .data[["end"]] - round(.data[[".size"]] * fraction)
       )
     )
-    res <- select(res, -.size)
+    res <- select(res, -all_of(".size"))
   }
 
   res <- bound_intervals(res, genome, trim)

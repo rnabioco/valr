@@ -28,9 +28,9 @@ flip_strands <- function(x) {
   groups_x <- groups(x)
   res <- ungroup(x)
 
-  res <- mutate(res, .strand = ifelse(strand == "+", "-", "+"))
-  res <- select(res, -strand)
-  res <- select(res, everything(), strand = .strand)
+  res <- mutate(res, .strand = ifelse(.data[["strand"]] == "+", "-", "+"))
+  res <- select(res, -all_of("strand"))
+  res <- select(res, everything(), strand = all_of(".strand"))
 
   res <- group_by(res, !!!groups_x)
   res

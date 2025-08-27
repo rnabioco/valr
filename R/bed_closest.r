@@ -121,8 +121,8 @@ bed_closest <- function(x, y, overlap = TRUE, suffix = c(".x", ".y")) {
   ol_ivls <- mutate(
     ol_ivls,
     .dist = case_when(
-      .overlap > 0 ~ 0L,
-      ol_ivls$end.y <= ol_ivls$start.x ~ -1L,
+      .data[[".overlap"]] > 0 ~ 0L,
+      .data[["end.y"]] <= .data[["start.x"]] ~ -1L,
       TRUE ~ 1L
     )
   )

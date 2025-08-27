@@ -62,12 +62,12 @@ bed_reldist <- function(x, y, detail = FALSE) {
 
   res[[".reldist"]] <- floor(res[[".reldist"]] * 100) / 100
   nr <- nrow(res)
-  res <- group_by(res, .reldist)
+  res <- group_by(res, .data[[".reldist"]])
   res <- summarize(
     res,
     .counts = n(),
     .total = nr,
-    .freq = .counts / .total
+    .freq = .data[[".counts"]] / .data[[".total"]]
   )
   res
 }

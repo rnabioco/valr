@@ -73,12 +73,17 @@ bed_merge <- function(x, max_dist = 0, ...) {
     res <- summarize(
       res,
       !!!rlang::quos(
-        .start = min(start),
-        .end = max(end),
+        .start = min(.data[["start"]]),
+        .end = max(.data[["end"]]),
         ...
       )
     )
-    res <- select(res, everything(), start = .start, end = .end)
+    res <- select(
+      res,
+      everything(),
+      start = all_of(".start"),
+      end = all_of(".end")
+    )
 
     res <- ungroup(res)
     res <- select(res, !!quo(-one_of(".id_merge")))
