@@ -75,7 +75,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>valr overview</h1>
             
-            <h4 data-toc-skip class="date">2025-08-27</h4>
+            <h4 data-toc-skip class="date">2025-10-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/main/vignettes/valr.Rmd" class="external-link"><code>vignettes/valr.Rmd</code></a></small>
       <div class="d-none name"><code>valr.Rmd</code></div>
@@ -151,9 +151,9 @@ be constructed as either <code>tibbles</code> or base R
 <code>data.frames</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>,  <span class="op">~</span><span class="va">end</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">1657492</span>, <span class="fl">2657492</span>,</span>
-<span>  <span class="st">"chr2"</span>, <span class="fl">2501324</span>, <span class="fl">3094650</span></span>
+<span>  <span class="op">~</span><span class="va">chrom</span> , <span class="op">~</span><span class="va">start</span>  , <span class="op">~</span><span class="va">end</span>    ,</span>
+<span>  <span class="st">"chr1"</span> , <span class="fl">1657492</span> , <span class="fl">2657492</span> ,</span>
+<span>  <span class="st">"chr2"</span> , <span class="fl">2501324</span> , <span class="fl">3094650</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bed</span></span>
@@ -174,8 +174,8 @@ is not included in the interval. For example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># a chromosome 100 basepairs in length</span></span>
 <span><span class="va">chrom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">0</span>,      <span class="fl">100</span></span>
+<span>  <span class="op">~</span><span class="va">chrom</span> , <span class="op">~</span><span class="va">start</span> , <span class="op">~</span><span class="va">end</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,      <span class="fl">0</span> ,  <span class="fl">100</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">chrom</span></span>
@@ -186,10 +186,10 @@ is not included in the interval. For example:</p>
 <span></span>
 <span><span class="co"># single base-pair intervals</span></span>
 <span><span class="va">bases</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">0</span>,      <span class="fl">1</span>, <span class="co"># first base of chromosome</span></span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">1</span>,      <span class="fl">2</span>, <span class="co"># second base of chromosome</span></span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">99</span>,     <span class="fl">100</span> <span class="co"># last base of chromosome</span></span>
+<span>  <span class="op">~</span><span class="va">chrom</span> , <span class="op">~</span><span class="va">start</span> , <span class="op">~</span><span class="va">end</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,      <span class="fl">0</span> ,    <span class="fl">1</span> , <span class="co"># first base of chromosome</span></span>
+<span>  <span class="st">"chr1"</span> ,      <span class="fl">1</span> ,    <span class="fl">2</span> , <span class="co"># second base of chromosome</span></span>
+<span>  <span class="st">"chr1"</span> ,     <span class="fl">99</span> ,  <span class="fl">100</span> <span class="co"># last base of chromosome</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bases</span></span>
@@ -223,14 +223,14 @@ intersecting <code>x</code> and <code>y</code> intervals with
 <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">25</span>,     <span class="fl">50</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">100</span>,    <span class="fl">125</span></span>
+<span>  <span class="op">~</span><span class="va">chrom</span> , <span class="op">~</span><span class="va">start</span> , <span class="op">~</span><span class="va">end</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,     <span class="fl">25</span> ,   <span class="fl">50</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,    <span class="fl">100</span> ,  <span class="fl">125</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">30</span>,     <span class="fl">75</span></span>
+<span>  <span class="op">~</span><span class="va">chrom</span> , <span class="op">~</span><span class="va">start</span> , <span class="op">~</span><span class="va">end</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,     <span class="fl">30</span> ,   <span class="fl">75</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -238,10 +238,10 @@ intersecting <code>x</code> and <code>y</code> intervals with
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">1</span>, <span class="fl">50</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">10</span>, <span class="fl">75</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">100</span>, <span class="fl">120</span></span>
+<span>  <span class="op">~</span><span class="va">chrom</span> , <span class="op">~</span><span class="va">start</span> , <span class="op">~</span><span class="va">end</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,      <span class="fl">1</span> ,   <span class="fl">50</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,     <span class="fl">10</span> ,   <span class="fl">75</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,    <span class="fl">100</span> ,  <span class="fl">120</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu"><a href="../reference/bed_merge.html">bed_merge</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -258,17 +258,17 @@ comparisons. For example, intervals can be grouped by
 strand.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">strand</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">1</span>,      <span class="fl">100</span>,  <span class="st">"+"</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">50</span>,     <span class="fl">150</span>,  <span class="st">"+"</span>,</span>
-<span>  <span class="st">"chr2"</span>, <span class="fl">100</span>,    <span class="fl">200</span>,  <span class="st">"-"</span></span>
+<span>  <span class="op">~</span><span class="va">chrom</span> , <span class="op">~</span><span class="va">start</span> , <span class="op">~</span><span class="va">end</span> , <span class="op">~</span><span class="va">strand</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,      <span class="fl">1</span> ,  <span class="fl">100</span> , <span class="st">"+"</span>     ,</span>
+<span>  <span class="st">"chr1"</span> ,     <span class="fl">50</span> ,  <span class="fl">150</span> , <span class="st">"+"</span>     ,</span>
+<span>  <span class="st">"chr2"</span> ,    <span class="fl">100</span> ,  <span class="fl">200</span> , <span class="st">"-"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">chrom</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">strand</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">50</span>,     <span class="fl">125</span>,  <span class="st">"+"</span>,</span>
-<span>  <span class="st">"chr1"</span>, <span class="fl">50</span>,     <span class="fl">150</span>,  <span class="st">"-"</span>,</span>
-<span>  <span class="st">"chr2"</span>, <span class="fl">50</span>,     <span class="fl">150</span>,  <span class="st">"+"</span></span>
+<span>  <span class="op">~</span><span class="va">chrom</span> , <span class="op">~</span><span class="va">start</span> , <span class="op">~</span><span class="va">end</span> , <span class="op">~</span><span class="va">strand</span> ,</span>
+<span>  <span class="st">"chr1"</span> ,     <span class="fl">50</span> ,  <span class="fl">125</span> , <span class="st">"+"</span>     ,</span>
+<span>  <span class="st">"chr1"</span> ,     <span class="fl">50</span> ,  <span class="fl">150</span> , <span class="st">"-"</span>     ,</span>
+<span>  <span class="st">"chr2"</span> ,     <span class="fl">50</span> ,  <span class="fl">150</span> , <span class="st">"+"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># intersect tbls by strand</span></span>
