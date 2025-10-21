@@ -1,14 +1,12 @@
-# fmt: skip
 genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 5000
+  ~chrom , ~size ,
+  "chr1" ,  5000
 )
 
-# fmt: skip
 x <- tibble::tribble(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 500, 1000, ".", ".", "+",
-  "chr1", 1000, 1500, ".", ".", "-"
+  ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+  "chr1" ,    500 , 1000 , "."   , "."    , "+"     ,
+  "chr1" ,   1000 , 1500 , "."   , "."    , "-"
 )
 
 test_that("left arg works", {
@@ -64,17 +62,15 @@ test_that("strand with left works", {
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/slop/test-slop.sh
-# fmt: skip
 a <- tibble::tribble(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 100L, 200L, "a1", 1L, "+",
-  "chr1", 100L, 200L, "a2", 2L, "-"
+  ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+  "chr1" , 100L   , 200L , "a1"  , 1L     , "+"     ,
+  "chr1" , 100L   , 200L , "a2"  , 2L     , "-"
 )
 
-# fmt: skip
 tiny.genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 1000
+  ~chrom , ~size ,
+  "chr1" ,  1000
 )
 
 h19 <- read.table(
@@ -117,10 +113,9 @@ test_that("test slop factor being larger than a signed int", {
 })
 
 test_that("test that old floating-point issues are solved", {
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 16778071, 16778771
+    ~chrom , ~start   , ~end     ,
+    "chr1" , 16778071 , 16778771
   )
   res <- bed_slop(b, h19, left = 200, right = 200)
   expect_equal(res$start, 16777871)
@@ -129,11 +124,10 @@ test_that("test that old floating-point issues are solved", {
 
 ## order is different compared to bedtools
 test_that("test that old floating-point issues are solved", {
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 160, 170,
-    "chr1", 100, 200
+    ~chrom , ~start , ~end ,
+    "chr1" ,    160 ,  170 ,
+    "chr1" ,    100 ,  200
   )
   res <- bed_slop(b, h19, both = 0.1, fraction = TRUE)
   expect_equal(res$start, c(90, 159))
@@ -141,10 +135,9 @@ test_that("test that old floating-point issues are solved", {
 })
 
 test_that("test negative slop on l with strand", {
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 300, 320
+    ~chrom , ~start , ~end ,
+    "chr1" ,    300 ,  320
   )
   res <- bed_slop(b, tiny.genome, left = -60, right = 60)
   expect_equal(res$start, 360)
@@ -152,10 +145,9 @@ test_that("test negative slop on l with strand", {
 })
 
 test_that("test negative slop on l with strand", {
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 300, 320, "a1", 5, "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,    300 ,  320 , "a1"  ,      5 , "-"
   )
   res <- bed_slop(b, tiny.genome, left = -60, right = 60, strand = TRUE)
   expect_equal(res$start, 240)
@@ -163,10 +155,9 @@ test_that("test negative slop on l with strand", {
 })
 
 test_that("test negative slop on r with strand", {
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 300, 320, "a1", 5, "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,    300 ,  320 , "a1"  ,      5 , "-"
   )
 
   res <- bed_slop(b, tiny.genome, left = 60, right = -60, strand = TRUE)
@@ -175,15 +166,13 @@ test_that("test negative slop on r with strand", {
 })
 
 test_that("test crossover during negative slop", {
-  # fmt: skip
   tiny.genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 1000
+    ~chrom , ~size ,
+    "chr1" ,  1000
   )
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 300, 320, "a1", 5, "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,    300 ,  320 , "a1"  ,      5 , "-"
   )
   res <- bed_slop(b, tiny.genome, left = -60, right = -60, strand = TRUE)
   expect_equal(res$start, 260)
@@ -191,15 +180,13 @@ test_that("test crossover during negative slop", {
 })
 
 test_that("test crossover during negative slop resulting in 0 length intervals are tossed out", {
-  # fmt: skip
   tiny.genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 1000
+    ~chrom , ~size ,
+    "chr1" ,  1000
   )
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 300, 320, "a1", 5, "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,    300 ,  320 , "a1"  ,      5 , "-"
   )
   expect_warning(
     res <- bed_slop(b, tiny.genome, left = -10, right = -10, strand = TRUE)
@@ -208,15 +195,13 @@ test_that("test crossover during negative slop resulting in 0 length intervals a
 })
 
 test_that("going beyond the end of the chrom", {
-  # fmt: skip
   tiny.genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 1000
+    ~chrom , ~size ,
+    "chr1" ,  1000
   )
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 950, 970, "a1", 5, "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,    950 ,  970 , "a1"  ,      5 , "-"
   )
   res <- bed_slop(
     b,
@@ -231,15 +216,13 @@ test_that("going beyond the end of the chrom", {
 })
 
 test_that("test edge cases", {
-  # fmt: skip
   tiny.genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 1000
+    ~chrom , ~size ,
+    "chr1" ,  1000
   )
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 50, 60, "a1", 5, "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,     50 ,   60 , "a1"  ,      5 , "-"
   )
   res <- bed_slop(
     b,
@@ -254,15 +237,13 @@ test_that("test edge cases", {
 })
 
 test_that("test edge cases", {
-  # fmt: skip
   tiny.genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 1000
+    ~chrom , ~size ,
+    "chr1" ,  1000
   )
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 50, 60, "a1", 5, "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,     50 ,   60 , "a1"  ,      5 , "-"
   )
   res <- bed_slop(
     b,

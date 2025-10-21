@@ -1,5 +1,4 @@
 test_that("invalid ncol causes an error", {
-  # fmt: skip
   x <- tibble::tribble()
   expect_error(bed12_to_exons(x))
 })

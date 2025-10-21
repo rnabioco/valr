@@ -1,9 +1,8 @@
-# fmt: skip
 genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 1e6,
-  "chr2", 1e7,
-  "chr3", 1e8
+  ~chrom , ~size ,
+  "chr1" ,   1e6 ,
+  "chr2" ,   1e7 ,
+  "chr3" ,   1e8
 )
 
 # Seed for reproducible bed_shuffle tests
@@ -24,10 +23,9 @@ test_that("within = FALSE shuffles chroms", {
 })
 
 test_that("`incl` includes intervals", {
-  # fmt: skip
   incl <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 10000, 1000000
+    ~chrom , ~start , ~end    ,
+    "chr1" ,  10000 , 1000000
   )
   res <- bed_shuffle(x, genome, incl = incl, seed = seed)
   expect_true(all(res$chrom == "chr1"))
@@ -36,12 +34,11 @@ test_that("`incl` includes intervals", {
 })
 
 test_that("`excl` excludes intervals", {
-  # fmt: skip
   excl <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 10000, 1000000,
-    "chr2", 1, 10000000,
-    "chr3", 1, 100000000
+    ~chrom , ~start , ~end      ,
+    "chr1" ,  10000 ,   1000000 ,
+    "chr2" ,      1 ,  10000000 ,
+    "chr3" ,      1 , 100000000
   )
   res <- bed_shuffle(x, genome, excl = excl, seed = seed)
   expect_true(all(res$chrom == "chr1"))
@@ -52,27 +49,24 @@ test_that("`excl` excludes intervals", {
 
 test_that("completely excluded intervals throw an error", {
   # all intervals completely excluded
-  # fmt: skip
   excl <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 1, 1000000,
-    "chr2", 1, 10000000,
-    "chr3", 1, 100000000
+    ~chrom , ~start , ~end      ,
+    "chr1" ,      1 ,   1000000 ,
+    "chr2" ,      1 ,  10000000 ,
+    "chr3" ,      1 , 100000000
   )
   expect_error(bed_shuffle(x, genome, excl = excl, seed = seed))
 })
 
 test_that("`incl` and `excl` are handled", {
-  # fmt: skip
   excl <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 1, 500000,
-    "chr2", 1, 10000000
+    ~chrom , ~start , ~end     ,
+    "chr1" ,      1 ,   500000 ,
+    "chr2" ,      1 , 10000000
   )
-  # fmt: skip
   incl <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 1, 1000000
+    ~chrom , ~start , ~end    ,
+    "chr1" ,      1 , 1000000
   )
   res <- bed_shuffle(x, genome, incl, excl, seed = seed)
   expect_true(all(res$chrom == "chr1"))
@@ -80,27 +74,24 @@ test_that("`incl` and `excl` are handled", {
 })
 
 test_that("empty intervals derived from `incl` and `excl` is handled", {
-  # fmt: skip
   excl <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 1, 1000000
+    ~chrom , ~start , ~end    ,
+    "chr1" ,      1 , 1000000
   )
-  # fmt: skip
   incl <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 1, 1000000
+    ~chrom , ~start , ~end    ,
+    "chr1" ,      1 , 1000000
   )
   expect_error(bed_shuffle(x, genome, incl, excl, seed = seed))
 })
 
 test_that("exceeding `max_tries` yields an error", {
   # 100 bp interval is left but x intervals are 1kb
-  # fmt: skip
   excl <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 1e6,
-    "chr2", 1, 1e7,
-    "chr3", 1, 1e8
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  1e6 ,
+    "chr2" ,      1 ,  1e7 ,
+    "chr3" ,      1 ,  1e8
   )
   expect_error(bed_shuffle(x, genome, excl = excl, seed = seed))
 })
@@ -112,10 +103,9 @@ test_that("`seed` generates reproducible intervals", {
 })
 
 test_that("all supplied x interval columns are passed to the result", {
-# fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 80, 100, "q1", 1, "+"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,     80 ,  100 , "q1"  ,      1 , "+"
   )
 
   res <- bed_shuffle(x, genome, seed = seed)
@@ -125,13 +115,11 @@ test_that("all supplied x interval columns are passed to the result", {
 # from https://github.com/arq5x/bedtools2/blob/master/test/shuffle/test-shuffle.sh
 ## does not handle error/ignore entry
 # test_that("test an interval that is bigger than the max chrom length", {
-# fmt: skip
 #   x <- tibble::tribble(
 #     ~chrom, ~start, ~end,
 #     "chr1", 0, 110
 #   )
 #
-# fmt: skip
 #   y <- tibble::tribble(
 #     ~chrom, ~size,
 #     "chr1", 100

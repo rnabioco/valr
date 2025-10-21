@@ -1,23 +1,20 @@
-# fmt: skip
 genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 1000,
-  "chr2", 1000
+  ~chrom , ~size ,
+  "chr1" ,  1000 ,
+  "chr2" ,  1000
 )
 
-# fmt: skip
 x <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 50, 75,
-  "chr1", 250, 400,
-  "chr1", 500, 600
+  ~chrom , ~start , ~end ,
+  "chr1" ,     50 ,   75 ,
+  "chr1" ,    250 ,  400 ,
+  "chr1" ,    500 ,  600
 )
 
-# fmt: skip
 y <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 100, 200,
-  "chr1", 200, 800
+  ~chrom , ~start , ~end ,
+  "chr1" ,    100 ,  200 ,
+  "chr1" ,    200 ,  800
 )
 
 bed_projection(x, y, genome)
@@ -34,31 +31,28 @@ test_that("basic projection test works", {
 })
 
 test_that("projection per chromosome works (by_chrom = TRUE)", {
-  # fmt: skip
   genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 2000,
-    "chr2", 2000
+    ~chrom , ~size ,
+    "chr1" ,  2000 ,
+    "chr2" ,  2000
   )
 
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 200,
-    "chr1", 250, 400,
-    "chr1", 500, 600,
-    "chr1", 1000, 2000,
-    "chr2", 100, 200
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200 ,
+    "chr1" ,    250 ,  400 ,
+    "chr1" ,    500 ,  600 ,
+    "chr1" ,   1000 , 2000 ,
+    "chr2" ,    100 ,  200
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 150, 175,
-    "chr1", 525, 575,
-    "chr1", 1100, 1200,
-    "chr1", 1400, 1600,
-    "chr2", 100, 1500
+    ~chrom , ~start , ~end ,
+    "chr1" ,    150 ,  175 ,
+    "chr1" ,    525 ,  575 ,
+    "chr1" ,   1100 , 1200 ,
+    "chr1" ,   1400 , 1600 ,
+    "chr2" ,    100 , 1500
   )
   res <- bed_projection(x, y, genome, by_chrom = TRUE)
   expect_true(all(c("chr1", "chr2") %in% res$chrom))
@@ -67,28 +61,25 @@ test_that("projection per chromosome works (by_chrom = TRUE)", {
 test_that("report significant when intervals are underrepresented, .lower_tail = TRUE", {
   sig <- pbinom(0, 4, .7)
 
-  # fmt: skip
   genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 1000,
-    "chr2", 1000
+    ~chrom , ~size ,
+    "chr1" ,  1000 ,
+    "chr2" ,  1000
   )
 
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 10, 20,
-    "chr1", 25, 40,
-    "chr1", 50, 60,
-    "chr1", 100, 150
+    ~chrom , ~start , ~end ,
+    "chr1" ,     10 ,   20 ,
+    "chr1" ,     25 ,   40 ,
+    "chr1" ,     50 ,   60 ,
+    "chr1" ,    100 ,  150
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 200, 275,
-    "chr1", 525, 575,
-    "chr1", 200, 900
+    ~chrom , ~start , ~end ,
+    "chr1" ,    200 ,  275 ,
+    "chr1" ,    525 ,  575 ,
+    "chr1" ,    200 ,  900
   )
   res <- bed_projection(x, y, genome)
   expect_true(res$lower_tail == TRUE)
@@ -98,28 +89,25 @@ test_that("report significant when intervals are underrepresented, .lower_tail =
 
 test_that("report significant when intervals are overrepresented, .lower_tail = FALSE", {
   sig <- 1 - pbinom(4, 4, .7)
-  # fmt: skip
   genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 1000,
-    "chr2", 1000
+    ~chrom , ~size ,
+    "chr1" ,  1000 ,
+    "chr2" ,  1000
   )
 
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 200, 225,
-    "chr1", 250, 400,
-    "chr1", 500, 600,
-    "chr1", 300, 350
+    ~chrom , ~start , ~end ,
+    "chr1" ,    200 ,  225 ,
+    "chr1" ,    250 ,  400 ,
+    "chr1" ,    500 ,  600 ,
+    "chr1" ,    300 ,  350
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 200, 275,
-    "chr1", 525, 575,
-    "chr1", 200, 900
+    ~chrom , ~start , ~end ,
+    "chr1" ,    200 ,  275 ,
+    "chr1" ,    525 ,  575 ,
+    "chr1" ,    200 ,  900
   )
   res <- bed_projection(x, y, genome)
   expect_true(res$lower_tail == FALSE)

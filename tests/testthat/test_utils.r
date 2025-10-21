@@ -1,14 +1,12 @@
-# fmt: skip
 x <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 1, 100,
-  "chr1", 200, 500
+  ~chrom , ~start , ~end ,
+  "chr1" ,      1 ,  100 ,
+  "chr1" ,    200 ,  500
 )
-# fmt: skip
 y <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 1, 100,
-  "chr1", 200, 500
+  ~chrom , ~start , ~end ,
+  "chr1" ,      1 ,  100 ,
+  "chr1" ,    200 ,  500
 ) |>
   group_by(chrom)
 
@@ -18,11 +16,10 @@ test_that("NULL is return when there are no shared groups, shared_groups()", {
 })
 
 test_that("only shared groups are return, shared_groups()", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 1, 100,
-    "chr1", 200, 500
+    ~chrom , ~start , ~end ,
+    "chr1" ,      1 ,  100 ,
+    "chr1" ,    200 ,  500
   ) |>
     group_by(chrom, start, end)
 
@@ -31,17 +28,15 @@ test_that("only shared groups are return, shared_groups()", {
 })
 
 
-# fmt: skip
 x <- tibble::tribble(
-  ~end, ~chrom, ~start, ~value,
-  75, "chr1", 125, 10
+  ~end , ~chrom , ~start , ~value ,
+    75 , "chr1" ,    125 ,     10
 )
 
-# fmt: skip
 y <- tibble::tribble(
-  ~chrom, ~start, ~end, ~scores,
-  "chr1", 50, 100, 1.2,
-  "chr1", 100, 150, 2.4
+  ~chrom , ~start , ~end , ~scores ,
+  "chr1" ,     50 ,  100 , 1.2     ,
+  "chr1" ,    100 ,  150 , 2.4
 )
 
 test_that("x columns are reordered based on y, reorder_names()", {

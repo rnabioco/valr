@@ -1,16 +1,14 @@
-# fmt: skip
 x <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 100, 200,
-  "chr1", 150, 250,
-  "chr1", 400, 500
+  ~chrom , ~start , ~end ,
+  "chr1" ,    100 ,  200 ,
+  "chr1" ,    150 ,  250 ,
+  "chr1" ,    400 ,  500
 )
 
-# fmt: skip
 y <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 175, 200,
-  "chr1", 175, 225
+  ~chrom , ~start , ~end ,
+  "chr1" ,    175 ,  200 ,
+  "chr1" ,    175 ,  225
 )
 
 test_that("simple overlap works", {
@@ -24,20 +22,18 @@ test_that("invert param works", {
 })
 
 test_that("multiple as", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 200,
-    "chr1", 100, 200,
-    "chr1", 100, 200,
-    "chr1", 100, 200,
-    "chr1", 100, 200
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200 ,
+    "chr1" ,    100 ,  200 ,
+    "chr1" ,    100 ,  200 ,
+    "chr1" ,    100 ,  200 ,
+    "chr1" ,    100 ,  200
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 175, 200
+    ~chrom , ~start , ~end ,
+    "chr1" ,    175 ,  200
   )
 
   res <- bed_intersect(x, y)
@@ -45,20 +41,18 @@ test_that("multiple as", {
 })
 
 test_that("multple bs", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 200
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 175, 200,
-    "chr1", 175, 200,
-    "chr1", 175, 200,
-    "chr1", 175, 200,
-    "chr1", 175, 200
+    ~chrom , ~start , ~end ,
+    "chr1" ,    175 ,  200 ,
+    "chr1" ,    175 ,  200 ,
+    "chr1" ,    175 ,  200 ,
+    "chr1" ,    175 ,  200 ,
+    "chr1" ,    175 ,  200
   )
 
   res <- bed_intersect(x, y)
@@ -66,15 +60,13 @@ test_that("multple bs", {
 })
 
 test_that("no overlaps returns empty df", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 200
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200
   )
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 300, 400
+    ~chrom , ~start , ~end ,
+    "chr1" ,    300 ,  400
   )
   res <- bed_intersect(x, y)
   expect_true("data.frame" %in% class(res))
@@ -82,18 +74,16 @@ test_that("no overlaps returns empty df", {
 })
 
 test_that("duplicate intervals are removed (#23)", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 500,
-    "chr1", 175, 200
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  500 ,
+    "chr1" ,    175 ,  200
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 150, 400,
-    "chr1", 151, 401
+    ~chrom , ~start , ~end ,
+    "chr1" ,    150 ,  400 ,
+    "chr1" ,    151 ,  401
   )
 
   res <- bed_intersect(x, y)
@@ -101,16 +91,14 @@ test_that("duplicate intervals are removed (#23)", {
 })
 
 test_that("suffixes disambiguate x/y columns (#28)", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000, 1500, ".", ".", "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,   1000 , 1500 , "."   , "."    , "-"
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000, 1200, ".", ".", "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,   1000 , 1200 , "."   , "."    , "-"
   )
 
   res <- bed_intersect(x, y)
@@ -118,33 +106,29 @@ test_that("suffixes disambiguate x/y columns (#28)", {
 })
 
 test_that("incorrect `suffix` args throw errors", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score,
-    "chr1", 1000, 1500, ".", "."
+    ~chrom , ~start , ~end , ~name , ~score ,
+    "chr1" ,   1000 , 1500 , "."   , "."
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score,
-    "chr1", 1000, 1200, ".", "."
+    ~chrom , ~start , ~end , ~name , ~score ,
+    "chr1" ,   1000 , 1200 , "."   , "."
   )
 
   expect_error(bed_intersect(x, y, suffix = "TESTING"))
 })
 
 test_that("intersections from x bed_tbl with more chroms than y are captured", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 200,
-    "chr3", 400, 500
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200 ,
+    "chr3" ,    400 ,  500
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr3", 425, 475
+    ~chrom , ~start , ~end ,
+    "chr3" ,    425 ,  475
   )
 
   res <- bed_intersect(x, y)
@@ -152,17 +136,15 @@ test_that("intersections from x bed_tbl with more chroms than y are captured", {
 })
 
 test_that("intersections from y bed_tbl with more chroms are captured", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr3", 400, 500
+    ~chrom , ~start , ~end ,
+    "chr3" ,    400 ,  500
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 200,
-    "chr3", 425, 475
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200 ,
+    "chr3" ,    425 ,  475
   )
 
   res <- bed_intersect(x, y)
@@ -170,14 +152,13 @@ test_that("intersections from y bed_tbl with more chroms are captured", {
 })
 
 test_that("input x groups are used for comparing intervals issue #108", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~group,
-    "chr1", 100, 200, "A",
-    "chr1", 200, 400, "A",
-    "chr1", 300, 500, "A",
-    "chr1", 125, 175, "B",
-    "chr1", 150, 200, "B"
+    ~chrom , ~start , ~end , ~group ,
+    "chr1" ,    100 ,  200 , "A"    ,
+    "chr1" ,    200 ,  400 , "A"    ,
+    "chr1" ,    300 ,  500 , "A"    ,
+    "chr1" ,    125 ,  175 , "B"    ,
+    "chr1" ,    150 ,  200 , "B"
   )
   x <- arrange(x, chrom, start)
   x <- group_by(x, group)
@@ -186,16 +167,14 @@ test_that("input x groups are used for comparing intervals issue #108", {
 })
 
 test_that("tbls grouped by strand are processed", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000, 1500, ".", ".", "+"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,   1000 , 1500 , "."   , "."    , "+"
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000, 1200, ".", ".", "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,   1000 , 1200 , "."   , "."    , "-"
   )
 
   res <- bed_intersect(group_by(x, strand), group_by(y, strand))
@@ -207,17 +186,15 @@ test_that("tbls grouped by strand are processed", {
 })
 
 test_that("invert = T, and custom suffixes dont result in failed anti_join()", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr3", 500, 600
+    ~chrom , ~start , ~end ,
+    "chr3" ,    500 ,  600
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 200,
-    "chr3", 425, 475
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200 ,
+    "chr3" ,    425 ,  475
   )
 
   res <- bed_intersect(x, y, invert = T, suffix = c("a", "b"))
@@ -225,31 +202,28 @@ test_that("invert = T, and custom suffixes dont result in failed anti_join()", {
 })
 
 test_that("multiple y tbl_intervals can be passed to bed_intersect (#220)", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 500,
-    "chr2", 200, 400,
-    "chr2", 300, 500,
-    "chr2", 800, 900
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  500 ,
+    "chr2" ,    200 ,  400 ,
+    "chr2" ,    300 ,  500 ,
+    "chr2" ,    800 ,  900
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
-    "chr1", 150, 400, 100,
-    "chr1", 500, 550, 100,
-    "chr2", 230, 430, 200,
-    "chr2", 350, 430, 300
+    ~chrom , ~start , ~end , ~value ,
+    "chr1" ,    150 ,  400 ,    100 ,
+    "chr1" ,    500 ,  550 ,    100 ,
+    "chr2" ,    230 ,  430 ,    200 ,
+    "chr2" ,    350 ,  430 ,    300
   )
 
-  # fmt: skip
   z <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
-    "chr1", 150, 400, 100,
-    "chr1", 500, 550, 100,
-    "chr2", 230, 430, 200,
-    "chr2", 750, 900, 400
+    ~chrom , ~start , ~end , ~value ,
+    "chr1" ,    150 ,  400 ,    100 ,
+    "chr1" ,    500 ,  550 ,    100 ,
+    "chr2" ,    230 ,  430 ,    200 ,
+    "chr2" ,    750 ,  900 ,    400
   )
 
   res <- bed_intersect(x, y, z)
@@ -270,22 +244,19 @@ test_that("multiple y tbl_intervals can be passed to bed_intersect (#220)", {
 })
 
 test_that("groups are respected when passing multiple y tbl_intervals ", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000, 1500, ".", ".", "+"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,   1000 , 1500 , "."   , "."    , "+"
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000, 1200, ".", ".", "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,   1000 , 1200 , "."   , "."    , "-"
   )
 
-  # fmt: skip
   z <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 1000, 1200, ".", ".", "+"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" ,   1000 , 1200 , "."   , "."    , "+"
   )
   x <- group_by(x, strand)
   y <- group_by(y, strand)
@@ -296,31 +267,28 @@ test_that("groups are respected when passing multiple y tbl_intervals ", {
 })
 
 test_that("same intervals are reported with single and multiple intersection", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 500,
-    "chr2", 200, 400,
-    "chr2", 300, 500,
-    "chr2", 800, 900
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  500 ,
+    "chr2" ,    200 ,  400 ,
+    "chr2" ,    300 ,  500 ,
+    "chr2" ,    800 ,  900
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
-    "chr1", 150, 400, 100,
-    "chr1", 500, 550, 100,
-    "chr2", 230, 430, 200,
-    "chr2", 350, 430, 300
+    ~chrom , ~start , ~end , ~value ,
+    "chr1" ,    150 ,  400 ,    100 ,
+    "chr1" ,    500 ,  550 ,    100 ,
+    "chr2" ,    230 ,  430 ,    200 ,
+    "chr2" ,    350 ,  430 ,    300
   )
 
-  # fmt: skip
   z <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
-    "chr1", 150, 400, 100,
-    "chr1", 500, 550, 100,
-    "chr2", 230, 430, 200,
-    "chr2", 750, 900, 400
+    ~chrom , ~start , ~end , ~value ,
+    "chr1" ,    150 ,  400 ,    100 ,
+    "chr1" ,    500 ,  550 ,    100 ,
+    "chr2" ,    230 ,  430 ,    200 ,
+    "chr2" ,    750 ,  900 ,    400
   )
   a <- bed_intersect(x, y)
   b <- bed_intersect(x, z)
@@ -333,29 +301,28 @@ test_that("same intervals are reported with single and multiple intersection", {
 })
 
 test_that("unmatched groups are included when invert = TRUE", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end, ~group,
-    "chr1", 100, 500, "A",
-    "chr2", 200, 400, "B", # unmatched
-    "chr2", 300, 500, "A",
-    "chr2", 800, 900, "A"
-  ) |> group_by(chrom, group)
+    ~chrom , ~start , ~end , ~group ,
+    "chr1" ,    100 ,  500 , "A"    ,
+    "chr2" ,    200 ,  400 , "B"    , # unmatched
+    "chr2" ,    300 ,  500 , "A"    ,
+    "chr2" ,    800 ,  900 , "A"
+  ) |>
+    group_by(chrom, group)
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~group,
-    "chr1", 150, 400, "A",
-    "chr1", 500, 550, "A",
-    "chr2", 230, 430, "A",
-    "chr2", 350, 430, "A"
-  ) |> group_by(chrom, group)
+    ~chrom , ~start , ~end , ~group ,
+    "chr1" ,    150 ,  400 , "A"    ,
+    "chr1" ,    500 ,  550 , "A"    ,
+    "chr2" ,    230 ,  430 , "A"    ,
+    "chr2" ,    350 ,  430 , "A"
+  ) |>
+    group_by(chrom, group)
 
-  # fmt: skip
   pred <- tibble::tribble(
-    ~chrom, ~start, ~end, ~group,
-    "chr2", 200, 400, "B", # unmatched
-    "chr2", 800, 900, "A"
+    ~chrom , ~start , ~end , ~group ,
+    "chr2" ,    200 ,  400 , "B"    , # unmatched
+    "chr2" ,    800 ,  900 , "A"
   )
 
   res <- bed_intersect(x, y, invert = TRUE)
@@ -364,17 +331,15 @@ test_that("unmatched groups are included when invert = TRUE", {
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/intersect/test-intersect.sh
 test_that("0 length records", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr7", 33059403, 33059403
+    ~chrom , ~start   , ~end     ,
+    "chr7" , 33059403 , 33059403
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~group, ~type,
-    "chr7", 32599076, 33069221, "NAq", "intron",
-    "chr7", 33059336L, 33060883L, "NT5C3A", "intron"
+    ~chrom , ~start    , ~end      , ~group   , ~type    ,
+    "chr7" , 32599076  , 33069221  , "NAq"    , "intron" ,
+    "chr7" , 33059336L , 33060883L , "NT5C3A" , "intron"
   )
   res <- bed_intersect(x, y)
   expect_equal(res$start.x - res$end.x, c(0, 0))
@@ -383,31 +348,28 @@ test_that("0 length records", {
 
 
 test_that("list input is robustly handled #380", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 100, 500,
-    "chr2", 200, 400,
-    "chr2", 300, 500,
-    "chr2", 800, 900
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  500 ,
+    "chr2" ,    200 ,  400 ,
+    "chr2" ,    300 ,  500 ,
+    "chr2" ,    800 ,  900
   )
 
-  # fmt: skip
   y <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
-    "chr1", 150, 400, 100,
-    "chr1", 500, 550, 100,
-    "chr2", 230, 430, 200,
-    "chr2", 350, 430, 300
+    ~chrom , ~start , ~end , ~value ,
+    "chr1" ,    150 ,  400 ,    100 ,
+    "chr1" ,    500 ,  550 ,    100 ,
+    "chr2" ,    230 ,  430 ,    200 ,
+    "chr2" ,    350 ,  430 ,    300
   )
 
-  # fmt: skip
   z <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
-    "chr1", 150, 400, 100,
-    "chr1", 500, 550, 100,
-    "chr2", 230, 430, 200,
-    "chr2", 750, 900, 400
+    ~chrom , ~start , ~end , ~value ,
+    "chr1" ,    150 ,  400 ,    100 ,
+    "chr1" ,    500 ,  550 ,    100 ,
+    "chr2" ,    230 ,  430 ,    200 ,
+    "chr2" ,    750 ,  900 ,    400
   )
 
   lst <- list(y, z)
