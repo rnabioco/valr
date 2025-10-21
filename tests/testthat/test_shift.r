@@ -1,20 +1,18 @@
-# fmt: skip
 bed_tbl <- tibble::tribble(
-  ~chrom, ~start, ~end, ~strand,
-  "chr1", 100, 150, "+",
-  "chr1", 200, 250, "+",
-  "chr2", 300, 350, "+",
-  "chr2", 400, 450, "-",
-  "chr3", 500, 550, "-",
-  "chr3", 600, 650, "-"
+  ~chrom , ~start , ~end , ~strand ,
+  "chr1" ,    100 ,  150 , "+"     ,
+  "chr1" ,    200 ,  250 , "+"     ,
+  "chr2" ,    300 ,  350 , "+"     ,
+  "chr2" ,    400 ,  450 , "-"     ,
+  "chr3" ,    500 ,  550 , "-"     ,
+  "chr3" ,    600 ,  650 , "-"
 )
 
-# fmt: skip
 genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 1000,
-  "chr2", 2000,
-  "chr3", 3000
+  ~chrom , ~size ,
+  "chr1" ,  1000 ,
+  "chr2" ,  2000 ,
+  "chr3" ,  3000
 )
 
 test_that("pos increment works", {
@@ -116,17 +114,15 @@ test_that("shift by strand and fraction works", {
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/shift/test-shift.sh
-# fmt: skip
 a <- tibble::tribble(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 100, 200, "a1", 1, "+",
-  "chr1", 100, 200, "a2", 2, "-"
+  ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+  "chr1" ,    100 ,  200 , "a1"  ,      1 , "+"     ,
+  "chr1" ,    100 ,  200 , "a2"  ,      2 , "-"
 )
 
-# fmt: skip
 tiny.genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 1000
+  ~chrom , ~size ,
+  "chr1" ,  1000
 )
 
 test_that("test going beyond the start of the chrom", {
@@ -162,16 +158,14 @@ test_that("test shift being larger than a signed int", {
 })
 
 test_that("test chrom boundaries", {
-  # fmt: skip
   tiny2.genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 10
+    ~chrom , ~size ,
+    "chr1" ,    10
   )
 
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 5, 10, "cds1", 0, "+"
+    ~chrom , ~start , ~end , ~name  , ~score , ~strand ,
+    "chr1" ,      5 ,   10 , "cds1" ,      0 , "+"
   )
   out <- bed_shift(b, tiny2.genome, size = 2, trim = TRUE)
   expect_true(all(
@@ -181,17 +175,15 @@ test_that("test chrom boundaries", {
 })
 
 test_that("test shift huge genome", {
-  # fmt: skip
   tiny2.genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 249250621
+    ~chrom , ~size     ,
+    "chr1" , 249250621
   )
 
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 66999638L, 67216822L, "NM_032291", 0L, "+",
-    "chr1", 92145899L, 92351836L, "NR_036634", 0L, "-"
+    ~chrom , ~start    , ~end      , ~name       , ~score , ~strand ,
+    "chr1" , 66999638L , 67216822L , "NM_032291" , 0L     , "+"     ,
+    "chr1" , 92145899L , 92351836L , "NR_036634" , 0L     , "-"
   )
   out <- bed_shift(b, tiny2.genome, size = 1000, trim = TRUE)
   expect_true(all(

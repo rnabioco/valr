@@ -1,14 +1,12 @@
-# fmt: skip
 x <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 10, 20,
-  "chr1", 30, 40
+  ~chrom , ~start , ~end ,
+  "chr1" ,     10 ,   20 ,
+  "chr1" ,     30 ,   40
 )
 
-# fmt: skip
 y <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 15, 20
+  ~chrom , ~start , ~end ,
+  "chr1" ,     15 ,   20
 )
 
 test_that("jaccard coeff is calculated correctly", {
@@ -49,30 +47,28 @@ test_that("Test symmetry", {
 })
 
 test_that("Test jaccard with mixed strand files", {
-  # fmt: skip
   a <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 10L, 50L, "a1f", 2L, "+",
-    "chr1", 20L, 60L, "b1r", 4L, "-",
-    "chr1", 25L, 70L, "c1q", 8L, ".",
-    "chr1", 30L, 75L, "d1q", 16L, ".",
-    "chr1", 40L, 80L, "e1f", 32L, "+",
-    "chr1", 45L, 90L, "f1r", 64L, "-",
-    "chr2", 10L, 50L, "a2q", 2L, ".",
-    "chr2", 20L, 40L, "b2f", 4L, "+",
-    "chr2", 25L, 50L, "c2r", 8L, "-",
-    "chr2", 30L, 60L, "d2f", 16L, "+",
-    "chr2", 35L, 65L, "e2q", 32L, ".",
-    "chr2", 39L, 80L, "f2r", 64L, "-"
+    ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+    "chr1" , 10L    , 50L  , "a1f" ,  2L    , "+"     ,
+    "chr1" , 20L    , 60L  , "b1r" ,  4L    , "-"     ,
+    "chr1" , 25L    , 70L  , "c1q" ,  8L    , "."     ,
+    "chr1" , 30L    , 75L  , "d1q" , 16L    , "."     ,
+    "chr1" , 40L    , 80L  , "e1f" , 32L    , "+"     ,
+    "chr1" , 45L    , 90L  , "f1r" , 64L    , "-"     ,
+    "chr2" , 10L    , 50L  , "a2q" ,  2L    , "."     ,
+    "chr2" , 20L    , 40L  , "b2f" ,  4L    , "+"     ,
+    "chr2" , 25L    , 50L  , "c2r" ,  8L    , "-"     ,
+    "chr2" , 30L    , 60L  , "d2f" , 16L    , "+"     ,
+    "chr2" , 35L    , 65L  , "e2q" , 32L    , "."     ,
+    "chr2" , 39L    , 80L  , "f2r" , 64L    , "-"
   )
-  # fmt: skip
   b <- tibble::tribble(
-    ~chrom, ~start, ~end, ~name, ~score, ~strand,
-    "chr1", 10L, 50L, "2a1r", 2L, "-",
-    "chr1", 40L, 70L, "2b1q", 4L, ".",
-    "chr1", 60L, 100L, "2c1f", 8L, "+",
-    "chr2", 15L, 40L, "2d2f", 16L, "+",
-    "chr2", 30L, 100L, "2e2r", 32L, "-"
+    ~chrom , ~start , ~end , ~name  , ~score , ~strand ,
+    "chr1" , 10L    ,  50L , "2a1r" ,  2L    , "-"     ,
+    "chr1" , 40L    ,  70L , "2b1q" ,  4L    , "."     ,
+    "chr1" , 60L    , 100L , "2c1f" ,  8L    , "+"     ,
+    "chr2" , 15L    ,  40L , "2d2f" , 16L    , "+"     ,
+    "chr2" , 30L    , 100L , "2e2r" , 32L    , "-"
   )
   res <- bed_jaccard(a, b)
   expect_equal(res$len_i, 145)

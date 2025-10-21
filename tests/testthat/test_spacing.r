@@ -1,10 +1,9 @@
 test_that("start intervals are NA", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 1, 100,
-    "chr1", 150, 200,
-    "chr2", 200, 300
+    ~chrom , ~start , ~end ,
+    "chr1" ,      1 ,  100 ,
+    "chr1" ,    150 ,  200 ,
+    "chr2" ,    200 ,  300
   )
 
   res <- interval_spacing(x)
@@ -22,18 +21,17 @@ test_that("start intervals are NA", {
 
 # from bedtools2
 test_that("bt test succeeds", {
-  # fmt: skip
   x <- tibble::tribble(
-    ~chrom, ~start, ~end,
-    "chr1", 20, 30,
-    "chr1", 25, 40,
-    "chr1", 40, 50,
-    "chr1", 60, 80,
-    "chr1", 75, 100,
-    "chr1", 105, 110,
-    "chr2", 115, 130,
-    "chr2", 120, 160,
-    "chr2", 170, 180
+    ~chrom , ~start , ~end ,
+    "chr1" ,     20 ,   30 ,
+    "chr1" ,     25 ,   40 ,
+    "chr1" ,     40 ,   50 ,
+    "chr1" ,     60 ,   80 ,
+    "chr1" ,     75 ,  100 ,
+    "chr1" ,    105 ,  110 ,
+    "chr2" ,    115 ,  130 ,
+    "chr2" ,    120 ,  160 ,
+    "chr2" ,    170 ,  180
   )
 
   res <- interval_spacing(x)

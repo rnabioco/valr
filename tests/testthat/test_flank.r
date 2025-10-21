@@ -1,14 +1,12 @@
-# fmt: skip
 genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 5000
+  ~chrom , ~size ,
+  "chr1" ,  5000
 )
 
-# fmt: skip
 x <- tibble::tribble(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 500, 1000, ".", ".", "+",
-  "chr1", 1000, 1500, ".", ".", "-"
+  ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+  "chr1" ,    500 , 1000 , "."   , "."    , "+"     ,
+  "chr1" ,   1000 , 1500 , "."   , "."    , "-"
 )
 
 test_that("left arg works", {
@@ -169,17 +167,15 @@ test_that("intervals are not reported off of chromosomes", {
 })
 
 # from https://github.com/arq5x/bedtools2/blob/master/test/flank/test-flank.sh
-# fmt: skip
 tiny.genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 1000
+  ~chrom , ~size ,
+  "chr1" ,  1000
 )
 
-# fmt: skip
 a <- tibble::tribble(
-  ~chrom, ~start, ~end, ~name, ~score, ~strand,
-  "chr1", 100, 200, "a1", "1", "+",
-  "chr1", 100, 200, "a2", "2", "-"
+  ~chrom , ~start , ~end , ~name , ~score , ~strand ,
+  "chr1" ,    100 ,  200 , "a1"  , "1"    , "+"     ,
+  "chr1" ,    100 ,  200 , "a2"  , "2"    , "-"
 )
 
 test_that("test going beyond the start of the chrom", {
