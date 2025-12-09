@@ -72,7 +72,7 @@ test_that("default coverage works", {
     "chr2", 150, 200, 4, 25, "+", 7, 50, 50, 1.0000000,
     "chr2", 180, 230, 2, 25, "-", 6, 50, 50, 1.0000000
   )
-  res <- bed_coverage(a, b)
+  res <- bed_coverage(a, b, min_overlap = 0L)
   expect_true(all(res == pred))
 })
 
@@ -88,7 +88,11 @@ test_that("coverage of stranded tbls can be calc", {
     "chr2", 150, 200, 4, 25, "+", 3, 50, 50, 1.0000000,
     "chr2", 180, 230, 2, 25, "-", 4, 34, 50, 0.6800000
   )
-  res <- bed_coverage(group_by(a, strand), group_by(b, strand)) |>
+  res <- bed_coverage(
+    group_by(a, strand),
+    group_by(b, strand),
+    min_overlap = 0L
+  ) |>
     arrange(chrom, start)
   expect_true(all(res == pred))
 })
@@ -105,7 +109,11 @@ test_that(" strand_opp coverage works (strand_opp = TRUE)", {
     "chr2", 150, 200, 4, 25, "+", 4, 50, 50, 1.0000000,
     "chr2", 180, 230, 2, 25, "-", 2, 50, 50, 1.0000000
   )
-  res <- bed_coverage(group_by(a, strand), group_by(flip_strands(b), strand)) |>
+  res <- bed_coverage(
+    group_by(a, strand),
+    group_by(flip_strands(b), strand),
+    min_overlap = 0L
+  ) |>
     arrange(chrom, start)
   expect_true(all(res == pred))
 })
@@ -139,7 +147,7 @@ test_that("ensure that coverage is calculated with respect to input tbls issue#1
   y <- arrange(y, chrom, start)
   y <- group_by(y, group, chrom)
 
-  res <- bed_coverage(x, y)
+  res <- bed_coverage(x, y, min_overlap = 0L)
 
   # fmt: skip
   # fmt: skip
@@ -177,7 +185,7 @@ test_that("Test the last record in file with no overlaps is reported", {
     ~chrom, ~start, ~end,
     "chr1", 3, 15
   )
-  res <- bed_coverage(x, y)
+  res <- bed_coverage(x, y, min_overlap = 0L)
   expect_equal(res$.cov, c(7, 0, 0))
 })
 
@@ -188,7 +196,7 @@ test_that("Test that simple chr	0	100 works", {
     ~chrom, ~start, ~end,
     "chr1", 0, 100
   )
-  res <- bed_coverage(z, z)
+  res <- bed_coverage(z, z, min_overlap = 0L)
   expect_equal(nrow(res), 1)
 })
 
@@ -214,19 +222,62 @@ test_that("all input x intervals are returned, issue #395 ", {
     "chr2", 230,    430,  200,    "-",
     "chr2", 350,    430,  300,    "-"
   )
-  res <- bed_coverage(x, y)
+  res <- bed_coverage(x, y, min_overlap = 0L)
   expect_equal(nrow(res), nrow(x))
   expect_true("chr3" %in% res$chrom)
 
   x <- group_by(x, strand)
   y <- group_by(y, strand)
-  res <- bed_coverage(x, y)
+  res <- bed_coverage(x, y, min_overlap = 0L)
   expect_equal(nrow(res), nrow(x))
 
   gnome <- read_genome(valr_example("genome.txt.gz"))
   x <- bed_random(gnome[1:3, ], n = 1e5, seed = 10104)
   y <- bed_random(gnome[2:4, ], n = 1e5, seed = 10104)
-  res <- bed_coverage(x, y)
+  res <- bed_coverage(x, y, min_overlap = 0L)
   expect_true(identical(x[, 1:3], res[, 1:3]))
   expect_true(any(res$.frac > 0))
+})
+
+# Tests for min_overlap parameter (bedtools-compatible behavior)
+test_that("min_overlap = 1L excludes book-ended intervals in coverage", {
+  # Book-ended intervals: x ends exactly where y starts
+  x <- tibble::tribble(
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200
+  )
+  y <- tibble::tribble(
+    ~chrom , ~start , ~end ,
+    "chr1" ,    200 ,  300
+  )
+
+  # With min_overlap = 0L (legacy), book-ended interval counts as overlap
+  res_legacy <- bed_coverage(x, y, min_overlap = 0L)
+  expect_equal(res_legacy$.ints, 1)
+  expect_equal(res_legacy$.cov, 0) # 0bp coverage
+
+  # With min_overlap = 1L (bedtools), book-ended intervals are NOT overlapping
+  res_strict <- bed_coverage(x, y, min_overlap = 1L)
+  expect_equal(res_strict$.ints, 0)
+  expect_equal(res_strict$.cov, 0)
+})
+
+test_that("min_overlap = 1L works for actual overlaps in coverage", {
+  x <- tibble::tribble(
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200
+  )
+  y <- tibble::tribble(
+    ~chrom , ~start , ~end ,
+    "chr1" ,    150 ,  250
+  )
+
+  # Both should find the coverage
+  res_legacy <- bed_coverage(x, y, min_overlap = 0L)
+  res_strict <- bed_coverage(x, y, min_overlap = 1L)
+
+  expect_equal(res_legacy$.ints, 1)
+  expect_equal(res_strict$.ints, 1)
+  expect_equal(res_legacy$.cov, 50)
+  expect_equal(res_strict$.cov, 50)
 })

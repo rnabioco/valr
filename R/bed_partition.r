@@ -68,7 +68,7 @@ bed_partition <- function(x, ...) {
   groups <- rlang::syms(unique(c("chrom", groups_df)))
   x <- group_by(x, !!!groups)
 
-  res <- partition_impl(x)
+  res <- partition_impl(x, -1L)
 
   res <- tibble::as_tibble(res)
 

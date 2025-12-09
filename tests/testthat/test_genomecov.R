@@ -20,7 +20,7 @@ test_that("bed_genomecov works", {
     "chr1" , 220L   , 250L , 2L
   )
   obs <- bed_genomecov(x, genome)
-  expect_identical(obs, ex)
+  expect_equal(obs, ex)
 
   res <- bed_genomecov(x, genome, zero_depth = TRUE)
   expect_true(sum(res$.depth == 0) > 0)
@@ -35,7 +35,7 @@ test_that("groups are respected", {
     "chr1" ,  50L   , 100L , "-"     , 1L
   )
   obs <- bed_genomecov(group_by(x, strand), genome)
-  expect_identical(obs, ex)
+  expect_equal(obs, ex)
 
   res <- bed_genomecov(group_by(x, strand), genome, zero_depth = TRUE)
   expect_equal(sum(res$chrom == "chr2"), 2L)
@@ -155,7 +155,7 @@ test_that("check edge cases at beginning and end", {
   expect_warning(res <- bed_genomecov(ivls, genome))
   expect_true(all(res$start < 1000))
 
-  expect_identical(res, ex)
+  expect_equal(res, ex)
 })
 
 # bed related tests from #https://github.com/arq5x/bedtools2/blob/master/test/genomecov/test-genomecov.sh

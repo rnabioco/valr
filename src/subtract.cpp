@@ -1,64 +1,69 @@
 // subtract.cpp
 //
-// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2025 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
-#include "valr.h"
+#include <cpp11.hpp>
 
-void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
-                    std::vector<int>& indices_out,
-                    std::vector<int>& starts_out, std::vector<int>& ends_out) {
+#include <algorithm>
+#include <vector>
 
-  ivl_tree_t tree_y(std::move(vy)) ;
-  ivl_vector_t overlaps ;
-  IntervalStartSorter<int, int> ivl_sorter ;
+#include "valr/dataframe.hpp"
+#include "valr/intervals.hpp"
 
-  for (auto it : vx) {
+using namespace cpp11::literals;
 
+// Process subtraction for a single group
+void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<int>& indices_out,
+                    std::vector<double>& starts_out, std::vector<double>& ends_out,
+                    int min_overlap) {
+  valr::ivl_tree_t tree_y(std::move(vy));
+  valr::ivl_vector_t overlaps;
+
+  for (const auto& it : vx) {
     auto x_start = it.start;
     auto x_stop = it.stop;
 
-    overlaps = tree_y.findOverlapping(it.start, it.stop) ;
+    overlaps = tree_y.findOverlapping(it.start, it.stop, min_overlap);
 
     // compute number of overlaps
     int overlap_count = overlaps.size();
 
     // handle no overlaps and continue
     if (overlap_count == 0) {
-      indices_out.push_back(it.value) ;
-      starts_out.push_back(it.start) ;
-      ends_out.push_back(it.stop) ;
+      indices_out.push_back(it.value);
+      starts_out.push_back(it.start);
+      ends_out.push_back(it.stop);
       continue;
     }
 
-    // sort overlaps, as sort order not guaranteed
-    std::sort(overlaps.begin(), overlaps.end(), ivl_sorter) ;
+    // sort overlaps by start position
+    std::sort(overlaps.begin(), overlaps.end(), valr::IntervalStartCmp<int, int>());
 
-    // iterate through overlaps with current x  interval
+    // iterate through overlaps with current x interval
     // modifying start and stop as necessary
-    for (auto oit : overlaps) {
-
+    for (const auto& oit : overlaps) {
       auto y_start = oit.start;
       auto y_stop = oit.stop;
 
       if (x_start > x_stop) {
-        break ;
+        break;
       } else if (y_start <= x_start) {
         // advance x_start to end of y unless y is shorter than x
         if (x_start > y_stop) {
-          continue ;
+          continue;
         } else {
-          x_start = y_stop ;
-        };
+          x_start = y_stop;
+        }
       } else {
         // report new interval
-        indices_out.push_back(it.value) ;
-        starts_out.push_back(x_start) ;
-        ends_out.push_back(y_start) ;
+        indices_out.push_back(it.value);
+        starts_out.push_back(x_start);
+        ends_out.push_back(y_start);
         // advance to end of y ivl
         x_start = y_stop;
       }
@@ -66,70 +71,93 @@ void subtract_group(ivl_vector_t vx, ivl_vector_t vy,
 
     if (x_start < x_stop) {
       // report interval
-      indices_out.push_back(it.value) ;
-      starts_out.push_back(x_start) ;
-      ends_out.push_back(x_stop) ;
+      indices_out.push_back(it.value);
+      starts_out.push_back(x_start);
+      ends_out.push_back(x_stop);
     }
 
-    overlaps.clear() ;
+    overlaps.clear();
   }
 }
 
-//[[Rcpp::export]]
-DataFrame subtract_impl(ValrGroupedDataFrame gdf_x, ValrGroupedDataFrame gdf_y,
-                        IntegerVector x_grp_indexes,
-                        IntegerVector y_grp_indexes) {
+[[cpp11::register]]
+cpp11::writable::data_frame subtract_impl(cpp11::data_frame gdf_x, cpp11::data_frame gdf_y,
+                                          cpp11::integers x_grp_indexes,
+                                          cpp11::integers y_grp_indexes, int min_overlap) {
+  valr::GroupedDataFrame grouped_x(gdf_x);
+  valr::GroupedDataFrame grouped_y(gdf_y);
 
-  std::vector<std::string> chrom_out ;
-  std::vector<int> starts_out ;
-  std::vector<int> ends_out ;
+  cpp11::data_frame df_x = grouped_x.data();
+  cpp11::data_frame df_y = grouped_y.data();
 
-  DataFrame df_x = gdf_x.data() ;
-  DataFrame df_y = gdf_y.data() ;
+  // Output vectors
+  std::vector<int> indices_out;
+  std::vector<double> starts_out;
+  std::vector<double> ends_out;
 
-  // indices_to_report
-  std::vector<int> indices_out ;
+  // Get group indices lists
+  cpp11::list idx_x = grouped_x.indices();
+  cpp11::list idx_y = grouped_y.indices();
 
-  // set up interval trees for each chromosome and apply subtract_group
-  GroupApply(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, subtract_group, std::ref(indices_out), std::ref(starts_out), std::ref(ends_out));
+  int ng = x_grp_indexes.size();
 
-  // extract out x data, new intervals will be generated as copies of the parent interval
-  DataFrame out = subset_dataframe(df_x, indices_out) ;
+  // Iterate over shared groups
+  for (int i = 0; i < ng; i++) {
+    // Convert from R to C++ indexing
+    int shared_x_index = x_grp_indexes[i] - 1;
+    int shared_y_index = y_grp_indexes[i] - 1;
 
-  // assign new starts and ends
-  out["start"] = starts_out ;
-  out["end"] = ends_out ;
+    cpp11::integers gi_x(idx_x[shared_x_index]);
+    cpp11::integers gi_y(idx_y[shared_y_index]);
 
-  return out ;
+    if (gi_x.size() == 0 || gi_y.size() == 0) {
+      continue;
+    }
 
+    valr::ivl_vector_t vx = valr::makeIntervalVector(df_x, gi_x);
+    valr::ivl_vector_t vy = valr::makeIntervalVector(df_y, gi_y);
+
+    subtract_group(vx, vy, indices_out, starts_out, ends_out, min_overlap);
+  }
+
+  // Subset x dataframe by output indices
+  cpp11::writable::data_frame out = valr::subset_dataframe(df_x, indices_out);
+
+  // Get column names to find start/end positions
+  cpp11::strings col_names(out.attr("names"));
+  int ncol = out.size();
+  int nrow_out = starts_out.size();
+
+  // Build new start/end vectors
+  cpp11::writable::doubles new_starts(nrow_out);
+  cpp11::writable::doubles new_ends(nrow_out);
+
+  for (int i = 0; i < nrow_out; i++) {
+    new_starts[i] = starts_out[i];
+    new_ends[i] = ends_out[i];
+  }
+
+  // Build output list, replacing start/end columns
+  cpp11::writable::list out_list(ncol);
+  cpp11::writable::strings out_names(ncol);
+
+  for (int j = 0; j < ncol; j++) {
+    std::string name(col_names[j]);
+    out_names[j] = name;
+
+    if (name == "start") {
+      out_list[j] = new_starts;
+    } else if (name == "end") {
+      out_list[j] = new_ends;
+    } else {
+      out_list[j] = out[j];
+    }
+  }
+
+  // Set attributes for data frame
+  out_list.attr("names") = out_names;
+  out_list.attr("class") = "data.frame";
+  out_list.attr("row.names") = cpp11::writable::integers({NA_INTEGER, -nrow_out});
+
+  return cpp11::writable::data_frame(out_list);
 }
-
-/***R
-library(dplyr)
-library(valr)
-
-genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 1e6,
-  "chr2", 1e7
-)
-
-n <- 1e4
-x <- bed_random(genome, n = n) %>% bed_sort %>% group_by(chrom)
-y <- bed_random(genome, n = n) %>% bed_sort %>% group_by(chrom)
-
-subtract_impl(x, y) %>% as_data_frame()
-
-x <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 100,    200
-) %>% group_by(chrom)
-
-y <- tibble::tribble(
-  ~chrom, ~start, ~end,
-  "chr1", 1000,    2000
-) %>% group_by(chrom)
-
-subtract_impl(x, y)
-
-*/

@@ -63,10 +63,11 @@ bed_shuffle <- function(
   # defined is not evaluated explicitly, so is the default
   if (is.null(incl) && is.null(excl)) {
     incl <- genome_incl
+    # TODO: revisit when min_overlap default changes to 1L
   } else if (is.null(incl) && !is.null(excl)) {
-    incl <- bed_subtract(genome_incl, excl)
+    incl <- bed_subtract(genome_incl, excl, min_overlap = 0L)
   } else if (!is.null(incl) && !is.null(excl)) {
-    incl <- bed_subtract(incl, excl)
+    incl <- bed_subtract(incl, excl, min_overlap = 0L)
   }
 
   if (nrow(incl) == 0 || is.null(incl)) {

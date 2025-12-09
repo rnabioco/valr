@@ -1,159 +1,170 @@
 // merge.cpp
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2025 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
-#include "valr.h"
+#include <cpp11.hpp>
 
-DataFrame collapseMergedIntervals(const ValrGroupedDataFrame& gdf,
-                                  int max_dist = 0) {
+#include <vector>
 
-  auto ng = gdf.ngroups() ;
-  DataFrame df = gdf.data() ;
+#include "valr/dataframe.hpp"
+#include "valr/intervals.hpp"
 
-  ListView idx(gdf.indices()) ;
+using namespace cpp11::literals;
+
+cpp11::writable::data_frame collapseMergedIntervals(cpp11::data_frame gdf, int max_dist) {
+  valr::GroupedDataFrame grouped(gdf);
+  cpp11::data_frame df = grouped.data();
+
+  int ng = grouped.ngroups();
+  cpp11::list idx = grouped.indices();
 
   // approach from http://www.geeksforgeeks.org/merging-intervals/
-  std::vector<ivl_t> s ;
+  std::vector<valr::ivl_t> s;
+
   for (int i = 0; i < ng; i++) {
+    cpp11::integers indices(idx[i]);
 
-    IntegerVector indices ;
-    indices = idx[i];
-
-    ivl_vector_t intervals = makeIntervalVector(df, indices);
+    valr::ivl_vector_t intervals = valr::makeIntervalVector(df, indices);
 
     // set first interval
-    s.push_back(intervals[0]) ;
-    intervals.erase(intervals.begin()) ;
-    for (auto it : intervals) {
+    s.push_back(intervals[0]);
+    intervals.erase(intervals.begin());
 
-      auto top = s.back() ;
+    for (auto& it : intervals) {
+      auto top = s.back();
       if (top.stop + max_dist < it.start) {
         // no overlap push to stack
-        s.push_back(it) ;
-      }
-
-      else if (top.stop < it.stop) {
+        s.push_back(it);
+      } else if (top.stop < it.stop) {
         // overlaps and need to update stack top position
-        top.stop = it.stop ;
-        s.pop_back() ;
-        s.push_back(top) ;
+        top.stop = it.stop;
+        s.pop_back();
+        s.push_back(top);
       }
     }
   }
 
-  std::vector<int> indices_x ;
-  std::vector<int> group_starts ;
-  std::vector<int> group_ends ;
-  // interate through vector of merged intervals and write to dataframe
-  for (auto it : s) {
-    indices_x.push_back(it.value) ;
-    group_starts.push_back(it.start) ;
-    group_ends.push_back(it.stop) ;
+  std::vector<int> indices_x;
+  std::vector<double> group_starts;
+  std::vector<double> group_ends;
+
+  // iterate through vector of merged intervals and write to dataframe
+  for (auto& it : s) {
+    indices_x.push_back(it.value);
+    group_starts.push_back(it.start);
+    group_ends.push_back(it.stop);
   }
 
-  DataFrame subset_x = subset_dataframe(df, indices_x) ;
+  cpp11::writable::data_frame subset_x = valr::subset_dataframe(df, indices_x);
 
-  subset_x["start"] = group_starts ;
-  subset_x["end"] = group_ends ;
-  return subset_x ;
+  // Get column names to find start/end positions
+  cpp11::strings col_names(subset_x.attr("names"));
+  int ncol = subset_x.size();
+  int nrow_out = group_starts.size();
+
+  // Build output vectors
+  cpp11::writable::doubles new_starts(nrow_out);
+  cpp11::writable::doubles new_ends(nrow_out);
+
+  for (int i = 0; i < nrow_out; i++) {
+    new_starts[i] = group_starts[i];
+    new_ends[i] = group_ends[i];
+  }
+
+  // Build output list, replacing start/end columns
+  cpp11::writable::list out_list(ncol);
+  cpp11::writable::strings out_names(ncol);
+
+  for (int j = 0; j < ncol; j++) {
+    std::string name(col_names[j]);
+    out_names[j] = name;
+
+    if (name == "start") {
+      out_list[j] = new_starts;
+    } else if (name == "end") {
+      out_list[j] = new_ends;
+    } else {
+      out_list[j] = subset_x[j];
+    }
+  }
+
+  // Set attributes for data frame
+  out_list.attr("names") = out_names;
+  out_list.attr("class") = "data.frame";
+  out_list.attr("row.names") = cpp11::writable::integers({NA_INTEGER, -nrow_out});
+
+  return cpp11::writable::data_frame(out_list);
 }
 
-DataFrame clusterMergedIntervals(const ValrGroupedDataFrame& gdf,
-                                 int max_dist = 0) {
+cpp11::writable::data_frame clusterMergedIntervals(cpp11::data_frame gdf, int max_dist) {
+  valr::GroupedDataFrame grouped(gdf);
+  cpp11::data_frame df = grouped.data();
 
-  auto ng = gdf.ngroups() ;
-  DataFrame df = gdf.data() ;
+  int ng = grouped.ngroups();
+  int nr = grouped.nrows();
 
-  auto nr = df.nrows() ;
+  cpp11::writable::integers ids(nr);
+  int cluster_id = 0;
 
-  IntegerVector ids(nr) ;      // store ids
-  std::size_t cluster_id = 0;  // counter for cluster id
-
-  ListView idx(gdf.indices()) ;
+  cpp11::list idx = grouped.indices();
 
   for (int i = 0; i < ng; i++) {
-
-    IntegerVector indices ;
-    indices = idx[i];
+    cpp11::integers indices(idx[i]);
     int ni = indices.size();
 
-    ivl_vector_t intervals = makeIntervalVector(df, indices);
+    valr::ivl_vector_t intervals = valr::makeIntervalVector(df, indices);
 
     // store an interval to ensure first interval maintained
-    ivl_t last_interval = ivl_t(0, 0, 0) ;
-    ivl_t top = last_interval;
+    valr::ivl_t last_interval(0, 0, 0);
+    valr::ivl_t top = last_interval;
 
-    for (int j = 0; j < ni ; j++) {
-      ivl_t it = intervals[j];
+    for (int j = 0; j < ni; j++) {
+      valr::ivl_t it = intervals[j];
       // get index to store cluster ids in vector
-      auto idx = it.value ;
-      last_interval = it ; // set interval to compare
+      int row_idx = it.value;
+      last_interval = it;  // set interval to compare
 
-      if ( j == 0 || top.stop + max_dist < it.start) {
+      if (j == 0 || top.stop + max_dist < it.start) {
         // no overlap, update interval and cluster id
-        top = it ;
-        cluster_id++ ;
-        ids[idx] = cluster_id ;
+        top = it;
+        cluster_id++;
+        ids[row_idx] = cluster_id;
       } else {
         // overlaps or contained in stack top ivl
-        if(it.stop > top.stop){
-          top.stop = it.stop ; // update end position
+        if (it.stop > top.stop) {
+          top.stop = it.stop;  // update end position
         }
-        ids[idx] = cluster_id ;
+        ids[row_idx] = cluster_id;
       }
     }
   }
 
-  DataFrameBuilder out;
-  // x names, data
-  out.add_df(df, false) ;
+  // Build output using DataFrameBuilder
+  valr::DataFrameBuilder out;
 
-  // ids
+  // Add all columns from df (don't drop chrom)
+  out.add_df(df, "", false);
+
+  // Add ids column
   out.names.push_back(".id_merge");
   out.data.push_back(ids);
 
-  auto nrows = df.nrows() ;
-  auto res = out.format_df(nrows) ;
-  return res ;
-
+  return out.build(nr);
 }
 
-//[[Rcpp::export]]
-DataFrame merge_impl(ValrGroupedDataFrame gdf,
-                     int max_dist = 0,
-                     bool collapse = true) {
-
+[[cpp11::register]]
+cpp11::writable::data_frame merge_impl(cpp11::data_frame gdf, int max_dist = 0,
+                                       bool collapse = true) {
   if (!collapse) {
     // return a cluster id per input interval
-    DataFrame out = clusterMergedIntervals(gdf, max_dist) ;
-    return out ;
+    return clusterMergedIntervals(gdf, max_dist);
   } else {
     // return only merged intervals
-    DataFrame out = collapseMergedIntervals(gdf, max_dist) ;
-    return out ;
+    return collapseMergedIntervals(gdf, max_dist);
   }
 }
-
-/*** R
-  library(dplyr)
-  bed_tbl <- tibble::tribble(
-    ~chrom, ~start, ~end, ~value,
-    "chr1", 1,      50,   1,
-    "chr1", 100,    200,  2,
-    "chr1", 150,    250,  3,
-    "chr1", 175,    225,  3.5,
-    "chr2", 1,      25,   4,
-    "chr2", 200,    400,  5,
-    "chr2", 400,    500,  6,
-    "chr2", 450,    550,  7,
-    "chr3", 450,    550,  8,
-    "chr3", 500,    600,  9
-  ) %>% group_by(chrom)
-
-  merge_impl(bed_tbl)
-*/

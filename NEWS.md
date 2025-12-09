@@ -1,5 +1,15 @@
 # valr (development version)
 
+## Breaking changes
+
+* Added `min_overlap` parameter to `bed_intersect()`, `bed_subtract()`, `bed_coverage()`, and `bed_map()`. The default `min_overlap = 1L` aligns with bedtools behavior where book-ended (adjacent) intervals are **not** considered overlapping. Use `min_overlap = 0L` to preserve the previous valr behavior where book-ended intervals were treated as overlapping. Currently, calling these functions without an explicit `min_overlap` value will emit a deprecation warning and use the legacy behavior (`min_overlap = 0L`). In a future release, the default will change to `min_overlap = 1L`, so users should update their code to explicitly specify the desired behavior.
+
+## Major changes
+
+* Migrated C++ backend from Rcpp to cpp11. This modernizes the codebase and removes the Rcpp dependency. All interval operations maintain identical behavior.
+
+## Minor changes
+
 * Eliminated all global variable dependencies by replacing bare column names with explicit `.data[["column"]]` syntax in data manipulation operations and `all_of()` in column selection operations.
 
 * Fixed `bed_makewindows()` step size calculation when `step_size` parameter is used. Previously, overlapping windows stepped by `win_size - step_size` instead of the specified `step_size` (#438).

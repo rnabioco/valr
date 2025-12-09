@@ -61,6 +61,7 @@ bed_absdist <- function(x, y, genome) {
 
   grp_indexes <- shared_group_indexes(x, y)
   res <- dist_impl(x, y, grp_indexes$x, grp_indexes$y, distcalc = "absdist")
+  res <- tibble::as_tibble(res)
 
   # convert groups_xy to character vector
   if (!is.null(groups_xy)) {

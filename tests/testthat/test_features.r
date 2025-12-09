@@ -20,7 +20,7 @@ test_that("introns and exons don't overlap", {
   expect_equal(
     nrow(
       introns |>
-        bed_subtract(x)
+        bed_subtract(x, min_overlap = 0L)
     ),
     0
   )

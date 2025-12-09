@@ -1,115 +1,93 @@
 // complement.cpp
 //
-// Copyright (C) 2016 - 2017 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2025 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
-#include "valr.h"
+#include <cpp11.hpp>
 
-//[[Rcpp::export]]
-DataFrame complement_impl(ValrGroupedDataFrame gdf, DataFrame genome) {
+#include <string>
+#include <vector>
 
-  genome_map_t chrom_sizes = makeChromSizes(genome) ;
+#include "valr/dataframe.hpp"
+#include "valr/genome.hpp"
 
-  DataFrame df = gdf.data() ;
+using namespace cpp11::literals;
 
-  IntegerVector starts = df["start"] ;
-  IntegerVector ends = df["end"] ;
-  CharacterVector chroms = df["chrom"] ;
+[[cpp11::register]]
+cpp11::writable::data_frame complement_impl(cpp11::data_frame gdf, cpp11::data_frame genome) {
+  valr::genome_map_t chrom_sizes = valr::make_genome_map(genome);
 
-  std::vector<std::string> chroms_out ;
-  std::vector<int> starts_out ;
-  std::vector<int> ends_out ;
+  valr::GroupedDataFrame grouped(gdf);
+  cpp11::data_frame df = grouped.data();
 
-  int ngroups = gdf.ngroups() ;
-  ListView idx(gdf.indices()) ;
+  cpp11::doubles starts = df["start"];
+  cpp11::doubles ends = df["end"];
+  cpp11::strings chroms = df["chrom"];
+
+  std::vector<std::string> chroms_out;
+  std::vector<double> starts_out;
+  std::vector<double> ends_out;
+
+  int ngroups = grouped.ngroups();
+  cpp11::list idx = grouped.indices();
 
   for (int i = 0; i < ngroups; ++i) {
+    cpp11::integers indices(idx[i]);
+    int ni = indices.size();
 
-    IntegerVector indices ;
-    indices = idx[i];
-    int ni = indices.size() ;
+    double start, end;
+    double last_end = 1;
 
-    int start, end ;
-    int last_end = 1 ;
-
-    // get chrom from first index
-    auto chrom = as<std::string>(chroms[indices[0] - 1]) ;
+    // Get chrom from first index (indices are 1-based from R)
+    std::string chrom(chroms[indices[0] - 1]);
 
     for (int j = 0; j < ni; ++j) {
-
-      start = starts[indices[j] - 1] ;
-      end = ends[indices[j] - 1] ;
+      int row_idx = indices[j] - 1;  // Convert to 0-based
+      start = starts[row_idx];
+      end = ends[row_idx];
 
       if (j == 0) {
         if (start == 0) {
-          last_end = end ;
-          continue ;
+          last_end = end;
+          continue;
         } else {
-          chroms_out.push_back(chrom) ;
-          starts_out.push_back(0) ;
-          ends_out.push_back(start) ;
+          chroms_out.push_back(chrom);
+          starts_out.push_back(0);
+          ends_out.push_back(start);
         }
       } else {
-        chroms_out.push_back(chrom) ;
-        starts_out.push_back(last_end) ;
-        ends_out.push_back(start) ;
+        chroms_out.push_back(chrom);
+        starts_out.push_back(last_end);
+        ends_out.push_back(start);
       }
 
       last_end = end;
     }
 
-    auto chrom_size = chrom_sizes[chrom] ;
+    double chrom_size = chrom_sizes[chrom];
 
     if (last_end < chrom_size) {
-      chroms_out.push_back(chrom) ;
-      starts_out.push_back(last_end) ;
-      ends_out.push_back(chrom_size) ;
+      chroms_out.push_back(chrom);
+      starts_out.push_back(last_end);
+      ends_out.push_back(chrom_size);
     }
   }
 
-  return DataFrame::create(_("chrom") = chroms_out,
-                           _("start") = starts_out,
-                           _("end") = ends_out,
-                           _("stringsAsFactors") = false) ;
+  int nrow_out = chroms_out.size();
+  cpp11::writable::strings out_chroms(nrow_out);
+  cpp11::writable::doubles out_starts(nrow_out);
+  cpp11::writable::doubles out_ends(nrow_out);
+
+  for (int i = 0; i < nrow_out; ++i) {
+    out_chroms[i] = chroms_out[i];
+    out_starts[i] = starts_out[i];
+    out_ends[i] = ends_out[i];
+  }
+
+  return cpp11::writable::data_frame(
+      {"chrom"_nm = out_chroms, "start"_nm = out_starts, "end"_nm = out_ends});
 }
-
-/***R
-library(dplyr)
-library(valr)
-genome <- tibble::tribble(
-   ~chrom,  ~size,
-   "chr1", 500,
-   "chr2", 600,
-   "chr3", 800
-)
-
-x <- tibble::tribble(
-   ~chrom, ~start, ~end,
-   "chr1", 100,    300,
-   "chr1", 200,    400,
-   "chr2", 1,      100,
-   "chr2", 200,    400,
-   "chr3", 500,    600
-) %>% group_by(chrom)
-
-# intervals not covered by x
-x <- bed_merge(x) %>% group_by(chrom)
-
-complement_impl(x, genome)
-
-genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 100
-)
-bed <- tibble::tribble(
-  ~chrom,   ~start,    ~end,
-  "chr1",        1,      20
-) %>% group_by(chrom)
-
-complement_impl(bed, genome)
-
-*/

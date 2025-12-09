@@ -1,85 +1,81 @@
 // random.cpp
 //
-// Copyright (C) 2016 - 2018 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2025 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
-#include "valr.h"
+#include "valr/random.hpp"
 
-// [[Rcpp::export]]
-DataFrame random_impl(DataFrame genome, int length, int n, int seed = 0) {
+#include <cpp11.hpp>
+#include <cpp11/R.hpp>
 
-  CharacterVector chroms = genome["chrom"] ;
-  NumericVector sizes = genome["size"] ;
+#include <Rmath.h>
 
-  int nchrom = chroms.size() ;
+#include <cmath>
+#include <numeric>
+#include <vector>
 
-  if (seed == 0)
-    seed = round(R::runif(0, RAND_MAX)) ;
+using namespace cpp11::literals;
 
-  // seed the generator
-  auto generator = ENGINE(seed) ;
+[[cpp11::register]]
+cpp11::writable::data_frame random_impl(cpp11::data_frame genome, double length, int n,
+                                        int seed = 0) {
+  cpp11::strings chroms = genome["chrom"];
+  cpp11::doubles sizes = genome["size"];
 
-  // calculate weights for chrom distribution
-  float mass = sum(sizes) ;
-  NumericVector weights = sizes / mass ;
+  int nchrom = chroms.size();
 
-  Range chromidx(0, nchrom) ;
-  PCONST_DIST chrom_dist(chromidx.begin(), chromidx.end(), weights.begin()) ;
+  if (seed == 0) {
+    seed = static_cast<int>(std::round(::Rf_runif(0, RAND_MAX)));
+  }
 
-  // make and store a DIST for each chrom size
-  std::vector< UINT_DIST > size_rngs ;
+  // Seed the generator
+  valr::Engine generator(seed);
+
+  // Calculate weights for chrom distribution
+  double mass = std::accumulate(sizes.begin(), sizes.end(), 0.0);
+
+  std::vector<double> weights(nchrom);
+  for (int i = 0; i < nchrom; ++i) {
+    weights[i] = sizes[i] / mass;
+  }
+
+  std::vector<int> chromidx(nchrom);
+  std::iota(chromidx.begin(), chromidx.end(), 0);
+
+  valr::PiecewiseConstDist chrom_dist(chromidx.begin(), chromidx.end(), weights.begin());
+
+  // Make and store a distribution for each chrom size
+  std::vector<valr::UniformIntDist> size_rngs;
+  size_rngs.reserve(nchrom);
 
   for (int i = 0; i < nchrom; ++i) {
-
-    auto size = sizes[i] ;
-    // sub length to avoid off-chrom coordinates
-    UINT_DIST size_dist(0, size - length) ;
-    size_rngs.push_back(size_dist) ;
+    double size = sizes[i];
+    // Sub length to avoid off-chrom coordinates
+    valr::UniformIntDist size_dist(0, static_cast<int>(size - length));
+    size_rngs.push_back(size_dist);
   }
 
-  CharacterVector rand_chroms(n) ;
-  IntegerVector rand_starts(n) ;
+  cpp11::writable::strings rand_chroms(n);
+  cpp11::writable::doubles rand_starts(n);
 
   for (int i = 0; i < n; ++i) {
+    int chrom_idx = static_cast<int>(chrom_dist(generator));
+    rand_chroms[i] = chroms[chrom_idx];
 
-    auto chrom_idx = chrom_dist(generator) ;
-    rand_chroms[i] = chroms[chrom_idx] ;
-
-    UINT_DIST size_dist = size_rngs[chrom_idx] ;
-
-    auto rand_start = size_dist(generator) ;
-    rand_starts[i] = rand_start ;
+    valr::UniformIntDist size_dist = size_rngs[chrom_idx];
+    double rand_start = size_dist(generator);
+    rand_starts[i] = rand_start;
   }
 
-  IntegerVector rand_ends = rand_starts + length ;
+  cpp11::writable::doubles rand_ends(n);
+  for (int i = 0; i < n; ++i) {
+    rand_ends[i] = rand_starts[i] + length;
+  }
 
-  return DataFrame::create(_("chrom") = rand_chroms,
-                           _("start") = rand_starts,
-                           _("end") = rand_ends,
-                           _("stringsAsFactors") = false) ;
-
+  return cpp11::writable::data_frame(
+      {"chrom"_nm = rand_chroms, "start"_nm = rand_starts, "end"_nm = rand_ends});
 }
-
-/***R
-library(dplyr)
-genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 191822,
-  "chr2", 17127713,
-  "chr3", 11923987
-)
-
-# show chrom disribution
-random_impl(genome, length = 1000, n = 1e6, seed = 0) %>%
-  group_by(chrom) %>% summarize(n = n())
-
-library(microbenchmark)
-microbenchmark(
-  random_impl(genome, length = 1000, n = 1e6, seed = 0),
-  times = 10
-)
-*/

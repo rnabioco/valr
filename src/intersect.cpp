@@ -1,150 +1,156 @@
 // intersect.cpp
 //
-// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2025 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
-#include "valr.h"
+#include <cpp11.hpp>
 
-void unmatched_groups(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
-                      std::vector<int>& indices_x,
-                      std::vector<int>& indices_y,
-                      std::vector<int>& overlap_sizes) {
+#include <string>
+#include <vector>
 
-  auto data_x = x.data() ;
-  auto data_y = y.data() ;
+#include "valr/dataframe.hpp"
+#include "valr/intervals.hpp"
 
-  auto ng_x = x.ngroups() ;
-  auto ng_y = y.ngroups() ;
+using namespace cpp11::literals;
 
-  DataFrame labels_x = x.group_data() ;
-  DataFrame labels_y = y.group_data() ;
-
-  ListView idx_x(x.indices()) ;
-
-  for (int nx = 0; nx < ng_x; nx++) {
-
-    IntegerVector gi_x ;
-    gi_x = idx_x[nx];
-
-    bool match = true ;
-
-    for (int ny = 0; ny < ng_y; ny++) {
-      match = compare_rows(labels_x, labels_y, nx, ny);
-      if (match) break ;
-    }
-
-    if (match) continue ;
-
-    for (int i = 0; i < gi_x.size(); i++) {
-      indices_x.push_back(gi_x[i] - 1) ;
-      indices_y.push_back(NA_INTEGER) ;
-      overlap_sizes.push_back(NA_INTEGER) ;
-    }
-  }
-}
-
-void intersect_group(ivl_vector_t vx, ivl_vector_t vy,
-                     std::vector<int>& indices_x, std::vector<int>& indices_y,
-                     std::vector<int>& overlap_sizes, bool invert = false) {
-
+void intersect_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<int>& indices_x,
+                     std::vector<int>& indices_y, std::vector<int>& overlap_sizes, bool invert,
+                     int min_overlap) {
   // do not call vy after std::move
-  ivl_tree_t tree_y(std::move(vy)) ;
-  ivl_vector_t overlaps ;
+  valr::ivl_tree_t tree_y(std::move(vy));
+  valr::ivl_vector_t overlaps;
 
-  for (auto it : vx) {
-
-    overlaps = tree_y.findOverlapping(it.start, it.stop) ;
+  for (const auto& it : vx) {
+    overlaps = tree_y.findOverlapping(it.start, it.stop, min_overlap);
 
     if (overlaps.empty() && invert) {
-      indices_x.push_back(it.value) ;
+      indices_x.push_back(it.value);
       // store empty placeholder
-      indices_y.push_back(NA_INTEGER) ;
-      overlap_sizes.push_back(NA_INTEGER) ;
+      indices_y.push_back(NA_INTEGER);
+      overlap_sizes.push_back(NA_INTEGER);
     }
 
     // store current intervals
-    for (auto oit : overlaps) {
+    for (const auto& oit : overlaps) {
+      int overlap_size = valr::intervalOverlap(it, oit);
+      overlap_sizes.push_back(overlap_size);
 
-      int overlap_size = intervalOverlap(it, oit) ;
-      overlap_sizes.push_back(overlap_size) ;
-
-      indices_x.push_back(it.value) ;
-      indices_y.push_back(oit.value) ;
+      indices_x.push_back(it.value);
+      indices_y.push_back(oit.value);
     }
 
-    overlaps.clear() ;
+    overlaps.clear();
   }
 }
 
+// Find x intervals in groups not present in y
+void unmatched_groups(valr::GroupedDataFrame& grouped_x, valr::GroupedDataFrame& grouped_y,
+                      std::vector<int>& indices_x, std::vector<int>& indices_y,
+                      std::vector<int>& overlap_sizes) {
+  int ng_x = grouped_x.ngroups();
+  int ng_y = grouped_y.ngroups();
 
-// [[Rcpp::export]]
-DataFrame intersect_impl(ValrGroupedDataFrame x, ValrGroupedDataFrame y,
-                         IntegerVector x_grp_indexes,
-                         IntegerVector y_grp_indexes,
-                         bool invert = false,
-                         const std::string& suffix_x = ".x",
-                         const std::string& suffix_y = ".y") {
+  cpp11::data_frame labels_x = grouped_x.group_data();
+  cpp11::data_frame labels_y = grouped_y.group_data();
+
+  cpp11::list idx_x = grouped_x.indices();
+
+  for (int nx = 0; nx < ng_x; nx++) {
+    cpp11::integers gi_x(idx_x[nx]);
+
+    bool match = false;
+
+    for (int ny = 0; ny < ng_y; ny++) {
+      match = valr::compare_rows(labels_x, labels_y, nx, ny);
+      if (match)
+        break;
+    }
+
+    if (match)
+      continue;
+
+    for (int i = 0; i < gi_x.size(); i++) {
+      indices_x.push_back(gi_x[i] - 1);
+      indices_y.push_back(NA_INTEGER);
+      overlap_sizes.push_back(NA_INTEGER);
+    }
+  }
+}
+
+[[cpp11::register]]
+cpp11::writable::data_frame intersect_impl(cpp11::data_frame gdf_x, cpp11::data_frame gdf_y,
+                                           cpp11::integers x_grp_indexes,
+                                           cpp11::integers y_grp_indexes, bool invert,
+                                           std::string suffix_x, std::string suffix_y,
+                                           int min_overlap) {
+  valr::GroupedDataFrame grouped_x(gdf_x);
+  valr::GroupedDataFrame grouped_y(gdf_y);
+
+  cpp11::data_frame df_x = grouped_x.data();
+  cpp11::data_frame df_y = grouped_y.data();
 
   // indices for subsetting
-  std::vector<int> indices_x ;
-  std::vector<int> indices_y ;
+  std::vector<int> indices_x;
+  std::vector<int> indices_y;
 
   // overlap sizes
-  std::vector<int> overlap_sizes ;
-
-  auto data_x = x.data() ;
-  auto data_y = y.data() ;
+  std::vector<int> overlap_sizes;
 
   // find unmatched x intervals
   if (invert) {
-    unmatched_groups(x, y, indices_x, indices_y, overlap_sizes) ;
+    unmatched_groups(grouped_x, grouped_y, indices_x, indices_y, overlap_sizes);
   }
 
-  // set up interval trees for each chromosome and apply intersect_group
-  GroupApply(x, y, x_grp_indexes, y_grp_indexes, intersect_group,
-             std::ref(indices_x), std::ref(indices_y),
-             std::ref(overlap_sizes), invert);
+  // Get group indices lists
+  cpp11::list idx_x = grouped_x.indices();
+  cpp11::list idx_y = grouped_y.indices();
 
-  DataFrame subset_x = subset_dataframe(data_x, indices_x) ;
-  DataFrame subset_y = subset_dataframe(data_y, indices_y) ;
+  int ng = x_grp_indexes.size();
 
-  DataFrameBuilder out;
-  // x names, data
-  out.add_df(subset_x, suffix_x, false) ;
+  // Iterate over shared groups
+  for (int i = 0; i < ng; i++) {
+    // Convert from R to C++ indexing
+    int shared_x_index = x_grp_indexes[i] - 1;
+    int shared_y_index = y_grp_indexes[i] - 1;
 
-  // y names, data
-  out.add_df(subset_y, suffix_y, true) ;
+    cpp11::integers gi_x(idx_x[shared_x_index]);
+    cpp11::integers gi_y(idx_y[shared_y_index]);
+
+    if (gi_x.size() == 0 || gi_y.size() == 0) {
+      continue;
+    }
+
+    valr::ivl_vector_t vx = valr::makeIntervalVector(df_x, gi_x);
+    valr::ivl_vector_t vy = valr::makeIntervalVector(df_y, gi_y);
+
+    intersect_group(vx, vy, indices_x, indices_y, overlap_sizes, invert, min_overlap);
+  }
+
+  // Subset dataframes by output indices
+  cpp11::writable::data_frame subset_x = valr::subset_dataframe(df_x, indices_x);
+  cpp11::writable::data_frame subset_y = valr::subset_dataframe(df_y, indices_y);
+
+  // Build output using DataFrameBuilder
+  valr::DataFrameBuilder out;
+
+  // x names, data (don't drop chrom)
+  out.add_df(subset_x, suffix_x, false);
+
+  // y names, data (drop chrom)
+  out.add_df(subset_y, suffix_y, true);
 
   // overlaps
   out.names.push_back(".overlap");
-  out.data.push_back(overlap_sizes);
+  cpp11::writable::integers overlap_vec(overlap_sizes.size());
+  for (size_t i = 0; i < overlap_sizes.size(); ++i) {
+    overlap_vec[i] = overlap_sizes[i];
+  }
+  out.data.push_back(overlap_vec);
 
-  auto nrows = subset_x.nrows() ;
-  auto res = out.format_df(nrows) ;
-  return res ;
-
+  int nrows = indices_x.size();
+  return out.build(nrows);
 }
-
-/***R
-library(valr)
-library(dplyr)
-
-genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 1e6,
-  "chr2", 1e7
-)
-
-n <- 1e5
-x <- bed_random(genome, n = n) %>% bed_sort %>% group_by(chrom)
-y <- bed_random(genome, n = n) %>% bed_sort %>% group_by(chrom)
-
-library(microbenchmark)
-microbenchmark(
-  intersect_impl(x, y)
-)
-*/

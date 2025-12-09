@@ -52,6 +52,7 @@ bed_cluster <- function(x, max_dist = 0) {
   res <- bed_sort(res)
 
   res <- merge_impl(res, max_dist, collapse = FALSE)
+  res <- tibble::as_tibble(res)
 
   res <- mutate(res, .id = .data[[".id_merge"]])
   res <- select(res, !!quo(-one_of(".id_merge")))

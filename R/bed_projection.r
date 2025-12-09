@@ -61,7 +61,8 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   y <- bed_merge(y)
 
   # count overlaps per chromosome,
-  obs_counts <- bed_intersect(x, y)
+  # TODO: revisit when min_overlap default changes to 1L
+  obs_counts <- bed_intersect(x, y, min_overlap = 0L)
 
   # count overlaps
   obs_counts <- group_by(obs_counts, .data[["chrom"]])

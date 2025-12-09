@@ -5,15 +5,15 @@
 #' output columns will be suffixed with `.x` and `.y`. Expressions that refer to
 #' input columns from `x` and `y` columns must take these suffixes into account.
 #'
-#' Book-ended intervals can be included by setting `min_overlap = 0`.
-#'
 #' Non-intersecting intervals from `x` are included in the result with `NA`
 #' values.
 #'
 #' @param x [ivl_df]
 #' @param y  [ivl_df]
 #' @param ... name-value pairs specifying column names and expressions to apply
-#' @param min_overlap minimum overlap for intervals.
+#' @param min_overlap minimum overlap in base pairs required for mapping.
+#'   Default is `1`, meaning book-ended intervals (touching but not overlapping)
+#'   are not included. Set to `0` to include book-ended intervals.
 #'
 #' @template groups
 #'
@@ -27,7 +27,7 @@
 #' @example inst/example/bed_map.r
 #'
 #' @export
-bed_map <- function(x, y, ..., min_overlap = 1) {
+bed_map <- function(x, y, ..., min_overlap = 1L) {
   check_required(x)
   check_required(y)
 
@@ -70,8 +70,10 @@ bed_map <- function(x, y, ..., min_overlap = 1) {
     grp_indexes$y,
     invert = TRUE,
     suffix_x = ".x",
-    suffix_y = ""
+    suffix_y = "",
+    min_overlap = min_overlap
   )
+  res <- tibble::as_tibble(res)
 
   ## filter for rows that don't intersect. The `duplicated` call is required
   ## because book-ended intervals in the intersect_impl result can

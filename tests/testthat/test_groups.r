@@ -14,8 +14,8 @@ test_that("mismatched groups are dropped by two table verbs", {
   expect_equal(res1, res2)
   expect_equal(nrow(res1), 26)
 
-  res1 <- bed_intersect(x, y_grpd)
-  res2 <- bed_intersect(x_grpd, y)
+  res1 <- bed_intersect(x, y_grpd, min_overlap = 0L)
+  res2 <- bed_intersect(x_grpd, y, min_overlap = 0L)
   expect_equal(res1, res2)
   expect_equal(nrow(res1), 16)
 
@@ -24,8 +24,8 @@ test_that("mismatched groups are dropped by two table verbs", {
   expect_equal(res1, res2)
   expect_equal(nrow(res1), 10)
 
-  res1 <- bed_subtract(x, y_grpd)
-  res2 <- bed_subtract(x_grpd, y)
+  res1 <- bed_subtract(x, y_grpd, min_overlap = 0L)
+  res2 <- bed_subtract(x_grpd, y, min_overlap = 0L)
   expect_equal(res1, res2)
   expect_equal(nrow(res1), 0)
 

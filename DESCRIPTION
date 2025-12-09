@@ -26,7 +26,6 @@ Imports:
     dplyr (>= 0.8.0),
     ggplot2,
     lifecycle,
-    Rcpp (>= 1.0.0),
     readr,
     rlang,
     stringr,
@@ -52,7 +51,7 @@ Suggests:
     tidyr
 biocViews:
 LinkingTo:
-    Rcpp (>= 1.0.0)
+    cpp11
 VignetteBuilder:
     knitr
 Encoding: UTF-8

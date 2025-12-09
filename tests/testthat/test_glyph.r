@@ -29,7 +29,10 @@ b <- tibble::tribble(
 )
 
 test_that("expr arguments do not need to be x and/or y", {
-  expect_doppelganger("intersect glyph is ok", bed_glyph(bed_intersect(a, b)))
+  expect_doppelganger(
+    "intersect glyph is ok",
+    bed_glyph(bed_intersect(a, b, min_overlap = 0L))
+  )
 })
 
 genome <- tibble::tribble(
@@ -39,5 +42,5 @@ genome <- tibble::tribble(
 
 x <- bed_random(genome, n = 101)
 test_that("exceeding max intervals throws an error", {
-  expect_error(bed_glyph(bed_intersect(x, x)))
+  expect_error(bed_glyph(bed_intersect(x, x, min_overlap = 0L)))
 })
