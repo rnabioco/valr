@@ -2,10 +2,10 @@
 
 ## Authors
 
-- **[Jay Hesselberth](https://hesselberthlab.org)**. Author.
+- **[Jay Hesselberth](https://hesselberthlab.org)**. Author, maintainer.
   [](https://orcid.org/0000-0002-6299-179X)
 
-- **[Kent Riemondy](http://github.com/kriemo)**. Author, maintainer.
+- **[Kent Riemondy](http://github.com/kriemo)**. Author.
   [](https://orcid.org/0000-0003-0750-1273)
 
 - **[RNA Bioscience Initiative](https://medschool.cuanschutz.edu/rbi)**.
