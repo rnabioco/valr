@@ -8,6 +8,10 @@ complement_impl <- function(gdf, genome) {
   .Call(`_valr_complement_impl`, gdf, genome)
 }
 
+dist_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, distcalc) {
+  .Call(`_valr_dist_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, distcalc)
+}
+
 flank_impl <- function(df, genome, both, left, right, fraction, stranded, trim) {
   .Call(`_valr_flank_impl`, df, genome, both, left, right, fraction, stranded, trim)
 }
@@ -20,6 +24,18 @@ makewindows_impl <- function(df, win_size, num_win, step_size, reverse) {
   .Call(`_valr_makewindows_impl`, df, win_size, num_win, step_size, reverse)
 }
 
+merge_impl <- function(gdf, max_dist, collapse) {
+  .Call(`_valr_merge_impl`, gdf, max_dist, collapse)
+}
+
+partition_impl <- function(gdf, max_dist) {
+  .Call(`_valr_partition_impl`, gdf, max_dist)
+}
+
 random_impl <- function(genome, length, n, seed) {
   .Call(`_valr_random_impl`, genome, length, n, seed)
+}
+
+subtract_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes) {
+  .Call(`_valr_subtract_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes)
 }

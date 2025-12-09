@@ -21,6 +21,13 @@ extern "C" SEXP _valr_complement_impl(SEXP gdf, SEXP genome) {
     return cpp11::as_sexp(complement_impl(cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(gdf), cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(genome)));
   END_CPP11
 }
+// dist.cpp
+cpp11::writable::data_frame dist_impl(cpp11::data_frame gdf_x, cpp11::data_frame gdf_y, cpp11::integers x_grp_indexes, cpp11::integers y_grp_indexes, std::string distcalc);
+extern "C" SEXP _valr_dist_impl(SEXP gdf_x, SEXP gdf_y, SEXP x_grp_indexes, SEXP y_grp_indexes, SEXP distcalc) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(dist_impl(cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(gdf_x), cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(gdf_y), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(x_grp_indexes), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(y_grp_indexes), cpp11::as_cpp<cpp11::decay_t<std::string>>(distcalc)));
+  END_CPP11
+}
 // flank.cpp
 cpp11::writable::data_frame flank_impl(cpp11::data_frame df, cpp11::data_frame genome, double both, double left, double right, bool fraction, bool stranded, bool trim);
 extern "C" SEXP _valr_flank_impl(SEXP df, SEXP genome, SEXP both, SEXP left, SEXP right, SEXP fraction, SEXP stranded, SEXP trim) {
@@ -42,6 +49,20 @@ extern "C" SEXP _valr_makewindows_impl(SEXP df, SEXP win_size, SEXP num_win, SEX
     return cpp11::as_sexp(makewindows_impl(cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(df), cpp11::as_cpp<cpp11::decay_t<int>>(win_size), cpp11::as_cpp<cpp11::decay_t<int>>(num_win), cpp11::as_cpp<cpp11::decay_t<int>>(step_size), cpp11::as_cpp<cpp11::decay_t<bool>>(reverse)));
   END_CPP11
 }
+// merge.cpp
+cpp11::writable::data_frame merge_impl(cpp11::data_frame gdf, int max_dist, bool collapse);
+extern "C" SEXP _valr_merge_impl(SEXP gdf, SEXP max_dist, SEXP collapse) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(merge_impl(cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(gdf), cpp11::as_cpp<cpp11::decay_t<int>>(max_dist), cpp11::as_cpp<cpp11::decay_t<bool>>(collapse)));
+  END_CPP11
+}
+// partition.cpp
+cpp11::writable::data_frame partition_impl(cpp11::data_frame gdf, int max_dist);
+extern "C" SEXP _valr_partition_impl(SEXP gdf, SEXP max_dist) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(partition_impl(cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(gdf), cpp11::as_cpp<cpp11::decay_t<int>>(max_dist)));
+  END_CPP11
+}
 // random.cpp
 cpp11::writable::data_frame random_impl(cpp11::data_frame genome, double length, int n, int seed);
 extern "C" SEXP _valr_random_impl(SEXP genome, SEXP length, SEXP n, SEXP seed) {
@@ -49,17 +70,20 @@ extern "C" SEXP _valr_random_impl(SEXP genome, SEXP length, SEXP n, SEXP seed) {
     return cpp11::as_sexp(random_impl(cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(genome), cpp11::as_cpp<cpp11::decay_t<double>>(length), cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(seed)));
   END_CPP11
 }
+// subtract.cpp
+cpp11::writable::data_frame subtract_impl(cpp11::data_frame gdf_x, cpp11::data_frame gdf_y, cpp11::integers x_grp_indexes, cpp11::integers y_grp_indexes);
+extern "C" SEXP _valr_subtract_impl(SEXP gdf_x, SEXP gdf_y, SEXP x_grp_indexes, SEXP y_grp_indexes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(subtract_impl(cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(gdf_x), cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(gdf_y), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(x_grp_indexes), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(y_grp_indexes)));
+  END_CPP11
+}
 
 extern "C" {
 /* .Call calls */
 extern SEXP _valr_closest_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_coverage_impl(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_dist_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _valr_intersect_impl(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_merge_impl(SEXP, SEXP, SEXP);
-extern SEXP _valr_partition_impl(SEXP, SEXP);
 extern SEXP _valr_shuffle_impl(SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _valr_subtract_impl(SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_valr_bed12toexons_impl", (DL_FUNC) &_valr_bed12toexons_impl, 1},

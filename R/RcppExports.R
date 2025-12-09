@@ -9,27 +9,15 @@ coverage_impl <- function(x, y, x_grp_indexes, y_grp_indexes) {
     .Call(`_valr_coverage_impl`, x, y, x_grp_indexes, y_grp_indexes)
 }
 
-dist_impl <- function(x, y, x_grp_indexes, y_grp_indexes, distcalc) {
-    .Call(`_valr_dist_impl`, x, y, x_grp_indexes, y_grp_indexes, distcalc)
-}
 
 intersect_impl <- function(x, y, x_grp_indexes, y_grp_indexes, invert = FALSE, suffix_x = ".x", suffix_y = ".y") {
     .Call(`_valr_intersect_impl`, x, y, x_grp_indexes, y_grp_indexes, invert, suffix_x, suffix_y)
 }
 
-merge_impl <- function(gdf, max_dist = 0L, collapse = TRUE) {
-    .Call(`_valr_merge_impl`, gdf, max_dist, collapse)
-}
 
-partition_impl <- function(gdf, max_dist = -1L) {
-    .Call(`_valr_partition_impl`, gdf, max_dist)
-}
 
 shuffle_impl <- function(df, incl, within = FALSE, max_tries = 1000L, seed = 0L) {
     .Call(`_valr_shuffle_impl`, df, incl, within, max_tries, seed)
 }
 
-subtract_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes) {
-    .Call(`_valr_subtract_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes)
-}
 
