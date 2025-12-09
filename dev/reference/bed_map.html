@@ -58,7 +58,7 @@ input columns from <code>x</code> and <code>y</code> columns must take these suf
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bed_map</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span>, min_overlap <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bed_map</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span>, min_overlap <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">concat</span><span class="op">(</span><span class="va">.data</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
 <span></span>
@@ -84,7 +84,9 @@ input columns from <code>x</code> and <code>y</code> columns must take these suf
 
 
 <dt id="arg-min-overlap">min_overlap<a class="anchor" aria-label="anchor" href="#arg-min-overlap"></a></dt>
-<dd><p>minimum overlap for intervals.</p></dd>
+<dd><p>minimum overlap in base pairs required for mapping.
+Default is <code>1</code>, meaning book-ended intervals (touching but not overlapping)
+are not included. Set to <code>0</code> to include book-ended intervals.</p></dd>
 
 
 <dt id="arg--data">.data<a class="anchor" aria-label="anchor" href="#arg--data"></a></dt>
@@ -101,8 +103,7 @@ input columns from <code>x</code> and <code>y</code> columns must take these suf
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Book-ended intervals can be included by setting <code>min_overlap = 0</code>.</p>
-<p>Non-intersecting intervals from <code>x</code> are included in the result with <code>NA</code>
+    <p>Non-intersecting intervals from <code>x</code> are included in the result with <code>NA</code>
 values.</p>
 <p>input tbls are grouped by <code>chrom</code> by default, and additional
 groups can be added using <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code>. For example,
@@ -114,44 +115,44 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="https://bedtools.readthedocs.io/en/latest/content/tools/map.html" class="external-link">https://bedtools.readthedocs.io/en/latest/content/tools/map.html</a></p>
 <p>Other multiple set operations:
-<code><a href="bed_closest.html">bed_closest</a>()</code>,
-<code><a href="bed_coverage.html">bed_coverage</a>()</code>,
-<code><a href="bed_intersect.html">bed_intersect</a>()</code>,
-<code><a href="bed_subtract.html">bed_subtract</a>()</code>,
-<code><a href="bed_window.html">bed_window</a>()</code></p></div>
+<code><a href="bed_closest.html">bed_closest()</a></code>,
+<code><a href="bed_coverage.html">bed_coverage()</a></code>,
+<code><a href="bed_intersect.html">bed_intersect()</a></code>,
+<code><a href="bed_subtract.html">bed_subtract()</a></code>,
+<code><a href="bed_window.html">bed_window()</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>,</span></span>
-<span class="r-in"><span>  <span class="op">~</span><span class="va">start</span>,</span></span>
-<span class="r-in"><span>  <span class="op">~</span><span class="va">end</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">250</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">250</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">500</span></span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span> ,</span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">start</span> ,</span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">end</span>   ,</span></span>
+<span class="r-in"><span>  <span class="st">'chr1'</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">100</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">250</span> ,</span></span>
+<span class="r-in"><span>  <span class="st">'chr2'</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">250</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">500</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span>,</span></span>
-<span class="r-in"><span>  <span class="op">~</span><span class="va">start</span>,</span></span>
-<span class="r-in"><span>  <span class="op">~</span><span class="va">end</span>,</span></span>
-<span class="r-in"><span>  <span class="op">~</span><span class="va">value</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">250</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">10</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr1'</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">150</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">250</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">20</span>,</span></span>
-<span class="r-in"><span>  <span class="st">'chr2'</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">250</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">500</span>,</span></span>
-<span class="r-in"><span>  <span class="fl">500</span></span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">chrom</span> ,</span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">start</span> ,</span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">end</span>   ,</span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">value</span> ,</span></span>
+<span class="r-in"><span>  <span class="st">'chr1'</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">100</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">250</span> ,</span></span>
+<span class="r-in"><span>      <span class="fl">10</span> ,</span></span>
+<span class="r-in"><span>  <span class="st">'chr1'</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">150</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">250</span> ,</span></span>
+<span class="r-in"><span>      <span class="fl">20</span> ,</span></span>
+<span class="r-in"><span>  <span class="st">'chr2'</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">250</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">500</span> ,</span></span>
+<span class="r-in"><span>     <span class="fl">500</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu">bed_map</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">'value'</span><span class="op">)</span></span></span>
@@ -248,7 +249,7 @@ first be inverted using <code><a href="flip_strands.html">flip_strands()</a></co
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

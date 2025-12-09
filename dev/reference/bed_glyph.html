@@ -84,6 +84,11 @@ result of the call.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">bed_glyph</span><span class="op">(</span><span class="fu"><a href="bed_intersect.html">bed_intersect</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `min_overlap` argument of `bed_intersect()` is deprecated as of valr 0.8.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The default will change from 0 (book-ended intervals overlap) to 1 (strict</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   overlap) in a future version.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   bedtools-compatible behavior.</span>
 <span class="r-plt img"><img src="bed_glyph-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
@@ -110,7 +115,7 @@ result of the call.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

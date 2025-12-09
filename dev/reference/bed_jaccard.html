@@ -95,10 +95,10 @@ examples.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html" class="external-link">https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html</a></p>
 <p>Other interval statistics:
-<code><a href="bed_absdist.html">bed_absdist</a>()</code>,
-<code><a href="bed_fisher.html">bed_fisher</a>()</code>,
-<code><a href="bed_projection.html">bed_projection</a>()</code>,
-<code><a href="bed_reldist.html">bed_reldist</a>()</code></p></div>
+<code><a href="bed_absdist.html">bed_absdist()</a></code>,
+<code><a href="bed_fisher.html">bed_fisher()</a></code>,
+<code><a href="bed_projection.html">bed_projection()</a></code>,
+<code><a href="bed_reldist.html">bed_reldist()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -112,27 +112,27 @@ examples.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       len_i      len_u jaccard      n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 236<span style="text-decoration: underline;">184</span>699 <span style="text-decoration: underline;">1</span>708<span style="text-decoration: underline;">774</span>142   0.160 <span style="text-decoration: underline;">399</span>981</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 236<span style="text-decoration: underline;">195</span>198 <span style="text-decoration: underline;">1</span>708<span style="text-decoration: underline;">776</span>065   0.160 <span style="text-decoration: underline;">399</span>986</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate jaccard per chromosome</span></span></span>
 <span class="r-in"><span><span class="fu">bed_jaccard</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">chrom</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">chrom</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    chrom    len_i     len_u jaccard     n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> chr1  18<span style="text-decoration: underline;">939</span>046 137<span style="text-decoration: underline;">345</span>996   0.160 <span style="text-decoration: underline;">32</span>156</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> chr10 10<span style="text-decoration: underline;">524</span>360  75<span style="text-decoration: underline;">209</span>830   0.163 <span style="text-decoration: underline;">17</span>830</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chr11 10<span style="text-decoration: underline;">378</span>246  74<span style="text-decoration: underline;">655</span>177   0.161 <span style="text-decoration: underline;">17</span>497</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> chr12 10<span style="text-decoration: underline;">146</span>255  73<span style="text-decoration: underline;">725</span>046   0.160 <span style="text-decoration: underline;">17</span>163</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> chr13  8<span style="text-decoration: underline;">867</span>024  63<span style="text-decoration: underline;">737</span>541   0.162 <span style="text-decoration: underline;">14</span>992</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> chr14  8<span style="text-decoration: underline;">047</span>103  59<span style="text-decoration: underline;">033</span>144   0.158 <span style="text-decoration: underline;">13</span>647</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> chr15  7<span style="text-decoration: underline;">794</span>057  56<span style="text-decoration: underline;">514</span>322   0.160 <span style="text-decoration: underline;">13</span>236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> chr16  6<span style="text-decoration: underline;">907</span>575  49<span style="text-decoration: underline;">874</span>077   0.161 <span style="text-decoration: underline;">11</span>650</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> chr17  6<span style="text-decoration: underline;">186</span>446  44<span style="text-decoration: underline;">917</span>522   0.160 <span style="text-decoration: underline;">10</span>487</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> chr18  6<span style="text-decoration: underline;">044</span>900  43<span style="text-decoration: underline;">248</span>877   0.162 <span style="text-decoration: underline;">10</span>129</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 15 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> chr1  18<span style="text-decoration: underline;">939</span>736 137<span style="text-decoration: underline;">346</span>996   0.160 <span style="text-decoration: underline;">32</span>158</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> chr10 10<span style="text-decoration: underline;">525</span>496  75<span style="text-decoration: underline;">211</span>235   0.163 <span style="text-decoration: underline;">17</span>830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chr11 10<span style="text-decoration: underline;">380</span>469  74<span style="text-decoration: underline;">656</span>102   0.161 <span style="text-decoration: underline;">17</span>499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> chr12 10<span style="text-decoration: underline;">145</span>996  73<span style="text-decoration: underline;">725</span>426   0.160 <span style="text-decoration: underline;">17</span>163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> chr13  8<span style="text-decoration: underline;">867</span>978  63<span style="text-decoration: underline;">740</span>684   0.162 <span style="text-decoration: underline;">14</span>994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> chr14  8<span style="text-decoration: underline;">046</span>352  59<span style="text-decoration: underline;">027</span>220   0.158 <span style="text-decoration: underline;">13</span>644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> chr15  7<span style="text-decoration: underline;">796</span>590  56<span style="text-decoration: underline;">525</span>195   0.160 <span style="text-decoration: underline;">13</span>240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> chr16  6<span style="text-decoration: underline;">907</span>153  49<span style="text-decoration: underline;">872</span>823   0.161 <span style="text-decoration: underline;">11</span>652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> chr17  6<span style="text-decoration: underline;">184</span>210  44<span style="text-decoration: underline;">916</span>521   0.160 <span style="text-decoration: underline;">10</span>484</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> chr18  6<span style="text-decoration: underline;">048</span>908  43<span style="text-decoration: underline;">251</span>434   0.163 <span style="text-decoration: underline;">10</span>133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more rows</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -145,7 +145,7 @@ examples.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

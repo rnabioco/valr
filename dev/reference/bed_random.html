@@ -88,7 +88,7 @@
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="https://bedtools.readthedocs.io/en/latest/content/tools/random.html" class="external-link">https://bedtools.readthedocs.io/en/latest/content/tools/random.html</a></p>
 <p>Other randomizing operations:
-<code><a href="bed_shuffle.html">bed_shuffle</a>()</code></p></div>
+<code><a href="bed_shuffle.html">bed_shuffle()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -104,24 +104,24 @@
 <span class="r-in"><span><span class="fu">bed_random</span><span class="op">(</span><span class="va">genome</span>, seed <span class="op">=</span> <span class="fl">10104</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1,000,000 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    chrom start   end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> chr1    265  <span style="text-decoration: underline;">1</span>265</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> chr1    315  <span style="text-decoration: underline;">1</span>315</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chr1    335  <span style="text-decoration: underline;">1</span>335</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> chr1    513  <span style="text-decoration: underline;">1</span>513</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> chr1    625  <span style="text-decoration: underline;">1</span>625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> chr1    635  <span style="text-decoration: underline;">1</span>635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> chr1    653  <span style="text-decoration: underline;">1</span>653</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> chr1    731  <span style="text-decoration: underline;">1</span>731</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> chr1    859  <span style="text-decoration: underline;">1</span>859</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> chr1   <span style="text-decoration: underline;">1</span>024  <span style="text-decoration: underline;">2</span>024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chr1    513  <span style="text-decoration: underline;">1</span>513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> chr1    625  <span style="text-decoration: underline;">1</span>625</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> chr1    635  <span style="text-decoration: underline;">1</span>635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> chr1    653  <span style="text-decoration: underline;">1</span>653</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> chr1    731  <span style="text-decoration: underline;">1</span>731</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> chr1    859  <span style="text-decoration: underline;">1</span>859</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> chr1   <span style="text-decoration: underline;">1</span>024  <span style="text-decoration: underline;">2</span>024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> chr1   <span style="text-decoration: underline;">1</span>038  <span style="text-decoration: underline;">2</span>038</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 999,990 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># sorting can be suppressed</span></span></span>
 <span class="r-in"><span><span class="fu">bed_random</span><span class="op">(</span><span class="va">genome</span>, sorted <span class="op">=</span> <span class="cn">FALSE</span>, seed <span class="op">=</span> <span class="fl">10104</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1,000,000 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    chrom    start      end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> chr3   2<span style="text-decoration: underline;">681</span>468  2<span style="text-decoration: underline;">682</span>468</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> chr3  25<span style="text-decoration: underline;">364</span>020 25<span style="text-decoration: underline;">365</span>020</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chr2  43<span style="text-decoration: underline;">134</span>407 43<span style="text-decoration: underline;">135</span>407</span>
@@ -138,7 +138,7 @@
 <span class="r-in"><span><span class="fu">bed_random</span><span class="op">(</span><span class="va">genome</span>, length <span class="op">=</span> <span class="fl">500</span>, n <span class="op">=</span> <span class="fl">500</span>, seed <span class="op">=</span> <span class="fl">10104</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 500 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    chrom   start     end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> chr1   <span style="text-decoration: underline;">379</span>360  <span style="text-decoration: underline;">379</span>860</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> chr1   <span style="text-decoration: underline;">394</span>770  <span style="text-decoration: underline;">395</span>270</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chr1  1<span style="text-decoration: underline;">215</span>880 1<span style="text-decoration: underline;">216</span>380</span>
@@ -162,7 +162,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
