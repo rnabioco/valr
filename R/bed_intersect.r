@@ -1,12 +1,15 @@
 #' Identify intersecting intervals.
 #'
-#' Report intersecting intervals from `x` and `y` tbls. Book-ended intervals
-#' have `.overlap` values of `0` in the output.
+#' Report intersecting intervals from `x` and `y` tbls.
 #'
 #' @param x [ivl_df]
 #' @param ... one or more (e.g. a list of) `y` [ivl_df()]s
 #' @param invert report `x` intervals not in `y`
 #' @param suffix colname suffixes in output
+#' @param min_overlap minimum overlap in base pairs required for intersection.
+#'   Set to `1` to exclude book-ended intervals (matching bedtools behavior), or
+#'   `0` to include them (legacy valr behavior). The default will change from
+#'   `0` to `1` in a future version.
 #'
 #' @return
 #'
@@ -87,8 +90,28 @@
 #' \url{https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html}
 #'
 #' @export
-bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
+bed_intersect <- function(
+  x,
+  ...,
+  invert = FALSE,
+  suffix = c(".x", ".y"),
+  min_overlap = NULL
+) {
   check_required(x)
+
+  # Handle min_overlap deprecation: default to 0 (legacy) but warn
+
+  if (is.null(min_overlap)) {
+    lifecycle::deprecate_warn(
+      when = "0.8.0",
+      what = "bed_intersect(min_overlap)",
+      details = c(
+        "The default will change from 0 (book-ended intervals overlap) to 1 (strict overlap) in a future version.",
+        "Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for bedtools-compatible behavior."
+      )
+    )
+    min_overlap <- 0L
+  }
 
   if (dots_n(...) == 0) {
     cli::cli_abort("One or more tbls required in {.var ...}")
@@ -136,8 +159,11 @@ bed_intersect <- function(x, ..., invert = FALSE, suffix = c(".x", ".y")) {
     grp_indexes$y,
     invert,
     suffix$x,
-    suffix$y
+    suffix$y,
+    min_overlap
   )
+
+  res <- tibble::as_tibble(res)
 
   if (invert) {
     res <- filter(res, is.na(.data[[".overlap"]]))

@@ -216,10 +216,12 @@ class DataFrameBuilder {
     data.attr("row.names") = cpp11::sexp(row_names);
     UNPROTECT(1);
 
-    // Set class
-    data.attr("class") = cpp11::writable::strings({"tbl_df", "tbl", "data.frame"});
+    // Create the data frame first, then set tibble class
+    // (cpp11::writable::data_frame may reset class to just "data.frame")
+    cpp11::writable::data_frame result(data);
+    result.attr("class") = cpp11::writable::strings({"tbl_df", "tbl", "data.frame"});
 
-    return cpp11::writable::data_frame(data);
+    return result;
   }
 };
 
@@ -247,12 +249,45 @@ inline bool compare_rows(const cpp11::data_frame& df_x, const cpp11::data_frame&
       cpp11::stop("Column not found in y dataframe");
     }
 
-    // Compare values (assuming string columns for group keys)
-    cpp11::strings col_x = df_x[i];
-    cpp11::strings col_y = df_y[y_col];
+    // Compare values based on column type
+    SEXP col_x_sexp = df_x[i];
+    SEXP col_y_sexp = df_y[y_col];
 
-    if (std::string(col_x[idx_x]) != std::string(col_y[idx_y])) {
-      return false;
+    switch (TYPEOF(col_x_sexp)) {
+      case STRSXP: {
+        cpp11::strings col_x(col_x_sexp);
+        cpp11::strings col_y(col_y_sexp);
+        if (std::string(col_x[idx_x]) != std::string(col_y[idx_y])) {
+          return false;
+        }
+        break;
+      }
+      case REALSXP: {
+        cpp11::doubles col_x(col_x_sexp);
+        cpp11::doubles col_y(col_y_sexp);
+        if (col_x[idx_x] != col_y[idx_y]) {
+          return false;
+        }
+        break;
+      }
+      case INTSXP: {
+        cpp11::integers col_x(col_x_sexp);
+        cpp11::integers col_y(col_y_sexp);
+        if (col_x[idx_x] != col_y[idx_y]) {
+          return false;
+        }
+        break;
+      }
+      case LGLSXP: {
+        cpp11::logicals col_x(col_x_sexp);
+        cpp11::logicals col_y(col_y_sexp);
+        if (static_cast<int>(col_x[idx_x]) != static_cast<int>(col_y[idx_y])) {
+          return false;
+        }
+        break;
+      }
+      default:
+        cpp11::stop("Unsupported column type in group comparison");
     }
   }
   return true;

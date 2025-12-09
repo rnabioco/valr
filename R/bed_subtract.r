@@ -5,6 +5,10 @@
 #' @param x [ivl_df]
 #' @param y [ivl_df]
 #' @param any remove any `x` intervals that overlap `y`
+#' @param min_overlap minimum overlap in base pairs required for subtraction.
+#'   Set to `1` to exclude book-ended intervals (matching bedtools behavior), or
+#'   `0` to include them (legacy valr behavior). The default will change from
+#'   `0` to `1` in a future version.
 #'
 #' @template groups
 #'
@@ -49,9 +53,22 @@
 #' bed_subtract(x, y, any = TRUE)
 #'
 #' @export
-bed_subtract <- function(x, y, any = FALSE) {
+bed_subtract <- function(x, y, any = FALSE, min_overlap = NULL) {
   check_required(x)
   check_required(y)
+
+  # Handle min_overlap deprecation: default to 0 (legacy) but warn
+  if (is.null(min_overlap)) {
+    lifecycle::deprecate_warn(
+      when = "0.8.0",
+      what = "bed_subtract(min_overlap)",
+      details = c(
+        "The default will change from 0 (book-ended intervals overlap) to 1 (strict overlap) in a future version.",
+        "Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for bedtools-compatible behavior."
+      )
+    )
+    min_overlap <- 0L
+  }
 
   x <- check_interval(x)
   y <- check_interval(y)
@@ -77,7 +94,17 @@ bed_subtract <- function(x, y, any = FALSE) {
 
   if (any) {
     # collect and return x intervals without overlaps
-    res <- intersect_impl(x, y, grp_indexes$x, grp_indexes$y, invert = TRUE)
+    res <- intersect_impl(
+      x,
+      y,
+      grp_indexes$x,
+      grp_indexes$y,
+      invert = TRUE,
+      suffix_x = ".x",
+      suffix_y = ".y",
+      min_overlap = min_overlap
+    )
+    res <- tibble::as_tibble(res)
     anti <- filter(res, is.na(.data[[".overlap"]]))
     anti <- select(
       anti,
@@ -93,8 +120,10 @@ bed_subtract <- function(x, y, any = FALSE) {
     x,
     y,
     grp_indexes$x,
-    grp_indexes$y
+    grp_indexes$y,
+    min_overlap
   )
+  res <- tibble::as_tibble(res)
   res <- ungroup(res)
   res <- bind_rows(res, res_no_y)
   res <- bed_sort(res)

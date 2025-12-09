@@ -9,15 +9,14 @@
 
 #include <cpp11.hpp>
 
+#include <vector>
+
 #include "valr/dataframe.hpp"
 #include "valr/intervals.hpp"
 
-#include <vector>
-
 using namespace cpp11::literals;
 
-cpp11::writable::data_frame collapseMergedIntervals(cpp11::data_frame gdf,
-                                                    int max_dist) {
+cpp11::writable::data_frame collapseMergedIntervals(cpp11::data_frame gdf, int max_dist) {
   valr::GroupedDataFrame grouped(gdf);
   cpp11::data_frame df = grouped.data();
 
@@ -102,8 +101,7 @@ cpp11::writable::data_frame collapseMergedIntervals(cpp11::data_frame gdf,
   return cpp11::writable::data_frame(out_list);
 }
 
-cpp11::writable::data_frame clusterMergedIntervals(cpp11::data_frame gdf,
-                                                   int max_dist) {
+cpp11::writable::data_frame clusterMergedIntervals(cpp11::data_frame gdf, int max_dist) {
   valr::GroupedDataFrame grouped(gdf);
   cpp11::data_frame df = grouped.data();
 
@@ -160,8 +158,7 @@ cpp11::writable::data_frame clusterMergedIntervals(cpp11::data_frame gdf,
 }
 
 [[cpp11::register]]
-cpp11::writable::data_frame merge_impl(cpp11::data_frame gdf,
-                                       int max_dist = 0,
+cpp11::writable::data_frame merge_impl(cpp11::data_frame gdf, int max_dist = 0,
                                        bool collapse = true) {
   if (!collapse) {
     // return a cluster id per input interval

@@ -59,7 +59,8 @@ bed_jaccard <- function(x, y) {
   x <- bed_merge(x)
   y <- bed_merge(y)
 
-  res_intersect <- bed_intersect(x, y)
+  # TODO: revisit when min_overlap default changes to 1L
+  res_intersect <- bed_intersect(x, y, min_overlap = 0L)
 
   if (!is.null(groups_shared)) {
     x <- group_by(x, !!!syms(groups_shared))

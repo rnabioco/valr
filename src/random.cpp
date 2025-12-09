@@ -7,10 +7,10 @@
 // This software may be modified and distributed under the terms
 // of the MIT license. See the LICENSE file for details.
 
+#include "valr/random.hpp"
+
 #include <cpp11.hpp>
 #include <cpp11/R.hpp>
-
-#include "valr/random.hpp"
 
 #include <Rmath.h>
 

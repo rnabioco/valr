@@ -9,11 +9,11 @@
 
 #include <cpp11.hpp>
 
-#include "valr/dataframe.hpp"
-
 #include <algorithm>
 #include <utility>
 #include <vector>
+
+#include "valr/dataframe.hpp"
 
 using namespace cpp11::literals;
 
@@ -22,8 +22,7 @@ typedef std::vector<posTrack> posTracker;
 
 // sort starts and ends while encoding coverage value
 // to sum for overlapping intervals
-posTracker collatePositions(const std::vector<double>& starts,
-                            const std::vector<double>& ends) {
+posTracker collatePositions(const std::vector<double>& starts, const std::vector<double>& ends) {
   posTracker p;
   auto n = starts.size();
 
@@ -44,8 +43,7 @@ posTracker collatePositions(const std::vector<double>& starts,
 }
 
 [[cpp11::register]]
-cpp11::writable::data_frame gcoverage_impl(cpp11::data_frame gdf,
-                                           cpp11::doubles max_coords) {
+cpp11::writable::data_frame gcoverage_impl(cpp11::data_frame gdf, cpp11::doubles max_coords) {
   valr::GroupedDataFrame grouped(gdf);
   cpp11::data_frame df = grouped.data();
 

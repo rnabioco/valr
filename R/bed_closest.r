@@ -104,7 +104,9 @@ bed_closest <- function(x, y, overlap = TRUE, suffix = c(".x", ".y")) {
   x <- group_by(x, !!!groups_vars)
   y <- group_by(y, !!!groups_vars)
 
-  ol_ivls <- bed_intersect(x, y, suffix = suffix)
+  # TODO: revisit when min_overlap default changes to 1L
+
+  ol_ivls <- bed_intersect(x, y, suffix = suffix, min_overlap = 0L)
 
   grp_indexes <- shared_group_indexes(x, y)
 

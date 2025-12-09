@@ -4,7 +4,7 @@
 \alias{bed_subtract}
 \title{Subtract two sets of intervals.}
 \usage{
-bed_subtract(x, y, any = FALSE)
+bed_subtract(x, y, any = FALSE, min_overlap = NULL)
 }
 \arguments{
 \item{x}{\link{ivl_df}}
@@ -12,6 +12,11 @@ bed_subtract(x, y, any = FALSE)
 \item{y}{\link{ivl_df}}
 
 \item{any}{remove any \code{x} intervals that overlap \code{y}}
+
+\item{min_overlap}{minimum overlap in base pairs required for subtraction.
+Set to \code{1} to exclude book-ended intervals (matching bedtools behavior), or
+\code{0} to include them (legacy valr behavior). The default will change from
+\code{0} to \code{1} in a future version.}
 }
 \description{
 Subtract \code{y} intervals from \code{x} intervals.

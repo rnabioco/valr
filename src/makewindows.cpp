@@ -9,10 +9,10 @@
 
 #include <cpp11.hpp>
 
-#include "valr/dataframe.hpp"
-
 #include <cmath>
 #include <vector>
+
+#include "valr/dataframe.hpp"
 
 using namespace cpp11::literals;
 

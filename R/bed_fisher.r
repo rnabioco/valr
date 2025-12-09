@@ -50,7 +50,8 @@ bed_fisher <- function(x, y, genome) {
   mean_total <- mean_x + mean_y
 
   # number of intersections (`n11` in fisher.cpp)
-  isect <- bed_intersect(x, y)
+  # TODO: revisit when min_overlap default changes to 1L
+  isect <- bed_intersect(x, y, min_overlap = 0L)
   n_i <- nrow(isect)
 
   # x, not y (`n12` in fisher.cpp)

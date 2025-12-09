@@ -9,17 +9,16 @@
 
 #include <cpp11.hpp>
 
-#include "valr/dataframe.hpp"
-#include "valr/genome.hpp"
-
 #include <string>
 #include <vector>
+
+#include "valr/dataframe.hpp"
+#include "valr/genome.hpp"
 
 using namespace cpp11::literals;
 
 [[cpp11::register]]
-cpp11::writable::data_frame complement_impl(cpp11::data_frame gdf,
-                                            cpp11::data_frame genome) {
+cpp11::writable::data_frame complement_impl(cpp11::data_frame gdf, cpp11::data_frame genome) {
   valr::genome_map_t chrom_sizes = valr::make_genome_map(genome);
 
   valr::GroupedDataFrame grouped(gdf);

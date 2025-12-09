@@ -9,21 +9,18 @@
 
 #include <cpp11.hpp>
 
-#include "valr/dataframe.hpp"
-#include "valr/intervals.hpp"
-
 #include <algorithm>
 #include <cmath>
 #include <string>
 #include <vector>
 
+#include "valr/dataframe.hpp"
+#include "valr/intervals.hpp"
+
 using namespace cpp11::literals;
 
-void dist_grouped(valr::ivl_vector_t& vx, valr::ivl_vector_t& vy,
-                  std::vector<int>& indices_x,
-                  std::vector<double>& distances,
-                  const std::string& dist_fxn) {
-
+void dist_grouped(valr::ivl_vector_t& vx, valr::ivl_vector_t& vy, std::vector<int>& indices_x,
+                  std::vector<double>& distances, const std::string& dist_fxn) {
   // first build sorted vector of y interval midpoints
   std::vector<int> ref_midpoints;
   for (auto vy_it : vy) {
@@ -38,8 +35,7 @@ void dist_grouped(valr::ivl_vector_t& vx, valr::ivl_vector_t& vy,
   // iterate through x intervals and calculate dist using a binary search
   for (auto vx_it : vx) {
     int midpoint = (vx_it.start + vx_it.stop) / 2;
-    auto low_it = std::lower_bound(ref_midpoints.begin(),
-                                   ref_midpoints.end(), midpoint);
+    auto low_it = std::lower_bound(ref_midpoints.begin(), ref_midpoints.end(), midpoint);
 
     low_idx = low_it - ref_midpoints.begin();
 
@@ -80,8 +76,7 @@ void dist_grouped(valr::ivl_vector_t& vx, valr::ivl_vector_t& vy,
 
     } else {  // reldist
       // drop intervals at start and end which have no reldist
-      if (low_idx == 0 ||
-          low_idx == ref_midpoints.size()) {
+      if (low_idx == 0 || low_idx == ref_midpoints.size()) {
         continue;
       }
 
@@ -106,10 +101,8 @@ void dist_grouped(valr::ivl_vector_t& vx, valr::ivl_vector_t& vy,
 
 [[cpp11::register]]
 cpp11::writable::data_frame dist_impl(cpp11::data_frame gdf_x, cpp11::data_frame gdf_y,
-                                      cpp11::integers x_grp_indexes,
-                                      cpp11::integers y_grp_indexes,
+                                      cpp11::integers x_grp_indexes, cpp11::integers y_grp_indexes,
                                       std::string distcalc) {
-
   valr::GroupedDataFrame grouped_x(gdf_x);
   valr::GroupedDataFrame grouped_y(gdf_y);
 

@@ -96,6 +96,7 @@ bed_flank <- function(
     strand,
     trim
   )
+  res <- tibble::as_tibble(res)
 
   res <- bed_sort(res)
 

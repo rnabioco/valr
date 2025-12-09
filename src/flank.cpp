@@ -9,19 +9,20 @@
 
 #include <cpp11.hpp>
 
-#include "valr/dataframe.hpp"
-#include "valr/genome.hpp"
-
 #include <cmath>
 #include <string>
 #include <vector>
+
+#include "valr/dataframe.hpp"
+#include "valr/genome.hpp"
 
 using namespace cpp11::literals;
 
 void check_coords(int start, int end, int chrom_size, int idx, bool trim,
                   std::vector<int>& starts_out, std::vector<int>& ends_out,
                   std::vector<int>& df_idx) {
-  if (start == end) return;
+  if (start == end)
+    return;
 
   if (start >= 0 && end <= chrom_size) {
     starts_out.push_back(start);

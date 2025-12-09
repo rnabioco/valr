@@ -4,7 +4,13 @@
 \alias{bed_intersect}
 \title{Identify intersecting intervals.}
 \usage{
-bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"))
+bed_intersect(
+  x,
+  ...,
+  invert = FALSE,
+  suffix = c(".x", ".y"),
+  min_overlap = NULL
+)
 }
 \arguments{
 \item{x}{\link{ivl_df}}
@@ -14,6 +20,11 @@ bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"))
 \item{invert}{report \code{x} intervals not in \code{y}}
 
 \item{suffix}{colname suffixes in output}
+
+\item{min_overlap}{minimum overlap in base pairs required for intersection.
+Set to \code{1} to exclude book-ended intervals (matching bedtools behavior), or
+\code{0} to include them (legacy valr behavior). The default will change from
+\code{0} to \code{1} in a future version.}
 }
 \value{
 \link{ivl_df} with original columns from \code{x} and \code{y} suffixed with \code{.x}
@@ -28,8 +39,7 @@ If \code{...} contains named inputs (i.e \verb{a = y, b = z} or \code{list(a = y
 then \code{.source} will contain supplied names (see examples).
 }
 \description{
-Report intersecting intervals from \code{x} and \code{y} tbls. Book-ended intervals
-have \code{.overlap} values of \code{0} in the output.
+Report intersecting intervals from \code{x} and \code{y} tbls.
 }
 \details{
 input tbls are grouped by \code{chrom} by default, and additional

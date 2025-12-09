@@ -4,7 +4,7 @@
 \alias{bed_coverage}
 \title{Compute coverage of intervals.}
 \usage{
-bed_coverage(x, y, ...)
+bed_coverage(x, y, ..., min_overlap = NULL)
 }
 \arguments{
 \item{x}{\link{ivl_df}}
@@ -12,6 +12,11 @@ bed_coverage(x, y, ...)
 \item{y}{\link{ivl_df}}
 
 \item{...}{extra arguments (not used)}
+
+\item{min_overlap}{minimum overlap in base pairs required for coverage.
+Set to \code{1} to exclude book-ended intervals (matching bedtools behavior), or
+\code{0} to include them (legacy valr behavior). The default will change from
+\code{0} to \code{1} in a future version.}
 }
 \value{
 \link{ivl_df} with the following additional columns:
@@ -31,9 +36,6 @@ groups can be added using \code{\link[dplyr:group_by]{dplyr::group_by()}}. For e
 grouping by \code{strand} will constrain analyses to the same strand. To
 compare opposing strands across two tbls, strands on the \code{y} tbl can
 first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
-}
-\note{
-Book-ended intervals are included in coverage calculations.
 }
 \examples{
 x <- tibble::tribble(

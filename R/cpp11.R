@@ -4,8 +4,16 @@ bed12toexons_impl <- function(x) {
   .Call(`_valr_bed12toexons_impl`, x)
 }
 
+closest_impl <- function(gdf_x, gdf_y, grp_idx_x, grp_idx_y, suffix_x, suffix_y) {
+  .Call(`_valr_closest_impl`, gdf_x, gdf_y, grp_idx_x, grp_idx_y, suffix_x, suffix_y)
+}
+
 complement_impl <- function(gdf, genome) {
   .Call(`_valr_complement_impl`, gdf, genome)
+}
+
+coverage_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, min_overlap) {
+  .Call(`_valr_coverage_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, min_overlap)
 }
 
 dist_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, distcalc) {
@@ -18,6 +26,10 @@ flank_impl <- function(df, genome, both, left, right, fraction, stranded, trim) 
 
 gcoverage_impl <- function(gdf, max_coords) {
   .Call(`_valr_gcoverage_impl`, gdf, max_coords)
+}
+
+intersect_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, invert, suffix_x, suffix_y, min_overlap) {
+  .Call(`_valr_intersect_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, invert, suffix_x, suffix_y, min_overlap)
 }
 
 makewindows_impl <- function(df, win_size, num_win, step_size, reverse) {
@@ -36,6 +48,10 @@ random_impl <- function(genome, length, n, seed) {
   .Call(`_valr_random_impl`, genome, length, n, seed)
 }
 
-subtract_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes) {
-  .Call(`_valr_subtract_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes)
+shuffle_impl <- function(df, incl, within, max_tries, seed) {
+  .Call(`_valr_shuffle_impl`, df, incl, within, max_tries, seed)
+}
+
+subtract_impl <- function(gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, min_overlap) {
+  .Call(`_valr_subtract_impl`, gdf_x, gdf_y, x_grp_indexes, y_grp_indexes, min_overlap)
 }

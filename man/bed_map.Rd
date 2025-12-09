@@ -7,7 +7,7 @@
 \alias{values}
 \title{Calculate summaries from overlapping intervals.}
 \usage{
-bed_map(x, y, ..., min_overlap = 1)
+bed_map(x, y, ..., min_overlap = 1L)
 
 concat(.data, sep = ",")
 
@@ -22,7 +22,9 @@ values(.data, sep = ",")
 
 \item{...}{name-value pairs specifying column names and expressions to apply}
 
-\item{min_overlap}{minimum overlap for intervals.}
+\item{min_overlap}{minimum overlap in base pairs required for mapping.
+Default is \code{1}, meaning book-ended intervals (touching but not overlapping)
+are not included. Set to \code{0} to include book-ended intervals.}
 
 \item{.data}{data}
 
@@ -38,8 +40,6 @@ output columns will be suffixed with \code{.x} and \code{.y}. Expressions that r
 input columns from \code{x} and \code{y} columns must take these suffixes into account.
 }
 \details{
-Book-ended intervals can be included by setting \code{min_overlap = 0}.
-
 Non-intersecting intervals from \code{x} are included in the result with \code{NA}
 values.
 
@@ -51,34 +51,34 @@ first be inverted using \code{\link[=flip_strands]{flip_strands()}}.
 }
 \examples{
 x <- tibble::tribble(
-  ~chrom,
-  ~start,
-  ~end,
-  'chr1',
-  100,
-  250,
-  'chr2',
-  250,
-  500
+  ~chrom ,
+  ~start ,
+  ~end   ,
+  'chr1' ,
+     100 ,
+     250 ,
+  'chr2' ,
+     250 ,
+     500
 )
 
 y <- tibble::tribble(
-  ~chrom,
-  ~start,
-  ~end,
-  ~value,
-  'chr1',
-  100,
-  250,
-  10,
-  'chr1',
-  150,
-  250,
-  20,
-  'chr2',
-  250,
-  500,
-  500
+  ~chrom ,
+  ~start ,
+  ~end   ,
+  ~value ,
+  'chr1' ,
+     100 ,
+     250 ,
+      10 ,
+  'chr1' ,
+     150 ,
+     250 ,
+      20 ,
+  'chr2' ,
+     250 ,
+     500 ,
+     500
 )
 
 bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')

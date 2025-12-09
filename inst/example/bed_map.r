@@ -1,32 +1,32 @@
 x <- tibble::tribble(
-  ~chrom,
-  ~start,
-  ~end,
-  'chr1',
-  100,
-  250,
-  'chr2',
-  250,
-  500
+  ~chrom ,
+  ~start ,
+  ~end   ,
+  'chr1' ,
+     100 ,
+     250 ,
+  'chr2' ,
+     250 ,
+     500
 )
 
 y <- tibble::tribble(
-  ~chrom,
-  ~start,
-  ~end,
-  ~value,
-  'chr1',
-  100,
-  250,
-  10,
-  'chr1',
-  150,
-  250,
-  20,
-  'chr2',
-  250,
-  500,
-  500
+  ~chrom ,
+  ~start ,
+  ~end   ,
+  ~value ,
+  'chr1' ,
+     100 ,
+     250 ,
+      10 ,
+  'chr1' ,
+     150 ,
+     250 ,
+      20 ,
+  'chr2' ,
+     250 ,
+     500 ,
+     500
 )
 
 bed_glyph(bed_map(x, y, value = sum(value)), label = 'value')

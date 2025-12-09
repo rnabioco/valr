@@ -9,11 +9,11 @@
 
 #include <cpp11.hpp>
 
-#include "valr/dataframe.hpp"
-#include "valr/intervals.hpp"
-
 #include <algorithm>
 #include <vector>
+
+#include "valr/dataframe.hpp"
+#include "valr/intervals.hpp"
 
 using namespace cpp11::literals;
 
@@ -31,8 +31,7 @@ class IntervalCache {
   size_t size() { return ivls.size(); }
 };
 
-void partitionIntervals(const IntervalCache& ivl_cache,
-                        valr::ivl_vector_t& ivl_result) {
+void partitionIntervals(const IntervalCache& ivl_cache, valr::ivl_vector_t& ivl_result) {
   // convert interval to points
   std::vector<int> ivl_points;
   for (auto it : ivl_cache.ivls) {
@@ -53,9 +52,7 @@ void partitionIntervals(const IntervalCache& ivl_cache,
 }
 
 [[cpp11::register]]
-cpp11::writable::data_frame partition_impl(cpp11::data_frame gdf,
-                                           int max_dist = -1) {
-
+cpp11::writable::data_frame partition_impl(cpp11::data_frame gdf, int max_dist = -1) {
   valr::GroupedDataFrame grouped(gdf);
   cpp11::data_frame df = grouped.data();
 

@@ -9,11 +9,11 @@
 
 #include <cpp11.hpp>
 
-#include "valr/dataframe.hpp"
-
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include "valr/dataframe.hpp"
 
 using namespace cpp11::literals;
 
@@ -26,7 +26,8 @@ std::vector<int> csv_values(const std::string& csv) {
     std::string substr;
     std::getline(ss, substr, ',');
 
-    if (substr.empty()) break;
+    if (substr.empty())
+      break;
 
     values.push_back(std::atoi(substr.c_str()));
   }

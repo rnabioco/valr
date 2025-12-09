@@ -63,7 +63,9 @@ struct IntervalStopDescCmp {
 };
 
 // Simple sorted interval list with linear scan for overlaps
-// Correct and straightforward implementation
+// Uses min_overlap parameter to control overlap semantics:
+//   min_overlap = 1 (default): strict half-open, book-ended intervals do NOT overlap
+//   min_overlap = 0: inclusive, book-ended intervals DO overlap (legacy behavior)
 template <typename Coord = int, typename Value = int>
 class IntervalTree {
  public:
@@ -82,8 +84,10 @@ class IntervalTree {
     std::sort(intervals_.begin(), intervals_.end(), IntervalStartCmp<Coord, Value>());
   }
 
-  // Find all intervals overlapping [start, stop) (half-open)
-  interval_vector findOverlapping(Coord start, Coord stop) const {
+  // Find all intervals overlapping [start, stop) with at least min_overlap bases
+  // min_overlap = 1 (default): strict half-open (matches bedtools intersect, bedder-rs)
+  // min_overlap = 0: book-ended intervals count as overlapping (legacy valr behavior)
+  interval_vector findOverlapping(Coord start, Coord stop, Coord min_overlap = 1) const {
     interval_vector result;
     if (intervals_.empty())
       return result;
@@ -91,26 +95,41 @@ class IntervalTree {
     result.reserve(16);  // Pre-allocate for typical case
 
     for (const auto& ivl : intervals_) {
-      // Early termination: if interval starts at or after query end, no more overlaps
-      if (ivl.start >= stop)
-        break;
+      // Early termination depends on min_overlap:
+      // - min_overlap > 0: can terminate when ivl.start >= stop (no overlap possible)
+      // - min_overlap = 0: must include book-ended, so terminate when ivl.start > stop
+      if (min_overlap > 0) {
+        if (ivl.start >= stop)
+          break;
+      } else {
+        if (ivl.start > stop)
+          break;
+      }
 
-      // Half-open interval overlap: start1 < end2 && start2 < end1
-      if (ivl.start < stop && ivl.stop > start) {
+      // Calculate overlap: min(end1, end2) - max(start1, start2)
+      Coord overlap = std::min(ivl.stop, stop) - std::max(ivl.start, start);
+      if (overlap >= min_overlap) {
         result.push_back(ivl);
       }
     }
     return result;
   }
 
-  // Visit all intervals overlapping [start, stop)
+  // Visit all intervals overlapping [start, stop) with at least min_overlap bases
   template <typename Func>
-  void visit_overlapping(Coord start, Coord stop, Func&& f) const {
+  void visit_overlapping(Coord start, Coord stop, Func&& f, Coord min_overlap = 1) const {
     for (const auto& ivl : intervals_) {
-      if (ivl.start >= stop)
-        break;
+      // Early termination depends on min_overlap
+      if (min_overlap > 0) {
+        if (ivl.start >= stop)
+          break;
+      } else {
+        if (ivl.start > stop)
+          break;
+      }
 
-      if (ivl.start < stop && ivl.stop > start) {
+      Coord overlap = std::min(ivl.stop, stop) - std::max(ivl.start, start);
+      if (overlap >= min_overlap) {
         f(ivl);
       }
     }

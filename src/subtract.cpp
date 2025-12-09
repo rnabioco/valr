@@ -9,28 +9,26 @@
 
 #include <cpp11.hpp>
 
-#include "valr/dataframe.hpp"
-#include "valr/intervals.hpp"
-
 #include <algorithm>
 #include <vector>
+
+#include "valr/dataframe.hpp"
+#include "valr/intervals.hpp"
 
 using namespace cpp11::literals;
 
 // Process subtraction for a single group
-void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy,
-                    std::vector<int>& indices_out,
-                    std::vector<double>& starts_out, std::vector<double>& ends_out) {
-
+void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<int>& indices_out,
+                    std::vector<double>& starts_out, std::vector<double>& ends_out,
+                    int min_overlap) {
   valr::ivl_tree_t tree_y(std::move(vy));
   valr::ivl_vector_t overlaps;
 
   for (auto it : vx) {
-
     auto x_start = it.start;
     auto x_stop = it.stop;
 
-    overlaps = tree_y.findOverlapping(it.start, it.stop);
+    overlaps = tree_y.findOverlapping(it.start, it.stop, min_overlap);
 
     // compute number of overlaps
     int overlap_count = overlaps.size();
@@ -49,7 +47,6 @@ void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy,
     // iterate through overlaps with current x interval
     // modifying start and stop as necessary
     for (auto oit : overlaps) {
-
       auto y_start = oit.start;
       auto y_stop = oit.stop;
 
@@ -86,8 +83,7 @@ void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy,
 [[cpp11::register]]
 cpp11::writable::data_frame subtract_impl(cpp11::data_frame gdf_x, cpp11::data_frame gdf_y,
                                           cpp11::integers x_grp_indexes,
-                                          cpp11::integers y_grp_indexes) {
-
+                                          cpp11::integers y_grp_indexes, int min_overlap) {
   valr::GroupedDataFrame grouped_x(gdf_x);
   valr::GroupedDataFrame grouped_y(gdf_y);
 
@@ -121,7 +117,7 @@ cpp11::writable::data_frame subtract_impl(cpp11::data_frame gdf_x, cpp11::data_f
     valr::ivl_vector_t vx = valr::makeIntervalVector(df_x, gi_x);
     valr::ivl_vector_t vy = valr::makeIntervalVector(df_y, gi_y);
 
-    subtract_group(vx, vy, indices_out, starts_out, ends_out);
+    subtract_group(vx, vy, indices_out, starts_out, ends_out, min_overlap);
   }
 
   // Subset x dataframe by output indices
