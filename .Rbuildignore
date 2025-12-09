@@ -25,3 +25,4 @@
 ^[\.]?air\.toml$
 ^CLAUDE\.md$
 ^\.clang-format$
+^\.claude$
