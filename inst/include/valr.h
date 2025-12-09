@@ -1,6 +1,6 @@
 // valr.h
 //
-// Copyright (C) 2016 - 2022 Jay Hesselberth and Kent Riemondy
+// Copyright (C) 2016 - 2025 Jay Hesselberth and Kent Riemondy
 //
 // This file is part of valr.
 //
@@ -10,11 +10,23 @@
 #ifndef valr__valr_H
 #define valr__valr_H
 
-// [[Rcpp::plugins(cpp11)]]
+// cpp11 headers (for new cpp11 code)
+#include <cpp11.hpp>
+#include <cpp11/R.hpp>
+// Note: Do NOT use 'using namespace cpp11' to avoid conflicts with Rcpp
 
+// Rcpp headers (temporary, for existing code during migration)
 #include <Rcpp.h>
-using namespace Rcpp ;
+using namespace Rcpp;
 
+// Standard library
+#include <vector>
+#include <string>
+#include <map>
+#include <algorithm>
+#include <numeric>
+
+// valr headers (old, will be replaced)
 #include "utils.h"
 #include "grouped_dataframe.h"
 #include "IntervalTree.h"
@@ -24,4 +36,5 @@ using namespace Rcpp ;
 #include "genome.h"
 #include "random.h"
 #include "DataFrameBuilder.h"
+
 #endif
