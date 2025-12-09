@@ -14,11 +14,12 @@
 
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace valr {
 
-// Map from chromosome name to size
-using genome_map_t = std::unordered_map<std::string, int>;
+// Map from chromosome name to size (double for large genomes)
+using genome_map_t = std::unordered_map<std::string, double>;
 
 // Build a genome map from a data frame with chrom and size columns
 inline genome_map_t make_genome_map(const cpp11::data_frame& genome,
@@ -27,7 +28,7 @@ inline genome_map_t make_genome_map(const cpp11::data_frame& genome,
   genome_map_t chrom_sizes;
 
   cpp11::strings refs = genome[col_chrom.c_str()];
-  cpp11::integers sizes = genome[col_size.c_str()];
+  cpp11::doubles sizes = genome[col_size.c_str()];
 
   int nchrom = refs.size();
 
@@ -44,7 +45,7 @@ inline genome_map_t make_genome_map(const cpp11::data_frame& genome,
   // Build the map
   for (int i = 0; i < nchrom; ++i) {
     std::string ref(refs[i]);
-    int size = sizes[i];
+    double size = sizes[i];
     chrom_sizes.emplace(ref, size);
   }
 

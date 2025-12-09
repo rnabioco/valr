@@ -47,6 +47,10 @@ check_interval <- function(x) {
   if (!tibble::is_tibble(x)) {
     x <- tibble::as_tibble(x)
   }
+
+  # Ensure start/end are doubles for C++ code (handles large coordinates)
+  x <- mutate(x, start = as.numeric(start), end = as.numeric(end))
+
   x
 }
 
@@ -88,6 +92,9 @@ check_genome <- function(x) {
   if (!tibble::is_tibble(x)) {
     x <- tibble::as_tibble(x)
   }
+
+  # Ensure size is double for C++ code (handles large coordinates)
+  x <- mutate(x, size = as.numeric(size))
 
   x
 }

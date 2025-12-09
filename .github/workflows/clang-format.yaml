@@ -24,5 +24,7 @@ jobs:
       - name: Check C++ formatting
         run: |
           # Find all C++ files and check formatting
-          find src inst/include -name '*.cpp' -o -name '*.hpp' -o -name '*.h' | \
+          # Exclude cpp11.cpp (auto-generated with clang-format off)
+          find src inst/include \( -name '*.cpp' -o -name '*.hpp' -o -name '*.h' \) \
+            ! -name 'cpp11.cpp' | \
             xargs clang-format --dry-run --Werror --style=file

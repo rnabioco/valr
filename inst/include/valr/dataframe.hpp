@@ -124,9 +124,9 @@ class GroupedDataFrame {
 
   const cpp11::data_frame& data() const { return data_; }
 
-  int nrows() const { return data_.nrows(); }
+  int nrows() const { return static_cast<int>(data_.nrow()); }
 
-  int ngroups() const { return groups_.nrows(); }
+  int ngroups() const { return static_cast<int>(groups_.nrow()); }
 
   const cpp11::data_frame& group_data() const { return groups_; }
 
@@ -149,7 +149,7 @@ class DataFrameBuilder {
   std::vector<std::string> names;
   cpp11::writable::list data;
 
-  DataFrameBuilder() : data(0) {}
+  DataFrameBuilder() : data(static_cast<R_xlen_t>(0)) {}
 
   size_t size() const { return data.size(); }
 
