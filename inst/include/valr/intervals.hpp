@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <memory>
 #include <vector>
 
 namespace valr {
@@ -62,10 +63,14 @@ struct IntervalStopDescCmp {
   }
 };
 
-// Simple sorted interval list with linear scan for overlaps
-// Uses min_overlap parameter to control overlap semantics:
-//   min_overlap = 1 (default): strict half-open, book-ended intervals do NOT overlap
-//   min_overlap = 0: inclusive, book-ended intervals DO overlap (legacy behavior)
+// Augmented interval tree using centered approach
+// Inspired by Erik Garrison's implementation but simplified for valr's needs
+//
+// Key features:
+// - O(log n + k) query time where k = number of overlaps
+// - Supports min_overlap parameter for valr's overlap semantics
+// - Falls back to linear scan for small datasets (< 64 intervals)
+// - Memory efficient: reuses interval storage
 template <typename Coord = int, typename Value = int>
 class IntervalTree {
  public:
@@ -73,76 +78,223 @@ class IntervalTree {
   using interval_vector = std::vector<interval>;
 
  private:
+  // Intervals stored at this node (those spanning the center)
   interval_vector intervals_;
+  // Subtrees
+  std::unique_ptr<IntervalTree> left_;
+  std::unique_ptr<IntervalTree> right_;
+  // Center point for partitioning
+  Coord center_;
+  // Maximum endpoint in this subtree (for pruning)
+  Coord max_stop_;
+
+  // Threshold below which we use linear scan instead of tree
+  static constexpr size_t LINEAR_THRESHOLD = 64;
 
  public:
-  IntervalTree() {}
+  IntervalTree() : center_(0), max_stop_(std::numeric_limits<Coord>::min()) {}
 
   // Build from interval vector (consumes the vector via move)
-  explicit IntervalTree(interval_vector&& intervals) : intervals_(std::move(intervals)) {
-    // Sort by start position for potential early termination
+  explicit IntervalTree(interval_vector&& intervals, size_t depth = 16, size_t min_bucket = 64)
+      : left_(nullptr), right_(nullptr), center_(0), max_stop_(std::numeric_limits<Coord>::min()) {
+    if (intervals.empty()) {
+      return;
+    }
+
+    // Find min/max for computing center
+    Coord min_start = std::numeric_limits<Coord>::max();
+    Coord max_stop = std::numeric_limits<Coord>::min();
+    for (const auto& ivl : intervals) {
+      min_start = std::min(min_start, ivl.start);
+      max_stop = std::max(max_stop, ivl.stop);
+    }
+    max_stop_ = max_stop;
+
+    // For small sets or at depth limit, store linearly
+    if (depth == 0 || intervals.size() < min_bucket) {
+      // Sort by start for efficient querying
+      std::sort(intervals.begin(), intervals.end(), IntervalStartCmp<Coord, Value>());
+      intervals_ = std::move(intervals);
+      return;
+    }
+
+    // Choose center as midpoint of the range
+    center_ = (min_start + max_stop) / 2;
+
+    // Partition intervals into left, center, right
+    interval_vector lefts, rights;
+    lefts.reserve(intervals.size() / 2);
+    rights.reserve(intervals.size() / 2);
+
+    for (auto& ivl : intervals) {
+      if (ivl.stop < center_) {
+        // Entirely to the left of center
+        lefts.push_back(std::move(ivl));
+      } else if (ivl.start > center_) {
+        // Entirely to the right of center
+        rights.push_back(std::move(ivl));
+      } else {
+        // Spans the center - store at this node
+        intervals_.push_back(std::move(ivl));
+      }
+    }
+
+    // Sort center intervals by start for querying
     std::sort(intervals_.begin(), intervals_.end(), IntervalStartCmp<Coord, Value>());
+
+    // Recursively build subtrees
+    if (!lefts.empty()) {
+      left_ = std::make_unique<IntervalTree>(std::move(lefts), depth - 1, min_bucket);
+    }
+    if (!rights.empty()) {
+      right_ = std::make_unique<IntervalTree>(std::move(rights), depth - 1, min_bucket);
+    }
   }
 
   // Find all intervals overlapping [start, stop) with at least min_overlap bases
-  // min_overlap = 1 (default): strict half-open (matches bedtools intersect, bedder-rs)
-  // min_overlap = 0: book-ended intervals count as overlapping (legacy valr behavior)
+  // min_overlap = 1 (default): strict half-open (matches bedtools)
+  // min_overlap = 0: book-ended intervals count as overlapping (legacy valr)
   interval_vector findOverlapping(Coord start, Coord stop, Coord min_overlap = 1) const {
     interval_vector result;
-    if (intervals_.empty())
-      return result;
-
-    result.reserve(16);  // Pre-allocate for typical case
-
-    for (const auto& ivl : intervals_) {
-      // Early termination depends on min_overlap:
-      // - min_overlap > 0: can terminate when ivl.start >= stop (no overlap possible)
-      // - min_overlap = 0: must include book-ended, so terminate when ivl.start > stop
-      if (min_overlap > 0) {
-        if (ivl.start >= stop)
-          break;
-      } else {
-        if (ivl.start > stop)
-          break;
-      }
-
-      // Calculate overlap: min(end1, end2) - max(start1, start2)
-      Coord overlap = std::min(ivl.stop, stop) - std::max(ivl.start, start);
-      if (overlap >= min_overlap) {
-        result.push_back(ivl);
-      }
-    }
+    result.reserve(16);
+    findOverlappingImpl(start, stop, min_overlap, result);
     return result;
   }
 
   // Visit all intervals overlapping [start, stop) with at least min_overlap bases
   template <typename Func>
   void visit_overlapping(Coord start, Coord stop, Func&& f, Coord min_overlap = 1) const {
-    for (const auto& ivl : intervals_) {
-      // Early termination depends on min_overlap
-      if (min_overlap > 0) {
-        if (ivl.start >= stop)
-          break;
-      } else {
-        if (ivl.start > stop)
-          break;
-      }
+    visitOverlappingImpl(start, stop, std::forward<Func>(f), min_overlap);
+  }
 
+  bool empty() const {
+    if (!intervals_.empty())
+      return false;
+    if (left_ && !left_->empty())
+      return false;
+    if (right_ && !right_->empty())
+      return false;
+    return true;
+  }
+
+  size_t size() const {
+    size_t count = intervals_.size();
+    if (left_)
+      count += left_->size();
+    if (right_)
+      count += right_->size();
+    return count;
+  }
+
+  // Visit all intervals in the tree
+  template <typename Func>
+  void visit_all(Func&& f) const {
+    if (left_)
+      left_->visit_all(f);
+    for (const auto& ivl : intervals_) {
+      f(ivl);
+    }
+    if (right_)
+      right_->visit_all(f);
+  }
+
+ private:
+  void findOverlappingImpl(Coord start, Coord stop, Coord min_overlap,
+                           interval_vector& result) const {
+    // Check if we're a leaf node (no subtrees, just linear storage)
+    if (!left_ && !right_) {
+      // Linear scan through intervals_
+      for (const auto& ivl : intervals_) {
+        // Early termination: sorted by start, so if ivl.start is past our query, done
+        if (min_overlap > 0) {
+          if (ivl.start >= stop)
+            break;
+        } else {
+          if (ivl.start > stop)
+            break;
+        }
+
+        Coord overlap = std::min(ivl.stop, stop) - std::max(ivl.start, start);
+        if (overlap >= min_overlap) {
+          result.push_back(ivl);
+        }
+      }
+      return;
+    }
+
+    // Check left subtree
+    if (left_ && start < center_) {
+      // Prune if query is entirely past left subtree's max endpoint
+      if (min_overlap > 0) {
+        if (start < left_->max_stop_) {
+          left_->findOverlappingImpl(start, stop, min_overlap, result);
+        }
+      } else {
+        if (start <= left_->max_stop_) {
+          left_->findOverlappingImpl(start, stop, min_overlap, result);
+        }
+      }
+    }
+
+    // Check intervals at this node (they all span center_)
+    for (const auto& ivl : intervals_) {
+      Coord overlap = std::min(ivl.stop, stop) - std::max(ivl.start, start);
+      if (overlap >= min_overlap) {
+        result.push_back(ivl);
+      }
+    }
+
+    // Check right subtree
+    if (right_ && stop > center_) {
+      right_->findOverlappingImpl(start, stop, min_overlap, result);
+    }
+  }
+
+  template <typename Func>
+  void visitOverlappingImpl(Coord start, Coord stop, Func&& f, Coord min_overlap) const {
+    // Check if we're a leaf node (no subtrees, just linear storage)
+    if (!left_ && !right_) {
+      for (const auto& ivl : intervals_) {
+        if (min_overlap > 0) {
+          if (ivl.start >= stop)
+            break;
+        } else {
+          if (ivl.start > stop)
+            break;
+        }
+
+        Coord overlap = std::min(ivl.stop, stop) - std::max(ivl.start, start);
+        if (overlap >= min_overlap) {
+          f(ivl);
+        }
+      }
+      return;
+    }
+
+    // Check left subtree
+    if (left_ && start < center_) {
+      if (min_overlap > 0) {
+        if (start < left_->max_stop_) {
+          left_->visitOverlappingImpl(start, stop, f, min_overlap);
+        }
+      } else {
+        if (start <= left_->max_stop_) {
+          left_->visitOverlappingImpl(start, stop, f, min_overlap);
+        }
+      }
+    }
+
+    // Check intervals at this node
+    for (const auto& ivl : intervals_) {
       Coord overlap = std::min(ivl.stop, stop) - std::max(ivl.start, start);
       if (overlap >= min_overlap) {
         f(ivl);
       }
     }
-  }
 
-  bool empty() const { return intervals_.empty(); }
-  size_t size() const { return intervals_.size(); }
-
-  // Visit all intervals
-  template <typename Func>
-  void visit_all(Func&& f) const {
-    for (const auto& ivl : intervals_) {
-      f(ivl);
+    // Check right subtree
+    if (right_ && stop > center_) {
+      right_->visitOverlappingImpl(start, stop, f, min_overlap);
     }
   }
 };
