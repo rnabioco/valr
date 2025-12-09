@@ -230,14 +230,29 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
     }
     chroms_out[i] = selected_chrom;
 
-    // get tree from map
-    auto& chrom_tree = interval_trees[selected_chrom];
+    // get tree from map - verify chrom exists
+    auto tree_it = interval_trees.find(selected_chrom);
+    if (tree_it == interval_trees.end()) {
+      cpp11::stop("chromosome not found in inclusion regions: %s", selected_chrom.c_str());
+    }
+    auto& chrom_tree = tree_it->second;
 
     bool inbounds = false;
     int niter = 0;
 
-    // get the interval rng
-    auto interval_rng = interval_rngs[selected_chrom];
+    // get the interval rng - verify chrom exists
+    auto rng_it = interval_rngs.find(selected_chrom);
+    if (rng_it == interval_rngs.end()) {
+      cpp11::stop("chromosome not found in interval RNGs: %s", selected_chrom.c_str());
+    }
+    auto interval_rng = rng_it->second;
+
+    // get start RNGs for this chrom - verify exists
+    auto start_rng_it = start_rngs.find(selected_chrom);
+    if (start_rng_it == start_rngs.end()) {
+      cpp11::stop("chromosome not found in start RNGs: %s", selected_chrom.c_str());
+    }
+    auto& chrom_start_rngs = start_rng_it->second;
 
     while (!inbounds) {
       niter++;
@@ -248,8 +263,14 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
 
       // get a random interval index
       int rand_ivl_idx = interval_rng(generator);
+
+      // bounds check on random interval index
+      if (rand_ivl_idx < 0 || static_cast<size_t>(rand_ivl_idx) >= chrom_start_rngs.size()) {
+        continue;  // invalid index, try again
+      }
+
       // get the start rng and pick a start
-      UINT_DIST start_rng = start_rngs[selected_chrom][rand_ivl_idx];
+      UINT_DIST start_rng = chrom_start_rngs[rand_ivl_idx];
       int rand_start = start_rng(generator);
 
       int rand_end = rand_start + df_sizes[i];

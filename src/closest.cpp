@@ -120,8 +120,8 @@ void findClosestIvls(const std::vector<int>& q_starts, const std::vector<int>& q
   // compare x-ivl starts to y-ivl ends
   after = findClosestPos(q_starts, send_rle.v);
 
-  int ld, rd, ni, idx, idx_l, ol, d;
-  bool a_is_na, b_is_na, min_is_before;
+  int left_dist, right_dist, rle_idx, row_idx, run_length, overlap, dist;
+  bool after_is_na, before_is_na, min_is_before;
 
   // compare before and after to determine closest
   for (size_t j = 0; j < nx; j++) {
@@ -135,80 +135,80 @@ void findClosestIvls(const std::vector<int>& q_starts, const std::vector<int>& q
       after[j] -= 1;
     }
 
-    a_is_na = b_is_na = false;
+    after_is_na = before_is_na = false;
     if (before[j] == NA_INTEGER) {
-      b_is_na = true;
-      ld = NA_INTEGER;
+      before_is_na = true;
+      left_dist = NA_INTEGER;
     } else {
-      ld = sstr_rle.v[before[j]] - q_ends[j];
+      left_dist = sstr_rle.v[before[j]] - q_ends[j];
     }
 
     if (after[j] == NA_INTEGER) {
-      a_is_na = true;
-      rd = NA_INTEGER;
+      after_is_na = true;
+      right_dist = NA_INTEGER;
     } else {
-      rd = q_starts[j] - send_rle.v[after[j]];
+      right_dist = q_starts[j] - send_rle.v[after[j]];
     }
 
-    if (a_is_na && b_is_na) {
+    if (after_is_na && before_is_na) {
       // edge cases with overlapping or adjacent ivls
       // handled with a separate bed_intersect call
       continue;
-    } else if (a_is_na || b_is_na) {
-      min_is_before = a_is_na;
+    } else if (after_is_na || before_is_na) {
+      min_is_before = after_is_na;
     } else {
-      min_is_before = ld < rd;
+      min_is_before = left_dist < right_dist;
     }
 
     if (min_is_before) {
       // before is closest
-      ni = before[j];
-      idx = sstr_rle.s[ni];
-      idx_l = sstr_rle.l[ni];
-      ol = ivl_overlap(q_starts[j], q_ends[j], s_starts[idx], s_ends[idx]);
-      if (ol < 0) {
-        ol -= 1;
-        d = s_ends[idx] <= q_starts[j] ? ol : -ol;
-        for (int k = 0; k < idx_l; ++k) {
+      rle_idx = before[j];
+      row_idx = sstr_rle.s[rle_idx];
+      run_length = sstr_rle.l[rle_idx];
+      overlap = ivl_overlap(q_starts[j], q_ends[j], s_starts[row_idx], s_ends[row_idx]);
+      if (overlap < 0) {
+        overlap -= 1;
+        dist = s_ends[row_idx] <= q_starts[j] ? overlap : -overlap;
+        for (int k = 0; k < run_length; ++k) {
           indices_x.push_back(gi_x[j]);
-          indices_y.push_back(gi_y[idx]);
-          distance_sizes.push_back(d);
-          ++idx;
+          indices_y.push_back(gi_y[row_idx]);
+          distance_sizes.push_back(dist);
+          ++row_idx;
         }
       }
 
     } else {
       // handle same dist in before and after ivls
-      if (ld == rd) {
-        ni = before[j];
-        idx = sstr_rle.s[ni];
-        idx_l = sstr_rle.l[ni];
-        ol = ivl_overlap(q_starts[j], q_ends[j], s_starts[idx], s_ends[idx]);
-        if (ol < 0) {
-          ol -= 1;
-          d = s_ends[idx] <= q_starts[j] ? ol : -ol;
-          for (int k = 0; k < idx_l; ++k) {
+      if (left_dist == right_dist) {
+        rle_idx = before[j];
+        row_idx = sstr_rle.s[rle_idx];
+        run_length = sstr_rle.l[rle_idx];
+        overlap = ivl_overlap(q_starts[j], q_ends[j], s_starts[row_idx], s_ends[row_idx]);
+        if (overlap < 0) {
+          overlap -= 1;
+          dist = s_ends[row_idx] <= q_starts[j] ? overlap : -overlap;
+          for (int k = 0; k < run_length; ++k) {
             indices_x.push_back(gi_x[j]);
-            indices_y.push_back(gi_y[idx]);
-            distance_sizes.push_back(d);
-            ++idx;
+            indices_y.push_back(gi_y[row_idx]);
+            distance_sizes.push_back(dist);
+            ++row_idx;
           }
         }
       }
       // after is closest
-      ni = after[j];
-      idx = send_rle.s[ni];
-      idx_l = send_rle.l[ni];
-      idx = e_is_sorted ? idx : s_ord_ends[idx];
-      ol = ivl_overlap(q_starts[j], q_ends[j], s_starts[idx], s_ends[idx]);
-      if (ol < 0) {
-        ol -= 1;
-        d = s_ends[idx] <= q_starts[j] ? ol : -ol;
-        for (int k = 0; k < idx_l; ++k) {
+      rle_idx = after[j];
+      row_idx = send_rle.s[rle_idx];
+      run_length = send_rle.l[rle_idx];
+      row_idx = e_is_sorted ? row_idx : s_ord_ends[row_idx];
+      overlap = ivl_overlap(q_starts[j], q_ends[j], s_starts[row_idx], s_ends[row_idx]);
+      if (overlap < 0) {
+        overlap -= 1;
+        dist = s_ends[row_idx] <= q_starts[j] ? overlap : -overlap;
+        for (int k = 0; k < run_length; ++k) {
           indices_x.push_back(gi_x[j]);
-          indices_y.push_back(gi_y[idx]);
-          distance_sizes.push_back(d);
-          ++idx;
+          indices_y.push_back(gi_y[row_idx]);
+          distance_sizes.push_back(dist);
+          ++row_idx;
         }
       }
     }

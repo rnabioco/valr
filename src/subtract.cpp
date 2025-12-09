@@ -24,7 +24,7 @@ void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<in
   valr::ivl_tree_t tree_y(std::move(vy));
   valr::ivl_vector_t overlaps;
 
-  for (auto it : vx) {
+  for (const auto& it : vx) {
     auto x_start = it.start;
     auto x_stop = it.stop;
 
@@ -46,7 +46,7 @@ void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<in
 
     // iterate through overlaps with current x interval
     // modifying start and stop as necessary
-    for (auto oit : overlaps) {
+    for (const auto& oit : overlaps) {
       auto y_start = oit.start;
       auto y_stop = oit.stop;
 

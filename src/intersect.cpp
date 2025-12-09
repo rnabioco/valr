@@ -24,7 +24,7 @@ void intersect_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<i
   valr::ivl_tree_t tree_y(std::move(vy));
   valr::ivl_vector_t overlaps;
 
-  for (auto it : vx) {
+  for (const auto& it : vx) {
     overlaps = tree_y.findOverlapping(it.start, it.stop, min_overlap);
 
     if (overlaps.empty() && invert) {
@@ -35,7 +35,7 @@ void intersect_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<i
     }
 
     // store current intervals
-    for (auto oit : overlaps) {
+    for (const auto& oit : overlaps) {
       int overlap_size = valr::intervalOverlap(it, oit);
       overlap_sizes.push_back(overlap_size);
 

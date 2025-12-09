@@ -25,7 +25,7 @@ void coverage_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<in
   valr::ivl_vector_t overlaps;
   valr::IntervalStopDescCmp<int, int> intervalSorterDesc;
 
-  for (auto it : vx) {
+  for (const auto& it : vx) {
     indices_x.push_back(it.value);
 
     overlaps = tree_y.findOverlapping(it.start, it.stop, min_overlap);
@@ -86,7 +86,7 @@ void coverage_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<in
     overlaps.clear();
 
     // iterate through merged overlaps and compute number of covered bases
-    for (auto oit : mergedOverlaps) {
+    for (const auto& oit : mergedOverlaps) {
       auto y_ivl_start = oit.start;
       auto y_ivl_stop = oit.stop;
 
@@ -164,7 +164,7 @@ cpp11::writable::data_frame coverage_impl(cpp11::data_frame gdf_x, cpp11::data_f
       cpp11::integers gi_x(idx_x[nx]);
       valr::ivl_vector_t vx = valr::makeIntervalVector(df_x, gi_x);
 
-      for (auto it : vx) {
+      for (const auto& it : vx) {
         indices_x.push_back(it.value);
         overlap_counts.push_back(0);
         int x_ivl_length = it.stop - it.start;

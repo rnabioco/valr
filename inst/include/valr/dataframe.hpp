@@ -18,6 +18,41 @@
 
 namespace valr {
 
+// Convert cpp11::integers to std::vector<int> with optional index adjustment
+// If adjust_index is true, converts from R's 1-based to C++'s 0-based indexing
+inline std::vector<int> to_std_vector(const cpp11::integers& x, bool adjust_index = false) {
+  size_t n = x.size();
+  std::vector<int> result(n);
+  if (adjust_index) {
+    for (size_t i = 0; i < n; ++i) {
+      result[i] = x[i] - 1;
+    }
+  } else {
+    for (size_t i = 0; i < n; ++i) {
+      result[i] = x[i];
+    }
+  }
+  return result;
+}
+
+// Convert std::vector<int> to cpp11::writable::integers
+inline cpp11::writable::integers to_cpp11_integers(const std::vector<int>& x) {
+  cpp11::writable::integers result(x.size());
+  for (size_t i = 0; i < x.size(); ++i) {
+    result[i] = x[i];
+  }
+  return result;
+}
+
+// Convert std::vector<double> to cpp11::writable::doubles
+inline cpp11::writable::doubles to_cpp11_doubles(const std::vector<double>& x) {
+  cpp11::writable::doubles result(x.size());
+  for (size_t i = 0; i < x.size(); ++i) {
+    result[i] = x[i];
+  }
+  return result;
+}
+
 // Helper to set factor levels on an integer vector
 inline void set_factor_levels(SEXP x, SEXP levels) {
   if (TYPEOF(x) != INTSXP) {
@@ -201,7 +236,18 @@ class DataFrameBuilder {
   }
 
   // Build the final dataframe
+  // nrow: expected number of rows (used for validation and row.names)
   cpp11::writable::data_frame build(int nrow) {
+    // Validate column lengths match expected row count
+    for (R_xlen_t i = 0; i < data.size(); ++i) {
+      SEXP col = data[i];
+      R_xlen_t col_len = Rf_xlength(col);
+      if (col_len != nrow) {
+        cpp11::stop("Column length mismatch: column %d has %d rows, expected %d", static_cast<int>(i),
+                    static_cast<int>(col_len), nrow);
+      }
+    }
+
     // Set names
     cpp11::writable::strings name_vec(names.size());
     for (size_t i = 0; i < names.size(); ++i) {

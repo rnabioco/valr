@@ -88,7 +88,9 @@ class IntervalTree {
   // Maximum endpoint in this subtree (for pruning)
   Coord max_stop_;
 
-  // Threshold below which we use linear scan instead of tree
+  // Threshold below which we use linear scan instead of tree.
+  // For small interval sets, the overhead of tree construction and traversal
+  // exceeds the benefit of O(log n) lookups. Empirically, 64 is a good cutoff.
   static constexpr size_t LINEAR_THRESHOLD = 64;
 
  public:
