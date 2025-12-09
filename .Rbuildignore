@@ -23,3 +23,4 @@
 ^revdep$
 ^\.vscode$
 ^[\.]?air\.toml$
+^\.clang-format$

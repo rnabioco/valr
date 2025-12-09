@@ -1,0 +1,28 @@
+name: clang-format
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'src/**'
+      - 'inst/include/**'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'src/**'
+      - 'inst/include/**'
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Check C++ formatting
+        run: |
+          # Find all C++ files and check formatting
+          find src inst/include -name '*.cpp' -o -name '*.hpp' -o -name '*.h' | \
+            xargs clang-format --dry-run --Werror --style=file

@@ -1,0 +1,37 @@
+---
+# clang-format configuration for valr
+# Based on Google style with adjustments for R package conventions
+
+BasedOnStyle: Google
+IndentWidth: 2
+ColumnLimit: 100
+BreakBeforeBraces: Attach
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+IndentCaseLabels: true
+NamespaceIndentation: None
+PointerAlignment: Left
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+Standard: c++17
+DerivePointerAlignment: false
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  # cpp11 headers first
+  - Regex: '^<cpp11'
+    Priority: 1
+  # Rcpp headers (during migration)
+  - Regex: '^<Rcpp'
+    Priority: 2
+  # R headers
+  - Regex: '^<R'
+    Priority: 3
+  # Standard library
+  - Regex: '^<[a-z_]+>'
+    Priority: 4
+  # Local headers
+  - Regex: '^"'
+    Priority: 5
