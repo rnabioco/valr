@@ -243,8 +243,8 @@ class DataFrameBuilder {
       SEXP col = data[i];
       R_xlen_t col_len = Rf_xlength(col);
       if (col_len != nrow) {
-        cpp11::stop("Column length mismatch: column %d has %d rows, expected %d", static_cast<int>(i),
-                    static_cast<int>(col_len), nrow);
+        cpp11::stop("Column length mismatch: column %d has %d rows, expected %d",
+                    static_cast<int>(i), static_cast<int>(col_len), nrow);
       }
     }
 
