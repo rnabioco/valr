@@ -3,9 +3,9 @@ Package: valr
 Title: Genome Interval Arithmetic
 Version: 0.8.4.9000
 Authors@R: c(
-    person("Jay", "Hesselberth", , "jay.hesselberth@cuanschutz.edu", role = c("aut"),
+    person("Jay", "Hesselberth", , "jay.hesselberth@cuanschutz.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6299-179X")),
-    person("Kent", "Riemondy", , "kent.riemondy@gmail.com", role = c("aut", "cre"),
+    person("Kent", "Riemondy", , "kent.riemondy@gmail.com", role = c("aut"),
            comment = c(ORCID = "0000-0003-0750-1273")),
     person("RNA Bioscience Initiative", role = c("fnd", "cph"),
            comment = c(ROR = "03wmf1y16"))
