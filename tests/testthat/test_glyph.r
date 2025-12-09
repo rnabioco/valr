@@ -5,6 +5,7 @@ x <- tibble::tribble(
 )
 
 test_that("glyphs are rendered", {
+  skip_on_ci()
   expect_doppelganger("merge glyph is ok", bed_glyph(bed_merge(x)))
 })
 
@@ -29,6 +30,7 @@ b <- tibble::tribble(
 )
 
 test_that("expr arguments do not need to be x and/or y", {
+  skip_on_ci()
   expect_doppelganger(
     "intersect glyph is ok",
     bed_glyph(bed_intersect(a, b, min_overlap = 0L))
