@@ -76,9 +76,10 @@ inline cpp11::writable::data_frame subset_dataframe(const cpp11::data_frame& df,
 
   cpp11::writable::list output(ncol);
 
-  // Copy column names
-  SEXP names = Rf_getAttrib(df, R_NamesSymbol);
+  // Copy column names (PROTECT to satisfy rchk)
+  SEXP names = PROTECT(Rf_getAttrib(df, R_NamesSymbol));
   Rf_setAttrib(output, R_NamesSymbol, names);
+  UNPROTECT(1);
 
   for (int j = 0; j < ncol; ++j) {
     SEXP col = VECTOR_ELT(df, j);
