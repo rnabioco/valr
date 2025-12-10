@@ -140,7 +140,6 @@ bed_slop <- function(
   }
 
   res <- bound_intervals(res, genome, trim)
-  res <- bed_sort(res)
 
   res <- mutate(
     res,

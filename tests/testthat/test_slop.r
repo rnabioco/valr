@@ -130,8 +130,9 @@ test_that("test that old floating-point issues are solved", {
     "chr1" ,    100 ,  200
   )
   res <- bed_slop(b, h19, both = 0.1, fraction = TRUE)
-  expect_equal(res$start, c(90, 159))
-  expect_equal(res$end, c(210, 171))
+  # input order is preserved (not sorted by start)
+  expect_equal(res$start, c(159, 90))
+  expect_equal(res$end, c(171, 210))
 })
 
 test_that("test negative slop on l with strand", {
@@ -241,6 +242,7 @@ test_that("test edge cases", {
     ~chrom , ~size ,
     "chr1" ,  1000
   )
+
   b <- tibble::tribble(
     ~chrom , ~start , ~end , ~name , ~score , ~strand ,
     "chr1" ,     50 ,   60 , "a1"  ,      5 , "-"
@@ -255,4 +257,24 @@ test_that("test edge cases", {
   )
   expect_equal(res$start, 0)
   expect_equal(res$end, 1)
+})
+
+test_that("input order is preserved issue #434", {
+  genome <- tibble::tribble(
+    ~chrom , ~size ,
+    "chr1" ,  5000
+  )
+
+  x <- tibble::tribble(
+    ~chrom , ~start , ~end , ~id ,
+    "chr1" ,   3000 , 4000 ,   1 ,
+    "chr1" ,   3500 , 4500 ,   2 ,
+    "chr1" ,    100 ,  200 ,   4 ,
+    "chr1" ,    150 ,  250 ,   3
+  )
+
+  res <- bed_slop(x, genome, both = 100)
+
+  # order should be preserved based on id column
+  expect_equal(res$id, c(1, 2, 4, 3))
 })

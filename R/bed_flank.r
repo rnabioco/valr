@@ -98,7 +98,5 @@ bed_flank <- function(
   )
   res <- tibble::as_tibble(res)
 
-  res <- bed_sort(res)
-
   res
 }
