@@ -245,9 +245,9 @@ be suppressed by using `sorted = FALSE`.
 
 * Make `.id` values sequential across chroms in `bed_cluster()` output (#171)
 
-* Transfer repository to <http://github.com/rnabioco/valr>, update links and docs.
+* Transfer repository to <https://github.com/rnabioco/valr>, update links and docs.
 
-* Move shiny app to new repo (<http://github.com/rnabioco/valrdata>).
+* Move shiny app to new repo (<https://github.com/rnabioco/valrdata>).
 
 * Add Kent Riemondy to LICENSE file.
 
