@@ -16,5 +16,5 @@ y <- tibble::tribble(
 )
 
 test_that("unstranded tbls throw an error", {
-  expect_error(flip_strands(y))
+  expect_snapshot(flip_strands(y), error = TRUE)
 })

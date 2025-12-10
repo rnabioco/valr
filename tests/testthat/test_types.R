@@ -54,11 +54,11 @@ test_that("factors with no entries are handled ", {
 test_that("complex, raw, and other types are not supported", {
   tmp <- x
   tmp$complex <- 1 + 2i
-  expect_error(bed_intersect(tmp, tmp, min_overlap = 0L))
+  expect_snapshot(bed_intersect(tmp, tmp, min_overlap = 0L), error = TRUE)
 
   tmp <- x
   tmp$raw <- as.raw(42)
-  expect_error(bed_intersect(tmp, tmp, min_overlap = 0L))
+  expect_snapshot(bed_intersect(tmp, tmp, min_overlap = 0L), error = TRUE)
 })
 
 test_that("list columns are supported", {

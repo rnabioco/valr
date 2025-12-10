@@ -27,7 +27,7 @@ test_that("chrom sizes less than length throws an error", {
     ~chrom , ~size ,
     "chr1" ,   125
   )
-  expect_error(bed_random(genome, seed = seed))
+  expect_snapshot(bed_random(genome, seed = seed), error = TRUE)
 })
 
 test_that("intervals are sorted by default", {

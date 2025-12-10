@@ -1,6 +1,6 @@
 test_that("invalid ncol causes an error", {
   x <- tibble::tribble()
-  expect_error(bed12_to_exons(x))
+  expect_snapshot(bed12_to_exons(x), error = TRUE)
 })
 
 test_that("BED12 is parsed correctly", {

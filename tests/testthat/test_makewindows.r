@@ -113,8 +113,8 @@ test_that("always get the number of requested windows. issue #322", {
 })
 
 test_that("report error if negative value win_size or num_win arguments supplied", {
-  expect_error(bed_makewindows(x, num_win = -1))
-  expect_error(bed_makewindows(x, win_size = -1))
+  expect_snapshot(bed_makewindows(x, num_win = -1), error = TRUE)
+  expect_snapshot(bed_makewindows(x, win_size = -1), error = TRUE)
 })
 
 test_that("check num_win reported correctly for additional intervals (related to #322)", {

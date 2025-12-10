@@ -64,7 +64,7 @@ test_that("max_dist is a positive value", {
     "chr1" ,     50 ,  100
   )
 
-  expect_error(bed_merge(bed_df, max_dist = -1))
+  expect_snapshot(bed_merge(bed_df, max_dist = -1), error = TRUE)
 })
 
 test_that("input groups are maintained in the output tbl issue #108", {

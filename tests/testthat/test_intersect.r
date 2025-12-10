@@ -116,7 +116,7 @@ test_that("incorrect `suffix` args throw errors", {
     "chr1" ,   1000 , 1200 , "."   , "."
   )
 
-  expect_error(bed_intersect(x, y, suffix = "TESTING", min_overlap = 0L))
+  expect_snapshot(bed_intersect(x, y, suffix = "TESTING", min_overlap = 0L), error = TRUE)
 })
 
 test_that("intersections from x bed_tbl with more chroms than y are captured", {

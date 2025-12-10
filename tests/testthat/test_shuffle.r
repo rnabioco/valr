@@ -55,7 +55,7 @@ test_that("completely excluded intervals throw an error", {
     "chr2" ,      1 ,  10000000 ,
     "chr3" ,      1 , 100000000
   )
-  expect_error(bed_shuffle(x, genome, excl = excl, seed = seed))
+  expect_snapshot(bed_shuffle(x, genome, excl = excl, seed = seed), error = TRUE)
 })
 
 test_that("`incl` and `excl` are handled", {
@@ -82,7 +82,7 @@ test_that("empty intervals derived from `incl` and `excl` is handled", {
     ~chrom , ~start , ~end    ,
     "chr1" ,      1 , 1000000
   )
-  expect_error(bed_shuffle(x, genome, incl, excl, seed = seed))
+  expect_snapshot(bed_shuffle(x, genome, incl, excl, seed = seed), error = TRUE)
 })
 
 test_that("exceeding `max_tries` yields an error", {
@@ -93,7 +93,7 @@ test_that("exceeding `max_tries` yields an error", {
     "chr2" ,      1 ,  1e7 ,
     "chr3" ,      1 ,  1e8
   )
-  expect_error(bed_shuffle(x, genome, excl = excl, seed = seed))
+  expect_snapshot(bed_shuffle(x, genome, excl = excl, seed = seed), error = TRUE)
 })
 
 test_that("`seed` generates reproducible intervals", {

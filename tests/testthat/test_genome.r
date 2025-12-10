@@ -38,5 +38,5 @@ test_that("duplicate chroms throw an error.", {
     "chr1" ,      1 , 10000
   )
 
-  expect_error(bed_complement(x, genome))
+  expect_snapshot(bed_complement(x, genome), error = TRUE)
 })
