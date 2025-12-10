@@ -2,7 +2,9 @@
 output: github_document
 ---
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
+#| echo: false
+#| message: false
 knitr::opts_chunk$set(
   fig.align = "center",
   collapse = TRUE,
@@ -17,32 +19,42 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/rnabioco/valr/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rnabioco/valr/actions/workflows/check-standard.yaml)
 [![codecov](https://codecov.io/github/rnabioco/valr/graph/badge.svg)](https://app.codecov.io/github/rnabioco/valr)
 [![](https://www.r-pkg.org/badges/version/valr)](https://CRAN.R-project.org/package=valr)
+[![R-CMD-check](https://github.com/rnabioco/valr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rnabioco/valr/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/rnabioco/valr/graph/badge.svg)](https://app.codecov.io/gh/rnabioco/valr)
 <!-- badges: end -->
 
-valr provides tools to read and manipulate genome intervals and signals, similar to the [BEDtools](https://bedtools.readthedocs.io/en/latest/) suite. 
+valr provides tools to read and manipulate genome intervals and signals, similar to the [BEDtools](https://bedtools.readthedocs.io/en/latest/) suite.
 
 ## Installation
 
 ::: .pkgdown-release
-```{r, eval = FALSE}
+
+```{r}
+#| eval: false
 # Install released version from CRAN
 install.packages("valr")
 ```
+
 :::
 
 ::: .pkgdown-devel
-```{r, eval = FALSE}
+
+```{r}
+#| eval: false
 # Install development version from GitHub
 # install.packages("pak")
 pak::pak("rnabioco/valr")
 ```
+
 :::
 
 ## valr Example
 
 Functions in valr have similar names to their BEDtools counterparts, and so will be familiar to users coming from the BEDtools suite. Unlike other tools that wrap BEDtools and write temporary files to disk, valr tools run natively in memory. Similar to [pybedtools](https://daler.github.io/pybedtools/#why-pybedtools), valr has a terse syntax:
 
-```{r syntax_demo, message = FALSE}
+```{r}
+#| label: syntax_demo
+#| message: false
 library(valr)
 library(dplyr)
 

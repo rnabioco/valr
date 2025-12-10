@@ -11,7 +11,9 @@ output:
       %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -31,7 +33,10 @@ knitr::opts_chunk$set(
 
 In this vignette we explore the relationship between transcription start sites and repetitive elements in the human genome. 
 
-```{r load-data, message = FALSE, warning = FALSE}
+```{r}
+#| label: load-data
+#| message: false
+#| warning: false
 library(valr)
 library(dplyr)
 library(ggplot2)
@@ -56,7 +61,8 @@ tss
 
 First we define a function that takes `x` and `y` intervals and computes distance statistics (using `bed_reldist()` and `bed_absdist()`) for specified groups. The value of each statistic is assigned to a `.value` column.
 
-```{r stats}
+```{r}
+#| label: stats
 distance_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) |>
     do(
@@ -76,14 +82,16 @@ distance_stats <- function(x, y, genome, group_var, type = NA) {
 
 We use the `distance_stats()` function to apply the `bed_absdist()` function to each group of data.
 
-```{r compute_obs}
+```{r}
+#| label: compute_obs
 obs_stats <- distance_stats(rpts, tss, genome, "name", "obs")
 obs_stats
 ```
 
 And the same is done for a set of  shuffled group of data. `bed_shuffle()` is used to shuffle coordinates of the repeats within each chromosome (i.e., the coordinates change, but the chromosome stays the same.)
 
-```{r compute_shf}
+```{r}
+#| label: compute_shf
 shfs <- bed_shuffle(rpts, genome, within = TRUE)
 shf_stats <- distance_stats(shfs, tss, genome, "name", "shuf")
 ```
@@ -96,7 +104,8 @@ Now we can bind the observed and shuffled data together, and do some tidying to 
 1. using `tidyr::pivot_wider()` to create two new `obs` and `shuf` columns
 1. removing rows with `NA` values.
 
-```{r bind_res}
+```{r}
+#| label: bind_res
 res <- bind_rows(obs_stats, shf_stats) |>
   tidyr::unnest(value) |>
   group_by(name, stat, type) |>
@@ -112,7 +121,9 @@ res
 
 Now that the data are formatted, we can use the non-parametric `ks.test()` to determine whether there are significant differences between the observed and shuffled data for each group. `broom::tidy()` is used to reformat the results of each test into a `tibble`, and the results of each test are `pivot`ed to into a `type` column for each test type.
 
-```{r pvalues, warning=FALSE}
+```{r}
+#| label: pvalues
+#| warning: false
 library(broom)
 
 pvals <- res |>
@@ -129,7 +140,8 @@ pvals <- res |>
 
 Histgrams of the different stats help visualize the distribution of p.values.
 
-```{r pvalue_viz}
+```{r}
+#| label: pvalue_viz
 ggplot(pvals, aes(p.value)) +
   geom_histogram(binwidth = 0.05) +
   facet_grid(stat ~ alt) +
@@ -138,7 +150,8 @@ ggplot(pvals, aes(p.value)) +
 
 We can also assess false discovery rates (q.values) using `p.adjust()`.
 
-```{r qvalues}
+```{r}
+#| label: qvalues
 pvals <-
   group_by(pvals, stat, alt) |>
   mutate(q.value = p.adjust(p.value)) |>
@@ -148,7 +161,8 @@ pvals <-
 
 Finally we can visualize these results using `stat_ecdf()`.
 
-```{r ecfs}
+```{r}
+#| label: ecfs
 res_gather <- tidyr::pivot_longer(res,
   cols = -c(name, stat, .id),
   names_to = "type",
@@ -175,7 +189,8 @@ ggplot(res_signif, aes(x = value, color = type)) +
 
 First we'll extract 5 kb regions upstream of the transcription start sites to represent the promoter regions for coding and non-coding genes. 
 
-```{r get_promoters}
+```{r}
+#| label: get_promoters
 # create intervals 5kb upstream of tss representing promoters
 promoters <-
   bed_flank(genes, genome, left = 5000, strand = TRUE) |>
@@ -193,7 +208,8 @@ promoters_ncoding
 
 Next we'll apply the `bed_projection()` test for each repeat class for both coding and non-coding regions. 
 
-```{r get_projections}
+```{r}
+#| label: get_projections
 # function to apply bed_projection to groups
 projection_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) |>
@@ -228,7 +244,8 @@ pvals
 
 The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of `lower_tail = TRUE` column indicates that the query intervals are depleted, whereas `lower_tail = FALSE` indicates that the query intervals are enriched. 
 
-```{r table}
+```{r}
+#| label: table
 library(DT)
 
 # find and show top 5 most significant repeats
