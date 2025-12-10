@@ -34,7 +34,7 @@ Projection test for query interval overlap.
 }
 \details{
 Interval statistics can be used in combination with
-\code{\link[dplyr:group_by]{dplyr::group_by()}} and \code{\link[dplyr:do]{dplyr::do()}} to calculate
+\code{\link[dplyr:group_by]{dplyr::group_by()}} and \code{\link[dplyr:reframe]{dplyr::reframe()}} to calculate
 statistics for subsets of data. See \code{vignette('interval-stats')} for
 examples.
 }

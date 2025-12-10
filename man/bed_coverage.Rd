@@ -13,7 +13,7 @@ bed_coverage(x, y, ..., min_overlap = NULL)
 
 \item{...}{extra arguments (not used)}
 
-\item{min_overlap}{minimum overlap in base pairs required for coverage.
+\item{min_overlap}{minimum overlap in base pairs required for the operation.
 Set to \code{1} to exclude book-ended intervals (matching bedtools behavior), or
 \code{0} to include them (legacy valr behavior). The default will change from
 \code{0} to \code{1} in a future version.}
