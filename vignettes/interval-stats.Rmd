@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 * Quantify extent of overlap between sets of intervals with `bed_jaccard()`.
 
-In this vignette we explore the relationship between transcription start sites and repetitive elements in the human genome. 
+In this vignette we explore the relationship between transcription start sites and repetitive elements in the human genome.
 
 ```{r load-data, message = FALSE, warning = FALSE}
 library(valr)
@@ -59,11 +59,15 @@ First we define a function that takes `x` and `y` intervals and computes distanc
 ```{r stats}
 distance_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) |>
-    do(
-      reldist = bed_reldist(., y, detail = TRUE) |>
-        select(.value = .reldist),
-      absdist = bed_absdist(., y, genome) |>
-        select(.value = .absdist)
+    reframe(
+      reldist = list(
+        bed_reldist(pick(everything()), y, detail = TRUE) |>
+          select(.value = .reldist)
+      ),
+      absdist = list(
+        bed_absdist(pick(everything()), y, genome) |>
+          select(.value = .absdist)
+      )
     ) |>
     tidyr::pivot_longer(
       cols = -name,
@@ -116,12 +120,16 @@ Now that the data are formatted, we can use the non-parametric `ks.test()` to de
 library(broom)
 
 pvals <- res |>
-  do(
-    twosided = tidy(ks.test(.$obs, .$shuf)),
-    less = tidy(ks.test(.$obs, .$shuf, alternative = "less")),
-    greater = tidy(ks.test(.$obs, .$shuf, alternative = "greater"))
+  reframe(
+    twosided = list(tidy(ks.test(obs, shuf))),
+    less = list(tidy(ks.test(obs, shuf, alternative = "less"))),
+    greater = list(tidy(ks.test(obs, shuf, alternative = "greater")))
   ) |>
-  tidyr::pivot_longer(cols = -c(name, stat), names_to = "alt", values_to = "type") |>
+  tidyr::pivot_longer(
+    cols = -c(name, stat),
+    names_to = "alt",
+    values_to = "type"
+  ) |>
   unnest(type) |>
   select(name:p.value) |>
   arrange(p.value)
@@ -149,7 +157,8 @@ pvals <-
 Finally we can visualize these results using `stat_ecdf()`.
 
 ```{r ecfs}
-res_gather <- tidyr::pivot_longer(res,
+res_gather <- tidyr::pivot_longer(
+  res,
   cols = -c(name, stat, .id),
   names_to = "type",
   values_to = "value"
@@ -173,7 +182,7 @@ ggplot(res_signif, aes(x = value, color = type)) +
 
 `bed_projection()` is a statistical approach to assess the relationship between two intervals based on the binomial distribution. Here, we examine the distribution of repetitive elements within the promoters of coding or non-coding genes.
 
-First we'll extract 5 kb regions upstream of the transcription start sites to represent the promoter regions for coding and non-coding genes. 
+First we'll extract 5 kb regions upstream of the transcription start sites to represent the promoter regions for coding and non-coding genes.
 
 ```{r get_promoters}
 # create intervals 5kb upstream of tss representing promoters
@@ -191,21 +200,33 @@ promoters_coding
 promoters_ncoding
 ```
 
-Next we'll apply the `bed_projection()` test for each repeat class for both coding and non-coding regions. 
+Next we'll apply the `bed_projection()` test for each repeat class for both coding and non-coding regions.
 
 ```{r get_projections}
 # function to apply bed_projection to groups
 projection_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) |>
-    do(
-      n_repeats = nrow(.),
-      projection = bed_projection(., y, genome)
+    reframe(
+      n_repeats = list(n()),
+      projection = list(bed_projection(pick(everything()), y, genome))
     ) |>
     mutate(type = type)
 }
 
-pvals_coding <- projection_stats(rpts, promoters_coding, genome, "name", "coding")
-pvals_ncoding <- projection_stats(rpts, promoters_ncoding, genome, "name", "non_coding")
+pvals_coding <- projection_stats(
+  rpts,
+  promoters_coding,
+  genome,
+  "name",
+  "coding"
+)
+pvals_ncoding <- projection_stats(
+  rpts,
+  promoters_ncoding,
+  genome,
+  "name",
+  "non_coding"
+)
 
 pvals <-
   bind_rows(pvals_ncoding, pvals_coding) |>
@@ -226,7 +247,7 @@ pvals <- mutate(pvals, q.value = p.adjust(p.value))
 pvals
 ```
 
-The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of `lower_tail = TRUE` column indicates that the query intervals are depleted, whereas `lower_tail = FALSE` indicates that the query intervals are enriched. 
+The projection test is a two-tailed statistical test. A significant p-value indicates either enrichment or depletion of query intervals compared to the reference interval sets. A value of `lower_tail = TRUE` column indicates that the query intervals are depleted, whereas `lower_tail = FALSE` indicates that the query intervals are enriched.
 
 ```{r table}
 library(DT)

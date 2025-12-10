@@ -13,7 +13,7 @@ bed_subtract(x, y, any = FALSE, min_overlap = NULL)
 
 \item{any}{remove any \code{x} intervals that overlap \code{y}}
 
-\item{min_overlap}{minimum overlap in base pairs required for subtraction.
+\item{min_overlap}{minimum overlap in base pairs required for the operation.
 Set to \code{1} to exclude book-ended intervals (matching bedtools behavior), or
 \code{0} to include them (legacy valr behavior). The default will change from
 \code{0} to \code{1} in a future version.}

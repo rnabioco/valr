@@ -77,13 +77,14 @@ res <- mark(
   min_time = Inf,
   iterations = nrep,
   check = FALSE,
-  time_unit = 's')
+  time_unit = 's'
+)
 
 # covert nanoseconds to seconds
-res2<- res |>
+res2 <- res |>
   as_tibble() |>
-  mutate(expression = as.character(expression)) |> 
-  tidyr::unnest(time) |> 
+  mutate(expression = as.character(expression)) |>
+  tidyr::unnest(time) |>
   arrange(time)
 
 # futz with the x-axis
@@ -96,15 +97,21 @@ res <- res2 |>
   left_join(maxs) |>
   filter(time <= max.time * 1.05)
 
-ggplot(res, aes(x=reorder(expression, time), y=time)) +
+ggplot(res, aes(x = reorder(expression, time), y = time)) +
   geom_boxplot(fill = 'red', outlier.shape = NA, alpha = 0.5) +
   coord_flip() +
   theme_bw() +
   labs(
-    y='execution time (seconds)',
-    x='',
-    title="valr benchmarks",
-    subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repetitions"))
+    y = 'execution time (seconds)',
+    x = '',
+    title = "valr benchmarks",
+    subtitle = paste(
+      comma(n),
+      "random x/y intervals,",
+      comma(nrep),
+      "repetitions"
+    )
+  )
 ```
 
 ## Comparison to GenomicRanges
@@ -123,13 +130,16 @@ z <- bed_random(genome, n = n, seed = seed_z, sorted = FALSE)
 # convert valr tibbles into GR objects
 x_gr <- GRanges(
   seqnames = Rle(x$chrom),
-  ranges = IRanges(x$start + 1, end = x$end))
+  ranges = IRanges(x$start + 1, end = x$end)
+)
 y_gr <- GRanges(
   seqnames = Rle(y$chrom),
-  ranges = IRanges(y$start + 1, end = y$end))
+  ranges = IRanges(y$start + 1, end = y$end)
+)
 z_gr <- GRanges(
   seqnames = Rle(z$chrom),
-  ranges = IRanges(z$start + 1, end = z$end))
+  ranges = IRanges(z$start + 1, end = z$end)
+)
 
 res2 <- mark(
   # valr
@@ -145,7 +155,7 @@ res2 <- mark(
   bed_genomecov(x, genome),
   # GRanges
   flank(x_gr, 1000),
-  shift(x_gr,0),
+  shift(x_gr, 0),
   reduce(x_gr),
   gaps(x_gr),
   nearest(x_gr),
@@ -157,21 +167,22 @@ res2 <- mark(
   min_time = Inf,
   iterations = nrep,
   check = FALSE,
-  time_unit = 's')
+  time_unit = 's'
+)
 
 # label experiment pair and software
-comp <- as_tibble(summary(res2)) |> 
-  mutate(pair = as.numeric(row_number()) %% (nrow(res2) / 1 / 2)) |> 
+comp <- as_tibble(summary(res2)) |>
+  mutate(pair = as.numeric(row_number()) %% (nrow(res2) / 1 / 2)) |>
   mutate(software = rep(c("valr", "GR"), each = (nrow(res2) / 1 / 2))) |>
-  select(expression, pair, software) |> 
+  select(expression, pair, software) |>
   mutate(expression = as.character(expression))
 
 # convert time table
 res2 <- res2 |>
-  mutate(expression = as.character(expression)) |> 
+  mutate(expression = as.character(expression)) |>
   as_tibble() |>
   left_join(comp) |>
-  tidyr::unnest(time) |> 
+  tidyr::unnest(time) |>
   arrange(time)
 
 # futz with the x-axis
@@ -185,16 +196,28 @@ res2 <- res2 |>
   filter(time <= max.time * 1.05)
 
 #label
-ggplot(res2, aes(x=reorder(expression, pair), y=time)) +
+ggplot(res2, aes(x = reorder(expression, pair), y = time)) +
   geom_boxplot(aes(fill = software), outlier.shape = NA, alpha = 0.5) +
   coord_flip() +
   theme_bw() +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
-  geom_vline(xintercept=seq(1,nrow(res2),2)-.5, color = 'grey', alpha = 0.23) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  geom_vline(
+    xintercept = seq(1, nrow(res2), 2) - .5,
+    color = 'grey',
+    alpha = 0.23
+  ) +
   labs(
-    y='execution time (seconds)',
-    x='',
-    title="valr vs GenomicRanges benchmarks",
-    subtitle=paste(comma(n), "random x/y intervals,", comma(nrep), "repetitions"))
+    y = 'execution time (seconds)',
+    x = '',
+    title = "valr vs GenomicRanges benchmarks",
+    subtitle = paste(
+      comma(n),
+      "random x/y intervals,",
+      comma(nrep),
+      "repetitions"
+    )
+  )
 ```
-
