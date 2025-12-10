@@ -19,16 +19,6 @@ using Engine = std::mt19937;
 using UniformIntDist = std::uniform_int_distribution<int>;
 using PiecewiseConstDist = std::piecewise_constant_distribution<>;
 
-// Legacy typedefs for compatibility during migration
-using ENGINE = Engine;
-using UINT_DIST = UniformIntDist;
-using PCONST_DIST = PiecewiseConstDist;
-
 }  // namespace valr
-
-// For backward compatibility, expose in global namespace during migration
-using ENGINE = valr::Engine;
-using UINT_DIST = valr::UniformIntDist;
-using PCONST_DIST = valr::PiecewiseConstDist;
 
 #endif  // VALR_RANDOM_HPP
