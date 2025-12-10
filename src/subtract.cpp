@@ -34,8 +34,7 @@ void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<in
     // Collect overlaps using visitor pattern into reusable buffer
     overlaps.clear();
     tree_y.visit_overlapping(
-        it.start, it.stop,
-        [&](const valr::ivl_t& oit) { overlaps.push_back(oit); }, min_overlap);
+        it.start, it.stop, [&](const valr::ivl_t& oit) { overlaps.push_back(oit); }, min_overlap);
 
     // handle no overlaps and continue
     if (overlaps.empty()) {

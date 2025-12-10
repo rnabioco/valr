@@ -68,7 +68,8 @@ cpp11::writable::data_frame partition_impl(cpp11::data_frame gdf, int max_dist =
     cpp11::integers indices(idx[i]);
     valr::ivl_vector_t intervals = valr::makeIntervalVector(df, indices);
 
-    if (intervals.empty()) continue;
+    if (intervals.empty())
+      continue;
 
     // set first interval
     ivl_cache.push_back(intervals[0]);

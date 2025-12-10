@@ -32,7 +32,8 @@ cpp11::writable::data_frame collapseMergedIntervals(cpp11::data_frame gdf, int m
 
     valr::ivl_vector_t intervals = valr::makeIntervalVector(df, indices);
 
-    if (intervals.empty()) continue;
+    if (intervals.empty())
+      continue;
 
     // set first interval
     s.push_back(intervals[0]);
