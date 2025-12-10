@@ -26,3 +26,4 @@
 ^CLAUDE\.md$
 ^\.clang-format$
 ^\.claude$
+^CRAN-SUBMISSION$
