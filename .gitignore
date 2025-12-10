@@ -12,3 +12,6 @@ index.html
 .env
 docs
 .DS_Store
+src/*.o
+src/*.so
+src/*.tmp
