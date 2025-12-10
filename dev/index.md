@@ -30,6 +30,14 @@ genes <- read_bed(valr_example("genes.hg19.chr22.bed.gz"))
 
 # find snps in intergenic regions
 intergenic <- bed_subtract(snps, genes)
+#> Warning: The `min_overlap` argument of `bed_subtract()` is deprecated as of valr 0.8.0.
+#> ℹ The default will change from 0 (book-ended intervals overlap) to 1 (strict
+#>   overlap) in a future version.
+#> ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for
+#>   bedtools-compatible behavior.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 # find distance from intergenic snps to nearest gene
 nearby <- bed_closest(intergenic, genes)
 

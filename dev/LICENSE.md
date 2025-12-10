@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2016-2018 Jay R Hesselberth and Kent Riemondy
+Copyright (c) 2025 valr authors
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the

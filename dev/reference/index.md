@@ -117,8 +117,7 @@
 - [`check_interval()`](https://rnabioco.github.io/valr/dev/reference/ivl_df.md)
   [`check_genome()`](https://rnabioco.github.io/valr/dev/reference/ivl_df.md)
   : Bed-like data.frame requirements for valr functions
-- [`valr-package`](https://rnabioco.github.io/valr/dev/reference/valr.md)
-  [`valr`](https://rnabioco.github.io/valr/dev/reference/valr.md) :
+- [`valr`](https://rnabioco.github.io/valr/dev/reference/valr.md) :
   valr: genome interval arithmetic in R
 - [`valr_example()`](https://rnabioco.github.io/valr/dev/reference/valr_example.md)
   : Provide working directory for valr example files.

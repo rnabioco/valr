@@ -1,4 +1,4 @@
 # License
 
-    YEAR: 2016--2018
-    COPYRIGHT HOLDER: Jay R. Hesselberth, Kent Riemondy
+    YEAR: 2025
+    COPYRIGHT HOLDER: valr authors

@@ -103,6 +103,14 @@
 <span></span>
 <span><span class="co"># find snps in intergenic regions</span></span>
 <span><span class="va">intergenic</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bed_subtract.html">bed_subtract</a></span><span class="op">(</span><span class="va">snps</span>, <span class="va">genes</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `min_overlap` argument of `bed_subtract()` is deprecated as of valr 0.8.0.</span></span>
+<span><span class="co">#&gt; ℹ The default will change from 0 (book-ended intervals overlap) to 1 (strict</span></span>
+<span><span class="co">#&gt;   overlap) in a future version.</span></span>
+<span><span class="co">#&gt; ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for</span></span>
+<span><span class="co">#&gt;   bedtools-compatible behavior.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
+<span><span class="co">#&gt; generated.</span></span>
 <span><span class="co"># find distance from intergenic snps to nearest gene</span></span>
 <span><span class="va">nearby</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bed_closest.html">bed_closest</a></span><span class="op">(</span><span class="va">intergenic</span>, <span class="va">genes</span><span class="op">)</span></span>
 <span></span>
@@ -176,6 +184,8 @@
 <li><a href="https://github.com/rnabioco/valr/actions/workflows/check-standard.yaml" class="external-link"><img src="https://github.com/rnabioco/valr/actions/workflows/check-standard.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/github/rnabioco/valr" class="external-link"><img src="https://codecov.io/github/rnabioco/valr/graph/badge.svg" alt="codecov"></a></li>
 <li><a href="https://CRAN.R-project.org/package=valr" class="external-link"><img src="https://www.r-pkg.org/badges/version/valr"></a></li>
+<li><a href="https://github.com/rnabioco/valr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/rnabioco/valr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/rnabioco/valr" class="external-link"><img src="https://codecov.io/gh/rnabioco/valr/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 
