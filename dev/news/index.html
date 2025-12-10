@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">valr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.8.4.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,16 +44,19 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="valr-development-version">valr (development version)<a class="anchor" aria-label="anchor" href="#valr-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.0" id="valr-090">valr 0.9.0<a class="anchor" aria-label="anchor" href="#valr-090"></a></h2>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-9-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-0"></a></h3>
 <ul><li>Added <code>min_overlap</code> parameter to <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>, <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code>, <code><a href="../reference/bed_coverage.html">bed_coverage()</a></code>, and <code><a href="../reference/bed_map.html">bed_map()</a></code>. The default <code>min_overlap = 1L</code> aligns with bedtools behavior where book-ended (adjacent) intervals are <strong>not</strong> considered overlapping. Use <code>min_overlap = 0L</code> to preserve the previous valr behavior where book-ended intervals were treated as overlapping. Currently, calling these functions without an explicit <code>min_overlap</code> value will emit a deprecation warning and use the legacy behavior (<code>min_overlap = 0L</code>). In a future release, the default will change to <code>min_overlap = 1L</code>, so users should update their code to explicitly specify the desired behavior.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="major-changes-development-version">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-development-version"></a></h3>
+<h3 id="major-changes-0-9-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-9-0"></a></h3>
 <ul><li>Migrated C++ backend from Rcpp to cpp11. This modernizes the codebase and removes the Rcpp dependency. All interval operations maintain identical behavior.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="minor-changes-development-version">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-development-version"></a></h3>
+<h3 id="minor-changes-0-9-0">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-9-0"></a></h3>
 <ul><li><p>Eliminated all global variable dependencies by replacing bare column names with explicit <code>.data[["column"]]</code> syntax in data manipulation operations and <code><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of()</a></code> in column selection operations.</p></li>
 <li><p>Fixed <code><a href="../reference/bed_makewindows.html">bed_makewindows()</a></code> step size calculation when <code>step_size</code> parameter is used. Previously, overlapping windows stepped by <code>win_size - step_size</code> instead of the specified <code>step_size</code> (<a href="https://github.com/rnabioco/valr/issues/438" class="external-link">#438</a>).</p></li>
 <li><p>Select methods (<code>tibble</code>, <code>tribble</code>) are now re-exported from the <code>tibble</code> package.</p></li>
