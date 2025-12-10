@@ -598,6 +598,37 @@ test_that("check reporting of adjacent intervals issue #348", {
     "chr1" ,     20 ,   21 ,
     "chr1" ,     21 ,   22
   )
+
   res <- bed_closest(x, y)
   expect_true(nrow(res) == 2)
+})
+
+test_that("custom suffix works without warnings issue #436", {
+  x <- tibble::tribble(
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  125
+  )
+
+  y <- tibble::tribble(
+    ~chrom , ~start , ~end ,
+    "chr1" ,     25 ,   50 ,
+    "chr1" ,    140 ,  175
+  )
+
+  # should not produce warnings about unknown columns
+  expect_no_warning(
+    res <- bed_closest(x, y, suffix = c(".this", ".that"))
+  )
+
+  # check column names are correctly suffixed
+
+  expect_true("start.this" %in% names(res))
+  expect_true("end.this" %in% names(res))
+  expect_true("start.that" %in% names(res))
+  expect_true("end.that" %in% names(res))
+
+  # check results match default suffix behavior
+  res_default <- bed_closest(x, y)
+  expect_equal(res$.overlap, res_default$.overlap)
+  expect_equal(res$.dist, res_default$.dist)
 })
