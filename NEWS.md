@@ -2,6 +2,10 @@
 
 * `bed_slop()` and `bed_flank()` now preserve input row order instead of sorting output by `chrom` and `start` (#434, #435).
 
+* Fixed `bed_closest()` to respect custom `suffix` parameter when computing `.dist` column (#436).
+
+* Improved memory efficiency in `bed_intersect()` by using a visitor pattern, reducing allocations for large datasets (#446).
+
 # valr 0.9.0
 
 ## Breaking changes
