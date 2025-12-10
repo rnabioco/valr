@@ -30,7 +30,7 @@ test_that("both arg works", {
 test_that("args with left and right works", {
   dist_l <- 100
   dist_r <- 50
-  out <- bed_flank(x, genome, left = dist_l, right = dist_r)
+  out <- bed_flank(x, genome, left = dist_l, right = dist_r) |> bed_sort()
   expect_equal(nrow(out), 4)
   # test left side
   expect_true(x$start[1] - out$start[1] == 100)
@@ -42,9 +42,8 @@ test_that("all left and right intervals are reported with both arg", {
   dist <- 100
   out_left <- bed_flank(x, genome, left = dist)
   out_right <- bed_flank(x, genome, right = dist)
-  out_both <- bed_flank(x, genome, both = dist)
-  out_left_right <- dplyr::bind_rows(out_left, out_right) |>
-    arrange(chrom, start)
+  out_both <- bed_flank(x, genome, both = dist) |> bed_sort()
+  out_left_right <- dplyr::bind_rows(out_left, out_right) |> bed_sort()
   expect_true(all(out_both == out_left_right))
 })
 
@@ -57,8 +56,8 @@ test_that("fraction arg works", {
 
 test_that("strand arg with both works", {
   dist <- 100
-  out <- bed_flank(x, genome, both = dist, strand = TRUE)
-  out_nostrand <- bed_flank(x, genome, both = dist)
+  out <- bed_flank(x, genome, both = dist, strand = TRUE) |> bed_sort()
+  out_nostrand <- bed_flank(x, genome, both = dist) |> bed_sort()
   expect_true(nrow(out) == 4)
   expect_true(all(out == out_nostrand))
 })
@@ -90,7 +89,8 @@ test_that("strand arg with right works", {
 test_that("strand arg with left and right works", {
   dist_l <- 100
   dist_r <- 50
-  out <- bed_flank(x, genome, left = dist_l, right = dist_r, strand = TRUE)
+  out <- bed_flank(x, genome, left = dist_l, right = dist_r, strand = TRUE) |>
+    bed_sort()
   expect_true(nrow(out) == 4)
   # test left side plus strand
   expect_true(x$start[1] - out$start[1] == 100)
@@ -104,8 +104,10 @@ test_that("strand arg with left and right works", {
 
 test_that("strand arg with both and fraction works", {
   dist <- 0.2
-  out <- bed_flank(x, genome, both = dist, strand = TRUE, fraction = TRUE)
-  out_nostrand <- bed_flank(x, genome, both = dist, fraction = TRUE)
+  out <- bed_flank(x, genome, both = dist, strand = TRUE, fraction = TRUE) |>
+    bed_sort()
+  out_nostrand <- bed_flank(x, genome, both = dist, fraction = TRUE) |>
+    bed_sort()
   expect_true(nrow(out) == 4)
   expect_true(all(out == out_nostrand))
 })
@@ -141,7 +143,8 @@ test_that("strand arg with left and right and fraction works", {
     right = dist_r,
     strand = TRUE,
     fraction = TRUE
-  )
+  ) |>
+    bed_sort()
   expect_true(nrow(out) == 4)
   # test left side plus strand
   expect_true(x$start[1] - out$start[1] == 100)
@@ -180,7 +183,7 @@ a <- tibble::tribble(
 
 test_that("test going beyond the start of the chrom", {
   dist <- 200
-  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE)
+  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE) |> bed_sort()
   expect_equal(out$end, c(100, 100, 400, 400))
 })
 
@@ -192,14 +195,35 @@ test_that("test going beyond the end of the chrom", {
 
 test_that("test going beyond the start and end of the chrom", {
   dist <- 2000
-  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE)
+  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE) |> bed_sort()
   expect_equal(out$end, c(100, 100, 1000, 1000))
   expect_equal(out$start, c(0, 0, 200, 200))
 })
 
 test_that("test going beyond the start and end of the chrom with strand", {
   dist <- 2000
-  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE, strand = TRUE)
+  out <- bed_flank(a, tiny.genome, both = dist, trim = TRUE, strand = TRUE) |>
+    bed_sort()
   expect_equal(out$end, c(100, 100, 1000, 1000))
   expect_equal(out$start, c(0, 0, 200, 200))
+})
+
+test_that("input order is preserved issue #434", {
+  genome <- tibble::tribble(
+    ~chrom , ~size ,
+    "chr1" ,  5000
+  )
+
+  x <- tibble::tribble(
+    ~chrom , ~start , ~end , ~id ,
+    "chr1" ,   3000 , 4000 ,   1 ,
+    "chr1" ,   3500 , 4500 ,   2 ,
+    "chr1" ,    100 ,  200 ,   4 ,
+    "chr1" ,    150 ,  250 ,   3
+  )
+
+  res <- bed_flank(x, genome, left = 100)
+
+  # order should be preserved based on id column
+  expect_equal(res$id, c(1, 2, 4, 3))
 })

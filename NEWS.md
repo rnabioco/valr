@@ -1,5 +1,7 @@
 # valr (development version)
 
+* `bed_slop()` and `bed_flank()` now preserve input row order instead of sorting output by `chrom` and `start` (#434, #435).
+
 # valr 0.9.0
 
 ## Breaking changes
