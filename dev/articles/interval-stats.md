@@ -70,11 +70,15 @@ for specified groups. The value of each statistic is assigned to a
 ``` r
 distance_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) |>
-    do(
-      reldist = bed_reldist(., y, detail = TRUE) |>
-        select(.value = .reldist),
-      absdist = bed_absdist(., y, genome) |>
-        select(.value = .absdist)
+    reframe(
+      reldist = list(
+        bed_reldist(pick(everything()), y, detail = TRUE) |>
+          select(.value = .reldist)
+      ),
+      absdist = list(
+        bed_absdist(pick(everything()), y, genome) |>
+          select(.value = .absdist)
+      )
     ) |>
     tidyr::pivot_longer(
       cols = -name,
@@ -174,12 +178,16 @@ type.
 library(broom)
 
 pvals <- res |>
-  do(
-    twosided = tidy(ks.test(.$obs, .$shuf)),
-    less = tidy(ks.test(.$obs, .$shuf, alternative = "less")),
-    greater = tidy(ks.test(.$obs, .$shuf, alternative = "greater"))
+  reframe(
+    twosided = list(tidy(ks.test(obs, shuf))),
+    less = list(tidy(ks.test(obs, shuf, alternative = "less"))),
+    greater = list(tidy(ks.test(obs, shuf, alternative = "greater")))
   ) |>
-  tidyr::pivot_longer(cols = -c(name, stat), names_to = "alt", values_to = "type") |>
+  tidyr::pivot_longer(
+    cols = -c(name, stat),
+    names_to = "alt",
+    values_to = "type"
+  ) |>
   unnest(type) |>
   select(name:p.value) |>
   arrange(p.value)
@@ -212,7 +220,8 @@ Finally we can visualize these results using
 [`stat_ecdf()`](https://ggplot2.tidyverse.org/reference/stat_ecdf.html).
 
 ``` r
-res_gather <- tidyr::pivot_longer(res,
+res_gather <- tidyr::pivot_longer(
+  res,
   cols = -c(name, stat, .id),
   names_to = "type",
   values_to = "value"
@@ -302,15 +311,27 @@ test for each repeat class for both coding and non-coding regions.
 # function to apply bed_projection to groups
 projection_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) |>
-    do(
-      n_repeats = nrow(.),
-      projection = bed_projection(., y, genome)
+    reframe(
+      n_repeats = list(n()),
+      projection = list(bed_projection(pick(everything()), y, genome))
     ) |>
     mutate(type = type)
 }
 
-pvals_coding <- projection_stats(rpts, promoters_coding, genome, "name", "coding")
-pvals_ncoding <- projection_stats(rpts, promoters_ncoding, genome, "name", "non_coding")
+pvals_coding <- projection_stats(
+  rpts,
+  promoters_coding,
+  genome,
+  "name",
+  "coding"
+)
+pvals_ncoding <- projection_stats(
+  rpts,
+  promoters_ncoding,
+  genome,
+  "name",
+  "non_coding"
+)
 
 pvals <-
   bind_rows(pvals_ncoding, pvals_coding) |>

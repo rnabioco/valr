@@ -31,8 +31,9 @@ bed_fisher(x, y, genome)
 
 Interval statistics can be used in combination with
 [`dplyr::group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
-and [`dplyr::do()`](https://dplyr.tidyverse.org/reference/do.html) to
-calculate statistics for subsets of data. See
+and
+[`dplyr::reframe()`](https://dplyr.tidyverse.org/reference/reframe.html)
+to calculate statistics for subsets of data. See
 [`vignette('interval-stats')`](https://rnabioco.github.io/valr/dev/articles/interval-stats.md)
 for examples.
 
