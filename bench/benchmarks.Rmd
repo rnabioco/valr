@@ -12,7 +12,9 @@ output:
     %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -26,7 +28,11 @@ knitr::opts_chunk$set(
 
 Many valr functions are written in Rcpp/C++ to maximize speed. Here are benchmarks for 1 million random `x` and `y` intervals.
 
-```{r valr_benchmark, echo = FALSE, message = FALSE, warning = FALSE}
+```{r}
+#| label: valr_benchmark
+#| echo: false
+#| message: false
+#| warning: false
 library(valr)
 library(dplyr)
 library(ggplot2)
@@ -118,7 +124,11 @@ ggplot(res, aes(x = reorder(expression, time), y = time)) +
 
 Several functions in valr are comparable in speed to the equivalent function in GenomicRanges.
 
-```{r valr_comparison, echo = FALSE, message = FALSE, warning = FALSE}
+```{r}
+#| label: valr_comparison
+#| echo: false
+#| message: false
+#| warning: false
 # set up test for valr vs GenomicRanges
 seed_x <- 1010486
 x <- bed_random(genome, n = n, seed = seed_x)

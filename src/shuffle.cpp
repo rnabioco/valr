@@ -25,8 +25,8 @@ using namespace cpp11::literals;
 
 typedef std::unordered_map<std::string, valr::ivl_tree_t> chrom_tree_t;
 typedef std::unordered_map<std::string, valr::ivl_vector_t> interval_map_t;
-typedef std::unordered_map<std::string, PCONST_DIST> interval_rng_t;
-typedef std::unordered_map<std::string, std::vector<UINT_DIST>> start_rng_t;
+typedef std::unordered_map<std::string, valr::PiecewiseConstDist> interval_rng_t;
+typedef std::unordered_map<std::string, std::vector<valr::UniformIntDist>> start_rng_t;
 
 chrom_tree_t makeIntervalTrees(interval_map_t interval_map) {
   chrom_tree_t chrom_trees;
@@ -41,7 +41,7 @@ chrom_tree_t makeIntervalTrees(interval_map_t interval_map) {
 }
 
 // used to select a chrom by its weighted mass
-PCONST_DIST makeChromRNG(cpp11::data_frame incl) {
+valr::PiecewiseConstDist makeChromRNG(cpp11::data_frame incl) {
   cpp11::strings incl_chroms = incl["chrom"];
   cpp11::doubles incl_starts = incl["start"];
   cpp11::doubles incl_ends = incl["end"];
@@ -86,7 +86,7 @@ PCONST_DIST makeChromRNG(cpp11::data_frame incl) {
   for (int i = 0; i <= nchrom; i++) {
     chrom_range.push_back(i);
   }
-  PCONST_DIST chrom_rng(chrom_range.begin(), chrom_range.end(), weights.begin());
+  valr::PiecewiseConstDist chrom_rng(chrom_range.begin(), chrom_range.end(), weights.begin());
 
   return chrom_rng;
 }
@@ -143,7 +143,7 @@ interval_rng_t makeIntervalWeights(interval_map_t interval_map) {
     for (size_t i = 0; i <= n_ivls; i++) {
       ivl_range.push_back(static_cast<int>(i));
     }
-    PCONST_DIST ivl_rng(ivl_range.begin(), ivl_range.end(), weights.begin());
+    valr::PiecewiseConstDist ivl_rng(ivl_range.begin(), ivl_range.end(), weights.begin());
 
     interval_map_rngs[chrom] = ivl_rng;
   }
@@ -162,7 +162,7 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
       start_rngs[chrom] = {};
 
     for (auto& i : intervals) {
-      UINT_DIST rng(i.start, i.stop);
+      valr::UniformIntDist rng(i.start, i.stop);
       start_rngs[chrom].push_back(rng);
     }
   }
@@ -179,7 +179,7 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
     seed = static_cast<int>(Rf_runif(0, RAND_MAX));
 
   // seed the generator
-  auto generator = ENGINE(seed);
+  auto generator = valr::Engine(seed);
 
   // data on incoming df
   cpp11::strings df_chroms = df["chrom"];
@@ -270,7 +270,7 @@ start_rng_t makeStartRNGs(interval_map_t interval_map) {
       }
 
       // get the start rng and pick a start
-      UINT_DIST start_rng = chrom_start_rngs[rand_ivl_idx];
+      valr::UniformIntDist start_rng = chrom_start_rngs[rand_ivl_idx];
       int rand_start = start_rng(generator);
 
       int rand_end = rand_start + df_sizes[i];

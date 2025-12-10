@@ -5,7 +5,7 @@ Version: 0.9.0.9000
 Authors@R: c(
     person("Jay", "Hesselberth", , "jay.hesselberth@cuanschutz.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6299-179X")),
-    person("Kent", "Riemondy", , "kent.riemondy@gmail.com", role = c("aut"),
+    person("Kent", "Riemondy", , "kent.riemondy@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0003-0750-1273")),
     person("RNA Bioscience Initiative", role = c("fnd", "cph"),
            comment = c(ROR = "03wmf1y16"))
@@ -15,10 +15,10 @@ Description: Read and manipulate genome intervals and signals. Provides
     interactive analysis and visualization of genome-scale data.  Riemondy
     et al. (2017) <doi:10.12688/f1000research.11997.1>.
 License: MIT + file LICENSE
-URL: https://github.com/rnabioco/valr/, https://rnabioco.github.io/valr/
+URL: https://github.com/rnabioco/valr, https://rnabioco.github.io/valr
 BugReports: https://github.com/rnabioco/valr/issues
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.1)
 Imports:
     broom,
     cli,
@@ -47,17 +47,17 @@ Suggests:
     rmarkdown,
     S4Vectors,
     testthat (>= 3.0.0),
-    vdiffr (>= 1.0.0),
-    tidyr
-biocViews:
+    tidyr,
+    vdiffr (>= 1.0.0)
 LinkingTo:
     cpp11
 VignetteBuilder:
     knitr
+biocViews:
+Config/Needs/website:rnabioco/rbitemplate
+Config/testthat/edition: 3
+Config/testthat/parallel: true
+Config/usethis/last-upkeep: 2025-12-10
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Config/Needs/website:
-    rnabioco/rbitemplate
-Config/testthat/edition: 3
-Config/testthat/parallel: true
