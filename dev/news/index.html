@@ -44,7 +44,10 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="valr-development-version">valr (development version)<a class="anchor" aria-label="anchor" href="#valr-development-version"></a></h2>
-</div>
+<ul><li><p><code><a href="../reference/bed_slop.html">bed_slop()</a></code> and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> now preserve input row order instead of sorting output by <code>chrom</code> and <code>start</code> (<a href="https://github.com/rnabioco/valr/issues/434" class="external-link">#434</a>, <a href="https://github.com/rnabioco/valr/issues/435" class="external-link">#435</a>).</p></li>
+<li><p>Fixed <code><a href="../reference/bed_closest.html">bed_closest()</a></code> to respect custom <code>suffix</code> parameter when computing <code>.dist</code> column (<a href="https://github.com/rnabioco/valr/issues/436" class="external-link">#436</a>).</p></li>
+<li><p>Improved memory efficiency in <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> by using a visitor pattern, reducing allocations for large datasets (<a href="https://github.com/rnabioco/valr/issues/446" class="external-link">#446</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0" id="valr-090">valr 0.9.0<a class="anchor" aria-label="anchor" href="#valr-090"></a></h2>
 <div class="section level3">

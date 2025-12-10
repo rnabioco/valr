@@ -2,6 +2,23 @@
 
 ## valr (development version)
 
+- [`bed_slop()`](https://rnabioco.github.io/valr/dev/reference/bed_slop.md)
+  and
+  [`bed_flank()`](https://rnabioco.github.io/valr/dev/reference/bed_flank.md)
+  now preserve input row order instead of sorting output by `chrom` and
+  `start` ([\#434](https://github.com/rnabioco/valr/issues/434),
+  [\#435](https://github.com/rnabioco/valr/issues/435)).
+
+- Fixed
+  [`bed_closest()`](https://rnabioco.github.io/valr/dev/reference/bed_closest.md)
+  to respect custom `suffix` parameter when computing `.dist` column
+  ([\#436](https://github.com/rnabioco/valr/issues/436)).
+
+- Improved memory efficiency in
+  [`bed_intersect()`](https://rnabioco.github.io/valr/dev/reference/bed_intersect.md)
+  by using a visitor pattern, reducing allocations for large datasets
+  ([\#446](https://github.com/rnabioco/valr/issues/446)).
+
 ## valr 0.9.0
 
 ### Breaking changes

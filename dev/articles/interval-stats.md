@@ -281,10 +281,10 @@ promoters_ncoding
 #> # A tibble: 294 × 6
 #>    chrom    start      end name       score strand
 #>    <chr>    <dbl>    <dbl> <chr>      <chr> <chr> 
-#>  1 chr22 16152078 16157078 non-coding 0     +     
-#>  2 chr22 16157065 16162065 non-coding 0     +     
+#>  1 chr22 16193009 16198009 non-coding 0     -     
+#>  2 chr22 16152078 16157078 non-coding 0     +     
 #>  3 chr22 16157065 16162065 non-coding 0     +     
-#>  4 chr22 16193009 16198009 non-coding 0     -     
+#>  4 chr22 16157065 16162065 non-coding 0     +     
 #>  5 chr22 16231289 16236289 non-coding 0     -     
 #>  6 chr22 16269608 16274608 non-coding 0     +     
 #>  7 chr22 17077800 17082800 non-coding 0     +     
