@@ -72,7 +72,11 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
   max_coords <- group_chrom_sizes(x, genome)
 
   # Ensure coordinates are doubles for C++
-  x <- mutate(x, start = as.numeric(.data[["start"]]), end = as.numeric(.data[["end"]]))
+  x <- mutate(
+    x,
+    start = as.numeric(.data[["start"]]),
+    end = as.numeric(.data[["end"]])
+  )
   max_coords <- as.numeric(max_coords)
 
   res <- gcoverage_impl(x, max_coords)

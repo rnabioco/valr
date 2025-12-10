@@ -66,7 +66,11 @@ bed_complement <- function(x, genome) {
   res <- group_by(res, .data[["chrom"]])
 
   # Ensure coordinates are doubles for C++
-  res <- mutate(res, start = as.numeric(.data[["start"]]), end = as.numeric(.data[["end"]]))
+  res <- mutate(
+    res,
+    start = as.numeric(.data[["start"]]),
+    end = as.numeric(.data[["end"]])
+  )
 
   res <- complement_impl(res, genome)
   res <- tibble::as_tibble(res)
