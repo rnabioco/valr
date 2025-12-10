@@ -25,17 +25,22 @@ cpp11::writable::data_frame collapseMergedIntervals(cpp11::data_frame gdf, int m
 
   // approach from http://www.geeksforgeeks.org/merging-intervals/
   std::vector<valr::ivl_t> s;
+  s.reserve(df.nrow());  // Upper bound: no merges
 
   for (int i = 0; i < ng; i++) {
     cpp11::integers indices(idx[i]);
 
     valr::ivl_vector_t intervals = valr::makeIntervalVector(df, indices);
 
+    if (intervals.empty())
+      continue;
+
     // set first interval
     s.push_back(intervals[0]);
-    intervals.erase(intervals.begin());
 
-    for (auto& it : intervals) {
+    // Process remaining intervals (starting from index 1)
+    for (size_t j = 1; j < intervals.size(); ++j) {
+      auto& it = intervals[j];
       auto top = s.back();
       if (top.stop + max_dist < it.start) {
         // no overlap push to stack

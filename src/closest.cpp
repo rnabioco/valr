@@ -230,6 +230,12 @@ cpp11::writable::data_frame closest_impl(cpp11::data_frame gdf_x, cpp11::data_fr
   std::vector<int> indices_y;
   std::vector<int> distance_sizes;
 
+  // Pre-allocate for typical case (at least one result per x interval)
+  int estimated_size = df_x.nrow();
+  indices_x.reserve(estimated_size);
+  indices_y.reserve(estimated_size);
+  distance_sizes.reserve(estimated_size);
+
   int ng_x = grp_idx_x.size();
   int ng_y = grp_idx_y.size();
 

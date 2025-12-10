@@ -22,28 +22,27 @@ void intersect_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<i
                      int min_overlap) {
   // do not call vy after std::move
   valr::ivl_tree_t tree_y(std::move(vy));
-  valr::ivl_vector_t overlaps;
 
   for (const auto& it : vx) {
-    overlaps = tree_y.findOverlapping(it.start, it.stop, min_overlap);
+    bool found_overlap = false;
 
-    if (overlaps.empty() && invert) {
+    // Use visitor pattern to avoid allocating a new vector per query
+    tree_y.visit_overlapping(
+        it.start, it.stop,
+        [&](const valr::ivl_t& oit) {
+          found_overlap = true;
+          int overlap_size = valr::intervalOverlap(it, oit);
+          overlap_sizes.push_back(overlap_size);
+          indices_x.push_back(it.value);
+          indices_y.push_back(oit.value);
+        },
+        min_overlap);
+
+    if (!found_overlap && invert) {
       indices_x.push_back(it.value);
-      // store empty placeholder
       indices_y.push_back(NA_INTEGER);
       overlap_sizes.push_back(NA_INTEGER);
     }
-
-    // store current intervals
-    for (const auto& oit : overlaps) {
-      int overlap_size = valr::intervalOverlap(it, oit);
-      overlap_sizes.push_back(overlap_size);
-
-      indices_x.push_back(it.value);
-      indices_y.push_back(oit.value);
-    }
-
-    overlaps.clear();
   }
 }
 
@@ -99,6 +98,13 @@ cpp11::writable::data_frame intersect_impl(cpp11::data_frame gdf_x, cpp11::data_
 
   // overlap sizes
   std::vector<int> overlap_sizes;
+
+  // Pre-reserve capacity to reduce reallocations
+  // Estimate ~2 overlaps per x interval on average
+  size_t estimated_size = static_cast<size_t>(df_x.nrow()) * 2;
+  indices_x.reserve(estimated_size);
+  indices_y.reserve(estimated_size);
+  overlap_sizes.reserve(estimated_size);
 
   // find unmatched x intervals
   if (invert) {

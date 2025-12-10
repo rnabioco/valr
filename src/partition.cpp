@@ -34,6 +34,7 @@ class IntervalCache {
 void partitionIntervals(const IntervalCache& ivl_cache, valr::ivl_vector_t& ivl_result) {
   // convert interval to points
   std::vector<int> ivl_points;
+  ivl_points.reserve(ivl_cache.ivls.size() * 2);
   for (const auto& it : ivl_cache.ivls) {
     ivl_points.push_back(it.start);
     ivl_points.push_back(it.stop);
@@ -60,18 +61,23 @@ cpp11::writable::data_frame partition_impl(cpp11::data_frame gdf, int max_dist =
   cpp11::list idx = grouped.indices();
 
   std::vector<valr::ivl_t> out_ivls;
+  out_ivls.reserve(df.nrow());  // Upper bound estimate
   IntervalCache ivl_cache;
 
   for (int i = 0; i < ng; i++) {
     cpp11::integers indices(idx[i]);
     valr::ivl_vector_t intervals = valr::makeIntervalVector(df, indices);
 
+    if (intervals.empty())
+      continue;
+
     // set first interval
     ivl_cache.push_back(intervals[0]);
     ivl_cache.max_stop = intervals[0].stop;
-    intervals.erase(intervals.begin());
 
-    for (const auto& it : intervals) {
+    // Process remaining intervals (starting from index 1)
+    for (size_t j = 1; j < intervals.size(); ++j) {
+      const auto& it = intervals[j];
       auto max_stop = ivl_cache.max_stop;
       if (max_stop + max_dist < it.start) {
         // doesn't overlap

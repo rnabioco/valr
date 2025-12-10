@@ -22,19 +22,22 @@ void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<in
                     std::vector<double>& starts_out, std::vector<double>& ends_out,
                     int min_overlap) {
   valr::ivl_tree_t tree_y(std::move(vy));
+
+  // Reusable buffer for overlaps - avoids allocation per query
   valr::ivl_vector_t overlaps;
+  overlaps.reserve(64);  // Pre-allocate for typical case
 
   for (const auto& it : vx) {
     auto x_start = it.start;
     auto x_stop = it.stop;
 
-    overlaps = tree_y.findOverlapping(it.start, it.stop, min_overlap);
-
-    // compute number of overlaps
-    int overlap_count = overlaps.size();
+    // Collect overlaps using visitor pattern into reusable buffer
+    overlaps.clear();
+    tree_y.visit_overlapping(
+        it.start, it.stop, [&](const valr::ivl_t& oit) { overlaps.push_back(oit); }, min_overlap);
 
     // handle no overlaps and continue
-    if (overlap_count == 0) {
+    if (overlaps.empty()) {
       indices_out.push_back(it.value);
       starts_out.push_back(it.start);
       ends_out.push_back(it.stop);
@@ -75,8 +78,6 @@ void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<in
       starts_out.push_back(x_start);
       ends_out.push_back(x_stop);
     }
-
-    overlaps.clear();
   }
 }
 

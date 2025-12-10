@@ -22,13 +22,20 @@ void coverage_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<in
                     std::vector<double>& fractions_covered, std::vector<int>& indices_x,
                     int min_overlap) {
   valr::ivl_tree_t tree_y(std::move(vy));
+
+  // Reusable buffer for overlaps - avoids allocation per query
   valr::ivl_vector_t overlaps;
+  overlaps.reserve(64);
+
   valr::IntervalStopDescCmp<int, int> intervalSorterDesc;
 
   for (const auto& it : vx) {
     indices_x.push_back(it.value);
 
-    overlaps = tree_y.findOverlapping(it.start, it.stop, min_overlap);
+    // Collect overlaps using visitor pattern into reusable buffer
+    overlaps.clear();
+    tree_y.visit_overlapping(
+        it.start, it.stop, [&](const valr::ivl_t& oit) { overlaps.push_back(oit); }, min_overlap);
 
     // compute number of overlaps
     int overlap_count = overlaps.size();
