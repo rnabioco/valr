@@ -1,4 +1,4 @@
-# valr (development version)
+# valr 0.9.0
 
 ## Breaking changes
 
