@@ -10,7 +10,7 @@ analysis and visualization of genome-scale data. Riemondy et al. (2017)
 
 Useful links:
 
-- <https://github.com/rnabioco/valr/>
+- <https://github.com/rnabioco/valr>
 
 - <https://rnabioco.github.io/valr/>
 
@@ -18,7 +18,7 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Jay Hesselberth <jay.hesselberth@cuanschutz.edu>
+**Maintainer**: Jay Hesselberth <jay.hesselberth@gmail.com>
 ([ORCID](https://orcid.org/0000-0002-6299-179X))
 
 Authors:

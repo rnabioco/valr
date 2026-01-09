@@ -22,7 +22,7 @@ intergenic <- bed_subtract(snps, genes)
 #>   overlap) in a future version.
 #> ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for
 #>   bedtools-compatible behavior.
-#> This warning is displayed once every 8 hours.
+#> This warning is displayed once per session.
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 #> generated.
 # distance from intergenic snps to nearest gene
@@ -176,7 +176,7 @@ bed_glyph(bed_intersect(x, y))
 #>   overlap) in a future version.
 #> ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for
 #>   bedtools-compatible behavior.
-#> This warning is displayed once every 8 hours.
+#> This warning is displayed once per session.
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 #> generated.
 ```

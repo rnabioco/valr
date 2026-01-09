@@ -49,7 +49,7 @@
 <li><p>Improved memory efficiency in <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> by using a visitor pattern, reducing allocations for large datasets (<a href="https://github.com/rnabioco/valr/issues/446" class="external-link">#446</a>).</p></li>
 </ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.0" id="valr-090">valr 0.9.0<a class="anchor" aria-label="anchor" href="#valr-090"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.0" id="valr-090">valr 0.9.0<a class="anchor" aria-label="anchor" href="#valr-090"></a></h2><p class="text-muted">CRAN release: 2025-12-10</p>
 <div class="section level3">
 <h3 id="breaking-changes-0-9-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-0"></a></h3>
 <ul><li>Added <code>min_overlap</code> parameter to <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>, <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code>, <code><a href="../reference/bed_coverage.html">bed_coverage()</a></code>, and <code><a href="../reference/bed_map.html">bed_map()</a></code>. The default <code>min_overlap = 1L</code> aligns with bedtools behavior where book-ended (adjacent) intervals are <strong>not</strong> considered overlapping. Use <code>min_overlap = 0L</code> to preserve the previous valr behavior where book-ended intervals were treated as overlapping. Currently, calling these functions without an explicit <code>min_overlap</code> value will emit a deprecation warning and use the legacy behavior (<code>min_overlap = 0L</code>). In a future release, the default will change to <code>min_overlap = 1L</code>, so users should update their code to explicitly specify the desired behavior.</li>

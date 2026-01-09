@@ -21,6 +21,8 @@
 
 ## valr 0.9.0
 
+CRAN release: 2025-12-10
+
 ### Breaking changes
 
 - Added `min_overlap` parameter to
