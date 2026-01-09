@@ -1,7 +1,7 @@
 Type: Package
 Package: valr
 Title: Genome Interval Arithmetic
-Version: 0.9.0.9000
+Version: 0.9.1
 Authors@R: c(
     person("Jay", "Hesselberth", , "jay.hesselberth@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6299-179X")),
@@ -54,7 +54,7 @@ LinkingTo:
 VignetteBuilder:
     knitr
 biocViews:
-Config/Needs/website:rnabioco/rbitemplate
+Config/Needs/website: rnabioco/rbitemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/usethis/last-upkeep: 2025-12-10
