@@ -12,14 +12,14 @@ Read and manipulate genome intervals and signals. Provides functionality similar
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/rnabioco/valr/}
+  \item \url{https://github.com/rnabioco/valr}
   \item \url{https://rnabioco.github.io/valr/}
   \item Report bugs at \url{https://github.com/rnabioco/valr/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Jay Hesselberth \email{jay.hesselberth@cuanschutz.edu} (\href{https://orcid.org/0000-0002-6299-179X}{ORCID})
+\strong{Maintainer}: Jay Hesselberth \email{jay.hesselberth@gmail.com} (\href{https://orcid.org/0000-0002-6299-179X}{ORCID})
 
 Authors:
 \itemize{

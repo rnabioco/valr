@@ -1,7 +1,11 @@
-## New minor version
+## New patch version
 
-* This is a new minor version that updates the C++ backend from Rcpp to cpp11,
-  and updates the maintainer.
+* This patch release includes bug fixes and performance improvements:
+  - `bed_slop()` and `bed_flank()` now preserve input row order
+  - Fixed `bed_closest()` to respect custom `suffix` parameter
+  - Improved memory efficiency in `bed_intersect()`
+
+* Updated maintainer e-mail address (same maintainer, new generic e-mail)
 
 ## Test environment
 
@@ -16,6 +20,8 @@
 * on Windows (win-builder, devel)
 
 Status: NOTE
+
+  - Non-API call to 'ATTRIB' originates from the cpp11 package dependency
 
 * on Windows (4.5.1)
 
@@ -46,17 +52,13 @@ Status: NOTE
 
 ## revdepcheck results
 
-We checked 3 reverse dependencies (2 from CRAN), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 2 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 1 new problems
+ * We saw 0 new problems
  * We failed to check 1 packages
 
 Issues with CRAN packages are summarised below.
 
-### New problems
-
-* tepr (seems like a false positive, does not build)
-
 ### Failed to check
 
-* gap (NA)
+* gap (Fortran linker error unrelated to valr; fails identically with CRAN and dev versions)

@@ -51,7 +51,7 @@ db_ucsc <- function(
 }
 
 #' @rdname db
-#' @seealso \url{https://www.ensembl.org/info/data/mysql.html}
+#' @seealso \url{https://useast.ensembl.org/info/data/mysql.html}
 #'
 #' @examples
 #' \dontrun{

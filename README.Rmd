@@ -55,6 +55,7 @@ Functions in valr have similar names to their BEDtools counterparts, and so will
 ```{r}
 #| label: syntax_demo
 #| message: false
+#| warning: false 
 library(valr)
 library(dplyr)
 
