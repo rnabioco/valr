@@ -15,7 +15,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/rnabioco/valr/blob/v0.9.1/inst/CITATION)
+[`inst/CITATION`](https://github.com/rnabioco/valr/blob/main/inst/CITATION)
 
 Riemondy KA, Sheridan RM, Gillen A, Yu Y, Bennett CG, Hesselberth JR
 (2017). “valr: Reproducible Genome Interval Arithmetic in R.”
