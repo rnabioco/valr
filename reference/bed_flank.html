@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">valr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create flanking intervals from input intervals.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/main/R/bed_flank.r" class="external-link"><code>R/bed_flank.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/v0.9.1/R/bed_flank.r" class="external-link"><code>R/bed_flank.r</code></a></small>
       <div class="d-none name"><code>bed_flank.Rd</code></div>
     </div>
 
@@ -165,8 +165,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   chrom start   end name  score strand</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> chr1    400   500 .     .     +     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> chr1    900  <span style="text-decoration: underline;">1</span>000 .     .     -     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> chr1   <span style="text-decoration: underline;">1</span>000  <span style="text-decoration: underline;">1</span>100 .     .     +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> chr1   <span style="text-decoration: underline;">1</span>000  <span style="text-decoration: underline;">1</span>100 .     .     +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> chr1    900  <span style="text-decoration: underline;">1</span>000 .     .     -     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> chr1   <span style="text-decoration: underline;">1</span>500  <span style="text-decoration: underline;">1</span>600 .     .     -     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">bed_flank</span><span class="op">(</span><span class="va">x</span>, <span class="va">genome</span>, both <span class="op">=</span> <span class="fl">0.5</span>, fraction <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -174,8 +174,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   chrom start   end name  score strand</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> chr1    250   500 .     .     +     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> chr1    750  <span style="text-decoration: underline;">1</span>000 .     .     -     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> chr1   <span style="text-decoration: underline;">1</span>000  <span style="text-decoration: underline;">1</span>250 .     .     +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> chr1   <span style="text-decoration: underline;">1</span>000  <span style="text-decoration: underline;">1</span>250 .     .     +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> chr1    750  <span style="text-decoration: underline;">1</span>000 .     .     -     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> chr1   <span style="text-decoration: underline;">1</span>500  <span style="text-decoration: underline;">1</span>750 .     .     -     </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

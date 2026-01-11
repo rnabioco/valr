@@ -9,7 +9,7 @@ the midpoints of each closest y interval."><meta property="og:image" content="ht
 
     <a class="navbar-brand me-2" href="../index.html">valr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@ the midpoints of each closest y interval."><meta property="og:image" content="ht
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Compute absolute distances between intervals.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/main/R/bed_absdist.r" class="external-link"><code>R/bed_absdist.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/v0.9.1/R/bed_absdist.r" class="external-link"><code>R/bed_absdist.r</code></a></small>
       <div class="d-none name"><code>bed_absdist.Rd</code></div>
     </div>
 
@@ -87,7 +87,7 @@ If an <code>x</code> interval has no matching <code>y</code> chromosome,
 <p>Both absolute and scaled distances are reported as <code>.absdist</code> and
 <code>.absdist_scaled</code>.</p>
 <p>Interval statistics can be used in combination with
-<code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/do.html" class="external-link">dplyr::do()</a></code> to calculate
+<code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/reframe.html" class="external-link">dplyr::reframe()</a></code> to calculate
 statistics for subsets of data. See <code><a href="../articles/interval-stats.html">vignette('interval-stats')</a></code> for
 examples.</p>
     </div>

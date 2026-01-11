@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">valr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,11 +39,17 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/rnabioco/valr/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/rnabioco/valr/blob/v0.9.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.0" id="valr-090">valr 0.9.0<a class="anchor" aria-label="anchor" href="#valr-090"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.1" id="valr-091">valr 0.9.1<a class="anchor" aria-label="anchor" href="#valr-091"></a></h2><p class="text-muted">CRAN release: 2026-01-11</p>
+<ul><li><p><code><a href="../reference/bed_slop.html">bed_slop()</a></code> and <code><a href="../reference/bed_flank.html">bed_flank()</a></code> now preserve input row order instead of sorting output by <code>chrom</code> and <code>start</code> (<a href="https://github.com/rnabioco/valr/issues/434" class="external-link">#434</a>, <a href="https://github.com/rnabioco/valr/issues/435" class="external-link">#435</a>).</p></li>
+<li><p>Fixed <code><a href="../reference/bed_closest.html">bed_closest()</a></code> to respect custom <code>suffix</code> parameter when computing <code>.dist</code> column (<a href="https://github.com/rnabioco/valr/issues/436" class="external-link">#436</a>).</p></li>
+<li><p>Improved memory efficiency in <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code> by using a visitor pattern, reducing allocations for large datasets (<a href="https://github.com/rnabioco/valr/issues/446" class="external-link">#446</a>).</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.0" id="valr-090">valr 0.9.0<a class="anchor" aria-label="anchor" href="#valr-090"></a></h2><p class="text-muted">CRAN release: 2025-12-10</p>
 <div class="section level3">
 <h3 id="breaking-changes-0-9-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-0"></a></h3>
 <ul><li>Added <code>min_overlap</code> parameter to <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>, <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code>, <code><a href="../reference/bed_coverage.html">bed_coverage()</a></code>, and <code><a href="../reference/bed_map.html">bed_map()</a></code>. The default <code>min_overlap = 1L</code> aligns with bedtools behavior where book-ended (adjacent) intervals are <strong>not</strong> considered overlapping. Use <code>min_overlap = 0L</code> to preserve the previous valr behavior where book-ended intervals were treated as overlapping. Currently, calling these functions without an explicit <code>min_overlap</code> value will emit a deprecation warning and use the legacy behavior (<code>min_overlap = 0L</code>). In a future release, the default will change to <code>min_overlap = 1L</code>, so users should update their code to explicitly specify the desired behavior.</li>

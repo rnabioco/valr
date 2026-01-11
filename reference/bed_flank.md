@@ -120,8 +120,8 @@ bed_flank(x, genome, both = 100)
 #>   chrom start   end name  score strand
 #>   <chr> <dbl> <dbl> <chr> <chr> <chr> 
 #> 1 chr1    400   500 .     .     +     
-#> 2 chr1    900  1000 .     .     -     
-#> 3 chr1   1000  1100 .     .     +     
+#> 2 chr1   1000  1100 .     .     +     
+#> 3 chr1    900  1000 .     .     -     
 #> 4 chr1   1500  1600 .     .     -     
 
 bed_flank(x, genome, both = 0.5, fraction = TRUE)
@@ -129,7 +129,7 @@ bed_flank(x, genome, both = 0.5, fraction = TRUE)
 #>   chrom start   end name  score strand
 #>   <chr> <dbl> <dbl> <chr> <chr> <chr> 
 #> 1 chr1    250   500 .     .     +     
-#> 2 chr1    750  1000 .     .     -     
-#> 3 chr1   1000  1250 .     .     +     
+#> 2 chr1   1000  1250 .     .     +     
+#> 3 chr1    750  1000 .     .     -     
 #> 4 chr1   1500  1750 .     .     -     
 ```
