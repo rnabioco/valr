@@ -2,6 +2,10 @@
 
 ## valr (development version)
 
+## valr 0.9.1
+
+CRAN release: 2026-01-11
+
 - [`bed_slop()`](https://rnabioco.github.io/valr/dev/reference/bed_slop.md)
   and
   [`bed_flank()`](https://rnabioco.github.io/valr/dev/reference/bed_flank.md)
