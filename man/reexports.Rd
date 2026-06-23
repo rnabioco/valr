@@ -5,8 +5,6 @@
 \alias{reexports}
 \alias{read_bigwig}
 \alias{read_bigbed}
-\alias{data_frame}
-\alias{as_data_frame}
 \alias{tribble}
 \alias{tibble}
 \alias{as_tibble}
@@ -17,8 +15,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{cpp11bigwig}{\code{\link[cpp11bigwig]{read_bigbed}}, \code{\link[cpp11bigwig]{read_bigwig}}}
+  \item{cpp11bigwig}{\code{\link[cpp11bigwig:read_bigbed]{read_bigbed()}}, \code{\link[cpp11bigwig:read_bigwig]{read_bigwig()}}}
 
-  \item{tibble}{\code{\link[tibble:deprecated]{as_data_frame}}, \code{\link[tibble]{as_tibble}}, \code{\link[tibble:deprecated]{data_frame}}, \code{\link[tibble]{tibble}}, \code{\link[tibble]{tribble}}}
+  \item{tibble}{\code{\link[tibble:as_tibble]{as_tibble()}}, \code{\link[tibble:tibble]{tibble()}}, \code{\link[tibble:tribble]{tribble()}}}
 }}
 

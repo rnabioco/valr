@@ -25,8 +25,8 @@ read_vcf(vcf_file)
 
 }
 \seealso{
-Other read functions: 
-\code{\link{read_bed}()},
-\code{\link{read_genome}()}
+Other read functions:
+\code{\link[=read_bed]{read_bed()}},
+\code{\link[=read_genome]{read_genome()}}
 }
 \concept{read functions}

@@ -63,7 +63,7 @@ create_utrs5 <- function(x) {
     end = ifelse(.data[["strand"]] == "+", .data[["cds_start"]], .data[["end"]])
   )
   res <- ungroup(res)
-  res <- select(res, all_of("chrom"):all_of("strand"))
+  res <- select(res, "chrom":"strand")
 
   # remove zero length intervals
   res <- filter(res, .data[["start"]] < .data[["end"]])
@@ -95,7 +95,7 @@ create_utrs3 <- function(x) {
     end = ifelse(.data[["strand"]] == "+", .data[["end"]], .data[["cds_start"]])
   )
   res <- ungroup(res)
-  res <- select(res, all_of("chrom"):all_of("strand"))
+  res <- select(res, "chrom":"strand")
 
   # remove zero length intervals
   res <- filter(res, .data[["start"]] < .data[["end"]])
@@ -127,6 +127,6 @@ create_tss <- function(x) {
     end = ifelse(.data[["strand"]] == "+", .data[["start"]] + 1, .data[["end"]])
   )
   res <- ungroup(res)
-  res <- select(res, all_of("chrom"):all_of("strand"))
+  res <- select(res, "chrom":"strand")
   res
 }

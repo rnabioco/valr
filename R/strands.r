@@ -25,13 +25,13 @@ flip_strands <- function(x) {
   x <- check_interval(x)
 
   # remove existing groups
-  groups_x <- groups(x)
+  groups_x <- group_vars(x)
   res <- ungroup(x)
 
   res <- mutate(res, .strand = ifelse(.data[["strand"]] == "+", "-", "+"))
   res <- select(res, -all_of("strand"))
   res <- select(res, everything(), strand = all_of(".strand"))
 
-  res <- group_by(res, !!!groups_x)
+  res <- group_by(res, across(all_of(groups_x)))
   res
 }

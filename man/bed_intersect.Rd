@@ -110,11 +110,11 @@ bed_intersect(x, list(exons = y, introns = z))
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html}
 
-Other multiple set operations: 
-\code{\link{bed_closest}()},
-\code{\link{bed_coverage}()},
-\code{\link{bed_map}()},
-\code{\link{bed_subtract}()},
-\code{\link{bed_window}()}
+Other multiple set operations:
+\code{\link[=bed_closest]{bed_closest()}},
+\code{\link[=bed_coverage]{bed_coverage()}},
+\code{\link[=bed_map]{bed_map()}},
+\code{\link[=bed_subtract]{bed_subtract()}},
+\code{\link[=bed_window]{bed_window()}}
 }
 \concept{multiple set operations}

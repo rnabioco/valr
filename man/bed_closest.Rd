@@ -99,11 +99,11 @@ res
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/closest.html}
 
-Other multiple set operations: 
-\code{\link{bed_coverage}()},
-\code{\link{bed_intersect}()},
-\code{\link{bed_map}()},
-\code{\link{bed_subtract}()},
-\code{\link{bed_window}()}
+Other multiple set operations:
+\code{\link[=bed_coverage]{bed_coverage()}},
+\code{\link[=bed_intersect]{bed_intersect()}},
+\code{\link[=bed_map]{bed_map()}},
+\code{\link[=bed_subtract]{bed_subtract()}},
+\code{\link[=bed_window]{bed_window()}}
 }
 \concept{multiple set operations}

@@ -111,7 +111,7 @@ bed_intersect <- function(
     min_overlap <- 0L
   }
 
-  if (dots_n(...) == 0) {
+  if (...length() == 0) {
     cli::cli_abort("One or more tbls required in {.var ...}")
   }
 
@@ -122,8 +122,8 @@ bed_intersect <- function(
     multiple_tbls <- TRUE
     # bind_rows preserves grouping
     y <- bind_rows(y_tbl, .id = ".source")
-    select_vars <- list(quo(-one_of(".source")), quo(everything()), ".source")
-    y <- select(y, !!!select_vars)
+    # move .source to the last column
+    y <- relocate(y, all_of(".source"), .after = last_col())
   } else {
     # only one tbl supplied, so extract out single tbl from list
     y <- y_tbl[[1]]
@@ -136,15 +136,14 @@ bed_intersect <- function(
 
   # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
-  groups_xy <- unique(as.character(c("chrom", groups_xy)))
-  groups_vars <- rlang::syms(groups_xy)
+  groups_xy <- unique(c("chrom", groups_xy))
 
   # type convert grouping factors to characters if necessary and ungroup
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!!groups_vars)
-  y <- group_by(y, !!!groups_vars)
+  x <- group_by(x, across(all_of(groups_xy)))
+  y <- group_by(y, across(all_of(groups_xy)))
 
   suffix <- list(x = suffix[1], y = suffix[2])
 

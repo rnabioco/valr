@@ -59,10 +59,10 @@ bed_jaccard(
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html}
 
-Other interval statistics: 
-\code{\link{bed_absdist}()},
-\code{\link{bed_fisher}()},
-\code{\link{bed_projection}()},
-\code{\link{bed_reldist}()}
+Other interval statistics:
+\code{\link[=bed_absdist]{bed_absdist()}},
+\code{\link[=bed_fisher]{bed_fisher()}},
+\code{\link[=bed_projection]{bed_projection()}},
+\code{\link[=bed_reldist]{bed_reldist()}}
 }
 \concept{interval statistics}

@@ -6,9 +6,6 @@
 [![R-CMD-check](https://github.com/rnabioco/valr/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/rnabioco/valr/actions/workflows/check-standard.yaml)
 [![codecov](https://codecov.io/github/rnabioco/valr/graph/badge.svg)](https://app.codecov.io/github/rnabioco/valr)
 [![](https://www.r-pkg.org/badges/version/valr)](https://CRAN.R-project.org/package=valr)
-[![R-CMD-check](https://github.com/rnabioco/valr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rnabioco/valr/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/rnabioco/valr/graph/badge.svg)](https://app.codecov.io/gh/rnabioco/valr)
 <!-- badges: end -->
 
 valr provides tools to read and manipulate genome intervals and signals,

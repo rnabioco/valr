@@ -55,10 +55,10 @@ dplyr::mutate(wins, namenum = stringr::str_c(name, "_", .win_id))
 
 }
 \seealso{
-Other utilities: 
-\code{\link{bed12_to_exons}()},
-\code{\link{bound_intervals}()},
-\code{\link{flip_strands}()},
-\code{\link{interval_spacing}()}
+Other utilities:
+\code{\link[=bed12_to_exons]{bed12_to_exons()}},
+\code{\link[=bound_intervals]{bound_intervals()}},
+\code{\link[=flip_strands]{flip_strands()}},
+\code{\link[=interval_spacing]{interval_spacing()}}
 }
 \concept{utilities}

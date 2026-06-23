@@ -65,8 +65,7 @@ bed_partition <- function(x, ...) {
   groups_df <- group_vars(x)
   x <- bed_sort(x)
 
-  groups <- rlang::syms(unique(c("chrom", groups_df)))
-  x <- group_by(x, !!!groups)
+  x <- group_by(x, across(all_of(unique(c("chrom", groups_df)))))
 
   res <- partition_impl(x, -1L)
 
@@ -78,7 +77,7 @@ bed_partition <- function(x, ...) {
 
   # if dots are passed then map values
   if (!is.null(substitute(...))) {
-    res <- group_by(res, !!!syms(groups_df))
+    res <- group_by(res, across(all_of(groups_df)))
     res <- bed_map(res, x, ...)
   }
   res

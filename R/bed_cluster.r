@@ -46,8 +46,7 @@ bed_cluster <- function(x, max_dist = 0) {
   check_required(x)
   x <- check_interval(x)
 
-  groups <- rlang::syms(unique(c("chrom", group_vars(x))))
-  res <- group_by(x, !!!groups)
+  res <- group_by(x, across(all_of(unique(c("chrom", group_vars(x))))))
 
   res <- bed_sort(res)
 
@@ -55,7 +54,7 @@ bed_cluster <- function(x, max_dist = 0) {
   res <- tibble::as_tibble(res)
 
   res <- mutate(res, .id = .data[[".id_merge"]])
-  res <- select(res, !!quo(-one_of(".id_merge")))
+  res <- select(res, -all_of(".id_merge"))
   res <- ungroup(res)
   res <- mutate(
     res,

@@ -31,7 +31,7 @@ bed_map <- function(x, y, ..., min_overlap = 1L) {
   check_required(x)
   check_required(y)
 
-  if (rlang::dots_n(...) == 0) {
+  if (...length() == 0) {
     cli::cli_alert_info(
       "{.fun bed_map} expects {.var name=expression} pairs passed in {.var ...}"
     )
@@ -51,15 +51,14 @@ bed_map <- function(x, y, ..., min_overlap = 1L) {
 
   # establish grouping with shared groups (and chrom)
   groups_xy <- shared_groups(x, y)
-  groups_xy <- unique(as.character(c("chrom", groups_xy)))
-  groups_vars <- rlang::syms(groups_xy)
+  groups_xy <- unique(c("chrom", groups_xy))
 
   # type convert grouping factors to characters if necessary and ungroup
   x <- convert_factors(x, groups_xy)
   y <- convert_factors(y, groups_xy)
 
-  x <- group_by(x, !!!groups_vars)
-  y <- group_by(y, !!!groups_vars)
+  x <- group_by(x, across(all_of(groups_xy)))
+  y <- group_by(y, across(all_of(groups_xy)))
 
   grp_indexes <- shared_group_indexes(x, y)
 
@@ -103,9 +102,8 @@ bed_map <- function(x, y, ..., min_overlap = 1L) {
 
   ## map supplied functions to each set of intersecting intervals
   ## group_by .id_col_out to ensure that duplicated input x intervals are reported
-  # res_int <- group_by(res_int, !!! syms(c("chrom", x_nms, .id_col_out)))
-  res_int <- group_by(res_int, !!!syms(.id_col_out))
-  res_int <- summarize(res_int, !!!quos(...))
+  res_int <- group_by(res_int, across(all_of(.id_col_out)))
+  res_int <- summarize(res_int, ...)
   res_int <- ungroup(res_int)
 
   ## join summarize data with intervals based on .id
