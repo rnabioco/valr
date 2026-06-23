@@ -27,11 +27,11 @@ read_broadpeak(filename, ...)
 \arguments{
 \item{filename}{file or URL}
 
-\item{col_types}{column type spec for \code{\link[readr:read_delim]{readr::read_tsv()}}}
+\item{col_types}{column type spec for \code{\link[readr:read_tsv]{readr::read_tsv()}}}
 
 \item{sort}{sort the tbl by chrom and start}
 
-\item{...}{options to pass to \code{\link[readr:read_delim]{readr::read_tsv()}}}
+\item{...}{options to pass to \code{\link[readr:read_tsv]{readr::read_tsv()}}}
 
 \item{n_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
@@ -75,8 +75,8 @@ read_broadpeak(valr_example("sample.broadPeak.gz"))
 
 }
 \seealso{
-Other read functions: 
-\code{\link{read_genome}()},
-\code{\link{read_vcf}()}
+Other read functions:
+\code{\link[=read_genome]{read_genome()}},
+\code{\link[=read_vcf]{read_vcf()}}
 }
 \concept{read functions}

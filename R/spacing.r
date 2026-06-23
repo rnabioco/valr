@@ -25,12 +25,12 @@ interval_spacing <- function(x) {
 
   res <- bed_sort(x)
 
-  gx <- groups(x)
+  gx <- group_vars(x)
 
   res <- group_by(res, .data[["chrom"]])
   res <- mutate(res, .spacing = .data[["start"]] - lag(.data[["end"]]))
 
-  res <- group_by(res, !!!gx)
+  res <- group_by(res, across(all_of(gx)))
 
   res
 }

@@ -18,9 +18,9 @@
 using namespace cpp11::literals;
 
 // Process subtraction for a single group
-void subtract_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<int>& indices_out,
-                    std::vector<double>& starts_out, std::vector<double>& ends_out,
-                    int min_overlap) {
+void subtract_group(const valr::ivl_vector_t& vx, valr::ivl_vector_t vy,
+                    std::vector<int>& indices_out, std::vector<double>& starts_out,
+                    std::vector<double>& ends_out, int min_overlap) {
   valr::ivl_tree_t tree_y(std::move(vy));
 
   // Reusable buffer for overlaps - avoids allocation per query
@@ -118,7 +118,7 @@ cpp11::writable::data_frame subtract_impl(cpp11::data_frame gdf_x, cpp11::data_f
     valr::ivl_vector_t vx = valr::makeIntervalVector(df_x, gi_x);
     valr::ivl_vector_t vy = valr::makeIntervalVector(df_y, gi_y);
 
-    subtract_group(vx, vy, indices_out, starts_out, ends_out, min_overlap);
+    subtract_group(vx, std::move(vy), indices_out, starts_out, ends_out, min_overlap);
   }
 
   // Subset x dataframe by output indices

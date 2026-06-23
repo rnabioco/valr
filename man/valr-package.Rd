@@ -23,12 +23,13 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Jay Hesselberth \email{jay.hesselberth@gmail.com} (\href{https://orcid.org/0000-0002-6299-179X}{ORCID})
   \item Kent Riemondy \email{kent.riemondy@gmail.com} (\href{https://orcid.org/0000-0003-0750-1273}{ORCID})
 }
 
 Other contributors:
 \itemize{
-  \item RNA Bioscience Initiative (03wmf1y16) [funder, copyright holder]
+  \item RNA Bioscience Initiative (\href{https://ror.org/03wmf1y16}{ROR}) [funder, copyright holder]
 }
 
 }

@@ -22,8 +22,8 @@ Depends:
 Imports:
     broom,
     cli,
-    cpp11bigwig,
-    dplyr (>= 0.8.0),
+    cpp11bigwig (>= 0.3.0),
+    dplyr (>= 1.0.0),
     ggplot2,
     lifecycle,
     readr,
@@ -60,4 +60,4 @@ Config/testthat/parallel: true
 Config/usethis/last-upkeep: 2025-12-10
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+Config/roxygen2/version: 8.0.0

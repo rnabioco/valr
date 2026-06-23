@@ -21,9 +21,9 @@ create_introns(x)
 
 }
 \seealso{
-Other feature functions: 
-\code{\link{create_tss}()},
-\code{\link{create_utrs3}()},
-\code{\link{create_utrs5}()}
+Other feature functions:
+\code{\link[=create_tss]{create_tss()}},
+\code{\link[=create_utrs3]{create_utrs3()}},
+\code{\link[=create_utrs5]{create_utrs5()}}
 }
 \concept{feature functions}

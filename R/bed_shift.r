@@ -60,7 +60,7 @@ bed_shift <- function(x, genome, size = 0, fraction = 0, trim = FALSE) {
   x <- check_interval(x)
   genome <- check_genome(genome)
 
-  stranded <- "strand" %in% groups(x)
+  stranded <- "strand" %in% group_vars(x)
 
   # shift invervals
   if (!stranded && !fraction) {

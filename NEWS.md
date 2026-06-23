@@ -1,5 +1,15 @@
 # valr (development version)
 
+* The `data_frame()` and `as_data_frame()` re-exports from tibble are now deprecated, matching their deprecation upstream. Use `tibble::tibble()` and `tibble::as_tibble()` instead.
+
+* Modernized internal use of superseded dplyr and tidyselect idioms (`one_of()`, `mutate_at()`, and `rlang::syms()`/`!!!` splicing replaced with `across(all_of())`). No change in behavior. The minimum supported dplyr version is now 1.0.0.
+
+* Reduced the direct dependency surface on rlang to a single function (`check_required()`); `dots_n()` was replaced with base `...length()`.
+
+* Reduced per-group memory copies in the C++ backend of `bed_intersect()`, `bed_coverage()`, and `bed_subtract()` by avoiding redundant copies of the interval vectors.
+
+* Requires cpp11bigwig (>= 0.3.0), which fixes CRAN sanitizer (UBSan/ASan) errors when reading bigBed files.
+
 # valr 0.9.1
 
 * `bed_slop()` and `bed_flank()` now preserve input row order instead of sorting output by `chrom` and `start` (#434, #435).

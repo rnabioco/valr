@@ -66,8 +66,8 @@ bed_genomecov <- function(x, genome, zero_depth = FALSE) {
   grp_cols <- group_vars(x)
   x <- bed_sort(x)
 
-  groups <- rlang::syms(unique(c("chrom", grp_cols)))
-  x <- group_by(x, !!!groups)
+  groups <- unique(c("chrom", grp_cols))
+  x <- group_by(x, across(all_of(groups)))
 
   max_coords <- group_chrom_sizes(x, genome)
 

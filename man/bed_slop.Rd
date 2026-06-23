@@ -78,13 +78,13 @@ bed_slop(x, genome, both = 0.5, fraction = TRUE)
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/slop.html}
 
-Other single set operations: 
-\code{\link{bed_cluster}()},
-\code{\link{bed_complement}()},
-\code{\link{bed_flank}()},
-\code{\link{bed_genomecov}()},
-\code{\link{bed_merge}()},
-\code{\link{bed_partition}()},
-\code{\link{bed_shift}()}
+Other single set operations:
+\code{\link[=bed_cluster]{bed_cluster()}},
+\code{\link[=bed_complement]{bed_complement()}},
+\code{\link[=bed_flank]{bed_flank()}},
+\code{\link[=bed_genomecov]{bed_genomecov()}},
+\code{\link[=bed_merge]{bed_merge()}},
+\code{\link[=bed_partition]{bed_partition()}},
+\code{\link[=bed_shift]{bed_shift()}}
 }
 \concept{single set operations}

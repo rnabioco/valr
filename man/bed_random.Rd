@@ -47,7 +47,7 @@ bed_random(genome, length = 500, n = 500, seed = 10104)
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/random.html}
 
-Other randomizing operations: 
-\code{\link{bed_shuffle}()}
+Other randomizing operations:
+\code{\link[=bed_shuffle]{bed_shuffle()}}
 }
 \concept{randomizing operations}

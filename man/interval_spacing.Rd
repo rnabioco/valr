@@ -28,10 +28,10 @@ interval_spacing(x)
 
 }
 \seealso{
-Other utilities: 
-\code{\link{bed12_to_exons}()},
-\code{\link{bed_makewindows}()},
-\code{\link{bound_intervals}()},
-\code{\link{flip_strands}()}
+Other utilities:
+\code{\link[=bed12_to_exons]{bed12_to_exons()}},
+\code{\link[=bed_makewindows]{bed_makewindows()}},
+\code{\link[=bound_intervals]{bound_intervals()}},
+\code{\link[=flip_strands]{flip_strands()}}
 }
 \concept{utilities}

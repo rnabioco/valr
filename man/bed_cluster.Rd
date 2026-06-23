@@ -55,13 +55,13 @@ bed_glyph(bed_cluster(x), label = ".id")
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/cluster.html}
 
-Other single set operations: 
-\code{\link{bed_complement}()},
-\code{\link{bed_flank}()},
-\code{\link{bed_genomecov}()},
-\code{\link{bed_merge}()},
-\code{\link{bed_partition}()},
-\code{\link{bed_shift}()},
-\code{\link{bed_slop}()}
+Other single set operations:
+\code{\link[=bed_complement]{bed_complement()}},
+\code{\link[=bed_flank]{bed_flank()}},
+\code{\link[=bed_genomecov]{bed_genomecov()}},
+\code{\link[=bed_merge]{bed_merge()}},
+\code{\link[=bed_partition]{bed_partition()}},
+\code{\link[=bed_shift]{bed_shift()}},
+\code{\link[=bed_slop]{bed_slop()}}
 }
 \concept{single set operations}

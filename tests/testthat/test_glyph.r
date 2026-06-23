@@ -44,5 +44,8 @@ genome <- tibble::tribble(
 
 x <- bed_random(genome, n = 101)
 test_that("exceeding max intervals throws an error", {
-  expect_snapshot(bed_glyph(bed_intersect(x, x, min_overlap = 0L)), error = TRUE)
+  expect_snapshot(
+    bed_glyph(bed_intersect(x, x, min_overlap = 0L)),
+    error = TRUE
+  )
 })

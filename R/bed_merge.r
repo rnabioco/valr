@@ -61,23 +61,22 @@ bed_merge <- function(x, max_dist = 0, ...) {
 
   res <- bed_sort(x)
 
-  group_vars <- rlang::syms(unique(c("chrom", groups_x)))
-  res <- group_by(res, !!!group_vars)
+  res <- group_by(res, across(all_of(unique(c("chrom", groups_x)))))
 
   # if no dots are passed then use fast internal merge
   if (!is.null(substitute(...))) {
     res <- merge_impl(res, max_dist, collapse = FALSE)
     res <- tibble::as_tibble(res)
-    group_vars <- rlang::syms(unique(c("chrom", ".id_merge", groups_x)))
-    res <- group_by(res, !!!group_vars)
+    res <- group_by(
+      res,
+      across(all_of(unique(c("chrom", ".id_merge", groups_x))))
+    )
 
     res <- summarize(
       res,
-      !!!rlang::quos(
-        .start = min(.data[["start"]]),
-        .end = max(.data[["end"]]),
-        ...
-      )
+      .start = min(.data[["start"]]),
+      .end = max(.data[["end"]]),
+      ...
     )
     res <- select(
       res,
@@ -87,16 +86,16 @@ bed_merge <- function(x, max_dist = 0, ...) {
     )
 
     res <- ungroup(res)
-    res <- select(res, !!quo(-one_of(".id_merge")))
+    res <- select(res, -all_of(".id_merge"))
   } else {
     res <- merge_impl(res, max_dist, collapse = TRUE)
     res <- tibble::as_tibble(res)
-    res <- select(res, !!!rlang::syms(c("chrom", "start", "end", groups_x)))
+    res <- select(res, all_of(c("chrom", "start", "end", groups_x)))
   }
   res <- ungroup(res)
   # restore original grouping
   if (!is.null(groups_x)) {
-    res <- group_by(res, !!!rlang::syms(groups_x))
+    res <- group_by(res, across(all_of(groups_x)))
   }
 
   res <- reorder_names(res, x)

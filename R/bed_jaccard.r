@@ -63,10 +63,10 @@ bed_jaccard <- function(x, y) {
   res_intersect <- bed_intersect(x, y, min_overlap = 0L)
 
   if (!is.null(groups_shared)) {
-    x <- group_by(x, !!!syms(groups_shared))
-    y <- group_by(y, !!!syms(groups_shared))
+    x <- group_by(x, across(all_of(groups_shared)))
+    y <- group_by(y, across(all_of(groups_shared)))
 
-    res_intersect <- group_by(res_intersect, !!!syms(groups_shared))
+    res_intersect <- group_by(res_intersect, across(all_of(groups_shared)))
   }
 
   res_intersect <- summarize(
@@ -82,11 +82,11 @@ bed_jaccard <- function(x, y) {
   res_y <- summarize(res_y, sum_y = sum(as.numeric(.data[[".size"]])))
 
   if (!is.null(groups_shared)) {
-    res <- left_join(res_intersect, res_x, by = as.character(groups_shared))
-    res <- left_join(res, res_y, by = as.character(groups_shared))
+    res <- left_join(res_intersect, res_x, by = groups_shared)
+    res <- left_join(res, res_y, by = groups_shared)
 
     res <- mutate(res, sum_xy = .data[["sum_x"]] + .data[["sum_y"]])
-    group_cols <- select(res, !!!syms(groups_shared))
+    group_cols <- select(res, all_of(groups_shared))
 
     res <- transmute(
       res,

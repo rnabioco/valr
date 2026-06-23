@@ -17,10 +17,10 @@
 
 using namespace cpp11::literals;
 
-void coverage_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<int>& overlap_counts,
-                    std::vector<int>& ivls_bases_covered, std::vector<int>& x_ivl_lengths,
-                    std::vector<double>& fractions_covered, std::vector<int>& indices_x,
-                    int min_overlap) {
+void coverage_group(const valr::ivl_vector_t& vx, valr::ivl_vector_t vy,
+                    std::vector<int>& overlap_counts, std::vector<int>& ivls_bases_covered,
+                    std::vector<int>& x_ivl_lengths, std::vector<double>& fractions_covered,
+                    std::vector<int>& indices_x, int min_overlap) {
   valr::ivl_tree_t tree_y(std::move(vy));
 
   // Reusable buffer for overlaps - avoids allocation per query
@@ -158,8 +158,8 @@ cpp11::writable::data_frame coverage_impl(cpp11::data_frame gdf_x, cpp11::data_f
     valr::ivl_vector_t vx = valr::makeIntervalVector(df_x, gi_x);
     valr::ivl_vector_t vy = valr::makeIntervalVector(df_y, gi_y);
 
-    coverage_group(vx, vy, overlap_counts, ivls_bases_covered, x_ivl_lengths, fractions_covered,
-                   indices_x, min_overlap);
+    coverage_group(vx, std::move(vy), overlap_counts, ivls_bases_covered, x_ivl_lengths,
+                   fractions_covered, indices_x, min_overlap);
   }
 
   // handle condition with empty y df

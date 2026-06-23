@@ -42,7 +42,7 @@ reorder_names <- function(x, y) {
 
   names_x <- names_x[order(match(names_x, names_y))]
 
-  x <- select(x, one_of(names_x))
+  x <- select(x, all_of(names_x))
   x
 }
 
@@ -81,8 +81,8 @@ reorder_names <- function(x, y) {
 #' shared_groups(x, y)
 #' @noRd
 shared_groups <- function(x, y) {
-  groups_x <- groups(x)
-  groups_y <- groups(y)
+  groups_x <- group_vars(x)
+  groups_y <- group_vars(y)
 
   groups_xy <- intersect(groups_x, groups_y)
   if (length(groups_xy) == 0) {
@@ -123,7 +123,7 @@ convert_factors <- function(x, group_cols) {
 
     x <- ungroup(x)
     convert_cols <- group_cols[contains_factor]
-    x <- mutate_at(x, .vars = convert_cols, as.character)
+    x <- mutate(x, across(all_of(convert_cols), as.character))
   } else {
     ungroup(x)
   }
