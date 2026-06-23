@@ -9,7 +9,10 @@ bed_coverage(x, y, ..., min_overlap = NULL)
 \arguments{
 \item{x}{\link{ivl_df}}
 
-\item{y}{\link{ivl_df}}
+\item{y}{\link{ivl_df}, or a path or URL to a bigWig (\code{.bw}) or bigBed (\code{.bb})
+file. When a file is supplied, only the regions spanned by \code{x} are read
+from it (local files and \verb{http(s)://} URLs are both supported), avoiding
+the cost of loading the entire file.}
 
 \item{...}{extra arguments (not used)}
 
@@ -55,6 +58,16 @@ y <- tibble::tribble(
 )
 
 bed_coverage(x, y)
+
+# `y` can also be a bigWig/bigBed file path or `http(s)://` URL; only the
+# regions spanned by `x` are read from the file
+x <- tibble::tribble(
+  ~chrom,  ~start,   ~end,
+  "chr1",  4800000, 4830000,
+  "chr10", 4850000, 4860000
+)
+
+bed_coverage(x, valr_example("test.bb"), min_overlap = 1L)
 
 }
 \seealso{

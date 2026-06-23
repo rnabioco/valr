@@ -9,7 +9,10 @@
 #' values.
 #'
 #' @param x [ivl_df]
-#' @param y  [ivl_df]
+#' @param y [ivl_df], or a path or URL to a bigWig (`.bw`) or bigBed (`.bb`)
+#'   file. When a file is supplied, only the regions spanned by `x` are read
+#'   from it (local files and `http(s)://` URLs are both supported), avoiding
+#'   the cost of loading the entire file.
 #' @param ... name-value pairs specifying column names and expressions to apply
 #' @param min_overlap minimum overlap in base pairs required for mapping.
 #'   Default is `1`, meaning book-ended intervals (touching but not overlapping)
@@ -38,6 +41,12 @@ bed_map <- function(x, y, ..., min_overlap = 1L) {
   }
 
   x <- check_interval(x)
+
+  # `y` may be a path/URL to a bigWig/bigBed file; query only x's regions
+  if (is_bigwig_path(y)) {
+    y <- read_bigwig_regions(x, y)
+  }
+
   y <- check_interval(y)
 
   ## add suffixes to all x columns except `chrom`

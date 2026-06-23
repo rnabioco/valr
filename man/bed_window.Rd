@@ -9,7 +9,10 @@ bed_window(x, y, genome, ...)
 \arguments{
 \item{x}{\link{ivl_df}}
 
-\item{y}{\link{ivl_df}}
+\item{y}{\link{ivl_df}, or a path or URL to a bigWig (\code{.bw}) or bigBed (\code{.bb})
+file. When a file is supplied, only the windowed regions around \code{x} are
+read from it (local files and \verb{http(s)://} URLs are both supported),
+avoiding the cost of loading the entire file.}
 
 \item{genome}{\link{genome_df}}
 
@@ -66,6 +69,17 @@ genome <- tibble::tribble(
 )
 
 bed_window(x, y, genome, both = 100)
+
+# `y` can be a bigWig/bigBed file path or `http(s)://` URL; only the
+# windowed regions around `x` are read from the file
+xf <- tibble::tribble(
+  ~chrom, ~start,   ~end,
+  "chr1", 4840000, 4841000
+)
+
+gf <- read_genome(valr_example("hg19.chrom.sizes.gz"))
+
+bed_window(xf, valr_example("test.bb"), gf, both = 10000)
 
 # add a `.dist` column to the output
 \dontrun{

@@ -1,7 +1,10 @@
 #' Identify intervals within a specified distance.
 #'
 #' @param x [ivl_df]
-#' @param y  [ivl_df]
+#' @param y [ivl_df], or a path or URL to a bigWig (`.bw`) or bigBed (`.bb`)
+#'   file. When a file is supplied, only the windowed regions around `x` are
+#'   read from it (local files and `http(s)://` URLs are both supported),
+#'   avoiding the cost of loading the entire file.
 #' @param ... params for bed_slop and bed_intersect
 #' @inheritParams bed_slop
 #' @inheritParams bed_intersect
@@ -51,6 +54,17 @@
 #'
 #' bed_window(x, y, genome, both = 100)
 #'
+#' # `y` can be a bigWig/bigBed file path or `http(s)://` URL; only the
+#' # windowed regions around `x` are read from the file
+#' xf <- tibble::tribble(
+#'   ~chrom, ~start,   ~end,
+#'   "chr1", 4840000, 4841000
+#' )
+#'
+#' gf <- read_genome(valr_example("hg19.chrom.sizes.gz"))
+#'
+#' bed_window(xf, valr_example("test.bb"), gf, both = 10000)
+#'
 #' # add a `.dist` column to the output
 #' \dontrun{
 #' bed_window(x, y, genome, both = 200) |>
@@ -71,7 +85,10 @@ bed_window <- function(x, y, genome, ...) {
   check_required(genome)
 
   x <- check_interval(x)
-  y <- check_interval(y)
+  # a bigWig/bigBed `y` is resolved below, once the window has been applied
+  if (!is_bigwig_path(y)) {
+    y <- check_interval(y)
+  }
   genome <- check_genome(genome)
 
   x <- mutate(x, .start = .data[["start"]], .end = .data[["end"]])
@@ -92,6 +109,11 @@ bed_window <- function(x, y, genome, ...) {
     bed_slop,
     c(list("x" = x, "genome" = genome), slop_args)
   )
+
+  # for a bigWig/bigBed `y`, query only the windowed (slopped) x regions
+  if (is_bigwig_path(y)) {
+    y <- read_bigwig_regions(slop_x, y)
+  }
 
   # pass new list of args to bed_intersect
   # TODO: revisit when min_overlap default changes to 1L

@@ -1,7 +1,10 @@
 #' Compute coverage of intervals.
 #'
 #' @param x [ivl_df]
-#' @param y [ivl_df]
+#' @param y [ivl_df], or a path or URL to a bigWig (`.bw`) or bigBed (`.bb`)
+#'   file. When a file is supplied, only the regions spanned by `x` are read
+#'   from it (local files and `http(s)://` URLs are both supported), avoiding
+#'   the cost of loading the entire file.
 #' @param ... extra arguments (not used)
 #'
 #' @template min_overlap
@@ -37,6 +40,16 @@
 #'
 #' bed_coverage(x, y)
 #'
+#' # `y` can also be a bigWig/bigBed file path or `http(s)://` URL; only the
+#' # regions spanned by `x` are read from the file
+#' x <- tibble::tribble(
+#'   ~chrom,  ~start,   ~end,
+#'   "chr1",  4800000, 4830000,
+#'   "chr10", 4850000, 4860000
+#' )
+#'
+#' bed_coverage(x, valr_example("test.bb"), min_overlap = 1L)
+#'
 #' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/coverage.html}
 #'
 #' @export
@@ -58,6 +71,12 @@ bed_coverage <- function(x, y, ..., min_overlap = NULL) {
   }
 
   x <- check_interval(x)
+
+  # `y` may be a path/URL to a bigWig/bigBed file; query only x's regions
+  if (is_bigwig_path(y)) {
+    y <- read_bigwig_regions(x, y)
+  }
+
   y <- check_interval(y)
 
   x <- bed_sort(x)

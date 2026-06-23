@@ -18,7 +18,10 @@ values(.data, sep = ",")
 \arguments{
 \item{x}{\link{ivl_df}}
 
-\item{y}{\link{ivl_df}}
+\item{y}{\link{ivl_df}, or a path or URL to a bigWig (\code{.bw}) or bigBed (\code{.bb})
+file. When a file is supplied, only the regions spanned by \code{x} are read
+from it (local files and \verb{http(s)://} URLs are both supported), avoiding
+the cost of loading the entire file.}
 
 \item{...}{name-value pairs specifying column names and expressions to apply}
 
@@ -113,6 +116,16 @@ dplyr::mutate(
   bed_map(x, y, .counts = dplyr::n()),
   .counts = ifelse(is.na(.counts), 0, .counts)
 )
+
+# a bigWig or bigBed file path (or `http(s)://` URL) can be used in place of
+# `y`; only the regions spanned by `x` are read from the file
+peaks <- tibble::tribble(
+  ~chrom  , ~start   , ~end     ,
+  "chr22" , 16100000 , 16150000 ,
+  "chr22" , 16500000 , 16550000
+)
+
+bed_map(peaks, valr_example("hg19.dnase1.bw"), .signal = sum(value))
 }
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/map.html}

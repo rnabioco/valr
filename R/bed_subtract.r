@@ -3,7 +3,10 @@
 #' Subtract `y` intervals from `x` intervals.
 #'
 #' @param x [ivl_df]
-#' @param y [ivl_df]
+#' @param y [ivl_df], or a path or URL to a bigWig (`.bw`) or bigBed (`.bb`)
+#'   file. When a file is supplied, only the regions spanned by `x` are read
+#'   from it (local files and `http(s)://` URLs are both supported), avoiding
+#'   the cost of loading the entire file.
 #' @param any remove any `x` intervals that overlap `y`
 #'
 #' @template min_overlap
@@ -69,6 +72,12 @@ bed_subtract <- function(x, y, any = FALSE, min_overlap = NULL) {
   }
 
   x <- check_interval(x)
+
+  # `y` may be a path/URL to a bigWig/bigBed file; query only x's regions
+  if (is_bigwig_path(y)) {
+    y <- read_bigwig_regions(x, y)
+  }
+
   y <- check_interval(y)
 
   # establish grouping with shared groups (and chrom)

@@ -77,6 +77,30 @@ bed <- tribble(
 bed
 ```
 
+### bigWig and bigBed files
+
+Signal (bigWig) and feature (bigBed) files are read with `read_bigwig()` and `read_bigbed()`, which accept local paths or `http(s)://` URLs.
+
+```{r}
+#| label: read-bigwig
+bw <- valr_example("hg19.dnase1.bw")
+read_bigwig(bw)
+```
+
+The multiple-set operations (`bed_intersect()`, `bed_map()`, `bed_coverage()`, `bed_subtract()`, and `bed_window()`) also accept a bigWig or bigBed path or URL directly in place of a `y` tbl. Only the regions spanned by `x` are read from the file, so large (and remote) files are queried without loading them in full.
+
+```{r}
+#| label: bigwig-map
+peaks <- tribble(
+  ~chrom , ~start    , ~end      ,
+  "chr22", 16100000  , 16150000  ,
+  "chr22", 16500000  , 16550000
+)
+
+# sum DNase I signal over each peak, reading only those regions from the file
+bed_map(peaks, bw, .signal = sum(value))
+```
+
 ### Interval coordinates
 
 `valr` adheres to the BED [format](https://genome.ucsc.edu/FAQ/FAQformat#format1) which specifies that the start position for an interval is zero based and the end position is one-based. The first position in a chromosome is 0. The end position for a chromosome is one position passed the last base, and is not included in the interval. For example:

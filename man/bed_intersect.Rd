@@ -15,7 +15,10 @@ bed_intersect(
 \arguments{
 \item{x}{\link{ivl_df}}
 
-\item{...}{one or more (e.g. a list of) \code{y} \code{\link[=ivl_df]{ivl_df()}}s}
+\item{...}{one or more (e.g. a list of) \code{y} \code{\link[=ivl_df]{ivl_df()}}s. Each \code{y} may also be
+a path or URL to a bigWig (\code{.bw}) or bigBed (\code{.bb}) file, in which case only
+the regions spanned by \code{x} are read from it (local files and \verb{http(s)://}
+URLs are both supported), avoiding the cost of loading the entire file.}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
@@ -105,6 +108,16 @@ bed_intersect(x, exons = y, introns = z)
 
 # a list of tbl_intervals can also be passed
 bed_intersect(x, list(exons = y, introns = z))
+
+# a bigWig/bigBed file path or `http(s)://` URL can be used in place of a
+# `y` tbl; only the regions spanned by `x` are read from the file
+x <- tibble::tribble(
+  ~chrom,  ~start,   ~end,
+  "chr1",  4800000, 4830000,
+  "chr10", 4850000, 4860000
+)
+
+bed_intersect(x, valr_example("test.bb"), min_overlap = 1L)
 
 }
 \seealso{
