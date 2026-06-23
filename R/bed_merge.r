@@ -67,7 +67,10 @@ bed_merge <- function(x, max_dist = 0, ...) {
   if (!is.null(substitute(...))) {
     res <- merge_impl(res, max_dist, collapse = FALSE)
     res <- tibble::as_tibble(res)
-    res <- group_by(res, across(all_of(unique(c("chrom", ".id_merge", groups_x)))))
+    res <- group_by(
+      res,
+      across(all_of(unique(c("chrom", ".id_merge", groups_x))))
+    )
 
     res <- summarize(
       res,

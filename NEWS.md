@@ -6,6 +6,10 @@
 
 * Reduced the direct dependency surface on rlang to a single function (`check_required()`); `dots_n()` was replaced with base `...length()`.
 
+* Reduced per-group memory copies in the C++ backend of `bed_intersect()`, `bed_coverage()`, and `bed_subtract()` by avoiding redundant copies of the interval vectors.
+
+* Requires cpp11bigwig (>= 0.3.0), which fixes CRAN sanitizer (UBSan/ASan) errors when reading bigBed files.
+
 # valr 0.9.1
 
 * `bed_slop()` and `bed_flank()` now preserve input row order instead of sorting output by `chrom` and `start` (#434, #435).

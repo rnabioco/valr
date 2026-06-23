@@ -6,16 +6,15 @@ skip_on_cran()
 
 # Use a realistic genome for testing
 genome <- tibble::tribble(
-  ~chrom, ~size,
-  "chr1", 248956422,
-  "chr2", 242193529,
-  "chr3", 198295559,
-  "chr4", 190214555,
-  "chr5", 181538259
+  ~chrom , ~size     ,
+  "chr1" , 248956422 ,
+  "chr2" , 242193529 ,
+  "chr3" , 198295559 ,
+  "chr4" , 190214555 ,
+  "chr5" , 181538259
 )
 
-test_that("bed_intersect handles 100K x 100K intervals",
-{
+test_that("bed_intersect handles 100K x 100K intervals", {
   x <- bed_random(genome, n = 1e5, seed = 42, length = 1000)
   y <- bed_random(genome, n = 1e5, seed = 43, length = 1000)
 
@@ -33,12 +32,11 @@ test_that("bed_intersect handles 100K x 100K intervals",
   expect_true(all(res$start.y < res$end.y))
 })
 
-test_that("bed_intersect handles dense overlaps (many overlaps per interval)",
-{
+test_that("bed_intersect handles dense overlaps (many overlaps per interval)", {
   # Small genome = high density = many overlaps per interval
   small_genome <- tibble::tribble(
-    ~chrom, ~size,
-    "chr1", 10000000
+    ~chrom , ~size    ,
+    "chr1" , 10000000
   )
 
   x <- bed_random(small_genome, n = 1e4, seed = 42, length = 5000)
@@ -55,8 +53,7 @@ test_that("bed_intersect handles dense overlaps (many overlaps per interval)",
   expect_true(all(res$.overlap > 0))
 })
 
-test_that("bed_subtract handles 100K x 100K intervals",
-{
+test_that("bed_subtract handles 100K x 100K intervals", {
   x <- bed_random(genome, n = 1e5, seed = 42, length = 1000)
   y <- bed_random(genome, n = 1e5, seed = 43, length = 500)
 
@@ -71,8 +68,7 @@ test_that("bed_subtract handles 100K x 100K intervals",
   expect_true(all(res$start < res$end))
 })
 
-test_that("bed_coverage handles 100K x 100K intervals",
-{
+test_that("bed_coverage handles 100K x 100K intervals", {
   x <- bed_random(genome, n = 1e5, seed = 42, length = 1000)
   y <- bed_random(genome, n = 1e5, seed = 43, length = 500)
 
@@ -90,8 +86,7 @@ test_that("bed_coverage handles 100K x 100K intervals",
   expect_equal(res$.len, res$end - res$start)
 })
 
-test_that("bed_closest handles 100K x 100K intervals",
-{
+test_that("bed_closest handles 100K x 100K intervals", {
   x <- bed_random(genome, n = 1e5, seed = 42, length = 100)
   y <- bed_random(genome, n = 1e5, seed = 43, length = 100)
 
@@ -104,8 +99,7 @@ test_that("bed_closest handles 100K x 100K intervals",
   expect_true(all(!is.na(res$.dist)))
 })
 
-test_that("bed_intersect with invert handles large datasets",
-{
+test_that("bed_intersect with invert handles large datasets", {
   x <- bed_random(genome, n = 1e5, seed = 42, length = 1000)
   y <- bed_random(genome, n = 1e4, seed = 43, length = 1000)
 
@@ -120,8 +114,7 @@ test_that("bed_intersect with invert handles large datasets",
   expect_lte(x_with_overlap + x_without_overlap, nrow(x) * 1.1)
 })
 
-test_that("results are consistent between grouped and ungrouped operations",
-{
+test_that("results are consistent between grouped and ungrouped operations", {
   x <- bed_random(genome, n = 1e4, seed = 42, length = 1000)
   y <- bed_random(genome, n = 1e4, seed = 43, length = 1000)
 

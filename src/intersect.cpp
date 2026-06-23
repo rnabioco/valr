@@ -17,9 +17,9 @@
 
 using namespace cpp11::literals;
 
-void intersect_group(valr::ivl_vector_t vx, valr::ivl_vector_t vy, std::vector<int>& indices_x,
-                     std::vector<int>& indices_y, std::vector<int>& overlap_sizes, bool invert,
-                     int min_overlap) {
+void intersect_group(const valr::ivl_vector_t& vx, valr::ivl_vector_t vy,
+                     std::vector<int>& indices_x, std::vector<int>& indices_y,
+                     std::vector<int>& overlap_sizes, bool invert, int min_overlap) {
   // do not call vy after std::move
   valr::ivl_tree_t tree_y(std::move(vy));
 
@@ -133,7 +133,7 @@ cpp11::writable::data_frame intersect_impl(cpp11::data_frame gdf_x, cpp11::data_
     valr::ivl_vector_t vx = valr::makeIntervalVector(df_x, gi_x);
     valr::ivl_vector_t vy = valr::makeIntervalVector(df_y, gi_y);
 
-    intersect_group(vx, vy, indices_x, indices_y, overlap_sizes, invert, min_overlap);
+    intersect_group(vx, std::move(vy), indices_x, indices_y, overlap_sizes, invert, min_overlap);
   }
 
   // Subset dataframes by output indices
