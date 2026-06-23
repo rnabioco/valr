@@ -61,7 +61,10 @@
 
 
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
-<dd><p><a href="ivl_df.html">ivl_df</a></p></dd>
+<dd><p><a href="ivl_df.html">ivl_df</a>, or a path or URL to a bigWig (<code>.bw</code>) or bigBed (<code>.bb</code>)
+file. When a file is supplied, only the regions spanned by <code>x</code> are read
+from it (local files and <code>http(s)://</code> URLs are both supported), avoiding
+the cost of loading the entire file.</p></dd>
 
 
 <dt id="arg-any">any<a class="anchor" aria-label="anchor" href="#arg-any"></a></dt>

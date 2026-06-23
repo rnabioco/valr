@@ -16,7 +16,11 @@ bed_coverage(x, y, ..., min_overlap = NULL)
 
 - y:
 
-  [ivl_df](https://rnabioco.github.io/valr/dev/reference/ivl_df.md)
+  [ivl_df](https://rnabioco.github.io/valr/dev/reference/ivl_df.md), or
+  a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file. When a file
+  is supplied, only the regions spanned by `x` are read from it (local
+  files and `http(s)://` URLs are both supported), avoiding the cost of
+  loading the entire file.
 
 - ...:
 
@@ -95,4 +99,19 @@ bed_coverage(x, y)
 #> 2 chr2    200   400 +          2   170   200 0.85 
 #> 3 chr2    300   500 -          2   130   200 0.65 
 #> 4 chr2    800   900 -          0     0   100 0    
+
+# `y` can also be a bigWig/bigBed file path or `http(s)://` URL; only the
+# regions spanned by `x` are read from the file
+x <- tibble::tribble(
+  ~chrom,  ~start,   ~end,
+  "chr1",  4800000, 4830000,
+  "chr10", 4850000, 4860000
+)
+
+bed_coverage(x, valr_example("test.bb"), min_overlap = 1L)
+#> # A tibble: 2 × 7
+#>   chrom   start     end .ints  .cov  .len .frac
+#>   <chr>   <dbl>   <dbl> <int> <int> <dbl> <dbl>
+#> 1 chr1  4800000 4830000     1 30000 30000     1
+#> 2 chr10 4850000 4860000     1 10000 10000     1
 ```

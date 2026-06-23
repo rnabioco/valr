@@ -16,7 +16,11 @@ bed_subtract(x, y, any = FALSE, min_overlap = NULL)
 
 - y:
 
-  [ivl_df](https://rnabioco.github.io/valr/dev/reference/ivl_df.md)
+  [ivl_df](https://rnabioco.github.io/valr/dev/reference/ivl_df.md), or
+  a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file. When a file
+  is supplied, only the regions spanned by `x` are read from it (local
+  files and `http(s)://` URLs are both supported), avoiding the cost of
+  loading the entire file.
 
 - any:
 

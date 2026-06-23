@@ -97,6 +97,62 @@ bed
 #> 2 chr2  2501324 3094650
 ```
 
+### bigWig and bigBed files
+
+Signal (bigWig) and feature (bigBed) files are read with
+[`read_bigwig()`](https://rnabioco.github.io/cpp11bigwig/reference/read_bigwig.html)
+and
+[`read_bigbed()`](https://rnabioco.github.io/cpp11bigwig/reference/read_bigbed.html),
+which accept local paths or `http(s)://` URLs.
+
+``` r
+
+bw <- valr_example("hg19.dnase1.bw")
+read_bigwig(bw)
+#> # A tibble: 2,587 × 4
+#>    chrom    start      end value
+#>    <chr>    <int>    <int> <dbl>
+#>  1 chr22 16050284 16050464     1
+#>  2 chr22 16051024 16051204     1
+#>  3 chr22 16051224 16051764     1
+#>  4 chr22 16052724 16052904     1
+#>  5 chr22 16053224 16053404     1
+#>  6 chr22 16054584 16054644     1
+#>  7 chr22 16054644 16054764     2
+#>  8 chr22 16054764 16054824     1
+#>  9 chr22 16056404 16056424     1
+#> 10 chr22 16056424 16056584     2
+#> # ℹ 2,577 more rows
+```
+
+The multiple-set operations
+([`bed_intersect()`](https://rnabioco.github.io/valr/dev/reference/bed_intersect.md),
+[`bed_map()`](https://rnabioco.github.io/valr/dev/reference/bed_map.md),
+[`bed_coverage()`](https://rnabioco.github.io/valr/dev/reference/bed_coverage.md),
+[`bed_subtract()`](https://rnabioco.github.io/valr/dev/reference/bed_subtract.md),
+and
+[`bed_window()`](https://rnabioco.github.io/valr/dev/reference/bed_window.md))
+also accept a bigWig or bigBed path or URL directly in place of a `y`
+tbl. Only the regions spanned by `x` are read from the file, so large
+(and remote) files are queried without loading them in full.
+
+``` r
+
+peaks <- tribble(
+  ~chrom , ~start    , ~end      ,
+  "chr22", 16100000  , 16150000  ,
+  "chr22", 16500000  , 16550000
+)
+
+# sum DNase I signal over each peak, reading only those regions from the file
+bed_map(peaks, bw, .signal = sum(value))
+#> # A tibble: 2 × 4
+#>   chrom    start      end .signal
+#>   <chr>    <dbl>    <dbl>   <dbl>
+#> 1 chr22 16100000 16150000     101
+#> 2 chr22 16500000 16550000      17
+```
+
 ### Interval coordinates
 
 `valr` adheres to the BED

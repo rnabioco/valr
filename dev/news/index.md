@@ -2,6 +2,20 @@
 
 ## valr (development version)
 
+- [`bed_map()`](https://rnabioco.github.io/valr/dev/reference/bed_map.md),
+  [`bed_intersect()`](https://rnabioco.github.io/valr/dev/reference/bed_intersect.md),
+  [`bed_subtract()`](https://rnabioco.github.io/valr/dev/reference/bed_subtract.md),
+  [`bed_coverage()`](https://rnabioco.github.io/valr/dev/reference/bed_coverage.md),
+  and
+  [`bed_window()`](https://rnabioco.github.io/valr/dev/reference/bed_window.md)
+  now accept a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file in
+  place of an interval `y`. Only the regions spanned by `x` are read
+  from the file (the windowed regions, for
+  [`bed_window()`](https://rnabioco.github.io/valr/dev/reference/bed_window.md));
+  local paths and `http(s)://` URLs are both supported via cpp11bigwig,
+  avoiding the cost of loading the entire file into memory
+  ([\#444](https://github.com/rnabioco/valr/issues/444)).
+
 - The
   [`data_frame()`](https://rnabioco.github.io/valr/dev/reference/reexports-deprecated.md)
   and

@@ -28,7 +28,11 @@ values(.data, sep = ",")
 
 - y:
 
-  [ivl_df](https://rnabioco.github.io/valr/dev/reference/ivl_df.md)
+  [ivl_df](https://rnabioco.github.io/valr/dev/reference/ivl_df.md), or
+  a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file. When a file
+  is supplied, only the regions spanned by `x` are read from it (local
+  files and `http(s)://` URLs are both supported), avoiding the cost of
+  loading the entire file.
 
 - ...:
 
@@ -193,4 +197,19 @@ dplyr::mutate(
 #>   <chr> <dbl> <dbl>   <int>
 #> 1 chr1    100   250       2
 #> 2 chr2    250   500       1
+
+# a bigWig or bigBed file path (or `http(s)://` URL) can be used in place of
+# `y`; only the regions spanned by `x` are read from the file
+peaks <- tibble::tribble(
+  ~chrom  , ~start   , ~end     ,
+  "chr22" , 16100000 , 16150000 ,
+  "chr22" , 16500000 , 16550000
+)
+
+bed_map(peaks, valr_example("hg19.dnase1.bw"), .signal = sum(value))
+#> # A tibble: 2 × 4
+#>   chrom    start      end .signal
+#>   <chr>    <dbl>    <dbl>   <dbl>
+#> 1 chr22 16100000 16150000     101
+#> 2 chr22 16500000 16550000      17
 ```

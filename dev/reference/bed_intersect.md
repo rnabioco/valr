@@ -23,7 +23,11 @@ bed_intersect(
 - ...:
 
   one or more (e.g. a list of) `y`
-  [`ivl_df()`](https://rnabioco.github.io/valr/dev/reference/ivl_df.md)s
+  [`ivl_df()`](https://rnabioco.github.io/valr/dev/reference/ivl_df.md)s.
+  Each `y` may also be a path or URL to a bigWig (`.bw`) or bigBed
+  (`.bb`) file, in which case only the regions spanned by `x` are read
+  from it (local files and `http(s)://` URLs are both supported),
+  avoiding the cost of loading the entire file.
 
 - invert:
 
@@ -201,4 +205,21 @@ bed_intersect(x, list(exons = y, introns = z))
 #>  9 chr2      300   500     230   430     200 introns      130
 #> 10 chr2      300   500     350   430     300 exons         80
 #> 11 chr2      800   900     750   900     400 introns      100
+
+# a bigWig/bigBed file path or `http(s)://` URL can be used in place of a
+# `y` tbl; only the regions spanned by `x` are read from the file
+x <- tibble::tribble(
+  ~chrom,  ~start,   ~end,
+  "chr1",  4800000, 4830000,
+  "chr10", 4850000, 4860000
+)
+
+bed_intersect(x, valr_example("test.bb"), min_overlap = 1L)
+#> # A tibble: 2 × 15
+#>   chrom start.x   end.x start.y   end.y name.y    score.y strand.y thickStart.y
+#>   <chr>   <dbl>   <dbl>   <dbl>   <dbl> <chr>       <int> <chr>           <int>
+#> 1 chr1  4800000 4830000 4797973 4836816 testgene        1 +             4797973
+#> 2 chr10 4850000 4860000 4848118 4880877 diffchrom       1 +             4848118
+#> # ℹ 6 more variables: thickEnd.y <int>, reserved.y <int>, blockCount.y <int>,
+#> #   blockSizes.y <chr>, chromStarts.y <chr>, .overlap <int>
 ```
