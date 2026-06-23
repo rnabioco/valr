@@ -61,3 +61,10 @@ test_that("read bigwig", {
 test_that("read gtf", {
   expect_snapshot(read_gtf(gtf_path), error = TRUE)
 })
+
+test_that("n_fields is defunct", {
+  expect_error(
+    read_bed(bed3_path, n_fields = 3),
+    class = "defunctError"
+  )
+})

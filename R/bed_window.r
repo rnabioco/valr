@@ -115,11 +115,7 @@ bed_window <- function(x, y, genome, ...) {
     y <- read_bigwig_regions(slop_x, y)
   }
 
-  # pass new list of args to bed_intersect
-  # TODO: revisit when min_overlap default changes to 1L
-  if (!"min_overlap" %in% names(intersect_args)) {
-    intersect_args$min_overlap <- 0L
-  }
+  # pass new list of args to bed_intersect (inherits its min_overlap default)
   res <- do.call(
     bed_intersect,
     c(list("x" = slop_x, "y" = y), intersect_args)

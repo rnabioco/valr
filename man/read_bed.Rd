@@ -33,7 +33,7 @@ read_broadpeak(filename, ...)
 
 \item{...}{options to pass to \code{\link[readr:read_tsv]{readr::read_tsv()}}}
 
-\item{n_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
+\item{n_fields}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#defunct}{\figure{lifecycle-defunct.svg}{options: alt='[Defunct]'}}}{\strong{[Defunct]}}}
 }
 \value{
 \link{ivl_df}

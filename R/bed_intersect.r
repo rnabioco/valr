@@ -106,23 +106,9 @@ bed_intersect <- function(
   ...,
   invert = FALSE,
   suffix = c(".x", ".y"),
-  min_overlap = NULL
+  min_overlap = 1L
 ) {
   check_required(x)
-
-  # Handle min_overlap deprecation: default to 0 (legacy) but warn
-
-  if (is.null(min_overlap)) {
-    lifecycle::deprecate_warn(
-      when = "0.8.0",
-      what = "bed_intersect(min_overlap)",
-      details = c(
-        "The default will change from 0 (book-ended intervals overlap) to 1 (strict overlap) in a future version.",
-        "Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for bedtools-compatible behavior."
-      )
-    )
-    min_overlap <- 0L
-  }
 
   if (...length() == 0) {
     cli::cli_abort("One or more tbls required in {.var ...}")

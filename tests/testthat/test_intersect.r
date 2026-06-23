@@ -463,3 +463,20 @@ test_that("min_overlap respects larger overlap thresholds", {
   res_100 <- bed_intersect(x, y, min_overlap = 100L)
   expect_equal(nrow(res_100), 0)
 })
+
+test_that("min_overlap defaults to 1 (book-ended intervals excluded)", {
+  a <- tibble::tribble(
+    ~chrom , ~start , ~end ,
+    "chr1" ,      1 ,  100
+  )
+  b <- tibble::tribble(
+    ~chrom , ~start , ~end ,
+    "chr1" ,    100 ,  200
+  )
+
+  # default is now strict (1L): book-ended intervals do not overlap
+  expect_equal(nrow(bed_intersect(a, b)), 0)
+
+  # legacy behavior is still available
+  expect_equal(nrow(bed_intersect(a, b, min_overlap = 0L)), 1)
+})

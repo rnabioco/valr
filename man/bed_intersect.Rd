@@ -4,13 +4,7 @@
 \alias{bed_intersect}
 \title{Identify intersecting intervals.}
 \usage{
-bed_intersect(
-  x,
-  ...,
-  invert = FALSE,
-  suffix = c(".x", ".y"),
-  min_overlap = NULL
-)
+bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"), min_overlap = 1L)
 }
 \arguments{
 \item{x}{\link{ivl_df}}
@@ -25,9 +19,9 @@ URLs are both supported), avoiding the cost of loading the entire file.}
 \item{suffix}{colname suffixes in output}
 
 \item{min_overlap}{minimum overlap in base pairs required for the operation.
-Set to \code{1} to exclude book-ended intervals (matching bedtools behavior), or
-\code{0} to include them (legacy valr behavior). The default will change from
-\code{0} to \code{1} in a future version.}
+Defaults to \code{1}, which excludes book-ended intervals (those that touch but
+do not overlap), matching bedtools behavior. Set to \code{0} to include
+book-ended intervals (the legacy valr behavior).}
 }
 \value{
 \link{ivl_df} with original columns from \code{x} and \code{y} suffixed with \code{.x}

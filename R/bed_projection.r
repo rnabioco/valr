@@ -60,8 +60,8 @@ bed_projection <- function(x, y, genome, by_chrom = FALSE) {
   # flatten y intervals
   y <- bed_merge(y)
 
-  # count overlaps per chromosome,
-  # TODO: revisit when min_overlap default changes to 1L
+  # count overlaps per chromosome; use min_overlap = 0 so book-ended
+  # intervals count as overlaps
   obs_counts <- bed_intersect(x, y, min_overlap = 0L)
 
   # count overlaps

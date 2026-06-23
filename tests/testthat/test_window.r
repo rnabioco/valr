@@ -26,7 +26,7 @@ test_that("both arg works", {
 
 test_that("left arg works", {
   out <- bed_window(x, y, genome, left = 110)
-  expect_equal(nrow(out), 4)
+  expect_equal(nrow(out), 3)
 })
 
 test_that("right arg works", {

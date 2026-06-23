@@ -22,7 +22,7 @@ sniff_fields <- function(filename) {
 #' @param col_types column type spec for [readr::read_tsv()]
 #' @param sort sort the tbl by chrom and start
 #' @param ... options to pass to [readr::read_tsv()]
-#' @param n_fields `r lifecycle::badge("deprecated")`
+#' @param n_fields `r lifecycle::badge("defunct")`
 #'
 #' @return [ivl_df]
 #'
@@ -48,8 +48,8 @@ read_bed <- function(
   check_required(filename)
 
   if (!is.null(n_fields)) {
-    lifecycle::deprecate_warn(
-      "0.6.9",
+    lifecycle::deprecate_stop(
+      "0.10.0",
       "read_bed(n_fields)",
       details = "fields are now determined automatically from the file"
     )
