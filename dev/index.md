@@ -7,6 +7,7 @@ suite.
 ## Installation
 
 ``` r
+
 # Install development version from GitHub
 # install.packages("pak")
 pak::pak("rnabioco/valr")
@@ -22,6 +23,7 @@ tools run natively in memory. Similar to
 has a terse syntax:
 
 ``` r
+
 library(valr)
 library(dplyr)
 

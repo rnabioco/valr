@@ -2,6 +2,39 @@
 
 ## valr (development version)
 
+- The
+  [`data_frame()`](https://rnabioco.github.io/valr/dev/reference/reexports-deprecated.md)
+  and
+  [`as_data_frame()`](https://rnabioco.github.io/valr/dev/reference/reexports-deprecated.md)
+  re-exports from tibble are now deprecated, matching their deprecation
+  upstream. Use
+  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
+  and
+  [`tibble::as_tibble()`](https://tibble.tidyverse.org/reference/as_tibble.html)
+  instead.
+
+- Modernized internal use of superseded dplyr and tidyselect idioms
+  ([`one_of()`](https://tidyselect.r-lib.org/reference/one_of.html),
+  [`mutate_at()`](https://dplyr.tidyverse.org/reference/mutate_all.html),
+  and
+  [`rlang::syms()`](https://rlang.r-lib.org/reference/sym.html)/`!!!`
+  splicing replaced with `across(all_of())`). No change in behavior. The
+  minimum supported dplyr version is now 1.0.0.
+
+- Reduced the direct dependency surface on rlang to a single function
+  (`check_required()`); `dots_n()` was replaced with base
+  [`...length()`](https://rdrr.io/r/base/dots.html).
+
+- Reduced per-group memory copies in the C++ backend of
+  [`bed_intersect()`](https://rnabioco.github.io/valr/dev/reference/bed_intersect.md),
+  [`bed_coverage()`](https://rnabioco.github.io/valr/dev/reference/bed_coverage.md),
+  and
+  [`bed_subtract()`](https://rnabioco.github.io/valr/dev/reference/bed_subtract.md)
+  by avoiding redundant copies of the interval vectors.
+
+- Requires cpp11bigwig (\>= 0.3.0), which fixes CRAN sanitizer
+  (UBSan/ASan) errors when reading bigBed files.
+
 ## valr 0.9.1
 
 CRAN release: 2026-01-11

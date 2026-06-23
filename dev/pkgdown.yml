@@ -1,10 +1,10 @@
-pandoc: 3.1.11
+pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   interval-stats: interval-stats.html
   valr: valr.html
-last_built: 2026-01-11T18:25Z
+last_built: 2026-06-23T15:31Z
 urls:
   reference: https://rnabioco.github.io/valr/reference
   article: https://rnabioco.github.io/valr/articles

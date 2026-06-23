@@ -25,6 +25,7 @@ read_gtf(path, zero_based = TRUE)
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 gtf <- read_gtf(valr_example("hg19.gencode.gtf.gz"))
 head(gtf)

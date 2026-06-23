@@ -9,6 +9,7 @@ counterparts, and so will be familiar to users coming from the
 `valr` has a terse syntax:
 
 ``` r
+
 library(valr)
 library(dplyr)
 
@@ -57,6 +58,7 @@ column names. See the
 documentation for details.
 
 ``` r
+
 bed_file <- valr_example("3fields.bed.gz")
 read_bed(bed_file) # accepts filepaths or URLs
 #> # A tibble: 10 × 3
@@ -80,6 +82,7 @@ New tbls can also be constructed as either `tibbles` or base R
 `data.frames`.
 
 ``` r
+
 bed <- tribble(
   ~chrom , ~start  , ~end    ,
   "chr1" , 1657492 , 2657492 ,
@@ -104,6 +107,7 @@ position for a chromosome is one position passed the last base, and is
 not included in the interval. For example:
 
 ``` r
+
 # a chromosome 100 basepairs in length
 chrom <- tribble(
   ~chrom , ~start , ~end ,
@@ -142,6 +146,7 @@ access the UCSC Browser) and
 (to access Ensembl databases).
 
 ``` r
+
 # access the `refGene` tbl on the `hg38` assembly.
 if (require(RMariaDB)) {
   ucsc <- db_ucsc("hg38")
@@ -159,6 +164,7 @@ intersecting `x` and `y` intervals with
 [`bed_intersect()`](https://rnabioco.github.io/valr/dev/reference/bed_intersect.md):
 
 ``` r
+
 x <- tribble(
   ~chrom , ~start , ~end ,
   "chr1" ,     25 ,   50 ,
@@ -187,6 +193,7 @@ And this glyph illustrates
 [`bed_merge()`](https://rnabioco.github.io/valr/dev/reference/bed_merge.md):
 
 ``` r
+
 x <- tribble(
   ~chrom , ~start , ~end ,
   "chr1" ,      1 ,   50 ,
@@ -208,6 +215,7 @@ intervals can be grouped by `strand` to perform comparisons among
 intervals on the same strand.
 
 ``` r
+
 x <- tribble(
   ~chrom , ~start , ~end , ~strand ,
   "chr1" ,      1 ,  100 , "+"     ,
@@ -239,6 +247,7 @@ Comparisons between intervals on opposite strands are done using the
 function:
 
 ``` r
+
 x <- group_by(x, strand)
 
 y <- flip_strands(y)
@@ -270,6 +279,7 @@ In `valr`, columns are referred to by name and can be used in multiple
 name/value expressions for summaries.
 
 ``` r
+
 # calculate the mean and variance for a `value` column
 bed_map(a, b, .mean = mean(value), .var = var(value))
 
@@ -289,6 +299,7 @@ start sites.
 First we load libraries and relevant data.
 
 ``` r
+
 # `valr_example()` identifies the path of example files
 bedfile <- valr_example("genes.hg19.chr22.bed.gz")
 genomefile <- valr_example("hg19.chrom.sizes.gz")
@@ -306,6 +317,7 @@ accommodated by filtering them and using
 with `reversed` window numbers.
 
 ``` r
+
 # generate 1 bp TSS intervals, `+` strand only
 tss <- genes |>
   filter(strand == "+") |>
@@ -345,6 +357,7 @@ These data are regrouped by `.win_id` and a summary with `mean` and `sd`
 values is calculated.
 
 ``` r
+
 # map signals to TSS regions and calculate summary statistics.
 res <- bed_map(x, y, win_sum = sum(value, na.rm = TRUE)) |>
   group_by(.win_id) |>
@@ -374,6 +387,7 @@ Finally, these summary statistics are used to construct a plot that
 illustrates histone density surrounding TSSs.
 
 ``` r
+
 x_labels <- seq(
   -region_size,
   region_size,
