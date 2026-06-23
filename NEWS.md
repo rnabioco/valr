@@ -1,6 +1,6 @@
 # valr (development version)
 
-* `bed_map()` and `bed_intersect()` now accept a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file in place of an interval `y`. Only the regions spanned by `x` are read from the file (local paths and `http(s)://` URLs are both supported via cpp11bigwig), avoiding the cost of loading the entire file into memory (#444).
+* `bed_map()`, `bed_intersect()`, `bed_subtract()`, `bed_coverage()`, and `bed_window()` now accept a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file in place of an interval `y`. Only the regions spanned by `x` are read from the file (the windowed regions, for `bed_window()`); local paths and `http(s)://` URLs are both supported via cpp11bigwig, avoiding the cost of loading the entire file into memory (#444).
 
 * The `data_frame()` and `as_data_frame()` re-exports from tibble are now deprecated, matching their deprecation upstream. Use `tibble::tibble()` and `tibble::as_tibble()` instead.
 
