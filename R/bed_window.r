@@ -54,6 +54,17 @@
 #'
 #' bed_window(x, y, genome, both = 100)
 #'
+#' # `y` can be a bigWig/bigBed file path or `http(s)://` URL; only the
+#' # windowed regions around `x` are read from the file
+#' xf <- tibble::tribble(
+#'   ~chrom, ~start,   ~end,
+#'   "chr1", 4840000, 4841000
+#' )
+#'
+#' gf <- read_genome(valr_example("hg19.chrom.sizes.gz"))
+#'
+#' bed_window(xf, valr_example("test.bb"), gf, both = 10000)
+#'
 #' # add a `.dist` column to the output
 #' \dontrun{
 #' bed_window(x, y, genome, both = 200) |>

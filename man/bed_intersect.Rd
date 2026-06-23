@@ -109,6 +109,16 @@ bed_intersect(x, exons = y, introns = z)
 # a list of tbl_intervals can also be passed
 bed_intersect(x, list(exons = y, introns = z))
 
+# a bigWig/bigBed file path or `http(s)://` URL can be used in place of a
+# `y` tbl; only the regions spanned by `x` are read from the file
+x <- tibble::tribble(
+  ~chrom,  ~start,   ~end,
+  "chr1",  4800000, 4830000,
+  "chr10", 4850000, 4860000
+)
+
+bed_intersect(x, valr_example("test.bb"), min_overlap = 1L)
+
 }
 \seealso{
 \url{https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html}

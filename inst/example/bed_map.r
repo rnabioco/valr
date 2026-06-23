@@ -61,3 +61,13 @@ dplyr::mutate(
   bed_map(x, y, .counts = dplyr::n()),
   .counts = ifelse(is.na(.counts), 0, .counts)
 )
+
+# a bigWig or bigBed file path (or `http(s)://` URL) can be used in place of
+# `y`; only the regions spanned by `x` are read from the file
+peaks <- tibble::tribble(
+  ~chrom  , ~start   , ~end     ,
+  "chr22" , 16100000 , 16150000 ,
+  "chr22" , 16500000 , 16550000
+)
+
+bed_map(peaks, valr_example("hg19.dnase1.bw"), .signal = sum(value))

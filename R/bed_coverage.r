@@ -40,6 +40,16 @@
 #'
 #' bed_coverage(x, y)
 #'
+#' # `y` can also be a bigWig/bigBed file path or `http(s)://` URL; only the
+#' # regions spanned by `x` are read from the file
+#' x <- tibble::tribble(
+#'   ~chrom,  ~start,   ~end,
+#'   "chr1",  4800000, 4830000,
+#'   "chr10", 4850000, 4860000
+#' )
+#'
+#' bed_coverage(x, valr_example("test.bb"), min_overlap = 1L)
+#'
 #' @seealso \url{https://bedtools.readthedocs.io/en/latest/content/tools/coverage.html}
 #'
 #' @export
