@@ -3,7 +3,10 @@
 #' Report intersecting intervals from `x` and `y` tbls.
 #'
 #' @param x [ivl_df]
-#' @param ... one or more (e.g. a list of) `y` [ivl_df()]s
+#' @param ... one or more (e.g. a list of) `y` [ivl_df()]s. Each `y` may also be
+#'   a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file, in which case only
+#'   the regions spanned by `x` are read from it (local files and `http(s)://`
+#'   URLs are both supported), avoiding the cost of loading the entire file.
 #' @param invert report `x` intervals not in `y`
 #' @param suffix colname suffixes in output
 #'
@@ -115,7 +118,19 @@ bed_intersect <- function(
     cli::cli_abort("One or more tbls required in {.var ...}")
   }
 
+  x <- check_interval(x)
+
   y_tbl <- parse_dots(...)
+
+  # any `y` may be a path/URL to a bigWig/bigBed file; query only x's regions.
+  # parse_dots() returns a bare data frame for a single tbl (which has no path
+  # to resolve), or a list/vector of inputs when one or more are supplied.
+  if (!is.data.frame(y_tbl)) {
+    y_tbl <- lapply(y_tbl, function(yi) {
+      if (is_bigwig_path(yi)) read_bigwig_regions(x, yi) else yi
+    })
+  }
+
   multiple_tbls <- FALSE
 
   if (length(y_tbl) > 1) {
@@ -129,7 +144,6 @@ bed_intersect <- function(
     y <- y_tbl[[1]]
   }
 
-  x <- check_interval(x)
   y <- check_interval(y)
 
   check_suffix(suffix)

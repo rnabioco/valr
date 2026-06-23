@@ -15,7 +15,10 @@ bed_intersect(
 \arguments{
 \item{x}{\link{ivl_df}}
 
-\item{...}{one or more (e.g. a list of) \code{y} \code{\link[=ivl_df]{ivl_df()}}s}
+\item{...}{one or more (e.g. a list of) \code{y} \code{\link[=ivl_df]{ivl_df()}}s. Each \code{y} may also be
+a path or URL to a bigWig (\code{.bw}) or bigBed (\code{.bb}) file, in which case only
+the regions spanned by \code{x} are read from it (local files and \verb{http(s)://}
+URLs are both supported), avoiding the cost of loading the entire file.}
 
 \item{invert}{report \code{x} intervals not in \code{y}}
 
