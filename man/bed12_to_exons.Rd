@@ -19,6 +19,11 @@ x <- read_bed12(valr_example("mm9.refGene.bed.gz"))
 
 bed12_to_exons(x)
 
+# BED12 from any source with the standard column order is accepted,
+# including `cpp11bigwig::read_bigbed()`, which uses UCSC column names.
+bb <- system.file("extdata", "test.bb", package = "cpp11bigwig")
+bed12_to_exons(cpp11bigwig::read_bigbed(bb))
+
 }
 \seealso{
 Other utilities:
