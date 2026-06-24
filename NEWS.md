@@ -8,7 +8,7 @@
 
 ## New features
 
-* `bed12_to_exons()` now accepts BED12 data from any source with the standard column order, including `cpp11bigwig::read_bigbed()` output, which uses UCSC column names (e.g. `blockSizes`/`chromStarts`). Previously only `read_bed12()` output (with valr's column names) was accepted (#461).
+* `bed12_to_exons()` now accepts BED12 data from any source with the standard column order, including `cpp11bigwig::read_bigbed()` output, which uses UCSC column names (e.g. `blockSizes`/`chromStarts`). Previously only `read_bed12()` output (with valr's column names) was accepted. It also accepts a path or URL to a BED12 bigBed (`.bb`) file directly, validating the file is BED12 (via its header's declared field count) before conversion (#461).
 
 * `bed_map()`, `bed_intersect()`, `bed_subtract()`, `bed_coverage()`, and `bed_window()` now accept a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file in place of an interval `y`. Only the regions spanned by `x` are read from the file (the windowed regions, for `bed_window()`); local paths and `http(s)://` URLs are both supported via cpp11bigwig, avoiding the cost of loading the entire file into memory (#444).
 

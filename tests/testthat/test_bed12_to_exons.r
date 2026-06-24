@@ -44,3 +44,22 @@ test_that("BED12 with UCSC column names (e.g. read_bigbed) is accepted (#461)", 
   # (positional renaming is only applied to foreign sources)
   expect_equal(res, bed12_to_exons(y[, rev(names(y))]))
 })
+
+test_that("bed12_to_exons accepts a BED12 .bb file path directly (#461)", {
+  bb <- system.file("extdata", "test.bb", package = "cpp11bigwig")
+
+  # passing the path is equivalent to reading it first
+  expect_equal(
+    bed12_to_exons(bb),
+    bed12_to_exons(cpp11bigwig::read_bigbed(bb))
+  )
+})
+
+test_that("bed12_to_exons rejects a non-BED12 bigBed file", {
+  # a bigBed whose header declares fewer than 12 standard BED fields (e.g. bed6,
+  # or bed9+3) must error rather than be misread as BED12
+  testthat::local_mocked_bindings(
+    bigbed_info = function(file) list(defined_field_count = 6L)
+  )
+  expect_error(bed12_to_exons("not_really.bb"), "not a BED12")
+})

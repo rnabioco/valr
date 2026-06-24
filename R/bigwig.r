@@ -21,6 +21,30 @@ is_bigwig_path <- function(y) {
     bigwig_ext(y) %in% c("bw", "bigwig", "bb", "bigbed")
 }
 
+# Is `y` a single path/URL to a bigBed file?
+#' @noRd
+is_bigbed_path <- function(y) {
+  is_bigwig_path(y) && bigwig_ext(y) %in% c("bb", "bigbed")
+}
+
+# Read an entire bigBed file as a BED12 interval dataframe.
+#
+# Validates via the file header that it declares 12 standard BED fields before
+# reading, so a non-BED12 bigBed (e.g. a bedN+ file with 12 total columns)
+# errors up front instead of being silently misinterpreted as BED12.
+#' @importFrom cpp11bigwig bigbed_info
+#' @noRd
+read_bigbed12 <- function(file) {
+  n_fields <- bigbed_info(file)[["defined_field_count"]]
+  if (!identical(as.integer(n_fields), 12L)) {
+    cli::cli_abort(c(
+      "{.file {file}} is not a BED12 bigBed file.",
+      "x" = "Its header declares {n_fields} standard BED field{?s}; BED12 requires 12."
+    ))
+  }
+  read_bigbed(file)
+}
+
 # Read a bigWig/bigBed file scoped to the intervals in `x`.
 #
 # Returns a de-duplicated [ivl_df] of file entries overlapping `x`. Overlapping

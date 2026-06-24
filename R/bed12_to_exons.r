@@ -4,7 +4,9 @@
 #' number, with respect to strand (i.e., the first exon for `-` strand
 #' genes will have larger start and end coordinates).
 #'
-#' @param x [ivl_df]
+#' @param x [ivl_df], or a path or URL to a BED12 bigBed (`.bb`) file, in which
+#'   case the whole file is read and validated as BED12 (via its header's
+#'   declared field count) before conversion.
 #'
 #' @family utilities
 #'
@@ -18,9 +20,18 @@
 #' bb <- system.file("extdata", "test.bb", package = "cpp11bigwig")
 #' bed12_to_exons(cpp11bigwig::read_bigbed(bb))
 #'
+#' # a .bb path can also be passed directly; it is read and validated as BED12
+#' bed12_to_exons(bb)
+#'
 #' @export
 bed12_to_exons <- function(x) {
   check_required(x)
+
+  # accept a path/URL to a BED12 bigBed file directly, validating its schema
+  if (is_bigbed_path(x)) {
+    x <- read_bigbed12(x)
+  }
+
   x <- check_interval(x)
 
   if (!ncol(x) == 12) {

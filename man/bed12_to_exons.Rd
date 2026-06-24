@@ -7,7 +7,9 @@
 bed12_to_exons(x)
 }
 \arguments{
-\item{x}{\link{ivl_df}}
+\item{x}{\link{ivl_df}, or a path or URL to a BED12 bigBed (\code{.bb}) file, in which
+case the whole file is read and validated as BED12 (via its header's
+declared field count) before conversion.}
 }
 \description{
 After conversion to BED6 format, the \code{score} column contains the exon
@@ -23,6 +25,9 @@ bed12_to_exons(x)
 # including `cpp11bigwig::read_bigbed()`, which uses UCSC column names.
 bb <- system.file("extdata", "test.bb", package = "cpp11bigwig")
 bed12_to_exons(cpp11bigwig::read_bigbed(bb))
+
+# a .bb path can also be passed directly; it is read and validated as BED12
+bed12_to_exons(bb)
 
 }
 \seealso{
