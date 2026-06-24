@@ -200,3 +200,13 @@ test_that("Tests for multiple columns and operations", {
   res <- bed_map(x, y, count = n(), sum = sum(value))
   expect_equal(res$sum, c(30, 1, NA, NA, 6, 4))
 })
+
+test_that("bed_map() informs when no name=expression pairs are supplied", {
+  x <- tibble::tribble(
+    ~chrom , ~start , ~end , "chr1" , 100 , 250
+  )
+  y <- tibble::tribble(
+    ~chrom , ~start , ~end , ~value , "chr1" , 100 , 250 , 10
+  )
+  expect_message(bed_map(x, y), "name=expression")
+})

@@ -480,3 +480,10 @@ test_that("min_overlap defaults to 1 (book-ended intervals excluded)", {
   # legacy behavior is still available
   expect_equal(nrow(bed_intersect(a, b, min_overlap = 0L)), 1)
 })
+
+test_that("bed_intersect() errors when no y is supplied", {
+  x <- tibble::tribble(
+    ~chrom , ~start , ~end , "chr1" , 100 , 200
+  )
+  expect_error(bed_intersect(x), "One or more tbls")
+})

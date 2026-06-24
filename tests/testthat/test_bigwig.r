@@ -117,3 +117,18 @@ test_that("overlapping query intervals do not double-count file entries", {
   y <- read_bigwig_regions(x, bw)
   expect_identical(y, dplyr::distinct(y))
 })
+
+test_that("bed_intersect() resolves a file path among multiple `...` inputs", {
+  skip_if_not_installed("cpp11bigwig")
+
+  bb <- valr_example("test.bb")
+  whole <- read_bigbed(bb)
+  x <- dplyr::mutate(
+    dplyr::select(whole, "chrom", "start", "end"),
+    start = .data[["start"]] - 10L
+  )
+
+  res <- bed_intersect(x, anno = bb, self = x, min_overlap = 1L)
+  expect_true(".source" %in% names(res))
+  expect_setequal(unique(res$.source), c("anno", "self"))
+})
