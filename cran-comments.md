@@ -31,8 +31,13 @@ New features include direct, region-scoped reading of bigWig/bigBed files
 
 ## revdepcheck results
 
-Reverse dependency checks will be re-run prior to submission, as this release
-changes the default `min_overlap` behavior. The most recent run of the 2
-reverse dependencies saw 0 new problems; 1 package (`gap`) fails to check for a
-Fortran linker reason unrelated to valr (it fails identically with the CRAN and
-dev versions).
+We checked 2 reverse dependencies, comparing R CMD check results across CRAN and
+dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 1 package
+
+### Failed to check
+
+* gap — fails to install in both the CRAN and dev environments due to its own
+  C/Fortran compilation, unrelated to valr.
