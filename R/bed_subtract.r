@@ -54,22 +54,9 @@
 #' bed_subtract(x, y, any = TRUE)
 #'
 #' @export
-bed_subtract <- function(x, y, any = FALSE, min_overlap = NULL) {
+bed_subtract <- function(x, y, any = FALSE, min_overlap = 1L) {
   check_required(x)
   check_required(y)
-
-  # Handle min_overlap deprecation: default to 0 (legacy) but warn
-  if (is.null(min_overlap)) {
-    lifecycle::deprecate_warn(
-      when = "0.8.0",
-      what = "bed_subtract(min_overlap)",
-      details = c(
-        "The default will change from 0 (book-ended intervals overlap) to 1 (strict overlap) in a future version.",
-        "Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for bedtools-compatible behavior."
-      )
-    )
-    min_overlap <- 0L
-  }
 
   x <- check_interval(x)
 

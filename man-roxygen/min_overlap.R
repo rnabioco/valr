@@ -1,4 +1,4 @@
 #' @param min_overlap minimum overlap in base pairs required for the operation.
-#'   Set to `1` to exclude book-ended intervals (matching bedtools behavior), or
-#'   `0` to include them (legacy valr behavior). The default will change from
-#'   `0` to `1` in a future version.
+#'   Defaults to `1`, which excludes book-ended intervals (those that touch but
+#'   do not overlap), matching bedtools behavior. Set to `0` to include
+#'   book-ended intervals (the legacy valr behavior).

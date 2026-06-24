@@ -49,8 +49,8 @@ bed_fisher <- function(x, y, genome) {
   # heuristic from bedtools fisher.cpp
   mean_total <- mean_x + mean_y
 
-  # number of intersections (`n11` in fisher.cpp)
-  # TODO: revisit when min_overlap default changes to 1L
+  # number of intersections (`n11` in fisher.cpp); use min_overlap = 0 so
+  # book-ended intervals count toward the contingency table
   isect <- bed_intersect(x, y, min_overlap = 0L)
   n_i <- nrow(isect)
 

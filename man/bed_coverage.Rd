@@ -4,7 +4,7 @@
 \alias{bed_coverage}
 \title{Compute coverage of intervals.}
 \usage{
-bed_coverage(x, y, ..., min_overlap = NULL)
+bed_coverage(x, y, ..., min_overlap = 1L)
 }
 \arguments{
 \item{x}{\link{ivl_df}}
@@ -17,9 +17,9 @@ the cost of loading the entire file.}
 \item{...}{extra arguments (not used)}
 
 \item{min_overlap}{minimum overlap in base pairs required for the operation.
-Set to \code{1} to exclude book-ended intervals (matching bedtools behavior), or
-\code{0} to include them (legacy valr behavior). The default will change from
-\code{0} to \code{1} in a future version.}
+Defaults to \code{1}, which excludes book-ended intervals (those that touch but
+do not overlap), matching bedtools behavior. Set to \code{0} to include
+book-ended intervals (the legacy valr behavior).}
 }
 \value{
 \link{ivl_df} with the following additional columns:

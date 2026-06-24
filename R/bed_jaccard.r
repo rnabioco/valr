@@ -59,7 +59,7 @@ bed_jaccard <- function(x, y) {
   x <- bed_merge(x)
   y <- bed_merge(y)
 
-  # TODO: revisit when min_overlap default changes to 1L
+  # use min_overlap = 0 so book-ended intervals contribute to the intersection
   res_intersect <- bed_intersect(x, y, min_overlap = 0L)
 
   if (!is.null(groups_shared)) {
