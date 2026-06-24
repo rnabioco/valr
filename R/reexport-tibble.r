@@ -15,14 +15,14 @@ NULL
 #' @rdname reexports-deprecated
 #' @export
 data_frame <- function(...) {
-  lifecycle::deprecate_warn("0.9.2", "data_frame()", "tibble::tibble()")
+  lifecycle::deprecate_warn("0.10.0", "data_frame()", "tibble::tibble()")
   tibble::tibble(...)
 }
 
 #' @rdname reexports-deprecated
 #' @export
 as_data_frame <- function(...) {
-  lifecycle::deprecate_warn("0.9.2", "as_data_frame()", "tibble::as_tibble()")
+  lifecycle::deprecate_warn("0.10.0", "as_data_frame()", "tibble::as_tibble()")
   tibble::as_tibble(...)
 }
 

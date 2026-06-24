@@ -1,64 +1,38 @@
-## New patch version
+## New minor version (0.10.0)
 
-* This patch release includes bug fixes and performance improvements:
-  - `bed_slop()` and `bed_flank()` now preserve input row order
-  - Fixed `bed_closest()` to respect custom `suffix` parameter
-  - Improved memory efficiency in `bed_intersect()`
+This is a minor release with new features and two intentional breaking changes
+that complete previously announced deprecations:
 
-* Updated maintainer e-mail address (same maintainer, new generic e-mail)
+* The default `min_overlap` value changed from `0` to `1` in `bed_intersect()`,
+  `bed_coverage()`, `bed_subtract()`, and `bed_window()`, completing a
+  deprecation begun in 0.8.0. Book-ended intervals are now excluded by default,
+  matching BEDtools; `min_overlap = 0L` restores the previous behavior.
 
-## Test environment
+* The long-deprecated `n_fields` argument of `read_bed()` (deprecated since
+  0.6.9) is now defunct.
+
+New features include direct, region-scoped reading of bigWig/bigBed files
+(local paths and `http(s)://` URLs) within the interval operations.
+
+## Test environments
 
 * win-builder, R devel
-* Windows (on Github Actions), R 4.5.2
-* macOS (on Github Actions),  R 4.5.2
-* ubuntu 22.04.1 (on Github Actions), R devel and 4.5.2
-* macOS (local install), R  4.5.2
+* Windows (GitHub Actions), R release
+* macOS (GitHub Actions), R release
+* Ubuntu 22.04 (GitHub Actions), R devel and release
+* macOS (local install), R 4.5
 
 ## R CMD check results
 
-* on Windows (win-builder, devel)
+0 errors | 0 warnings | 1 note
 
-Status: NOTE
-
-  - Non-API call to 'ATTRIB' originates from the cpp11 package dependency
-
-* on Windows (4.5.1)
-
-  Status: OK
-
-* on macos-latest (R 4.5.2)
-
-  Status: OK
-  0 errors | 0 warnings | 0 notes
-
-* on ubuntu (R 4.5.2)
-
-  Status: OK
-
-* checking installed package size ... INFO
-  installed size is 10.4Mb
-  sub-directories of 1Mb or more:
-    libs   9.2Mb
-
-* on ubuntu (R devel)
-
-  Status: OK
-
-* checking installed package size ... INFO
-  installed size is 10.4Mb
-  sub-directories of 1Mb or more:
-    libs   9.2Mb
+* The only NOTE is the expected non-API call to 'ATTRIB', which originates from
+  the cpp11 dependency (seen on Windows).
 
 ## revdepcheck results
 
-We checked 2 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 0 new problems
- * We failed to check 1 packages
-
-Issues with CRAN packages are summarised below.
-
-### Failed to check
-
-* gap (Fortran linker error unrelated to valr; fails identically with CRAN and dev versions)
+Reverse dependency checks will be re-run prior to submission, as this release
+changes the default `min_overlap` behavior. The most recent run of the 2
+reverse dependencies saw 0 new problems; 1 package (`gap`) fails to check for a
+Fortran linker reason unrelated to valr (it fails identically with the CRAN and
+dev versions).
