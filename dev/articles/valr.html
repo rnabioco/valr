@@ -75,7 +75,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>valr overview</h1>
             
-            <h4 data-toc-skip class="date">2026-06-23</h4>
+            <h4 data-toc-skip class="date">2026-06-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/rnabioco/valr/blob/main/vignettes/valr.Rmd" class="external-link"><code>vignettes/valr.Rmd</code></a></small>
       <div class="d-none name"><code>valr.Rmd</code></div>
@@ -99,21 +99,13 @@ coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.g
 <span></span>
 <span><span class="co"># find snps in intergenic regions</span></span>
 <span><span class="va">intergenic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_subtract.html">bed_subtract</a></span><span class="op">(</span><span class="va">snps</span>, <span class="va">genes</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The `min_overlap` argument of `bed_subtract()` is deprecated as of valr 0.8.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The default will change from 0 (book-ended intervals overlap) to 1 (strict</span></span>
-<span><span class="co">#&gt;   overlap) in a future version.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for</span></span>
-<span><span class="co">#&gt;   bedtools-compatible behavior.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co"># distance from intergenic snps to nearest gene</span></span>
 <span><span class="va">nearby</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bed_closest.html">bed_closest</a></span><span class="op">(</span><span class="va">intergenic</span>, <span class="va">genes</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">nearby</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"name"</span><span class="op">)</span>, <span class="va">.overlap</span>, <span class="va">.dist</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">.dist</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1000</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 285 × 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 555 × 4</span></span></span>
 <span><span class="co">#&gt;    name.x      name.y            .overlap .dist</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> rs2261631   P704P                    0  -<span style="color: #BB0000;">268</span></span></span>
@@ -121,12 +113,12 @@ coming from the <code>BEDtools</code> suite. Similar to <a href="https://daler.g
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> rs538163832 POTEH                    0  -<span style="color: #BB0000;">953</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> rs9606135   TPTEP1                   0  -<span style="color: #BB0000;">422</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> rs11912392  ANKRD62P1-PARP4P3        0   105</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> rs8136454   BC038197                 0   356</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> rs5992556   XKR3                     0  -<span style="color: #BB0000;">456</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> rs114101676 GAB4                     0   474</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> rs62236167  CECR7                    0   262</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> rs5747023   CECR1                    0  -<span style="color: #BB0000;">387</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 275 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> rs555445266 ANKRD62P1-PARP4P3        0     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> rs8136454   BC038197                 0   356</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> rs576739562 XKR3                     0     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> rs5992556   XKR3                     0  -<span style="color: #BB0000;">456</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> rs114101676 GAB4                     0   474</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 545 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="input-data">Input data<a class="anchor" aria-label="anchor" href="#input-data"></a>
@@ -286,15 +278,7 @@ intersecting <code>x</code> and <code>y</code> intervals with
 <span>  <span class="st">"chr1"</span> ,     <span class="fl">30</span> ,   <span class="fl">75</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The `min_overlap` argument of `bed_intersect()` is deprecated as of valr 0.8.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The default will change from 0 (book-ended intervals overlap) to 1 (strict</span></span>
-<span><span class="co">#&gt;   overlap) in a future version.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for</span></span>
-<span><span class="co">#&gt;   bedtools-compatible behavior.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/bed_glyph.html">bed_glyph</a></span><span class="op">(</span><span class="fu"><a href="../reference/bed_intersect.html">bed_intersect</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="valr_files/figure-html/intersect-glyph-1.png" class="r-plt" alt="" width="700" style="display: block; margin: auto;"></p>
 <p>And this glyph illustrates <code><a href="../reference/bed_merge.html">bed_merge()</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">

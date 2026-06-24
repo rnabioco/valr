@@ -2,6 +2,33 @@
 
 ## valr (development version)
 
+### Breaking changes
+
+- The `min_overlap` default changed from `0` to `1` in
+  [`bed_intersect()`](https://rnabioco.github.io/valr/dev/reference/bed_intersect.md),
+  [`bed_coverage()`](https://rnabioco.github.io/valr/dev/reference/bed_coverage.md),
+  [`bed_subtract()`](https://rnabioco.github.io/valr/dev/reference/bed_subtract.md),
+  and
+  [`bed_window()`](https://rnabioco.github.io/valr/dev/reference/bed_window.md),
+  completing the deprecation begun in 0.8.0. By default, book-ended
+  intervals (those that touch but do not overlap) are now excluded,
+  matching bedtools behavior. Set `min_overlap = 0L` to restore the
+  previous behavior. Internal overlap calculations in
+  [`bed_closest()`](https://rnabioco.github.io/valr/dev/reference/bed_closest.md),
+  [`bed_fisher()`](https://rnabioco.github.io/valr/dev/reference/bed_fisher.md),
+  [`bed_jaccard()`](https://rnabioco.github.io/valr/dev/reference/bed_jaccard.md),
+  [`bed_projection()`](https://rnabioco.github.io/valr/dev/reference/bed_projection.md),
+  and
+  [`bed_shuffle()`](https://rnabioco.github.io/valr/dev/reference/bed_shuffle.md)
+  continue to count book-ended intervals.
+
+- The `n_fields` argument of
+  [`read_bed()`](https://rnabioco.github.io/valr/dev/reference/read_bed.md),
+  deprecated since 0.6.9, is now defunct and errors when supplied;
+  fields are determined automatically from the file.
+
+### New features
+
 - [`bed_map()`](https://rnabioco.github.io/valr/dev/reference/bed_map.md),
   [`bed_intersect()`](https://rnabioco.github.io/valr/dev/reference/bed_intersect.md),
   [`bed_subtract()`](https://rnabioco.github.io/valr/dev/reference/bed_subtract.md),

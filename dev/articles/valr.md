@@ -18,21 +18,13 @@ genes <- read_bed(valr_example("genes.hg19.chr22.bed.gz"))
 
 # find snps in intergenic regions
 intergenic <- bed_subtract(snps, genes)
-#> Warning: The `min_overlap` argument of `bed_subtract()` is deprecated as of valr 0.8.0.
-#> ℹ The default will change from 0 (book-ended intervals overlap) to 1 (strict
-#>   overlap) in a future version.
-#> ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for
-#>   bedtools-compatible behavior.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 # distance from intergenic snps to nearest gene
 nearby <- bed_closest(intergenic, genes)
 
 nearby |>
   select(starts_with("name"), .overlap, .dist) |>
   filter(abs(.dist) < 1000)
-#> # A tibble: 285 × 4
+#> # A tibble: 555 × 4
 #>    name.x      name.y            .overlap .dist
 #>    <chr>       <chr>                <int> <int>
 #>  1 rs2261631   P704P                    0  -268
@@ -40,12 +32,12 @@ nearby |>
 #>  3 rs538163832 POTEH                    0  -953
 #>  4 rs9606135   TPTEP1                   0  -422
 #>  5 rs11912392  ANKRD62P1-PARP4P3        0   105
-#>  6 rs8136454   BC038197                 0   356
-#>  7 rs5992556   XKR3                     0  -456
-#>  8 rs114101676 GAB4                     0   474
-#>  9 rs62236167  CECR7                    0   262
-#> 10 rs5747023   CECR1                    0  -387
-#> # ℹ 275 more rows
+#>  6 rs555445266 ANKRD62P1-PARP4P3        0     1
+#>  7 rs8136454   BC038197                 0   356
+#>  8 rs576739562 XKR3                     0     1
+#>  9 rs5992556   XKR3                     0  -456
+#> 10 rs114101676 GAB4                     0   474
+#> # ℹ 545 more rows
 ```
 
 ### Input data
@@ -233,14 +225,6 @@ y <- tribble(
 )
 
 bed_glyph(bed_intersect(x, y))
-#> Warning: The `min_overlap` argument of `bed_intersect()` is deprecated as of valr 0.8.0.
-#> ℹ The default will change from 0 (book-ended intervals overlap) to 1 (strict
-#>   overlap) in a future version.
-#> ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for
-#>   bedtools-compatible behavior.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 ![](valr_files/figure-html/intersect-glyph-1.png)

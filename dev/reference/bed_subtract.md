@@ -5,7 +5,7 @@ Subtract `y` intervals from `x` intervals.
 ## Usage
 
 ``` r
-bed_subtract(x, y, any = FALSE, min_overlap = NULL)
+bed_subtract(x, y, any = FALSE, min_overlap = 1L)
 ```
 
 ## Arguments
@@ -28,10 +28,10 @@ bed_subtract(x, y, any = FALSE, min_overlap = NULL)
 
 - min_overlap:
 
-  minimum overlap in base pairs required for the operation. Set to `1`
-  to exclude book-ended intervals (matching bedtools behavior), or `0`
-  to include them (legacy valr behavior). The default will change from
-  `0` to `1` in a future version.
+  minimum overlap in base pairs required for the operation. Defaults to
+  `1`, which excludes book-ended intervals (those that touch but do not
+  overlap), matching bedtools behavior. Set to `0` to include book-ended
+  intervals (the legacy valr behavior).
 
 ## Details
 
@@ -68,11 +68,6 @@ y <- tibble::tribble(
 )
 
 bed_glyph(bed_subtract(x, y))
-#> Warning: The `min_overlap` argument of `bed_subtract()` is deprecated as of valr 0.8.0.
-#> ℹ The default will change from 0 (book-ended intervals overlap) to 1 (strict
-#>   overlap) in a future version.
-#> ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for
-#>   bedtools-compatible behavior.
 
 
 x <- tibble::tribble(

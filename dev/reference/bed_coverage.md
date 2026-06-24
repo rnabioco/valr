@@ -5,7 +5,7 @@ Compute coverage of intervals.
 ## Usage
 
 ``` r
-bed_coverage(x, y, ..., min_overlap = NULL)
+bed_coverage(x, y, ..., min_overlap = 1L)
 ```
 
 ## Arguments
@@ -28,10 +28,10 @@ bed_coverage(x, y, ..., min_overlap = NULL)
 
 - min_overlap:
 
-  minimum overlap in base pairs required for the operation. Set to `1`
-  to exclude book-ended intervals (matching bedtools behavior), or `0`
-  to include them (legacy valr behavior). The default will change from
-  `0` to `1` in a future version.
+  minimum overlap in base pairs required for the operation. Defaults to
+  `1`, which excludes book-ended intervals (those that touch but do not
+  overlap), matching bedtools behavior. Set to `0` to include book-ended
+  intervals (the legacy valr behavior).
 
 ## Value
 
@@ -87,15 +87,10 @@ y <- tibble::tribble(
 )
 
 bed_coverage(x, y)
-#> Warning: The `min_overlap` argument of `bed_coverage()` is deprecated as of valr 0.8.0.
-#> ℹ The default will change from 0 (book-ended intervals overlap) to 1 (strict
-#>   overlap) in a future version.
-#> ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for
-#>   bedtools-compatible behavior.
 #> # A tibble: 4 × 8
 #>   chrom start   end strand .ints  .cov  .len .frac
 #>   <chr> <dbl> <dbl> <chr>  <int> <int> <dbl> <dbl>
-#> 1 chr1    100   500 +          2   250   400 0.625
+#> 1 chr1    100   500 +          1   250   400 0.625
 #> 2 chr2    200   400 +          2   170   200 0.85 
 #> 3 chr2    300   500 -          2   130   200 0.65 
 #> 4 chr2    800   900 -          0     0   100 0    

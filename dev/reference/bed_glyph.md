@@ -38,11 +38,6 @@ y <- tibble::tribble(
 )
 
 bed_glyph(bed_intersect(x, y))
-#> Warning: The `min_overlap` argument of `bed_intersect()` is deprecated as of valr 0.8.0.
-#> ℹ The default will change from 0 (book-ended intervals overlap) to 1 (strict
-#>   overlap) in a future version.
-#> ℹ Set `min_overlap = 0L` to keep the legacy behavior, or `min_overlap = 1L` for
-#>   bedtools-compatible behavior.
 
 
 x <- tibble::tribble(
