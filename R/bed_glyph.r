@@ -147,7 +147,9 @@ bed_glyph <- function(expr, label = NULL, max_rows = 100L) {
 #' @noRd
 glyph_plot <- function(.data, title = NULL, label = NULL) {
   if (!is.null(label) && !label %in% names(.data)) {
-    cli::cli_abort("{.arg label} ({.val {label}}) is not a column in the result.")
+    cli::cli_abort(
+      "{.arg label} ({.val {label}}) is not a column in the result."
+    )
   }
 
   # Colorbrewer 3-class `Greys`
