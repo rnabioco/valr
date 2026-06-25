@@ -24,7 +24,7 @@ Imports:
     cli,
     cpp11bigwig (>= 0.3.0),
     dplyr (>= 1.0.0),
-    ggplot2,
+    ggplot2 (>= 3.3.0),
     lifecycle,
     readr,
     rlang,

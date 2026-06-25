@@ -8,6 +8,13 @@
 
 ## New features
 
+* `bed_glyph()` gained a `max_rows` argument to control the row limit on the
+  evaluated result (default `100`), and now reports the offending row count when
+  the limit is exceeded. It also validates `label` (an absent column is an error
+  rather than a silent no-op), supports namespace-qualified calls such as
+  `bed_glyph(valr::bed_merge(x))`, and renders every interval at a uniform
+  vertical size with the figure height scaling to the number of rows.
+
 * `bed_map()`, `bed_intersect()`, `bed_subtract()`, `bed_coverage()`, and `bed_window()` now accept a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file in place of an interval `y`. Only the regions spanned by `x` are read from the file (the windowed regions, for `bed_window()`); local paths and `http(s)://` URLs are both supported via cpp11bigwig, avoiding the cost of loading the entire file into memory (#444).
 
 * The `data_frame()` and `as_data_frame()` re-exports from tibble are now deprecated, matching their deprecation upstream. Use `tibble::tibble()` and `tibble::as_tibble()` instead.
