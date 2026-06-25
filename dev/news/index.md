@@ -29,6 +29,15 @@
 
 ### New features
 
+- [`bed_glyph()`](https://rnabioco.github.io/valr/dev/reference/bed_glyph.md)
+  gained a `max_rows` argument to control the row limit on the evaluated
+  result (default `100`), and now reports the offending row count when
+  the limit is exceeded. It also validates `label` (an absent column is
+  an error rather than a silent no-op), supports namespace-qualified
+  calls such as `bed_glyph(valr::bed_merge(x))`, and renders every
+  interval at a uniform vertical size with the figure height scaling to
+  the number of rows.
+
 - [`bed_map()`](https://rnabioco.github.io/valr/dev/reference/bed_map.md),
   [`bed_intersect()`](https://rnabioco.github.io/valr/dev/reference/bed_intersect.md),
   [`bed_subtract()`](https://rnabioco.github.io/valr/dev/reference/bed_subtract.md),

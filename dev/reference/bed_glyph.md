@@ -5,7 +5,7 @@ Used to illustrate the output of valr functions with small examples.
 ## Usage
 
 ``` r
-bed_glyph(expr, label = NULL)
+bed_glyph(expr, label = NULL, max_rows = 100L)
 ```
 
 ## Arguments
@@ -18,6 +18,11 @@ bed_glyph(expr, label = NULL)
 
   column name to use for label values. should be present in the result
   of the call.
+
+- max_rows:
+
+  maximum number of rows in the evaluated result that can be plotted.
+  Calls producing more rows than this raise an error.
 
 ## Value
 
