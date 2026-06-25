@@ -5,6 +5,8 @@
 #' @param expr expression to evaluate
 #' @param label column name to use for label values. should be present in the
 #'   result of the call.
+#' @param max_rows maximum number of rows in the evaluated result that can be
+#'   plotted. Calls producing more rows than this raise an error.
 #'
 #' @return [ggplot2::ggplot()]
 #'
@@ -34,34 +36,45 @@
 #' bed_glyph(bed_cluster(x), label = ".id")
 #'
 #' @export
-bed_glyph <- function(expr, label = NULL) {
+bed_glyph <- function(expr, label = NULL, max_rows = 100L) {
   expr <- substitute(expr)
 
-  # assign `expr <- quote(bed_intersect(x, y))` at this point to debug
-  args_all <- formals(match.fun(expr[[1]]))
-
-  # get required args i.e. those without defaults
-  args_req <- names(args_all[sapply(args_all, is.name)])
-
-  # for bed_intersect replace ... with y
-  if (expr[[1]] == "bed_intersect") {
-    args_req[args_req == "..."] <- "y"
-  }
-
-  args_excl <- c("genome", "...")
-  args_req <- args_req[!args_req %in% args_excl]
-
-  nargs <- length(args_req)
-
-  # evaluate the expression in the environment context
+  # evaluate the expression in the calling environment
   env <- parent.frame()
   res <- eval(expr, envir = env)
 
   # bail if the result is too big
-  max_rows <- 100
   if (nrow(res) > max_rows) {
-    cli::cli_abort("max_rows exceeded in bed_glyph.")
+    cli::cli_abort(
+      "Result has {nrow(res)} row{?s}, exceeding {.arg max_rows} ({max_rows}).
+       Use a smaller example or raise {.arg max_rows}."
+    )
   }
+
+  # input interval tbls are the positional (unnamed) arguments of the call that
+  # are bare symbols resolving to an interval data frame in `env`, e.g. `x` and
+  # `y`. Named arguments (`min_overlap = 0L`) and non-interval positionals (a
+  # `genome` tbl, which has no start/end) are ignored. This avoids per-function
+  # special-casing and works for namespaced calls like `valr::bed_merge(x)`.
+  call_args <- as.list(expr)[-1]
+  arg_names <- names(call_args)
+  if (is.null(arg_names)) {
+    arg_names <- rep("", length(call_args))
+  }
+  positional <- call_args[arg_names == ""]
+  is_input <- vapply(
+    positional,
+    function(a) {
+      if (!is.symbol(a) || !exists(as.character(a), envir = env)) {
+        return(FALSE)
+      }
+      obj <- get(as.character(a), envir = env)
+      is.data.frame(obj) && all(c("start", "end") %in% names(obj))
+    },
+    logical(1)
+  )
+  # unique() collapses repeated args (e.g. `bed_intersect(x, x)`) to one facet
+  input_vars <- unique(vapply(positional[is_input], as.character, character(1)))
 
   # get default columns
   cols_default <- c("chrom")
@@ -100,35 +113,32 @@ bed_glyph <- function(expr, label = NULL) {
   name_result <- "result"
   res <- mutate(res, .facet = name_result)
 
-  # these are the equivalent of the `x` and `y` formals, except are the names
-  # of the args in the quoted call.
-  expr_vars <- all.vars(expr)
-
-  # this fetches the `x` and `y` rows from the environment
-  for (i in 1:nargs) {
-    env_i <- get(expr_vars[i], env)
-    rows <- mutate(env_i, .facet = expr_vars[i])
-    res <- bind_rows(res, as_tibble(rows))
+  # add the input rows, faceted by their argument name
+  for (var in input_vars) {
+    rows <- mutate(as_tibble(get(var, envir = env)), .facet = var)
+    res <- bind_rows(res, rows)
   }
 
-  # assign `.y` values in the result based on clustering
+  # assign `.y` (stacking position) from per-facet clustering. Join back by a
+  # stable row id rather than relying on two arrange() calls producing identical
+  # orders; this also preserves the result's own `.id` column (e.g. from
+  # bed_cluster) for use as a `label`.
+  res <- mutate(res, .row = row_number())
   ys <- group_by(res, .data[[".facet"]])
   ys <- bed_cluster(ys)
   ys <- group_by(ys, .data[[".facet"]], .data[[".id"]])
-  ys <- mutate(ys, .y = row_number(.data[[".id"]]))
+  ys <- mutate(ys, .y = row_number())
   ys <- ungroup(ys)
-
-  ys <- arrange(ys, .data[[".facet"]], .data[["chrom"]], .data[["start"]])
-  res <- arrange(res, .data[[".facet"]], .data[["chrom"]], .data[["start"]])
-
-  res <- mutate(res, .y = ys$.y)
+  ys <- select(ys, all_of(c(".row", ".y")))
+  res <- left_join(res, ys, by = ".row")
+  res <- select(res, -all_of(".row"))
 
   # make name_result col appear last in the facets
-  fct_names <- c(expr_vars, name_result)
+  fct_names <- c(input_vars, name_result)
   res <- mutate(res, .facet = factor(.data[[".facet"]], levels = fct_names))
 
   # plot title
-  title <- deparse(substitute(expr))
+  title <- deparse(expr)
 
   glyph_plot(res, title, label) + glyph_theme()
 }
@@ -136,6 +146,12 @@ bed_glyph <- function(expr, label = NULL) {
 #' plot for bed_glyph
 #' @noRd
 glyph_plot <- function(.data, title = NULL, label = NULL) {
+  if (!is.null(label) && !label %in% names(.data)) {
+    cli::cli_abort(
+      "{.arg label} ({.val {label}}) is not a column in the result."
+    )
+  }
+
   # Colorbrewer 3-class `Greys`
   fill_colors <- c("#f0f0f0", "#bdbdbd", "#636363")
 
@@ -152,20 +168,23 @@ glyph_plot <- function(.data, title = NULL, label = NULL) {
       alpha = 0.75
     ) +
     facet_grid(
-      .facet ~ .,
+      rows = vars(.data[[".facet"]]),
       switch = "y",
       scales = "free_y",
       space = "free_y"
     ) +
+    # constant (not proportional) y padding so every `.y` unit maps to the same
+    # pixel height across facets: all interval glyphs render the same size and
+    # the figure height tracks the total row count.
+    scale_y_continuous(expand = expansion(add = 0.25)) +
     scale_fill_manual(values = fill_colors) +
     labs(title = title, x = NULL, y = NULL)
 
   if (!is.null(label)) {
-    label <- as.name(label)
     aes_label <- aes(
       x = (.data[["end"]] - .data[["start"]]) / 2 + .data[["start"]],
       y = .data[[".y"]] + 0.25,
-      label = !!label
+      label = .data[[label]]
     )
     glyph <- glyph + geom_label(aes_label, na.rm = TRUE)
   }
