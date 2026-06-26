@@ -46,7 +46,7 @@ read_broadpeak(filename, ...)
 
 - n_fields:
 
-  **\[deprecated\]**
+  **\[defunct\]**
 
 ## Value
 

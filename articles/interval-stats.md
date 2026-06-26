@@ -23,6 +23,7 @@ In this vignette we explore the relationship between transcription start
 sites and repetitive elements in the human genome.
 
 ``` r
+
 library(valr)
 library(dplyr)
 library(ggplot2)
@@ -68,6 +69,7 @@ for specified groups. The value of each statistic is assigned to a
 `.value` column.
 
 ``` r
+
 distance_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) |>
     reframe(
@@ -94,6 +96,7 @@ We use the `distance_stats()` function to apply the
 function to each group of data.
 
 ``` r
+
 obs_stats <- distance_stats(rpts, tss, genome, "name", "obs")
 obs_stats
 #> # A tibble: 2,106 × 4
@@ -118,6 +121,7 @@ is used to shuffle coordinates of the repeats within each chromosome
 (i.e., the coordinates change, but the chromosome stays the same.)
 
 ``` r
+
 shfs <- bed_shuffle(rpts, genome, within = TRUE)
 shf_stats <- distance_stats(shfs, tss, genome, "name", "shuf")
 ```
@@ -137,6 +141,7 @@ test. This involves:
 5.  removing rows with `NA` values.
 
 ``` r
+
 res <- bind_rows(obs_stats, shf_stats) |>
   tidyr::unnest(value) |>
   group_by(name, stat, type) |>
@@ -175,6 +180,7 @@ results of each test are `pivot`ed to into a `type` column for each test
 type.
 
 ``` r
+
 library(broom)
 
 pvals <- res |>
@@ -197,6 +203,7 @@ Histgrams of the different stats help visualize the distribution of
 p.values.
 
 ``` r
+
 ggplot(pvals, aes(p.value)) +
   geom_histogram(binwidth = 0.05) +
   facet_grid(stat ~ alt) +
@@ -209,6 +216,7 @@ We can also assess false discovery rates (q.values) using
 [`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html).
 
 ``` r
+
 pvals <-
   group_by(pvals, stat, alt) |>
   mutate(q.value = p.adjust(p.value)) |>
@@ -220,6 +228,7 @@ Finally we can visualize these results using
 [`stat_ecdf()`](https://ggplot2.tidyverse.org/reference/stat_ecdf.html).
 
 ``` r
+
 res_gather <- tidyr::pivot_longer(
   res,
   cols = -c(name, stat, .id),
@@ -260,6 +269,7 @@ First we’ll extract 5 kb regions upstream of the transcription start
 sites to represent the promoter regions for coding and non-coding genes.
 
 ``` r
+
 # create intervals 5kb upstream of tss representing promoters
 promoters <-
   bed_flank(genes, genome, left = 5000, strand = TRUE) |>
@@ -308,6 +318,7 @@ Next we’ll apply the
 test for each repeat class for both coding and non-coding regions.
 
 ``` r
+
 # function to apply bed_projection to groups
 projection_stats <- function(x, y, genome, group_var, type = NA) {
   group_by(x, !!rlang::sym(group_var)) |>
@@ -373,6 +384,7 @@ column indicates that the query intervals are depleted, whereas
 `lower_tail = FALSE` indicates that the query intervals are enriched.
 
 ``` r
+
 library(DT)
 
 # find and show top 5 most significant repeats

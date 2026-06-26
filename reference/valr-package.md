@@ -23,9 +23,13 @@ Useful links:
 
 Authors:
 
+- Jay Hesselberth <jay.hesselberth@gmail.com>
+  ([ORCID](https://orcid.org/0000-0002-6299-179X))
+
 - Kent Riemondy <kent.riemondy@gmail.com>
   ([ORCID](https://orcid.org/0000-0003-0750-1273))
 
 Other contributors:
 
-- RNA Bioscience Initiative (03wmf1y16) \[funder, copyright holder\]
+- RNA Bioscience Initiative ([ROR](https://ror.org/03wmf1y16)) \[funder,
+  copyright holder\]

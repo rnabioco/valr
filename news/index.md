@@ -1,5 +1,102 @@
 # Changelog
 
+## valr 0.10.0
+
+### Breaking changes
+
+- The `min_overlap` default changed from `0` to `1` in
+  [`bed_intersect()`](https://rnabioco.github.io/valr/reference/bed_intersect.md),
+  [`bed_coverage()`](https://rnabioco.github.io/valr/reference/bed_coverage.md),
+  [`bed_subtract()`](https://rnabioco.github.io/valr/reference/bed_subtract.md),
+  and
+  [`bed_window()`](https://rnabioco.github.io/valr/reference/bed_window.md),
+  completing the deprecation begun in 0.8.0. By default, book-ended
+  intervals (those that touch but do not overlap) are now excluded,
+  matching bedtools behavior. Set `min_overlap = 0L` to restore the
+  previous behavior. Internal overlap calculations in
+  [`bed_closest()`](https://rnabioco.github.io/valr/reference/bed_closest.md),
+  [`bed_fisher()`](https://rnabioco.github.io/valr/reference/bed_fisher.md),
+  [`bed_jaccard()`](https://rnabioco.github.io/valr/reference/bed_jaccard.md),
+  [`bed_projection()`](https://rnabioco.github.io/valr/reference/bed_projection.md),
+  and
+  [`bed_shuffle()`](https://rnabioco.github.io/valr/reference/bed_shuffle.md)
+  continue to count book-ended intervals.
+
+- The `n_fields` argument of
+  [`read_bed()`](https://rnabioco.github.io/valr/reference/read_bed.md),
+  deprecated since 0.6.9, is now defunct and errors when supplied;
+  fields are determined automatically from the file.
+
+### New features
+
+- [`bed12_to_exons()`](https://rnabioco.github.io/valr/reference/bed12_to_exons.md)
+  now accepts BED12 data from any source with the standard column order,
+  including
+  [`cpp11bigwig::read_bigbed()`](https://rnabioco.github.io/cpp11bigwig/reference/read_bigbed.html)
+  output, which uses UCSC column names
+  (e.g. `blockSizes`/`chromStarts`). Previously only
+  [`read_bed12()`](https://rnabioco.github.io/valr/reference/read_bed.md)
+  output (with valr’s column names) was accepted. It also accepts a path
+  or URL to a BED12 bigBed (`.bb`) file directly, validating the file is
+  BED12 (via its header’s declared field count) before conversion
+  ([\#461](https://github.com/rnabioco/valr/issues/461)).
+
+- [`bed_glyph()`](https://rnabioco.github.io/valr/reference/bed_glyph.md)
+  gained a `max_rows` argument to control the row limit on the evaluated
+  result (default `100`), and now reports the offending row count when
+  the limit is exceeded. It also validates `label` (an absent column is
+  an error rather than a silent no-op), supports namespace-qualified
+  calls such as `bed_glyph(valr::bed_merge(x))`, and renders every
+  interval at a uniform vertical size with the figure height scaling to
+  the number of rows.
+
+- [`bed_map()`](https://rnabioco.github.io/valr/reference/bed_map.md),
+  [`bed_intersect()`](https://rnabioco.github.io/valr/reference/bed_intersect.md),
+  [`bed_subtract()`](https://rnabioco.github.io/valr/reference/bed_subtract.md),
+  [`bed_coverage()`](https://rnabioco.github.io/valr/reference/bed_coverage.md),
+  and
+  [`bed_window()`](https://rnabioco.github.io/valr/reference/bed_window.md)
+  now accept a path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file in
+  place of an interval `y`. Only the regions spanned by `x` are read
+  from the file (the windowed regions, for
+  [`bed_window()`](https://rnabioco.github.io/valr/reference/bed_window.md));
+  local paths and `http(s)://` URLs are both supported via cpp11bigwig,
+  avoiding the cost of loading the entire file into memory
+  ([\#444](https://github.com/rnabioco/valr/issues/444)).
+
+- The
+  [`data_frame()`](https://rnabioco.github.io/valr/reference/reexports-deprecated.md)
+  and
+  [`as_data_frame()`](https://rnabioco.github.io/valr/reference/reexports-deprecated.md)
+  re-exports from tibble are now deprecated, matching their deprecation
+  upstream. Use
+  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
+  and
+  [`tibble::as_tibble()`](https://tibble.tidyverse.org/reference/as_tibble.html)
+  instead.
+
+- Modernized internal use of superseded dplyr and tidyselect idioms
+  ([`one_of()`](https://tidyselect.r-lib.org/reference/one_of.html),
+  [`mutate_at()`](https://dplyr.tidyverse.org/reference/mutate_all.html),
+  and
+  [`rlang::syms()`](https://rlang.r-lib.org/reference/sym.html)/`!!!`
+  splicing replaced with `across(all_of())`). No change in behavior. The
+  minimum supported dplyr version is now 1.0.0.
+
+- Reduced the direct dependency surface on rlang to a single function
+  (`check_required()`); `dots_n()` was replaced with base
+  [`...length()`](https://rdrr.io/r/base/dots.html).
+
+- Reduced per-group memory copies in the C++ backend of
+  [`bed_intersect()`](https://rnabioco.github.io/valr/reference/bed_intersect.md),
+  [`bed_coverage()`](https://rnabioco.github.io/valr/reference/bed_coverage.md),
+  and
+  [`bed_subtract()`](https://rnabioco.github.io/valr/reference/bed_subtract.md)
+  by avoiding redundant copies of the interval vectors.
+
+- Requires cpp11bigwig (\>= 0.3.0), which fixes CRAN sanitizer
+  (UBSan/ASan) errors when reading bigBed files.
+
 ## valr 0.9.1
 
 CRAN release: 2026-01-11

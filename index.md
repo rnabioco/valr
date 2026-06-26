@@ -7,6 +7,7 @@ suite.
 ## Installation
 
 ``` r
+
 # Install released version from CRAN
 install.packages("valr")
 ```
@@ -21,6 +22,7 @@ tools run natively in memory. Similar to
 has a terse syntax:
 
 ``` r
+
 library(valr)
 library(dplyr)
 
@@ -35,7 +37,7 @@ nearby <- bed_closest(intergenic, genes)
 nearby |>
   select(starts_with("name"), .overlap, .dist) |>
   filter(abs(.dist) < 5000)
-#> # A tibble: 1,047 × 4
+#> # A tibble: 1,343 × 4
 #>    name.x      name.y   .overlap .dist
 #>    <chr>       <chr>       <int> <int>
 #>  1 rs530458610 P704P           0  2579
@@ -48,5 +50,5 @@ nearby |>
 #>  8 rs528403095 DQ571479        0  3309
 #>  9 rs555126291 DQ571479        0  2745
 #> 10 rs5747567   DQ571479        0 -1778
-#> # ℹ 1,037 more rows
+#> # ℹ 1,333 more rows
 ```

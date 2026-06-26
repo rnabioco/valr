@@ -16,7 +16,11 @@ bed_window(x, y, genome, ...)
 
 - y:
 
-  [ivl_df](https://rnabioco.github.io/valr/reference/ivl_df.md)
+  [ivl_df](https://rnabioco.github.io/valr/reference/ivl_df.md), or a
+  path or URL to a bigWig (`.bw`) or bigBed (`.bb`) file. When a file is
+  supplied, only the windowed regions around `x` are read from it (local
+  files and `http(s)://` URLs are both supported), avoiding the cost of
+  loading the entire file.
 
 - genome:
 
@@ -98,6 +102,23 @@ bed_window(x, y, genome, both = 100)
 #> 2 chr2      200   400     350   430 1             80
 #> 3 chr2      300   500     230   430 1            200
 #> 4 chr2      300   500     350   430 1             80
+
+# `y` can be a bigWig/bigBed file path or `http(s)://` URL; only the
+# windowed regions around `x` are read from the file
+xf <- tibble::tribble(
+  ~chrom, ~start,   ~end,
+  "chr1", 4840000, 4841000
+)
+
+gf <- read_genome(valr_example("hg19.chrom.sizes.gz"))
+
+bed_window(xf, valr_example("test.bb"), gf, both = 10000)
+#> # A tibble: 1 × 16
+#>   chrom start.x   end.x start.y   end.y name.y   score.y strand.y thickStart.y
+#>   <chr>   <dbl>   <dbl>   <dbl>   <dbl> <chr>      <int> <chr>           <int>
+#> 1 chr1  4840000 4841000 4797973 4836816 testgene       1 +             4797973
+#> # ℹ 7 more variables: thickEnd.y <int>, reserved.y <int>, blockCount.y <int>,
+#> #   blockSizes.y <chr>, chromStarts.y <chr>, .source <chr>, .overlap <int>
 
 # add a `.dist` column to the output
 if (FALSE) { # \dontrun{

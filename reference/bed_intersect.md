@@ -5,13 +5,7 @@ Report intersecting intervals from `x` and `y` tbls.
 ## Usage
 
 ``` r
-bed_intersect(
-  x,
-  ...,
-  invert = FALSE,
-  suffix = c(".x", ".y"),
-  min_overlap = NULL
-)
+bed_intersect(x, ..., invert = FALSE, suffix = c(".x", ".y"), min_overlap = 1L)
 ```
 
 ## Arguments
@@ -23,7 +17,11 @@ bed_intersect(
 - ...:
 
   one or more (e.g. a list of) `y`
-  [`ivl_df()`](https://rnabioco.github.io/valr/reference/ivl_df.md)s
+  [`ivl_df()`](https://rnabioco.github.io/valr/reference/ivl_df.md)s.
+  Each `y` may also be a path or URL to a bigWig (`.bw`) or bigBed
+  (`.bb`) file, in which case only the regions spanned by `x` are read
+  from it (local files and `http(s)://` URLs are both supported),
+  avoiding the cost of loading the entire file.
 
 - invert:
 
@@ -35,10 +33,10 @@ bed_intersect(
 
 - min_overlap:
 
-  minimum overlap in base pairs required for the operation. Set to `1`
-  to exclude book-ended intervals (matching bedtools behavior), or `0`
-  to include them (legacy valr behavior). The default will change from
-  `0` to `1` in a future version.
+  minimum overlap in base pairs required for the operation. Defaults to
+  `1`, which excludes book-ended intervals (those that touch but do not
+  overlap), matching bedtools behavior. Set to `0` to include book-ended
+  intervals (the legacy valr behavior).
 
 ## Value
 
@@ -113,15 +111,14 @@ y <- tibble::tribble(
 )
 
 bed_intersect(x, y)
-#> # A tibble: 6 × 7
+#> # A tibble: 5 × 7
 #>   chrom start.x end.x start.y end.y value.y .overlap
 #>   <chr>   <dbl> <dbl>   <dbl> <dbl>   <dbl>    <int>
 #> 1 chr1      100   500     150   400     100      250
-#> 2 chr1      100   500     500   550     100        0
-#> 3 chr2      200   400     230   430     200      170
-#> 4 chr2      200   400     350   430     300       50
-#> 5 chr2      300   500     230   430     200      130
-#> 6 chr2      300   500     350   430     300       80
+#> 2 chr2      200   400     230   430     200      170
+#> 3 chr2      200   400     350   430     300       50
+#> 4 chr2      300   500     230   430     200      130
+#> 5 chr2      300   500     350   430     300       80
 
 bed_intersect(x, y, invert = TRUE)
 #> # A tibble: 1 × 3
@@ -135,15 +132,14 @@ dplyr::mutate(res,
   start = pmax(start.x, start.y),
   end = pmin(end.x, end.y)
 )
-#> # A tibble: 6 × 9
+#> # A tibble: 5 × 9
 #>   chrom start.x end.x start.y end.y value.y .overlap start   end
 #>   <chr>   <dbl> <dbl>   <dbl> <dbl>   <dbl>    <int> <dbl> <dbl>
 #> 1 chr1      100   500     150   400     100      250   150   400
-#> 2 chr1      100   500     500   550     100        0   500   500
-#> 3 chr2      200   400     230   430     200      170   230   400
-#> 4 chr2      200   400     350   430     300       50   350   400
-#> 5 chr2      300   500     230   430     200      130   300   430
-#> 6 chr2      300   500     350   430     300       80   350   430
+#> 2 chr2      200   400     230   430     200      170   230   400
+#> 3 chr2      200   400     350   430     300       50   350   400
+#> 4 chr2      300   500     230   430     200      130   300   430
+#> 5 chr2      300   500     350   430     300       80   350   430
 
 z <- tibble::tribble(
   ~chrom, ~start, ~end, ~value,
@@ -154,51 +150,62 @@ z <- tibble::tribble(
 )
 
 bed_intersect(x, y, z)
-#> # A tibble: 11 × 8
-#>    chrom start.x end.x start.y end.y value.y .source .overlap
-#>    <chr>   <dbl> <dbl>   <dbl> <dbl>   <dbl> <chr>      <int>
-#>  1 chr1      100   500     150   400     100 y            250
-#>  2 chr1      100   500     150   400     100 z            250
-#>  3 chr1      100   500     500   550     100 y              0
-#>  4 chr1      100   500     500   550     100 z              0
-#>  5 chr2      200   400     230   430     200 y            170
-#>  6 chr2      200   400     230   430     200 z            170
-#>  7 chr2      200   400     350   430     300 y             50
-#>  8 chr2      300   500     230   430     200 y            130
-#>  9 chr2      300   500     230   430     200 z            130
-#> 10 chr2      300   500     350   430     300 y             80
-#> 11 chr2      800   900     750   900     400 z            100
+#> # A tibble: 9 × 8
+#>   chrom start.x end.x start.y end.y value.y .source .overlap
+#>   <chr>   <dbl> <dbl>   <dbl> <dbl>   <dbl> <chr>      <int>
+#> 1 chr1      100   500     150   400     100 y            250
+#> 2 chr1      100   500     150   400     100 z            250
+#> 3 chr2      200   400     230   430     200 y            170
+#> 4 chr2      200   400     230   430     200 z            170
+#> 5 chr2      200   400     350   430     300 y             50
+#> 6 chr2      300   500     230   430     200 y            130
+#> 7 chr2      300   500     230   430     200 z            130
+#> 8 chr2      300   500     350   430     300 y             80
+#> 9 chr2      800   900     750   900     400 z            100
 
 bed_intersect(x, exons = y, introns = z)
-#> # A tibble: 11 × 8
-#>    chrom start.x end.x start.y end.y value.y .source .overlap
-#>    <chr>   <dbl> <dbl>   <dbl> <dbl>   <dbl> <chr>      <int>
-#>  1 chr1      100   500     150   400     100 exons        250
-#>  2 chr1      100   500     150   400     100 introns      250
-#>  3 chr1      100   500     500   550     100 exons          0
-#>  4 chr1      100   500     500   550     100 introns        0
-#>  5 chr2      200   400     230   430     200 exons        170
-#>  6 chr2      200   400     230   430     200 introns      170
-#>  7 chr2      200   400     350   430     300 exons         50
-#>  8 chr2      300   500     230   430     200 exons        130
-#>  9 chr2      300   500     230   430     200 introns      130
-#> 10 chr2      300   500     350   430     300 exons         80
-#> 11 chr2      800   900     750   900     400 introns      100
+#> # A tibble: 9 × 8
+#>   chrom start.x end.x start.y end.y value.y .source .overlap
+#>   <chr>   <dbl> <dbl>   <dbl> <dbl>   <dbl> <chr>      <int>
+#> 1 chr1      100   500     150   400     100 exons        250
+#> 2 chr1      100   500     150   400     100 introns      250
+#> 3 chr2      200   400     230   430     200 exons        170
+#> 4 chr2      200   400     230   430     200 introns      170
+#> 5 chr2      200   400     350   430     300 exons         50
+#> 6 chr2      300   500     230   430     200 exons        130
+#> 7 chr2      300   500     230   430     200 introns      130
+#> 8 chr2      300   500     350   430     300 exons         80
+#> 9 chr2      800   900     750   900     400 introns      100
 
 # a list of tbl_intervals can also be passed
 bed_intersect(x, list(exons = y, introns = z))
-#> # A tibble: 11 × 8
-#>    chrom start.x end.x start.y end.y value.y .source .overlap
-#>    <chr>   <dbl> <dbl>   <dbl> <dbl>   <dbl> <chr>      <int>
-#>  1 chr1      100   500     150   400     100 exons        250
-#>  2 chr1      100   500     150   400     100 introns      250
-#>  3 chr1      100   500     500   550     100 exons          0
-#>  4 chr1      100   500     500   550     100 introns        0
-#>  5 chr2      200   400     230   430     200 exons        170
-#>  6 chr2      200   400     230   430     200 introns      170
-#>  7 chr2      200   400     350   430     300 exons         50
-#>  8 chr2      300   500     230   430     200 exons        130
-#>  9 chr2      300   500     230   430     200 introns      130
-#> 10 chr2      300   500     350   430     300 exons         80
-#> 11 chr2      800   900     750   900     400 introns      100
+#> # A tibble: 9 × 8
+#>   chrom start.x end.x start.y end.y value.y .source .overlap
+#>   <chr>   <dbl> <dbl>   <dbl> <dbl>   <dbl> <chr>      <int>
+#> 1 chr1      100   500     150   400     100 exons        250
+#> 2 chr1      100   500     150   400     100 introns      250
+#> 3 chr2      200   400     230   430     200 exons        170
+#> 4 chr2      200   400     230   430     200 introns      170
+#> 5 chr2      200   400     350   430     300 exons         50
+#> 6 chr2      300   500     230   430     200 exons        130
+#> 7 chr2      300   500     230   430     200 introns      130
+#> 8 chr2      300   500     350   430     300 exons         80
+#> 9 chr2      800   900     750   900     400 introns      100
+
+# a bigWig/bigBed file path or `http(s)://` URL can be used in place of a
+# `y` tbl; only the regions spanned by `x` are read from the file
+x <- tibble::tribble(
+  ~chrom,  ~start,   ~end,
+  "chr1",  4800000, 4830000,
+  "chr10", 4850000, 4860000
+)
+
+bed_intersect(x, valr_example("test.bb"), min_overlap = 1L)
+#> # A tibble: 2 × 15
+#>   chrom start.x   end.x start.y   end.y name.y    score.y strand.y thickStart.y
+#>   <chr>   <dbl>   <dbl>   <dbl>   <dbl> <chr>       <int> <chr>           <int>
+#> 1 chr1  4800000 4830000 4797973 4836816 testgene        1 +             4797973
+#> 2 chr10 4850000 4860000 4848118 4880877 diffchrom       1 +             4848118
+#> # ℹ 6 more variables: thickEnd.y <int>, reserved.y <int>, blockCount.y <int>,
+#> #   blockSizes.y <chr>, chromStarts.y <chr>, .overlap <int>
 ```

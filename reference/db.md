@@ -54,7 +54,7 @@ db_ensembl(
 
 <https://genome.ucsc.edu/goldenpath/help/mysql.html>
 
-<https://useast.ensembl.org/info/data/mysql.html>
+<https://www.ensembl.org/info/data/mysql.html>
 
 ## Examples
 
