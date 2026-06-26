@@ -20,7 +20,7 @@ New features include direct, region-scoped reading of bigWig/bigBed files
 * Windows (GitHub Actions), R release
 * macOS (GitHub Actions), R release
 * Ubuntu 22.04 (GitHub Actions), R devel and release
-* macOS (local install), R 4.5
+* macOS (local install), R 4.6
 
 ## R CMD check results
 
@@ -35,9 +35,9 @@ We checked 2 reverse dependencies, comparing R CMD check results across CRAN and
 dev versions of this package.
 
  * We saw 0 new problems
- * We failed to check 1 package
+ * We failed to check 2 packages
 
 ### Failed to check
 
-* gap — fails to install in both the CRAN and dev environments due to its own
+* gap and tepr fail to install in both the CRAN and dev environments due to their own
   C/Fortran compilation, unrelated to valr.
