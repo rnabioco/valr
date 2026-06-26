@@ -35,8 +35,18 @@ test_that("BED12 with UCSC column names (e.g. read_bigbed) is accepted (#461)", 
   # positional rename matches valr-named input exactly
   y <- x
   names(y) <- c(
-    "chrom", "start", "end", "name", "score", "strand",
-    "cds_start", "cds_end", "item_rgb", "exon_count", "exon_sizes", "exon_starts"
+    "chrom",
+    "start",
+    "end",
+    "name",
+    "score",
+    "strand",
+    "cds_start",
+    "cds_end",
+    "item_rgb",
+    "exon_count",
+    "exon_sizes",
+    "exon_starts"
   )
   expect_equal(res, bed12_to_exons(y))
 
