@@ -4,13 +4,16 @@
 \alias{bed_glyph}
 \title{Create example glyphs for valr functions.}
 \usage{
-bed_glyph(expr, label = NULL)
+bed_glyph(expr, label = NULL, max_rows = 100L)
 }
 \arguments{
 \item{expr}{expression to evaluate}
 
 \item{label}{column name to use for label values. should be present in the
 result of the call.}
+
+\item{max_rows}{maximum number of rows in the evaluated result that can be
+plotted. Calls producing more rows than this raise an error.}
 }
 \value{
 \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}
