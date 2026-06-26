@@ -32,7 +32,6 @@ is_bigbed_path <- function(y) {
 # Validates via the file header that it declares 12 standard BED fields before
 # reading, so a non-BED12 bigBed (e.g. a bedN+ file with 12 total columns)
 # errors up front instead of being silently misinterpreted as BED12.
-#' @importFrom cpp11bigwig bigbed_info
 #' @noRd
 read_bigbed12 <- function(file) {
   n_fields <- bigbed_info(file)[["defined_field_count"]]
