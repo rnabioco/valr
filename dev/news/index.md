@@ -29,6 +29,18 @@
 
 ### New features
 
+- [`bed12_to_exons()`](https://rnabioco.github.io/valr/dev/reference/bed12_to_exons.md)
+  now accepts BED12 data from any source with the standard column order,
+  including
+  [`cpp11bigwig::read_bigbed()`](https://rnabioco.github.io/cpp11bigwig/reference/read_bigbed.html)
+  output, which uses UCSC column names
+  (e.g. `blockSizes`/`chromStarts`). Previously only
+  [`read_bed12()`](https://rnabioco.github.io/valr/dev/reference/read_bed.md)
+  output (with valr’s column names) was accepted. It also accepts a path
+  or URL to a BED12 bigBed (`.bb`) file directly, validating the file is
+  BED12 (via its header’s declared field count) before conversion
+  ([\#461](https://github.com/rnabioco/valr/issues/461)).
+
 - [`bed_glyph()`](https://rnabioco.github.io/valr/dev/reference/bed_glyph.md)
   gained a `max_rows` argument to control the row limit on the evaluated
   result (default `100`), and now reports the offending row count when

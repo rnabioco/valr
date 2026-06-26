@@ -63,7 +63,9 @@ genes will have larger start and end coordinates).</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p><a href="ivl_df.html">ivl_df</a></p></dd>
+<dd><p><a href="ivl_df.html">ivl_df</a>, or a path or URL to a BED12 bigBed (<code>.bb</code>) file, in which
+case the whole file is read and validated as BED12 (via its header's
+declared field count) before conversion.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -94,6 +96,42 @@ genes will have larger start and end coordinates).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> chr1  4<span style="text-decoration: underline;">847</span>774 4<span style="text-decoration: underline;">848</span>057 NM_011541        1 +     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> chr1  4<span style="text-decoration: underline;">848</span>408 4<span style="text-decoration: underline;">848</span>584 NM_001159751     1 +     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1,673 more rows</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># BED12 from any source with the standard column order is accepted,</span></span></span>
+<span class="r-in"><span><span class="co"># including `cpp11bigwig::read_bigbed()`, which uses UCSC column names.</span></span></span>
+<span class="r-in"><span><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"test.bb"</span>, package <span class="op">=</span> <span class="st">"cpp11bigwig"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">bed12_to_exons</span><span class="op">(</span><span class="fu">cpp11bigwig</span><span class="fu">::</span><span class="fu"><a href="https://rnabioco.github.io/cpp11bigwig/reference/read_bigbed.html" class="external-link">read_bigbed</a></span><span class="op">(</span><span class="va">bb</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 29 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    chrom   start     end name      score strand</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> chr1  4<span style="text-decoration: underline;">797</span>973 4<span style="text-decoration: underline;">798</span>063 testgene      1 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> chr1  4<span style="text-decoration: underline;">798</span>535 4<span style="text-decoration: underline;">798</span>567 testgene      2 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chr1  4<span style="text-decoration: underline;">818</span>664 4<span style="text-decoration: underline;">818</span>730 testgene      3 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> chr1  4<span style="text-decoration: underline;">820</span>348 4<span style="text-decoration: underline;">820</span>396 testgene      4 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> chr1  4<span style="text-decoration: underline;">822</span>391 4<span style="text-decoration: underline;">822</span>462 testgene      5 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> chr1  4<span style="text-decoration: underline;">827</span>081 4<span style="text-decoration: underline;">827</span>155 testgene      6 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> chr1  4<span style="text-decoration: underline;">829</span>467 4<span style="text-decoration: underline;">829</span>569 testgene      7 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> chr1  4<span style="text-decoration: underline;">831</span>036 4<span style="text-decoration: underline;">831</span>213 testgene      8 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> chr1  4<span style="text-decoration: underline;">835</span>043 4<span style="text-decoration: underline;">836</span>816 testgene      9 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> chr10 4<span style="text-decoration: underline;">848</span>118 4<span style="text-decoration: underline;">848</span>584 diffchrom     1 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 19 more rows</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># a .bb path can also be passed directly; it is read and validated as BED12</span></span></span>
+<span class="r-in"><span><span class="fu">bed12_to_exons</span><span class="op">(</span><span class="va">bb</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 29 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    chrom   start     end name      score strand</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> chr1  4<span style="text-decoration: underline;">797</span>973 4<span style="text-decoration: underline;">798</span>063 testgene      1 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> chr1  4<span style="text-decoration: underline;">798</span>535 4<span style="text-decoration: underline;">798</span>567 testgene      2 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> chr1  4<span style="text-decoration: underline;">818</span>664 4<span style="text-decoration: underline;">818</span>730 testgene      3 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> chr1  4<span style="text-decoration: underline;">820</span>348 4<span style="text-decoration: underline;">820</span>396 testgene      4 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> chr1  4<span style="text-decoration: underline;">822</span>391 4<span style="text-decoration: underline;">822</span>462 testgene      5 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> chr1  4<span style="text-decoration: underline;">827</span>081 4<span style="text-decoration: underline;">827</span>155 testgene      6 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> chr1  4<span style="text-decoration: underline;">829</span>467 4<span style="text-decoration: underline;">829</span>569 testgene      7 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> chr1  4<span style="text-decoration: underline;">831</span>036 4<span style="text-decoration: underline;">831</span>213 testgene      8 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> chr1  4<span style="text-decoration: underline;">835</span>043 4<span style="text-decoration: underline;">836</span>816 testgene      9 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> chr10 4<span style="text-decoration: underline;">848</span>118 4<span style="text-decoration: underline;">848</span>584 diffchrom     1 +     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 19 more rows</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

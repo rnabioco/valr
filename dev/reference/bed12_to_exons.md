@@ -14,7 +14,10 @@ bed12_to_exons(x)
 
 - x:
 
-  [ivl_df](https://rnabioco.github.io/valr/dev/reference/ivl_df.md)
+  [ivl_df](https://rnabioco.github.io/valr/dev/reference/ivl_df.md), or
+  a path or URL to a BED12 bigBed (`.bb`) file, in which case the whole
+  file is read and validated as BED12 (via its header's declared field
+  count) before conversion.
 
 ## See also
 
@@ -44,4 +47,40 @@ bed12_to_exons(x)
 #>  9 chr1  4847774 4848057 NM_011541        1 +     
 #> 10 chr1  4848408 4848584 NM_001159751     1 +     
 #> # ℹ 1,673 more rows
+
+# BED12 from any source with the standard column order is accepted,
+# including `cpp11bigwig::read_bigbed()`, which uses UCSC column names.
+bb <- system.file("extdata", "test.bb", package = "cpp11bigwig")
+bed12_to_exons(cpp11bigwig::read_bigbed(bb))
+#> # A tibble: 29 × 6
+#>    chrom   start     end name      score strand
+#>    <chr>   <dbl>   <dbl> <chr>     <int> <chr> 
+#>  1 chr1  4797973 4798063 testgene      1 +     
+#>  2 chr1  4798535 4798567 testgene      2 +     
+#>  3 chr1  4818664 4818730 testgene      3 +     
+#>  4 chr1  4820348 4820396 testgene      4 +     
+#>  5 chr1  4822391 4822462 testgene      5 +     
+#>  6 chr1  4827081 4827155 testgene      6 +     
+#>  7 chr1  4829467 4829569 testgene      7 +     
+#>  8 chr1  4831036 4831213 testgene      8 +     
+#>  9 chr1  4835043 4836816 testgene      9 +     
+#> 10 chr10 4848118 4848584 diffchrom     1 +     
+#> # ℹ 19 more rows
+
+# a .bb path can also be passed directly; it is read and validated as BED12
+bed12_to_exons(bb)
+#> # A tibble: 29 × 6
+#>    chrom   start     end name      score strand
+#>    <chr>   <dbl>   <dbl> <chr>     <int> <chr> 
+#>  1 chr1  4797973 4798063 testgene      1 +     
+#>  2 chr1  4798535 4798567 testgene      2 +     
+#>  3 chr1  4818664 4818730 testgene      3 +     
+#>  4 chr1  4820348 4820396 testgene      4 +     
+#>  5 chr1  4822391 4822462 testgene      5 +     
+#>  6 chr1  4827081 4827155 testgene      6 +     
+#>  7 chr1  4829467 4829569 testgene      7 +     
+#>  8 chr1  4831036 4831213 testgene      8 +     
+#>  9 chr1  4835043 4836816 testgene      9 +     
+#> 10 chr10 4848118 4848584 diffchrom     1 +     
+#> # ℹ 19 more rows
 ```
