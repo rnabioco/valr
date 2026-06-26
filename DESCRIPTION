@@ -22,7 +22,7 @@ Depends:
 Imports:
     broom,
     cli,
-    cpp11bigwig (>= 0.3.0),
+    cpp11bigwig (>= 0.3.1),
     dplyr (>= 1.0.0),
     ggplot2 (>= 3.3.0),
     lifecycle,

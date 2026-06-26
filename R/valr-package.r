@@ -29,6 +29,7 @@
 #' @importFrom lifecycle deprecated
 #' @import ggplot2
 #' @import dplyr
+#' @import cpp11bigwig
 #' @importFrom lifecycle deprecated
 ## usethis namespace: end
 

@@ -8,6 +8,8 @@
 
 ## New features
 
+* `bed12_to_exons()` now accepts BED12 data from any source with the standard column order, including `cpp11bigwig::read_bigbed()` output, which uses UCSC column names (e.g. `blockSizes`/`chromStarts`). Previously only `read_bed12()` output (with valr's column names) was accepted. It also accepts a path or URL to a BED12 bigBed (`.bb`) file directly, validating the file is BED12 (via its header's declared field count) before conversion (#461).
+
 * `bed_glyph()` gained a `max_rows` argument to control the row limit on the
   evaluated result (default `100`), and now reports the offending row count when
   the limit is exceeded. It also validates `label` (an absent column is an error
