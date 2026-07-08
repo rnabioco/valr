@@ -35,9 +35,11 @@ We checked 2 reverse dependencies, comparing R CMD check results across CRAN and
 dev versions of this package.
 
  * We saw 0 new problems
- * We failed to check 2 packages
+ * We failed to check 1 packages
+
+ The previous tepr error has resolved with its new release (https://cran.r-project.org/web/packages/tepr/index.html).
 
 ### Failed to check
 
-* gap and tepr fail to install in both the CRAN and dev environments due to their own
+* gap failed to install in both the CRAN and dev environments due to their own
   C/Fortran compilation, unrelated to valr.
