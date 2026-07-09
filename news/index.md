@@ -2,6 +2,8 @@
 
 ## valr 0.10.0
 
+CRAN release: 2026-07-09
+
 ### Breaking changes
 
 - The `min_overlap` default changed from `0` to `1` in
