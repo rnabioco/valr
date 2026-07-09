@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">valr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.10.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,13 +44,16 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="valr-development-version">valr (development version)<a class="anchor" aria-label="anchor" href="#valr-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.0" id="valr-0100">valr 0.10.0<a class="anchor" aria-label="anchor" href="#valr-0100"></a></h2><p class="text-muted">CRAN release: 2026-07-09</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-10-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-10-0"></a></h3>
 <ul><li><p>The <code>min_overlap</code> default changed from <code>0</code> to <code>1</code> in <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>, <code><a href="../reference/bed_coverage.html">bed_coverage()</a></code>, <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code>, and <code><a href="../reference/bed_window.html">bed_window()</a></code>, completing the deprecation begun in 0.8.0. By default, book-ended intervals (those that touch but do not overlap) are now excluded, matching bedtools behavior. Set <code>min_overlap = 0L</code> to restore the previous behavior. Internal overlap calculations in <code><a href="../reference/bed_closest.html">bed_closest()</a></code>, <code><a href="../reference/bed_fisher.html">bed_fisher()</a></code>, <code><a href="../reference/bed_jaccard.html">bed_jaccard()</a></code>, <code><a href="../reference/bed_projection.html">bed_projection()</a></code>, and <code><a href="../reference/bed_shuffle.html">bed_shuffle()</a></code> continue to count book-ended intervals.</p></li>
 <li><p>The <code>n_fields</code> argument of <code><a href="../reference/read_bed.html">read_bed()</a></code>, deprecated since 0.6.9, is now defunct and errors when supplied; fields are determined automatically from the file.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-10-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-10-0"></a></h3>
 <ul><li><p><code><a href="../reference/bed12_to_exons.html">bed12_to_exons()</a></code> now accepts BED12 data from any source with the standard column order, including <code><a href="https://rnabioco.github.io/cpp11bigwig/reference/read_bigbed.html" class="external-link">cpp11bigwig::read_bigbed()</a></code> output, which uses UCSC column names (e.g. <code>blockSizes</code>/<code>chromStarts</code>). Previously only <code><a href="../reference/read_bed.html">read_bed12()</a></code> output (with valr’s column names) was accepted. It also accepts a path or URL to a BED12 bigBed (<code>.bb</code>) file directly, validating the file is BED12 (via its header’s declared field count) before conversion (<a href="https://github.com/rnabioco/valr/issues/461" class="external-link">#461</a>).</p></li>
 <li><p><code><a href="../reference/bed_glyph.html">bed_glyph()</a></code> gained a <code>max_rows</code> argument to control the row limit on the evaluated result (default <code>100</code>), and now reports the offending row count when the limit is exceeded. It also validates <code>label</code> (an absent column is an error rather than a silent no-op), supports namespace-qualified calls such as <code>bed_glyph(valr::bed_merge(x))</code>, and renders every interval at a uniform vertical size with the figure height scaling to the number of rows.</p></li>
 <li><p><code><a href="../reference/bed_map.html">bed_map()</a></code>, <code><a href="../reference/bed_intersect.html">bed_intersect()</a></code>, <code><a href="../reference/bed_subtract.html">bed_subtract()</a></code>, <code><a href="../reference/bed_coverage.html">bed_coverage()</a></code>, and <code><a href="../reference/bed_window.html">bed_window()</a></code> now accept a path or URL to a bigWig (<code>.bw</code>) or bigBed (<code>.bb</code>) file in place of an interval <code>y</code>. Only the regions spanned by <code>x</code> are read from the file (the windowed regions, for <code><a href="../reference/bed_window.html">bed_window()</a></code>); local paths and <code>http(s)://</code> URLs are both supported via cpp11bigwig, avoiding the cost of loading the entire file into memory (<a href="https://github.com/rnabioco/valr/issues/444" class="external-link">#444</a>).</p></li>
@@ -317,7 +320,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
